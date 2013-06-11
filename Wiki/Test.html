@@ -1,0 +1,202 @@
+<html>
+	<head>
+		<script src="../../../jquery/jquery-1.7.2.js"></script>
+        <script src="../../../codemirror/lib/codemirror.js"></script>
+        <link rel="stylesheet" href="../../../codemirror/lib/codemirror.css" type="text/css" />
+		<script>
+			window.tr = function(o) {return o;};
+			window.jqueryTiki = {};
+		</script>
+		
+		<script src="../Wiki.js"></script>
+		<script src="Handler.js"></script>
+		<script>
+			function wikiplugin_nobody() {
+				return "__This plugin has no body__";
+			}
+			
+			function wikiplugin_purple(body) {
+				return "{RED()}This is nested: " + body + "{RED}";
+			}
+			
+			function wikiplugin_li(body) {
+				return "~np~<ul><li>" + body + "</li></ul>~/np~";
+			}
+			
+			function wikiplugin_red(body) {
+				return "~np~<div style='color: red; border: 1px solid red;'>" + body + "</div>~/np~";
+			}
+			
+			function wikiplugin_blue(body) {
+				return "~np~<div style='color: blue; border: 1px solid blue;'>" + body + "</div>~/np~";
+			}
+			
+			function wikiplugin_bgyellow(body) {
+				return "~np~<div style='background-color: yellow;'>" + body + "</div>~/np~";
+			}
+			
+			function isPluginPermissible(pluginName) {
+				var permission = false;
+				switch(pluginName) {
+					case "BLUE":
+						permission = false;
+						break;
+					default:
+						permission = true;
+				}
+				return permission;
+			}
+			
+			function isHtmlPermissible(tag) {
+				if ($('#htmlOn').is(':checked')) {
+					return tag;
+				}
+				return "";
+			}
+
+            function parse(editor) {
+                if (editor) {
+                    $('#output').html(Wiki.Parse(editor.getValue(), $('#errorsOn').is(':checked')));
+                } else {
+                    $('#output').html(Wiki.Parse($('#wiki').val(), $('#errorsOn').is(':checked')));
+                }
+            }
+			
+			$(function(){
+                var editor = CodeMirror.fromTextArea($('#wiki')[0], {
+                    onChange: function() {
+                        parse(editor);
+                    },
+                    onCursorActivity: function() {
+
+                    }
+                });
+
+				$('#runParser')
+					.click(function() {
+                        parse(editor);
+					});
+				$('#wiki')
+					.change(function() {
+                        parse(editor);
+					})
+					.keyup(function() {
+                        parse(editor);
+					})
+					.change();
+			});
+		</script>
+	</head>
+	<body>
+		This is an example plugin parsing syntax for using with Jison's parser for wiki syntax in javascript, this is a temporary file and is only a proof of concept.<br />
+		What does the parser definition look like? <a href="../Wiki.jison">Take a look</a><br />
+		Left is updated on keyup, change, and submit.
+		<table style="width: 100%;">
+			<tr>
+				<td style="vertical-align: top; width: 50%;">
+<textarea id="wiki" style="width: 100%; height: 150px;" data-codemirror="true">''italics''
+
+__bold__
+
+''__Here is bold and italics!__''
+
+''__Here is bold and italics!__ and this part is just italics'' 
+
+===This is underscore===
+
+--This is strikethrough--
+
+~~#FF0:Yellow text~~
+
+||a1|b1|c1
+a2|b2|c2
+a3|b3|c3||
+
+Wiki link to ((HomePage))
+
+Wiki link to HomePage with ((HomePage|with different label))
+
+Some smileys: (:biggrin:) (:confused:) (:cool:)
+
+! Header 1
+
+!! Header 2
+
+!!! Header 3
+
+::center::
+
+# item1
+# item2
+# item3
+
+-=Title bar=-
+
+* bullet 
+* bullet
+* bullet
+
+{HTML()}<center> There is some HTML here that needs to be approved. </center>{HTML}
+
+{CODE()}<center> There is some HTML here that shouldn't be interpreted. </center>{CODE}
+
+and now a horizontal bar:
+---
+
+^I am a box^
+
+^''__Here is bold and italics in a box!__ and this part is just italics in a box'' ^
+
+-=^''__Here is bold and italics!__ in a box'' in a title!^=-
+
+And now, let's go for a hyperlink to [http://tiki.org|tiki.org]
+
+And now, hyperlink with no label: [http://tiki.org]
+
+And now, hyperlink without brackets: http://tiki.org
+
+And now, just www.tiki.org (which should become a link)
+
+~np~__This is unparsed wiki syntax__ {TEST()} :) {TEST} ~/np~
+
+~np~ Doc: Use [[foo] to show [foo]. ~/np~
+
+ [[foo] 
+ 
+{nobody param1="100" /}
+{BGYELLOW(testVar1="Test")}
+	{LI()}{PURPLE()}purple returns a nested plugin!{PURPLE}{LI}
+	{LI()}
+		This is just some text
+		
+		{RED()}My plugin message!{RED}
+		
+		And after too.
+		
+		{BLUE()}This is nested within the first plugin.{BLUE}
+		
+		{nobody /}
+		{LI()}
+			Hello World 1!
+			
+			{LI()}Hello World! 2{LI}
+			
+			{BLUE()}This is nested within the second hello world li.{BLUE}
+			
+			End Hello World 1
+		{LI}
+		And at the end.
+	{LI}
+	I'm in the yellow!
+{BGYELLOW}</textarea>
+					Show Errors? <input type="checkbox" value="true" id="errorsOn" /> <br />
+					Allow Html? <input type="checkbox" value="true" id="htmlOn" /> <br />
+					<input type="button" value="Submit" id="runParser"/>
+				</td>
+				<td style="width: 50%;">
+					<div id="output"></div>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>
