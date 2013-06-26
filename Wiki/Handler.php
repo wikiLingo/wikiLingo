@@ -12,7 +12,9 @@
  * @author      Robert Plummer <robert@tiki.org>
  * @version     CVS: $Id: Handler.php 44444 2013-01-05 21:24:24Z changi67 $
  */
-
+if (!class_exists("JisonParser_Wiki_Handler")){
+	require_once("./Wiki.php");
+}
 class JisonParser_Wiki_Handler extends JisonParser_Wiki
 {
 	/* parser tracking */
@@ -183,7 +185,7 @@ class JisonParser_Wiki_Handler extends JisonParser_Wiki
 	{
 		global $user;
 
-		$this->user = (isset($user) ? $user : tra('Anonymous'));
+		$this->user = (isset($user) ? $user : '');
 
 		if (empty($Parser)) {
 			$this->Parser = &$this;
