@@ -1,10 +1,10 @@
 <?php
 /* Jison base parser */
 
+
+
 class WikiLingo_Definition extends Jison_Base
 {
-	public $type = "Cell";
-
 	function __construct()
     {
         //Setup Parser
@@ -4981,109 +4981,128 @@ class WikiLingo_Definition extends Jison_Base
 
 
 switch ($yystate) {
-case 1:return $s[$o];
+case 1:
+ 	    return $s[$o];
+ 	
 break;
 case 2:
 	    
-		    return $s[$o-1] . ($s[$o] == "\n" ? $this->line($s[$o]) : $s[$o]);
+		    $s[$o-1]->text == $s[$o-1]->text . ($s[$o]->text == "\n" ? $this->line($s[$o]->text) : $s[$o]->text);
+		    return $s[$o-1];
         
 	
 break;
 case 3:
         
-            return ($s[$o] == "\n" ? $this->line($s[$o]) : $s[$o]);
+            return ($s[$o]->text == "\n" ? $this->line($s[$o]->text) : $s[$o]->text);
         
     
 break;
-case 4:$thisS = $s[$o];
+case 4:
+        
+            $thisS = $s[$o]->text;
+        
+    
 break;
 case 5:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
-case 6:$thisS = $s[$o];
+case 6:
+        
+            $thisS = $s[$o]->text;
+        
+    
 break;
 case 7:
 	    
-	        $thisS = $this->block($s[$o-1]);
+	        $thisS = $this->block($s[$o-1]->text);
         
 	
 break;
 case 8:
         
-            $thisS = $this->block($s[$o-2] . $s[$o-1]);
+            $thisS = $this->block($s[$o-2]->text . $s[$o-1]->text);
         
     
 break;
 case 9:
         
-            $thisS = $this->block($s[$o-2] . $s[$o-1]);
+            $thisS = $this->block($s[$o-2]->text . $s[$o-1]->text);
         
     
 break;
-case 10:$thisS = $s[$o];
+case 10:
+	    
+	        $thisS = $s[$o]->text;
+	    
+	
 break;
 case 11:
 		
-		    $thisS = $s[$o-1] . $s[$o];
+		    $thisS = $s[$o-1]->text . $s[$o]->text;
         
 	
 break;
-case 12:$thisS = $s[$o];
+case 12:
+	    
+	        $thisS = $s[$o]->text;
+	    
+	
 break;
 case 13:
         
-            $thisS = $this->comment($s[$o]);
+            $thisS = $this->comment($s[$o]->text);
         
     
 break;
 case 15:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 16:
         
-            $thisS = $this->noParse($s[$o-1]);
+            $thisS = $this->noParse($s[$o-1]->text);
         
     
 break;
 case 18:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 19:
         
-            $thisS = $this->preFormattedText($s[$o-1]);
+            $thisS = $this->preFormattedText($s[$o-1]->text);
         
     
 break;
 case 20:
         
-            $thisS = $this->doubleDynamicVar($s[$o]);
+            $thisS = $this->doubleDynamicVar($s[$o]->text);
         
     
 break;
 case 21:
         
-            $thisS = $this->singleDynamicVar($s[$o]);
+            $thisS = $this->singleDynamicVar($s[$o]->text);
         
      
 break;
 case 22:
         
-            $thisS = $this->argumentVar($s[$o]);
+            $thisS = $this->argumentVar($s[$o]->text);
         
     
 break;
 case 23:
         
-            $thisS = $this->htmlTag($s[$o]);
+            $thisS = $this->htmlTag($s[$o]->text);
         
     
 break;
@@ -5095,109 +5114,109 @@ case 24:
 break;
 case 26:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 27:
 		
-		    $thisS = $this->bold($s[$o-1]);
+		    $thisS = $this->bold($s[$o-1]->text);
         
 	
 break;
 case 29:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 30:
 		
-		    $thisS = $this->box($s[$o-1]);
+		    $thisS = $this->box($s[$o-1]->text);
         
 	
 break;
 case 32:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 33:
 		
-		    $thisS = $this->center($s[$o-1]);
+		    $thisS = $this->center($s[$o-1]->text);
         
 	
 break;
 case 35:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 36:
 		
-		    $thisS = $this->code($s[$o-1]);
+		    $thisS = $this->code($s[$o-1]->text);
         
 	
 break;
 case 38:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 39:
 		
-		    $thisS = $this->color($s[$o-1]);
+		    $thisS = $this->color($s[$o-1]->text);
         
 	
 break;
 case 41:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 42:
 		
-		    $thisS = $this->italic($s[$o-1]);
+		    $thisS = $this->italic($s[$o-1]->text);
         
 	
 break;
 case 44:
         
-            $thisS = $this->unlink($s[$o-1] . $s[$o]);
+            $thisS = $this->unlink($s[$o-1]->text . $s[$o]->text);
         
     
 break;
 case 45:
 		
-		    $thisS = $this->unlink($s[$o-2] . $s[$o-1] . $s[$o]);
+		    $thisS = $this->unlink($s[$o-2]->text . $s[$o-1]->text . $s[$o]->text);
         
 	
 break;
 case 47:
         
-            $thisS = '[' . $s[$o];
+            $thisS = '[' . $s[$o]->text;
         
     
 break;
 case 48:
 		
-		    $thisS = $this->link($s[$o-2], $s[$o-1]);
+		    $thisS = $this->link($s[$o-2]->text, $s[$o-1]->text);
         
 	
 break;
 case 50:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 51:
 		
-		    $thisS = $this->strike($s[$o-1]);
+		    $thisS = $this->strike($s[$o-1]->text);
         
 	
 break;
@@ -5209,87 +5228,87 @@ case 52:
 break;
 case 54:
         
-            $thisS = $this->tableParser($s[$o-1] . $s[$o], true);
+            $thisS = $this->tableParser($s[$o-1]->text . $s[$o]->text, true);
         
     
 break;
 case 55:
 		
-		    $thisS = $this->tableParser($s[$o-1]);
+		    $thisS = $this->tableParser($s[$o-1]->text);
         
 	
 break;
 case 57:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 58:
 		
-		    $thisS = $this->titleBar($s[$o-1]);
+		    $thisS = $this->titleBar($s[$o-1]->text);
         
 	
 break;
 case 60:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 61:
 		
-		    $thisS = $this->underscore($s[$o-1]);
+		    $thisS = $this->underscore($s[$o-1]->text);
         
 	
 break;
 case 63:
         
-            $thisS = $s[$o-1]['syntax'] . $s[$o];
+            $thisS = $s[$o-1]->text['syntax'] . $s[$o]->text;
         
     
 break;
 case 64:
 		
-		    $thisS = $this->link($s[$o-2]['type'], $s[$o-1]);
+		    $thisS = $this->link($s[$o-2]->text['type'], $s[$o-1]->text);
         
 	
 break;
 case 65:
         
-            $thisS = $this->link('word', $s[$o]);
+            $thisS = $this->link('word', $s[$o]->text);
         
     
 break;
 case 66:
  		
- 		    $thisS = $this->plugin($s[$o]);
+ 		    $thisS = $this->plugin($s[$o]->text);
         
  	
 break;
 case 67:
   		
             $s[$o]['body'] = '';
-            $thisS = $this->plugin($s[$o]);
+            $thisS = $this->plugin($s[$o]->text);
         
      
 break;
 case 68:
         
-            $thisS = $s[$o-1] . $s[$o];
+            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
 case 69:
  	    
- 		    $s[$o]['body'] = $s[$o-1];
- 		    $thisS = $this->plugin($s[$o]);
+ 		    $s[$o]['body'] = $s[$o-1]->text;
+ 		    $thisS = $this->plugin($s[$o]->text);
         
  	
 break;
 case 70:
         
-            $thisS = $this->line($s[$o]);
+            $thisS = $this->line($s[$o]->text);
         
     
 break;
@@ -5301,7 +5320,7 @@ case 71:
 break;
 case 72:
         
-            $thisS = $this->char($s[$o]);
+            $thisS = $this->char($s[$o]->text);
         
     
 break;

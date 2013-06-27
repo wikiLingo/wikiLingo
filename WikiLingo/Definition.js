@@ -82,14 +82,17 @@ performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* actio
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 1:return $$[$0];
+case 1:
+ 	    return $$[$0];
+ 	
 break;
 case 2:
 	    //js
 		    return $$[$0-1] + $$[$0];
 
 		/*php
-		    return $$[$0-1] . ($$[$0] == "\n" ? this->line($$[$0]) : $$[$0]);
+		    $$[$0-1]->text == $$[$0-1]->text . ($$[$0]->text == "\n" ? this->line($$[$0]->text) : $$[$0]->text);
+		    return $$[$0-1];
         */
 	
 break;
@@ -98,29 +101,43 @@ case 3:
             return $$[$0];
 
         /*php
-            return ($$[$0] == "\n" ? this->line($$[$0]) : $$[$0]);
+            return ($$[$0]->text == "\n" ? this->line($$[$0]->text) : $$[$0]->text);
         */
     
 break;
-case 4:this.$ = $$[$0];
+case 4:
+        //js
+            this.$ = $$[$0];
+
+        /*php
+            this.$ = $$[$0]->text;
+        */
+    
 break;
 case 5:
         //js
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
-case 6:this.$ = $$[$0];
+case 6:
+        //js
+            this.$ = $$[$0];
+
+        /*php
+            this.$ = $$[$0]->text;
+        */
+    
 break;
 case 7:
 	    //js
 	    this.$ = parser.block($$[$0-1]);
 
 	    /*php
-	        this.$ = this->block($$[$0-1]);
+	        this.$ = this->block($$[$0-1]->text);
         */
 	
 break;
@@ -129,7 +146,7 @@ case 8:
             this.$ = parser.block($$[$0-2] + $$[$0-1]);
 
         /*php
-            this.$ = this->block($$[$0-2] . $$[$0-1]);
+            this.$ = this->block($$[$0-2]->text . $$[$0-1]->text);
         */
     
 break;
@@ -138,29 +155,43 @@ case 9:
             this.$ = parser.block($$[$0-2] + $$[$0-1]);
 
         /*php
-            this.$ = this->block($$[$0-2] . $$[$0-1]);
+            this.$ = this->block($$[$0-2]->text . $$[$0-1]->text);
         */
     
 break;
-case 10:this.$ = $$[$0];
+case 10:
+	    //js
+	        this.$ = $$[$0];
+
+	    /*php
+	        this.$ = $$[$0]->text;
+	    */
+	
 break;
 case 11:
 		//js
 		    this.$ = $$[$0-1] + $$[$0];
 
 		/*php
-		    this.$ = $$[$0-1] . $$[$0];
+		    this.$ = $$[$0-1]->text . $$[$0]->text;
         */
 	
 break;
-case 12:this.$ = $$[$0];
+case 12:
+	    //js
+	        this.$ = $$[$0];
+
+	    /*php
+	        this.$ = $$[$0]->text;
+	    */
+	
 break;
 case 13:
         //js
             this.$ = parser.comment($$[$0]);
 
         /*php
-            this.$ = this->comment($$[$0]);
+            this.$ = this->comment($$[$0]->text);
         */
     
 break;
@@ -169,7 +200,7 @@ case 15:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -178,7 +209,7 @@ case 16:
             this.$ = parser.noParse($$[$0-1]);
 
         /*php
-            this.$ = this->noParse($$[$0-1]);
+            this.$ = this->noParse($$[$0-1]->text);
         */
     
 break;
@@ -187,7 +218,7 @@ case 18:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -196,7 +227,7 @@ case 19:
             this.$ = parser.preFormattedText($$[$0-1]);
 
         /*php
-            this.$ = this->preFormattedText($$[$0-1]);
+            this.$ = this->preFormattedText($$[$0-1]->text);
         */
     
 break;
@@ -205,7 +236,7 @@ case 20:
             this.$ = parser.doubleDynamicVar($$[$0]);
 
         /*php
-            this.$ = this->doubleDynamicVar($$[$0]);
+            this.$ = this->doubleDynamicVar($$[$0]->text);
         */
     
 break;
@@ -214,7 +245,7 @@ case 21:
             this.$ = parser.singleDynamicVar($$[$0]);
 
         /*php
-            this.$ = this->singleDynamicVar($$[$0]);
+            this.$ = this->singleDynamicVar($$[$0]->text);
         */
      
 break;
@@ -223,7 +254,7 @@ case 22:
             this.$ = parser.argumentVar($$[$0]);
 
         /*php
-            this.$ = this->argumentVar($$[$0]);
+            this.$ = this->argumentVar($$[$0]->text);
         */
     
 break;
@@ -232,7 +263,7 @@ case 23:
             this.$ = parser.htmlTag($$[$0]);
 
         /*php
-            this.$ = this->htmlTag($$[$0]);
+            this.$ = this->htmlTag($$[$0]->text);
         */
     
 break;
@@ -250,7 +281,7 @@ case 26:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -259,7 +290,7 @@ case 27:
 		    this.$ = parser.bold($$[$0-1]);
 
 		/*php
-		    this.$ = this->bold($$[$0-1]);
+		    this.$ = this->bold($$[$0-1]->text);
         */
 	
 break;
@@ -268,7 +299,7 @@ case 29:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -277,7 +308,7 @@ case 30:
 		    this.$ = parser.box($$[$0-1]);
 
 		/*php
-		    this.$ = this->box($$[$0-1]);
+		    this.$ = this->box($$[$0-1]->text);
         */
 	
 break;
@@ -286,7 +317,7 @@ case 32:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -295,7 +326,7 @@ case 33:
 		    this.$ = parser.center($$[$0-1]);
 
 		/*php
-		    this.$ = this->center($$[$0-1]);
+		    this.$ = this->center($$[$0-1]->text);
         */
 	
 break;
@@ -304,7 +335,7 @@ case 35:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -313,7 +344,7 @@ case 36:
 		    this.$ = parser.code($$[$0-1]);
 
 		/*php
-		    this.$ = this->code($$[$0-1]);
+		    this.$ = this->code($$[$0-1]->text);
         */
 	
 break;
@@ -322,7 +353,7 @@ case 38:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -331,7 +362,7 @@ case 39:
 		    this.$ = parser.color($$[$0-1]);
 
 		/*php
-		    this.$ = this->color($$[$0-1]);
+		    this.$ = this->color($$[$0-1]->text);
         */
 	
 break;
@@ -340,7 +371,7 @@ case 41:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -349,7 +380,7 @@ case 42:
 		    this.$ = parser.italic($$[$0-1]);
 
 		/*php
-		    this.$ = this->italic($$[$0-1]);
+		    this.$ = this->italic($$[$0-1]->text);
         */
 	
 break;
@@ -358,7 +389,7 @@ case 44:
             this.$ = parser.unlink($$[$0-1] + $$[$0]);
 
         /*php
-            this.$ = this->unlink($$[$0-1] . $$[$0]);
+            this.$ = this->unlink($$[$0-1]->text . $$[$0]->text);
         */
     
 break;
@@ -367,7 +398,7 @@ case 45:
 		    this.$ = parser.unlink($$[$0-2] + $$[$0-1] + $$[$0]);
 
 		/*php
-		    this.$ = this->unlink($$[$0-2] . $$[$0-1] . $$[$0]);
+		    this.$ = this->unlink($$[$0-2]->text . $$[$0-1]->text . $$[$0]->text);
         */
 	
 break;
@@ -376,7 +407,7 @@ case 47:
             this.$ = '[' + $$[$0];
 
         /*php
-            this.$ = '[' . $$[$0];
+            this.$ = '[' . $$[$0]->text;
         */
     
 break;
@@ -385,7 +416,7 @@ case 48:
 		    this.$ = parser.link($$[$0-2], $$[$0-1]);
 
 		/*php
-		    this.$ = this->link($$[$0-2], $$[$0-1]);
+		    this.$ = this->link($$[$0-2]->text, $$[$0-1]->text);
         */
 	
 break;
@@ -394,7 +425,7 @@ case 50:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -403,7 +434,7 @@ case 51:
 		    this.$ = parser.strike($$[$0-1]);
 
 		/*php
-		    this.$ = this->strike($$[$0-1]);
+		    this.$ = this->strike($$[$0-1]->text);
         */
 	
 break;
@@ -421,7 +452,7 @@ case 54:
             this.$ = parser.tableParser($$[$0-1] + $$[$0], true);
 
         /*php
-            this.$ = this->tableParser($$[$0-1] . $$[$0], true);
+            this.$ = this->tableParser($$[$0-1]->text . $$[$0]->text, true);
         */
     
 break;
@@ -430,7 +461,7 @@ case 55:
 		    this.$ = parser.tableParser($$[$0-1]);
 
 		/*php
-		    this.$ = this->tableParser($$[$0-1]);
+		    this.$ = this->tableParser($$[$0-1]->text);
         */
 	
 break;
@@ -439,7 +470,7 @@ case 57:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -448,7 +479,7 @@ case 58:
 		    this.$ = parser.titleBar($$[$0-1]);
 
 		/*php
-		    this.$ = this->titleBar($$[$0-1]);
+		    this.$ = this->titleBar($$[$0-1]->text);
         */
 	
 break;
@@ -457,7 +488,7 @@ case 60:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -466,7 +497,7 @@ case 61:
 		    this.$ = parser.underscore($$[$0-1]);
 
 		/*php
-		    this.$ = this->underscore($$[$0-1]);
+		    this.$ = this->underscore($$[$0-1]->text);
         */
 	
 break;
@@ -475,7 +506,7 @@ case 63:
             this.$ = $$[$0-1]['syntax'] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1]['syntax'] . $$[$0];
+            this.$ = $$[$0-1]->text['syntax'] . $$[$0]->text;
         */
     
 break;
@@ -484,7 +515,7 @@ case 64:
 		    this.$ = parser.link($$[$0-2]['type'], $$[$0-1]);
 
 		/*php
-		    this.$ = this->link($$[$0-2]['type'], $$[$0-1]);
+		    this.$ = this->link($$[$0-2]->text['type'], $$[$0-1]->text);
         */
 	
 break;
@@ -493,7 +524,7 @@ case 65:
             this.$ = parser.link('word', $$[$0]);
 
         /*php
-            this.$ = this->link('word', $$[$0]);
+            this.$ = this->link('word', $$[$0]->text);
         */
     
 break;
@@ -502,7 +533,7 @@ case 66:
  		    this.$ = parser.plugin($$[$0]);
 
  		/*php
- 		    this.$ = this->plugin($$[$0]);
+ 		    this.$ = this->plugin($$[$0]->text);
         */
  	
 break;
@@ -513,7 +544,7 @@ case 67:
 
         /*php
             $$[$0]['body'] = '';
-            this.$ = this->plugin($$[$0]);
+            this.$ = this->plugin($$[$0]->text);
         */
      
 break;
@@ -522,7 +553,7 @@ case 68:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1] . $$[$0];
+            this.$ = $$[$0-1]->text . $$[$0]->text;
         */
     
 break;
@@ -532,8 +563,8 @@ case 69:
  		    this.$ = parser.plugin($$[$0]);
 
  		/*php
- 		    $$[$0]['body'] = $$[$0-1];
- 		    this.$ = this->plugin($$[$0]);
+ 		    $$[$0]['body'] = $$[$0-1]->text;
+ 		    this.$ = this->plugin($$[$0]->text);
         */
  	
 break;
@@ -542,7 +573,7 @@ case 70:
             this.$ = parser.line($$[$0]);
 
         /*php
-            this.$ = this->line($$[$0]);
+            this.$ = this->line($$[$0]->text);
         */
     
 break;
@@ -560,7 +591,7 @@ case 72:
             this.$ = parser.char($$[$0]);
 
         /*php
-            this.$ = this->char($$[$0]);
+            this.$ = this->char($$[$0]->text);
         */
     
 break;

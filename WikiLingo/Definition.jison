@@ -1,5 +1,6 @@
 //phpOption parserClass:WikiLingo_Definition
 //phpOption fileName:Definition.php
+//phpOption usingZend:true
 
 //Lexical Grammer
 %lex
@@ -978,14 +979,17 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
 wiki
  : lines
- 	{return $1;}
+ 	{
+ 	    return $1;
+ 	}
  | lines EOF
 	{
 	    //js
 		    return $1 + $2;
 
 		/*php
-		    return $1 . ($2 == "\n" ? $this->line($2) : $2);
+		    $1->text == $1->text . ($2->text == "\n" ? $this->line($2->text) : $2->text);
+		    return $1;
         */
 	}
  | EOF
@@ -994,7 +998,7 @@ wiki
             return $1;
 
         /*php
-            return ($1 == "\n" ? $this->line($1) : $1);
+            return ($1->text == "\n" ? $this->line($1->text) : $1->text);
         */
     }
  ;
@@ -1002,28 +1006,42 @@ wiki
 
 lines
  : line
-    {$$ = $1;}
+    {
+        //js
+            $$ = $1;
+
+        /*php
+            $$ = $1->text;
+        */
+    }
  | line lines
     {
         //js
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  ;
 
 line
  : contents
-    {$$ = $1;}
+    {
+        //js
+            $$ = $1;
+
+        /*php
+            $$ = $1->text;
+        */
+    }
  | BLOCK_START BLOCK_END
     {
 	    //js
 	    $$ = parser.block($1);
 
 	    /*php
-	        $$ = $this->block($1);
+	        $$ = $this->block($1->text);
         */
 	}
  | BLOCK_START contents BLOCK_END
@@ -1032,7 +1050,7 @@ line
             $$ = parser.block($1 + $2);
 
         /*php
-            $$ = $this->block($1 . $2);
+            $$ = $this->block($1->text . $2->text);
         */
     }
  | BLOCK_START contents EOF
@@ -1041,35 +1059,49 @@ line
             $$ = parser.block($1 + $2);
 
         /*php
-            $$ = $this->block($1 . $2);
+            $$ = $this->block($1->text . $2->text);
         */
     }
  ;
 
 contents
  : content
-	{$$ = $1;}
+	{
+	    //js
+	        $$ = $1;
+
+	    /*php
+	        $$ = $1->text;
+	    */
+	}
  | contents content
 	{
 		//js
 		    $$ = $1 + $2;
 
 		/*php
-		    $$ = $1 . $2;
+		    $$ = $1->text . $2->text;
         */
 	}
  ;
 
 content
  : CONTENT
-	{$$ = $1;}
+	{
+	    //js
+	        $$ = $1;
+
+	    /*php
+	        $$ = $1->text;
+	    */
+	}
  | COMMENT
 	{
         //js
             $$ = parser.comment($1);
 
         /*php
-            $$ = $this->comment($1);
+            $$ = $this->comment($1->text);
         */
     }
  | NO_PARSE_START NO_PARSE_END
@@ -1079,7 +1111,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | NO_PARSE_START contents NO_PARSE_END
@@ -1088,7 +1120,7 @@ content
             $$ = parser.noParse($2);
 
         /*php
-            $$ = $this->noParse($2);
+            $$ = $this->noParse($2->text);
         */
     }
  | PRE_FORMATTED_TEXT_START PRE_FORMATTED_TEXT_END
@@ -1098,7 +1130,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | PRE_FORMATTED_TEXT_START contents PRE_FORMATTED_TEXT_END
@@ -1107,7 +1139,7 @@ content
             $$ = parser.preFormattedText($2);
 
         /*php
-            $$ = $this->preFormattedText($2);
+            $$ = $this->preFormattedText($2->text);
         */
     }
  | DOUBLE_DYNAMIC_VAR
@@ -1116,7 +1148,7 @@ content
             $$ = parser.doubleDynamicVar($1);
 
         /*php
-            $$ = $this->doubleDynamicVar($1);
+            $$ = $this->doubleDynamicVar($1->text);
         */
     }
  | SINGLE_DYNAMIC_VAR
@@ -1125,7 +1157,7 @@ content
             $$ = parser.singleDynamicVar($1);
 
         /*php
-            $$ = $this->singleDynamicVar($1);
+            $$ = $this->singleDynamicVar($1->text);
         */
      }
  | ARGUMENT_VAR
@@ -1134,7 +1166,7 @@ content
             $$ = parser.argumentVar($1);
 
         /*php
-            $$ = $this->argumentVar($1);
+            $$ = $this->argumentVar($1->text);
         */
     }
  | HTML_TAG
@@ -1143,7 +1175,7 @@ content
             $$ = parser.htmlTag($1);
 
         /*php
-            $$ = $this->htmlTag($1);
+            $$ = $this->htmlTag($1->text);
         */
     }
  | HORIZONTAL_BAR
@@ -1162,7 +1194,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | BOLD_START contents BOLD_END
@@ -1171,7 +1203,7 @@ content
 		    $$ = parser.bold($2);
 
 		/*php
-		    $$ = $this->bold($2);
+		    $$ = $this->bold($2->text);
         */
 	}
  | BOX_START BOX_END
@@ -1181,7 +1213,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | BOX_START contents BOX_END
@@ -1190,7 +1222,7 @@ content
 		    $$ = parser.box($2);
 
 		/*php
-		    $$ = $this->box($2);
+		    $$ = $this->box($2->text);
         */
 	}
  | CENTER_START CENTER_END
@@ -1200,7 +1232,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | CENTER_START contents CENTER_END
@@ -1209,7 +1241,7 @@ content
 		    $$ = parser.center($2);
 
 		/*php
-		    $$ = $this->center($2);
+		    $$ = $this->center($2->text);
         */
 	}
  | CODE_START CODE_END
@@ -1219,7 +1251,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | CODE_START contents CODE_END
@@ -1228,7 +1260,7 @@ content
 		    $$ = parser.code($2);
 
 		/*php
-		    $$ = $this->code($2);
+		    $$ = $this->code($2->text);
         */
 	}
  | COLOR_START COLOR_END
@@ -1238,7 +1270,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | COLOR_START contents COLOR_END
@@ -1247,7 +1279,7 @@ content
 		    $$ = parser.color($2);
 
 		/*php
-		    $$ = $this->color($2);
+		    $$ = $this->color($2->text);
         */
 	}
  | ITALIC_START ITALIC_END
@@ -1257,7 +1289,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | ITALIC_START contents ITALIC_END
@@ -1266,7 +1298,7 @@ content
 		    $$ = parser.italic($2);
 
 		/*php
-		    $$ = $this->italic($2);
+		    $$ = $this->italic($2->text);
         */
 	}
  | UNLINK_START UNLINK_END
@@ -1276,7 +1308,7 @@ content
             $$ = parser.unlink($1 + $2);
 
         /*php
-            $$ = $this->unlink($1 . $2);
+            $$ = $this->unlink($1->text . $2->text);
         */
     }
  | UNLINK_START contents UNLINK_END
@@ -1285,7 +1317,7 @@ content
 		    $$ = parser.unlink($1 + $2 + $3);
 
 		/*php
-		    $$ = $this->unlink($1 . $2 . $3);
+		    $$ = $this->unlink($1->text . $2->text . $3->text);
         */
 	}
  | LINK_START LINK_END
@@ -1295,7 +1327,7 @@ content
             $$ = '[' + $2;
 
         /*php
-            $$ = '[' . $2;
+            $$ = '[' . $2->text;
         */
     }
  | LINK_START contents LINK_END
@@ -1304,7 +1336,7 @@ content
 		    $$ = parser.link($1, $2);
 
 		/*php
-		    $$ = $this->link($1, $2);
+		    $$ = $this->link($1->text, $2->text);
         */
 	}
  | STRIKE_START STRIKE_END
@@ -1314,7 +1346,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | STRIKE_START contents STRIKE_END
@@ -1323,7 +1355,7 @@ content
 		    $$ = parser.strike($2);
 
 		/*php
-		    $$ = $this->strike($2);
+		    $$ = $this->strike($2->text);
         */
 	}
  | DOUBLE_DASH
@@ -1342,7 +1374,7 @@ content
             $$ = parser.tableParser($1 + $2, true);
 
         /*php
-            $$ = $this->tableParser($1 . $2, true);
+            $$ = $this->tableParser($1->text . $2->text, true);
         */
     }
  | TABLE_START contents TABLE_END
@@ -1351,7 +1383,7 @@ content
 		    $$ = parser.tableParser($2);
 
 		/*php
-		    $$ = $this->tableParser($2);
+		    $$ = $this->tableParser($2->text);
         */
 	}
  | TITLE_BAR_START TITLE_BAR_END
@@ -1361,7 +1393,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | TITLE_BAR_START contents TITLE_BAR_END
@@ -1370,7 +1402,7 @@ content
 		    $$ = parser.titleBar($2);
 
 		/*php
-		    $$ = $this->titleBar($2);
+		    $$ = $this->titleBar($2->text);
         */
 	}
  | UNDERSCORE_START UNDERSCORE_END
@@ -1380,7 +1412,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | UNDERSCORE_START contents UNDERSCORE_END
@@ -1389,7 +1421,7 @@ content
 		    $$ = parser.underscore($2);
 
 		/*php
-		    $$ = $this->underscore($2);
+		    $$ = $this->underscore($2->text);
         */
 	}
  | WIKI_LINK_START WIKI_LINK_END
@@ -1399,7 +1431,7 @@ content
             $$ = $1['syntax'] + $2;
 
         /*php
-            $$ = $1['syntax'] . $2;
+            $$ = $1->text['syntax'] . $2->text;
         */
     }
  | WIKI_LINK_START contents WIKI_LINK_END
@@ -1408,7 +1440,7 @@ content
 		    $$ = parser.link($1['type'], $2);
 
 		/*php
-		    $$ = $this->link($1['type'], $2);
+		    $$ = $this->link($1->text['type'], $2->text);
         */
 	}
  | WIKI_LINK
@@ -1417,7 +1449,7 @@ content
             $$ = parser.link('word', $1);
 
         /*php
-            $$ = $this->link('word', $1);
+            $$ = $this->link('word', $1->text);
         */
     }
  | INLINE_PLUGIN
@@ -1426,7 +1458,7 @@ content
  		    $$ = parser.plugin($1);
 
  		/*php
- 		    $$ = $this->plugin($1);
+ 		    $$ = $this->plugin($1->text);
         */
  	}
  | PLUGIN_START PLUGIN_END
@@ -1437,7 +1469,7 @@ content
 
         /*php
             $2['body'] = '';
-            $$ = $this->plugin($2);
+            $$ = $this->plugin($2->text);
         */
      }
  | PLUGIN_START contents
@@ -1446,7 +1478,7 @@ content
             $$ = $1 + $2;
 
         /*php
-            $$ = $1 . $2;
+            $$ = $1->text . $2->text;
         */
     }
  | PLUGIN_START contents PLUGIN_END
@@ -1456,8 +1488,8 @@ content
  		    $$ = parser.plugin($3);
 
  		/*php
- 		    $3['body'] = $2;
- 		    $$ = $this->plugin($3);
+ 		    $3['body'] = $2->text;
+ 		    $$ = $this->plugin($3->text);
         */
  	}
  | LINE_END
@@ -1466,7 +1498,7 @@ content
             $$ = parser.line($1);
 
         /*php
-            $$ = $this->line($1);
+            $$ = $this->line($1->text);
         */
     }
  | FORCED_LINE_END
@@ -1484,7 +1516,7 @@ content
             $$ = parser.char($1);
 
         /*php
-            $$ = $this->char($1);
+            $$ = $this->char($1->text);
         */
     }
  ;
