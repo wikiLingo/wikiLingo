@@ -5,7 +5,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: maketoc.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class WikiPlugin_maketoc extends WikiPlugin_HtmlBase
+class WikiPlugin_maketoc extends WikiLingo_Plugin_HtmlBase
 {
 	public $type = 'maketoc';
 	public $documentation = 'PluginMaketoc';

@@ -1,5 +1,5 @@
 <?php
-class JisonParser_Html_Handler extends JisonParser_Html
+class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 {
 	public $parsing = false;
 	public $parseDepth = 0;

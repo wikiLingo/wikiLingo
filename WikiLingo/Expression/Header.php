@@ -5,7 +5,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: Header.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class JisonParser_Wiki_Header
+class WikiLingo_Expression_Header
 {
 	public $stack = array();
 	public $count = 0;

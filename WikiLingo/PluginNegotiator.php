@@ -3,9 +3,9 @@
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id: Wiki.php 44849 2013-02-08 18:41:20Z lphuberdeau $
+// $Id: PluginNegotiator.php 44849 2013-02-08 18:41:20Z lphuberdeau $
 
-class WikiPlugin_Negotiator_Wiki
+class WikiLingo_PluginNegotiator
 {
 	public $name;
 	public $args;
@@ -14,7 +14,6 @@ class WikiPlugin_Negotiator_Wiki
 	public $closing;
 	public $info;
 	public $fingerprint;
-	public $exists; //exists is set to true only for old style plugin
 	public $index;
 	public $key;
 	public $needsParsed = true;
@@ -26,7 +25,7 @@ class WikiPlugin_Negotiator_Wiki
 
 	private $className;
 	private $class; //class exists for zend style and injected plugins
-	private $argParser;
+	private $parameterParser;
 	private $page;
 	private $prefs;
 	private $alias;
@@ -48,8 +47,8 @@ class WikiPlugin_Negotiator_Wiki
 		$this->page = & $parser->page;
 		$this->prefs = & $parser->prefs;
 		$this->parserOption = & $parser->option;
-		$this->argParser = new WikiParser_PluginArgumentParser;
-		$this->alias = new WikiPlugin_Negotiator_Wiki_Alias();
+		$this->parameterParser = new WikiLingo_Parameters();
+		$this->alias = new WikiLingo_PluginAlias();
 	}
 
 	public function inject($plugin)
@@ -72,57 +71,19 @@ class WikiPlugin_Negotiator_Wiki
 		return false;
 	}
 
-	public function setDetails(& $pluginDetails)
-	{
-		$this->name = strtolower($pluginDetails['name']);
-		$this->className = 'WikiPlugin_' . $this->name;
-
-		if ($this->zendExists() == true) {
-			if (empty(self::$pluginInstances[$this->className])) self::$pluginInstances[$this->className] = new $this->className;
-			$this->class = self::$pluginInstances[$this->className];
-		} else if ($this->injectedExists() == true) {
-			$this->class = self::$pluginInstances[$this->name];
-		} else {
-			$this->class = null;
-		}
-
-		$this->args = $this->argParser->parse($pluginDetails['args']);
-		$this->body = & $pluginDetails['body'];
-		$this->key = $pluginDetails['key'];
-		$this->syntax = $pluginDetails['syntax'];
-		$this->closing = $pluginDetails['closing'];
-		$this->ignored = false;
-
-		$this->exists = $this->exists(true);
-		$this->info = $this->info();
-		$this->fingerprint = $this->fingerprint();
-		$this->index = $this->incrementIndex();
-
-		self::$pluginDetails[$this->key] = &$pluginDetails;
-	}
-
-	private function incrementIndex()
-	{
-		if (isset(self::$pluginIndexes[$this->name]) == false) self::$pluginIndexes[$this->name] = 0;
-
-		self::$pluginIndexes[$this->name]++;
-
-		return self::$pluginIndexes[$this->name];
-	}
-
-	function execute()
+	function execute(WikiLingo_Plugin &$plugin)
 	{
 		$output = '';
-		if ($this->enabled($output) == false) {
+		if ($plugin->enabled($output) == false) {
 			$this->ignored = true;
 			return $output->toHtml();
 		}
 
 		//Zend style plugins are classed based
 		//Start Zend
-		if (isset($this->class)) {
-			if (isset($this->class->parserLevel)) {
-				$this->parserLevel = $this->class->parserLevel;
+		if (isset($plugin->class)) {
+			if (isset($plugin->class->parserLevel)) {
+				$this->parserLevel = $plugin->class->parserLevel;
 
 				if ($this->parserLevel > self::$currentParserLevel) {
 					$this->addWaitingPlugin();
@@ -132,9 +93,9 @@ class WikiPlugin_Negotiator_Wiki
 					$this->applyFilters();
 					$button = $this->button(false);
 
-					$result = $this->class
+					$result = $plugin->class
 						->setButton($button)
-						->exec($this->body, $this->args, $this->index, $this->parser);
+						->execute($this->body, $this->args, $this->index, $this->parser);
 
 					return $result;
 				}
@@ -143,20 +104,10 @@ class WikiPlugin_Negotiator_Wiki
 		//End Zend
 
 
-		//old style plugins start
-		$fnName = strtolower('wikiplugin_' .  $this->name);
-
-		if ( $this->exists && function_exists($fnName) ) {
-			return $fnName($this->body, $this->args, $this->index, $this) . $this->button();
-		}
-		//end old style
-
-
 		//alias start
 		$newDetails = $this->alias->getDetails(self::$pluginDetails[$this->key]);
 		if ($newDetails != false) {
-			$this->setDetails($newDetails);
-			return $this->execute();
+			return $this->execute($newDetails);
 		}
 		//alias end
 
@@ -167,34 +118,6 @@ class WikiPlugin_Negotiator_Wiki
 		//smarty or unrecognized end
 	}
 
-	function toSyntax()
-	{
-		return $this->syntax . $this->body . $this->closing;
-	}
-
-	function urlEncodeArgs()
-	{
-		$args = '';// not using http_build_query() as it converts spaces into +
-		if (!empty($this->args)) {
-			foreach ( $this->args as $argKey => $argValue ) {
-				if (is_array($argValue)) {
-					if (isset($this->info['params'][$argKey]['separator'])) {
-						$sep = $this->info['params'][$argKey]['separator'];
-					} else {
-						$sep = ',';
-					}
-					$args .= $argKey.'='.implode($sep, $argValue).'&';
-				} else {
-					$args .= $argKey.'='.$argValue.'&';
-				}
-			}
-		}
-
-		$args = rtrim($args, '&');
-
-		return $args;
-	}
-
 	private function addWaitingPlugin()
 	{
 		self::$parserLevels[] = $this->class->parserLevel;
@@ -203,7 +126,7 @@ class WikiPlugin_Negotiator_Wiki
 		self::$pluginsAwaitingExecution[$this->key] = self::$pluginDetails[$this->key];
 	}
 
-	public function zendExists()
+	public function exists()
 	{
 		if (isset(self::$pluginInstances[$this->className])) {
 			return true;
@@ -214,23 +137,6 @@ class WikiPlugin_Negotiator_Wiki
 		} else {
 			return @class_exists($this->className); //error suppression only used in special use cases, like phpunit for testing
 		}
-	}
-
-	private function exists($include = false)
-	{
-		$phpName = self::$standardRelativePath . strtolower($this->name) . '.php';
-
-		$exists = file_exists($phpName);
-
-		if ( $include && $exists ) {
-			include_once $phpName;
-		}
-
-		if ( $exists ) {
-			return true;
-		}
-
-		return false;
 	}
 
 	function canExecute()
@@ -284,31 +190,6 @@ class WikiPlugin_Negotiator_Wiki
 		}
 	}
 
-	function enabled(& $output)
-	{
-		if ( ! $this->info )
-			return true; // Legacy plugins always execute
-
-		global $prefs;
-
-		$missing = array();
-
-		if ( isset( $this->info['prefs'] ) ) {
-			foreach ( $this->info['prefs'] as $pref ) {
-				if ( isset($prefs[$pref]) && $prefs[$pref] != 'y' ) {
-					$missing[] = $pref;
-				}
-			}
-		}
-
-		if ( count($missing) > 0 ) {
-			$output = WikiParser_PluginOutput::disabled($this->name, $missing);
-			return false;
-		}
-
-		return true;
-	}
-
 	function isEditable()
 	{
 		global $tiki_p_edit, $prefs, $section;
@@ -337,77 +218,12 @@ class WikiPlugin_Negotiator_Wiki
 		return false;
 	}
 
-	private function fingerprintStore( $type )
-	{
-		global $tikilib;
-
-		if ( $this->page ) {
-			$objectType = 'wiki page';
-			$objectId = $this->page;
-		} else {
-			$objectType = '';
-			$objectId = '';
-		}
-
-		$pluginSecurity = $tikilib->table('tiki_plugin_security');
-		$pluginSecurity->delete(array('fingerprint' => $this->fingerprint));
-		$pluginSecurity->insert(
-			array(
-				'fingerprint' => $this->fingerprint,
-				'status' => $type,
-				'added_by' => $this->parser->user,
-				'last_objectType' => $objectType,
-				'last_objectId' => $objectId
-			)
-		);
-	}
-
-	public function info()
-	{
-		if ( isset( self::$pluginInfo[$this->name] ) ) {
-			return self::$pluginInfo[$this->name];
-		}
-
-		if (isset($this->class)) {
-			self::$pluginInfo[$this->name] = $this->class->info();
-			if (isset(self::$pluginInfo[$this->name]['params'])) {
-				self::$pluginInfo[$this->name]['params'] = array_merge(self::$pluginInfo[$this->name]['params'], $this->class->style());
-			}
-			return self::$pluginInfo[$this->name];
-		}
-
-		if ( ! $this->exists ) {
-			return self::$pluginInfo[$this->name] = false;
-		}
-
-		$funcNameInfo = "wikiplugin_{$this->name}_info";
-
-		if ( ! function_exists($funcNameInfo) ) {
-			if ( $info = WikiPlugin_Negotiator_Wiki_Alias::info($this->name) ) {
-				return self::$pluginInfo[$this->name] = $info['description'];
-			} else {
-				return self::$pluginInfo[$this->name] = false;
-			}
-		}
-
-		return self::$pluginInfo[$this->name] = $funcNameInfo();
-	}
-
-
 	static public function getList( $includeReal = true, $includeAlias = true )
 	{
 		$real = array();
-		$alias = array();
-
-		foreach ( glob('lib/wiki-plugins/wikiplugin_*.php') as $file ) {
-			$base = basename($file);
-			$plugin = substr($base, 11, -4);
-
-			$real[] = $plugin;
-		}
 
 		//Check for existence of Zend wiki plugins
-		foreach ( glob('lib/core/WikiPlugin/*.php') as $file ) {
+		foreach ( glob('lib/core/Plugin/*.php') as $file ) {
 			$base = basename($file);
 			if (strtolower($base) == $base) { //the zend plugins all have lower case names
 				$plugin = substr($base, 0, -4);
@@ -416,11 +232,11 @@ class WikiPlugin_Negotiator_Wiki
 		}
 
 		if ( $includeReal && $includeAlias ) {
-			$plugins = array_merge($real, WikiPlugin_Negotiator_Wiki_Alias::getList());
+			$plugins = array_merge($real, WikiLingo_PluginAlias::getList());
 		} elseif ( $includeReal ) {
 			$plugins = $real;
 		} elseif ( $includeAlias ) {
-			$plugins = WikiPlugin_Negotiator_Wiki_Alias::getList();
+			$plugins = WikiLingo_PluginAlias::getList();
 		} else {
 			$plugins = array();
 		}
@@ -428,101 +244,6 @@ class WikiPlugin_Negotiator_Wiki
 		sort($plugins);
 
 		return $plugins;
-	}
-
-	private function fingerprint()
-	{
-		$validate = (isset($this->info['validate']) ? $this->info['validate'] : '');
-
-		if ( $validate == 'all' || $validate == 'body' )
-			$validateBody = str_replace('<x>', '', $this->body);	// de-sanitize plugin body to make fingerprint consistant with 5.x
-		else
-			$validateBody = '';
-
-		if ( $validate == 'all' || $validate == 'arguments' ) {
-			$validateArgs = $this->args;
-
-			// Remove arguments marked as safe from the fingerprint
-			foreach ( $this->info['params'] as $key => $info ) {
-				if ( isset( $validateArgs[$key] )
-					&& isset( $info['safe'] )
-					&& $info['safe']
-				) {
-					unset($validateArgs[$key]);
-				}
-			}
-			// Parameter order needs to be stable
-			ksort($validateArgs);
-
-			if (empty($validateArgs)) {
-				$validateArgs = array( '' => '' );	// maintain compatibility with pre-Tiki 7 fingerprints
-			}
-		} else {
-			$validateArgs = array();
-		}
-
-		$bodyLen = str_pad(strlen($validateBody), 6, '0', STR_PAD_RIGHT);
-		$serialized = serialize($validateArgs);
-		$argsLen = str_pad(strlen($serialized), 6, '0', STR_PAD_RIGHT);
-
-		$bodyHash = md5($validateBody);
-		$argsHash = md5($serialized);
-
-		return "$this->name-$bodyHash-$argsHash-$bodyLen-$argsLen";
-	}
-
-	private function fingerprintCheck()
-	{
-		global $tikilib;
-		$limit = date('Y-m-d H:i:s', time() - 15*24*3600);
-		$result = $tikilib->query(
-			"SELECT status, if(status='pending' AND last_update < ?, 'old', '') flag
-			FROM tiki_plugin_security
-			WHERE fingerprint = ?",
-			array( $limit, $this->fingerprint )
-		);
-
-		$needUpdate = false;
-
-		if ( $row = $result->fetchRow() ) {
-			$status = $row['status'];
-			$flag = $row['flag'];
-
-			if ( $status == 'accept' || $status == 'reject' ) {
-				return $status;
-			}
-
-			if ( $flag == 'old' ) {
-				$needUpdate = true;
-			}
-		} else {
-			$needUpdate = true;
-		}
-
-		if ( $needUpdate && !$this->dontModify ) {
-			if ( $this->page ) {
-				$objectType = 'wiki page';
-				$objectId = $this->page;
-			} else {
-				$objectType = '';
-				$objectId = '';
-			}
-
-
-			$pluginSecurity = $tikilib->table('tiki_plugin_security');
-			$pluginSecurity->delete(array('fingerprint' => $this->fingerprint));
-			$pluginSecurity->insert(
-				array(
-					'fingerprint' => $this->fingerprint,
-					'status' => 'pending',
-					'added_by' => $this->parser->user,
-					'last_objectType' => $objectType,
-					'last_objectId' => $objectId
-				)
-			);
-		}
-
-		return '';
 	}
 
 	private function applyFilters()

@@ -5,7 +5,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: DynamicVariables.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class JisonParser_Wiki_DynamicVariables
+class WikiLingo_Expression_DynamicVariables
 {
 	public $parser;
 	static $dynamicVariables = array();

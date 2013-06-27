@@ -1,11 +1,6 @@
 <?php
-// (c) Copyright 2002-2013 by authors of the Tiki Wiki CMS Groupware Project
-//
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id: ConditionBase.php 44593 2013-01-23 12:15:24Z jonnybradley $
 
-abstract class WikiPlugin_ConditionBase
+abstract class WikiLingo_Plugin_Base
 {
 	public $name;
 	public $description;
@@ -51,15 +46,14 @@ abstract class WikiPlugin_ConditionBase
 		$params = array_merge($defaults, $params);
 	}
 
-	abstract protected function output(&$data, &$params, &$index, &$parser);
+	abstract protected function output(WikiLingo_Expression &$expression, WikiLingo_Parameters &$parameters, &$index, WikiLingo &$parser);
 
-	public function exec($data, $params, $index, &$parser)
+	public function render(WikiLingo_Expression &$expression, WikiLingo_Parameters &$parameters, &$index, WikiLingo &$parser)
 	{
 		$this->paramDefaults($params);
 
 		// strip out sanitisation which may have occurred when using nested plugins
-		$data = str_replace('<x>', '', $data);
-		$data = $this->output($data, $params, $index, $parser);
+		$data = $this->output($expression, $parameters, $index, $parser);
 
 		if ($this->np == true) {
 			return '~np~'.$data.'~/np~';

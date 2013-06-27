@@ -5,7 +5,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: HotWords.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class JisonParser_Wiki_HotWords
+class WikiLingo_Expression_HotWords
 {
 	public $parser;
 	static public $hotWords = array();
@@ -15,16 +15,6 @@ class JisonParser_Wiki_HotWords
 		global $tikilib;
 
 		$this->parser = &$parser;
-
-		if ( !empty(self::$hotWords) ) {
-			return self::$hotWords;
-		}
-
-		$result = $tikilib->fetchAll("select * from tiki_hotwords", array());
-
-		foreach ($result as $row) {
-			self::$hotWords[$row["word"]] = $row["url"];
-		}
 	}
 
 	function parse(&$content) //TODO: needs handled with wiki tag creator

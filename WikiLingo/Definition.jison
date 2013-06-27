@@ -16,7 +16,7 @@ BLOCK_START                     ([\!*#+;])
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
-%s np pp plugin line block bold box center code color italic unlink link strike table titleBar underscore wikiLink
+%s np pp pluginStart plugin line block bold box center code color italic unlink link strike table titleBar underscore wikiLink
 
 %%
 <np><<EOF>>
@@ -178,14 +178,21 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 		return 'INLINE_PLUGIN';
 	%}
 
+<pluginStart>.*?")}"
+    %{
+        /*php
+            $this->popState();
+            $this->begin('plugin');
+            return 'PLUGIN_ARGUMENTS';
+        */
+    %}
 
-
-"{"{PLUGIN_ID}"(".*?")}"
+"{"{PLUGIN_ID}"("
 	%{
 	    //js
             if (parser.npStack || parser.ppStack) return 'CONTENT';
 
-            lexer.begin('plugin');
+            lexer.begin('pluginStart');
             yy.pluginStack = parser.stackPlugin(yytext, yy.pluginStack);
 
             if (parser.size(yy.pluginStack) == 1) {
@@ -195,7 +202,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
         /*php
 		    if ($this->npStack == true || $this->ppStack) return 'CONTENT';
 
-		    $this->begin('plugin');
+		    $this->begin('pluginStart');
 		    $this->stackPlugin($yytext);
 
 		    if (count($this->pluginStack) == 1) {

@@ -8,4 +8,4 @@ $loader
 
 $loader->register();
 $wikiLingo = new WikiLingo();
-echo $wikiLingo->parse("test");
+echo $wikiLingo->parse("{OOHTML()}test{OOHTML}");

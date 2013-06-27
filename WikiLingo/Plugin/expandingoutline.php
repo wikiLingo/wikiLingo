@@ -5,7 +5,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: expandingoutline.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class WikiPlugin_expandingoutline extends WikiPlugin_HtmlBase
+class WikiPlugin_expandingoutline extends WikiLingo_Plugin_HtmlBase
 {
 	public $type = 'expandingoutline';
 	public $documentation = 'PluginExpandingOutline';

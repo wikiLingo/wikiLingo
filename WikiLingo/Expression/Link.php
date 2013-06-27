@@ -5,7 +5,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: Link.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class JisonParser_Wiki_Link
+class WikiLingo_Expression_Link
 {
 	public $parser;
 	public $page;

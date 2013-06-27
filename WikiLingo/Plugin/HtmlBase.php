@@ -5,7 +5,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: HtmlBase.php 44444 2013-01-05 21:24:24Z changi67 $
 
-abstract class WikiPlugin_HtmlBase extends WikiPlugin_ConditionBase
+abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 {
 	public $htmlTagType = 'div';
 	public $hasHtmlBody = true;
@@ -282,13 +282,12 @@ abstract class WikiPlugin_HtmlBase extends WikiPlugin_ConditionBase
 		return $styles;
 	}
 
-	public function exec($data, $params, $index, &$parser)
+	public function render(WikiLingo_Expression &$expression, WikiLingo_Parameters &$parameters, &$index, WikiLingo &$parser)
 	{
 		$this->paramDefaults($params);
 		$style = $this->stylize($params);
 
 		// strip out sanitisation which may have occurred when using nested plugins
-		$data = str_replace('<x>', '', $data);
 		$data = $this->output($data, $params, $index, $parser);
 
 		if ($this->hasHtmlBody == true) {

@@ -4980,7 +4980,7 @@ class WikiLingo_Definition extends Jison_Base
 /* this == yyval */
 
 
-switch ($yystate) {
+switch (yystate) {
 case 1:
  	    return $s[$o];
  	
@@ -5348,7 +5348,7 @@ case 1:
 		    if ($this->npStack != true) return 11;
 		    $this->popState();
 		    $this->npStack = false;
-		    $yy_->yytext = $this->noParse($yy_->yytext);
+		    $this->yy->text = $this->noParse($this->yy->text);
         
 
 		return 14;
@@ -5378,7 +5378,7 @@ case 4:
 		    if ($this->ppStack != true) return 11;
 		    $this->popState();
 		    $this->ppStack = false;
-		    $yy_->yytext = $this->preFormattedText($yy_->yytext);
+		    $this->yy->text = $this->preFormattedText($this->yy->text);
         
 
 		return 16;
@@ -5436,7 +5436,7 @@ break;
 case 13:
 	    
             if ($this->isContent()) return 11;
-            $yy_->yytext = $this->inlinePlugin($yy_->yytext);
+            $this->yy->text = $this->inlinePlugin($this->yy->text);
 		
 
 		return 50;
@@ -5447,7 +5447,7 @@ case 14:
 		    if ($this->npStack == true || $this->ppStack) return 11;
 
 		    $this->begin('plugin');
-		    $this->stackPlugin($yy_->yytext);
+		    $this->stackPlugin($this->yy->text);
 
 		    if (count($this->pluginStack) == 1) {
 		        return 51;
@@ -5469,15 +5469,15 @@ break;
 case 16:
 	    
             $plugin = end($this->pluginStack);
-            if (('{' . $plugin['name'] . '}') == $yy_->yytext) {
+            if (('{' . $plugin['name'] . '}') == $this->yy->text) {
                $this->popState();
                if (!empty($this->pluginStack)) {
                     if (
                         count($this->pluginStack) > 0 &&
-                        substr($yy_->yytext, 1, -1) == $this->pluginStack[count($this->pluginStack) - 1]['name']
+                        substr($this->yy->text, 1, -1) == $this->pluginStack[count($this->pluginStack) - 1]['name']
                     ) {
                         if (count($this->pluginStack) == 1) {
-                            $yy_->yytext = $this->pluginStack[count($this->pluginStack) - 1];
+                            $this->yy->text = $this->pluginStack[count($this->pluginStack) - 1];
                            $this->pluginStackCount--;
                             array_pop($this->pluginStack);
                             return 52;
@@ -5761,7 +5761,7 @@ case 46:
 		    if ($this->isContent()) return 11;
             $this->linkStack = true;
             $this->begin('link');
-            $yy_->yytext = 'external';
+            $this->yy->text = 'external';
         
 
 		return 36;
@@ -5905,7 +5905,7 @@ case 62:
 		    if ($this->isContent()) return 11;
             $this->linkStack = true;
             $this->begin('wikiLink');
-            $yy_->yytext = array('type' => 'wiki', 'syntax' => $yy_->yytext);
+            $this->yy->text = array('type' => 'wiki', 'syntax' => $this->yy->text);
         
 
 		return 47;
@@ -5916,7 +5916,7 @@ case 63:
 		    if ($this->isContent()) return 11;
 		    $this->linkStack = true;
 		    $this->begin('wikiLink');
-		    $yy_->yytext = array('type' => 'np', 'syntax' => $yy_->yytext);
+		    $this->yy->text = array('type' => 'np', 'syntax' => $this->yy->text);
         
 
 		return 47;
@@ -5927,7 +5927,7 @@ case 64:
 		    if ($this->isContent()) return 11;
             $this->linkStack = true;
             $this->begin('wikiLink');
-            $yy_->yytext = array('syntax' => $yy_->yytext, 'type' => substr($yy_->yytext, 1, -1));
+            $this->yy->text = array('syntax' => $this->yy->text, 'type' => substr($this->yy->text, 1, -1));
 		
 
 		return 47;
@@ -5945,11 +5945,11 @@ case 66:return 55;
 break;
 case 67:
 		
-		    if (JisonParser_Html_Handler::isHtmlTag($yy_->yytext)) {
+		    if (JisonParser_Html_Handler::isHtmlTag($this->yy->text)) {
 		        return 20;
 		    }
-		    $tag = $yy_->yytext;
-		    $yy_->yytext = $yy_->yytext{0};
+		    $tag = $this->yy->text;
+		    $this->yy->text = $this->yy->text{0};
 		    $this->unput(substr($tag, 1));
 		    return 11;
 		
