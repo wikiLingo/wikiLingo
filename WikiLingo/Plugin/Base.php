@@ -46,14 +46,9 @@ abstract class WikiLingo_Plugin_Base
 		$params = array_merge($defaults, $params);
 	}
 
-	abstract protected function output(WikiLingo_Expression &$expression, WikiLingo_Parameters &$parameters, &$index, WikiLingo &$parser);
-
-	public function render(WikiLingo_Expression &$expression, WikiLingo_Parameters &$parameters, &$index, WikiLingo &$parser)
+	public function render(WikiLingo_Expression &$plugin, WikiLingo &$parser)
 	{
 		$this->paramDefaults($params);
-
-		// strip out sanitisation which may have occurred when using nested plugins
-		$data = $this->output($expression, $parameters, $index, $parser);
 
 		if ($this->np == true) {
 			return '~np~'.$data.'~/np~';

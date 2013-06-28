@@ -7,11 +7,7 @@
 
 class WikiLingo_PluginNegotiator
 {
-	public $name;
-	public $args;
-	public $body;
-	public $syntax;
-	public $closing;
+	public $plugin;
 	public $info;
 	public $fingerprint;
 	public $index;
@@ -51,6 +47,11 @@ class WikiLingo_PluginNegotiator
 		$this->alias = new WikiLingo_PluginAlias();
 	}
 
+	public function setPlugin(&$plugin)
+	{
+		$this->plugin = $plugin;
+	}
+
 	public function inject($plugin)
 	{
 		self::$pluginInstances[get_class($plugin)] = $plugin;
@@ -71,19 +72,19 @@ class WikiLingo_PluginNegotiator
 		return false;
 	}
 
-	function execute(WikiLingo_Plugin &$plugin)
+	function execute()
 	{
 		$output = '';
-		if ($plugin->enabled($output) == false) {
+		if ($this->plugin->enabled == false) {//TODO: add event for disabled
 			$this->ignored = true;
 			return $output->toHtml();
 		}
 
 		//Zend style plugins are classed based
 		//Start Zend
-		if (isset($plugin->class)) {
-			if (isset($plugin->class->parserLevel)) {
-				$this->parserLevel = $plugin->class->parserLevel;
+		if (isset($this->plugin->class)) {
+			if (isset($this->plugin->class->parserLevel)) {
+				$this->parserLevel = $this->plugin->class->parserLevel;
 
 				if ($this->parserLevel > self::$currentParserLevel) {
 					$this->addWaitingPlugin();
@@ -93,7 +94,7 @@ class WikiLingo_PluginNegotiator
 					$this->applyFilters();
 					$button = $this->button(false);
 
-					$result = $plugin->class
+					$result = $this->plugin->class
 						->setButton($button)
 						->execute($this->body, $this->args, $this->index, $this->parser);
 

@@ -78,6 +78,8 @@ class WikiLingo extends WikiLingo_Definition
     private $pcreRecursionLimit;
 
     public $option = array();
+	public $optionProtectEmail = false;
+	public $optionSkipValidation = false;
     public $optionDefaults = array(
         'skipvalidation'=>  false,
         'is_html'=> false,
@@ -190,10 +192,6 @@ class WikiLingo extends WikiLingo_Definition
 
         if (isset($this->Parser->list) == false) {
             $this->Parser->list = new WikiLingo_Expression_List($this->Parser);
-        }
-
-        if (isset($this->Parser->autoLink) == false) {
-            $this->Parser->autoLink = new WikiLingo_Expression_AutoLink($this->Parser);
         }
 
         if (isset($this->Parser->hotWords) == false) {
@@ -359,6 +357,7 @@ class WikiLingo extends WikiLingo_Definition
      */
     function postParse(&$output)
     {
+	    /*
         //remove comment artifacts
         $output = str_replace("<!---->", "", $output);
 
@@ -400,7 +399,15 @@ class WikiLingo extends WikiLingo_Definition
             ini_set("pcre.recursion_limit", $this->pcreRecursionLimit);
             $output = $this->specialCharacter->unprotect($output);
         }
+	    */
+
+	    $output = $output->render($this->Parser);
     }
+
+	public function content(&$content)
+	{
+		return new WikiLingo_Expression($content);
+	}
 
     /**
      * Handles plugins directly from the wiki parser.  A plugin can be on a different level of the current parser, and
@@ -410,23 +417,24 @@ class WikiLingo extends WikiLingo_Definition
      * @param   array  &$pluginDetails plugins details in an array
      * @return  string  either returns $key or block from execution message
      */
-    public function plugin(&$pluginDetails)
+    public function plugin(&$name, &$parameters, &$contents, &$end)
     {
-        $pluginDetails['body'] = $this->specialCharacter->unprotect($pluginDetails['body'], true);
+	    return new WikiLingo_Expression_Plugin($name,$parameters,$contents,$end);
+	    /*//TODO: move to expression post-parse
         $negotiator =& $this->pluginNegotiator;
 
-        $negotiator->setDetails($pluginDetails);
+        $negotiator->setPlugin($plugin);
 
-        if ( $this->getOption('skipvalidation') == false) {
+        if ( !$this->optionSkipValidation ) {
             $status = $negotiator->canExecute();
         } else {
             $status = true;
         }
 
         if ($status === true) {
-            /*$plugins is a bit different that pluginEntries, an entry will be popped later, $plugins is more for
+            //$plugins is a bit different that pluginEntries, an entry will be popped later, $plugins is more for
             tracking, although their values may be the same for a time, the end result will be an empty entries, but
-            $plugins will have all executed plugin in it*/
+            $plugins will have all executed plugin in it//
             $this->plugins[$negotiator->key] = $negotiator->body;
 
             $executed = $negotiator->execute();
@@ -440,6 +448,7 @@ class WikiLingo extends WikiLingo_Definition
         } else {
             return $negotiator->blockFromExecution($status);
         }
+	    */
     }
 
     public function inlinePlugin($yytext)
@@ -455,13 +464,10 @@ class WikiLingo extends WikiLingo_Definition
      * @access  public
      * @param   string  $yytext The analysed text from the wiki parser
      */
-    public function stackPlugin($yytext)
+    public function stackPlugin($name)
     {
-        $pluginName = $this->match('/^\{([A-Z]+)/', $yytext);
-        $pluginArgs = rtrim(str_replace('{' . $pluginName . '(', '', $yytext), ')}');
-
-        return new WikiLingo_Plugin($pluginName, $yytext, '', $yytext, '{' . $pluginName . '}');
         $this->pluginStackCount++;
+	    $this->pluginStack[] = substr($name, 1, -1);
     }
 
     /**
@@ -1024,7 +1030,7 @@ class WikiLingo extends WikiLingo_Definition
         //The first \n was inserted just before parse
         if ($this->isFirstBr == false) {
             $this->isFirstBr = true;
-            return '';
+            return new WikiLingo_Expression();
         }
 
         $result = '';
@@ -1033,7 +1039,9 @@ class WikiLingo extends WikiLingo_Definition
             $result = $this->createWikiTag("line", "br", "", array(), "inline");
         }
 
-        return $result . $ch;
+	    $result .= $ch;
+
+        return new WikiLingo_Expression($result);
     }
 
     /**
@@ -1438,27 +1446,30 @@ class WikiLingo extends WikiLingo_Definition
     {
         $this->isRepairing($syntaxType, true);
 
-        $tag = "<" . $tagType;
+        $tagOpen = "<" . $tagType;
 
         if (!empty($params)) {
             foreach ($params as $param => $value) {
-                $tag .= " " . $param . "='" . trim($value) . "'";
+                $tagOpen .= " " . $param . "='" . trim($value) . "'";
             }
         }
 
         switch ($type) {
-            case "inline": $tag .= "/>";
+            case "inline": $tagOpen .= "/>";
+                return new WikiLingo_Expression($tagOpen);
                 break;
             case "standard":
-                $tag .= ">" . $content . "</" . $tagType . ">";
+                $tagOpen .= ">";
+                $tagClose = "</" . $tagType . ">";
+                return new WikiLingo_Expression($tagOpen, $tagClose, $content);
                 break;
-            case "open": $tag .= ">";
+            case "open": $tagOpen .= ">";
+                return new WikiLingo_Expression($tagOpen);
                 break;
             case "close":
-                return '</' .$tagType . '>';
+                $tagClose = '</' .$tagType . '>';
+                return new WikiLingo_Expression($tagClose);
         }
-
-        return $tag;
     }
 
 

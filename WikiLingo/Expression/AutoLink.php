@@ -5,21 +5,22 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: AutoLink.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class WikiLingo_Expression_AutoLink
+class WikiLingo_Expression_AutoLink extends WikiLingo_Expression
 {
 	public $parser;
-
+	public $text;
 	private $icon = '';
 	private $attr = '';
 	private $rules = array(
 
 	);
 
-	function __construct(&$parser)
+	function __construct(&$parser, $text)
 	{
 		global $smarty, $prefs;
 
 		$this->parser = &$parser;
+		$this->text = &$text;
 
 		if ($prefs['popupLinks'] == 'y')
 			$this->attr .= 'target="_blank" ';
@@ -32,10 +33,8 @@ class WikiLingo_Expression_AutoLink
 		}
 	}
 
-	public function parse(&$text) //TODO: needs to be handled with wiki tag creator
+	public function render() //TODO: needs to be handled with wiki tag creator
 	{
-		global $tikilib, $prefs;
-
 		$patterns = array();
 		$replacements = array();
 
@@ -49,7 +48,7 @@ class WikiLingo_Expression_AutoLink
 
 		//match prefix@suffix
 		$patterns[] = "#([\n ])([a-z0-9\-_.]+?)@([\w\-]+\.([\w\-\.]+\.)*[\w]+)#i";
-		if ($prefs['feature_wiki_protect_email'] == 'y') {
+		if ($this->parser->optionProtectEmail) {
 			$replacements[] = "\\1" . $tikilib->protect_email("\\2", "\\3");
 		} else {
 			$replacements[] = "\\1<a class='wiki' href=\"mailto:\\2@\\3\">\\2@\\3</a>";
@@ -59,6 +58,6 @@ class WikiLingo_Expression_AutoLink
 		$patterns[] = "#([\n ])magnet\:\?([^,< \n\r]+)#i";
 		$replacements[] = "\\1<a class='wiki' href=\"magnet:?\\2\">magnet:?\\2</a>";
 
-		$text = preg_replace($patterns, $replacements, $text);
+		return preg_replace($patterns, $replacements, $this->text);
 	}
 }

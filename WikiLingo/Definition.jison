@@ -16,7 +16,7 @@ BLOCK_START                     ([\!*#+;])
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
-%s np pp pluginStart plugin line block bold box center code color italic unlink link strike table titleBar underscore wikiLink
+%s np pp pluginStart plugin inlinePlugin line block bold box center code color italic unlink link strike table titleBar underscore wikiLink
 
 %%
 <np><<EOF>>
@@ -92,7 +92,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 		    $yytext = $this->preFormattedText($yytext);
         */
 
-		return 'PRE_FORMATTED_TEXT_END';
+		return 'PREFORMATTED_TEXT_END';
 	%}
 "~pp~"
 	%{
@@ -107,7 +107,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 		    $this->ppStack = true;
         */
 
-		return 'PRE_FORMATTED_TEXT_START';
+		return 'PREFORMATTED_TEXT_START';
 	%}
 
 
@@ -164,18 +164,24 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
         return 'BLOCK_START';
 	%}
-"{"{INLINE_PLUGIN_ID}.*?"}"
+<inlinePlugin>"}"
+	%{
+		/*php
+			$this->popState();
+			return 'INLINE_PLUGIN_PARAMETERS';
+		*/
+	%}
+"{"{INLINE_PLUGIN_ID}
 	%{
 	    //js
 		    if (parser.isContent()) return 'CONTENT';
 		    yytext = parser.inlinePlugin(yytext);
 
         /*php
-            if ($this->isContent()) return 'CONTENT';
-            $yytext = $this->inlinePlugin($yytext);
+            $this->begin('inlinePlugin');
 		*/
 
-		return 'INLINE_PLUGIN';
+		return 'INLINE_PLUGIN_START';
 	%}
 
 <pluginStart>.*?")}"
@@ -183,7 +189,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
         /*php
             $this->popState();
             $this->begin('plugin');
-            return 'PLUGIN_ARGUMENTS';
+            return 'PLUGIN_PARAMETERS';
         */
     %}
 
@@ -199,18 +205,13 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
                 return 'PLUGIN_START';
             }
 
-        /*php
-		    if ($this->npStack == true || $this->ppStack) return 'CONTENT';
+            return 'CONTENT';
 
+        /*php
 		    $this->begin('pluginStart');
 		    $this->stackPlugin($yytext);
-
-		    if (count($this->pluginStack) == 1) {
-		        return 'PLUGIN_START';
-		    }
+	        return 'PLUGIN_START';
 		*/
-
-		return 'CONTENT';
 	%}
 <plugin><<EOF>>
 	%{
@@ -248,26 +249,12 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
             }
 
 		/*php
-            $plugin = end($this->pluginStack);
-            if (('{' . $plugin['name'] . '}') == $yytext) {
-               $this->popState();
-               if (!empty($this->pluginStack)) {
-                    if (
-                        count($this->pluginStack) > 0 &&
-                        substr($yytext, 1, -1) == $this->pluginStack[count($this->pluginStack) - 1]['name']
-                    ) {
-                        if (count($this->pluginStack) == 1) {
-                            $yytext = $this->pluginStack[count($this->pluginStack) - 1];
-                           $this->pluginStackCount--;
-                            array_pop($this->pluginStack);
-                            return 'PLUGIN_END';
-                        } else {
-                           $this->pluginStackCount--;
-                            array_pop($this->pluginStack);
-                            return 'CONTENT';
-                        }
-                    }
-               }
+            $name = end($this->pluginStack);
+            if (substr($yytext, 1, -1) == $name && $this->pluginStackCount > 0) {
+				$this->popState();
+				$this->pluginStackCount--;
+				array_pop($this->pluginStack);
+				return 'PLUGIN_END';
             }
 		*/
 
@@ -958,6 +945,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 		    return 'CONTENT';
 		*/
 	%}
+"≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};
 "≤REAL_LT≥"(.|\n)*?"≤REAL_GT≥"    	        return 'HTML_TAG';
 ("§"[a-z0-9]{32}"§")                        return 'CONTENT';
 ("≤"(.)+"≥")                                return 'CONTENT';
@@ -995,7 +983,6 @@ wiki
 		    return $1 + $2;
 
 		/*php
-		    $1->text == $1->text . ($2->text == "\n" ? $this->line($2->text) : $2->text);
 		    return $1;
         */
 	}
@@ -1005,7 +992,7 @@ wiki
             return $1;
 
         /*php
-            return ($1->text == "\n" ? $this->line($1->text) : $1->text);
+            return $1;
         */
     }
  ;
@@ -1021,13 +1008,13 @@ lines
             $$ = $1->text;
         */
     }
- | line lines
+ | lines line
     {
         //js
             $$ = $1 + $2;
 
         /*php
-            $$ = $1->text . $2->text;
+            $$ = $1->text->addSibling($2->text);
         */
     }
  ;
@@ -1057,18 +1044,10 @@ line
             $$ = parser.block($1 + $2);
 
         /*php
-            $$ = $this->block($1->text . $2->text);
+            $$ = $this->block($1->text->addSibling($2->text));
         */
     }
- | BLOCK_START contents EOF
-    {
-        //js
-            $$ = parser.block($1 + $2);
-
-        /*php
-            $$ = $this->block($1->text . $2->text);
-        */
-    }
+ | BLOCK_START
  ;
 
 contents
@@ -1087,7 +1066,9 @@ contents
 		    $$ = $1 + $2;
 
 		/*php
-		    $$ = $1->text . $2->text;
+			if (isset($2->text)) {
+		        $$ = $1->text->addSibling($2->text);
+		    }
         */
 	}
  ;
@@ -1099,7 +1080,7 @@ content
 	        $$ = $1;
 
 	    /*php
-	        $$ = $1->text;
+	        $$ = $this->content($1->text);
 	    */
 	}
  | COMMENT
@@ -1111,16 +1092,8 @@ content
             $$ = $this->comment($1->text);
         */
     }
+ | NO_PARSE_START
  | NO_PARSE_START NO_PARSE_END
- | NO_PARSE_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | NO_PARSE_START contents NO_PARSE_END
     {
         //js
@@ -1130,17 +1103,9 @@ content
             $$ = $this->noParse($2->text);
         */
     }
- | PRE_FORMATTED_TEXT_START PRE_FORMATTED_TEXT_END
- | PRE_FORMATTED_TEXT_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
- | PRE_FORMATTED_TEXT_START contents PRE_FORMATTED_TEXT_END
+ | PREFORMATTED_TEXT_START
+ | PREFORMATTED_TEXT_START PREFORMATTED_TEXT_END
+ | PREFORMATTED_TEXT_START contents PREFORMATTED_TEXT_END
     {
         //js
             $$ = parser.preFormattedText($2);
@@ -1194,16 +1159,8 @@ content
 		    $$ = $this->hr();
         */
 	}
+ | BOLD_START
  | BOLD_START BOLD_END
- | BOLD_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | BOLD_START contents BOLD_END
 	{
 		//js
@@ -1213,16 +1170,8 @@ content
 		    $$ = $this->bold($2->text);
         */
 	}
+ | BOX_START
  | BOX_START BOX_END
- | BOX_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | BOX_START contents BOX_END
 	{
 		//js
@@ -1232,16 +1181,8 @@ content
 		    $$ = $this->box($2->text);
         */
 	}
+ | CENTER_START
  | CENTER_START CENTER_END
- | CENTER_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | CENTER_START contents CENTER_END
 	{
 		//js
@@ -1251,16 +1192,8 @@ content
 		    $$ = $this->center($2->text);
         */
 	}
+ | CODE_START
  | CODE_START CODE_END
- | CODE_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | CODE_START contents CODE_END
 	{
 		//js
@@ -1270,16 +1203,8 @@ content
 		    $$ = $this->code($2->text);
         */
 	}
+ | COLOR_START
  | COLOR_START COLOR_END
- | COLOR_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | COLOR_START contents COLOR_END
 	{
 		//js
@@ -1289,16 +1214,8 @@ content
 		    $$ = $this->color($2->text);
         */
 	}
+ | ITALIC_START
  | ITALIC_START ITALIC_END
- | ITALIC_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | ITALIC_START contents ITALIC_END
 	{
 		//js
@@ -1308,16 +1225,8 @@ content
 		    $$ = $this->italic($2->text);
         */
 	}
+ | UNLINK_START
  | UNLINK_START UNLINK_END
- | UNLINK_START contents
-    {
-        //js
-            $$ = parser.unlink($1 + $2);
-
-        /*php
-            $$ = $this->unlink($1->text . $2->text);
-        */
-    }
  | UNLINK_START contents UNLINK_END
 	{
 		//js
@@ -1327,16 +1236,8 @@ content
 		    $$ = $this->unlink($1->text . $2->text . $3->text);
         */
 	}
+ | LINK_START
  | LINK_START LINK_END
- | LINK_START contents
-    {
-        //js
-            $$ = '[' + $2;
-
-        /*php
-            $$ = '[' . $2->text;
-        */
-    }
  | LINK_START contents LINK_END
 	{
 		//js
@@ -1346,16 +1247,8 @@ content
 		    $$ = $this->link($1->text, $2->text);
         */
 	}
+ | STRIKE_START
  | STRIKE_START STRIKE_END
- | STRIKE_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | STRIKE_START contents STRIKE_END
 	{
 		//js
@@ -1374,16 +1267,8 @@ content
             $$ = $this->doubleDash();
         */
     }
+ | TABLE_START
  | TABLE_START TABLE_END
- | TABLE_START contents
-    {
-        //js
-            $$ = parser.tableParser($1 + $2, true);
-
-        /*php
-            $$ = $this->tableParser($1->text . $2->text, true);
-        */
-    }
  | TABLE_START contents TABLE_END
 	{
 		//js
@@ -1393,16 +1278,8 @@ content
 		    $$ = $this->tableParser($2->text);
         */
 	}
+ | TITLE_BAR_START
  | TITLE_BAR_START TITLE_BAR_END
- | TITLE_BAR_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | TITLE_BAR_START contents TITLE_BAR_END
 	{
 		//js
@@ -1412,16 +1289,8 @@ content
 		    $$ = $this->titleBar($2->text);
         */
 	}
+ | UNDERSCORE_START
  | UNDERSCORE_START UNDERSCORE_END
- | UNDERSCORE_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
  | UNDERSCORE_START contents UNDERSCORE_END
 	{
 		//js
@@ -1431,16 +1300,8 @@ content
 		    $$ = $this->underscore($2->text);
         */
 	}
+ | WIKI_LINK_START
  | WIKI_LINK_START WIKI_LINK_END
- | WIKI_LINK_START contents
-    {
-        //js
-            $$ = $1['syntax'] + $2;
-
-        /*php
-            $$ = $1->text['syntax'] . $2->text;
-        */
-    }
  | WIKI_LINK_START contents WIKI_LINK_END
 	{
 		//js
@@ -1459,46 +1320,37 @@ content
             $$ = $this->link('word', $1->text);
         */
     }
- | INLINE_PLUGIN
+ | INLINE_PLUGIN_START
+ | INLINE_PLUGIN_START INLINE_PLUGIN_PARAMETERS
  	{
  		//js
- 		    $$ = parser.plugin($1);
+ 		    $$ = parser.plugin($1, $2);
 
  		/*php
- 		    $$ = $this->plugin($1->text);
+ 		    $$ = $this->plugin($1->text, $2->text);
         */
  	}
- | PLUGIN_START PLUGIN_END
+ | PLUGIN_START PLUGIN_PARAMETERS contents PLUGIN_END
+ 	{
+ 	    //js
+ 		    $$ = parser.plugin($1, $2, $3, $4);
+
+ 		/*php
+ 		    $$ = $this->plugin($1->text, $2->text, $3->text, $4->text);
+        */
+ 	}
+ | PLUGIN_START PLUGIN_PARAMETERS PLUGIN_END
   	{
   		//js
   		    $2.body = '';
-            $$ = parser.plugin($2);
+            $$ = parser.plugin($1);
 
         /*php
-            $2['body'] = '';
-            $$ = $this->plugin($2->text);
+            $$ = $this->plugin($1->text, $2->text, '', $3->text);
         */
      }
- | PLUGIN_START contents
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $$ = $1->text . $2->text;
-        */
-    }
- | PLUGIN_START contents PLUGIN_END
- 	{
- 	    //js
- 		    $3.body = $2;
- 		    $$ = parser.plugin($3);
-
- 		/*php
- 		    $3['body'] = $2->text;
- 		    $$ = $this->plugin($3->text);
-        */
- 	}
+ | PLUGIN_START PLUGIN_PARAMETERS
+ | PLUGIN_START
  | LINE_END
     {
         //js

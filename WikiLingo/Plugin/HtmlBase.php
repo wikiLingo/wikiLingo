@@ -282,36 +282,37 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 		return $styles;
 	}
 
-	public function render(WikiLingo_Expression &$expression, WikiLingo_Parameters &$parameters, &$index, WikiLingo &$parser)
+	public function render(&$plugin, &$parser)
 	{
-		$this->paramDefaults($params);
-		$style = $this->stylize($params);
-
-		// strip out sanitisation which may have occurred when using nested plugins
-		$data = $this->output($data, $params, $index, $parser);
+		$this->paramDefaults($plugin->parameters);
+		$style = $this->stylize($plugin->parameters);
 
 		if ($this->hasHtmlBody == true) {
-			$this->htmlAttributes['id'] = $this->id($index);
-			$this->htmlAttributes['class'] .= (empty($this->htmlAttributes['class']) ? '' : ' ' ) . 'wikiplugin_' . $this->type;
+			$this->htmlAttributes['id'] = $this->id($plugin->index);
+			$this->htmlAttributes['class'] .= (empty($this->htmlAttributes['class']) ? '' : ' ' ) . 'wikiLingoPlugin_' . $this->type;
 			$this->htmlAttributes['style'] .= $style;
 
 			$output = '<' . $this->htmlTagType;
 		}
 
 		foreach ($this->htmlAttributes as $attribute => $value) {
-			$output .= ' ' . $attribute . '="' . addslashes($value) . '"';
+			if (!empty($value)) {
+				$output .= ' ' . $attribute . '="' . addslashes($value) . '"';
+			}
 		}
 
 		if ($this->hasHtmlBody == true) {
-			$output .=  '>' . $data . (isset($this->button) ? $this->button : '') . '</' . $this->htmlTagType . '>';
+			$output .=  '>' . $plugin->body->render($parser) . (isset($this->button) ? $this->button : '') . '</' . $this->htmlTagType . '>';
 		} else {
 			$output .= ' />';
 		}
 
-		if ($this->np == true) {
+		//TODO: Handle np more dynamically
+		/*if ($this->np == true) {
 			return '~np~'.$output.'~/np~';
 		} else {
 			return $output;
-		}
+		}*/
+		return $output;
 	}
 }

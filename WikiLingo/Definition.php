@@ -24,8 +24,8 @@ class WikiLingo_Definition extends Jison_Base
 			$symbol12 = new Jison_ParserSymbol("COMMENT", 12);
 			$symbol13 = new Jison_ParserSymbol("NO_PARSE_START", 13);
 			$symbol14 = new Jison_ParserSymbol("NO_PARSE_END", 14);
-			$symbol15 = new Jison_ParserSymbol("PRE_FORMATTED_TEXT_START", 15);
-			$symbol16 = new Jison_ParserSymbol("PRE_FORMATTED_TEXT_END", 16);
+			$symbol15 = new Jison_ParserSymbol("PREFORMATTED_TEXT_START", 15);
+			$symbol16 = new Jison_ParserSymbol("PREFORMATTED_TEXT_END", 16);
 			$symbol17 = new Jison_ParserSymbol("DOUBLE_DYNAMIC_VAR", 17);
 			$symbol18 = new Jison_ParserSymbol("SINGLE_DYNAMIC_VAR", 18);
 			$symbol19 = new Jison_ParserSymbol("ARGUMENT_VAR", 19);
@@ -59,12 +59,14 @@ class WikiLingo_Definition extends Jison_Base
 			$symbol47 = new Jison_ParserSymbol("WIKI_LINK_START", 47);
 			$symbol48 = new Jison_ParserSymbol("WIKI_LINK_END", 48);
 			$symbol49 = new Jison_ParserSymbol("WIKI_LINK", 49);
-			$symbol50 = new Jison_ParserSymbol("INLINE_PLUGIN", 50);
-			$symbol51 = new Jison_ParserSymbol("PLUGIN_START", 51);
-			$symbol52 = new Jison_ParserSymbol("PLUGIN_END", 52);
-			$symbol53 = new Jison_ParserSymbol("LINE_END", 53);
-			$symbol54 = new Jison_ParserSymbol("FORCED_LINE_END", 54);
-			$symbol55 = new Jison_ParserSymbol("CHAR", 55);
+			$symbol50 = new Jison_ParserSymbol("INLINE_PLUGIN_START", 50);
+			$symbol51 = new Jison_ParserSymbol("INLINE_PLUGIN_PARAMETERS", 51);
+			$symbol52 = new Jison_ParserSymbol("PLUGIN_START", 52);
+			$symbol53 = new Jison_ParserSymbol("PLUGIN_PARAMETERS", 53);
+			$symbol54 = new Jison_ParserSymbol("PLUGIN_END", 54);
+			$symbol55 = new Jison_ParserSymbol("LINE_END", 55);
+			$symbol56 = new Jison_ParserSymbol("FORCED_LINE_END", 56);
+			$symbol57 = new Jison_ParserSymbol("CHAR", 57);
 			$this->symbols[0] = $symbol0;
 			$this->symbols["accept"] = $symbol0;
 			$this->symbols[1] = $symbol1;
@@ -96,9 +98,9 @@ class WikiLingo_Definition extends Jison_Base
 			$this->symbols[14] = $symbol14;
 			$this->symbols["NO_PARSE_END"] = $symbol14;
 			$this->symbols[15] = $symbol15;
-			$this->symbols["PRE_FORMATTED_TEXT_START"] = $symbol15;
+			$this->symbols["PREFORMATTED_TEXT_START"] = $symbol15;
 			$this->symbols[16] = $symbol16;
-			$this->symbols["PRE_FORMATTED_TEXT_END"] = $symbol16;
+			$this->symbols["PREFORMATTED_TEXT_END"] = $symbol16;
 			$this->symbols[17] = $symbol17;
 			$this->symbols["DOUBLE_DYNAMIC_VAR"] = $symbol17;
 			$this->symbols[18] = $symbol18;
@@ -166,17 +168,21 @@ class WikiLingo_Definition extends Jison_Base
 			$this->symbols[49] = $symbol49;
 			$this->symbols["WIKI_LINK"] = $symbol49;
 			$this->symbols[50] = $symbol50;
-			$this->symbols["INLINE_PLUGIN"] = $symbol50;
+			$this->symbols["INLINE_PLUGIN_START"] = $symbol50;
 			$this->symbols[51] = $symbol51;
-			$this->symbols["PLUGIN_START"] = $symbol51;
+			$this->symbols["INLINE_PLUGIN_PARAMETERS"] = $symbol51;
 			$this->symbols[52] = $symbol52;
-			$this->symbols["PLUGIN_END"] = $symbol52;
+			$this->symbols["PLUGIN_START"] = $symbol52;
 			$this->symbols[53] = $symbol53;
-			$this->symbols["LINE_END"] = $symbol53;
+			$this->symbols["PLUGIN_PARAMETERS"] = $symbol53;
 			$this->symbols[54] = $symbol54;
-			$this->symbols["FORCED_LINE_END"] = $symbol54;
+			$this->symbols["PLUGIN_END"] = $symbol54;
 			$this->symbols[55] = $symbol55;
-			$this->symbols["CHAR"] = $symbol55;
+			$this->symbols["LINE_END"] = $symbol55;
+			$this->symbols[56] = $symbol56;
+			$this->symbols["FORCED_LINE_END"] = $symbol56;
+			$this->symbols[57] = $symbol57;
+			$this->symbols["CHAR"] = $symbol57;
 
 			$this->terminals = array(
 					2=>&$symbol2,
@@ -227,7 +233,9 @@ class WikiLingo_Definition extends Jison_Base
 					52=>&$symbol52,
 					53=>&$symbol53,
 					54=>&$symbol54,
-					55=>&$symbol55
+					55=>&$symbol55,
+					56=>&$symbol56,
+					57=>&$symbol57
 				);
 
 			$table0 = new Jison_ParserState(0);
@@ -322,6 +330,7 @@ class WikiLingo_Definition extends Jison_Base
 			$table89 = new Jison_ParserState(89);
 			$table90 = new Jison_ParserState(90);
 			$table91 = new Jison_ParserState(91);
+			$table92 = new Jison_ParserState(92);
 
 			$tableDefinition0 = array(
 				
@@ -357,10 +366,10 @@ class WikiLingo_Definition extends Jison_Base
 					47=>new Jison_ParserAction($this->shift, $table30),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition1 = array(
@@ -371,20 +380,8 @@ class WikiLingo_Definition extends Jison_Base
 			$tableDefinition2 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table1),
-					5=>new Jison_ParserAction($this->shift, $table37)
-				);
-
-			$tableDefinition3 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table3)
-				);
-
-			$tableDefinition4 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table4),
-					4=>new Jison_ParserAction($this->none, $table38),
-					5=>new Jison_ParserAction($this->reduce, $table4),
-					6=>new Jison_ParserAction($this->none, $table4),
+					5=>new Jison_ParserAction($this->shift, $table37),
+					6=>new Jison_ParserAction($this->none, $table38),
 					7=>new Jison_ParserAction($this->none, $table5),
 					8=>new Jison_ParserAction($this->shift, $table6),
 					10=>new Jison_ParserAction($this->none, $table7),
@@ -413,10 +410,51 @@ class WikiLingo_Definition extends Jison_Base
 					47=>new Jison_ParserAction($this->shift, $table30),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
+				);
+
+			$tableDefinition3 = array(
+				
+					1=>new Jison_ParserAction($this->reduce, $table3)
+				);
+
+			$tableDefinition4 = array(
+				
+					1=>new Jison_ParserAction($this->reduce, $table4),
+					5=>new Jison_ParserAction($this->reduce, $table4),
+					8=>new Jison_ParserAction($this->reduce, $table4),
+					11=>new Jison_ParserAction($this->reduce, $table4),
+					12=>new Jison_ParserAction($this->reduce, $table4),
+					13=>new Jison_ParserAction($this->reduce, $table4),
+					15=>new Jison_ParserAction($this->reduce, $table4),
+					17=>new Jison_ParserAction($this->reduce, $table4),
+					18=>new Jison_ParserAction($this->reduce, $table4),
+					19=>new Jison_ParserAction($this->reduce, $table4),
+					20=>new Jison_ParserAction($this->reduce, $table4),
+					21=>new Jison_ParserAction($this->reduce, $table4),
+					22=>new Jison_ParserAction($this->reduce, $table4),
+					24=>new Jison_ParserAction($this->reduce, $table4),
+					26=>new Jison_ParserAction($this->reduce, $table4),
+					28=>new Jison_ParserAction($this->reduce, $table4),
+					30=>new Jison_ParserAction($this->reduce, $table4),
+					32=>new Jison_ParserAction($this->reduce, $table4),
+					34=>new Jison_ParserAction($this->reduce, $table4),
+					36=>new Jison_ParserAction($this->reduce, $table4),
+					38=>new Jison_ParserAction($this->reduce, $table4),
+					40=>new Jison_ParserAction($this->reduce, $table4),
+					41=>new Jison_ParserAction($this->reduce, $table4),
+					43=>new Jison_ParserAction($this->reduce, $table4),
+					45=>new Jison_ParserAction($this->reduce, $table4),
+					47=>new Jison_ParserAction($this->reduce, $table4),
+					49=>new Jison_ParserAction($this->reduce, $table4),
+					50=>new Jison_ParserAction($this->reduce, $table4),
+					52=>new Jison_ParserAction($this->reduce, $table4),
+					55=>new Jison_ParserAction($this->reduce, $table4),
+					56=>new Jison_ParserAction($this->reduce, $table4),
+					57=>new Jison_ParserAction($this->reduce, $table4)
 				);
 
 			$tableDefinition5 = array(
@@ -450,15 +488,18 @@ class WikiLingo_Definition extends Jison_Base
 					47=>new Jison_ParserAction($this->shift, $table30),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition6 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table9),
+					5=>new Jison_ParserAction($this->reduce, $table9),
 					7=>new Jison_ParserAction($this->none, $table41),
+					8=>new Jison_ParserAction($this->reduce, $table9),
 					9=>new Jison_ParserAction($this->shift, $table40),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
@@ -486,10 +527,10 @@ class WikiLingo_Definition extends Jison_Base
 					47=>new Jison_ParserAction($this->shift, $table30),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition7 = array(
@@ -538,11 +579,11 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table10),
 					49=>new Jison_ParserAction($this->reduce, $table10),
 					50=>new Jison_ParserAction($this->reduce, $table10),
-					51=>new Jison_ParserAction($this->reduce, $table10),
 					52=>new Jison_ParserAction($this->reduce, $table10),
-					53=>new Jison_ParserAction($this->reduce, $table10),
 					54=>new Jison_ParserAction($this->reduce, $table10),
-					55=>new Jison_ParserAction($this->reduce, $table10)
+					55=>new Jison_ParserAction($this->reduce, $table10),
+					56=>new Jison_ParserAction($this->reduce, $table10),
+					57=>new Jison_ParserAction($this->reduce, $table10)
 				);
 
 			$tableDefinition8 = array(
@@ -591,11 +632,11 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table12),
 					49=>new Jison_ParserAction($this->reduce, $table12),
 					50=>new Jison_ParserAction($this->reduce, $table12),
-					51=>new Jison_ParserAction($this->reduce, $table12),
 					52=>new Jison_ParserAction($this->reduce, $table12),
-					53=>new Jison_ParserAction($this->reduce, $table12),
 					54=>new Jison_ParserAction($this->reduce, $table12),
-					55=>new Jison_ParserAction($this->reduce, $table12)
+					55=>new Jison_ParserAction($this->reduce, $table12),
+					56=>new Jison_ParserAction($this->reduce, $table12),
+					57=>new Jison_ParserAction($this->reduce, $table12)
 				);
 
 			$tableDefinition9 = array(
@@ -644,56 +685,80 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table13),
 					49=>new Jison_ParserAction($this->reduce, $table13),
 					50=>new Jison_ParserAction($this->reduce, $table13),
-					51=>new Jison_ParserAction($this->reduce, $table13),
 					52=>new Jison_ParserAction($this->reduce, $table13),
-					53=>new Jison_ParserAction($this->reduce, $table13),
 					54=>new Jison_ParserAction($this->reduce, $table13),
-					55=>new Jison_ParserAction($this->reduce, $table13)
+					55=>new Jison_ParserAction($this->reduce, $table13),
+					56=>new Jison_ParserAction($this->reduce, $table13),
+					57=>new Jison_ParserAction($this->reduce, $table13)
 				);
 
 			$tableDefinition10 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table14),
+					5=>new Jison_ParserAction($this->reduce, $table14),
 					7=>new Jison_ParserAction($this->none, $table43),
+					8=>new Jison_ParserAction($this->reduce, $table14),
+					9=>new Jison_ParserAction($this->reduce, $table14),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
 					14=>new Jison_ParserAction($this->shift, $table42),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table14),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table14),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table14),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table14),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table14),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table14),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table14),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table14),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table14),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table14),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table14),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table14),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table14),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table14),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table14),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition11 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table17),
+					5=>new Jison_ParserAction($this->reduce, $table17),
 					7=>new Jison_ParserAction($this->none, $table45),
+					8=>new Jison_ParserAction($this->reduce, $table17),
+					9=>new Jison_ParserAction($this->reduce, $table17),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table17),
 					15=>new Jison_ParserAction($this->shift, $table11),
 					16=>new Jison_ParserAction($this->shift, $table44),
 					17=>new Jison_ParserAction($this->shift, $table12),
@@ -702,25 +767,39 @@ class WikiLingo_Definition extends Jison_Base
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table17),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table17),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table17),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table17),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table17),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table17),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table17),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table17),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table17),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table17),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table17),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table17),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table17),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table17),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition12 = array(
@@ -769,11 +848,11 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table20),
 					49=>new Jison_ParserAction($this->reduce, $table20),
 					50=>new Jison_ParserAction($this->reduce, $table20),
-					51=>new Jison_ParserAction($this->reduce, $table20),
 					52=>new Jison_ParserAction($this->reduce, $table20),
-					53=>new Jison_ParserAction($this->reduce, $table20),
 					54=>new Jison_ParserAction($this->reduce, $table20),
-					55=>new Jison_ParserAction($this->reduce, $table20)
+					55=>new Jison_ParserAction($this->reduce, $table20),
+					56=>new Jison_ParserAction($this->reduce, $table20),
+					57=>new Jison_ParserAction($this->reduce, $table20)
 				);
 
 			$tableDefinition13 = array(
@@ -822,11 +901,11 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table21),
 					49=>new Jison_ParserAction($this->reduce, $table21),
 					50=>new Jison_ParserAction($this->reduce, $table21),
-					51=>new Jison_ParserAction($this->reduce, $table21),
 					52=>new Jison_ParserAction($this->reduce, $table21),
-					53=>new Jison_ParserAction($this->reduce, $table21),
 					54=>new Jison_ParserAction($this->reduce, $table21),
-					55=>new Jison_ParserAction($this->reduce, $table21)
+					55=>new Jison_ParserAction($this->reduce, $table21),
+					56=>new Jison_ParserAction($this->reduce, $table21),
+					57=>new Jison_ParserAction($this->reduce, $table21)
 				);
 
 			$tableDefinition14 = array(
@@ -875,11 +954,11 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table22),
 					49=>new Jison_ParserAction($this->reduce, $table22),
 					50=>new Jison_ParserAction($this->reduce, $table22),
-					51=>new Jison_ParserAction($this->reduce, $table22),
 					52=>new Jison_ParserAction($this->reduce, $table22),
-					53=>new Jison_ParserAction($this->reduce, $table22),
 					54=>new Jison_ParserAction($this->reduce, $table22),
-					55=>new Jison_ParserAction($this->reduce, $table22)
+					55=>new Jison_ParserAction($this->reduce, $table22),
+					56=>new Jison_ParserAction($this->reduce, $table22),
+					57=>new Jison_ParserAction($this->reduce, $table22)
 				);
 
 			$tableDefinition15 = array(
@@ -928,11 +1007,11 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table23),
 					49=>new Jison_ParserAction($this->reduce, $table23),
 					50=>new Jison_ParserAction($this->reduce, $table23),
-					51=>new Jison_ParserAction($this->reduce, $table23),
 					52=>new Jison_ParserAction($this->reduce, $table23),
-					53=>new Jison_ParserAction($this->reduce, $table23),
 					54=>new Jison_ParserAction($this->reduce, $table23),
-					55=>new Jison_ParserAction($this->reduce, $table23)
+					55=>new Jison_ParserAction($this->reduce, $table23),
+					56=>new Jison_ParserAction($this->reduce, $table23),
+					57=>new Jison_ParserAction($this->reduce, $table23)
 				);
 
 			$tableDefinition16 = array(
@@ -981,21 +1060,27 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table24),
 					49=>new Jison_ParserAction($this->reduce, $table24),
 					50=>new Jison_ParserAction($this->reduce, $table24),
-					51=>new Jison_ParserAction($this->reduce, $table24),
 					52=>new Jison_ParserAction($this->reduce, $table24),
-					53=>new Jison_ParserAction($this->reduce, $table24),
 					54=>new Jison_ParserAction($this->reduce, $table24),
-					55=>new Jison_ParserAction($this->reduce, $table24)
+					55=>new Jison_ParserAction($this->reduce, $table24),
+					56=>new Jison_ParserAction($this->reduce, $table24),
+					57=>new Jison_ParserAction($this->reduce, $table24)
 				);
 
 			$tableDefinition17 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table25),
+					5=>new Jison_ParserAction($this->reduce, $table25),
 					7=>new Jison_ParserAction($this->none, $table47),
+					8=>new Jison_ParserAction($this->reduce, $table25),
+					9=>new Jison_ParserAction($this->reduce, $table25),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table25),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table25),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
@@ -1004,312 +1089,477 @@ class WikiLingo_Definition extends Jison_Base
 					22=>new Jison_ParserAction($this->shift, $table17),
 					23=>new Jison_ParserAction($this->shift, $table46),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table25),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table25),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table25),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table25),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table25),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table25),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table25),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table25),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table25),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table25),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table25),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table25),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table25),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition18 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table28),
+					5=>new Jison_ParserAction($this->reduce, $table28),
 					7=>new Jison_ParserAction($this->none, $table49),
+					8=>new Jison_ParserAction($this->reduce, $table28),
+					9=>new Jison_ParserAction($this->reduce, $table28),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table28),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table28),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table28),
 					24=>new Jison_ParserAction($this->shift, $table18),
 					25=>new Jison_ParserAction($this->shift, $table48),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table28),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table28),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table28),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table28),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table28),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table28),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table28),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table28),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table28),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table28),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table28),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table28),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition19 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table31),
+					5=>new Jison_ParserAction($this->reduce, $table31),
 					7=>new Jison_ParserAction($this->none, $table51),
+					8=>new Jison_ParserAction($this->reduce, $table31),
+					9=>new Jison_ParserAction($this->reduce, $table31),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table31),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table31),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table31),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table31),
 					26=>new Jison_ParserAction($this->shift, $table19),
 					27=>new Jison_ParserAction($this->shift, $table50),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table31),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table31),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table31),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table31),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table31),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table31),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table31),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table31),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table31),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table31),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table31),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition20 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table34),
+					5=>new Jison_ParserAction($this->reduce, $table34),
 					7=>new Jison_ParserAction($this->none, $table53),
+					8=>new Jison_ParserAction($this->reduce, $table34),
+					9=>new Jison_ParserAction($this->reduce, $table34),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table34),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table34),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table34),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table34),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table34),
 					28=>new Jison_ParserAction($this->shift, $table20),
 					29=>new Jison_ParserAction($this->shift, $table52),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table34),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table34),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table34),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table34),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table34),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table34),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table34),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table34),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table34),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table34),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition21 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table37),
+					5=>new Jison_ParserAction($this->reduce, $table37),
 					7=>new Jison_ParserAction($this->none, $table55),
+					8=>new Jison_ParserAction($this->reduce, $table37),
+					9=>new Jison_ParserAction($this->reduce, $table37),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table37),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table37),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table37),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table37),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table37),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table37),
 					30=>new Jison_ParserAction($this->shift, $table21),
 					31=>new Jison_ParserAction($this->shift, $table54),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table37),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table37),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table37),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table37),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table37),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table37),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table37),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table37),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table37),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition22 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table40),
+					5=>new Jison_ParserAction($this->reduce, $table40),
 					7=>new Jison_ParserAction($this->none, $table57),
+					8=>new Jison_ParserAction($this->reduce, $table40),
+					9=>new Jison_ParserAction($this->reduce, $table40),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table40),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table40),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table40),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table40),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table40),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table40),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table40),
 					32=>new Jison_ParserAction($this->shift, $table22),
 					33=>new Jison_ParserAction($this->shift, $table56),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table40),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table40),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table40),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table40),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table40),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table40),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table40),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table40),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition23 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table43),
+					5=>new Jison_ParserAction($this->reduce, $table43),
 					7=>new Jison_ParserAction($this->none, $table59),
+					8=>new Jison_ParserAction($this->reduce, $table43),
+					9=>new Jison_ParserAction($this->reduce, $table43),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table43),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table43),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table43),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table43),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table43),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table43),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table43),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table43),
 					34=>new Jison_ParserAction($this->shift, $table23),
 					35=>new Jison_ParserAction($this->shift, $table58),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table43),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table43),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table43),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table43),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table43),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table43),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table43),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition24 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table46),
+					5=>new Jison_ParserAction($this->reduce, $table46),
 					7=>new Jison_ParserAction($this->none, $table61),
+					8=>new Jison_ParserAction($this->reduce, $table46),
+					9=>new Jison_ParserAction($this->reduce, $table46),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table46),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table46),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table46),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table46),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table46),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table46),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table46),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table46),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table46),
 					36=>new Jison_ParserAction($this->shift, $table24),
 					37=>new Jison_ParserAction($this->shift, $table60),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table46),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table46),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table46),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table46),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table46),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table46),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition25 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table49),
+					5=>new Jison_ParserAction($this->reduce, $table49),
 					7=>new Jison_ParserAction($this->none, $table63),
+					8=>new Jison_ParserAction($this->reduce, $table49),
+					9=>new Jison_ParserAction($this->reduce, $table49),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table49),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table49),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table49),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table49),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table49),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table49),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table49),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table49),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table49),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table49),
 					38=>new Jison_ParserAction($this->shift, $table25),
 					39=>new Jison_ParserAction($this->shift, $table62),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table49),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table49),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table49),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table49),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table49),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition26 = array(
@@ -1358,155 +1608,231 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table52),
 					49=>new Jison_ParserAction($this->reduce, $table52),
 					50=>new Jison_ParserAction($this->reduce, $table52),
-					51=>new Jison_ParserAction($this->reduce, $table52),
 					52=>new Jison_ParserAction($this->reduce, $table52),
-					53=>new Jison_ParserAction($this->reduce, $table52),
 					54=>new Jison_ParserAction($this->reduce, $table52),
-					55=>new Jison_ParserAction($this->reduce, $table52)
+					55=>new Jison_ParserAction($this->reduce, $table52),
+					56=>new Jison_ParserAction($this->reduce, $table52),
+					57=>new Jison_ParserAction($this->reduce, $table52)
 				);
 
 			$tableDefinition27 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table53),
+					5=>new Jison_ParserAction($this->reduce, $table53),
 					7=>new Jison_ParserAction($this->none, $table65),
+					8=>new Jison_ParserAction($this->reduce, $table53),
+					9=>new Jison_ParserAction($this->reduce, $table53),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table53),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table53),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table53),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table53),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table53),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table53),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table53),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table53),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table53),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table53),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table53),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
 					42=>new Jison_ParserAction($this->shift, $table64),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table53),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table53),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table53),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table53),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition28 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table56),
+					5=>new Jison_ParserAction($this->reduce, $table56),
 					7=>new Jison_ParserAction($this->none, $table67),
+					8=>new Jison_ParserAction($this->reduce, $table56),
+					9=>new Jison_ParserAction($this->reduce, $table56),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table56),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table56),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table56),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table56),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table56),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table56),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table56),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table56),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table56),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table56),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table56),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table56),
 					43=>new Jison_ParserAction($this->shift, $table28),
 					44=>new Jison_ParserAction($this->shift, $table66),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table56),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table56),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table56),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition29 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table59),
+					5=>new Jison_ParserAction($this->reduce, $table59),
 					7=>new Jison_ParserAction($this->none, $table69),
+					8=>new Jison_ParserAction($this->reduce, $table59),
+					9=>new Jison_ParserAction($this->reduce, $table59),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table59),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table59),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table59),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table59),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table59),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table59),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table59),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table59),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table59),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table59),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table59),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table59),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table59),
 					45=>new Jison_ParserAction($this->shift, $table29),
 					46=>new Jison_ParserAction($this->shift, $table68),
 					47=>new Jison_ParserAction($this->shift, $table30),
+					48=>new Jison_ParserAction($this->reduce, $table59),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table59),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition30 = array(
 				
+					1=>new Jison_ParserAction($this->reduce, $table62),
+					5=>new Jison_ParserAction($this->reduce, $table62),
 					7=>new Jison_ParserAction($this->none, $table71),
+					8=>new Jison_ParserAction($this->reduce, $table62),
+					9=>new Jison_ParserAction($this->reduce, $table62),
 					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
+					14=>new Jison_ParserAction($this->reduce, $table62),
 					15=>new Jison_ParserAction($this->shift, $table11),
+					16=>new Jison_ParserAction($this->reduce, $table62),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
+					23=>new Jison_ParserAction($this->reduce, $table62),
 					24=>new Jison_ParserAction($this->shift, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table62),
 					26=>new Jison_ParserAction($this->shift, $table19),
+					27=>new Jison_ParserAction($this->reduce, $table62),
 					28=>new Jison_ParserAction($this->shift, $table20),
+					29=>new Jison_ParserAction($this->reduce, $table62),
 					30=>new Jison_ParserAction($this->shift, $table21),
+					31=>new Jison_ParserAction($this->reduce, $table62),
 					32=>new Jison_ParserAction($this->shift, $table22),
+					33=>new Jison_ParserAction($this->reduce, $table62),
 					34=>new Jison_ParserAction($this->shift, $table23),
+					35=>new Jison_ParserAction($this->reduce, $table62),
 					36=>new Jison_ParserAction($this->shift, $table24),
+					37=>new Jison_ParserAction($this->reduce, $table62),
 					38=>new Jison_ParserAction($this->shift, $table25),
+					39=>new Jison_ParserAction($this->reduce, $table62),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
+					42=>new Jison_ParserAction($this->reduce, $table62),
 					43=>new Jison_ParserAction($this->shift, $table28),
+					44=>new Jison_ParserAction($this->reduce, $table62),
 					45=>new Jison_ParserAction($this->shift, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table62),
 					47=>new Jison_ParserAction($this->shift, $table30),
 					48=>new Jison_ParserAction($this->shift, $table70),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->reduce, $table62),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition31 = array(
@@ -1555,11 +1881,11 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table65),
 					49=>new Jison_ParserAction($this->reduce, $table65),
 					50=>new Jison_ParserAction($this->reduce, $table65),
-					51=>new Jison_ParserAction($this->reduce, $table65),
 					52=>new Jison_ParserAction($this->reduce, $table65),
-					53=>new Jison_ParserAction($this->reduce, $table65),
 					54=>new Jison_ParserAction($this->reduce, $table65),
-					55=>new Jison_ParserAction($this->reduce, $table65)
+					55=>new Jison_ParserAction($this->reduce, $table65),
+					56=>new Jison_ParserAction($this->reduce, $table65),
+					57=>new Jison_ParserAction($this->reduce, $table65)
 				);
 
 			$tableDefinition32 = array(
@@ -1608,103 +1934,15 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table66),
 					49=>new Jison_ParserAction($this->reduce, $table66),
 					50=>new Jison_ParserAction($this->reduce, $table66),
-					51=>new Jison_ParserAction($this->reduce, $table66),
+					51=>new Jison_ParserAction($this->shift, $table72),
 					52=>new Jison_ParserAction($this->reduce, $table66),
-					53=>new Jison_ParserAction($this->reduce, $table66),
 					54=>new Jison_ParserAction($this->reduce, $table66),
-					55=>new Jison_ParserAction($this->reduce, $table66)
+					55=>new Jison_ParserAction($this->reduce, $table66),
+					56=>new Jison_ParserAction($this->reduce, $table66),
+					57=>new Jison_ParserAction($this->reduce, $table66)
 				);
 
 			$tableDefinition33 = array(
-				
-					7=>new Jison_ParserAction($this->none, $table73),
-					10=>new Jison_ParserAction($this->none, $table7),
-					11=>new Jison_ParserAction($this->shift, $table8),
-					12=>new Jison_ParserAction($this->shift, $table9),
-					13=>new Jison_ParserAction($this->shift, $table10),
-					15=>new Jison_ParserAction($this->shift, $table11),
-					17=>new Jison_ParserAction($this->shift, $table12),
-					18=>new Jison_ParserAction($this->shift, $table13),
-					19=>new Jison_ParserAction($this->shift, $table14),
-					20=>new Jison_ParserAction($this->shift, $table15),
-					21=>new Jison_ParserAction($this->shift, $table16),
-					22=>new Jison_ParserAction($this->shift, $table17),
-					24=>new Jison_ParserAction($this->shift, $table18),
-					26=>new Jison_ParserAction($this->shift, $table19),
-					28=>new Jison_ParserAction($this->shift, $table20),
-					30=>new Jison_ParserAction($this->shift, $table21),
-					32=>new Jison_ParserAction($this->shift, $table22),
-					34=>new Jison_ParserAction($this->shift, $table23),
-					36=>new Jison_ParserAction($this->shift, $table24),
-					38=>new Jison_ParserAction($this->shift, $table25),
-					40=>new Jison_ParserAction($this->shift, $table26),
-					41=>new Jison_ParserAction($this->shift, $table27),
-					43=>new Jison_ParserAction($this->shift, $table28),
-					45=>new Jison_ParserAction($this->shift, $table29),
-					47=>new Jison_ParserAction($this->shift, $table30),
-					49=>new Jison_ParserAction($this->shift, $table31),
-					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->shift, $table72),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
-				);
-
-			$tableDefinition34 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table70),
-					5=>new Jison_ParserAction($this->reduce, $table70),
-					8=>new Jison_ParserAction($this->reduce, $table70),
-					9=>new Jison_ParserAction($this->reduce, $table70),
-					11=>new Jison_ParserAction($this->reduce, $table70),
-					12=>new Jison_ParserAction($this->reduce, $table70),
-					13=>new Jison_ParserAction($this->reduce, $table70),
-					14=>new Jison_ParserAction($this->reduce, $table70),
-					15=>new Jison_ParserAction($this->reduce, $table70),
-					16=>new Jison_ParserAction($this->reduce, $table70),
-					17=>new Jison_ParserAction($this->reduce, $table70),
-					18=>new Jison_ParserAction($this->reduce, $table70),
-					19=>new Jison_ParserAction($this->reduce, $table70),
-					20=>new Jison_ParserAction($this->reduce, $table70),
-					21=>new Jison_ParserAction($this->reduce, $table70),
-					22=>new Jison_ParserAction($this->reduce, $table70),
-					23=>new Jison_ParserAction($this->reduce, $table70),
-					24=>new Jison_ParserAction($this->reduce, $table70),
-					25=>new Jison_ParserAction($this->reduce, $table70),
-					26=>new Jison_ParserAction($this->reduce, $table70),
-					27=>new Jison_ParserAction($this->reduce, $table70),
-					28=>new Jison_ParserAction($this->reduce, $table70),
-					29=>new Jison_ParserAction($this->reduce, $table70),
-					30=>new Jison_ParserAction($this->reduce, $table70),
-					31=>new Jison_ParserAction($this->reduce, $table70),
-					32=>new Jison_ParserAction($this->reduce, $table70),
-					33=>new Jison_ParserAction($this->reduce, $table70),
-					34=>new Jison_ParserAction($this->reduce, $table70),
-					35=>new Jison_ParserAction($this->reduce, $table70),
-					36=>new Jison_ParserAction($this->reduce, $table70),
-					37=>new Jison_ParserAction($this->reduce, $table70),
-					38=>new Jison_ParserAction($this->reduce, $table70),
-					39=>new Jison_ParserAction($this->reduce, $table70),
-					40=>new Jison_ParserAction($this->reduce, $table70),
-					41=>new Jison_ParserAction($this->reduce, $table70),
-					42=>new Jison_ParserAction($this->reduce, $table70),
-					43=>new Jison_ParserAction($this->reduce, $table70),
-					44=>new Jison_ParserAction($this->reduce, $table70),
-					45=>new Jison_ParserAction($this->reduce, $table70),
-					46=>new Jison_ParserAction($this->reduce, $table70),
-					47=>new Jison_ParserAction($this->reduce, $table70),
-					48=>new Jison_ParserAction($this->reduce, $table70),
-					49=>new Jison_ParserAction($this->reduce, $table70),
-					50=>new Jison_ParserAction($this->reduce, $table70),
-					51=>new Jison_ParserAction($this->reduce, $table70),
-					52=>new Jison_ParserAction($this->reduce, $table70),
-					53=>new Jison_ParserAction($this->reduce, $table70),
-					54=>new Jison_ParserAction($this->reduce, $table70),
-					55=>new Jison_ParserAction($this->reduce, $table70)
-				);
-
-			$tableDefinition35 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table71),
 					5=>new Jison_ParserAction($this->reduce, $table71),
@@ -1750,14 +1988,15 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table71),
 					49=>new Jison_ParserAction($this->reduce, $table71),
 					50=>new Jison_ParserAction($this->reduce, $table71),
-					51=>new Jison_ParserAction($this->reduce, $table71),
 					52=>new Jison_ParserAction($this->reduce, $table71),
-					53=>new Jison_ParserAction($this->reduce, $table71),
+					53=>new Jison_ParserAction($this->shift, $table73),
 					54=>new Jison_ParserAction($this->reduce, $table71),
-					55=>new Jison_ParserAction($this->reduce, $table71)
+					55=>new Jison_ParserAction($this->reduce, $table71),
+					56=>new Jison_ParserAction($this->reduce, $table71),
+					57=>new Jison_ParserAction($this->reduce, $table71)
 				);
 
-			$tableDefinition36 = array(
+			$tableDefinition34 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table72),
 					5=>new Jison_ParserAction($this->reduce, $table72),
@@ -1803,11 +2042,117 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table72),
 					49=>new Jison_ParserAction($this->reduce, $table72),
 					50=>new Jison_ParserAction($this->reduce, $table72),
-					51=>new Jison_ParserAction($this->reduce, $table72),
 					52=>new Jison_ParserAction($this->reduce, $table72),
-					53=>new Jison_ParserAction($this->reduce, $table72),
 					54=>new Jison_ParserAction($this->reduce, $table72),
-					55=>new Jison_ParserAction($this->reduce, $table72)
+					55=>new Jison_ParserAction($this->reduce, $table72),
+					56=>new Jison_ParserAction($this->reduce, $table72),
+					57=>new Jison_ParserAction($this->reduce, $table72)
+				);
+
+			$tableDefinition35 = array(
+				
+					1=>new Jison_ParserAction($this->reduce, $table73),
+					5=>new Jison_ParserAction($this->reduce, $table73),
+					8=>new Jison_ParserAction($this->reduce, $table73),
+					9=>new Jison_ParserAction($this->reduce, $table73),
+					11=>new Jison_ParserAction($this->reduce, $table73),
+					12=>new Jison_ParserAction($this->reduce, $table73),
+					13=>new Jison_ParserAction($this->reduce, $table73),
+					14=>new Jison_ParserAction($this->reduce, $table73),
+					15=>new Jison_ParserAction($this->reduce, $table73),
+					16=>new Jison_ParserAction($this->reduce, $table73),
+					17=>new Jison_ParserAction($this->reduce, $table73),
+					18=>new Jison_ParserAction($this->reduce, $table73),
+					19=>new Jison_ParserAction($this->reduce, $table73),
+					20=>new Jison_ParserAction($this->reduce, $table73),
+					21=>new Jison_ParserAction($this->reduce, $table73),
+					22=>new Jison_ParserAction($this->reduce, $table73),
+					23=>new Jison_ParserAction($this->reduce, $table73),
+					24=>new Jison_ParserAction($this->reduce, $table73),
+					25=>new Jison_ParserAction($this->reduce, $table73),
+					26=>new Jison_ParserAction($this->reduce, $table73),
+					27=>new Jison_ParserAction($this->reduce, $table73),
+					28=>new Jison_ParserAction($this->reduce, $table73),
+					29=>new Jison_ParserAction($this->reduce, $table73),
+					30=>new Jison_ParserAction($this->reduce, $table73),
+					31=>new Jison_ParserAction($this->reduce, $table73),
+					32=>new Jison_ParserAction($this->reduce, $table73),
+					33=>new Jison_ParserAction($this->reduce, $table73),
+					34=>new Jison_ParserAction($this->reduce, $table73),
+					35=>new Jison_ParserAction($this->reduce, $table73),
+					36=>new Jison_ParserAction($this->reduce, $table73),
+					37=>new Jison_ParserAction($this->reduce, $table73),
+					38=>new Jison_ParserAction($this->reduce, $table73),
+					39=>new Jison_ParserAction($this->reduce, $table73),
+					40=>new Jison_ParserAction($this->reduce, $table73),
+					41=>new Jison_ParserAction($this->reduce, $table73),
+					42=>new Jison_ParserAction($this->reduce, $table73),
+					43=>new Jison_ParserAction($this->reduce, $table73),
+					44=>new Jison_ParserAction($this->reduce, $table73),
+					45=>new Jison_ParserAction($this->reduce, $table73),
+					46=>new Jison_ParserAction($this->reduce, $table73),
+					47=>new Jison_ParserAction($this->reduce, $table73),
+					48=>new Jison_ParserAction($this->reduce, $table73),
+					49=>new Jison_ParserAction($this->reduce, $table73),
+					50=>new Jison_ParserAction($this->reduce, $table73),
+					52=>new Jison_ParserAction($this->reduce, $table73),
+					54=>new Jison_ParserAction($this->reduce, $table73),
+					55=>new Jison_ParserAction($this->reduce, $table73),
+					56=>new Jison_ParserAction($this->reduce, $table73),
+					57=>new Jison_ParserAction($this->reduce, $table73)
+				);
+
+			$tableDefinition36 = array(
+				
+					1=>new Jison_ParserAction($this->reduce, $table74),
+					5=>new Jison_ParserAction($this->reduce, $table74),
+					8=>new Jison_ParserAction($this->reduce, $table74),
+					9=>new Jison_ParserAction($this->reduce, $table74),
+					11=>new Jison_ParserAction($this->reduce, $table74),
+					12=>new Jison_ParserAction($this->reduce, $table74),
+					13=>new Jison_ParserAction($this->reduce, $table74),
+					14=>new Jison_ParserAction($this->reduce, $table74),
+					15=>new Jison_ParserAction($this->reduce, $table74),
+					16=>new Jison_ParserAction($this->reduce, $table74),
+					17=>new Jison_ParserAction($this->reduce, $table74),
+					18=>new Jison_ParserAction($this->reduce, $table74),
+					19=>new Jison_ParserAction($this->reduce, $table74),
+					20=>new Jison_ParserAction($this->reduce, $table74),
+					21=>new Jison_ParserAction($this->reduce, $table74),
+					22=>new Jison_ParserAction($this->reduce, $table74),
+					23=>new Jison_ParserAction($this->reduce, $table74),
+					24=>new Jison_ParserAction($this->reduce, $table74),
+					25=>new Jison_ParserAction($this->reduce, $table74),
+					26=>new Jison_ParserAction($this->reduce, $table74),
+					27=>new Jison_ParserAction($this->reduce, $table74),
+					28=>new Jison_ParserAction($this->reduce, $table74),
+					29=>new Jison_ParserAction($this->reduce, $table74),
+					30=>new Jison_ParserAction($this->reduce, $table74),
+					31=>new Jison_ParserAction($this->reduce, $table74),
+					32=>new Jison_ParserAction($this->reduce, $table74),
+					33=>new Jison_ParserAction($this->reduce, $table74),
+					34=>new Jison_ParserAction($this->reduce, $table74),
+					35=>new Jison_ParserAction($this->reduce, $table74),
+					36=>new Jison_ParserAction($this->reduce, $table74),
+					37=>new Jison_ParserAction($this->reduce, $table74),
+					38=>new Jison_ParserAction($this->reduce, $table74),
+					39=>new Jison_ParserAction($this->reduce, $table74),
+					40=>new Jison_ParserAction($this->reduce, $table74),
+					41=>new Jison_ParserAction($this->reduce, $table74),
+					42=>new Jison_ParserAction($this->reduce, $table74),
+					43=>new Jison_ParserAction($this->reduce, $table74),
+					44=>new Jison_ParserAction($this->reduce, $table74),
+					45=>new Jison_ParserAction($this->reduce, $table74),
+					46=>new Jison_ParserAction($this->reduce, $table74),
+					47=>new Jison_ParserAction($this->reduce, $table74),
+					48=>new Jison_ParserAction($this->reduce, $table74),
+					49=>new Jison_ParserAction($this->reduce, $table74),
+					50=>new Jison_ParserAction($this->reduce, $table74),
+					52=>new Jison_ParserAction($this->reduce, $table74),
+					54=>new Jison_ParserAction($this->reduce, $table74),
+					55=>new Jison_ParserAction($this->reduce, $table74),
+					56=>new Jison_ParserAction($this->reduce, $table74),
+					57=>new Jison_ParserAction($this->reduce, $table74)
 				);
 
 			$tableDefinition37 = array(
@@ -1818,7 +2163,37 @@ class WikiLingo_Definition extends Jison_Base
 			$tableDefinition38 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table5),
-					5=>new Jison_ParserAction($this->reduce, $table5)
+					5=>new Jison_ParserAction($this->reduce, $table5),
+					8=>new Jison_ParserAction($this->reduce, $table5),
+					11=>new Jison_ParserAction($this->reduce, $table5),
+					12=>new Jison_ParserAction($this->reduce, $table5),
+					13=>new Jison_ParserAction($this->reduce, $table5),
+					15=>new Jison_ParserAction($this->reduce, $table5),
+					17=>new Jison_ParserAction($this->reduce, $table5),
+					18=>new Jison_ParserAction($this->reduce, $table5),
+					19=>new Jison_ParserAction($this->reduce, $table5),
+					20=>new Jison_ParserAction($this->reduce, $table5),
+					21=>new Jison_ParserAction($this->reduce, $table5),
+					22=>new Jison_ParserAction($this->reduce, $table5),
+					24=>new Jison_ParserAction($this->reduce, $table5),
+					26=>new Jison_ParserAction($this->reduce, $table5),
+					28=>new Jison_ParserAction($this->reduce, $table5),
+					30=>new Jison_ParserAction($this->reduce, $table5),
+					32=>new Jison_ParserAction($this->reduce, $table5),
+					34=>new Jison_ParserAction($this->reduce, $table5),
+					36=>new Jison_ParserAction($this->reduce, $table5),
+					38=>new Jison_ParserAction($this->reduce, $table5),
+					40=>new Jison_ParserAction($this->reduce, $table5),
+					41=>new Jison_ParserAction($this->reduce, $table5),
+					43=>new Jison_ParserAction($this->reduce, $table5),
+					45=>new Jison_ParserAction($this->reduce, $table5),
+					47=>new Jison_ParserAction($this->reduce, $table5),
+					49=>new Jison_ParserAction($this->reduce, $table5),
+					50=>new Jison_ParserAction($this->reduce, $table5),
+					52=>new Jison_ParserAction($this->reduce, $table5),
+					55=>new Jison_ParserAction($this->reduce, $table5),
+					56=>new Jison_ParserAction($this->reduce, $table5),
+					57=>new Jison_ParserAction($this->reduce, $table5)
 				);
 
 			$tableDefinition39 = array(
@@ -1867,11 +2242,11 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table11),
 					49=>new Jison_ParserAction($this->reduce, $table11),
 					50=>new Jison_ParserAction($this->reduce, $table11),
-					51=>new Jison_ParserAction($this->reduce, $table11),
 					52=>new Jison_ParserAction($this->reduce, $table11),
-					53=>new Jison_ParserAction($this->reduce, $table11),
 					54=>new Jison_ParserAction($this->reduce, $table11),
-					55=>new Jison_ParserAction($this->reduce, $table11)
+					55=>new Jison_ParserAction($this->reduce, $table11),
+					56=>new Jison_ParserAction($this->reduce, $table11),
+					57=>new Jison_ParserAction($this->reduce, $table11)
 				);
 
 			$tableDefinition40 = array(
@@ -1904,15 +2279,14 @@ class WikiLingo_Definition extends Jison_Base
 					47=>new Jison_ParserAction($this->reduce, $table7),
 					49=>new Jison_ParserAction($this->reduce, $table7),
 					50=>new Jison_ParserAction($this->reduce, $table7),
-					51=>new Jison_ParserAction($this->reduce, $table7),
-					53=>new Jison_ParserAction($this->reduce, $table7),
-					54=>new Jison_ParserAction($this->reduce, $table7),
-					55=>new Jison_ParserAction($this->reduce, $table7)
+					52=>new Jison_ParserAction($this->reduce, $table7),
+					55=>new Jison_ParserAction($this->reduce, $table7),
+					56=>new Jison_ParserAction($this->reduce, $table7),
+					57=>new Jison_ParserAction($this->reduce, $table7)
 				);
 
 			$tableDefinition41 = array(
 				
-					5=>new Jison_ParserAction($this->shift, $table75),
 					9=>new Jison_ParserAction($this->shift, $table74),
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
@@ -1940,1615 +2314,1330 @@ class WikiLingo_Definition extends Jison_Base
 					47=>new Jison_ParserAction($this->shift, $table30),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition42 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table14),
-					5=>new Jison_ParserAction($this->reduce, $table14),
-					8=>new Jison_ParserAction($this->reduce, $table14),
-					9=>new Jison_ParserAction($this->reduce, $table14),
-					11=>new Jison_ParserAction($this->reduce, $table14),
-					12=>new Jison_ParserAction($this->reduce, $table14),
-					13=>new Jison_ParserAction($this->reduce, $table14),
-					14=>new Jison_ParserAction($this->reduce, $table14),
-					15=>new Jison_ParserAction($this->reduce, $table14),
-					16=>new Jison_ParserAction($this->reduce, $table14),
-					17=>new Jison_ParserAction($this->reduce, $table14),
-					18=>new Jison_ParserAction($this->reduce, $table14),
-					19=>new Jison_ParserAction($this->reduce, $table14),
-					20=>new Jison_ParserAction($this->reduce, $table14),
-					21=>new Jison_ParserAction($this->reduce, $table14),
-					22=>new Jison_ParserAction($this->reduce, $table14),
-					23=>new Jison_ParserAction($this->reduce, $table14),
-					24=>new Jison_ParserAction($this->reduce, $table14),
-					25=>new Jison_ParserAction($this->reduce, $table14),
-					26=>new Jison_ParserAction($this->reduce, $table14),
-					27=>new Jison_ParserAction($this->reduce, $table14),
-					28=>new Jison_ParserAction($this->reduce, $table14),
-					29=>new Jison_ParserAction($this->reduce, $table14),
-					30=>new Jison_ParserAction($this->reduce, $table14),
-					31=>new Jison_ParserAction($this->reduce, $table14),
-					32=>new Jison_ParserAction($this->reduce, $table14),
-					33=>new Jison_ParserAction($this->reduce, $table14),
-					34=>new Jison_ParserAction($this->reduce, $table14),
-					35=>new Jison_ParserAction($this->reduce, $table14),
-					36=>new Jison_ParserAction($this->reduce, $table14),
-					37=>new Jison_ParserAction($this->reduce, $table14),
-					38=>new Jison_ParserAction($this->reduce, $table14),
-					39=>new Jison_ParserAction($this->reduce, $table14),
-					40=>new Jison_ParserAction($this->reduce, $table14),
-					41=>new Jison_ParserAction($this->reduce, $table14),
-					42=>new Jison_ParserAction($this->reduce, $table14),
-					43=>new Jison_ParserAction($this->reduce, $table14),
-					44=>new Jison_ParserAction($this->reduce, $table14),
-					45=>new Jison_ParserAction($this->reduce, $table14),
-					46=>new Jison_ParserAction($this->reduce, $table14),
-					47=>new Jison_ParserAction($this->reduce, $table14),
-					48=>new Jison_ParserAction($this->reduce, $table14),
-					49=>new Jison_ParserAction($this->reduce, $table14),
-					50=>new Jison_ParserAction($this->reduce, $table14),
-					51=>new Jison_ParserAction($this->reduce, $table14),
-					52=>new Jison_ParserAction($this->reduce, $table14),
-					53=>new Jison_ParserAction($this->reduce, $table14),
-					54=>new Jison_ParserAction($this->reduce, $table14),
-					55=>new Jison_ParserAction($this->reduce, $table14)
-				);
-
-			$tableDefinition43 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table15),
 					5=>new Jison_ParserAction($this->reduce, $table15),
 					8=>new Jison_ParserAction($this->reduce, $table15),
 					9=>new Jison_ParserAction($this->reduce, $table15),
+					11=>new Jison_ParserAction($this->reduce, $table15),
+					12=>new Jison_ParserAction($this->reduce, $table15),
+					13=>new Jison_ParserAction($this->reduce, $table15),
+					14=>new Jison_ParserAction($this->reduce, $table15),
+					15=>new Jison_ParserAction($this->reduce, $table15),
+					16=>new Jison_ParserAction($this->reduce, $table15),
+					17=>new Jison_ParserAction($this->reduce, $table15),
+					18=>new Jison_ParserAction($this->reduce, $table15),
+					19=>new Jison_ParserAction($this->reduce, $table15),
+					20=>new Jison_ParserAction($this->reduce, $table15),
+					21=>new Jison_ParserAction($this->reduce, $table15),
+					22=>new Jison_ParserAction($this->reduce, $table15),
+					23=>new Jison_ParserAction($this->reduce, $table15),
+					24=>new Jison_ParserAction($this->reduce, $table15),
+					25=>new Jison_ParserAction($this->reduce, $table15),
+					26=>new Jison_ParserAction($this->reduce, $table15),
+					27=>new Jison_ParserAction($this->reduce, $table15),
+					28=>new Jison_ParserAction($this->reduce, $table15),
+					29=>new Jison_ParserAction($this->reduce, $table15),
+					30=>new Jison_ParserAction($this->reduce, $table15),
+					31=>new Jison_ParserAction($this->reduce, $table15),
+					32=>new Jison_ParserAction($this->reduce, $table15),
+					33=>new Jison_ParserAction($this->reduce, $table15),
+					34=>new Jison_ParserAction($this->reduce, $table15),
+					35=>new Jison_ParserAction($this->reduce, $table15),
+					36=>new Jison_ParserAction($this->reduce, $table15),
+					37=>new Jison_ParserAction($this->reduce, $table15),
+					38=>new Jison_ParserAction($this->reduce, $table15),
+					39=>new Jison_ParserAction($this->reduce, $table15),
+					40=>new Jison_ParserAction($this->reduce, $table15),
+					41=>new Jison_ParserAction($this->reduce, $table15),
+					42=>new Jison_ParserAction($this->reduce, $table15),
+					43=>new Jison_ParserAction($this->reduce, $table15),
+					44=>new Jison_ParserAction($this->reduce, $table15),
+					45=>new Jison_ParserAction($this->reduce, $table15),
+					46=>new Jison_ParserAction($this->reduce, $table15),
+					47=>new Jison_ParserAction($this->reduce, $table15),
+					48=>new Jison_ParserAction($this->reduce, $table15),
+					49=>new Jison_ParserAction($this->reduce, $table15),
+					50=>new Jison_ParserAction($this->reduce, $table15),
+					52=>new Jison_ParserAction($this->reduce, $table15),
+					54=>new Jison_ParserAction($this->reduce, $table15),
+					55=>new Jison_ParserAction($this->reduce, $table15),
+					56=>new Jison_ParserAction($this->reduce, $table15),
+					57=>new Jison_ParserAction($this->reduce, $table15)
+				);
+
+			$tableDefinition43 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->shift, $table76),
+					14=>new Jison_ParserAction($this->shift, $table75),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table15),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table15),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table15),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table15),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table15),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table15),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table15),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table15),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table15),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table15),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table15),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table15),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table15),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table15),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table15),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition44 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table17),
-					5=>new Jison_ParserAction($this->reduce, $table17),
-					8=>new Jison_ParserAction($this->reduce, $table17),
-					9=>new Jison_ParserAction($this->reduce, $table17),
-					11=>new Jison_ParserAction($this->reduce, $table17),
-					12=>new Jison_ParserAction($this->reduce, $table17),
-					13=>new Jison_ParserAction($this->reduce, $table17),
-					14=>new Jison_ParserAction($this->reduce, $table17),
-					15=>new Jison_ParserAction($this->reduce, $table17),
-					16=>new Jison_ParserAction($this->reduce, $table17),
-					17=>new Jison_ParserAction($this->reduce, $table17),
-					18=>new Jison_ParserAction($this->reduce, $table17),
-					19=>new Jison_ParserAction($this->reduce, $table17),
-					20=>new Jison_ParserAction($this->reduce, $table17),
-					21=>new Jison_ParserAction($this->reduce, $table17),
-					22=>new Jison_ParserAction($this->reduce, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table17),
-					24=>new Jison_ParserAction($this->reduce, $table17),
-					25=>new Jison_ParserAction($this->reduce, $table17),
-					26=>new Jison_ParserAction($this->reduce, $table17),
-					27=>new Jison_ParserAction($this->reduce, $table17),
-					28=>new Jison_ParserAction($this->reduce, $table17),
-					29=>new Jison_ParserAction($this->reduce, $table17),
-					30=>new Jison_ParserAction($this->reduce, $table17),
-					31=>new Jison_ParserAction($this->reduce, $table17),
-					32=>new Jison_ParserAction($this->reduce, $table17),
-					33=>new Jison_ParserAction($this->reduce, $table17),
-					34=>new Jison_ParserAction($this->reduce, $table17),
-					35=>new Jison_ParserAction($this->reduce, $table17),
-					36=>new Jison_ParserAction($this->reduce, $table17),
-					37=>new Jison_ParserAction($this->reduce, $table17),
-					38=>new Jison_ParserAction($this->reduce, $table17),
-					39=>new Jison_ParserAction($this->reduce, $table17),
-					40=>new Jison_ParserAction($this->reduce, $table17),
-					41=>new Jison_ParserAction($this->reduce, $table17),
-					42=>new Jison_ParserAction($this->reduce, $table17),
-					43=>new Jison_ParserAction($this->reduce, $table17),
-					44=>new Jison_ParserAction($this->reduce, $table17),
-					45=>new Jison_ParserAction($this->reduce, $table17),
-					46=>new Jison_ParserAction($this->reduce, $table17),
-					47=>new Jison_ParserAction($this->reduce, $table17),
-					48=>new Jison_ParserAction($this->reduce, $table17),
-					49=>new Jison_ParserAction($this->reduce, $table17),
-					50=>new Jison_ParserAction($this->reduce, $table17),
-					51=>new Jison_ParserAction($this->reduce, $table17),
-					52=>new Jison_ParserAction($this->reduce, $table17),
-					53=>new Jison_ParserAction($this->reduce, $table17),
-					54=>new Jison_ParserAction($this->reduce, $table17),
-					55=>new Jison_ParserAction($this->reduce, $table17)
-				);
-
-			$tableDefinition45 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table18),
 					5=>new Jison_ParserAction($this->reduce, $table18),
 					8=>new Jison_ParserAction($this->reduce, $table18),
 					9=>new Jison_ParserAction($this->reduce, $table18),
+					11=>new Jison_ParserAction($this->reduce, $table18),
+					12=>new Jison_ParserAction($this->reduce, $table18),
+					13=>new Jison_ParserAction($this->reduce, $table18),
+					14=>new Jison_ParserAction($this->reduce, $table18),
+					15=>new Jison_ParserAction($this->reduce, $table18),
+					16=>new Jison_ParserAction($this->reduce, $table18),
+					17=>new Jison_ParserAction($this->reduce, $table18),
+					18=>new Jison_ParserAction($this->reduce, $table18),
+					19=>new Jison_ParserAction($this->reduce, $table18),
+					20=>new Jison_ParserAction($this->reduce, $table18),
+					21=>new Jison_ParserAction($this->reduce, $table18),
+					22=>new Jison_ParserAction($this->reduce, $table18),
+					23=>new Jison_ParserAction($this->reduce, $table18),
+					24=>new Jison_ParserAction($this->reduce, $table18),
+					25=>new Jison_ParserAction($this->reduce, $table18),
+					26=>new Jison_ParserAction($this->reduce, $table18),
+					27=>new Jison_ParserAction($this->reduce, $table18),
+					28=>new Jison_ParserAction($this->reduce, $table18),
+					29=>new Jison_ParserAction($this->reduce, $table18),
+					30=>new Jison_ParserAction($this->reduce, $table18),
+					31=>new Jison_ParserAction($this->reduce, $table18),
+					32=>new Jison_ParserAction($this->reduce, $table18),
+					33=>new Jison_ParserAction($this->reduce, $table18),
+					34=>new Jison_ParserAction($this->reduce, $table18),
+					35=>new Jison_ParserAction($this->reduce, $table18),
+					36=>new Jison_ParserAction($this->reduce, $table18),
+					37=>new Jison_ParserAction($this->reduce, $table18),
+					38=>new Jison_ParserAction($this->reduce, $table18),
+					39=>new Jison_ParserAction($this->reduce, $table18),
+					40=>new Jison_ParserAction($this->reduce, $table18),
+					41=>new Jison_ParserAction($this->reduce, $table18),
+					42=>new Jison_ParserAction($this->reduce, $table18),
+					43=>new Jison_ParserAction($this->reduce, $table18),
+					44=>new Jison_ParserAction($this->reduce, $table18),
+					45=>new Jison_ParserAction($this->reduce, $table18),
+					46=>new Jison_ParserAction($this->reduce, $table18),
+					47=>new Jison_ParserAction($this->reduce, $table18),
+					48=>new Jison_ParserAction($this->reduce, $table18),
+					49=>new Jison_ParserAction($this->reduce, $table18),
+					50=>new Jison_ParserAction($this->reduce, $table18),
+					52=>new Jison_ParserAction($this->reduce, $table18),
+					54=>new Jison_ParserAction($this->reduce, $table18),
+					55=>new Jison_ParserAction($this->reduce, $table18),
+					56=>new Jison_ParserAction($this->reduce, $table18),
+					57=>new Jison_ParserAction($this->reduce, $table18)
+				);
+
+			$tableDefinition45 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table18),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->shift, $table77),
+					16=>new Jison_ParserAction($this->shift, $table76),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table18),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table18),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table18),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table18),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table18),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table18),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table18),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table18),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table18),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table18),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table18),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table18),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table18),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table18),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition46 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table25),
-					5=>new Jison_ParserAction($this->reduce, $table25),
-					8=>new Jison_ParserAction($this->reduce, $table25),
-					9=>new Jison_ParserAction($this->reduce, $table25),
-					11=>new Jison_ParserAction($this->reduce, $table25),
-					12=>new Jison_ParserAction($this->reduce, $table25),
-					13=>new Jison_ParserAction($this->reduce, $table25),
-					14=>new Jison_ParserAction($this->reduce, $table25),
-					15=>new Jison_ParserAction($this->reduce, $table25),
-					16=>new Jison_ParserAction($this->reduce, $table25),
-					17=>new Jison_ParserAction($this->reduce, $table25),
-					18=>new Jison_ParserAction($this->reduce, $table25),
-					19=>new Jison_ParserAction($this->reduce, $table25),
-					20=>new Jison_ParserAction($this->reduce, $table25),
-					21=>new Jison_ParserAction($this->reduce, $table25),
-					22=>new Jison_ParserAction($this->reduce, $table25),
-					23=>new Jison_ParserAction($this->reduce, $table25),
-					24=>new Jison_ParserAction($this->reduce, $table25),
-					25=>new Jison_ParserAction($this->reduce, $table25),
-					26=>new Jison_ParserAction($this->reduce, $table25),
-					27=>new Jison_ParserAction($this->reduce, $table25),
-					28=>new Jison_ParserAction($this->reduce, $table25),
-					29=>new Jison_ParserAction($this->reduce, $table25),
-					30=>new Jison_ParserAction($this->reduce, $table25),
-					31=>new Jison_ParserAction($this->reduce, $table25),
-					32=>new Jison_ParserAction($this->reduce, $table25),
-					33=>new Jison_ParserAction($this->reduce, $table25),
-					34=>new Jison_ParserAction($this->reduce, $table25),
-					35=>new Jison_ParserAction($this->reduce, $table25),
-					36=>new Jison_ParserAction($this->reduce, $table25),
-					37=>new Jison_ParserAction($this->reduce, $table25),
-					38=>new Jison_ParserAction($this->reduce, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table25),
-					40=>new Jison_ParserAction($this->reduce, $table25),
-					41=>new Jison_ParserAction($this->reduce, $table25),
-					42=>new Jison_ParserAction($this->reduce, $table25),
-					43=>new Jison_ParserAction($this->reduce, $table25),
-					44=>new Jison_ParserAction($this->reduce, $table25),
-					45=>new Jison_ParserAction($this->reduce, $table25),
-					46=>new Jison_ParserAction($this->reduce, $table25),
-					47=>new Jison_ParserAction($this->reduce, $table25),
-					48=>new Jison_ParserAction($this->reduce, $table25),
-					49=>new Jison_ParserAction($this->reduce, $table25),
-					50=>new Jison_ParserAction($this->reduce, $table25),
-					51=>new Jison_ParserAction($this->reduce, $table25),
-					52=>new Jison_ParserAction($this->reduce, $table25),
-					53=>new Jison_ParserAction($this->reduce, $table25),
-					54=>new Jison_ParserAction($this->reduce, $table25),
-					55=>new Jison_ParserAction($this->reduce, $table25)
-				);
-
-			$tableDefinition47 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table26),
 					5=>new Jison_ParserAction($this->reduce, $table26),
 					8=>new Jison_ParserAction($this->reduce, $table26),
 					9=>new Jison_ParserAction($this->reduce, $table26),
+					11=>new Jison_ParserAction($this->reduce, $table26),
+					12=>new Jison_ParserAction($this->reduce, $table26),
+					13=>new Jison_ParserAction($this->reduce, $table26),
+					14=>new Jison_ParserAction($this->reduce, $table26),
+					15=>new Jison_ParserAction($this->reduce, $table26),
+					16=>new Jison_ParserAction($this->reduce, $table26),
+					17=>new Jison_ParserAction($this->reduce, $table26),
+					18=>new Jison_ParserAction($this->reduce, $table26),
+					19=>new Jison_ParserAction($this->reduce, $table26),
+					20=>new Jison_ParserAction($this->reduce, $table26),
+					21=>new Jison_ParserAction($this->reduce, $table26),
+					22=>new Jison_ParserAction($this->reduce, $table26),
+					23=>new Jison_ParserAction($this->reduce, $table26),
+					24=>new Jison_ParserAction($this->reduce, $table26),
+					25=>new Jison_ParserAction($this->reduce, $table26),
+					26=>new Jison_ParserAction($this->reduce, $table26),
+					27=>new Jison_ParserAction($this->reduce, $table26),
+					28=>new Jison_ParserAction($this->reduce, $table26),
+					29=>new Jison_ParserAction($this->reduce, $table26),
+					30=>new Jison_ParserAction($this->reduce, $table26),
+					31=>new Jison_ParserAction($this->reduce, $table26),
+					32=>new Jison_ParserAction($this->reduce, $table26),
+					33=>new Jison_ParserAction($this->reduce, $table26),
+					34=>new Jison_ParserAction($this->reduce, $table26),
+					35=>new Jison_ParserAction($this->reduce, $table26),
+					36=>new Jison_ParserAction($this->reduce, $table26),
+					37=>new Jison_ParserAction($this->reduce, $table26),
+					38=>new Jison_ParserAction($this->reduce, $table26),
+					39=>new Jison_ParserAction($this->reduce, $table26),
+					40=>new Jison_ParserAction($this->reduce, $table26),
+					41=>new Jison_ParserAction($this->reduce, $table26),
+					42=>new Jison_ParserAction($this->reduce, $table26),
+					43=>new Jison_ParserAction($this->reduce, $table26),
+					44=>new Jison_ParserAction($this->reduce, $table26),
+					45=>new Jison_ParserAction($this->reduce, $table26),
+					46=>new Jison_ParserAction($this->reduce, $table26),
+					47=>new Jison_ParserAction($this->reduce, $table26),
+					48=>new Jison_ParserAction($this->reduce, $table26),
+					49=>new Jison_ParserAction($this->reduce, $table26),
+					50=>new Jison_ParserAction($this->reduce, $table26),
+					52=>new Jison_ParserAction($this->reduce, $table26),
+					54=>new Jison_ParserAction($this->reduce, $table26),
+					55=>new Jison_ParserAction($this->reduce, $table26),
+					56=>new Jison_ParserAction($this->reduce, $table26),
+					57=>new Jison_ParserAction($this->reduce, $table26)
+				);
+
+			$tableDefinition47 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table26),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table26),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->shift, $table78),
+					23=>new Jison_ParserAction($this->shift, $table77),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table26),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table26),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table26),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table26),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table26),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table26),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table26),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table26),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table26),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table26),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table26),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table26),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table26),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition48 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table28),
-					5=>new Jison_ParserAction($this->reduce, $table28),
-					8=>new Jison_ParserAction($this->reduce, $table28),
-					9=>new Jison_ParserAction($this->reduce, $table28),
-					11=>new Jison_ParserAction($this->reduce, $table28),
-					12=>new Jison_ParserAction($this->reduce, $table28),
-					13=>new Jison_ParserAction($this->reduce, $table28),
-					14=>new Jison_ParserAction($this->reduce, $table28),
-					15=>new Jison_ParserAction($this->reduce, $table28),
-					16=>new Jison_ParserAction($this->reduce, $table28),
-					17=>new Jison_ParserAction($this->reduce, $table28),
-					18=>new Jison_ParserAction($this->reduce, $table28),
-					19=>new Jison_ParserAction($this->reduce, $table28),
-					20=>new Jison_ParserAction($this->reduce, $table28),
-					21=>new Jison_ParserAction($this->reduce, $table28),
-					22=>new Jison_ParserAction($this->reduce, $table28),
-					23=>new Jison_ParserAction($this->reduce, $table28),
-					24=>new Jison_ParserAction($this->reduce, $table28),
-					25=>new Jison_ParserAction($this->reduce, $table28),
-					26=>new Jison_ParserAction($this->reduce, $table28),
-					27=>new Jison_ParserAction($this->reduce, $table28),
-					28=>new Jison_ParserAction($this->reduce, $table28),
-					29=>new Jison_ParserAction($this->reduce, $table28),
-					30=>new Jison_ParserAction($this->reduce, $table28),
-					31=>new Jison_ParserAction($this->reduce, $table28),
-					32=>new Jison_ParserAction($this->reduce, $table28),
-					33=>new Jison_ParserAction($this->reduce, $table28),
-					34=>new Jison_ParserAction($this->reduce, $table28),
-					35=>new Jison_ParserAction($this->reduce, $table28),
-					36=>new Jison_ParserAction($this->reduce, $table28),
-					37=>new Jison_ParserAction($this->reduce, $table28),
-					38=>new Jison_ParserAction($this->reduce, $table28),
-					39=>new Jison_ParserAction($this->reduce, $table28),
-					40=>new Jison_ParserAction($this->reduce, $table28),
-					41=>new Jison_ParserAction($this->reduce, $table28),
-					42=>new Jison_ParserAction($this->reduce, $table28),
-					43=>new Jison_ParserAction($this->reduce, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table28),
-					45=>new Jison_ParserAction($this->reduce, $table28),
-					46=>new Jison_ParserAction($this->reduce, $table28),
-					47=>new Jison_ParserAction($this->reduce, $table28),
-					48=>new Jison_ParserAction($this->reduce, $table28),
-					49=>new Jison_ParserAction($this->reduce, $table28),
-					50=>new Jison_ParserAction($this->reduce, $table28),
-					51=>new Jison_ParserAction($this->reduce, $table28),
-					52=>new Jison_ParserAction($this->reduce, $table28),
-					53=>new Jison_ParserAction($this->reduce, $table28),
-					54=>new Jison_ParserAction($this->reduce, $table28),
-					55=>new Jison_ParserAction($this->reduce, $table28)
-				);
-
-			$tableDefinition49 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table29),
 					5=>new Jison_ParserAction($this->reduce, $table29),
 					8=>new Jison_ParserAction($this->reduce, $table29),
 					9=>new Jison_ParserAction($this->reduce, $table29),
+					11=>new Jison_ParserAction($this->reduce, $table29),
+					12=>new Jison_ParserAction($this->reduce, $table29),
+					13=>new Jison_ParserAction($this->reduce, $table29),
+					14=>new Jison_ParserAction($this->reduce, $table29),
+					15=>new Jison_ParserAction($this->reduce, $table29),
+					16=>new Jison_ParserAction($this->reduce, $table29),
+					17=>new Jison_ParserAction($this->reduce, $table29),
+					18=>new Jison_ParserAction($this->reduce, $table29),
+					19=>new Jison_ParserAction($this->reduce, $table29),
+					20=>new Jison_ParserAction($this->reduce, $table29),
+					21=>new Jison_ParserAction($this->reduce, $table29),
+					22=>new Jison_ParserAction($this->reduce, $table29),
+					23=>new Jison_ParserAction($this->reduce, $table29),
+					24=>new Jison_ParserAction($this->reduce, $table29),
+					25=>new Jison_ParserAction($this->reduce, $table29),
+					26=>new Jison_ParserAction($this->reduce, $table29),
+					27=>new Jison_ParserAction($this->reduce, $table29),
+					28=>new Jison_ParserAction($this->reduce, $table29),
+					29=>new Jison_ParserAction($this->reduce, $table29),
+					30=>new Jison_ParserAction($this->reduce, $table29),
+					31=>new Jison_ParserAction($this->reduce, $table29),
+					32=>new Jison_ParserAction($this->reduce, $table29),
+					33=>new Jison_ParserAction($this->reduce, $table29),
+					34=>new Jison_ParserAction($this->reduce, $table29),
+					35=>new Jison_ParserAction($this->reduce, $table29),
+					36=>new Jison_ParserAction($this->reduce, $table29),
+					37=>new Jison_ParserAction($this->reduce, $table29),
+					38=>new Jison_ParserAction($this->reduce, $table29),
+					39=>new Jison_ParserAction($this->reduce, $table29),
+					40=>new Jison_ParserAction($this->reduce, $table29),
+					41=>new Jison_ParserAction($this->reduce, $table29),
+					42=>new Jison_ParserAction($this->reduce, $table29),
+					43=>new Jison_ParserAction($this->reduce, $table29),
+					44=>new Jison_ParserAction($this->reduce, $table29),
+					45=>new Jison_ParserAction($this->reduce, $table29),
+					46=>new Jison_ParserAction($this->reduce, $table29),
+					47=>new Jison_ParserAction($this->reduce, $table29),
+					48=>new Jison_ParserAction($this->reduce, $table29),
+					49=>new Jison_ParserAction($this->reduce, $table29),
+					50=>new Jison_ParserAction($this->reduce, $table29),
+					52=>new Jison_ParserAction($this->reduce, $table29),
+					54=>new Jison_ParserAction($this->reduce, $table29),
+					55=>new Jison_ParserAction($this->reduce, $table29),
+					56=>new Jison_ParserAction($this->reduce, $table29),
+					57=>new Jison_ParserAction($this->reduce, $table29)
+				);
+
+			$tableDefinition49 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table29),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table29),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table29),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->shift, $table79),
+					25=>new Jison_ParserAction($this->shift, $table78),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table29),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table29),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table29),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table29),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table29),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table29),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table29),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table29),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table29),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table29),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table29),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table29),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition50 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table31),
-					5=>new Jison_ParserAction($this->reduce, $table31),
-					8=>new Jison_ParserAction($this->reduce, $table31),
-					9=>new Jison_ParserAction($this->reduce, $table31),
-					11=>new Jison_ParserAction($this->reduce, $table31),
-					12=>new Jison_ParserAction($this->reduce, $table31),
-					13=>new Jison_ParserAction($this->reduce, $table31),
-					14=>new Jison_ParserAction($this->reduce, $table31),
-					15=>new Jison_ParserAction($this->reduce, $table31),
-					16=>new Jison_ParserAction($this->reduce, $table31),
-					17=>new Jison_ParserAction($this->reduce, $table31),
-					18=>new Jison_ParserAction($this->reduce, $table31),
-					19=>new Jison_ParserAction($this->reduce, $table31),
-					20=>new Jison_ParserAction($this->reduce, $table31),
-					21=>new Jison_ParserAction($this->reduce, $table31),
-					22=>new Jison_ParserAction($this->reduce, $table31),
-					23=>new Jison_ParserAction($this->reduce, $table31),
-					24=>new Jison_ParserAction($this->reduce, $table31),
-					25=>new Jison_ParserAction($this->reduce, $table31),
-					26=>new Jison_ParserAction($this->reduce, $table31),
-					27=>new Jison_ParserAction($this->reduce, $table31),
-					28=>new Jison_ParserAction($this->reduce, $table31),
-					29=>new Jison_ParserAction($this->reduce, $table31),
-					30=>new Jison_ParserAction($this->reduce, $table31),
-					31=>new Jison_ParserAction($this->reduce, $table31),
-					32=>new Jison_ParserAction($this->reduce, $table31),
-					33=>new Jison_ParserAction($this->reduce, $table31),
-					34=>new Jison_ParserAction($this->reduce, $table31),
-					35=>new Jison_ParserAction($this->reduce, $table31),
-					36=>new Jison_ParserAction($this->reduce, $table31),
-					37=>new Jison_ParserAction($this->reduce, $table31),
-					38=>new Jison_ParserAction($this->reduce, $table31),
-					39=>new Jison_ParserAction($this->reduce, $table31),
-					40=>new Jison_ParserAction($this->reduce, $table31),
-					41=>new Jison_ParserAction($this->reduce, $table31),
-					42=>new Jison_ParserAction($this->reduce, $table31),
-					43=>new Jison_ParserAction($this->reduce, $table31),
-					44=>new Jison_ParserAction($this->reduce, $table31),
-					45=>new Jison_ParserAction($this->reduce, $table31),
-					46=>new Jison_ParserAction($this->reduce, $table31),
-					47=>new Jison_ParserAction($this->reduce, $table31),
-					48=>new Jison_ParserAction($this->reduce, $table31),
-					49=>new Jison_ParserAction($this->reduce, $table31),
-					50=>new Jison_ParserAction($this->reduce, $table31),
-					51=>new Jison_ParserAction($this->reduce, $table31),
-					52=>new Jison_ParserAction($this->reduce, $table31),
-					53=>new Jison_ParserAction($this->reduce, $table31),
-					54=>new Jison_ParserAction($this->reduce, $table31),
-					55=>new Jison_ParserAction($this->reduce, $table31)
-				);
-
-			$tableDefinition51 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table32),
 					5=>new Jison_ParserAction($this->reduce, $table32),
 					8=>new Jison_ParserAction($this->reduce, $table32),
 					9=>new Jison_ParserAction($this->reduce, $table32),
+					11=>new Jison_ParserAction($this->reduce, $table32),
+					12=>new Jison_ParserAction($this->reduce, $table32),
+					13=>new Jison_ParserAction($this->reduce, $table32),
+					14=>new Jison_ParserAction($this->reduce, $table32),
+					15=>new Jison_ParserAction($this->reduce, $table32),
+					16=>new Jison_ParserAction($this->reduce, $table32),
+					17=>new Jison_ParserAction($this->reduce, $table32),
+					18=>new Jison_ParserAction($this->reduce, $table32),
+					19=>new Jison_ParserAction($this->reduce, $table32),
+					20=>new Jison_ParserAction($this->reduce, $table32),
+					21=>new Jison_ParserAction($this->reduce, $table32),
+					22=>new Jison_ParserAction($this->reduce, $table32),
+					23=>new Jison_ParserAction($this->reduce, $table32),
+					24=>new Jison_ParserAction($this->reduce, $table32),
+					25=>new Jison_ParserAction($this->reduce, $table32),
+					26=>new Jison_ParserAction($this->reduce, $table32),
+					27=>new Jison_ParserAction($this->reduce, $table32),
+					28=>new Jison_ParserAction($this->reduce, $table32),
+					29=>new Jison_ParserAction($this->reduce, $table32),
+					30=>new Jison_ParserAction($this->reduce, $table32),
+					31=>new Jison_ParserAction($this->reduce, $table32),
+					32=>new Jison_ParserAction($this->reduce, $table32),
+					33=>new Jison_ParserAction($this->reduce, $table32),
+					34=>new Jison_ParserAction($this->reduce, $table32),
+					35=>new Jison_ParserAction($this->reduce, $table32),
+					36=>new Jison_ParserAction($this->reduce, $table32),
+					37=>new Jison_ParserAction($this->reduce, $table32),
+					38=>new Jison_ParserAction($this->reduce, $table32),
+					39=>new Jison_ParserAction($this->reduce, $table32),
+					40=>new Jison_ParserAction($this->reduce, $table32),
+					41=>new Jison_ParserAction($this->reduce, $table32),
+					42=>new Jison_ParserAction($this->reduce, $table32),
+					43=>new Jison_ParserAction($this->reduce, $table32),
+					44=>new Jison_ParserAction($this->reduce, $table32),
+					45=>new Jison_ParserAction($this->reduce, $table32),
+					46=>new Jison_ParserAction($this->reduce, $table32),
+					47=>new Jison_ParserAction($this->reduce, $table32),
+					48=>new Jison_ParserAction($this->reduce, $table32),
+					49=>new Jison_ParserAction($this->reduce, $table32),
+					50=>new Jison_ParserAction($this->reduce, $table32),
+					52=>new Jison_ParserAction($this->reduce, $table32),
+					54=>new Jison_ParserAction($this->reduce, $table32),
+					55=>new Jison_ParserAction($this->reduce, $table32),
+					56=>new Jison_ParserAction($this->reduce, $table32),
+					57=>new Jison_ParserAction($this->reduce, $table32)
+				);
+
+			$tableDefinition51 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table32),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table32),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table32),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table32),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->shift, $table80),
+					27=>new Jison_ParserAction($this->shift, $table79),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table32),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table32),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table32),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table32),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table32),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table32),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table32),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table32),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table32),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table32),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table32),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition52 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table34),
-					5=>new Jison_ParserAction($this->reduce, $table34),
-					8=>new Jison_ParserAction($this->reduce, $table34),
-					9=>new Jison_ParserAction($this->reduce, $table34),
-					11=>new Jison_ParserAction($this->reduce, $table34),
-					12=>new Jison_ParserAction($this->reduce, $table34),
-					13=>new Jison_ParserAction($this->reduce, $table34),
-					14=>new Jison_ParserAction($this->reduce, $table34),
-					15=>new Jison_ParserAction($this->reduce, $table34),
-					16=>new Jison_ParserAction($this->reduce, $table34),
-					17=>new Jison_ParserAction($this->reduce, $table34),
-					18=>new Jison_ParserAction($this->reduce, $table34),
-					19=>new Jison_ParserAction($this->reduce, $table34),
-					20=>new Jison_ParserAction($this->reduce, $table34),
-					21=>new Jison_ParserAction($this->reduce, $table34),
-					22=>new Jison_ParserAction($this->reduce, $table34),
-					23=>new Jison_ParserAction($this->reduce, $table34),
-					24=>new Jison_ParserAction($this->reduce, $table34),
-					25=>new Jison_ParserAction($this->reduce, $table34),
-					26=>new Jison_ParserAction($this->reduce, $table34),
-					27=>new Jison_ParserAction($this->reduce, $table34),
-					28=>new Jison_ParserAction($this->reduce, $table34),
-					29=>new Jison_ParserAction($this->reduce, $table34),
-					30=>new Jison_ParserAction($this->reduce, $table34),
-					31=>new Jison_ParserAction($this->reduce, $table34),
-					32=>new Jison_ParserAction($this->reduce, $table34),
-					33=>new Jison_ParserAction($this->reduce, $table34),
-					34=>new Jison_ParserAction($this->reduce, $table34),
-					35=>new Jison_ParserAction($this->reduce, $table34),
-					36=>new Jison_ParserAction($this->reduce, $table34),
-					37=>new Jison_ParserAction($this->reduce, $table34),
-					38=>new Jison_ParserAction($this->reduce, $table34),
-					39=>new Jison_ParserAction($this->reduce, $table34),
-					40=>new Jison_ParserAction($this->reduce, $table34),
-					41=>new Jison_ParserAction($this->reduce, $table34),
-					42=>new Jison_ParserAction($this->reduce, $table34),
-					43=>new Jison_ParserAction($this->reduce, $table34),
-					44=>new Jison_ParserAction($this->reduce, $table34),
-					45=>new Jison_ParserAction($this->reduce, $table34),
-					46=>new Jison_ParserAction($this->reduce, $table34),
-					47=>new Jison_ParserAction($this->reduce, $table34),
-					48=>new Jison_ParserAction($this->reduce, $table34),
-					49=>new Jison_ParserAction($this->reduce, $table34),
-					50=>new Jison_ParserAction($this->reduce, $table34),
-					51=>new Jison_ParserAction($this->reduce, $table34),
-					52=>new Jison_ParserAction($this->reduce, $table34),
-					53=>new Jison_ParserAction($this->reduce, $table34),
-					54=>new Jison_ParserAction($this->reduce, $table34),
-					55=>new Jison_ParserAction($this->reduce, $table34)
-				);
-
-			$tableDefinition53 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table35),
 					5=>new Jison_ParserAction($this->reduce, $table35),
 					8=>new Jison_ParserAction($this->reduce, $table35),
 					9=>new Jison_ParserAction($this->reduce, $table35),
+					11=>new Jison_ParserAction($this->reduce, $table35),
+					12=>new Jison_ParserAction($this->reduce, $table35),
+					13=>new Jison_ParserAction($this->reduce, $table35),
+					14=>new Jison_ParserAction($this->reduce, $table35),
+					15=>new Jison_ParserAction($this->reduce, $table35),
+					16=>new Jison_ParserAction($this->reduce, $table35),
+					17=>new Jison_ParserAction($this->reduce, $table35),
+					18=>new Jison_ParserAction($this->reduce, $table35),
+					19=>new Jison_ParserAction($this->reduce, $table35),
+					20=>new Jison_ParserAction($this->reduce, $table35),
+					21=>new Jison_ParserAction($this->reduce, $table35),
+					22=>new Jison_ParserAction($this->reduce, $table35),
+					23=>new Jison_ParserAction($this->reduce, $table35),
+					24=>new Jison_ParserAction($this->reduce, $table35),
+					25=>new Jison_ParserAction($this->reduce, $table35),
+					26=>new Jison_ParserAction($this->reduce, $table35),
+					27=>new Jison_ParserAction($this->reduce, $table35),
+					28=>new Jison_ParserAction($this->reduce, $table35),
+					29=>new Jison_ParserAction($this->reduce, $table35),
+					30=>new Jison_ParserAction($this->reduce, $table35),
+					31=>new Jison_ParserAction($this->reduce, $table35),
+					32=>new Jison_ParserAction($this->reduce, $table35),
+					33=>new Jison_ParserAction($this->reduce, $table35),
+					34=>new Jison_ParserAction($this->reduce, $table35),
+					35=>new Jison_ParserAction($this->reduce, $table35),
+					36=>new Jison_ParserAction($this->reduce, $table35),
+					37=>new Jison_ParserAction($this->reduce, $table35),
+					38=>new Jison_ParserAction($this->reduce, $table35),
+					39=>new Jison_ParserAction($this->reduce, $table35),
+					40=>new Jison_ParserAction($this->reduce, $table35),
+					41=>new Jison_ParserAction($this->reduce, $table35),
+					42=>new Jison_ParserAction($this->reduce, $table35),
+					43=>new Jison_ParserAction($this->reduce, $table35),
+					44=>new Jison_ParserAction($this->reduce, $table35),
+					45=>new Jison_ParserAction($this->reduce, $table35),
+					46=>new Jison_ParserAction($this->reduce, $table35),
+					47=>new Jison_ParserAction($this->reduce, $table35),
+					48=>new Jison_ParserAction($this->reduce, $table35),
+					49=>new Jison_ParserAction($this->reduce, $table35),
+					50=>new Jison_ParserAction($this->reduce, $table35),
+					52=>new Jison_ParserAction($this->reduce, $table35),
+					54=>new Jison_ParserAction($this->reduce, $table35),
+					55=>new Jison_ParserAction($this->reduce, $table35),
+					56=>new Jison_ParserAction($this->reduce, $table35),
+					57=>new Jison_ParserAction($this->reduce, $table35)
+				);
+
+			$tableDefinition53 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table35),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table35),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table35),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table35),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table35),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->shift, $table81),
+					29=>new Jison_ParserAction($this->shift, $table80),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table35),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table35),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table35),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table35),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table35),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table35),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table35),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table35),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table35),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table35),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition54 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table37),
-					5=>new Jison_ParserAction($this->reduce, $table37),
-					8=>new Jison_ParserAction($this->reduce, $table37),
-					9=>new Jison_ParserAction($this->reduce, $table37),
-					11=>new Jison_ParserAction($this->reduce, $table37),
-					12=>new Jison_ParserAction($this->reduce, $table37),
-					13=>new Jison_ParserAction($this->reduce, $table37),
-					14=>new Jison_ParserAction($this->reduce, $table37),
-					15=>new Jison_ParserAction($this->reduce, $table37),
-					16=>new Jison_ParserAction($this->reduce, $table37),
-					17=>new Jison_ParserAction($this->reduce, $table37),
-					18=>new Jison_ParserAction($this->reduce, $table37),
-					19=>new Jison_ParserAction($this->reduce, $table37),
-					20=>new Jison_ParserAction($this->reduce, $table37),
-					21=>new Jison_ParserAction($this->reduce, $table37),
-					22=>new Jison_ParserAction($this->reduce, $table37),
-					23=>new Jison_ParserAction($this->reduce, $table37),
-					24=>new Jison_ParserAction($this->reduce, $table37),
-					25=>new Jison_ParserAction($this->reduce, $table37),
-					26=>new Jison_ParserAction($this->reduce, $table37),
-					27=>new Jison_ParserAction($this->reduce, $table37),
-					28=>new Jison_ParserAction($this->reduce, $table37),
-					29=>new Jison_ParserAction($this->reduce, $table37),
-					30=>new Jison_ParserAction($this->reduce, $table37),
-					31=>new Jison_ParserAction($this->reduce, $table37),
-					32=>new Jison_ParserAction($this->reduce, $table37),
-					33=>new Jison_ParserAction($this->reduce, $table37),
-					34=>new Jison_ParserAction($this->reduce, $table37),
-					35=>new Jison_ParserAction($this->reduce, $table37),
-					36=>new Jison_ParserAction($this->reduce, $table37),
-					37=>new Jison_ParserAction($this->reduce, $table37),
-					38=>new Jison_ParserAction($this->reduce, $table37),
-					39=>new Jison_ParserAction($this->reduce, $table37),
-					40=>new Jison_ParserAction($this->reduce, $table37),
-					41=>new Jison_ParserAction($this->reduce, $table37),
-					42=>new Jison_ParserAction($this->reduce, $table37),
-					43=>new Jison_ParserAction($this->reduce, $table37),
-					44=>new Jison_ParserAction($this->reduce, $table37),
-					45=>new Jison_ParserAction($this->reduce, $table37),
-					46=>new Jison_ParserAction($this->reduce, $table37),
-					47=>new Jison_ParserAction($this->reduce, $table37),
-					48=>new Jison_ParserAction($this->reduce, $table37),
-					49=>new Jison_ParserAction($this->reduce, $table37),
-					50=>new Jison_ParserAction($this->reduce, $table37),
-					51=>new Jison_ParserAction($this->reduce, $table37),
-					52=>new Jison_ParserAction($this->reduce, $table37),
-					53=>new Jison_ParserAction($this->reduce, $table37),
-					54=>new Jison_ParserAction($this->reduce, $table37),
-					55=>new Jison_ParserAction($this->reduce, $table37)
-				);
-
-			$tableDefinition55 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table38),
 					5=>new Jison_ParserAction($this->reduce, $table38),
 					8=>new Jison_ParserAction($this->reduce, $table38),
 					9=>new Jison_ParserAction($this->reduce, $table38),
+					11=>new Jison_ParserAction($this->reduce, $table38),
+					12=>new Jison_ParserAction($this->reduce, $table38),
+					13=>new Jison_ParserAction($this->reduce, $table38),
+					14=>new Jison_ParserAction($this->reduce, $table38),
+					15=>new Jison_ParserAction($this->reduce, $table38),
+					16=>new Jison_ParserAction($this->reduce, $table38),
+					17=>new Jison_ParserAction($this->reduce, $table38),
+					18=>new Jison_ParserAction($this->reduce, $table38),
+					19=>new Jison_ParserAction($this->reduce, $table38),
+					20=>new Jison_ParserAction($this->reduce, $table38),
+					21=>new Jison_ParserAction($this->reduce, $table38),
+					22=>new Jison_ParserAction($this->reduce, $table38),
+					23=>new Jison_ParserAction($this->reduce, $table38),
+					24=>new Jison_ParserAction($this->reduce, $table38),
+					25=>new Jison_ParserAction($this->reduce, $table38),
+					26=>new Jison_ParserAction($this->reduce, $table38),
+					27=>new Jison_ParserAction($this->reduce, $table38),
+					28=>new Jison_ParserAction($this->reduce, $table38),
+					29=>new Jison_ParserAction($this->reduce, $table38),
+					30=>new Jison_ParserAction($this->reduce, $table38),
+					31=>new Jison_ParserAction($this->reduce, $table38),
+					32=>new Jison_ParserAction($this->reduce, $table38),
+					33=>new Jison_ParserAction($this->reduce, $table38),
+					34=>new Jison_ParserAction($this->reduce, $table38),
+					35=>new Jison_ParserAction($this->reduce, $table38),
+					36=>new Jison_ParserAction($this->reduce, $table38),
+					37=>new Jison_ParserAction($this->reduce, $table38),
+					38=>new Jison_ParserAction($this->reduce, $table38),
+					39=>new Jison_ParserAction($this->reduce, $table38),
+					40=>new Jison_ParserAction($this->reduce, $table38),
+					41=>new Jison_ParserAction($this->reduce, $table38),
+					42=>new Jison_ParserAction($this->reduce, $table38),
+					43=>new Jison_ParserAction($this->reduce, $table38),
+					44=>new Jison_ParserAction($this->reduce, $table38),
+					45=>new Jison_ParserAction($this->reduce, $table38),
+					46=>new Jison_ParserAction($this->reduce, $table38),
+					47=>new Jison_ParserAction($this->reduce, $table38),
+					48=>new Jison_ParserAction($this->reduce, $table38),
+					49=>new Jison_ParserAction($this->reduce, $table38),
+					50=>new Jison_ParserAction($this->reduce, $table38),
+					52=>new Jison_ParserAction($this->reduce, $table38),
+					54=>new Jison_ParserAction($this->reduce, $table38),
+					55=>new Jison_ParserAction($this->reduce, $table38),
+					56=>new Jison_ParserAction($this->reduce, $table38),
+					57=>new Jison_ParserAction($this->reduce, $table38)
+				);
+
+			$tableDefinition55 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table38),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table38),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table38),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table38),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table38),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table38),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->shift, $table82),
+					31=>new Jison_ParserAction($this->shift, $table81),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table38),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table38),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table38),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table38),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table38),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table38),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table38),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table38),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table38),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition56 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table40),
-					5=>new Jison_ParserAction($this->reduce, $table40),
-					8=>new Jison_ParserAction($this->reduce, $table40),
-					9=>new Jison_ParserAction($this->reduce, $table40),
-					11=>new Jison_ParserAction($this->reduce, $table40),
-					12=>new Jison_ParserAction($this->reduce, $table40),
-					13=>new Jison_ParserAction($this->reduce, $table40),
-					14=>new Jison_ParserAction($this->reduce, $table40),
-					15=>new Jison_ParserAction($this->reduce, $table40),
-					16=>new Jison_ParserAction($this->reduce, $table40),
-					17=>new Jison_ParserAction($this->reduce, $table40),
-					18=>new Jison_ParserAction($this->reduce, $table40),
-					19=>new Jison_ParserAction($this->reduce, $table40),
-					20=>new Jison_ParserAction($this->reduce, $table40),
-					21=>new Jison_ParserAction($this->reduce, $table40),
-					22=>new Jison_ParserAction($this->reduce, $table40),
-					23=>new Jison_ParserAction($this->reduce, $table40),
-					24=>new Jison_ParserAction($this->reduce, $table40),
-					25=>new Jison_ParserAction($this->reduce, $table40),
-					26=>new Jison_ParserAction($this->reduce, $table40),
-					27=>new Jison_ParserAction($this->reduce, $table40),
-					28=>new Jison_ParserAction($this->reduce, $table40),
-					29=>new Jison_ParserAction($this->reduce, $table40),
-					30=>new Jison_ParserAction($this->reduce, $table40),
-					31=>new Jison_ParserAction($this->reduce, $table40),
-					32=>new Jison_ParserAction($this->reduce, $table40),
-					33=>new Jison_ParserAction($this->reduce, $table40),
-					34=>new Jison_ParserAction($this->reduce, $table40),
-					35=>new Jison_ParserAction($this->reduce, $table40),
-					36=>new Jison_ParserAction($this->reduce, $table40),
-					37=>new Jison_ParserAction($this->reduce, $table40),
-					38=>new Jison_ParserAction($this->reduce, $table40),
-					39=>new Jison_ParserAction($this->reduce, $table40),
-					40=>new Jison_ParserAction($this->reduce, $table40),
-					41=>new Jison_ParserAction($this->reduce, $table40),
-					42=>new Jison_ParserAction($this->reduce, $table40),
-					43=>new Jison_ParserAction($this->reduce, $table40),
-					44=>new Jison_ParserAction($this->reduce, $table40),
-					45=>new Jison_ParserAction($this->reduce, $table40),
-					46=>new Jison_ParserAction($this->reduce, $table40),
-					47=>new Jison_ParserAction($this->reduce, $table40),
-					48=>new Jison_ParserAction($this->reduce, $table40),
-					49=>new Jison_ParserAction($this->reduce, $table40),
-					50=>new Jison_ParserAction($this->reduce, $table40),
-					51=>new Jison_ParserAction($this->reduce, $table40),
-					52=>new Jison_ParserAction($this->reduce, $table40),
-					53=>new Jison_ParserAction($this->reduce, $table40),
-					54=>new Jison_ParserAction($this->reduce, $table40),
-					55=>new Jison_ParserAction($this->reduce, $table40)
-				);
-
-			$tableDefinition57 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table41),
 					5=>new Jison_ParserAction($this->reduce, $table41),
 					8=>new Jison_ParserAction($this->reduce, $table41),
 					9=>new Jison_ParserAction($this->reduce, $table41),
+					11=>new Jison_ParserAction($this->reduce, $table41),
+					12=>new Jison_ParserAction($this->reduce, $table41),
+					13=>new Jison_ParserAction($this->reduce, $table41),
+					14=>new Jison_ParserAction($this->reduce, $table41),
+					15=>new Jison_ParserAction($this->reduce, $table41),
+					16=>new Jison_ParserAction($this->reduce, $table41),
+					17=>new Jison_ParserAction($this->reduce, $table41),
+					18=>new Jison_ParserAction($this->reduce, $table41),
+					19=>new Jison_ParserAction($this->reduce, $table41),
+					20=>new Jison_ParserAction($this->reduce, $table41),
+					21=>new Jison_ParserAction($this->reduce, $table41),
+					22=>new Jison_ParserAction($this->reduce, $table41),
+					23=>new Jison_ParserAction($this->reduce, $table41),
+					24=>new Jison_ParserAction($this->reduce, $table41),
+					25=>new Jison_ParserAction($this->reduce, $table41),
+					26=>new Jison_ParserAction($this->reduce, $table41),
+					27=>new Jison_ParserAction($this->reduce, $table41),
+					28=>new Jison_ParserAction($this->reduce, $table41),
+					29=>new Jison_ParserAction($this->reduce, $table41),
+					30=>new Jison_ParserAction($this->reduce, $table41),
+					31=>new Jison_ParserAction($this->reduce, $table41),
+					32=>new Jison_ParserAction($this->reduce, $table41),
+					33=>new Jison_ParserAction($this->reduce, $table41),
+					34=>new Jison_ParserAction($this->reduce, $table41),
+					35=>new Jison_ParserAction($this->reduce, $table41),
+					36=>new Jison_ParserAction($this->reduce, $table41),
+					37=>new Jison_ParserAction($this->reduce, $table41),
+					38=>new Jison_ParserAction($this->reduce, $table41),
+					39=>new Jison_ParserAction($this->reduce, $table41),
+					40=>new Jison_ParserAction($this->reduce, $table41),
+					41=>new Jison_ParserAction($this->reduce, $table41),
+					42=>new Jison_ParserAction($this->reduce, $table41),
+					43=>new Jison_ParserAction($this->reduce, $table41),
+					44=>new Jison_ParserAction($this->reduce, $table41),
+					45=>new Jison_ParserAction($this->reduce, $table41),
+					46=>new Jison_ParserAction($this->reduce, $table41),
+					47=>new Jison_ParserAction($this->reduce, $table41),
+					48=>new Jison_ParserAction($this->reduce, $table41),
+					49=>new Jison_ParserAction($this->reduce, $table41),
+					50=>new Jison_ParserAction($this->reduce, $table41),
+					52=>new Jison_ParserAction($this->reduce, $table41),
+					54=>new Jison_ParserAction($this->reduce, $table41),
+					55=>new Jison_ParserAction($this->reduce, $table41),
+					56=>new Jison_ParserAction($this->reduce, $table41),
+					57=>new Jison_ParserAction($this->reduce, $table41)
+				);
+
+			$tableDefinition57 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table41),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table41),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table41),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table41),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table41),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table41),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table41),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->shift, $table83),
+					33=>new Jison_ParserAction($this->shift, $table82),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table41),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table41),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table41),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table41),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table41),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table41),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table41),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table41),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition58 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table43),
-					5=>new Jison_ParserAction($this->reduce, $table43),
-					8=>new Jison_ParserAction($this->reduce, $table43),
-					9=>new Jison_ParserAction($this->reduce, $table43),
-					11=>new Jison_ParserAction($this->reduce, $table43),
-					12=>new Jison_ParserAction($this->reduce, $table43),
-					13=>new Jison_ParserAction($this->reduce, $table43),
-					14=>new Jison_ParserAction($this->reduce, $table43),
-					15=>new Jison_ParserAction($this->reduce, $table43),
-					16=>new Jison_ParserAction($this->reduce, $table43),
-					17=>new Jison_ParserAction($this->reduce, $table43),
-					18=>new Jison_ParserAction($this->reduce, $table43),
-					19=>new Jison_ParserAction($this->reduce, $table43),
-					20=>new Jison_ParserAction($this->reduce, $table43),
-					21=>new Jison_ParserAction($this->reduce, $table43),
-					22=>new Jison_ParserAction($this->reduce, $table43),
-					23=>new Jison_ParserAction($this->reduce, $table43),
-					24=>new Jison_ParserAction($this->reduce, $table43),
-					25=>new Jison_ParserAction($this->reduce, $table43),
-					26=>new Jison_ParserAction($this->reduce, $table43),
-					27=>new Jison_ParserAction($this->reduce, $table43),
-					28=>new Jison_ParserAction($this->reduce, $table43),
-					29=>new Jison_ParserAction($this->reduce, $table43),
-					30=>new Jison_ParserAction($this->reduce, $table43),
-					31=>new Jison_ParserAction($this->reduce, $table43),
-					32=>new Jison_ParserAction($this->reduce, $table43),
-					33=>new Jison_ParserAction($this->reduce, $table43),
-					34=>new Jison_ParserAction($this->reduce, $table43),
-					35=>new Jison_ParserAction($this->reduce, $table43),
-					36=>new Jison_ParserAction($this->reduce, $table43),
-					37=>new Jison_ParserAction($this->reduce, $table43),
-					38=>new Jison_ParserAction($this->reduce, $table43),
-					39=>new Jison_ParserAction($this->reduce, $table43),
-					40=>new Jison_ParserAction($this->reduce, $table43),
-					41=>new Jison_ParserAction($this->reduce, $table43),
-					42=>new Jison_ParserAction($this->reduce, $table43),
-					43=>new Jison_ParserAction($this->reduce, $table43),
-					44=>new Jison_ParserAction($this->reduce, $table43),
-					45=>new Jison_ParserAction($this->reduce, $table43),
-					46=>new Jison_ParserAction($this->reduce, $table43),
-					47=>new Jison_ParserAction($this->reduce, $table43),
-					48=>new Jison_ParserAction($this->reduce, $table43),
-					49=>new Jison_ParserAction($this->reduce, $table43),
-					50=>new Jison_ParserAction($this->reduce, $table43),
-					51=>new Jison_ParserAction($this->reduce, $table43),
-					52=>new Jison_ParserAction($this->reduce, $table43),
-					53=>new Jison_ParserAction($this->reduce, $table43),
-					54=>new Jison_ParserAction($this->reduce, $table43),
-					55=>new Jison_ParserAction($this->reduce, $table43)
-				);
-
-			$tableDefinition59 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table44),
 					5=>new Jison_ParserAction($this->reduce, $table44),
 					8=>new Jison_ParserAction($this->reduce, $table44),
 					9=>new Jison_ParserAction($this->reduce, $table44),
+					11=>new Jison_ParserAction($this->reduce, $table44),
+					12=>new Jison_ParserAction($this->reduce, $table44),
+					13=>new Jison_ParserAction($this->reduce, $table44),
+					14=>new Jison_ParserAction($this->reduce, $table44),
+					15=>new Jison_ParserAction($this->reduce, $table44),
+					16=>new Jison_ParserAction($this->reduce, $table44),
+					17=>new Jison_ParserAction($this->reduce, $table44),
+					18=>new Jison_ParserAction($this->reduce, $table44),
+					19=>new Jison_ParserAction($this->reduce, $table44),
+					20=>new Jison_ParserAction($this->reduce, $table44),
+					21=>new Jison_ParserAction($this->reduce, $table44),
+					22=>new Jison_ParserAction($this->reduce, $table44),
+					23=>new Jison_ParserAction($this->reduce, $table44),
+					24=>new Jison_ParserAction($this->reduce, $table44),
+					25=>new Jison_ParserAction($this->reduce, $table44),
+					26=>new Jison_ParserAction($this->reduce, $table44),
+					27=>new Jison_ParserAction($this->reduce, $table44),
+					28=>new Jison_ParserAction($this->reduce, $table44),
+					29=>new Jison_ParserAction($this->reduce, $table44),
+					30=>new Jison_ParserAction($this->reduce, $table44),
+					31=>new Jison_ParserAction($this->reduce, $table44),
+					32=>new Jison_ParserAction($this->reduce, $table44),
+					33=>new Jison_ParserAction($this->reduce, $table44),
+					34=>new Jison_ParserAction($this->reduce, $table44),
+					35=>new Jison_ParserAction($this->reduce, $table44),
+					36=>new Jison_ParserAction($this->reduce, $table44),
+					37=>new Jison_ParserAction($this->reduce, $table44),
+					38=>new Jison_ParserAction($this->reduce, $table44),
+					39=>new Jison_ParserAction($this->reduce, $table44),
+					40=>new Jison_ParserAction($this->reduce, $table44),
+					41=>new Jison_ParserAction($this->reduce, $table44),
+					42=>new Jison_ParserAction($this->reduce, $table44),
+					43=>new Jison_ParserAction($this->reduce, $table44),
+					44=>new Jison_ParserAction($this->reduce, $table44),
+					45=>new Jison_ParserAction($this->reduce, $table44),
+					46=>new Jison_ParserAction($this->reduce, $table44),
+					47=>new Jison_ParserAction($this->reduce, $table44),
+					48=>new Jison_ParserAction($this->reduce, $table44),
+					49=>new Jison_ParserAction($this->reduce, $table44),
+					50=>new Jison_ParserAction($this->reduce, $table44),
+					52=>new Jison_ParserAction($this->reduce, $table44),
+					54=>new Jison_ParserAction($this->reduce, $table44),
+					55=>new Jison_ParserAction($this->reduce, $table44),
+					56=>new Jison_ParserAction($this->reduce, $table44),
+					57=>new Jison_ParserAction($this->reduce, $table44)
+				);
+
+			$tableDefinition59 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table44),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table44),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table44),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table44),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table44),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table44),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table44),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table44),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->shift, $table84),
+					35=>new Jison_ParserAction($this->shift, $table83),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table44),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table44),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table44),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table44),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table44),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table44),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table44),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition60 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table46),
-					5=>new Jison_ParserAction($this->reduce, $table46),
-					8=>new Jison_ParserAction($this->reduce, $table46),
-					9=>new Jison_ParserAction($this->reduce, $table46),
-					11=>new Jison_ParserAction($this->reduce, $table46),
-					12=>new Jison_ParserAction($this->reduce, $table46),
-					13=>new Jison_ParserAction($this->reduce, $table46),
-					14=>new Jison_ParserAction($this->reduce, $table46),
-					15=>new Jison_ParserAction($this->reduce, $table46),
-					16=>new Jison_ParserAction($this->reduce, $table46),
-					17=>new Jison_ParserAction($this->reduce, $table46),
-					18=>new Jison_ParserAction($this->reduce, $table46),
-					19=>new Jison_ParserAction($this->reduce, $table46),
-					20=>new Jison_ParserAction($this->reduce, $table46),
-					21=>new Jison_ParserAction($this->reduce, $table46),
-					22=>new Jison_ParserAction($this->reduce, $table46),
-					23=>new Jison_ParserAction($this->reduce, $table46),
-					24=>new Jison_ParserAction($this->reduce, $table46),
-					25=>new Jison_ParserAction($this->reduce, $table46),
-					26=>new Jison_ParserAction($this->reduce, $table46),
-					27=>new Jison_ParserAction($this->reduce, $table46),
-					28=>new Jison_ParserAction($this->reduce, $table46),
-					29=>new Jison_ParserAction($this->reduce, $table46),
-					30=>new Jison_ParserAction($this->reduce, $table46),
-					31=>new Jison_ParserAction($this->reduce, $table46),
-					32=>new Jison_ParserAction($this->reduce, $table46),
-					33=>new Jison_ParserAction($this->reduce, $table46),
-					34=>new Jison_ParserAction($this->reduce, $table46),
-					35=>new Jison_ParserAction($this->reduce, $table46),
-					36=>new Jison_ParserAction($this->reduce, $table46),
-					37=>new Jison_ParserAction($this->reduce, $table46),
-					38=>new Jison_ParserAction($this->reduce, $table46),
-					39=>new Jison_ParserAction($this->reduce, $table46),
-					40=>new Jison_ParserAction($this->reduce, $table46),
-					41=>new Jison_ParserAction($this->reduce, $table46),
-					42=>new Jison_ParserAction($this->reduce, $table46),
-					43=>new Jison_ParserAction($this->reduce, $table46),
-					44=>new Jison_ParserAction($this->reduce, $table46),
-					45=>new Jison_ParserAction($this->reduce, $table46),
-					46=>new Jison_ParserAction($this->reduce, $table46),
-					47=>new Jison_ParserAction($this->reduce, $table46),
-					48=>new Jison_ParserAction($this->reduce, $table46),
-					49=>new Jison_ParserAction($this->reduce, $table46),
-					50=>new Jison_ParserAction($this->reduce, $table46),
-					51=>new Jison_ParserAction($this->reduce, $table46),
-					52=>new Jison_ParserAction($this->reduce, $table46),
-					53=>new Jison_ParserAction($this->reduce, $table46),
-					54=>new Jison_ParserAction($this->reduce, $table46),
-					55=>new Jison_ParserAction($this->reduce, $table46)
-				);
-
-			$tableDefinition61 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table47),
 					5=>new Jison_ParserAction($this->reduce, $table47),
 					8=>new Jison_ParserAction($this->reduce, $table47),
 					9=>new Jison_ParserAction($this->reduce, $table47),
+					11=>new Jison_ParserAction($this->reduce, $table47),
+					12=>new Jison_ParserAction($this->reduce, $table47),
+					13=>new Jison_ParserAction($this->reduce, $table47),
+					14=>new Jison_ParserAction($this->reduce, $table47),
+					15=>new Jison_ParserAction($this->reduce, $table47),
+					16=>new Jison_ParserAction($this->reduce, $table47),
+					17=>new Jison_ParserAction($this->reduce, $table47),
+					18=>new Jison_ParserAction($this->reduce, $table47),
+					19=>new Jison_ParserAction($this->reduce, $table47),
+					20=>new Jison_ParserAction($this->reduce, $table47),
+					21=>new Jison_ParserAction($this->reduce, $table47),
+					22=>new Jison_ParserAction($this->reduce, $table47),
+					23=>new Jison_ParserAction($this->reduce, $table47),
+					24=>new Jison_ParserAction($this->reduce, $table47),
+					25=>new Jison_ParserAction($this->reduce, $table47),
+					26=>new Jison_ParserAction($this->reduce, $table47),
+					27=>new Jison_ParserAction($this->reduce, $table47),
+					28=>new Jison_ParserAction($this->reduce, $table47),
+					29=>new Jison_ParserAction($this->reduce, $table47),
+					30=>new Jison_ParserAction($this->reduce, $table47),
+					31=>new Jison_ParserAction($this->reduce, $table47),
+					32=>new Jison_ParserAction($this->reduce, $table47),
+					33=>new Jison_ParserAction($this->reduce, $table47),
+					34=>new Jison_ParserAction($this->reduce, $table47),
+					35=>new Jison_ParserAction($this->reduce, $table47),
+					36=>new Jison_ParserAction($this->reduce, $table47),
+					37=>new Jison_ParserAction($this->reduce, $table47),
+					38=>new Jison_ParserAction($this->reduce, $table47),
+					39=>new Jison_ParserAction($this->reduce, $table47),
+					40=>new Jison_ParserAction($this->reduce, $table47),
+					41=>new Jison_ParserAction($this->reduce, $table47),
+					42=>new Jison_ParserAction($this->reduce, $table47),
+					43=>new Jison_ParserAction($this->reduce, $table47),
+					44=>new Jison_ParserAction($this->reduce, $table47),
+					45=>new Jison_ParserAction($this->reduce, $table47),
+					46=>new Jison_ParserAction($this->reduce, $table47),
+					47=>new Jison_ParserAction($this->reduce, $table47),
+					48=>new Jison_ParserAction($this->reduce, $table47),
+					49=>new Jison_ParserAction($this->reduce, $table47),
+					50=>new Jison_ParserAction($this->reduce, $table47),
+					52=>new Jison_ParserAction($this->reduce, $table47),
+					54=>new Jison_ParserAction($this->reduce, $table47),
+					55=>new Jison_ParserAction($this->reduce, $table47),
+					56=>new Jison_ParserAction($this->reduce, $table47),
+					57=>new Jison_ParserAction($this->reduce, $table47)
+				);
+
+			$tableDefinition61 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table47),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table47),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table47),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table47),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table47),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table47),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table47),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table47),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table47),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->shift, $table85),
+					37=>new Jison_ParserAction($this->shift, $table84),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table47),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table47),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table47),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table47),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table47),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table47),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition62 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table49),
-					5=>new Jison_ParserAction($this->reduce, $table49),
-					8=>new Jison_ParserAction($this->reduce, $table49),
-					9=>new Jison_ParserAction($this->reduce, $table49),
-					11=>new Jison_ParserAction($this->reduce, $table49),
-					12=>new Jison_ParserAction($this->reduce, $table49),
-					13=>new Jison_ParserAction($this->reduce, $table49),
-					14=>new Jison_ParserAction($this->reduce, $table49),
-					15=>new Jison_ParserAction($this->reduce, $table49),
-					16=>new Jison_ParserAction($this->reduce, $table49),
-					17=>new Jison_ParserAction($this->reduce, $table49),
-					18=>new Jison_ParserAction($this->reduce, $table49),
-					19=>new Jison_ParserAction($this->reduce, $table49),
-					20=>new Jison_ParserAction($this->reduce, $table49),
-					21=>new Jison_ParserAction($this->reduce, $table49),
-					22=>new Jison_ParserAction($this->reduce, $table49),
-					23=>new Jison_ParserAction($this->reduce, $table49),
-					24=>new Jison_ParserAction($this->reduce, $table49),
-					25=>new Jison_ParserAction($this->reduce, $table49),
-					26=>new Jison_ParserAction($this->reduce, $table49),
-					27=>new Jison_ParserAction($this->reduce, $table49),
-					28=>new Jison_ParserAction($this->reduce, $table49),
-					29=>new Jison_ParserAction($this->reduce, $table49),
-					30=>new Jison_ParserAction($this->reduce, $table49),
-					31=>new Jison_ParserAction($this->reduce, $table49),
-					32=>new Jison_ParserAction($this->reduce, $table49),
-					33=>new Jison_ParserAction($this->reduce, $table49),
-					34=>new Jison_ParserAction($this->reduce, $table49),
-					35=>new Jison_ParserAction($this->reduce, $table49),
-					36=>new Jison_ParserAction($this->reduce, $table49),
-					37=>new Jison_ParserAction($this->reduce, $table49),
-					38=>new Jison_ParserAction($this->reduce, $table49),
-					39=>new Jison_ParserAction($this->reduce, $table49),
-					40=>new Jison_ParserAction($this->reduce, $table49),
-					41=>new Jison_ParserAction($this->reduce, $table49),
-					42=>new Jison_ParserAction($this->reduce, $table49),
-					43=>new Jison_ParserAction($this->reduce, $table49),
-					44=>new Jison_ParserAction($this->reduce, $table49),
-					45=>new Jison_ParserAction($this->reduce, $table49),
-					46=>new Jison_ParserAction($this->reduce, $table49),
-					47=>new Jison_ParserAction($this->reduce, $table49),
-					48=>new Jison_ParserAction($this->reduce, $table49),
-					49=>new Jison_ParserAction($this->reduce, $table49),
-					50=>new Jison_ParserAction($this->reduce, $table49),
-					51=>new Jison_ParserAction($this->reduce, $table49),
-					52=>new Jison_ParserAction($this->reduce, $table49),
-					53=>new Jison_ParserAction($this->reduce, $table49),
-					54=>new Jison_ParserAction($this->reduce, $table49),
-					55=>new Jison_ParserAction($this->reduce, $table49)
-				);
-
-			$tableDefinition63 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table50),
 					5=>new Jison_ParserAction($this->reduce, $table50),
 					8=>new Jison_ParserAction($this->reduce, $table50),
 					9=>new Jison_ParserAction($this->reduce, $table50),
+					11=>new Jison_ParserAction($this->reduce, $table50),
+					12=>new Jison_ParserAction($this->reduce, $table50),
+					13=>new Jison_ParserAction($this->reduce, $table50),
+					14=>new Jison_ParserAction($this->reduce, $table50),
+					15=>new Jison_ParserAction($this->reduce, $table50),
+					16=>new Jison_ParserAction($this->reduce, $table50),
+					17=>new Jison_ParserAction($this->reduce, $table50),
+					18=>new Jison_ParserAction($this->reduce, $table50),
+					19=>new Jison_ParserAction($this->reduce, $table50),
+					20=>new Jison_ParserAction($this->reduce, $table50),
+					21=>new Jison_ParserAction($this->reduce, $table50),
+					22=>new Jison_ParserAction($this->reduce, $table50),
+					23=>new Jison_ParserAction($this->reduce, $table50),
+					24=>new Jison_ParserAction($this->reduce, $table50),
+					25=>new Jison_ParserAction($this->reduce, $table50),
+					26=>new Jison_ParserAction($this->reduce, $table50),
+					27=>new Jison_ParserAction($this->reduce, $table50),
+					28=>new Jison_ParserAction($this->reduce, $table50),
+					29=>new Jison_ParserAction($this->reduce, $table50),
+					30=>new Jison_ParserAction($this->reduce, $table50),
+					31=>new Jison_ParserAction($this->reduce, $table50),
+					32=>new Jison_ParserAction($this->reduce, $table50),
+					33=>new Jison_ParserAction($this->reduce, $table50),
+					34=>new Jison_ParserAction($this->reduce, $table50),
+					35=>new Jison_ParserAction($this->reduce, $table50),
+					36=>new Jison_ParserAction($this->reduce, $table50),
+					37=>new Jison_ParserAction($this->reduce, $table50),
+					38=>new Jison_ParserAction($this->reduce, $table50),
+					39=>new Jison_ParserAction($this->reduce, $table50),
+					40=>new Jison_ParserAction($this->reduce, $table50),
+					41=>new Jison_ParserAction($this->reduce, $table50),
+					42=>new Jison_ParserAction($this->reduce, $table50),
+					43=>new Jison_ParserAction($this->reduce, $table50),
+					44=>new Jison_ParserAction($this->reduce, $table50),
+					45=>new Jison_ParserAction($this->reduce, $table50),
+					46=>new Jison_ParserAction($this->reduce, $table50),
+					47=>new Jison_ParserAction($this->reduce, $table50),
+					48=>new Jison_ParserAction($this->reduce, $table50),
+					49=>new Jison_ParserAction($this->reduce, $table50),
+					50=>new Jison_ParserAction($this->reduce, $table50),
+					52=>new Jison_ParserAction($this->reduce, $table50),
+					54=>new Jison_ParserAction($this->reduce, $table50),
+					55=>new Jison_ParserAction($this->reduce, $table50),
+					56=>new Jison_ParserAction($this->reduce, $table50),
+					57=>new Jison_ParserAction($this->reduce, $table50)
+				);
+
+			$tableDefinition63 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table50),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table50),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table50),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table50),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table50),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table50),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table50),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table50),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table50),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table50),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->shift, $table86),
+					39=>new Jison_ParserAction($this->shift, $table85),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table50),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table50),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table50),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table50),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table50),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition64 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table53),
-					5=>new Jison_ParserAction($this->reduce, $table53),
-					8=>new Jison_ParserAction($this->reduce, $table53),
-					9=>new Jison_ParserAction($this->reduce, $table53),
-					11=>new Jison_ParserAction($this->reduce, $table53),
-					12=>new Jison_ParserAction($this->reduce, $table53),
-					13=>new Jison_ParserAction($this->reduce, $table53),
-					14=>new Jison_ParserAction($this->reduce, $table53),
-					15=>new Jison_ParserAction($this->reduce, $table53),
-					16=>new Jison_ParserAction($this->reduce, $table53),
-					17=>new Jison_ParserAction($this->reduce, $table53),
-					18=>new Jison_ParserAction($this->reduce, $table53),
-					19=>new Jison_ParserAction($this->reduce, $table53),
-					20=>new Jison_ParserAction($this->reduce, $table53),
-					21=>new Jison_ParserAction($this->reduce, $table53),
-					22=>new Jison_ParserAction($this->reduce, $table53),
-					23=>new Jison_ParserAction($this->reduce, $table53),
-					24=>new Jison_ParserAction($this->reduce, $table53),
-					25=>new Jison_ParserAction($this->reduce, $table53),
-					26=>new Jison_ParserAction($this->reduce, $table53),
-					27=>new Jison_ParserAction($this->reduce, $table53),
-					28=>new Jison_ParserAction($this->reduce, $table53),
-					29=>new Jison_ParserAction($this->reduce, $table53),
-					30=>new Jison_ParserAction($this->reduce, $table53),
-					31=>new Jison_ParserAction($this->reduce, $table53),
-					32=>new Jison_ParserAction($this->reduce, $table53),
-					33=>new Jison_ParserAction($this->reduce, $table53),
-					34=>new Jison_ParserAction($this->reduce, $table53),
-					35=>new Jison_ParserAction($this->reduce, $table53),
-					36=>new Jison_ParserAction($this->reduce, $table53),
-					37=>new Jison_ParserAction($this->reduce, $table53),
-					38=>new Jison_ParserAction($this->reduce, $table53),
-					39=>new Jison_ParserAction($this->reduce, $table53),
-					40=>new Jison_ParserAction($this->reduce, $table53),
-					41=>new Jison_ParserAction($this->reduce, $table53),
-					42=>new Jison_ParserAction($this->reduce, $table53),
-					43=>new Jison_ParserAction($this->reduce, $table53),
-					44=>new Jison_ParserAction($this->reduce, $table53),
-					45=>new Jison_ParserAction($this->reduce, $table53),
-					46=>new Jison_ParserAction($this->reduce, $table53),
-					47=>new Jison_ParserAction($this->reduce, $table53),
-					48=>new Jison_ParserAction($this->reduce, $table53),
-					49=>new Jison_ParserAction($this->reduce, $table53),
-					50=>new Jison_ParserAction($this->reduce, $table53),
-					51=>new Jison_ParserAction($this->reduce, $table53),
-					52=>new Jison_ParserAction($this->reduce, $table53),
-					53=>new Jison_ParserAction($this->reduce, $table53),
-					54=>new Jison_ParserAction($this->reduce, $table53),
-					55=>new Jison_ParserAction($this->reduce, $table53)
-				);
-
-			$tableDefinition65 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table54),
 					5=>new Jison_ParserAction($this->reduce, $table54),
 					8=>new Jison_ParserAction($this->reduce, $table54),
 					9=>new Jison_ParserAction($this->reduce, $table54),
+					11=>new Jison_ParserAction($this->reduce, $table54),
+					12=>new Jison_ParserAction($this->reduce, $table54),
+					13=>new Jison_ParserAction($this->reduce, $table54),
+					14=>new Jison_ParserAction($this->reduce, $table54),
+					15=>new Jison_ParserAction($this->reduce, $table54),
+					16=>new Jison_ParserAction($this->reduce, $table54),
+					17=>new Jison_ParserAction($this->reduce, $table54),
+					18=>new Jison_ParserAction($this->reduce, $table54),
+					19=>new Jison_ParserAction($this->reduce, $table54),
+					20=>new Jison_ParserAction($this->reduce, $table54),
+					21=>new Jison_ParserAction($this->reduce, $table54),
+					22=>new Jison_ParserAction($this->reduce, $table54),
+					23=>new Jison_ParserAction($this->reduce, $table54),
+					24=>new Jison_ParserAction($this->reduce, $table54),
+					25=>new Jison_ParserAction($this->reduce, $table54),
+					26=>new Jison_ParserAction($this->reduce, $table54),
+					27=>new Jison_ParserAction($this->reduce, $table54),
+					28=>new Jison_ParserAction($this->reduce, $table54),
+					29=>new Jison_ParserAction($this->reduce, $table54),
+					30=>new Jison_ParserAction($this->reduce, $table54),
+					31=>new Jison_ParserAction($this->reduce, $table54),
+					32=>new Jison_ParserAction($this->reduce, $table54),
+					33=>new Jison_ParserAction($this->reduce, $table54),
+					34=>new Jison_ParserAction($this->reduce, $table54),
+					35=>new Jison_ParserAction($this->reduce, $table54),
+					36=>new Jison_ParserAction($this->reduce, $table54),
+					37=>new Jison_ParserAction($this->reduce, $table54),
+					38=>new Jison_ParserAction($this->reduce, $table54),
+					39=>new Jison_ParserAction($this->reduce, $table54),
+					40=>new Jison_ParserAction($this->reduce, $table54),
+					41=>new Jison_ParserAction($this->reduce, $table54),
+					42=>new Jison_ParserAction($this->reduce, $table54),
+					43=>new Jison_ParserAction($this->reduce, $table54),
+					44=>new Jison_ParserAction($this->reduce, $table54),
+					45=>new Jison_ParserAction($this->reduce, $table54),
+					46=>new Jison_ParserAction($this->reduce, $table54),
+					47=>new Jison_ParserAction($this->reduce, $table54),
+					48=>new Jison_ParserAction($this->reduce, $table54),
+					49=>new Jison_ParserAction($this->reduce, $table54),
+					50=>new Jison_ParserAction($this->reduce, $table54),
+					52=>new Jison_ParserAction($this->reduce, $table54),
+					54=>new Jison_ParserAction($this->reduce, $table54),
+					55=>new Jison_ParserAction($this->reduce, $table54),
+					56=>new Jison_ParserAction($this->reduce, $table54),
+					57=>new Jison_ParserAction($this->reduce, $table54)
+				);
+
+			$tableDefinition65 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table54),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table54),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table54),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table54),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table54),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table54),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table54),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table54),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table54),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table54),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table54),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->shift, $table87),
+					42=>new Jison_ParserAction($this->shift, $table86),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table54),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table54),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table54),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table54),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition66 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table56),
-					5=>new Jison_ParserAction($this->reduce, $table56),
-					8=>new Jison_ParserAction($this->reduce, $table56),
-					9=>new Jison_ParserAction($this->reduce, $table56),
-					11=>new Jison_ParserAction($this->reduce, $table56),
-					12=>new Jison_ParserAction($this->reduce, $table56),
-					13=>new Jison_ParserAction($this->reduce, $table56),
-					14=>new Jison_ParserAction($this->reduce, $table56),
-					15=>new Jison_ParserAction($this->reduce, $table56),
-					16=>new Jison_ParserAction($this->reduce, $table56),
-					17=>new Jison_ParserAction($this->reduce, $table56),
-					18=>new Jison_ParserAction($this->reduce, $table56),
-					19=>new Jison_ParserAction($this->reduce, $table56),
-					20=>new Jison_ParserAction($this->reduce, $table56),
-					21=>new Jison_ParserAction($this->reduce, $table56),
-					22=>new Jison_ParserAction($this->reduce, $table56),
-					23=>new Jison_ParserAction($this->reduce, $table56),
-					24=>new Jison_ParserAction($this->reduce, $table56),
-					25=>new Jison_ParserAction($this->reduce, $table56),
-					26=>new Jison_ParserAction($this->reduce, $table56),
-					27=>new Jison_ParserAction($this->reduce, $table56),
-					28=>new Jison_ParserAction($this->reduce, $table56),
-					29=>new Jison_ParserAction($this->reduce, $table56),
-					30=>new Jison_ParserAction($this->reduce, $table56),
-					31=>new Jison_ParserAction($this->reduce, $table56),
-					32=>new Jison_ParserAction($this->reduce, $table56),
-					33=>new Jison_ParserAction($this->reduce, $table56),
-					34=>new Jison_ParserAction($this->reduce, $table56),
-					35=>new Jison_ParserAction($this->reduce, $table56),
-					36=>new Jison_ParserAction($this->reduce, $table56),
-					37=>new Jison_ParserAction($this->reduce, $table56),
-					38=>new Jison_ParserAction($this->reduce, $table56),
-					39=>new Jison_ParserAction($this->reduce, $table56),
-					40=>new Jison_ParserAction($this->reduce, $table56),
-					41=>new Jison_ParserAction($this->reduce, $table56),
-					42=>new Jison_ParserAction($this->reduce, $table56),
-					43=>new Jison_ParserAction($this->reduce, $table56),
-					44=>new Jison_ParserAction($this->reduce, $table56),
-					45=>new Jison_ParserAction($this->reduce, $table56),
-					46=>new Jison_ParserAction($this->reduce, $table56),
-					47=>new Jison_ParserAction($this->reduce, $table56),
-					48=>new Jison_ParserAction($this->reduce, $table56),
-					49=>new Jison_ParserAction($this->reduce, $table56),
-					50=>new Jison_ParserAction($this->reduce, $table56),
-					51=>new Jison_ParserAction($this->reduce, $table56),
-					52=>new Jison_ParserAction($this->reduce, $table56),
-					53=>new Jison_ParserAction($this->reduce, $table56),
-					54=>new Jison_ParserAction($this->reduce, $table56),
-					55=>new Jison_ParserAction($this->reduce, $table56)
-				);
-
-			$tableDefinition67 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table57),
 					5=>new Jison_ParserAction($this->reduce, $table57),
 					8=>new Jison_ParserAction($this->reduce, $table57),
 					9=>new Jison_ParserAction($this->reduce, $table57),
+					11=>new Jison_ParserAction($this->reduce, $table57),
+					12=>new Jison_ParserAction($this->reduce, $table57),
+					13=>new Jison_ParserAction($this->reduce, $table57),
+					14=>new Jison_ParserAction($this->reduce, $table57),
+					15=>new Jison_ParserAction($this->reduce, $table57),
+					16=>new Jison_ParserAction($this->reduce, $table57),
+					17=>new Jison_ParserAction($this->reduce, $table57),
+					18=>new Jison_ParserAction($this->reduce, $table57),
+					19=>new Jison_ParserAction($this->reduce, $table57),
+					20=>new Jison_ParserAction($this->reduce, $table57),
+					21=>new Jison_ParserAction($this->reduce, $table57),
+					22=>new Jison_ParserAction($this->reduce, $table57),
+					23=>new Jison_ParserAction($this->reduce, $table57),
+					24=>new Jison_ParserAction($this->reduce, $table57),
+					25=>new Jison_ParserAction($this->reduce, $table57),
+					26=>new Jison_ParserAction($this->reduce, $table57),
+					27=>new Jison_ParserAction($this->reduce, $table57),
+					28=>new Jison_ParserAction($this->reduce, $table57),
+					29=>new Jison_ParserAction($this->reduce, $table57),
+					30=>new Jison_ParserAction($this->reduce, $table57),
+					31=>new Jison_ParserAction($this->reduce, $table57),
+					32=>new Jison_ParserAction($this->reduce, $table57),
+					33=>new Jison_ParserAction($this->reduce, $table57),
+					34=>new Jison_ParserAction($this->reduce, $table57),
+					35=>new Jison_ParserAction($this->reduce, $table57),
+					36=>new Jison_ParserAction($this->reduce, $table57),
+					37=>new Jison_ParserAction($this->reduce, $table57),
+					38=>new Jison_ParserAction($this->reduce, $table57),
+					39=>new Jison_ParserAction($this->reduce, $table57),
+					40=>new Jison_ParserAction($this->reduce, $table57),
+					41=>new Jison_ParserAction($this->reduce, $table57),
+					42=>new Jison_ParserAction($this->reduce, $table57),
+					43=>new Jison_ParserAction($this->reduce, $table57),
+					44=>new Jison_ParserAction($this->reduce, $table57),
+					45=>new Jison_ParserAction($this->reduce, $table57),
+					46=>new Jison_ParserAction($this->reduce, $table57),
+					47=>new Jison_ParserAction($this->reduce, $table57),
+					48=>new Jison_ParserAction($this->reduce, $table57),
+					49=>new Jison_ParserAction($this->reduce, $table57),
+					50=>new Jison_ParserAction($this->reduce, $table57),
+					52=>new Jison_ParserAction($this->reduce, $table57),
+					54=>new Jison_ParserAction($this->reduce, $table57),
+					55=>new Jison_ParserAction($this->reduce, $table57),
+					56=>new Jison_ParserAction($this->reduce, $table57),
+					57=>new Jison_ParserAction($this->reduce, $table57)
+				);
+
+			$tableDefinition67 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table57),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table57),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table57),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table57),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table57),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table57),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table57),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table57),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table57),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table57),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table57),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table57),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->shift, $table88),
+					44=>new Jison_ParserAction($this->shift, $table87),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table57),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table57),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table57),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition68 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table59),
-					5=>new Jison_ParserAction($this->reduce, $table59),
-					8=>new Jison_ParserAction($this->reduce, $table59),
-					9=>new Jison_ParserAction($this->reduce, $table59),
-					11=>new Jison_ParserAction($this->reduce, $table59),
-					12=>new Jison_ParserAction($this->reduce, $table59),
-					13=>new Jison_ParserAction($this->reduce, $table59),
-					14=>new Jison_ParserAction($this->reduce, $table59),
-					15=>new Jison_ParserAction($this->reduce, $table59),
-					16=>new Jison_ParserAction($this->reduce, $table59),
-					17=>new Jison_ParserAction($this->reduce, $table59),
-					18=>new Jison_ParserAction($this->reduce, $table59),
-					19=>new Jison_ParserAction($this->reduce, $table59),
-					20=>new Jison_ParserAction($this->reduce, $table59),
-					21=>new Jison_ParserAction($this->reduce, $table59),
-					22=>new Jison_ParserAction($this->reduce, $table59),
-					23=>new Jison_ParserAction($this->reduce, $table59),
-					24=>new Jison_ParserAction($this->reduce, $table59),
-					25=>new Jison_ParserAction($this->reduce, $table59),
-					26=>new Jison_ParserAction($this->reduce, $table59),
-					27=>new Jison_ParserAction($this->reduce, $table59),
-					28=>new Jison_ParserAction($this->reduce, $table59),
-					29=>new Jison_ParserAction($this->reduce, $table59),
-					30=>new Jison_ParserAction($this->reduce, $table59),
-					31=>new Jison_ParserAction($this->reduce, $table59),
-					32=>new Jison_ParserAction($this->reduce, $table59),
-					33=>new Jison_ParserAction($this->reduce, $table59),
-					34=>new Jison_ParserAction($this->reduce, $table59),
-					35=>new Jison_ParserAction($this->reduce, $table59),
-					36=>new Jison_ParserAction($this->reduce, $table59),
-					37=>new Jison_ParserAction($this->reduce, $table59),
-					38=>new Jison_ParserAction($this->reduce, $table59),
-					39=>new Jison_ParserAction($this->reduce, $table59),
-					40=>new Jison_ParserAction($this->reduce, $table59),
-					41=>new Jison_ParserAction($this->reduce, $table59),
-					42=>new Jison_ParserAction($this->reduce, $table59),
-					43=>new Jison_ParserAction($this->reduce, $table59),
-					44=>new Jison_ParserAction($this->reduce, $table59),
-					45=>new Jison_ParserAction($this->reduce, $table59),
-					46=>new Jison_ParserAction($this->reduce, $table59),
-					47=>new Jison_ParserAction($this->reduce, $table59),
-					48=>new Jison_ParserAction($this->reduce, $table59),
-					49=>new Jison_ParserAction($this->reduce, $table59),
-					50=>new Jison_ParserAction($this->reduce, $table59),
-					51=>new Jison_ParserAction($this->reduce, $table59),
-					52=>new Jison_ParserAction($this->reduce, $table59),
-					53=>new Jison_ParserAction($this->reduce, $table59),
-					54=>new Jison_ParserAction($this->reduce, $table59),
-					55=>new Jison_ParserAction($this->reduce, $table59)
-				);
-
-			$tableDefinition69 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table60),
 					5=>new Jison_ParserAction($this->reduce, $table60),
 					8=>new Jison_ParserAction($this->reduce, $table60),
 					9=>new Jison_ParserAction($this->reduce, $table60),
+					11=>new Jison_ParserAction($this->reduce, $table60),
+					12=>new Jison_ParserAction($this->reduce, $table60),
+					13=>new Jison_ParserAction($this->reduce, $table60),
+					14=>new Jison_ParserAction($this->reduce, $table60),
+					15=>new Jison_ParserAction($this->reduce, $table60),
+					16=>new Jison_ParserAction($this->reduce, $table60),
+					17=>new Jison_ParserAction($this->reduce, $table60),
+					18=>new Jison_ParserAction($this->reduce, $table60),
+					19=>new Jison_ParserAction($this->reduce, $table60),
+					20=>new Jison_ParserAction($this->reduce, $table60),
+					21=>new Jison_ParserAction($this->reduce, $table60),
+					22=>new Jison_ParserAction($this->reduce, $table60),
+					23=>new Jison_ParserAction($this->reduce, $table60),
+					24=>new Jison_ParserAction($this->reduce, $table60),
+					25=>new Jison_ParserAction($this->reduce, $table60),
+					26=>new Jison_ParserAction($this->reduce, $table60),
+					27=>new Jison_ParserAction($this->reduce, $table60),
+					28=>new Jison_ParserAction($this->reduce, $table60),
+					29=>new Jison_ParserAction($this->reduce, $table60),
+					30=>new Jison_ParserAction($this->reduce, $table60),
+					31=>new Jison_ParserAction($this->reduce, $table60),
+					32=>new Jison_ParserAction($this->reduce, $table60),
+					33=>new Jison_ParserAction($this->reduce, $table60),
+					34=>new Jison_ParserAction($this->reduce, $table60),
+					35=>new Jison_ParserAction($this->reduce, $table60),
+					36=>new Jison_ParserAction($this->reduce, $table60),
+					37=>new Jison_ParserAction($this->reduce, $table60),
+					38=>new Jison_ParserAction($this->reduce, $table60),
+					39=>new Jison_ParserAction($this->reduce, $table60),
+					40=>new Jison_ParserAction($this->reduce, $table60),
+					41=>new Jison_ParserAction($this->reduce, $table60),
+					42=>new Jison_ParserAction($this->reduce, $table60),
+					43=>new Jison_ParserAction($this->reduce, $table60),
+					44=>new Jison_ParserAction($this->reduce, $table60),
+					45=>new Jison_ParserAction($this->reduce, $table60),
+					46=>new Jison_ParserAction($this->reduce, $table60),
+					47=>new Jison_ParserAction($this->reduce, $table60),
+					48=>new Jison_ParserAction($this->reduce, $table60),
+					49=>new Jison_ParserAction($this->reduce, $table60),
+					50=>new Jison_ParserAction($this->reduce, $table60),
+					52=>new Jison_ParserAction($this->reduce, $table60),
+					54=>new Jison_ParserAction($this->reduce, $table60),
+					55=>new Jison_ParserAction($this->reduce, $table60),
+					56=>new Jison_ParserAction($this->reduce, $table60),
+					57=>new Jison_ParserAction($this->reduce, $table60)
+				);
+
+			$tableDefinition69 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table60),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table60),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table60),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table60),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table60),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table60),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table60),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table60),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table60),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table60),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table60),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table60),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table60),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->shift, $table89),
+					46=>new Jison_ParserAction($this->shift, $table88),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table60),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table60),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition70 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table62),
-					5=>new Jison_ParserAction($this->reduce, $table62),
-					8=>new Jison_ParserAction($this->reduce, $table62),
-					9=>new Jison_ParserAction($this->reduce, $table62),
-					11=>new Jison_ParserAction($this->reduce, $table62),
-					12=>new Jison_ParserAction($this->reduce, $table62),
-					13=>new Jison_ParserAction($this->reduce, $table62),
-					14=>new Jison_ParserAction($this->reduce, $table62),
-					15=>new Jison_ParserAction($this->reduce, $table62),
-					16=>new Jison_ParserAction($this->reduce, $table62),
-					17=>new Jison_ParserAction($this->reduce, $table62),
-					18=>new Jison_ParserAction($this->reduce, $table62),
-					19=>new Jison_ParserAction($this->reduce, $table62),
-					20=>new Jison_ParserAction($this->reduce, $table62),
-					21=>new Jison_ParserAction($this->reduce, $table62),
-					22=>new Jison_ParserAction($this->reduce, $table62),
-					23=>new Jison_ParserAction($this->reduce, $table62),
-					24=>new Jison_ParserAction($this->reduce, $table62),
-					25=>new Jison_ParserAction($this->reduce, $table62),
-					26=>new Jison_ParserAction($this->reduce, $table62),
-					27=>new Jison_ParserAction($this->reduce, $table62),
-					28=>new Jison_ParserAction($this->reduce, $table62),
-					29=>new Jison_ParserAction($this->reduce, $table62),
-					30=>new Jison_ParserAction($this->reduce, $table62),
-					31=>new Jison_ParserAction($this->reduce, $table62),
-					32=>new Jison_ParserAction($this->reduce, $table62),
-					33=>new Jison_ParserAction($this->reduce, $table62),
-					34=>new Jison_ParserAction($this->reduce, $table62),
-					35=>new Jison_ParserAction($this->reduce, $table62),
-					36=>new Jison_ParserAction($this->reduce, $table62),
-					37=>new Jison_ParserAction($this->reduce, $table62),
-					38=>new Jison_ParserAction($this->reduce, $table62),
-					39=>new Jison_ParserAction($this->reduce, $table62),
-					40=>new Jison_ParserAction($this->reduce, $table62),
-					41=>new Jison_ParserAction($this->reduce, $table62),
-					42=>new Jison_ParserAction($this->reduce, $table62),
-					43=>new Jison_ParserAction($this->reduce, $table62),
-					44=>new Jison_ParserAction($this->reduce, $table62),
-					45=>new Jison_ParserAction($this->reduce, $table62),
-					46=>new Jison_ParserAction($this->reduce, $table62),
-					47=>new Jison_ParserAction($this->reduce, $table62),
-					48=>new Jison_ParserAction($this->reduce, $table62),
-					49=>new Jison_ParserAction($this->reduce, $table62),
-					50=>new Jison_ParserAction($this->reduce, $table62),
-					51=>new Jison_ParserAction($this->reduce, $table62),
-					52=>new Jison_ParserAction($this->reduce, $table62),
-					53=>new Jison_ParserAction($this->reduce, $table62),
-					54=>new Jison_ParserAction($this->reduce, $table62),
-					55=>new Jison_ParserAction($this->reduce, $table62)
-				);
-
-			$tableDefinition71 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table63),
 					5=>new Jison_ParserAction($this->reduce, $table63),
 					8=>new Jison_ParserAction($this->reduce, $table63),
 					9=>new Jison_ParserAction($this->reduce, $table63),
+					11=>new Jison_ParserAction($this->reduce, $table63),
+					12=>new Jison_ParserAction($this->reduce, $table63),
+					13=>new Jison_ParserAction($this->reduce, $table63),
+					14=>new Jison_ParserAction($this->reduce, $table63),
+					15=>new Jison_ParserAction($this->reduce, $table63),
+					16=>new Jison_ParserAction($this->reduce, $table63),
+					17=>new Jison_ParserAction($this->reduce, $table63),
+					18=>new Jison_ParserAction($this->reduce, $table63),
+					19=>new Jison_ParserAction($this->reduce, $table63),
+					20=>new Jison_ParserAction($this->reduce, $table63),
+					21=>new Jison_ParserAction($this->reduce, $table63),
+					22=>new Jison_ParserAction($this->reduce, $table63),
+					23=>new Jison_ParserAction($this->reduce, $table63),
+					24=>new Jison_ParserAction($this->reduce, $table63),
+					25=>new Jison_ParserAction($this->reduce, $table63),
+					26=>new Jison_ParserAction($this->reduce, $table63),
+					27=>new Jison_ParserAction($this->reduce, $table63),
+					28=>new Jison_ParserAction($this->reduce, $table63),
+					29=>new Jison_ParserAction($this->reduce, $table63),
+					30=>new Jison_ParserAction($this->reduce, $table63),
+					31=>new Jison_ParserAction($this->reduce, $table63),
+					32=>new Jison_ParserAction($this->reduce, $table63),
+					33=>new Jison_ParserAction($this->reduce, $table63),
+					34=>new Jison_ParserAction($this->reduce, $table63),
+					35=>new Jison_ParserAction($this->reduce, $table63),
+					36=>new Jison_ParserAction($this->reduce, $table63),
+					37=>new Jison_ParserAction($this->reduce, $table63),
+					38=>new Jison_ParserAction($this->reduce, $table63),
+					39=>new Jison_ParserAction($this->reduce, $table63),
+					40=>new Jison_ParserAction($this->reduce, $table63),
+					41=>new Jison_ParserAction($this->reduce, $table63),
+					42=>new Jison_ParserAction($this->reduce, $table63),
+					43=>new Jison_ParserAction($this->reduce, $table63),
+					44=>new Jison_ParserAction($this->reduce, $table63),
+					45=>new Jison_ParserAction($this->reduce, $table63),
+					46=>new Jison_ParserAction($this->reduce, $table63),
+					47=>new Jison_ParserAction($this->reduce, $table63),
+					48=>new Jison_ParserAction($this->reduce, $table63),
+					49=>new Jison_ParserAction($this->reduce, $table63),
+					50=>new Jison_ParserAction($this->reduce, $table63),
+					52=>new Jison_ParserAction($this->reduce, $table63),
+					54=>new Jison_ParserAction($this->reduce, $table63),
+					55=>new Jison_ParserAction($this->reduce, $table63),
+					56=>new Jison_ParserAction($this->reduce, $table63),
+					57=>new Jison_ParserAction($this->reduce, $table63)
+				);
+
+			$tableDefinition71 = array(
+				
 					10=>new Jison_ParserAction($this->none, $table39),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table63),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table63),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table63),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table63),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table63),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table63),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table63),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table63),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table63),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table63),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table63),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table63),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table63),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table63),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->shift, $table90),
+					48=>new Jison_ParserAction($this->shift, $table89),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->reduce, $table63),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition72 = array(
@@ -3597,65 +3686,66 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table67),
 					49=>new Jison_ParserAction($this->reduce, $table67),
 					50=>new Jison_ParserAction($this->reduce, $table67),
-					51=>new Jison_ParserAction($this->reduce, $table67),
 					52=>new Jison_ParserAction($this->reduce, $table67),
-					53=>new Jison_ParserAction($this->reduce, $table67),
 					54=>new Jison_ParserAction($this->reduce, $table67),
-					55=>new Jison_ParserAction($this->reduce, $table67)
+					55=>new Jison_ParserAction($this->reduce, $table67),
+					56=>new Jison_ParserAction($this->reduce, $table67),
+					57=>new Jison_ParserAction($this->reduce, $table67)
 				);
 
 			$tableDefinition73 = array(
 				
-					1=>new Jison_ParserAction($this->reduce, $table68),
-					5=>new Jison_ParserAction($this->reduce, $table68),
-					8=>new Jison_ParserAction($this->reduce, $table68),
-					9=>new Jison_ParserAction($this->reduce, $table68),
-					10=>new Jison_ParserAction($this->none, $table39),
+					1=>new Jison_ParserAction($this->reduce, $table70),
+					5=>new Jison_ParserAction($this->reduce, $table70),
+					7=>new Jison_ParserAction($this->none, $table90),
+					8=>new Jison_ParserAction($this->reduce, $table70),
+					9=>new Jison_ParserAction($this->reduce, $table70),
+					10=>new Jison_ParserAction($this->none, $table7),
 					11=>new Jison_ParserAction($this->shift, $table8),
 					12=>new Jison_ParserAction($this->shift, $table9),
 					13=>new Jison_ParserAction($this->shift, $table10),
-					14=>new Jison_ParserAction($this->reduce, $table68),
+					14=>new Jison_ParserAction($this->reduce, $table70),
 					15=>new Jison_ParserAction($this->shift, $table11),
-					16=>new Jison_ParserAction($this->reduce, $table68),
+					16=>new Jison_ParserAction($this->reduce, $table70),
 					17=>new Jison_ParserAction($this->shift, $table12),
 					18=>new Jison_ParserAction($this->shift, $table13),
 					19=>new Jison_ParserAction($this->shift, $table14),
 					20=>new Jison_ParserAction($this->shift, $table15),
 					21=>new Jison_ParserAction($this->shift, $table16),
 					22=>new Jison_ParserAction($this->shift, $table17),
-					23=>new Jison_ParserAction($this->reduce, $table68),
+					23=>new Jison_ParserAction($this->reduce, $table70),
 					24=>new Jison_ParserAction($this->shift, $table18),
-					25=>new Jison_ParserAction($this->reduce, $table68),
+					25=>new Jison_ParserAction($this->reduce, $table70),
 					26=>new Jison_ParserAction($this->shift, $table19),
-					27=>new Jison_ParserAction($this->reduce, $table68),
+					27=>new Jison_ParserAction($this->reduce, $table70),
 					28=>new Jison_ParserAction($this->shift, $table20),
-					29=>new Jison_ParserAction($this->reduce, $table68),
+					29=>new Jison_ParserAction($this->reduce, $table70),
 					30=>new Jison_ParserAction($this->shift, $table21),
-					31=>new Jison_ParserAction($this->reduce, $table68),
+					31=>new Jison_ParserAction($this->reduce, $table70),
 					32=>new Jison_ParserAction($this->shift, $table22),
-					33=>new Jison_ParserAction($this->reduce, $table68),
+					33=>new Jison_ParserAction($this->reduce, $table70),
 					34=>new Jison_ParserAction($this->shift, $table23),
-					35=>new Jison_ParserAction($this->reduce, $table68),
+					35=>new Jison_ParserAction($this->reduce, $table70),
 					36=>new Jison_ParserAction($this->shift, $table24),
-					37=>new Jison_ParserAction($this->reduce, $table68),
+					37=>new Jison_ParserAction($this->reduce, $table70),
 					38=>new Jison_ParserAction($this->shift, $table25),
-					39=>new Jison_ParserAction($this->reduce, $table68),
+					39=>new Jison_ParserAction($this->reduce, $table70),
 					40=>new Jison_ParserAction($this->shift, $table26),
 					41=>new Jison_ParserAction($this->shift, $table27),
-					42=>new Jison_ParserAction($this->reduce, $table68),
+					42=>new Jison_ParserAction($this->reduce, $table70),
 					43=>new Jison_ParserAction($this->shift, $table28),
-					44=>new Jison_ParserAction($this->reduce, $table68),
+					44=>new Jison_ParserAction($this->reduce, $table70),
 					45=>new Jison_ParserAction($this->shift, $table29),
-					46=>new Jison_ParserAction($this->reduce, $table68),
+					46=>new Jison_ParserAction($this->reduce, $table70),
 					47=>new Jison_ParserAction($this->shift, $table30),
-					48=>new Jison_ParserAction($this->reduce, $table68),
+					48=>new Jison_ParserAction($this->reduce, $table70),
 					49=>new Jison_ParserAction($this->shift, $table31),
 					50=>new Jison_ParserAction($this->shift, $table32),
-					51=>new Jison_ParserAction($this->shift, $table33),
-					52=>new Jison_ParserAction($this->shift, $table91),
-					53=>new Jison_ParserAction($this->shift, $table34),
-					54=>new Jison_ParserAction($this->shift, $table35),
-					55=>new Jison_ParserAction($this->shift, $table36)
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->shift, $table91),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition74 = array(
@@ -3688,49 +3778,13 @@ class WikiLingo_Definition extends Jison_Base
 					47=>new Jison_ParserAction($this->reduce, $table8),
 					49=>new Jison_ParserAction($this->reduce, $table8),
 					50=>new Jison_ParserAction($this->reduce, $table8),
-					51=>new Jison_ParserAction($this->reduce, $table8),
-					53=>new Jison_ParserAction($this->reduce, $table8),
-					54=>new Jison_ParserAction($this->reduce, $table8),
-					55=>new Jison_ParserAction($this->reduce, $table8)
+					52=>new Jison_ParserAction($this->reduce, $table8),
+					55=>new Jison_ParserAction($this->reduce, $table8),
+					56=>new Jison_ParserAction($this->reduce, $table8),
+					57=>new Jison_ParserAction($this->reduce, $table8)
 				);
 
 			$tableDefinition75 = array(
-				
-					1=>new Jison_ParserAction($this->reduce, $table9),
-					5=>new Jison_ParserAction($this->reduce, $table9),
-					8=>new Jison_ParserAction($this->reduce, $table9),
-					11=>new Jison_ParserAction($this->reduce, $table9),
-					12=>new Jison_ParserAction($this->reduce, $table9),
-					13=>new Jison_ParserAction($this->reduce, $table9),
-					15=>new Jison_ParserAction($this->reduce, $table9),
-					17=>new Jison_ParserAction($this->reduce, $table9),
-					18=>new Jison_ParserAction($this->reduce, $table9),
-					19=>new Jison_ParserAction($this->reduce, $table9),
-					20=>new Jison_ParserAction($this->reduce, $table9),
-					21=>new Jison_ParserAction($this->reduce, $table9),
-					22=>new Jison_ParserAction($this->reduce, $table9),
-					24=>new Jison_ParserAction($this->reduce, $table9),
-					26=>new Jison_ParserAction($this->reduce, $table9),
-					28=>new Jison_ParserAction($this->reduce, $table9),
-					30=>new Jison_ParserAction($this->reduce, $table9),
-					32=>new Jison_ParserAction($this->reduce, $table9),
-					34=>new Jison_ParserAction($this->reduce, $table9),
-					36=>new Jison_ParserAction($this->reduce, $table9),
-					38=>new Jison_ParserAction($this->reduce, $table9),
-					40=>new Jison_ParserAction($this->reduce, $table9),
-					41=>new Jison_ParserAction($this->reduce, $table9),
-					43=>new Jison_ParserAction($this->reduce, $table9),
-					45=>new Jison_ParserAction($this->reduce, $table9),
-					47=>new Jison_ParserAction($this->reduce, $table9),
-					49=>new Jison_ParserAction($this->reduce, $table9),
-					50=>new Jison_ParserAction($this->reduce, $table9),
-					51=>new Jison_ParserAction($this->reduce, $table9),
-					53=>new Jison_ParserAction($this->reduce, $table9),
-					54=>new Jison_ParserAction($this->reduce, $table9),
-					55=>new Jison_ParserAction($this->reduce, $table9)
-				);
-
-			$tableDefinition76 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table16),
 					5=>new Jison_ParserAction($this->reduce, $table16),
@@ -3776,14 +3830,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table16),
 					49=>new Jison_ParserAction($this->reduce, $table16),
 					50=>new Jison_ParserAction($this->reduce, $table16),
-					51=>new Jison_ParserAction($this->reduce, $table16),
 					52=>new Jison_ParserAction($this->reduce, $table16),
-					53=>new Jison_ParserAction($this->reduce, $table16),
 					54=>new Jison_ParserAction($this->reduce, $table16),
-					55=>new Jison_ParserAction($this->reduce, $table16)
+					55=>new Jison_ParserAction($this->reduce, $table16),
+					56=>new Jison_ParserAction($this->reduce, $table16),
+					57=>new Jison_ParserAction($this->reduce, $table16)
 				);
 
-			$tableDefinition77 = array(
+			$tableDefinition76 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table19),
 					5=>new Jison_ParserAction($this->reduce, $table19),
@@ -3829,14 +3883,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table19),
 					49=>new Jison_ParserAction($this->reduce, $table19),
 					50=>new Jison_ParserAction($this->reduce, $table19),
-					51=>new Jison_ParserAction($this->reduce, $table19),
 					52=>new Jison_ParserAction($this->reduce, $table19),
-					53=>new Jison_ParserAction($this->reduce, $table19),
 					54=>new Jison_ParserAction($this->reduce, $table19),
-					55=>new Jison_ParserAction($this->reduce, $table19)
+					55=>new Jison_ParserAction($this->reduce, $table19),
+					56=>new Jison_ParserAction($this->reduce, $table19),
+					57=>new Jison_ParserAction($this->reduce, $table19)
 				);
 
-			$tableDefinition78 = array(
+			$tableDefinition77 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table27),
 					5=>new Jison_ParserAction($this->reduce, $table27),
@@ -3882,14 +3936,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table27),
 					49=>new Jison_ParserAction($this->reduce, $table27),
 					50=>new Jison_ParserAction($this->reduce, $table27),
-					51=>new Jison_ParserAction($this->reduce, $table27),
 					52=>new Jison_ParserAction($this->reduce, $table27),
-					53=>new Jison_ParserAction($this->reduce, $table27),
 					54=>new Jison_ParserAction($this->reduce, $table27),
-					55=>new Jison_ParserAction($this->reduce, $table27)
+					55=>new Jison_ParserAction($this->reduce, $table27),
+					56=>new Jison_ParserAction($this->reduce, $table27),
+					57=>new Jison_ParserAction($this->reduce, $table27)
 				);
 
-			$tableDefinition79 = array(
+			$tableDefinition78 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table30),
 					5=>new Jison_ParserAction($this->reduce, $table30),
@@ -3935,14 +3989,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table30),
 					49=>new Jison_ParserAction($this->reduce, $table30),
 					50=>new Jison_ParserAction($this->reduce, $table30),
-					51=>new Jison_ParserAction($this->reduce, $table30),
 					52=>new Jison_ParserAction($this->reduce, $table30),
-					53=>new Jison_ParserAction($this->reduce, $table30),
 					54=>new Jison_ParserAction($this->reduce, $table30),
-					55=>new Jison_ParserAction($this->reduce, $table30)
+					55=>new Jison_ParserAction($this->reduce, $table30),
+					56=>new Jison_ParserAction($this->reduce, $table30),
+					57=>new Jison_ParserAction($this->reduce, $table30)
 				);
 
-			$tableDefinition80 = array(
+			$tableDefinition79 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table33),
 					5=>new Jison_ParserAction($this->reduce, $table33),
@@ -3988,14 +4042,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table33),
 					49=>new Jison_ParserAction($this->reduce, $table33),
 					50=>new Jison_ParserAction($this->reduce, $table33),
-					51=>new Jison_ParserAction($this->reduce, $table33),
 					52=>new Jison_ParserAction($this->reduce, $table33),
-					53=>new Jison_ParserAction($this->reduce, $table33),
 					54=>new Jison_ParserAction($this->reduce, $table33),
-					55=>new Jison_ParserAction($this->reduce, $table33)
+					55=>new Jison_ParserAction($this->reduce, $table33),
+					56=>new Jison_ParserAction($this->reduce, $table33),
+					57=>new Jison_ParserAction($this->reduce, $table33)
 				);
 
-			$tableDefinition81 = array(
+			$tableDefinition80 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table36),
 					5=>new Jison_ParserAction($this->reduce, $table36),
@@ -4041,14 +4095,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table36),
 					49=>new Jison_ParserAction($this->reduce, $table36),
 					50=>new Jison_ParserAction($this->reduce, $table36),
-					51=>new Jison_ParserAction($this->reduce, $table36),
 					52=>new Jison_ParserAction($this->reduce, $table36),
-					53=>new Jison_ParserAction($this->reduce, $table36),
 					54=>new Jison_ParserAction($this->reduce, $table36),
-					55=>new Jison_ParserAction($this->reduce, $table36)
+					55=>new Jison_ParserAction($this->reduce, $table36),
+					56=>new Jison_ParserAction($this->reduce, $table36),
+					57=>new Jison_ParserAction($this->reduce, $table36)
 				);
 
-			$tableDefinition82 = array(
+			$tableDefinition81 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table39),
 					5=>new Jison_ParserAction($this->reduce, $table39),
@@ -4094,14 +4148,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table39),
 					49=>new Jison_ParserAction($this->reduce, $table39),
 					50=>new Jison_ParserAction($this->reduce, $table39),
-					51=>new Jison_ParserAction($this->reduce, $table39),
 					52=>new Jison_ParserAction($this->reduce, $table39),
-					53=>new Jison_ParserAction($this->reduce, $table39),
 					54=>new Jison_ParserAction($this->reduce, $table39),
-					55=>new Jison_ParserAction($this->reduce, $table39)
+					55=>new Jison_ParserAction($this->reduce, $table39),
+					56=>new Jison_ParserAction($this->reduce, $table39),
+					57=>new Jison_ParserAction($this->reduce, $table39)
 				);
 
-			$tableDefinition83 = array(
+			$tableDefinition82 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table42),
 					5=>new Jison_ParserAction($this->reduce, $table42),
@@ -4147,14 +4201,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table42),
 					49=>new Jison_ParserAction($this->reduce, $table42),
 					50=>new Jison_ParserAction($this->reduce, $table42),
-					51=>new Jison_ParserAction($this->reduce, $table42),
 					52=>new Jison_ParserAction($this->reduce, $table42),
-					53=>new Jison_ParserAction($this->reduce, $table42),
 					54=>new Jison_ParserAction($this->reduce, $table42),
-					55=>new Jison_ParserAction($this->reduce, $table42)
+					55=>new Jison_ParserAction($this->reduce, $table42),
+					56=>new Jison_ParserAction($this->reduce, $table42),
+					57=>new Jison_ParserAction($this->reduce, $table42)
 				);
 
-			$tableDefinition84 = array(
+			$tableDefinition83 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table45),
 					5=>new Jison_ParserAction($this->reduce, $table45),
@@ -4200,14 +4254,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table45),
 					49=>new Jison_ParserAction($this->reduce, $table45),
 					50=>new Jison_ParserAction($this->reduce, $table45),
-					51=>new Jison_ParserAction($this->reduce, $table45),
 					52=>new Jison_ParserAction($this->reduce, $table45),
-					53=>new Jison_ParserAction($this->reduce, $table45),
 					54=>new Jison_ParserAction($this->reduce, $table45),
-					55=>new Jison_ParserAction($this->reduce, $table45)
+					55=>new Jison_ParserAction($this->reduce, $table45),
+					56=>new Jison_ParserAction($this->reduce, $table45),
+					57=>new Jison_ParserAction($this->reduce, $table45)
 				);
 
-			$tableDefinition85 = array(
+			$tableDefinition84 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table48),
 					5=>new Jison_ParserAction($this->reduce, $table48),
@@ -4253,14 +4307,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table48),
 					49=>new Jison_ParserAction($this->reduce, $table48),
 					50=>new Jison_ParserAction($this->reduce, $table48),
-					51=>new Jison_ParserAction($this->reduce, $table48),
 					52=>new Jison_ParserAction($this->reduce, $table48),
-					53=>new Jison_ParserAction($this->reduce, $table48),
 					54=>new Jison_ParserAction($this->reduce, $table48),
-					55=>new Jison_ParserAction($this->reduce, $table48)
+					55=>new Jison_ParserAction($this->reduce, $table48),
+					56=>new Jison_ParserAction($this->reduce, $table48),
+					57=>new Jison_ParserAction($this->reduce, $table48)
 				);
 
-			$tableDefinition86 = array(
+			$tableDefinition85 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table51),
 					5=>new Jison_ParserAction($this->reduce, $table51),
@@ -4306,14 +4360,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table51),
 					49=>new Jison_ParserAction($this->reduce, $table51),
 					50=>new Jison_ParserAction($this->reduce, $table51),
-					51=>new Jison_ParserAction($this->reduce, $table51),
 					52=>new Jison_ParserAction($this->reduce, $table51),
-					53=>new Jison_ParserAction($this->reduce, $table51),
 					54=>new Jison_ParserAction($this->reduce, $table51),
-					55=>new Jison_ParserAction($this->reduce, $table51)
+					55=>new Jison_ParserAction($this->reduce, $table51),
+					56=>new Jison_ParserAction($this->reduce, $table51),
+					57=>new Jison_ParserAction($this->reduce, $table51)
 				);
 
-			$tableDefinition87 = array(
+			$tableDefinition86 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table55),
 					5=>new Jison_ParserAction($this->reduce, $table55),
@@ -4359,14 +4413,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table55),
 					49=>new Jison_ParserAction($this->reduce, $table55),
 					50=>new Jison_ParserAction($this->reduce, $table55),
-					51=>new Jison_ParserAction($this->reduce, $table55),
 					52=>new Jison_ParserAction($this->reduce, $table55),
-					53=>new Jison_ParserAction($this->reduce, $table55),
 					54=>new Jison_ParserAction($this->reduce, $table55),
-					55=>new Jison_ParserAction($this->reduce, $table55)
+					55=>new Jison_ParserAction($this->reduce, $table55),
+					56=>new Jison_ParserAction($this->reduce, $table55),
+					57=>new Jison_ParserAction($this->reduce, $table55)
 				);
 
-			$tableDefinition88 = array(
+			$tableDefinition87 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table58),
 					5=>new Jison_ParserAction($this->reduce, $table58),
@@ -4412,14 +4466,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table58),
 					49=>new Jison_ParserAction($this->reduce, $table58),
 					50=>new Jison_ParserAction($this->reduce, $table58),
-					51=>new Jison_ParserAction($this->reduce, $table58),
 					52=>new Jison_ParserAction($this->reduce, $table58),
-					53=>new Jison_ParserAction($this->reduce, $table58),
 					54=>new Jison_ParserAction($this->reduce, $table58),
-					55=>new Jison_ParserAction($this->reduce, $table58)
+					55=>new Jison_ParserAction($this->reduce, $table58),
+					56=>new Jison_ParserAction($this->reduce, $table58),
+					57=>new Jison_ParserAction($this->reduce, $table58)
 				);
 
-			$tableDefinition89 = array(
+			$tableDefinition88 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table61),
 					5=>new Jison_ParserAction($this->reduce, $table61),
@@ -4465,14 +4519,14 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table61),
 					49=>new Jison_ParserAction($this->reduce, $table61),
 					50=>new Jison_ParserAction($this->reduce, $table61),
-					51=>new Jison_ParserAction($this->reduce, $table61),
 					52=>new Jison_ParserAction($this->reduce, $table61),
-					53=>new Jison_ParserAction($this->reduce, $table61),
 					54=>new Jison_ParserAction($this->reduce, $table61),
-					55=>new Jison_ParserAction($this->reduce, $table61)
+					55=>new Jison_ParserAction($this->reduce, $table61),
+					56=>new Jison_ParserAction($this->reduce, $table61),
+					57=>new Jison_ParserAction($this->reduce, $table61)
 				);
 
-			$tableDefinition90 = array(
+			$tableDefinition89 = array(
 				
 					1=>new Jison_ParserAction($this->reduce, $table64),
 					5=>new Jison_ParserAction($this->reduce, $table64),
@@ -4518,11 +4572,46 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table64),
 					49=>new Jison_ParserAction($this->reduce, $table64),
 					50=>new Jison_ParserAction($this->reduce, $table64),
-					51=>new Jison_ParserAction($this->reduce, $table64),
 					52=>new Jison_ParserAction($this->reduce, $table64),
-					53=>new Jison_ParserAction($this->reduce, $table64),
 					54=>new Jison_ParserAction($this->reduce, $table64),
-					55=>new Jison_ParserAction($this->reduce, $table64)
+					55=>new Jison_ParserAction($this->reduce, $table64),
+					56=>new Jison_ParserAction($this->reduce, $table64),
+					57=>new Jison_ParserAction($this->reduce, $table64)
+				);
+
+			$tableDefinition90 = array(
+				
+					10=>new Jison_ParserAction($this->none, $table39),
+					11=>new Jison_ParserAction($this->shift, $table8),
+					12=>new Jison_ParserAction($this->shift, $table9),
+					13=>new Jison_ParserAction($this->shift, $table10),
+					15=>new Jison_ParserAction($this->shift, $table11),
+					17=>new Jison_ParserAction($this->shift, $table12),
+					18=>new Jison_ParserAction($this->shift, $table13),
+					19=>new Jison_ParserAction($this->shift, $table14),
+					20=>new Jison_ParserAction($this->shift, $table15),
+					21=>new Jison_ParserAction($this->shift, $table16),
+					22=>new Jison_ParserAction($this->shift, $table17),
+					24=>new Jison_ParserAction($this->shift, $table18),
+					26=>new Jison_ParserAction($this->shift, $table19),
+					28=>new Jison_ParserAction($this->shift, $table20),
+					30=>new Jison_ParserAction($this->shift, $table21),
+					32=>new Jison_ParserAction($this->shift, $table22),
+					34=>new Jison_ParserAction($this->shift, $table23),
+					36=>new Jison_ParserAction($this->shift, $table24),
+					38=>new Jison_ParserAction($this->shift, $table25),
+					40=>new Jison_ParserAction($this->shift, $table26),
+					41=>new Jison_ParserAction($this->shift, $table27),
+					43=>new Jison_ParserAction($this->shift, $table28),
+					45=>new Jison_ParserAction($this->shift, $table29),
+					47=>new Jison_ParserAction($this->shift, $table30),
+					49=>new Jison_ParserAction($this->shift, $table31),
+					50=>new Jison_ParserAction($this->shift, $table32),
+					52=>new Jison_ParserAction($this->shift, $table33),
+					54=>new Jison_ParserAction($this->shift, $table92),
+					55=>new Jison_ParserAction($this->shift, $table34),
+					56=>new Jison_ParserAction($this->shift, $table35),
+					57=>new Jison_ParserAction($this->shift, $table36)
 				);
 
 			$tableDefinition91 = array(
@@ -4571,11 +4660,64 @@ class WikiLingo_Definition extends Jison_Base
 					48=>new Jison_ParserAction($this->reduce, $table69),
 					49=>new Jison_ParserAction($this->reduce, $table69),
 					50=>new Jison_ParserAction($this->reduce, $table69),
-					51=>new Jison_ParserAction($this->reduce, $table69),
 					52=>new Jison_ParserAction($this->reduce, $table69),
-					53=>new Jison_ParserAction($this->reduce, $table69),
 					54=>new Jison_ParserAction($this->reduce, $table69),
-					55=>new Jison_ParserAction($this->reduce, $table69)
+					55=>new Jison_ParserAction($this->reduce, $table69),
+					56=>new Jison_ParserAction($this->reduce, $table69),
+					57=>new Jison_ParserAction($this->reduce, $table69)
+				);
+
+			$tableDefinition92 = array(
+				
+					1=>new Jison_ParserAction($this->reduce, $table68),
+					5=>new Jison_ParserAction($this->reduce, $table68),
+					8=>new Jison_ParserAction($this->reduce, $table68),
+					9=>new Jison_ParserAction($this->reduce, $table68),
+					11=>new Jison_ParserAction($this->reduce, $table68),
+					12=>new Jison_ParserAction($this->reduce, $table68),
+					13=>new Jison_ParserAction($this->reduce, $table68),
+					14=>new Jison_ParserAction($this->reduce, $table68),
+					15=>new Jison_ParserAction($this->reduce, $table68),
+					16=>new Jison_ParserAction($this->reduce, $table68),
+					17=>new Jison_ParserAction($this->reduce, $table68),
+					18=>new Jison_ParserAction($this->reduce, $table68),
+					19=>new Jison_ParserAction($this->reduce, $table68),
+					20=>new Jison_ParserAction($this->reduce, $table68),
+					21=>new Jison_ParserAction($this->reduce, $table68),
+					22=>new Jison_ParserAction($this->reduce, $table68),
+					23=>new Jison_ParserAction($this->reduce, $table68),
+					24=>new Jison_ParserAction($this->reduce, $table68),
+					25=>new Jison_ParserAction($this->reduce, $table68),
+					26=>new Jison_ParserAction($this->reduce, $table68),
+					27=>new Jison_ParserAction($this->reduce, $table68),
+					28=>new Jison_ParserAction($this->reduce, $table68),
+					29=>new Jison_ParserAction($this->reduce, $table68),
+					30=>new Jison_ParserAction($this->reduce, $table68),
+					31=>new Jison_ParserAction($this->reduce, $table68),
+					32=>new Jison_ParserAction($this->reduce, $table68),
+					33=>new Jison_ParserAction($this->reduce, $table68),
+					34=>new Jison_ParserAction($this->reduce, $table68),
+					35=>new Jison_ParserAction($this->reduce, $table68),
+					36=>new Jison_ParserAction($this->reduce, $table68),
+					37=>new Jison_ParserAction($this->reduce, $table68),
+					38=>new Jison_ParserAction($this->reduce, $table68),
+					39=>new Jison_ParserAction($this->reduce, $table68),
+					40=>new Jison_ParserAction($this->reduce, $table68),
+					41=>new Jison_ParserAction($this->reduce, $table68),
+					42=>new Jison_ParserAction($this->reduce, $table68),
+					43=>new Jison_ParserAction($this->reduce, $table68),
+					44=>new Jison_ParserAction($this->reduce, $table68),
+					45=>new Jison_ParserAction($this->reduce, $table68),
+					46=>new Jison_ParserAction($this->reduce, $table68),
+					47=>new Jison_ParserAction($this->reduce, $table68),
+					48=>new Jison_ParserAction($this->reduce, $table68),
+					49=>new Jison_ParserAction($this->reduce, $table68),
+					50=>new Jison_ParserAction($this->reduce, $table68),
+					52=>new Jison_ParserAction($this->reduce, $table68),
+					54=>new Jison_ParserAction($this->reduce, $table68),
+					55=>new Jison_ParserAction($this->reduce, $table68),
+					56=>new Jison_ParserAction($this->reduce, $table68),
+					57=>new Jison_ParserAction($this->reduce, $table68)
 				);
 
 			$table0->setActions($tableDefinition0);
@@ -4670,6 +4812,7 @@ class WikiLingo_Definition extends Jison_Base
 			$table89->setActions($tableDefinition89);
 			$table90->setActions($tableDefinition90);
 			$table91->setActions($tableDefinition91);
+			$table92->setActions($tableDefinition92);
 
 			$this->table = array(
 				
@@ -4764,7 +4907,8 @@ class WikiLingo_Definition extends Jison_Base
 					88=>$table88,
 					89=>$table89,
 					90=>$table90,
-					91=>$table91
+					91=>$table91,
+					92=>$table92
 				);
 
 			$this->defaultActions = array(
@@ -4784,15 +4928,15 @@ class WikiLingo_Definition extends Jison_Base
 					6=>new Jison_ParserProduction($symbol6,1),
 					7=>new Jison_ParserProduction($symbol6,2),
 					8=>new Jison_ParserProduction($symbol6,3),
-					9=>new Jison_ParserProduction($symbol6,3),
+					9=>new Jison_ParserProduction($symbol6,1),
 					10=>new Jison_ParserProduction($symbol7,1),
 					11=>new Jison_ParserProduction($symbol7,2),
 					12=>new Jison_ParserProduction($symbol10,1),
 					13=>new Jison_ParserProduction($symbol10,1),
-					14=>new Jison_ParserProduction($symbol10,2),
+					14=>new Jison_ParserProduction($symbol10,1),
 					15=>new Jison_ParserProduction($symbol10,2),
 					16=>new Jison_ParserProduction($symbol10,3),
-					17=>new Jison_ParserProduction($symbol10,2),
+					17=>new Jison_ParserProduction($symbol10,1),
 					18=>new Jison_ParserProduction($symbol10,2),
 					19=>new Jison_ParserProduction($symbol10,3),
 					20=>new Jison_ParserProduction($symbol10,1),
@@ -4800,54 +4944,56 @@ class WikiLingo_Definition extends Jison_Base
 					22=>new Jison_ParserProduction($symbol10,1),
 					23=>new Jison_ParserProduction($symbol10,1),
 					24=>new Jison_ParserProduction($symbol10,1),
-					25=>new Jison_ParserProduction($symbol10,2),
+					25=>new Jison_ParserProduction($symbol10,1),
 					26=>new Jison_ParserProduction($symbol10,2),
 					27=>new Jison_ParserProduction($symbol10,3),
-					28=>new Jison_ParserProduction($symbol10,2),
+					28=>new Jison_ParserProduction($symbol10,1),
 					29=>new Jison_ParserProduction($symbol10,2),
 					30=>new Jison_ParserProduction($symbol10,3),
-					31=>new Jison_ParserProduction($symbol10,2),
+					31=>new Jison_ParserProduction($symbol10,1),
 					32=>new Jison_ParserProduction($symbol10,2),
 					33=>new Jison_ParserProduction($symbol10,3),
-					34=>new Jison_ParserProduction($symbol10,2),
+					34=>new Jison_ParserProduction($symbol10,1),
 					35=>new Jison_ParserProduction($symbol10,2),
 					36=>new Jison_ParserProduction($symbol10,3),
-					37=>new Jison_ParserProduction($symbol10,2),
+					37=>new Jison_ParserProduction($symbol10,1),
 					38=>new Jison_ParserProduction($symbol10,2),
 					39=>new Jison_ParserProduction($symbol10,3),
-					40=>new Jison_ParserProduction($symbol10,2),
+					40=>new Jison_ParserProduction($symbol10,1),
 					41=>new Jison_ParserProduction($symbol10,2),
 					42=>new Jison_ParserProduction($symbol10,3),
-					43=>new Jison_ParserProduction($symbol10,2),
+					43=>new Jison_ParserProduction($symbol10,1),
 					44=>new Jison_ParserProduction($symbol10,2),
 					45=>new Jison_ParserProduction($symbol10,3),
-					46=>new Jison_ParserProduction($symbol10,2),
+					46=>new Jison_ParserProduction($symbol10,1),
 					47=>new Jison_ParserProduction($symbol10,2),
 					48=>new Jison_ParserProduction($symbol10,3),
-					49=>new Jison_ParserProduction($symbol10,2),
+					49=>new Jison_ParserProduction($symbol10,1),
 					50=>new Jison_ParserProduction($symbol10,2),
 					51=>new Jison_ParserProduction($symbol10,3),
 					52=>new Jison_ParserProduction($symbol10,1),
-					53=>new Jison_ParserProduction($symbol10,2),
+					53=>new Jison_ParserProduction($symbol10,1),
 					54=>new Jison_ParserProduction($symbol10,2),
 					55=>new Jison_ParserProduction($symbol10,3),
-					56=>new Jison_ParserProduction($symbol10,2),
+					56=>new Jison_ParserProduction($symbol10,1),
 					57=>new Jison_ParserProduction($symbol10,2),
 					58=>new Jison_ParserProduction($symbol10,3),
-					59=>new Jison_ParserProduction($symbol10,2),
+					59=>new Jison_ParserProduction($symbol10,1),
 					60=>new Jison_ParserProduction($symbol10,2),
 					61=>new Jison_ParserProduction($symbol10,3),
-					62=>new Jison_ParserProduction($symbol10,2),
+					62=>new Jison_ParserProduction($symbol10,1),
 					63=>new Jison_ParserProduction($symbol10,2),
 					64=>new Jison_ParserProduction($symbol10,3),
 					65=>new Jison_ParserProduction($symbol10,1),
 					66=>new Jison_ParserProduction($symbol10,1),
 					67=>new Jison_ParserProduction($symbol10,2),
-					68=>new Jison_ParserProduction($symbol10,2),
+					68=>new Jison_ParserProduction($symbol10,4),
 					69=>new Jison_ParserProduction($symbol10,3),
-					70=>new Jison_ParserProduction($symbol10,1),
+					70=>new Jison_ParserProduction($symbol10,2),
 					71=>new Jison_ParserProduction($symbol10,1),
-					72=>new Jison_ParserProduction($symbol10,1)
+					72=>new Jison_ParserProduction($symbol10,1),
+					73=>new Jison_ParserProduction($symbol10,1),
+					74=>new Jison_ParserProduction($symbol10,1)
 				);
 
 
@@ -4870,105 +5016,110 @@ class WikiLingo_Definition extends Jison_Base
 					10=>"/^(?:\{rm\})/",
 					11=>"/^(?:\{ELSE\})/",
 					12=>"/^(?:((\n))(\{r2l\}|\{l2r\}))/",
-					13=>"/^(?:\{([a-z]+).*?\})/",
-					14=>"/^(?:\{([A-Z]+)\(.*?\)\})/",
-					15=>"/^(?:$)/",
-					16=>"/^(?:\{([A-Z]+)\})/",
+					13=>"/^(?:\})/",
+					14=>"/^(?:\{([a-z]+))/",
+					15=>"/^(?:.*?\)\})/",
+					16=>"/^(?:\{([A-Z]+)\()/",
 					17=>"/^(?:$)/",
-					18=>"/^(?:(?=((\n))))/",
-					19=>"/^(?:((\n))(?=(([\!*#+;]))))/",
-					20=>"/^(?:((\n)))/",
-					21=>"/^(?:---)/",
-					22=>"/^(?:%%%)/",
-					23=>"/^(?:$)/",
-					24=>"/^(?:[_][_])/",
-					25=>"/^(?:[_][_])/",
-					26=>"/^(?:$)/",
-					27=>"/^(?:[\^])/",
-					28=>"/^(?:[\^])/",
-					29=>"/^(?:$)/",
-					30=>"/^(?:[:][:])/",
-					31=>"/^(?:[:][:])/",
-					32=>"/^(?:$)/",
-					33=>"/^(?:\+-)/",
-					34=>"/^(?:-\+)/",
-					35=>"/^(?:$)/",
-					36=>"/^(?:[\~][\~])/",
-					37=>"/^(?:[\~][\~])/",
-					38=>"/^(?:$)/",
-					39=>"/^(?:[']['])/",
-					40=>"/^(?:[']['])/",
-					41=>"/^(?:$)/",
-					42=>"/^(?:(@np|\]\]|\]))/",
-					43=>"/^(?:\[\[)/",
-					44=>"/^(?:$)/",
-					45=>"/^(?:\])/",
-					46=>"/^(?:\[(?![ ]))/",
-					47=>"/^(?:$)/",
-					48=>"/^(?:[-][-])/",
-					49=>"/^(?:[-][-](?![ ]|$))/",
-					50=>"/^(?:[ ][-][-][ ])/",
-					51=>"/^(?:$)/",
-					52=>"/^(?:[|][|])/",
-					53=>"/^(?:[|][|])/",
-					54=>"/^(?:$)/",
-					55=>"/^(?:[=][-])/",
-					56=>"/^(?:[-][=])/",
-					57=>"/^(?:$)/",
-					58=>"/^(?:[=][=][=])/",
-					59=>"/^(?:[=][=][=])/",
-					60=>"/^(?:$)/",
-					61=>"/^(?:\)\)|\(\()/",
-					62=>"/^(?:\(\()/",
-					63=>"/^(?:\)\))/",
-					64=>"/^(?:\(((([a-z0-9-]+)))\()/",
-					65=>"/^(?:(?:[ \n\t\r\,\;]|^)(([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,})(?=$|[ \n\t\r\,\;\.]))/",
-					66=>"/^(?:&)/",
-					67=>"/^(?:[<](.|\n)*?[>])/",
-					68=>"/^(?:≤REAL_LT≥(.|\n)*?≤REAL_GT≥)/",
-					69=>"/^(?:(§[a-z0-9]{32}§))/",
-					70=>"/^(?:(≤(.)+≥))/",
-					71=>"/^(?:([A-Za-z0-9 .,?;]+))/",
-					72=>"/^(?:(?!([{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]))(((.?)))?(?=([{}\n_\^:\~'-|=\(\)\[\]*#+%<≤])))/",
-					73=>"/^(?:([ ]+?))/",
-					74=>"/^(?:(~bs~|~BS~))/",
-					75=>"/^(?:(~hs~|~HS~))/",
-					76=>"/^(?:(~amp~|~amp~))/",
-					77=>"/^(?:(~ldq~|~LDQ~))/",
-					78=>"/^(?:(~rdq~|~RDQ~))/",
-					79=>"/^(?:(~lsq~|~LSQ~))/",
-					80=>"/^(?:(~rsq~|~RSQ~))/",
-					81=>"/^(?:(~c~|~C~))/",
-					82=>"/^(?:~--~)/",
-					83=>"/^(?:=>)/",
-					84=>"/^(?:(~lt~|~LT~))/",
-					85=>"/^(?:(~gt~|~GT~))/",
-					86=>"/^(?:\{([0-9]+)\})/",
-					87=>"/^(?:(.))/",
-					88=>"/^(?:$)/"
+					18=>"/^(?:\{([A-Z]+)\})/",
+					19=>"/^(?:$)/",
+					20=>"/^(?:(?=((\n))))/",
+					21=>"/^(?:((\n))(?=(([\!*#+;]))))/",
+					22=>"/^(?:((\n)))/",
+					23=>"/^(?:---)/",
+					24=>"/^(?:%%%)/",
+					25=>"/^(?:$)/",
+					26=>"/^(?:[_][_])/",
+					27=>"/^(?:[_][_])/",
+					28=>"/^(?:$)/",
+					29=>"/^(?:[\^])/",
+					30=>"/^(?:[\^])/",
+					31=>"/^(?:$)/",
+					32=>"/^(?:[:][:])/",
+					33=>"/^(?:[:][:])/",
+					34=>"/^(?:$)/",
+					35=>"/^(?:\+-)/",
+					36=>"/^(?:-\+)/",
+					37=>"/^(?:$)/",
+					38=>"/^(?:[\~][\~])/",
+					39=>"/^(?:[\~][\~])/",
+					40=>"/^(?:$)/",
+					41=>"/^(?:[']['])/",
+					42=>"/^(?:[']['])/",
+					43=>"/^(?:$)/",
+					44=>"/^(?:(@np|\]\]|\]))/",
+					45=>"/^(?:\[\[)/",
+					46=>"/^(?:$)/",
+					47=>"/^(?:\])/",
+					48=>"/^(?:\[(?![ ]))/",
+					49=>"/^(?:$)/",
+					50=>"/^(?:[-][-])/",
+					51=>"/^(?:[-][-](?![ ]|$))/",
+					52=>"/^(?:[ ][-][-][ ])/",
+					53=>"/^(?:$)/",
+					54=>"/^(?:[|][|])/",
+					55=>"/^(?:[|][|])/",
+					56=>"/^(?:$)/",
+					57=>"/^(?:[=][-])/",
+					58=>"/^(?:[-][=])/",
+					59=>"/^(?:$)/",
+					60=>"/^(?:[=][=][=])/",
+					61=>"/^(?:[=][=][=])/",
+					62=>"/^(?:$)/",
+					63=>"/^(?:\)\)|\(\()/",
+					64=>"/^(?:\(\()/",
+					65=>"/^(?:\)\))/",
+					66=>"/^(?:\(((([a-z0-9-]+)))\()/",
+					67=>"/^(?:(?:[ \n\t\r\,\;]|^)(([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,})(?=$|[ \n\t\r\,\;\.]))/",
+					68=>"/^(?:&)/",
+					69=>"/^(?:[<](.|\n)*?[>])/",
+					70=>"/^(?:≤REAL_EOF≥)/",
+					71=>"/^(?:≤REAL_LT≥(.|\n)*?≤REAL_GT≥)/",
+					72=>"/^(?:(§[a-z0-9]{32}§))/",
+					73=>"/^(?:(≤(.)+≥))/",
+					74=>"/^(?:([A-Za-z0-9 .,?;]+))/",
+					75=>"/^(?:(?!([{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]))(((.?)))?(?=([{}\n_\^:\~'-|=\(\)\[\]*#+%<≤])))/",
+					76=>"/^(?:([ ]+?))/",
+					77=>"/^(?:(~bs~|~BS~))/",
+					78=>"/^(?:(~hs~|~HS~))/",
+					79=>"/^(?:(~amp~|~amp~))/",
+					80=>"/^(?:(~ldq~|~LDQ~))/",
+					81=>"/^(?:(~rdq~|~RDQ~))/",
+					82=>"/^(?:(~lsq~|~LSQ~))/",
+					83=>"/^(?:(~rsq~|~RSQ~))/",
+					84=>"/^(?:(~c~|~C~))/",
+					85=>"/^(?:~--~)/",
+					86=>"/^(?:=>)/",
+					87=>"/^(?:(~lt~|~LT~))/",
+					88=>"/^(?:(~gt~|~GT~))/",
+					89=>"/^(?:\{([0-9]+)\})/",
+					90=>"/^(?:(.))/",
+					91=>"/^(?:$)/"
 				);
 
 			$this->conditions = array(
 				
-					"np"=>new Jison_LexerConditions(array( 0,1,2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"pp"=>new Jison_LexerConditions(array( 2,3,4,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"plugin"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,15,16,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"line"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"block"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,17,18,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"bold"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,23,24,25,28,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"box"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,26,27,28,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"center"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,29,30,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"code"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,32,33,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"color"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,35,36,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"italic"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,38,39,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"unlink"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,41,42,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"link"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,44,45,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"strike"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,47,48,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"table"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,49,50,51,52,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"titleBar"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,54,55,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"underscore"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,56,57,58,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"wikiLink"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,56,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true),
-					"INITIAL"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,19,20,21,22,25,28,31,34,37,40,43,46,49,50,53,56,59,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88), true)
+					"np"=>new Jison_LexerConditions(array( 0,1,2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"pp"=>new Jison_LexerConditions(array( 2,3,4,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"pluginStart"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,15,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"plugin"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,17,18,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"inlinePlugin"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"line"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"block"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,19,20,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"bold"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,25,26,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"box"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,28,29,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"center"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,31,32,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"code"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,34,35,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"color"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,37,38,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"italic"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,40,41,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"unlink"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,43,44,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"link"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,46,47,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"strike"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,49,50,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"table"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,53,54,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"titleBar"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,56,57,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"underscore"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,59,60,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"wikiLink"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"INITIAL"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true)
 				);
 
 
@@ -4977,24 +5128,22 @@ class WikiLingo_Definition extends Jison_Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
 	{
 		
-/* this == yyval */
 
 
-switch (yystate) {
+switch ($yystate) {
 case 1:
  	    return $s[$o];
  	
 break;
 case 2:
 	    
-		    $s[$o-1]->text == $s[$o-1]->text . ($s[$o]->text == "\n" ? $this->line($s[$o]->text) : $s[$o]->text);
 		    return $s[$o-1];
         
 	
 break;
 case 3:
         
-            return ($s[$o]->text == "\n" ? $this->line($s[$o]->text) : $s[$o]->text);
+            return $s[$o];
         
     
 break;
@@ -5006,7 +5155,7 @@ case 4:
 break;
 case 5:
         
-            $thisS = $s[$o-1]->text . $s[$o]->text;
+            $thisS = $s[$o-1]->text->addSibling($s[$o]->text);
         
     
 break;
@@ -5024,13 +5173,7 @@ case 7:
 break;
 case 8:
         
-            $thisS = $this->block($s[$o-2]->text . $s[$o-1]->text);
-        
-    
-break;
-case 9:
-        
-            $thisS = $this->block($s[$o-2]->text . $s[$o-1]->text);
+            $thisS = $this->block($s[$o-2]->text->addSibling($s[$o-1]->text));
         
     
 break;
@@ -5042,13 +5185,15 @@ case 10:
 break;
 case 11:
 		
-		    $thisS = $s[$o-1]->text . $s[$o]->text;
+			if (isset($s[$o]->text)) {
+		        $thisS = $s[$o-1]->text->addSibling($s[$o]->text);
+		    }
         
 	
 break;
 case 12:
 	    
-	        $thisS = $s[$o]->text;
+	        $thisS = $this->content($s[$o]->text);
 	    
 	
 break;
@@ -5058,21 +5203,9 @@ case 13:
         
     
 break;
-case 15:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
-break;
 case 16:
         
             $thisS = $this->noParse($s[$o-1]->text);
-        
-    
-break;
-case 18:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
         
     
 break;
@@ -5112,23 +5245,11 @@ case 24:
         
 	
 break;
-case 26:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
-break;
 case 27:
 		
 		    $thisS = $this->bold($s[$o-1]->text);
         
 	
-break;
-case 29:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
 break;
 case 30:
 		
@@ -5136,23 +5257,11 @@ case 30:
         
 	
 break;
-case 32:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
-break;
 case 33:
 		
 		    $thisS = $this->center($s[$o-1]->text);
         
 	
-break;
-case 35:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
 break;
 case 36:
 		
@@ -5160,23 +5269,11 @@ case 36:
         
 	
 break;
-case 38:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
-break;
 case 39:
 		
 		    $thisS = $this->color($s[$o-1]->text);
         
 	
-break;
-case 41:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
 break;
 case 42:
 		
@@ -5184,35 +5281,17 @@ case 42:
         
 	
 break;
-case 44:
-        
-            $thisS = $this->unlink($s[$o-1]->text . $s[$o]->text);
-        
-    
-break;
 case 45:
 		
 		    $thisS = $this->unlink($s[$o-2]->text . $s[$o-1]->text . $s[$o]->text);
         
 	
 break;
-case 47:
-        
-            $thisS = '[' . $s[$o]->text;
-        
-    
-break;
 case 48:
 		
 		    $thisS = $this->link($s[$o-2]->text, $s[$o-1]->text);
         
 	
-break;
-case 50:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
 break;
 case 51:
 		
@@ -5226,23 +5305,11 @@ case 52:
         
     
 break;
-case 54:
-        
-            $thisS = $this->tableParser($s[$o-1]->text . $s[$o]->text, true);
-        
-    
-break;
 case 55:
 		
 		    $thisS = $this->tableParser($s[$o-1]->text);
         
 	
-break;
-case 57:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
 break;
 case 58:
 		
@@ -5250,23 +5317,11 @@ case 58:
         
 	
 break;
-case 60:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
-break;
 case 61:
 		
 		    $thisS = $this->underscore($s[$o-1]->text);
         
 	
-break;
-case 63:
-        
-            $thisS = $s[$o-1]->text['syntax'] . $s[$o]->text;
-        
-    
 break;
 case 64:
 		
@@ -5280,45 +5335,37 @@ case 65:
         
     
 break;
-case 66:
+case 67:
  		
- 		    $thisS = $this->plugin($s[$o]->text);
+ 		    $thisS = $this->plugin($s[$o-1]->text, $s[$o]->text);
         
  	
 break;
-case 67:
+case 68:
+ 	    
+ 		    $thisS = $this->plugin($s[$o-3]->text, $s[$o-2]->text, $s[$o-1]->text, $s[$o]->text);
+        
+ 	
+break;
+case 69:
   		
-            $s[$o]['body'] = '';
-            $thisS = $this->plugin($s[$o]->text);
+            $thisS = $this->plugin($s[$o-2]->text, $s[$o-1]->text, '', $s[$o]->text);
         
      
 break;
-case 68:
-        
-            $thisS = $s[$o-1]->text . $s[$o]->text;
-        
-    
-break;
-case 69:
- 	    
- 		    $s[$o]['body'] = $s[$o-1]->text;
- 		    $thisS = $this->plugin($s[$o]->text);
-        
- 	
-break;
-case 70:
+case 72:
         
             $thisS = $this->line($s[$o]->text);
         
     
 break;
-case 71:
+case 73:
         
             $thisS = $this->forcedLineEnd();
         
     
 break;
-case 72:
+case 74:
         
             $thisS = $this->char($s[$o]->text);
         
@@ -5332,7 +5379,7 @@ break;
 	{
 		
 
-;
+
 switch($avoidingNameCollisions) {
 case 0:
 		
@@ -5345,23 +5392,23 @@ case 0:
 break;
 case 1:
 	    
-		    if ($this->npStack != true) return 11;
+		    if ($this->npStack != true) return 'CONTENT';
 		    $this->popState();
 		    $this->npStack = false;
 		    $this->yy->text = $this->noParse($this->yy->text);
         
 
-		return 14;
+		return 'NO_PARSE_END';
 	
 break;
 case 2:
 	    
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
 		    $this->begin('np');
 		    $this->npStack = true;
         
 
-		return 13;
+		return 'NO_PARSE_START';
 	
 break;
 case 3:
@@ -5375,123 +5422,93 @@ case 3:
 break;
 case 4:
 	    
-		    if ($this->ppStack != true) return 11;
+		    if ($this->ppStack != true) return 'CONTENT';
 		    $this->popState();
 		    $this->ppStack = false;
 		    $this->yy->text = $this->preFormattedText($this->yy->text);
         
 
-		return 16;
+		return 'PREFORMATTED_TEXT_END';
 	
 break;
 case 5:
 	    
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
 		    $this->begin('pp');
 		    $this->ppStack = true;
         
 
-		return 15;
+		return 'PREFORMATTED_TEXT_START';
 	
 break;
 case 6:return 12;
 break;
 case 7:
 	    
-            if ($this->isContent()) return 11;
+            if ($this->isContent()) return 'CONTENT';
         
 
-		return 17;
+		return 'DOUBLE_DYNAMIC_VAR';
 	
 break;
 case 8:
 	    
-            if ($this->isContent()) return 11;
+            if ($this->isContent()) return 'CONTENT';
         
 
-		return 18;
+		return 'SINGLE_DYNAMIC_VAR';
 	
 break;
 case 9:
 	    
-            if ($this->isContent(array('linkStack'))) return 11;
+            if ($this->isContent(array('linkStack'))) return 'CONTENT';
         
 
-        return 19;
+        return 'ARGUMENT_VAR';
     
 break;
-case 10:return 55;
+case 10:return 57;
 break;
 case 11:return 11;
 break;
 case 12:
 	    
-            if ($this->isContent()) return 11;
+            if ($this->isContent()) return 'CONTENT';
             $this->begin('block');
         
 
-        return 8;
+        return 'BLOCK_START';
 	
 break;
 case 13:
-	    
-            if ($this->isContent()) return 11;
-            $this->yy->text = $this->inlinePlugin($this->yy->text);
 		
-
-		return 50;
+			$this->popState();
+			return 51;
+		
 	
 break;
 case 14:
 	    
-		    if ($this->npStack == true || $this->ppStack) return 11;
-
-		    $this->begin('plugin');
-		    $this->stackPlugin($this->yy->text);
-
-		    if (count($this->pluginStack) == 1) {
-		        return 51;
-		    }
+            $this->begin('inlinePlugin');
 		
 
-		return 11;
+		return 'INLINE_PLUGIN_START';
 	
 break;
 case 15:
-	    
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
         
-
-        return 5;
-	
+            $this->popState();
+            $this->begin('plugin');
+            return 53;
+        
+    
 break;
 case 16:
 	    
-            $plugin = end($this->pluginStack);
-            if (('{' . $plugin['name'] . '}') == $this->yy->text) {
-               $this->popState();
-               if (!empty($this->pluginStack)) {
-                    if (
-                        count($this->pluginStack) > 0 &&
-                        substr($this->yy->text, 1, -1) == $this->pluginStack[count($this->pluginStack) - 1]['name']
-                    ) {
-                        if (count($this->pluginStack) == 1) {
-                            $this->yy->text = $this->pluginStack[count($this->pluginStack) - 1];
-                           $this->pluginStackCount--;
-                            array_pop($this->pluginStack);
-                            return 52;
-                        } else {
-                           $this->pluginStackCount--;
-                            array_pop($this->pluginStack);
-                            return 11;
-                        }
-                    }
-               }
-            }
+		    $this->begin('pluginStart');
+		    $this->stackPlugin($this->yy->text);
+	        return 'PLUGIN_START';
 		
-
-		return 11;
 	
 break;
 case 17:
@@ -5504,133 +5521,128 @@ case 17:
 	
 break;
 case 18:
+	    
+            $name = end($this->pluginStack);
+            if (substr($this->yy->text, 1, -1) == $name && $this->pluginStackCount > 0) {
+				$this->popState();
+				$this->pluginStackCount--;
+				array_pop($this->pluginStack);
+				return 'PLUGIN_END';
+            }
 		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
 
-
-		return 9;
+		return 'CONTENT';
 	
 break;
 case 19:
-    	
-            if ($this->isContent()) return 11;
-            $this->begin('block');
+	    
+            $this->conditionStackCount = 0;
+            $this->conditionStack = array();
         
 
-        return 8;
+        return 5;
 	
 break;
 case 20:
 		
-		    if ($this->isContent() || !empty($this->tableStack)) return 11;
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->popState();
         
 
-		return 53;
+
+		return 'BLOCK_END';
 	
 break;
 case 21:
-		
-            if ($this->isContent()) return 11;
+    	
+            if ($this->isContent()) return 'CONTENT';
+            $this->begin('block');
         
 
-        return 21;
+        return 'BLOCK_START';
 	
 break;
 case 22:
 		
-            if ($this->isContent()) return 11;
+		    if ($this->isContent() || !empty($this->tableStack)) return 'CONTENT';
         
 
-        return 54;
+		return 'LINE_END';
 	
 break;
 case 23:
 		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
+            if ($this->isContent()) return 'CONTENT';
         
 
-        return 5;
+        return 'HORIZONTAL_BAR';
 	
 break;
 case 24:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->popState();
+		
+            if ($this->isContent()) return 'CONTENT';
         
 
-		return 23;
+        return 'FORCED_LINE_END';
 	
 break;
 case 25:
 		
-		    if ($this->isContent()) return 11;
-		    $this->begin('bold');
-        
-
-		return 22;
-	
-break;
-case 26:
-		
             $this->conditionStackCount = 0;
             $this->conditionStack = array();
         
 
         return 5;
+	
+break;
+case 26:
+	    
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->popState();
+        
+
+		return 'BOLD_END';
 	
 break;
 case 27:
 		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->begin('bold');
         
 
-		return 25;
+		return 'BOLD_START';
 	
 break;
 case 28:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->begin('box');
+		
+            $this->conditionStackCount = 0;
+            $this->conditionStack = array();
         
 
-
-		return 24;
+        return 5;
 	
 break;
 case 29:
 		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->popState();
         
 
-        return 5;
+		return 'BOX_END';
 	
 break;
 case 30:
 	    
-		    if ($this->isContent()) return 11;
-		    $this->popState();
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->begin('box');
         
 
 
-		return 27;
+		return 'BOX_START';
 	
 break;
 case 31:
 		
-		    if ($this->isContent()) return 11;
-		    $this->begin('center');
-        
-
-		return 26;
-	
-break;
-case 32:
-		
             $this->conditionStackCount = 0;
             $this->conditionStack = array();
         
@@ -5638,53 +5650,54 @@ case 32:
         return 5;
 	
 break;
-case 33:
+case 32:
 	    
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
 		    $this->popState();
         
 
-		return 29;
+
+		return 'CENTER_END';
+	
+break;
+case 33:
+		
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->begin('center');
+        
+
+		return 'CENTER_START';
 	
 break;
 case 34:
 		
-		    if ($this->isContent()) return 11;
-		    $this->begin('code');
-        
-
-		return 28;
-	
-break;
-case 35:
-		
             $this->conditionStackCount = 0;
             $this->conditionStack = array();
         
 
         return 5;
+	
+break;
+case 35:
+	    
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->popState();
+        
+
+		return 'CODE_END';
 	
 break;
 case 36:
 		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->begin('code');
         
 
-		return 31;
+		return 'CODE_START';
 	
 break;
 case 37:
 		
-		    if ($this->isContent()) return 11;
-		    $this->begin('color');
-        
-
-		return 30;
-	
-break;
-case 38:
-	    
             $this->conditionStackCount = 0;
             $this->conditionStack = array();
         
@@ -5692,25 +5705,52 @@ case 38:
         return 5;
 	
 break;
-case 39:
-	    
-		    if ($this->isContent()) return 11;
+case 38:
+		
+		    if ($this->isContent()) return 'CONTENT';
 		    $this->popState();
         
 
-		return 33;
+		return 'COLOR_END';
+	
+break;
+case 39:
+		
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->begin('color');
+        
+
+		return 'COLOR_START';
 	
 break;
 case 40:
 	    
-		    if ($this->isContent()) return 11;
-		    $this->begin('italic');
-		
+            $this->conditionStackCount = 0;
+            $this->conditionStack = array();
+        
 
-		return 32;
+        return 5;
 	
 break;
 case 41:
+	    
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->popState();
+        
+
+		return 'ITALIC_END';
+	
+break;
+case 42:
+	    
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->begin('italic');
+		
+
+		return 'ITALIC_START';
+	
+break;
+case 43:
 		
             $this->conditionStackCount = 0;
             $this->conditionStack = array();
@@ -5719,25 +5759,25 @@ case 41:
         return 5;
 	
 break;
-case 42:
+case 44:
 	    
-		    if ($this->isContent(array('linkStack'))) return 11;
+		    if ($this->isContent(array('linkStack'))) return 'CONTENT';
 		    $this->popState();
         
 
-		return 35;
+		return 'UNLINK_END';
 	
 break;
-case 43:
+case 45:
 		
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
 		    $this->begin('unlink');
         
 
-		return 34;
+		return 'UNLINK_START';
 	
 break;
-case 44:
+case 46:
 		
 		    $this->conditionStackCount = 0;
 		    $this->conditionStack = array();
@@ -5746,59 +5786,59 @@ case 44:
 		return 5;
 	
 break;
-case 45:
+case 47:
 		
-		    if ($this->isContent(array('linkStack'))) return 11;
+		    if ($this->isContent(array('linkStack'))) return 'CONTENT';
             $this->linkStack = false;
             $this->popState();
         
 
-		return 37;
+		return 'LINK_END';
 	
 break;
-case 46:
+case 48:
 	    
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
             $this->linkStack = true;
             $this->begin('link');
             $this->yy->text = 'external';
         
 
-		return 36;
-	
-break;
-case 47:
-	    
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
-
-        return 5;
-	
-break;
-case 48:
-		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
-
-		return 39;
+		return 'LINK_START';
 	
 break;
 case 49:
 	    
-		    if ($this->isContent()) return 11;
-		    $this->begin('strike');
+            $this->conditionStackCount = 0;
+            $this->conditionStack = array();
         
 
-		return 38;
+        return 5;
 	
 break;
 case 50:
-        return 40;
+		
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->popState();
+        
+
+		return 'STRIKE_END';
 	
 break;
 case 51:
+	    
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->begin('strike');
+        
+
+		return 'STRIKE_START';
+	
+break;
+case 52:
+        return 40;
+	
+break;
+case 53:
 	    
 		    $this->conditionStackCount = 0;
 		    $this->conditionStack = array();
@@ -5807,27 +5847,27 @@ case 51:
 		return 5;
 	
 break;
-case 52:
+case 54:
 		
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
             $this->popState();
             array_pop($this->tableStack);
 		
 
-		return 42;
+		return 'TABLE_END';
 	
 break;
-case 53:
+case 55:
 		
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
 		    $this->begin('table');
 		    $this->tableStack[] = true;
         
 
-		return 41;
+		return 'TABLE_START';
 	
 break;
-case 54:
+case 56:
 		
             $this->conditionStackCount = 0;
             $this->conditionStack = array();
@@ -5836,52 +5876,52 @@ case 54:
         return 5;
 	
 break;
-case 55:
+case 57:
 		
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
 		    $this->popState();
         
 
-		return 44;
-	
-break;
-case 56:
-		
-		    if ($this->isContent()) return 11;
-		    $this->begin('titleBar');
-		
-
-		return 43;
-	
-break;
-case 57:
-		
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        
-
-		return 5;
+		return 'TITLE_BAR_END';
 	
 break;
 case 58:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+		
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->begin('titleBar');
+		
 
-		return 46;
+		return 'TITLE_BAR_START';
 	
 break;
 case 59:
 		
-		    if ($this->isContent()) return 11;
-    		$this->begin('underscore');
+		    $this->conditionStackCount = 0;
+		    $this->conditionStack = array();
         
 
-		return 45;
+		return 5;
 	
 break;
 case 60:
+	    
+		    if ($this->isContent()) return 'CONTENT';
+		    $this->popState();
+        
+
+		return 'UNDERSCORE_END';
+	
+break;
+case 61:
+		
+		    if ($this->isContent()) return 'CONTENT';
+    		$this->begin('underscore');
+        
+
+		return 'UNDERSCORE_START';
+	
+break;
+case 62:
 		
 		    $this->conditionStackCount = 0;
 		    $this->conditionStack = array();
@@ -5890,112 +5930,114 @@ case 60:
 		return 5;
 	
 break;
-case 61:
+case 63:
 		
-		    if ($this->isContent(array('linkStack'))) return 11;
+		    if ($this->isContent(array('linkStack'))) return 'CONTENT';
 		    $this->linkStack = false;
 		    $this->popState();
 		
 
-		return 48;
+		return 'WIKI_LINK_END';
 	
 break;
-case 62:
+case 64:
 		
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
             $this->linkStack = true;
             $this->begin('wikiLink');
             $this->yy->text = array('type' => 'wiki', 'syntax' => $this->yy->text);
         
 
-		return 47;
+		return 'WIKI_LINK_START';
 	
 break;
-case 63:
+case 65:
 		
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
 		    $this->linkStack = true;
 		    $this->begin('wikiLink');
 		    $this->yy->text = array('type' => 'np', 'syntax' => $this->yy->text);
         
 
-		return 47;
+		return 'WIKI_LINK_START';
 	
 break;
-case 64:
+case 66:
 		
-		    if ($this->isContent()) return 11;
+		    if ($this->isContent()) return 'CONTENT';
             $this->linkStack = true;
             $this->begin('wikiLink');
             $this->yy->text = array('syntax' => $this->yy->text, 'type' => substr($this->yy->text, 1, -1));
 		
 
-		return 47;
+		return 'WIKI_LINK_START';
 	
-break;
-case 65:
-	    
-		    if ($this->isContent()) return 11;
-        
-
-		return 49;
-	
-break;
-case 66:return 55;
 break;
 case 67:
+	    
+		    if ($this->isContent()) return 'CONTENT';
+        
+
+		return 'WIKI_LINK';
+	
+break;
+case 68:return 57;
+break;
+case 69:
 		
 		    if (JisonParser_Html_Handler::isHtmlTag($this->yy->text)) {
-		        return 20;
+		        return 'HTML_TAG';
 		    }
 		    $tag = $this->yy->text;
 		    $this->yy->text = $this->yy->text{0};
 		    $this->unput(substr($tag, 1));
-		    return 11;
+		    return 'CONTENT';
 		
 	
 break;
-case 68:return 20;
+case 70:
 break;
-case 69:return 11;
-break;
-case 70:return 11;
-break;
-case 71:return 11;
+case 71:return 20;
 break;
 case 72:return 11;
 break;
 case 73:return 11;
 break;
-case 74:return 55;
+case 74:return 11;
 break;
-case 75:return 55;
+case 75:return 11;
 break;
-case 76:return 55;
+case 76:return 11;
 break;
-case 77:return 55;
+case 77:return 57;
 break;
-case 78:return 55;
+case 78:return 57;
 break;
-case 79:return 55;
+case 79:return 57;
 break;
-case 80:return 55;
+case 80:return 57;
 break;
-case 81:return 55;
+case 81:return 57;
 break;
-case 82:return 55;
+case 82:return 57;
 break;
-case 83:return 55;
+case 83:return 57;
 break;
-case 84:return 55;
+case 84:return 57;
 break;
-case 85:return 55;
+case 85:return 57;
 break;
-case 86:return 55;
+case 86:return 57;
 break;
-case 87:return 11;
+case 87:return 57;
 break;
-case 88:return 5;
+case 88:return 57;
+break;
+case 89:return 57;
+break;
+case 90:return 11;
+break;
+case 91:return 5;
 break;
 }
 

@@ -1,7 +1,7 @@
 <?php
 
 
-class WikiPlugin_oohtml extends WikiLingo_Plugin_HtmlBase
+class WikiLingo_Plugin_oohtml extends WikiLingo_Plugin_HtmlBase
 {
 	public $type = 'oohtml';
 	public $documentation = 'PluginHTML';
@@ -30,15 +30,5 @@ class WikiPlugin_oohtml extends WikiLingo_Plugin_HtmlBase
 				'default' => '0',
 			),
 		);
-	}
-
-	function output(&$data, &$params, &$index, &$parser)
-	{
-		// parse using is_html if wiki param set, or just decode html entities
-		if ( isset($params['wiki']) && $params['wiki'] === 1 ) {
-			return  TikiLib::lib('tiki')->parse_data($data, array('is_html' => true));
-		} else {
-			return html_entity_decode($data, ENT_NOQUOTES, 'UTF-8');
-		}
 	}
 }
