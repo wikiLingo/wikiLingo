@@ -1,11 +1,10 @@
 <?php
 
 
-class WikiLingo_Plugin_oohtml extends WikiLingo_Plugin_HtmlBase
+class WikiLingo_Plugin_div extends WikiLingo_Plugin_HtmlBase
 {
-	public $type = 'oohtml';
-	public $documentation = 'PluginHTML';
-	public $prefs = array('wikiplugin_html');
+	public $type = 'div';
+	public $documentation = 'PluginDIV';
 	public $validate = 'all';
 	public $filter = 'rawhtml_unsafe';
 	public $icon = 'img/icons/mime/html.png';

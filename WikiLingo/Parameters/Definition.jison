@@ -1,3 +1,4 @@
+
 //phpOption parserClass:WikiLingo_Parameters_Definition
 //phpOption fileName:Definition.php
 //phpOption usingZend:true
@@ -9,7 +10,7 @@
 //Named Regex Patterns
 singleQuote                     "'"
 doubleQuote                     '"'
-parameterName                   [a-zA-Z0-9_]+
+parameterName                   [a-zA-Z0-9_-]+
 equals                          ([=]|[=][>])
 %s singleQuoteParameter doubleQuoteParameter
 
@@ -30,11 +31,11 @@ equals                          ([=]|[=][>])
     */
 %}
 
-<singleQuoteParameter>(.|\n)*(?={singleQuote})
+<singleQuoteParameter>.*?(?={singleQuote})
 %{
-    return 'VALUE';
+    return 'PARAMETER_VALUE';
 %}
-<doubleQuoteParameter>(.|\n)*(?={doubleQuote})
+<doubleQuoteParameter>.*?(?={doubleQuote})
 %{
     return 'PARAMETER_VALUE';
 %}
@@ -51,13 +52,14 @@ equals                          ([=]|[=][>])
         $this->begin('doubleQuoteParameter');
     */
 %}
-parameterName(?={equals})
+{parameterName}(?={equals})
 %{
     /*php
         return 'PARAMETER_NAME';
     */
 %}
-{equals}
+{equals}                                    {/*skip equals*/}
+\s                                          {/*skip whitespace*/}
 <<EOF>>										return 'EOF';
 /lex
 
@@ -73,7 +75,7 @@ arguments
     }
     | parameters EOF {
         /*php
-            return WikiLingo_Parameters::get();
+            return $this->get();
         */
     }
     ;
@@ -87,7 +89,7 @@ parameter
     : PARAMETER_NAME
     | PARAMETER_NAME PARAMETER_VALUE {
         /*php
-            WikiLingo_Parameters::add($1->text, $2->text);
+            $this->add($1->text, $2->text);
         */
     }
     ;

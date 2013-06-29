@@ -267,7 +267,7 @@ class WikiLingo extends WikiLingo_Definition
             $this->preParse($input);
 
             $this->Parser->parseDepth++;
-            $output = parent::parse($input);
+            $output = parent::parse($input)->text;
             $this->Parser->parseDepth--;
 
             $this->parsing = false;

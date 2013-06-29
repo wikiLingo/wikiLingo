@@ -2,25 +2,17 @@
 
 class WikiLingo_Parameters extends WikiLingo_Parameters_Definition
 {
-    static $activePluginId;
-    static $parameters = array();
+    public $parameters = array();
 
-    public static function add($name, $value)
+    public function add($name, $value)
     {
-        if (!isset(self::$parameters[self::$activePluginId]))
-        {
-            self::$parameters[self::$activePluginId] = array();
-        }
-        self::$parameters[self::$activePluginId][$name] = $value;
+        $this->parameters[$name] = $value;
     }
 
-    public static function get()
+    public function get()
     {
-        return self::$parameters[self::$activePluginId];
-    }
-
-    public static function setActivePluginId($activePluginId)
-    {
-        self::$activePluginId = $activePluginId;
+	    $parameters = $this->parameters;
+	    $this->parameters = array();
+        return $parameters;
     }
 }

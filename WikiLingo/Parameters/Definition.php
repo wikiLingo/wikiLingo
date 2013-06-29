@@ -159,31 +159,34 @@ class WikiLingo_Parameters_Definition extends Jison_Base
 				
 					0=>"/^(?:('))/",
 					1=>"/^(?:(\"))/",
-					2=>"/^(?:(.|\n)*(?=(')))/",
-					3=>"/^(?:(.|\n)*(?=(\")))/",
+					2=>"/^(?:.*?(?=(')))/",
+					3=>"/^(?:.*?(?=(\")))/",
 					4=>"/^(?:('))/",
 					5=>"/^(?:(\"))/",
-					6=>"/^(?:parameterName(?=(([=]|[=][>]))))/",
-					7=>"/^(?:(([=]|[=][>]))$)/"
+					6=>"/^(?:([a-zA-Z0-9_-]+)(?=(([=]|[=][>]))))/",
+					7=>"/^(?:(([=]|[=][>])))/",
+					8=>"/^(?:\s\b)/",
+					9=>"/^(?:$)/"
 				);
 
 			$this->conditions = array(
 				
-					"singleQuoteParameter"=>new Jison_LexerConditions(array( 0,2,4,5,6,7), true),
-					"doubleQuoteParameter"=>new Jison_LexerConditions(array( 1,3,4,5,6,7), true),
-					"INITIAL"=>new Jison_LexerConditions(array( 4,5,6,7), true)
+					"singleQuoteParameter"=>new Jison_LexerConditions(array( 0,2,4,5,6,7,8,9), true),
+					"doubleQuoteParameter"=>new Jison_LexerConditions(array( 1,3,4,5,6,7,8,9), true),
+					"INITIAL"=>new Jison_LexerConditions(array( 4,5,6,7,8,9), true)
 				);
 
 
+
+	    parent::__construct();
     }
 
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
 	{
 		
-/* this == yyval */
 
 
-switch (yystate) {
+switch ($yystate) {
 case 1:
         
             return array();
@@ -192,13 +195,13 @@ case 1:
 break;
 case 2:
         
-            return WikiLingo_Parameters::get();
+            return $this->get();
         
     
 break;
 case 6:
         
-            WikiLingo_Parameters::add($s[$o-1]->text, $s[$o]->text);
+            $this->add($s[$o-1]->text, $s[$o]->text);
         
     
 break;
@@ -210,7 +213,7 @@ break;
 	{
 		
 
-;
+
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -225,7 +228,7 @@ case 1:
 
 break;
 case 2:
-    return 'VALUE';
+    return 8;
 
 break;
 case 3:
@@ -250,7 +253,11 @@ case 6:
     
 
 break;
-case 7:return 4;
+case 7:
+break;
+case 8:
+break;
+case 9:return 4;
 break;
 }
 

@@ -11,4 +11,4 @@ $loader
 
 $loader->register();
 $wikiLingo = new WikiLingo();
-print_r($wikiLingo->parse("{OOHTML()}test{OOHTML}"));
+print_r($wikiLingo->parse("{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}"));

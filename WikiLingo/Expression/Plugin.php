@@ -31,7 +31,13 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         $this->key = '§' . md5('plugin:' . $this->name . '_' . $this->index) . '§';
 	    $this->syntax[] = $parameters;
 	    $parameters = substr($parameters, 0, -2);
-        $this->parameters = (empty($parameters) ? array() : self::$parametersParser->parse($parameters));
+
+	    if (empty($parameters)) {
+		    $this->parameters = array();
+	    } else {
+		    $this->parameters = self::$parametersParser->parse($parameters);
+	    }
+
         $this->body = &$body;
         $this->ignored = false;
 	    $this->syntax[] = $body;
@@ -45,8 +51,6 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         } else {
             $this->class = null;
         }
-
-	    WikiLingo_PluginNegotiator::$pluginDetails[$this->key] = &$pluginDetails;
     }
 
     public function render(&$parser)
