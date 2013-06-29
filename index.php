@@ -11,11 +11,11 @@ $loader
 
 $loader->register();
 $wikiLingo = new WikiLingo();
-print_r($wikiLingo->parse("{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}"));
+$output = $wikiLingo->parse("{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}");
 ?>
 <html>
 <head></head>
 <body>
-
+    <?php echo $output;?>
 </body>
 </html>
