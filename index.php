@@ -1,6 +1,6 @@
 <?php
 
-function tra($text) {} //translation
+function tra($text) { return $text; } //translation
 
 require_once 'Zend/Loader/StandardAutoloader.php';
 $loader = new Zend\Loader\StandardAutoloader(array('autoregister_zf' => true, 'fallback_autoloader' => true));
@@ -11,4 +11,11 @@ $loader
 
 $loader->register();
 $wikiLingo = new WikiLingo();
-print_r($wikiLingo->parse("{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}"));
+print_r($wikiLingo->parse("{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}"));
+?>
+<html>
+<head></head>
+<body>
+
+</body>
+</html>
