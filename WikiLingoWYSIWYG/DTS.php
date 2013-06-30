@@ -57,7 +57,7 @@ class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 		die;
 	}
 */
-	public function __construct(JisonParser_Html &$Parser = null)
+	public function __construct(&$Parser = null)
 	{
 		if (empty($Parser)) {
 			$this->Parser = &$this;
