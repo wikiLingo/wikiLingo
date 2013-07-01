@@ -10,34 +10,42 @@ class WikiLingo_Expression extends Jison_ParserValue
 	public $children = array();
 	public $childrenCount = 0;
 	public $childrenRenderFirst = true;
+	public $staticContent;
 
-	public function __construct(&$stringBefore = '', $stringAfter = '')
+	public function __construct(&$stringBefore = '', $stringAfter = '', $staticContent = '')
 	{
 		$this->stringBefore = $stringBefore;
 		$this->stringAfter = $stringAfter;
+		$this->staticContent = $staticContent;
 	}
 
 	public function render(&$parser)
 	{
 		$siblings = '';
 		$children = '';
+		$staticContent = '';
 
-		foreach($this->siblings as $sibling)
-		{
-			$siblings .= $sibling->render($parser);
+		if (!empty($this->staticContent)) {
+			$staticContent = $this->staticContent;
+		} else {
+			foreach($this->siblings as $sibling)
+			{
+				$siblings .= $sibling->render($parser);
+			}
+
+			foreach($this->children as $child)
+			{
+				$children .= $child->render($parser);
+			}
 		}
 
-		foreach($this->children as $child)
-		{
-			$children .= $child->render($parser);
-		}
-		return $this->stringBefore . $children . $this->stringAfter . $siblings;
+		return $this->stringBefore . $children . $staticContent . $this->stringAfter . $siblings;
 	}
 
 	public function addChild(&$child)
 	{
 		$child->parent = &$this;
-		$this->children[] &= $child;
+		$this->children[] = $child;
 		$this->childrenCount++;
 	}
 

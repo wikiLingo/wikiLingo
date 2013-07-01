@@ -163,7 +163,8 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
 
     function toSyntax()
     {
-        return $this->syntax . $this->body . $this->closing;
+        //return $this->syntax . $this->body . $this->closing;
+	    return '';
     }
 
     function urlEncodeParameters()

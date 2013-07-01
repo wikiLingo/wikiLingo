@@ -3,7 +3,7 @@
 
 
 
-class WikiLingoWYSIWYG_Definition extends Jison_Base
+class WikiLingoWYSIWYG_DTS_Definition extends Jison_Base
 {
 	function __construct()
     {
@@ -287,45 +287,54 @@ class WikiLingoWYSIWYG_Definition extends Jison_Base
 				);
 
 
+
+	    parent::__construct();
     }
 
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
 	{
 		
-/* this == yyval */
 
 
-switch (yystate) {
+switch ($yystate) {
 case 1:return $s[$o];
 break;
 case 2:return $s[$o-1];
 break;
 case 3:return "";
 break;
-case 4:$thisS = $s[$o];
+case 4:
+		
+			$thisS = $s[$o]->text;
+		
+	
 break;
 case 5:
-		$thisS = $s[$o-1] + $s[$o];  $thisS = $s[$o-1] . $s[$o];
+		 $thisS = $s[$o-1]->text->addSibling($s[$o]->text);
 	
 break;
 case 6:
-         $thisS = $this->content($s[$o]);
+         $thisS = $this->content($s[$o]->text);
     
 break;
 case 7:
-         $thisS = $this->lineEnd($s[$o]);
+         $thisS = $this->lineEnd($s[$o]->text);
     
 break;
 case 8:
-	     $thisS = $this->toWiki($s[$o]);
+	     $thisS = $this->inlineElement($s[$o]->text);
 	
 break;
 case 9:
-	     $thisS = $this->toWiki($s[$o], $s[$o-1]);
+	    
+	        $s[$o-2]->text = $this->element($s[$o-2]->text, true);
+	        $s[$o-2]->text->addChild($s[$o-1]->text);
+	        $thisS = $s[$o-2]->text;
+	    
 	
 break;
 case 10:
-	     $thisS = $this->toWiki($s[$o]);
+	     $thisS = $this->element($s[$o-1]->text, true);
 	
 break;
 }
@@ -336,13 +345,12 @@ break;
 	{
 		
 
-;
+
 switch($avoidingNameCollisions) {
 case 0:
 		
 		    //A tag that doesn't need to track state
-            if (JisonParser_Html_Handler::isHtmlTag($this->yy->text) == true) {
-               $this->yy->text = $this->inlineTag($this->yy->text);
+            if (WikiLingoWYSIWYG_DTS::isHtmlTag($this->yy->text) == true) {
                return "HTML_TAG_INLINE";
             }
 
@@ -360,14 +368,7 @@ case 1:
 		
 		    //A tag that was left open, and needs to close
             $name = end($this->htmlElementsStack);
-            $keyStack = key($this->htmlElementStack);
-            end($this->htmlElementStack[$keyStack]);
-            $keyElement = key($this->htmlElementStack[$keyStack]);
-            $tag = &$this->htmlElementStack[$keyStack][$keyElement];
-            $tag['state'] = 'repaired';
-            if (!empty($tag['name'])) {
-               $this->unput('</' . $tag['name'] . '>');
-            }
+            $element = end($this->htmlElementStack);
             return 7;
 		
 	
@@ -376,7 +377,7 @@ case 2:
 	    
             //A tag that is open and we just found the close for it
             $element = $this->unStackHtmlElement($this->yy->text);
-            if ($this->compareElementClosingToYytext($element, $this->yy->text) && $this->htmlElementsStackCount == 0) {
+            if (isset($element)) {
                $this->yy->text = $element;
                $this->popState();
                return "HTML_TAG_CLOSE";
@@ -388,14 +389,10 @@ break;
 case 3:
 	    
             //An tag open
-            if (JisonParser_Html_Handler::isHtmlTag($this->yy->text) == true) {
-               if ($this->stackHtmlElement($this->yy->text)) {
-                   if ($this->htmlElementsStackCount == 1) {
-                       $this->begin('htmlElement');
-                       return "HTML_TAG_OPEN";
-                   }
-               }
-               return 7;
+            if (WikiLingoWYSIWYG_DTS::isHtmlTag($this->yy->text)) {
+               $this->stackHtmlElement($this->yy->text);
+               $this->begin('htmlElement');
+               return "HTML_TAG_OPEN";
             }
 
             //A non-valid html tag, return the first character in the stack and put the rest back into the parser
@@ -404,6 +401,7 @@ case 3:
                $this->yy->text = $this->yy->text{0};
                $this->unput(substr($tag, 1));
             }
+
             return 7;
         
 	
@@ -424,7 +422,7 @@ case 7:
             if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
                return 8;
             }
-            return 7;
+            return 'CONTENT';
 		
 	
 break;

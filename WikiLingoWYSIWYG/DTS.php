@@ -1,5 +1,5 @@
 <?php
-class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
+class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 {
 	public $parsing = false;
 	public $parseDepth = 0;
@@ -103,7 +103,7 @@ class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 			$this->preParse($input);
 
 			$this->Parser->parseDepth++;
-			$output = parent::parse($input);
+			$output = parent::parse($input)->text;
 			$this->Parser->parseDepth--;
 
 			$this->parsing = false;
@@ -119,6 +119,7 @@ class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 		 * it is also valid, but treated and restored as with "\n" just before it, here we remove that extra "\n" but
 		 * only if we are a block, which are determined from $this->blockChars
 		*/
+		$output = $output->render($this->Parser);
 		if ($this->Parser->parseDepth == 0) {
 			$output = str_replace('~REAL_BLOCK~', "\n", $output);
 			$output = str_replace('~REAL_NEW_LINE~', "\n", $output);
@@ -138,296 +139,16 @@ class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 		$this->isStaticTag = $isStaticTag;
 	}
 
-	public function toWiki(&$tag, &$contents = null)
+	private function syntax($contents)
 	{
-		//helpers
-		if ($this->hasClass($tag, "jpwch") == true) {
-			return "";
-		}
-
-		//non wiki tags are ignored
-		if ($this->hasClass($tag, "jpwc") != true) {
-			return $this->elementFromTag($tag, $contents, true);
-		}
-
-		$result = '';
-
-		if (!isset($this->Parser->typeStack[$tag['type']])) {
-			$this->Parser->typeStack[$tag['type']] = 0;
-		}
-		$this->Parser->typeStack[$tag['type']]++;
-
-
-		if (!isset($this->Parser->typeIndex[$tag['type']])) {
-			$this->Parser->typeIndex[$tag['type']] = 0;
-		}
-		$this->Parser->typeIndex[$tag['type']]++;
-
-		switch($tag['type'])
-		{
-			//plugin
-			case "plugin":
-				$result = $this->syntax($tag, urldecode($this->param($tag, 'data-syntax')));
-				break;
-
-
-			//start block type
-			//header
-			case "header":
-				$hCount = $this->param($tag, 'data-count');
-				$hCount = (empty($hCount) == true ? (int)substr($tag['name'], 1) : $hCount);
-				$result = $this->blockStart() . $this->blockSyntax($tag, str_repeat("!", $hCount), $contents);
-				break;
-
-
-			//list
-			case "listParent":
-				$firstBlockStart = $this->blockStart();
-
-				$result .= $this->parse($contents);
-
-				if (empty($firstBlockStart) && strpos($result, "~REAL_BLOCK~") == 0 && $this->lastParsedType() == 'listEmpty') {
-					$result = substr($result, 12);
-				}
-
-				$stash = $this->unStashStatic("listParent");
-
-				foreach($stash as $key => $list) {
-					if ($key > 0) {
-						$firstBlockStart = $this->blockStart();
-					}
-					$result .= $firstBlockStart . $this->blockSyntax($tag, $list['symbol'], $list['contents']);
-				}
-
-				break;
-			case "listEmpty":
-				$result .= $this->syntax($tag, $this->parse($contents));
-				break;
-			case "listUnordered":
-			case "listOrdered":
-			case "listToggleUnordered":
-			case "listToggleOrdered":
-			case "listBreak":
-				$symbols = array(
-					"listUnordered" => "*",
-					"listOrdered" => "#",
-					"listToggleUnordered" => "*",
-					"listToggleOrdered" => "#",
-					"listBreak" => "+",
-					"listEmpty" =>  ""
-				);
-				$depth = $this->typeDepth("listParent");
-
-				$symbol = str_repeat($symbols[$tag['type']], $depth);
-
-				if (strstr($tag['type'], "Toggle") !== false) {
-					$symbol .= '-';
-				}
-
-				$this->stashStatic(array('symbol' => $symbol, 'contents' => $contents), 'listParent');
-				break;
-
-
-			//definition list
-			case "listDefinitionParent":
-				$contents = $this->parse($contents);
-				$stash = $this->unStash("listDefinitionParent");
-				foreach($stash as $list) {
-					if (isset($list[0])) {
-						$result .= $this->blockStart() . $this->blockSyntax($tag, ";", $list[0] . (isset($list[1]) ? ":" . $list[1] : ''));
-					}
-				}
-
-				break;
-			case "listDefinition":
-				$this->stash(array($contents), "listDefinitionParent");
-				break;
-			case "listDefinitionDescription":
-				$stash = $this->unStash("listDefinitionParent");
-				$stash[max(count($stash) - 1, 0)][] = $contents;
-				$this->replaceStash($stash, "listDefinitionParent");
-				break;
-
-
-			//l2r
-			case "l2r":
-				$result = $this->blockStart() . $this->blockSyntax($tag, "{l2r}", $contents);
-				break;
-			//r2l
-			case "r2l":
-				$result = $this->blockStart() . $this->blockSyntax($tag, "{r2l}", $contents);
-				break;
-			//end block type
-
-
-			//noParse
-			case "noParse":
-				$result = $this->statedSyntax($tag, "~np~", $contents, "~/np~");
-				break;
-
-			//comment
-			case "comment":
-				$result = $this->statedSyntax($tag, "~tc~", $contents, "~/tc~");
-				break;
-
-			//doubleDash
-			case "doubleDash":
-				$result = $this->syntax($tag, " -- ");
-				break;
-
-
-			//bold
-			case "bold":
-				$result = $this->statedSyntax($tag, "__", $contents, "__");
-				break;
-
-
-			//italic
-			case "italic":
-				$result = $this->statedSyntax($tag, "''", $contents, "''");
-				break;
-
-
-			//table
-			case "table":
-				$contents = $this->parse($contents);
-				$body = $this->unStashStatic("table");
-				$result = $this->statedSyntax($tag, "||", implode('', $body), "||");
-				break;
-			case "tableBody":
-				$contents = $this->parse($contents);
-				$rows = $this->unStashStatic("tableBody");
-				$this->stashStatic(implode("~REAL_NEW_LINE~", $rows), "table");
-				break;
-			case "tableRow":
-				$contents = $this->parse($contents);
-				$columns = $this->unStashStatic('tableRow');
-				$this->stashStatic(implode("|", $columns), "tableBody");
-				break;
-			case "tableData":
-				$contents = $this->parse($contents);
-				$this->stashStatic($contents, 'tableRow');
-				break;
-
-
-			//strike
-			case "strike":
-				$result = $this->statedSyntax($tag, "--", $contents, "--");
-				break;
-
-
-			//code
-			case "code":
-				$result = $this->statedSyntax($tag, "-+", $contents, "+-");
-				break;
-
-
-			//horizontal row
-			case "horizontalRow":
-				$result = $this->syntax($tag, "---");
-				break;
-
-
-			//underline
-			case "underscore":
-				$result = $this->statedSyntax($tag, "===", $contents, "===");
-				break;
-
-			//center
-			case "center":
-				$result = $this->statedSyntax($tag, "::", $contents, "::"); //TODO: add in 3 ":::" if prefs need it
-				break;
-
-			//line
-			case "line":
-				if ($tag['htmlElementsStackCount'] == 0) {
-					$result = $this->newLine();
-				} else {
-					$result = $this->elementFromTag($tag);
-				}
-				break;
-			case "forcedLineEnd":
-				$result = $this->syntax($tag, "%%%");
-				break;
-
-
-			//box
-			case "box":
-				$result = $this->statedSyntax($tag, "^", $contents, "^");
-				break;
-
-
-			//color
-			case "color":
-				$result = $this->statedSyntax($tag, "~~" . $this->style($tag, "color") . ":", $contents, "~~");
-				break;
-
-			//pre
-			case "preFormattedText":
-				$result = $this->statedSyntax($tag, "~pp~", $contents, "~/pp~");
-				break;
-
-			//titleBar
-			case "titleBar":
-				$result = $this->statedSyntax($tag, "-=", $contents, "=-");
-				break;
-
-
-
-
-			//links
-			case "link": //TODO: finish implementation, need to handle alias description
-				$page = $this->param($tag, 'data-page');
-				$contents = $this->parse($contents);
-				if ($page != $contents) {
-					$page .= '|' . $contents;
-				}
-				$reltype = $this->param($tag, 'data-reltype');
-				$result = $this->statedSyntax($tag, "($reltype(", $page, "))", false);
-				break;
-			case "linkWord":
-				$result = trim($contents);
-				break;
-			case "linkNp":
-				$result = $this->statedSyntax($tag, "))", $contents, "((", false);
-				break;
-			case "linkExternal":
-				$href = $this->param($tag, 'href');
-				$contents = $this->parse($contents);
-				if (!empty($href) && $href != $contents) {
-					$href .= '|';
-				} else {
-					$href = '';
-				}
-
-				$result = $this->statedSyntax($tag, "[" , $href . $contents , "]", false);
-				break;
-
-			//unlink
-			case "unlink":
-				$result = $this->parse($contents);
-				break;
-
-			//unhandled
-			default:
-				throw new Exception("Unhandled type:" . $tag['type']);
-		}
-
-		$this->Parser->typeStack[$tag['type']]--;
-
-		return $result;
-	}
-
-	private function syntax($tag, $contents)
-	{
-		$this->Parser->processedTypeStack[] = $tag['type'];
+		$this->Parser->processedTypeStack[] = $tag->type;
 		$this->Parser->firstLineHandled = true;
 		return $this->preNonBlock() . $contents;
 	}
 
 	private function statedSyntax($tag, $open, $contents, $close, $parse = true)
 	{
-		$this->Parser->processedTypeStack[] = $tag['type'];
+		$this->Parser->processedTypeStack[] = $tag->type;
 		$this->Parser->firstLineHandled = true;
 		if ($parse == true) {
 			$contents = $this->parse($contents);
@@ -442,20 +163,9 @@ class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 		return $this->preNonBlock() . $result;
 	}
 
-	private function blockSyntax($tag, $open, $contents, $parse = true)
-	{
-		$this->Parser->processedTypeStack[] = $tag['type'];
-		$this->Parser->firstLineHandled = true;
-		if ($parse == true) {
-			$contents = $this->parse($contents);
-		}
-
-		return $open . $contents;
-	}
-
 	public function content($content)
 	{
-		return $content;
+		return new WikiLingo_Expression($content);
 	}
 
 	public function lineEnd($line)
@@ -490,42 +200,6 @@ class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 			return "\n";
 		}
 		return "";
-	}
-
-	private function parseElementParameters($params)
-	{
-		$parsedParams = array();
-		if (!empty($params)) {
-			$dom = new DOMDocument();
-			if ($params{strlen($params) - 1} == "/") {
-				$params = substr($params, 0, -1);
-			}
-
-			$dom->loadHtml("<object " . $params . " />");
-			foreach ($dom->getElementsByTagName("object") as $node) {
-				foreach ($node->attributes as $attribute) {
-					$parsedParams[trim(strtolower($attribute->name))] = trim($attribute->value);
-				}
-			}
-		}
-
-		if (isset($parsedParams['style'])) {
-			$styles = explode(';', $parsedParams['style']);
-			$parsedParams['style'] = array();
-			foreach ($styles as &$style) {
-				$parts = explode(':', $style);
-				if (isset($parts[0]) && isset($parts[1])) {
-					$parsedParams['style'][trim($parts[0])] = trim($parts[1]);
-				}
-			}
-		}
-
-		if (isset($parsedParams['class'])) {
-			$parsedParams['class'] = explode(' ', $parsedParams['class']);
-			array_filter($parsedParams['class']);
-		}
-
-		return $parsedParams;
 	}
 
 	public function stashStatic($whatToStash, $id)
@@ -574,144 +248,43 @@ class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 		return (isset($this->Parser->typeStack[$type]) ? $this->Parser->typeStack[$type] : -1);
 	}
 
-	public function hasClass(&$tag, $class)
-	{
-		return (isset($tag['params']['class']) && in_array($class, $tag['params']['class']));
-	}
-
-	public function paramEquals(&$tag, &$param, $equals)
-	{
-		return (isset($tag['params'][$param]) && strtolower($tag['params'][$param]) == strtolower($equals));
-	}
-
-	public function param(&$tag, $param)
-	{
-		return (isset($tag['params'][$param]) ? $tag['params'][$param] : '');
-	}
-
-	public function styleEquals(&$tag, $style, $equals)
-	{
-		return (isset($tag['params']['style'][$style]) && strtolower($tag['params']['style'][$style]) == strtolower($equals));
-	}
-
-	public function style(&$tag, $style)
-	{
-		if (isset($tag['params']['style'][$style])) {
-			return $tag['params']['style'][$style];
-		}
-		return '';
-	}
-
-	public function hasStyle(&$tag, $style)
-	{
-		return isset($tag['params']['style'][$style]);
-	}
-
-	public function paramContains(&$tag, $param, $contains)
-	{
-		return (isset($tag['params'][$param]) && strstr($tag['params'][$param], $contains) !== false);
-	}
-
 	public function stackHtmlElement($tag)
 	{
-		$tag = $this->tag($tag);
-		if (strstr($this->_input, '</' . $tag['name'] . '>') !== false) {
-			if (!isset($this->htmlElementStack[$tag['name']])) {
-				$this->htmlElementStack[$tag['name']] = array();
-				$this->htmlElementStackCount[$tag['name']] = 0;
-			}
-			$this->htmlElementStack[$tag['name']][] = $tag;
-			$this->htmlElementStackCount[$tag['name']]++;
-			$this->htmlElementsStackCount++;
-			$this->htmlElementsStack[] = $tag['name'];
-			return true;
-		} else {
-			return false;
-		}
+		$this->htmlElementStack[] = $tag;
+		$this->htmlElementStackCount++;
 	}
 
 	public function unStackHtmlElement($ending = '')
 	{
 		$name = strtolower(substr(str_replace(" ", "", $ending), 2, -1));
-		$this->htmlElementStackCount[$name]--;
-		$this->htmlElementStackCount[$name] = max(0, $this->htmlElementStackCount[$name]);
-		$this->htmlElementsStackCount--;
-		$this->htmlElementsStackCount = max(0, $this->htmlElementsStackCount);
-		$element = array_pop($this->htmlElementStack[$name]);
-		array_pop($this->htmlElementsStack);
-		$element['close'] = $ending;
-		if ($element['state'] == 'open') {
-			$element['state'] = 'closed';
+
+		$possibleTagMatch = end($this->htmlElementStack);
+
+		if (strpos($possibleTagMatch, $name) != 1) {
+			return false;
 		}
 
-		if (!empty($element['type'])) {
+		$this->htmlElementStackCount--;
+		$this->htmlElementStackCount = max(0, $this->htmlElementStackCount);
+		$tag = array_pop($this->htmlElementStack);
+		$element = $this->element($tag, true);
+		$element->close = $ending;
+
+		if (!empty($element->type)) {
 			array_pop($this->Parser->typeIndex);
 		}
 
 		return $element;
 	}
 
-	public function tag(&$tag)
+	public function element(&$tag, $closed = false)
 	{
-		$parts = preg_split("/[ >]/", substr($tag, 1)); //<tag> || <tag name="">
-		$name = array_shift($parts);
-		$name = strtolower(trim($name));
-		$end = array_pop($parts);
-		$params = implode(" ", $parts);
-		$params = $this->parseElementParameters($params);
-		$type = "";
-
-		if (isset($params['data-t'])) {
-			$type = JisonParser_WikiCKEditor_Handler::typeFromShorthand(strtolower($params['data-t']));
-		}
-
-		return array(
-			"name" => $name,
-			"params" => $params,
-			"open" => $tag,
-			"state" => "open",
-			"type" => $type,
-			"htmlElementsStackCount" => $this->htmlElementsStackCount
-		);
+		return new WikiLingoWYSIWYG_DTS_Element($tag, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
 	}
 
-	public function inlineTag(&$tag)
+	public function inlineElement(&$tag)
 	{
-		$tag = $this->tag($tag);
-		$tag['state'] = 'inline';
-		return $tag;
-	}
-
-	public function compareElementClosingToYytext(&$tag, $yytext)
-	{
-		$yytext = strtolower(str_replace(' ', '', $yytext));
-		if ($yytext == strtolower("</" . $tag['name'] . ">")) {
-			return true;
-		}
-	}
-
-	public function elementFromTag(&$tag, &$contents = null, $parse = false)
-	{
-		if ($parse == true) {
-			$parser = new JisonParser_Html_Handler();
-			$parser->isStaticTag(true);
-			$contents = $parser->parse($contents);
-			unset($parser);
-		}
-
-		switch($tag['state']) {
-			case "closed":
-				$element = $tag['open'] . $contents . $tag['close'];
-				break;
-			case "repaired":
-				$element = $tag['open'] . $contents;
-				break;
-			case "inline":
-				$element = $tag['open'];
-				break;
-		}
-
-		return $element;
+		return new WikiLingoWYSIWYG_DTS_Element($tag, $this->htmlElementStackCount, 'inline');
 	}
 
 	public function blockStart()
@@ -891,12 +464,10 @@ class WikiLingoWYSIWYG extends WikiLingoWYSIWYG_Definition
 	function getMissingClosingKeys()
 	{
 		end($this->htmlElementStack);
-		$stack = key($this->htmlElementStack);
-		end($this->htmlElementStack[$stack]);
-		$element = key($this->htmlElementStack[$stack]);
+		$element = key($this->htmlElementStack);
 
-		if (isset($this->htmlElementStack[$stack][$element])) {
-			return array('stack' => $stack, 'element' => $element);
+		if (isset($this->htmlElementStack[$element])) {
+			return array('element' => $element);
 		}
 	}
 }

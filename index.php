@@ -7,11 +7,18 @@ $loader = new Zend\Loader\StandardAutoloader(array('autoregister_zf' => true, 'f
 $dir = dirname(__FILE__);
 $loader
     ->registerNamespace('Jison', $dir . '/Jison')
-    ->registerNamespace('WikiLingo', $dir);
+    ->registerNamespace('WikiLingo', $dir)
+    ->registerNamespace('WikiLingoWYSIWYG', $dir)
+	->register();
 
-$loader->register();
+$original = "{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}";
+
 $wikiLingo = new WikiLingo();
-$output = $wikiLingo->parse("{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}");
+$output = $wikiLingo->parse($original);
+$wikiLingoWYSIWYG = new WikiLingoWYSIWYG();
+$outputWYSIWYG = $wikiLingoWYSIWYG->parse($original);
+$dts = new WikiLingoWYSIWYG_DTS();
+$dtsOutput = $dts->parse($outputWYSIWYG);
 ?>
 <html>
 <head>
@@ -54,7 +61,9 @@ $output = $wikiLingo->parse("{DIV(color='purple' width='100px')}{DIV()}test{DIV}
     </script>
 </head>
 <body>
-    <div contenteditable="true"><?php echo $output;?></div>
+    <div contenteditable="false"><?php echo $output;?></div>
+    <div contenteditable="true"><?php echo $outputWYSIWYG;?></div>
+    <div contenteditable="false"><?php echo $dtsOutput;?></div>
     <input type="button" value="To Source"/>
 </body>
 </html>

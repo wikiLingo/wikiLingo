@@ -1,8 +1,8 @@
-//phpOption parserClass:WikiLingoWYSIWYG_Definition
+//phpOption parserClass:WikiLingoWYSIWYG_DTS_Definition
 //phpOption fileName:Definition.php
 //phpOption usingZend:true
 
-//Lexical Grammer
+//Lexical Grammar
 %lex
 
 LINE_END                        (\n\r|\r\n|[\n\r])
@@ -17,8 +17,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 	%{
 		/*php
 		    //A tag that doesn't need to track state
-            if (JisonParser_Html_Handler::isHtmlTag($yytext) == true) {
-               $yytext = $this->inlineTag($yytext);
+            if (WikiLingoWYSIWYG_DTS::isHtmlTag($yytext) == true) {
                return "HTML_TAG_INLINE";
             }
 
@@ -38,14 +37,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 		/*php
 		    //A tag that was left open, and needs to close
             $name = end($this->htmlElementsStack);
-            $keyStack = key($this->htmlElementStack);
-            end($this->htmlElementStack[$keyStack]);
-            $keyElement = key($this->htmlElementStack[$keyStack]);
-            $tag = &$this->htmlElementStack[$keyStack][$keyElement];
-            $tag['state'] = 'repaired';
-            if (!empty($tag['name'])) {
-               $this->unput('</' . $tag['name'] . '>');
-            }
+            $element = end($this->htmlElementStack);
             return 'CONTENT';
 		*/
 	%}
@@ -54,7 +46,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 	    /*php
             //A tag that is open and we just found the close for it
             $element = $this->unStackHtmlElement($yytext);
-            if ($this->compareElementClosingToYytext($element, $yytext) && $this->htmlElementsStackCount == 0) {
+            if (isset($element)) {
                $yytext = $element;
                $this->popState();
                return "HTML_TAG_CLOSE";
@@ -66,14 +58,10 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 	%{
 	    /*php
             //An tag open
-            if (JisonParser_Html_Handler::isHtmlTag($yytext) == true) {
-               if ($this->stackHtmlElement($yytext)) {
-                   if ($this->htmlElementsStackCount == 1) {
-                       $this->begin('htmlElement');
-                       return "HTML_TAG_OPEN";
-                   }
-               }
-               return 'CONTENT';
+            if (WikiLingoWYSIWYG_DTS::isHtmlTag($yytext)) {
+               $this->stackHtmlElement($yytext);
+               $this->begin('htmlElement');
+               return "HTML_TAG_OPEN";
             }
 
             //A non-valid html tag, return the first character in the stack and put the rest back into the parser
@@ -82,6 +70,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
                $yytext = $yytext{0};
                $this->unput(substr($tag, 1));
             }
+
             return 'CONTENT';
         */
 	%}
@@ -93,7 +82,6 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
     	*/
 	%}
 ([A-Za-z0-9 .,?;]+)                         return 'CONTENT';
-
 ([ ])                                       return 'CONTENT';
 {LINE_END}
 	%{
@@ -109,7 +97,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 
 /lex
 
-//Parsing Grammer
+//Parsing Grammar
 %%
 
 wiki
@@ -123,34 +111,40 @@ wiki
 
 contents
  : content
-	{$$ = $1;}
+	{
+		/*php
+			$$ = $1->text;
+		*/
+	}
  | contents content
 	{
-		$$ = $1 + $2; //js
-
-		//php $$ = $1 . $2;
+		//php $$ = $1->text->addSibling($2->text);
 	}
  ;
 
 content
  : CONTENT
     {
-        //php $$ = $this->content($1);
+        //php $$ = $this->content($1->text);
     }
  | LINE_END
     {
-        //php $$ = $this->lineEnd($1);
+        //php $$ = $this->lineEnd($1->text);
     }
  | HTML_TAG_INLINE
 	{
-	    //php $$ = $this->toWiki($1);
+	    //php $$ = $this->inlineElement($1->text);
 	}
  | HTML_TAG_OPEN contents HTML_TAG_CLOSE
 	{
-	    //php $$ = $this->toWiki($3, $2);
+	    /*php
+	        $1->text = $this->element($1->text, true);
+	        $1->text->addChild($2->text);
+	        $$ = $1->text;
+	    */
 	}
  | HTML_TAG_OPEN HTML_TAG_CLOSE
 	{
-	    //php $$ = $this->toWiki($2);
+	    //php $$ = $this->element($1->text, true);
 	}
  ;

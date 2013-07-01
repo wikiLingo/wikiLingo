@@ -1402,33 +1402,33 @@ class WikiLingo extends WikiLingo_Definition
      * @param   $syntaxType string from what syntax type
      * @param   $tagType string what output tag type
      * @param   $content string what is inside the tag
-     * @param   $params array what params to add to the tag, array, key = param, value = value
+     * @param   $attributes array what params to add to the tag, array, key = param, value = value
      * @param   $type default is "standard", of types : standard, inline, open, close
      * @return  string  $tag desired output from syntax
      */
-    public function createWikiHelper($syntaxType, $tagType, $content = "", $params = array(), $type = "standard")
+    public function createWikiHelper($syntaxType, $tagType, $content = "", $attributes = array(), $type = "standard")
     {
-        $tag = "<" . $tagType;
+        $tagOpen = "<" . $tagType;
 
-        if (!empty($params)) {
-            foreach ($params as $param => $value) {
-                $tag .= " " . $param . "='" . $value . "'";
+        if (!empty($attributes)) {
+            foreach ($attributes as $attribute => $value) {
+	            $tagOpen .= " " . $attribute . "='" . $value . "'";
             }
         }
 
         switch ($type) {
-            case "inline": $tag .= "/>";
-                break;
+            case "inline": $tagOpen .= "/>";
+                return new WikiLingo_Expression($tagOpen);
             case "standard":
-                $tag .= ">" . $content . "</" . $tagType . ">";
-                break;
-            case "open": $tag .= ">";
-                break;
+	            $tagOpen .= ">";
+                $tagClosed = "</" . $tagType . ">";
+                return new WikiLingo_Expression($tagOpen, $tagClosed, $content);
+            case "open": $tagOpen .= ">";
+                return new WikiLingo_Expression($tagOpen);
             case "close":
-                return '</' .$tagType . '>';
+	            $tagClosed = '</' .$tagType . '>';
+	            return new WikiLingo_Expression($tagClosed);
         }
-
-        return $tag;
     }
 
     /**
@@ -1442,30 +1442,27 @@ class WikiLingo extends WikiLingo_Definition
      * @param   $inline bool the content to be ignored and for tag to close, ie <tag />
      * @return  string  $tag desired output from syntax
      */
-    public function createWikiTag($syntaxType, $tagType, $content = "", $params = array(), $type = "standard")
+    public function createWikiTag($syntaxType, $tagType, $content = "", $attributes = array(), $type = "standard")
     {
         $this->isRepairing($syntaxType, true);
 
         $tagOpen = "<" . $tagType;
 
-        if (!empty($params)) {
-            foreach ($params as $param => $value) {
-                $tagOpen .= " " . $param . "='" . trim($value) . "'";
+        if (!empty($attributes)) {
+            foreach ($attributes as $attribute => $value) {
+                $tagOpen .= " " . $attribute . "='" . trim($value) . "'";
             }
         }
 
         switch ($type) {
             case "inline": $tagOpen .= "/>";
                 return new WikiLingo_Expression($tagOpen);
-                break;
             case "standard":
                 $tagOpen .= ">";
                 $tagClose = "</" . $tagType . ">";
                 return new WikiLingo_Expression($tagOpen, $tagClose, $content);
-                break;
             case "open": $tagOpen .= ">";
                 return new WikiLingo_Expression($tagOpen);
-                break;
             case "close":
                 $tagClose = '</' .$tagType . '>';
                 return new WikiLingo_Expression($tagClose);
