@@ -11,12 +11,22 @@ class WikiLingo_Expression extends Jison_ParserValue
 	public $childrenCount = 0;
 	public $childrenRenderFirst = true;
 	public $staticContent;
+    public $syntax;
+    public $loc;
 
-	public function __construct(&$stringBefore = '', $stringAfter = '', $staticContent = '')
+	public function __construct(&$before = null, $after = null, $staticContent = '')
 	{
-		$this->stringBefore = $stringBefore;
-		$this->stringAfter = $stringAfter;
-		$this->staticContent = $staticContent;
+        if (isset($before)) {
+            $this->stringBefore = $before->text;
+            $this->stringAfter = (isset($after) ? $after->text : '');
+            $this->staticContent = $staticContent;
+
+            $this->loc = $before->loc;
+            if (isset($after)) {
+                $this->loc->lastColumn = $after->loc->lastColumn;
+                $this->loc->lastLine = $after->loc->lastLine;
+            }
+        }
 	}
 
 	public function render(&$parser)
@@ -30,7 +40,7 @@ class WikiLingo_Expression extends Jison_ParserValue
 		} else {
 			foreach($this->siblings as $sibling)
 			{
-				$siblings .= $sibling->render($parser);
+				$siblings .= $sibling->text->render($parser);
 			}
 
 			foreach($this->children as $child)
@@ -54,6 +64,12 @@ class WikiLingo_Expression extends Jison_ParserValue
 		$this->siblings[] = $sibling;
 		$this->siblingsCount++;
 
+        if (isset($this->loc)) {
+            $this->loc->lastLine = $sibling->loc->lastLine;
+            $this->loc->lastColumn = $sibling->loc->lastColumn;
+        } else {
+            $this->loc = $sibling->loc;
+        }
 		return $this;
 	}
 }

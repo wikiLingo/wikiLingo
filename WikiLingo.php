@@ -20,6 +20,7 @@ class WikiLingo extends WikiLingo_Definition
     public $plugins = array();
     public static $pluginIndexes = array();
     public $pluginNegotiator;
+    public $originalInput = '';
 
     /* track syntax that is broken */
     public $repairingStack = array();
@@ -80,86 +81,15 @@ class WikiLingo extends WikiLingo_Definition
     public $option = array();
 	public $optionProtectEmail = false;
 	public $optionSkipValidation = false;
-    public $optionDefaults = array(
-        'skipvalidation'=>  false,
-        'is_html'=> false,
-        'absolute_links'=> false,
-        'language' => '',
-        'noparseplugins' => false,
-        'stripplugins' => false,
-        'noheaderinc' => false,
-        'page' => '',
-        'print' => false,
-        'parseimgonly' => false,
-        'preview_mode' => false,
-        'suppress_icons' => false,
-        'parsetoc' => true,
-        'inside_pretty' => false,
-        'process_wiki_paragraphs' => true,
-        'min_one_paragraph' => false,
-        'parseBreaks' => true,
-        'parseLists' =>   true,
-        'parseNps' => true,
-        'parseSmileys'=> true,
-        'namespace' => null,
-        'skipPageCache' => false,
-    );
-
-    /**
-     * Change options
-     *
-     * @access  public
-     * @param   array  $option an array of options, key being the option name and value being the value to be set
-     */
-    public function setOption($option = array())
-    {
-        global $parserlib;
-
-        if (!empty($this->Parser->option)) {
-            $this->Parser->option = array_merge($this->Parser->option, $option);
-        } else {
-            $this->resetOption();
-            $this->Parser->option = array_merge($this->optionDefaults, $option);
-        }
-
-        if (isset($parserlib->option)) {
-            $parserlib->option = $this->Parser->option;
-        }
-    }
-
-    /**
-     * Access single option
-     *
-     * @access  public
-     * @param   string  $name name/key of option
-     * @return  mixed   value of option or false if not set
-     */
-    public function getOption($name = '')
-    {
-        if (isset($this->Parser->option[$name])) {
-            return $this->Parser->option[$name];
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Reset all options to default value
-     *
-     * @access  public
-     */
-    public function resetOption()
-    {
-        global $prefs, $parserlib;
-        $page = (isset($_REQUEST['page']) ? $_REQUEST['page'] : $prefs['site_wikiHomePage']);
-
-        $this->Parser->option['page'] = $page;
-        $this->Parser->option = $this->optionDefaults;
-
-        if (isset($parserlib->option)) {
-            $parserlib->option = $this->Parser->option;
-        }
-    }
+    public $optionIsHtml = false;
+    public $optionAbsoluteLinks = false;
+    public $optionLanguage = '';
+    public $optionPrint = false;
+    public $optionPreviewMode = false;
+    public $optionSuppressIcons = false;
+    public $optionParseTOC = true;
+    public $optionParseSmileys = true;
+    public $optionSkipPageCache = false;
 
     /**
      * construct
@@ -208,10 +138,6 @@ class WikiLingo extends WikiLingo_Definition
 
         if (isset($this->specialCharacter) == false) {
             $this->specialCharacter = new WikiLingo_Expression_SpecialChar($this->Parser);
-        }
-
-        if (empty($this->Parser->option) == true) {
-            $this->resetOption();
         }
 
         parent::__construct();
@@ -345,6 +271,10 @@ class WikiLingo extends WikiLingo_Definition
         $input = "\n" . $input . "≤REAL_EOF≥"; //here we add 2 lines, so the parser doesn't have to do special things to track the first line and last, we remove these when we insert breaks, these are dynamically removed later
         $input = str_replace("\r", "", $input);
         $input = $this->specialCharacter->protect($input);
+
+        if ($this->Parser->parseDepth == 0) {
+            $this->Parser->originalInput = preg_split('/\n/', $input);
+        }
     }
 
     /**
@@ -417,9 +347,9 @@ class WikiLingo extends WikiLingo_Definition
      * @param   array  &$pluginDetails plugins details in an array
      * @return  string  either returns $key or block from execution message
      */
-    public function plugin(&$name, &$parameters, &$contents, &$end)
+    public function plugin(&$name, &$parameters, &$end, &$body)
     {
-	    return new WikiLingo_Expression_Plugin($name,$parameters,$contents,$end);
+	    return new WikiLingo_Expression_Plugin($name->text, $parameters->text, $end->text, $body->text, $this->syntaxBetween($parameters->loc, $end->loc), $this->syntax($name->loc, $end->loc));
 	    /*//TODO: move to expression post-parse
         $negotiator =& $this->pluginNegotiator;
 
@@ -1030,7 +960,7 @@ class WikiLingo extends WikiLingo_Definition
         //The first \n was inserted just before parse
         if ($this->isFirstBr == false) {
             $this->isFirstBr = true;
-            return new WikiLingo_Expression();
+            return new WikiLingo_Expression($ch);
         }
 
         $result = '';
@@ -1456,16 +1386,16 @@ class WikiLingo extends WikiLingo_Definition
 
         switch ($type) {
             case "inline": $tagOpen .= "/>";
-                return new WikiLingo_Expression($tagOpen);
+                return new WikiLingoWYSIWYG_Expression($tagOpen);
             case "standard":
                 $tagOpen .= ">";
                 $tagClose = "</" . $tagType . ">";
-                return new WikiLingo_Expression($tagOpen, $tagClose, $content);
+                return new WikiLingoWYSIWYG_Expression($tagOpen, $tagClose, $content);
             case "open": $tagOpen .= ">";
-                return new WikiLingo_Expression($tagOpen);
+                return new WikiLingoWYSIWYG_Expression($tagOpen);
             case "close":
                 $tagClose = '</' .$tagType . '>';
-                return new WikiLingo_Expression($tagClose);
+                return new WikiLingoWYSIWYG_Expression($tagClose);
         }
     }
 
@@ -1530,6 +1460,44 @@ class WikiLingo extends WikiLingo_Definition
         ) {
             return true;
         }
+    }
+
+    function syntax(Jison_ParserLocation $startLoc, Jison_ParserLocation $endLoc = null)
+    {
+        $firstLine = $startLoc->firstLine;
+        $lastLine = (isset($endLoc) ? $endLoc->lastLine : $startLoc->lastLine);
+        $firstColumn = $startLoc->firstColumn;
+        $lastColumn = (isset($endLoc) ? $endLoc->lastColumn : $startLoc->lastColumn);
+
+        $input = $this->Parser->originalInput;
+
+        if ($firstLine == $lastLine) {
+            $text = $input[$firstLine - 1];
+            $fromEnd = -(strlen($text) - $lastColumn);
+            $syntax = substr($text, $firstColumn, $fromEnd);
+            return $syntax;
+        }
+
+        return '';
+    }
+
+    public function syntaxBetween(Jison_ParserLocation $startLoc, Jison_ParserLocation $endLoc)
+    {
+        $firstLine = $startLoc->lastLine;
+        $lastLine = $endLoc->firstLine;
+        $firstColumn = $startLoc->lastColumn;
+        $lastColumn = $endLoc->firstColumn;
+
+        $input = $this->Parser->originalInput;
+
+        if ($firstLine == $lastLine) {
+            $text = $input[$firstLine - 1];
+            $fromEnd = -(strlen($text) - $lastColumn);
+            $syntax = substr($text, $firstColumn, $fromEnd);
+            return $syntax;
+        }
+
+        return '';
     }
 
     function removeEOF( &$output )

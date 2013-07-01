@@ -294,6 +294,7 @@ class WikiLingoWYSIWYG_DTS_Definition extends Jison_Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
 	{
 		
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -310,15 +311,18 @@ case 4:
 	
 break;
 case 5:
-		 $thisS = $s[$o-1]->text->addSibling($s[$o]->text);
+		
+		    $s[$o-1]->text->addSibling($s[$o]);
+		    $thisS = $s[$o-1]->text;
+		
 	
 break;
 case 6:
-         $thisS = $this->content($s[$o]->text);
+         $thisS = $this->content($s[$o]);
     
 break;
 case 7:
-         $thisS = $this->lineEnd($s[$o]->text);
+         $thisS = $this->lineEnd($s[$o]);
     
 break;
 case 8:
@@ -328,7 +332,7 @@ break;
 case 9:
 	    
 	        $s[$o-2]->text = $this->element($s[$o-2]->text, true);
-	        $s[$o-2]->text->addChild($s[$o-1]->text);
+	        $s[$o-2]->text->addChild($s[$o-1]);
 	        $thisS = $s[$o-2]->text;
 	    
 	
@@ -345,7 +349,7 @@ break;
 	{
 		
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
 		
@@ -422,7 +426,7 @@ case 7:
             if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
                return 8;
             }
-            return 'CONTENT';
+            return 7;
 		
 	
 break;

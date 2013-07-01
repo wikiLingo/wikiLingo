@@ -1035,7 +1035,7 @@ line
 	    $$ = parser.block($1);
 
 	    /*php
-	        $$ = $this->block($1->text);
+	        $$ = $this->block($1);
         */
 	}
  | BLOCK_START contents BLOCK_END
@@ -1044,7 +1044,7 @@ line
             $$ = parser.block($1 + $2);
 
         /*php
-            $$ = $this->block($1->text->addSibling($2->text));
+            $$ = $this->block($1, $2);
         */
     }
  | BLOCK_START
@@ -1067,7 +1067,7 @@ contents
 
 		/*php
 			if (isset($2->text)) {
-		        $$ = $1->text->addSibling($2->text);
+		        $$ = $1->text->addSibling($2);
 		    }
         */
 	}
@@ -1080,7 +1080,7 @@ content
 	        $$ = $1;
 
 	    /*php
-	        $$ = $this->content($1->text);
+	        $$ = $this->content($1);
 	    */
 	}
  | COMMENT
@@ -1089,7 +1089,7 @@ content
             $$ = parser.comment($1);
 
         /*php
-            $$ = $this->comment($1->text);
+            $$ = $this->comment($1);
         */
     }
  | NO_PARSE_START
@@ -1100,7 +1100,7 @@ content
             $$ = parser.noParse($2);
 
         /*php
-            $$ = $this->noParse($2->text);
+            $$ = $this->noParse($2);
         */
     }
  | PREFORMATTED_TEXT_START
@@ -1111,7 +1111,7 @@ content
             $$ = parser.preFormattedText($2);
 
         /*php
-            $$ = $this->preFormattedText($2->text);
+            $$ = $this->preFormattedText($2);
         */
     }
  | DOUBLE_DYNAMIC_VAR
@@ -1120,7 +1120,7 @@ content
             $$ = parser.doubleDynamicVar($1);
 
         /*php
-            $$ = $this->doubleDynamicVar($1->text);
+            $$ = $this->doubleDynamicVar($1);
         */
     }
  | SINGLE_DYNAMIC_VAR
@@ -1129,7 +1129,7 @@ content
             $$ = parser.singleDynamicVar($1);
 
         /*php
-            $$ = $this->singleDynamicVar($1->text);
+            $$ = $this->singleDynamicVar($1);
         */
      }
  | ARGUMENT_VAR
@@ -1138,7 +1138,7 @@ content
             $$ = parser.argumentVar($1);
 
         /*php
-            $$ = $this->argumentVar($1->text);
+            $$ = $this->argumentVar($1);
         */
     }
  | HTML_TAG
@@ -1147,7 +1147,7 @@ content
             $$ = parser.htmlTag($1);
 
         /*php
-            $$ = $this->htmlTag($1->text);
+            $$ = $this->htmlTag($1);
         */
     }
  | HORIZONTAL_BAR
@@ -1167,7 +1167,7 @@ content
 		    $$ = parser.bold($2);
 
 		/*php
-		    $$ = $this->bold($2->text);
+		    $$ = $this->bold($2);
         */
 	}
  | BOX_START
@@ -1178,7 +1178,7 @@ content
 		    $$ = parser.box($2);
 
 		/*php
-		    $$ = $this->box($2->text);
+		    $$ = $this->box($2);
         */
 	}
  | CENTER_START
@@ -1189,7 +1189,7 @@ content
 		    $$ = parser.center($2);
 
 		/*php
-		    $$ = $this->center($2->text);
+		    $$ = $this->center($2);
         */
 	}
  | CODE_START
@@ -1200,7 +1200,7 @@ content
 		    $$ = parser.code($2);
 
 		/*php
-		    $$ = $this->code($2->text);
+		    $$ = $this->code($2);
         */
 	}
  | COLOR_START
@@ -1211,7 +1211,7 @@ content
 		    $$ = parser.color($2);
 
 		/*php
-		    $$ = $this->color($2->text);
+		    $$ = $this->color($2);
         */
 	}
  | ITALIC_START
@@ -1222,7 +1222,7 @@ content
 		    $$ = parser.italic($2);
 
 		/*php
-		    $$ = $this->italic($2->text);
+		    $$ = $this->italic($2);
         */
 	}
  | UNLINK_START
@@ -1233,7 +1233,7 @@ content
 		    $$ = parser.unlink($1 + $2 + $3);
 
 		/*php
-		    $$ = $this->unlink($1->text . $2->text . $3->text);
+		    $$ = $this->unlink($1, $2, $3);
         */
 	}
  | LINK_START
@@ -1244,7 +1244,7 @@ content
 		    $$ = parser.link($1, $2);
 
 		/*php
-		    $$ = $this->link($1->text, $2->text);
+		    $$ = $this->link($1, $2);
         */
 	}
  | STRIKE_START
@@ -1255,7 +1255,7 @@ content
 		    $$ = parser.strike($2);
 
 		/*php
-		    $$ = $this->strike($2->text);
+		    $$ = $this->strike($2);
         */
 	}
  | DOUBLE_DASH
@@ -1275,7 +1275,7 @@ content
 		    $$ = parser.tableParser($2);
 
 		/*php
-		    $$ = $this->tableParser($2->text);
+		    $$ = $this->tableParser($2);
         */
 	}
  | TITLE_BAR_START
@@ -1286,7 +1286,7 @@ content
 		    $$ = parser.titleBar($2);
 
 		/*php
-		    $$ = $this->titleBar($2->text);
+		    $$ = $this->titleBar($2);
         */
 	}
  | UNDERSCORE_START
@@ -1297,7 +1297,7 @@ content
 		    $$ = parser.underscore($2);
 
 		/*php
-		    $$ = $this->underscore($2->text);
+		    $$ = $this->underscore($2);
         */
 	}
  | WIKI_LINK_START
@@ -1308,7 +1308,7 @@ content
 		    $$ = parser.link($1['type'], $2);
 
 		/*php
-		    $$ = $this->link($1->text['type'], $2->text);
+		    $$ = $this->link($1->text['type'], $2);
         */
 	}
  | WIKI_LINK
@@ -1317,7 +1317,7 @@ content
             $$ = parser.link('word', $1);
 
         /*php
-            $$ = $this->link('word', $1->text);
+            $$ = $this->link('word', $1);
         */
     }
  | INLINE_PLUGIN_START
@@ -1327,7 +1327,7 @@ content
  		    $$ = parser.plugin($1, $2);
 
  		/*php
- 		    $$ = $this->plugin($1->text, $2->text);
+ 		    $$ = $this->plugin($1, $2);
         */
  	}
  | PLUGIN_START PLUGIN_PARAMETERS contents PLUGIN_END
@@ -1336,7 +1336,7 @@ content
  		    $$ = parser.plugin($1, $2, $3, $4);
 
  		/*php
- 		    $$ = $this->plugin($1->text, $2->text, $3->text, $4->text);
+ 		    $$ = $this->plugin($1, $2, $4, $3);
         */
  	}
  | PLUGIN_START PLUGIN_PARAMETERS PLUGIN_END
@@ -1346,7 +1346,7 @@ content
             $$ = parser.plugin($1);
 
         /*php
-            $$ = $this->plugin($1->text, $2->text, '', $3->text);
+            $$ = $this->plugin($1, $2, $3);
         */
      }
  | PLUGIN_START PLUGIN_PARAMETERS
@@ -1357,7 +1357,7 @@ content
             $$ = parser.line($1);
 
         /*php
-            $$ = $this->line($1->text);
+            $$ = $this->line($1);
         */
     }
  | FORCED_LINE_END

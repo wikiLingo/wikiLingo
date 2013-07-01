@@ -118,18 +118,21 @@ contents
 	}
  | contents content
 	{
-		//php $$ = $1->text->addSibling($2->text);
+		/*php
+		    $1->text->addSibling($2);
+		    $$ = $1->text;
+		*/
 	}
  ;
 
 content
  : CONTENT
     {
-        //php $$ = $this->content($1->text);
+        //php $$ = $this->content($1);
     }
  | LINE_END
     {
-        //php $$ = $this->lineEnd($1->text);
+        //php $$ = $this->lineEnd($1);
     }
  | HTML_TAG_INLINE
 	{
@@ -139,7 +142,7 @@ content
 	{
 	    /*php
 	        $1->text = $this->element($1->text, true);
-	        $1->text->addChild($2->text);
+	        $1->text->addChild($2);
 	        $$ = $1->text;
 	    */
 	}

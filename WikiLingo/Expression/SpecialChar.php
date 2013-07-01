@@ -49,7 +49,7 @@ class WikiLingo_Expression_SpecialChar
 	{
 		if (
 			$this->parser->isHtmlPurifying == true ||
-			$this->parser->getOption('is_html') == false
+			$this->parser->optionIsHtml == false
 		) {
 			foreach ($this->specialChars as $key => $specialChar) {
 				$input = str_replace($specialChar['html'], $key, $input);

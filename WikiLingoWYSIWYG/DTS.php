@@ -165,7 +165,7 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 
 	public function content($content)
 	{
-		return new WikiLingo_Expression($content);
+		return new WikiLingoWYSIWYG_Expression($content);
 	}
 
 	public function lineEnd($line)

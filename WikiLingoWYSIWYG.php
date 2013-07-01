@@ -87,17 +87,17 @@ class WikiLingoWYSIWYG extends WikiLingo
 	 * @param   array  &$pluginDetails plugins details in an array
 	 * @return  string  either returns $key or block from execution message
 	 */
-	public function plugin(&$name, &$parameters, &$contents, &$end)
+	public function plugin(&$name, &$parameters, &$end, &$body)
 	{
-		$plugin = parent::plugin($name, $parameters, $contents, $end);
+        $plugin = parent::plugin($name, $parameters, $end, $body);
 		return $this->createWikiTag(
 			"plugin",
 			"span",
 			"Plugin:" . $plugin->name,
 			array(
-				"data-syntax" => rawurlencode($plugin->toSyntax()),
-				/*"data-body" => rawurlencode($plugin->body),*/
-				/*"data-args" => json_encode($plugin->parameters),*/
+				"data-syntax" => rawurlencode($plugin->syntax),
+				"data-body" => rawurlencode($plugin->bodySyntax),
+				"data-attributes" => json_encode($plugin->parameters),
 				"data-name" => $plugin->name,
 				"contenteditable" => "false"
 			)

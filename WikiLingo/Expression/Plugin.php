@@ -5,7 +5,8 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
     public $name;
     public $parameters;
     public $body;
-    public $syntax = array();
+    public $syntax;
+    public $bodySyntax;
     public $closing;
     public $index;
     public $key;
@@ -17,20 +18,18 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
     public static $parametersParser;
     public static $indexes = array();
 
-    function __construct($name, $parameters, $body, $closing)
+    function __construct($name, $parameters, $closing, $body = null, $bodySyntax = null, $syntax)
     {
         if (!isset(self::$parametersParser)) {
             self::$parametersParser = new WikiLingo_Parameters();
         }
-	    $this->syntax[] = $name;
-        $this->name = strtolower(substr($name, 1, -1));
+        $this->name = $name = strtolower(substr($name, 1, -1));
 
-        $this->className = 'WikiLingo_Plugin_' . $this->name;
+        $this->className = 'WikiLingo_Plugin_' . $name;
 	    $this->exists = class_exists($this->className);
-        $this->index = self::incrementPluginIndex($this->name);
-        $this->key = '§' . md5('plugin:' . $this->name . '_' . $this->index) . '§';
-	    $this->syntax[] = $parameters;
-	    $parameters = substr($parameters, 0, -2);
+        $this->index = self::incrementPluginIndex($name);
+        $this->key = '§' . md5('plugin:' . $name . '_' . $this->index) . '§';
+        $parameters = substr($parameters, 0, -2);
 
 	    if (empty($parameters)) {
 		    $this->parameters = array();
@@ -38,10 +37,10 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
 		    $this->parameters = self::$parametersParser->parse($parameters);
 	    }
 
-        $this->body = &$body;
+        $this->body = $body;
+        $this->bodySyntax = $bodySyntax;
+        $this->syntax = $syntax;
         $this->ignored = false;
-	    $this->syntax[] = $body;
-	    $this->syntax[] = $closing;
 
         if ($this->exists == true) {
             if (empty(WikiLingo_PluginNegotiator::$pluginInstances[$this->className])) WikiLingo_PluginNegotiator::$pluginInstances[$this->className] = new $this->className;
@@ -159,12 +158,6 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         }
 
         return true;
-    }
-
-    function toSyntax()
-    {
-        //return $this->syntax . $this->body . $this->closing;
-	    return '';
     }
 
     function urlEncodeParameters()

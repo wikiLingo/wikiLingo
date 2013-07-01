@@ -17,10 +17,10 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 		$this->name = strtolower(trim($name));
 		$end = array_pop($parts);
 		$this->attributes = implode(" ", $parts);
+        $this->state = $state;
 		$type = "";
 
-		$this->open = ($state == 'closed' ? false : true);
-		$this->type = $type;
+		$this->open = ($state == 'closed' || $state == 'inline' ? false : true);
 		$this->stackCount = $stackCount;
 
 		$this->parseElementAttributes();
@@ -28,9 +28,11 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 		if (isset($this->attributes['data-t'])) {
 			$this->type = WikiLingoWYSIWYG::typeFromShorthand(strtolower($this->attributes['data-t']));
 		}
+
+        $this->getSyntax();
 	}
 
-	public function toWiki(&$contents = null)
+	public function getSyntax()
 	{
 		//helpers
 		if ($this->hasClass("wlwh") == true) {
@@ -39,7 +41,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
 		//non wiki tags are ignored
 		if ($this->hasClass("wlw") != true) {
-			return $this->elementFromTag($contents, true);
+			//return $this->elementFromTag($contents, true);
 		}
 
 		$result = '';
@@ -59,7 +61,20 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 		{
 			//plugin
 			case "plugin":
-				$result = $this->syntax(urldecode($this->param('data-syntax')));
+                if ($this->state == 'closed' && $this->open == false) {
+                    $attributes = json_decode($this->attributes['data-attributes']);
+                    $name = strtoupper($this->attr('data-name'));
+                    $result = '{' . $name . '(';
+                    $attributesArray = array();
+                    foreach($attributes as $key => $attribute) {
+                        $attributesArray[] = $key . '="' . $attribute . '"';
+                    }
+                    $result .= implode($attributesArray, ' ');
+                    $result .= ')}' .
+                        rawurldecode($this->attributes['data-body'])
+                        . '{' . $name . '}';
+                    $result .= '';
+                }
 				break;
 
 
@@ -305,7 +320,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 				throw new Exception("Unhandled type:" . $this->type);
 		}
 
-		$this->Parser->typeStack[$tag->type]--;
+		$this->Parser->typeStack[$this->type]--;
 
 		return $result;
 	}

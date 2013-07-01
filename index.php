@@ -63,7 +63,7 @@ $dtsOutput = $dts->parse($outputWYSIWYG);
 <body>
     <div contenteditable="false"><?php echo $output;?></div>
     <div contenteditable="true"><?php echo $outputWYSIWYG;?></div>
-    <div contenteditable="false"><?php echo $dtsOutput;?></div>
+    <div contenteditable="false"><php echo $dtsOutput;?></div>
     <input type="button" value="To Source"/>
 </body>
 </html>
