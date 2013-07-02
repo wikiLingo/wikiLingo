@@ -26,8 +26,8 @@ $wikiLingo = new WikiLingo();
 $output = $wikiLingo->parse($original);
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG();
 $outputWYSIWYG = $wikiLingoWYSIWYG->parse($original);
-/*$dts = new WikiLingoWYSIWYG_DTS();
-$dtsOutput = $dts->parse($outputWYSIWYG);*/
+$dts = new WikiLingoWYSIWYG_DTS();
+$dtsOutput = $dts->parse($outputWYSIWYG);
 ?>
 <html>
 <head>
@@ -72,7 +72,7 @@ $dtsOutput = $dts->parse($outputWYSIWYG);*/
 <body>
     <div contenteditable="false"><?php echo $output;?></div>
     <div contenteditable="true"><?php echo $outputWYSIWYG;?></div>
-    <div contenteditable="false"><php echo $dtsOutput;?></div>
+    <div contenteditable="false"><?php echo $dtsOutput;?></div>
     <input type="button" value="To Source"/>
 </body>
 </html>
