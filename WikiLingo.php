@@ -960,18 +960,18 @@ class WikiLingo extends WikiLingo_Definition
         //The first \n was inserted just before parse
         if ($this->isFirstBr == false) {
             $this->isFirstBr = true;
-            return new WikiLingo_Expression($ch);
+            return new WikiLingoWYSIWYG_Expression($ch->text);
         }
 
-        $result = '';
+        $result = new WikiLingoWYSIWYG_Expression('');
 
         if ($skipBr == false && $this->nonBreakingTagDepth == 0) {
             $result = $this->createWikiTag("line", "br", "", array(), "inline");
         }
 
-	    $result .= $ch;
+	    $result->text .= $ch->text;
 
-        return new WikiLingo_Expression($result);
+        return $result;
     }
 
     /**

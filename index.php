@@ -11,14 +11,23 @@ $loader
     ->registerNamespace('WikiLingoWYSIWYG', $dir)
 	->register();
 
-$original = "{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}{DIV(color='purple' width='100px')}{DIV()}test{DIV}{DIV}";
+$original = "{DIV(color='purple' width='100px')}
+    {DIV()}
+        test
+    {DIV}
+{DIV}
+{DIV(color='purple' width='100px')}
+    {DIV()}
+        test
+    {DIV}
+{DIV}";
 
 $wikiLingo = new WikiLingo();
 $output = $wikiLingo->parse($original);
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG();
 $outputWYSIWYG = $wikiLingoWYSIWYG->parse($original);
-$dts = new WikiLingoWYSIWYG_DTS();
-$dtsOutput = $dts->parse($outputWYSIWYG);
+/*$dts = new WikiLingoWYSIWYG_DTS();
+$dtsOutput = $dts->parse($outputWYSIWYG);*/
 ?>
 <html>
 <head>
