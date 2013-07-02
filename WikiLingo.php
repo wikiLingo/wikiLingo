@@ -78,6 +78,10 @@ class WikiLingo extends WikiLingo_Definition
     public $isHtmlPurifying = false;
     private $pcreRecursionLimit;
 
+    public $cssLocations = array();
+    public $scriptLocations = array();
+    public $scripts = array();
+
     public $option = array();
 	public $optionProtectEmail = false;
 	public $optionSkipValidation = false;
@@ -1503,5 +1507,65 @@ class WikiLingo extends WikiLingo_Definition
     function removeEOF( &$output )
     {
         $output = str_replace("≤REAL_EOF≥", "", $output);
+    }
+
+    public function addCssLocation( $href, $i = -1 )
+    {
+        if ($i > -1) {
+            $this->Parser->cssLocations[$i] = $href;
+        } else {
+            $this->Parser->cssLocations[] = $href;
+        }
+
+        return $this;
+    }
+
+    public function addScriptLocation( $src, $i = -1 )
+    {
+        if ($i > -1) {
+            $this->Parser->scriptLocations[$i] = $src;
+        } else {
+            $this->Parser->scriptLocations[] = $src;
+        }
+
+        return $this;
+    }
+
+    public function addScript( $script, $i = -1 )
+    {
+        if ($i > -1) {
+            $this->Parser->scripts[$i] = $script;
+        } else {
+            $this->Parser->scripts[] = $script;
+        }
+
+        return $this;
+    }
+
+    public function renderCss()
+    {
+        $css = '';
+        foreach ($this->Parser->cssLocations as $location) {
+            $css .= "<link rel='stylesheel' type='text/css' href='" . $location . "' />";
+        }
+        return $css;
+    }
+
+    public function renderScript()
+    {
+        $scriptLocations = '';
+
+        foreach ($this->Parser->scriptLocations as $location) {
+            $scriptLocations .= "<script type='text/javascript' src='" . $location . "'></script>";
+        }
+
+        $scripts = "";
+        foreach ($this->Parser->scripts as $script) {
+            $scripts .=  $script;
+        }
+
+
+        return $scriptLocations . "<script type='text/javascript'>" . $scripts . "</script>";
+
     }
 }
