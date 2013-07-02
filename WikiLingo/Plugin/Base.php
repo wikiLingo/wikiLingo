@@ -46,14 +46,14 @@ abstract class WikiLingo_Plugin_Base
 		$params = array_merge($defaults, $params);
 	}
 
-	public function render(WikiLingo_Expression &$plugin, WikiLingo &$parser)
+	public function render(&$plugin, &$parser)
 	{
 		$this->paramDefaults($params);
 
 		if ($this->np == true) {
-			return '~np~'.$data.'~/np~';
+		//	return '~np~'.$data.'~/np~';
 		} else {
-			return $data;
+		//	return $data;
 		}
 	}
 
