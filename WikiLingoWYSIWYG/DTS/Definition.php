@@ -392,7 +392,7 @@ case 2:
 break;
 case 3:
 	    
-            //An tag open
+            //A tag open
             if (WikiLingoWYSIWYG_DTS::isHtmlTag($this->yy->text)) {
                $this->stackHtmlElement($this->yy->text);
                $this->begin('htmlElement');

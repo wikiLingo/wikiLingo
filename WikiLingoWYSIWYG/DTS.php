@@ -171,10 +171,10 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 	public function lineEnd($line)
 	{
 		if ($this->isStaticTag == true) {
-			return "\n";
+			return new WikiLingoWYSIWYG_Expression("\n");
 		}
 
-		return "";
+		return new WikiLingoWYSIWYG_Expression("");
 	}
 
 	public function newLine()
