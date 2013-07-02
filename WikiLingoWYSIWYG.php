@@ -197,7 +197,7 @@ class WikiLingoWYSIWYG extends WikiLingo
 	 * @param   $content parsed string found inside detected syntax
 	 * @return  string  $content desired output from syntax
 	 */
-	function header($content) //!content
+	function header($content, $trackExclamationCount = true) //!content
 	{
 		return parent::header($content, true);
 	}
