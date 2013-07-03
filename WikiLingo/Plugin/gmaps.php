@@ -1,6 +1,7 @@
 <?php
 class WikiLingo_Plugin_gmaps extends WikiLingo_Plugin_HtmlBase
 {
+    public $type = 'gmaps';
     public $hasHtmlBody = false;
     public $htmlTagType = 'iframe';
     public $htmlAttributes = array(
@@ -13,9 +14,19 @@ class WikiLingo_Plugin_gmaps extends WikiLingo_Plugin_HtmlBase
         'scrolling'=>"no",
         'marginheight'=>0,
         'marginwidth'=>0,
-        'src'=>"https://maps.google.com/?ie=UTF8&amp;t=h&amp;ll=39.603969,-86.102428&amp;spn=0.063485,0.109863&amp;z=13&amp;output=embed",
+        'src'=>'',
     );
 
-    //<iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?ie=UTF8&amp;t=h&amp;ll=39.603969,-86.102428&amp;spn=0.063485,0.109863&amp;z=13&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/?ie=UTF8&amp;t=h&amp;ll=39.603969,-86.102428&amp;spn=0.063485,0.109863&amp;z=13&amp;source=embed" style="color:#0000FF;text-align:left">View Larger Map</a></small>
+    public function render(&$plugin, &$parser)
+    {
+        $long = '';
+        $lat = '';
+
+        extract($plugin->parameters);
+
+        $this->htmlAttributes['src'] = "https://maps.google.com/?ie=UTF8&amp;t=h&amp;ll=$long,$lat&amp;spn=0.063485,0.109863&amp;z=13&amp;output=embed";
+
+        return parent::render($plugin, $parser);
+    }
 }
 
