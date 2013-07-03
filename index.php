@@ -11,7 +11,7 @@ $loader
     ->registerNamespace('WikiLingoWYSIWYG', $dir)
 	->register();
 
-$original = "{FLASH(movie='//www.youtube.com/embed/Plz-bhcHryc')}{FLASH}";
+$original = "{FLASH(movie='//www.youtube.com/embed/Te4wx4jtiEA')}{FLASH}";
 
 
 $wikiLingo = new WikiLingo();
