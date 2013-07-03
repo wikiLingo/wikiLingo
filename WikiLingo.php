@@ -82,6 +82,8 @@ class WikiLingo extends WikiLingo_Definition
     public $scriptLocations = array();
     public $scripts = array();
 
+    public $existingScriptsAndLocations = array();
+
     public $option = array();
 	public $optionProtectEmail = false;
 	public $optionSkipValidation = false;
@@ -351,9 +353,14 @@ class WikiLingo extends WikiLingo_Definition
      * @param   array  &$pluginDetails plugins details in an array
      * @return  string  either returns $key or block from execution message
      */
-    public function plugin(&$name, &$parameters, &$end, &$body)
+    public function plugin(&$name, &$parameters, &$end = null, &$body = null)
     {
-	    return new WikiLingo_Expression_Plugin($name->text, $parameters->text, $end->text, $body->text, $this->syntaxBetween($parameters->loc, $end->loc), $this->syntax($name->loc, $end->loc));
+        if (is_null($body)) {
+            return new WikiLingo_Expression_Plugin($name->text, $parameters->text, $end->text, null, null, '');
+        }
+
+        return new WikiLingo_Expression_Plugin($name->text, $parameters->text, $end->text, $body->text, $this->syntaxBetween($parameters->loc, $end->loc), $this->syntax($name->loc, $end->loc));
+
 	    /*//TODO: move to expression post-parse
         $negotiator =& $this->pluginNegotiator;
 
@@ -1511,33 +1518,51 @@ class WikiLingo extends WikiLingo_Definition
 
     public function addCssLocation( $href, $i = -1 )
     {
+        if (isset($this->Parser->existingScriptsAndLocations[$href])) {
+            return $this;
+        }
+
         if ($i > -1) {
             $this->Parser->cssLocations[$i] = $href;
         } else {
             $this->Parser->cssLocations[] = $href;
         }
 
+        $this->Parser->existingScriptsAndLocations[$href] = true;
+
         return $this;
     }
 
     public function addScriptLocation( $src, $i = -1 )
     {
+        if (isset($this->Parser->existingScriptsAndLocations[$src])) {
+            return $this;
+        }
+
         if ($i > -1) {
             $this->Parser->scriptLocations[$i] = $src;
         } else {
             $this->Parser->scriptLocations[] = $src;
         }
 
+        $this->Parser->existingScriptsAndLocations[$src] = true;
+
         return $this;
     }
 
     public function addScript( $script, $i = -1 )
     {
+        if (isset($this->Parser->existingScriptsAndLocations[$script])) {
+            return $this;
+        }
+
         if ($i > -1) {
             $this->Parser->scripts[$i] = $script;
         } else {
             $this->Parser->scripts[] = $script;
         }
+
+        $this->Parser->existingScriptsAndLocations[$script] = true;
 
         return $this;
     }

@@ -284,17 +284,14 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 
 	public function render(&$plugin, &$parser)
 	{
-		$this->paramDefaults($plugin->parameters);
+        $output = '<' . $this->htmlTagType;;
+        $this->paramDefaults($plugin->parameters);
 		$style = $this->stylize($plugin->parameters);
 
 		$htmlAttributes = $this->htmlAttributes;
-		if ($this->hasHtmlBody == true) {
-			$htmlAttributes['id'] = $this->id($plugin->index);
-			$htmlAttributes['class'] .= (empty($htmlAttributes['class']) ? '' : ' ' ) . 'wikiLingoPlugin_' . $this->type;
-			$htmlAttributes['style'] .= $style;
-
-			$output = '<' . $this->htmlTagType;
-		}
+        $htmlAttributes['id'] = $this->id($plugin->index);
+        $htmlAttributes['class'] .= (empty($htmlAttributes['class']) ? '' : ' ' ) . 'wikiLingoPlugin_' . $this->type;
+        $htmlAttributes['style'] .= $style;
 
 		foreach ($htmlAttributes as $attribute => $value) {
 			if (!empty($value)) {
@@ -303,6 +300,9 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 		}
 
 		if ($this->hasHtmlBody == true) {
+            if (!empty($plugin->body)) { //make parent callable from child
+                $plugin->body->parent = $plugin;
+            }
 			$output .=  '>' . $plugin->body->render($parser) . (isset($this->button) ? $this->button : '') . '</' . $this->htmlTagType . '>';
 		} else {
 			$output .= ' />';

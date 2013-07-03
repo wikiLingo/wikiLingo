@@ -43,7 +43,9 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         $this->ignored = false;
 
         if ($this->exists == true) {
-            if (empty(WikiLingo_PluginNegotiator::$pluginInstances[$this->className])) WikiLingo_PluginNegotiator::$pluginInstances[$this->className] = new $this->className;
+            if (empty(WikiLingo_PluginNegotiator::$pluginInstances[$this->className])) {
+                WikiLingo_PluginNegotiator::$pluginInstances[$this->className] = new $this->className;
+            }
             $this->class = WikiLingo_PluginNegotiator::$pluginInstances[$this->className];
         } else if (WikiLingo_PluginNegotiator::injectedExists() == true) {
             $this->class = WikiLingo_PluginNegotiator::$pluginInstances[$this->name];

@@ -1,6 +1,7 @@
 <?php
 class WikiLingo_Plugin_gmaps extends WikiLingo_Plugin_HtmlBase
 {
+    public $hasHtmlBody = false;
     public $htmlTagType = 'iframe';
     public $htmlAttributes = array(
         'id'=>'',
