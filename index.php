@@ -11,16 +11,8 @@ $loader
     ->registerNamespace('WikiLingoWYSIWYG', $dir)
 	->register();
 
-$original = "{DIV(color='purple' width='100px')}
-    {DIV()}
-        test
-    {DIV}
-{DIV}
-{DIV(color='purple' width='100px')}
-    {DIV()}
-        test
-    {DIV}
-{DIV}";
+$original = "{FLASH(movie='//www.youtube.com/embed/Te4wx4jtiEA')}{FLASH}";
+
 
 $wikiLingo = new WikiLingo();
 $output = $wikiLingo->parse($original);
