@@ -23,13 +23,23 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         if (!isset(self::$parametersParser)) {
             self::$parametersParser = new WikiLingo_Parameters();
         }
-        $this->name = $name = strtolower(substr($name, 1, -1));
+
+        $this->name = $name = strtolower(substr($name, 1));
+
+        if ($name{strlen($name) - 1} == "(") {
+            $this->name = $name = strtolower(substr($name, 0, -1));
+        }
 
         $this->className = 'WikiLingo_Plugin_' . $name;
 	    $this->exists = class_exists($this->className);
         $this->index = self::incrementPluginIndex($name);
         $this->key = '§' . md5('plugin:' . $name . '_' . $this->index) . '§';
-        $parameters = substr($parameters, 0, -2);
+
+        $parameters = substr($parameters, 0, -1);
+        if ($parameters{strlen($parameters) - 1} == ')') {
+            $parameters = substr($parameters, 0, -1);
+        }
+
 
 	    if (empty($parameters)) {
 		    $this->parameters = array();

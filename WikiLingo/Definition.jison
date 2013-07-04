@@ -5,8 +5,8 @@
 //Lexical Grammer
 %lex
 
-PLUGIN_ID   					[A-Z]+
-INLINE_PLUGIN_ID				[a-z]+
+PLUGIN_ID   					[A-Z_]+
+INLINE_PLUGIN_ID				[a-z_]+
 VARIABLE_NAME                   ([0-9A-Za-z ]{3,})
 SYNTAX_CHARS                    [{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]
 LINE_CONTENT                    (.?)
@@ -164,7 +164,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
         return 'BLOCK_START';
 	%}
-<inlinePlugin>"}"
+<inlinePlugin>(.+?"}")
 	%{
 		/*php
 			$this->popState();

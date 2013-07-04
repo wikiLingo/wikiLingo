@@ -28,12 +28,10 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 		if (isset($this->attributes['data-t'])) {
 			$this->type = WikiLingoWYSIWYG::typeFromShorthand(strtolower($this->attributes['data-t']));
 		}
-
-        $this->getSyntax();
 	}
 
-	public function getSyntax()
-	{
+    public function render(&$parser)
+    {
 		//helpers
 		if ($this->hasClass("wlwh") == true) {
 			return "";
@@ -62,18 +60,30 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 			//plugin
 			case "plugin":
                 if ($this->state == 'closed' && $this->open == false) {
-                    $attributes = json_decode($this->attributes['data-attributes']);
-                    $name = strtoupper($this->attr('data-name'));
-                    $result = '{' . $name . '(';
+                    $attributes = json_decode($this->attributes['data-parameters']);
+                    $name = '';
+
                     $attributesArray = array();
                     foreach($attributes as $key => $attribute) {
                         $attributesArray[] = $key . '="' . $attribute . '"';
                     }
-                    $result .= implode($attributesArray, ' ');
-                    $result .= ')}' .
-                        rawurldecode($this->attributes['data-body'])
-                        . '{' . $name . '}';
-                    $result .= '';
+
+                    if (isset($this->attributes['data-body'])) {
+                        //regular plugin
+                        $name .= strtoupper($this->attr('data-name'));
+                        $result = '{' . $name . '(';
+                        $result .= implode($attributesArray, ' ');
+                        $result .= ')}';
+                        $result .= rawurldecode($this->attributes['data-body']);
+                        $result .= '{' . $name . '}';
+                    } else {
+                        //inline plugin
+                        $name .= strtoupper($this->attr('data-name'));
+                        $result = '{' . $name . ' ';
+                        $result .= implode($attributesArray, ' ');
+                        $result .= '}';
+                    }
+                    return $result;
                 }
 				break;
 
@@ -247,10 +257,10 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
 			//line
 			case "line":
-				if ($tag->stackCount == 0) {
+				if ($this->stackCount == 0) {
 					$result = $this->newLine();
 				} else {
-					$result = $this->elementFromTag($tag);
+					$result = $this->elementFromTag();
 				}
 				break;
 			case "forcedLineEnd":

@@ -11,15 +11,19 @@ $loader
     ->registerNamespace('WikiLingoWYSIWYG', $dir)
 	->register();
 
-$original = "{FLASH(movie='//www.youtube.com/embed/Te4wx4jtiEA')}{FLASH}";
+$original = "
+
+{DIV()}
+{flash movie='//www.youtube.com/v/xH2968yeG6s'}
+{DIV}";
 
 
 $wikiLingo = new WikiLingo();
 $output = $wikiLingo->parse($original);
-//$wikiLingoWYSIWYG = new WikiLingoWYSIWYG();
-//$outputWYSIWYG = $wikiLingoWYSIWYG->parse($original);
-//$dts = new WikiLingoWYSIWYG_DTS();
-//$dtsOutput = $dts->parse($outputWYSIWYG);
+$wikiLingoWYSIWYG = new WikiLingoWYSIWYG();
+$outputWYSIWYG = $wikiLingoWYSIWYG->parse($original);
+$dts = new WikiLingoWYSIWYG_DTS();
+$dtsOutput = $dts->parse($outputWYSIWYG);
 
 $wikiLingo
     ->addScriptLocation("ckeditor/ckeditor.js")
@@ -68,8 +72,8 @@ $script = $wikiLingo->renderScript();
 </head>
 <body>
     <div contenteditable="false"><?php echo $output;?></div>
-    <div contenteditable="true"><php echo $outputWYSIWYG;?></div>
-    <div contenteditable="false"><php echo $dtsOutput;?></div>
+    <div contenteditable="true"><?php echo $outputWYSIWYG;?></div>
+    <div contenteditable="false"><?php echo $dtsOutput;?></div>
     <input type="button" value="To Source"/>
 </body>
 </html>

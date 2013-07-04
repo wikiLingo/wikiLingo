@@ -356,7 +356,7 @@ class WikiLingo extends WikiLingo_Definition
     public function plugin(&$name, &$parameters, &$end = null, &$body = null)
     {
         if (is_null($body)) {
-            return new WikiLingo_Expression_Plugin($name->text, $parameters->text, $end->text, null, null, '');
+            return new WikiLingo_Expression_Plugin($name->text, $parameters->text, (isset($end->text) ? $end->text : null), null, null, '');
         }
 
         return new WikiLingo_Expression_Plugin($name->text, $parameters->text, $end->text, $body->text, $this->syntaxBetween($parameters->loc, $end->loc), $this->syntax($name->loc, $end->loc));
@@ -1487,9 +1487,22 @@ class WikiLingo extends WikiLingo_Definition
             $fromEnd = -(strlen($text) - $lastColumn);
             $syntax = substr($text, $firstColumn, $fromEnd);
             return $syntax;
-        }
+        } else {
+            $syntax = '';
+            for ($i = $firstLine; $i <= $lastLine; $i++) {
+                if ($i == $firstLine) { //first line
+                    $syntax .= substr($input[$i - 1], $firstColumn);
 
-        return '';
+                } else if ($i == $lastLine) {//last line
+                    $syntax .= substr($input[$i - 1], 0, $lastColumn);
+
+                } else {//lines in between
+                    $syntax .= $input[$i - 1];
+                }
+            }
+
+            return $syntax;
+        }
     }
 
     public function syntaxBetween(Jison_ParserLocation $startLoc, Jison_ParserLocation $endLoc)
@@ -1506,9 +1519,22 @@ class WikiLingo extends WikiLingo_Definition
             $fromEnd = -(strlen($text) - $lastColumn);
             $syntax = substr($text, $firstColumn, $fromEnd);
             return $syntax;
-        }
+        } else {
+            $syntax = '';
+            for ($i = $firstLine; $i <= $lastLine; $i++) {
+                if ($i == $firstLine) { //first line
+                    $syntax .= substr($input[$i - 1], $firstColumn);
 
-        return '';
+                } else if ($i == $lastLine) {//last line
+                    $syntax .= substr($input[$i - 1], 0, $lastColumn);
+
+                } else {//lines in between
+                    $syntax .= $input[$i - 1];
+                }
+            }
+
+            return $syntax;
+        }
     }
 
     function removeEOF( &$output )
