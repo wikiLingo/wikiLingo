@@ -136,18 +136,18 @@ content
     }
  | HTML_TAG_INLINE
 	{
-	    //php $$ = $this->inlineElement($1->text);
+	    //php $$ = $this->inlineElement($1);
 	}
  | HTML_TAG_OPEN contents HTML_TAG_CLOSE
 	{
 	    /*php
-	        $1->text = $this->element($1->text, true);
+	        $1->text = $this->element($1, true);
 	        $1->text->addChild($2);
 	        $$ = $1->text;
 	    */
 	}
  | HTML_TAG_OPEN HTML_TAG_CLOSE
 	{
-	    //php $$ = $this->element($1->text, true);
+	    //php $$ = $this->element($1, true);
 	}
  ;

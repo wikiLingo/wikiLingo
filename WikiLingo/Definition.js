@@ -118,7 +118,7 @@ case 5:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1]->text->addSibling($$[$0]->text);
+            this.$ = $$[$0-1]->text->addSibling($$[$0]);
         */
     
 break;
@@ -436,7 +436,7 @@ case 74:
             this.$ = parser.char($$[$0]);
 
         /*php
-            this.$ = this->char($$[$0]->text);
+            this.$ = this->char($$[$0]);
         */
     
 break;

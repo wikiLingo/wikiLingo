@@ -326,19 +326,19 @@ case 7:
     
 break;
 case 8:
-	     $thisS = $this->inlineElement($s[$o]->text);
+	     $thisS = $this->inlineElement($s[$o]);
 	
 break;
 case 9:
 	    
-	        $s[$o-2]->text = $this->element($s[$o-2]->text, true);
+	        $s[$o-2]->text = $this->element($s[$o-2], true);
 	        $s[$o-2]->text->addChild($s[$o-1]);
 	        $thisS = $s[$o-2]->text;
 	    
 	
 break;
 case 10:
-	     $thisS = $this->element($s[$o-1]->text, true);
+	     $thisS = $this->element($s[$o-1], true);
 	
 break;
 }
@@ -392,7 +392,7 @@ case 2:
 break;
 case 3:
 	    
-            //A tag open
+            //An tag open
             if (WikiLingoWYSIWYG_DTS::isHtmlTag($this->yy->text)) {
                $this->stackHtmlElement($this->yy->text);
                $this->begin('htmlElement');

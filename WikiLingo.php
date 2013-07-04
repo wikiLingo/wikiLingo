@@ -687,7 +687,7 @@ class WikiLingo extends WikiLingo_Definition
      */
     function box($content) //^content^
     {
-        return $this->createWikiTag("box", "div", $content, array("class" => "simplebox"));
+        return $this->createWikiTag("box", "div", $content->text, array("class" => "simplebox"));
     }
 
     /**

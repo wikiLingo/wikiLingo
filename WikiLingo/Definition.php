@@ -5158,7 +5158,7 @@ case 4:
 break;
 case 5:
         
-            $thisS = $s[$o-1]->text->addSibling($s[$o]->text);
+            $thisS = $s[$o-1]->text->addSibling($s[$o]);
         
     
 break;
@@ -5370,7 +5370,7 @@ case 73:
 break;
 case 74:
         
-            $thisS = $this->char($s[$o]->text);
+            $thisS = $this->char($s[$o]);
         
     
 break;

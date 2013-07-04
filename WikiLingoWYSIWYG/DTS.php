@@ -95,7 +95,7 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 		if ($this->parsing == true) {
 			$class = get_class($this->Parser);
 			$parser = new $class($this->Parser);
-			$output = $parser->parse($input);
+			$output = $parser->parse($input)->text;
 			unset($parser);
 		} else {
 			$this->parsing = true;
@@ -139,33 +139,9 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 		$this->isStaticTag = $isStaticTag;
 	}
 
-	private function syntax($contents)
-	{
-		$this->Parser->processedTypeStack[] = $tag->type;
-		$this->Parser->firstLineHandled = true;
-		return $this->preNonBlock() . $contents;
-	}
-
-	private function statedSyntax($tag, $open, $contents, $close, $parse = true)
-	{
-		$this->Parser->processedTypeStack[] = $tag->type;
-		$this->Parser->firstLineHandled = true;
-		if ($parse == true) {
-			$contents = $this->parse($contents);
-		}
-
-		if ($this->param($tag, 'data-repair')) {
-			$result = $open . $contents;
-		} else {
-			$result = $open . $contents . $close;
-		}
-
-		return $this->preNonBlock() . $result;
-	}
-
 	public function content($content)
 	{
-		return new WikiLingoWYSIWYG_Expression($content);
+		return new WikiLingoWYSIWYG_Expression($content->text);
 	}
 
 	public function lineEnd($line)
@@ -267,7 +243,7 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 		$this->htmlElementStackCount--;
 		$this->htmlElementStackCount = max(0, $this->htmlElementStackCount);
 		$tag = array_pop($this->htmlElementStack);
-		$element = $this->element($tag, true);
+		$element = $this->elementFromString($tag, true);
 		$element->close = $ending;
 
 		if (!empty($element->type)) {
@@ -277,14 +253,19 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 		return $element;
 	}
 
+    public function elementFromString(&$tag, $closed = false)
+    {
+        return new WikiLingoWYSIWYG_DTS_Element($tag, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
+    }
+
 	public function element(&$tag, $closed = false)
 	{
-		return new WikiLingoWYSIWYG_DTS_Element($tag, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
+		return new WikiLingoWYSIWYG_DTS_Element($tag->text, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
 	}
 
 	public function inlineElement(&$tag)
 	{
-		return new WikiLingoWYSIWYG_DTS_Element($tag, $this->htmlElementStackCount, 'inline');
+		return new WikiLingoWYSIWYG_DTS_Element($tag->text, $this->htmlElementStackCount, 'inline');
 	}
 
 	public function blockStart()

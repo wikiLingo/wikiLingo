@@ -195,7 +195,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
 			//bold
 			case "bold":
-				$result = $this->statedSyntax("__", $contents, "__");
+				$result = '__' . $this->renderChildren($parser) . '__' . $this->renderSiblings($parser);
 				break;
 
 
@@ -394,7 +394,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 			foreach ($styles as &$style) {
 				$parts = explode(':', $style);
 				if (isset($parts[0]) && isset($parts[1])) {
-					$parsed['style'][trim($parts[0])] = trim($parts[1]);
+					$parsed['style'][trim(strtolower($parts[0]))] = trim($parts[1]);
 				}
 			}
 		}
@@ -444,4 +444,28 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 	{
 		return (isset($this->attributes[$param]) && strstr($this->attributes[$param], $contains) !== false);
 	}
+
+    private function syntax($contents)
+    {
+        $this->Parser->processedTypeStack[] = $tag->type;
+        $this->Parser->firstLineHandled = true;
+        return $this->preNonBlock() . $contents;
+    }
+
+    private function statedSyntax($tag, $open, $contents, $close, $parse = true)
+    {
+        $this->Parser->processedTypeStack[] = $tag->type;
+        $this->Parser->firstLineHandled = true;
+        if ($parse == true) {
+            $contents = $this->parse($contents);
+        }
+
+        if ($this->param($tag, 'data-repair')) {
+            $result = $open . $contents;
+        } else {
+            $result = $open . $contents . $close;
+        }
+
+        return $this->preNonBlock() . $result;
+    }
 }

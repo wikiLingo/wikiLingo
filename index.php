@@ -12,7 +12,7 @@ $loader
 	->register();
 
 $original = "
-
+__test__
 {DIV()}
 {flash movie='//www.youtube.com/v/xH2968yeG6s'}
 {DIV}";

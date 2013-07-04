@@ -110,19 +110,19 @@ case 7:
     
 break;
 case 8:
-	    //php this.$ = this->inlineElement($$[$0]->text);
+	    //php this.$ = this->inlineElement($$[$0]);
 	
 break;
 case 9:
 	    /*php
-	        $$[$0-2]->text = this->element($$[$0-2]->text, true);
+	        $$[$0-2]->text = this->element($$[$0-2], true);
 	        $$[$0-2]->text->addChild($$[$0-1]);
 	        this.$ = $$[$0-2]->text;
 	    */
 	
 break;
 case 10:
-	    //php this.$ = this->element($$[$0-1]->text, true);
+	    //php this.$ = this->element($$[$0-1], true);
 	
 break;
 }

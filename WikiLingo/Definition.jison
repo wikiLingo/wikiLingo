@@ -1014,7 +1014,7 @@ lines
             $$ = $1 + $2;
 
         /*php
-            $$ = $1->text->addSibling($2->text);
+            $$ = $1->text->addSibling($2);
         */
     }
  ;
@@ -1375,7 +1375,7 @@ content
             $$ = parser.char($1);
 
         /*php
-            $$ = $this->char($1->text);
+            $$ = $this->char($1);
         */
     }
  ;

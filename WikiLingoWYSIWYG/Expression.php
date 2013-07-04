@@ -5,6 +5,12 @@ class WikiLingoWYSIWYG_Expression extends WikiLingo_Expression
     {
         $this->stringBefore = $tagOpen;
         $this->stringAfter = $tagClose;
-        $this->staticContent = $content;
+
+        if (is_string($content)) {
+            $this->staticContent = $content;
+        } else {
+            $this->children[] = $content;
+            $this->childrenCount++;
+        }
     }
 }

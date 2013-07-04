@@ -29,6 +29,26 @@ class WikiLingo_Expression extends Jison_ParserValue
         }
 	}
 
+    public function renderSiblings(&$parser)
+    {
+        $siblings = '';
+        foreach($this->siblings as $sibling)
+        {
+            $siblings .= $sibling->text->render($parser);
+        }
+        return $siblings;
+    }
+
+    public function renderChildren(&$parser)
+    {
+        $children = '';
+        foreach($this->children as $child)
+        {
+            $children .= $child->text->render($parser);
+        }
+        return $children;
+    }
+
 	public function render(&$parser)
 	{
 		$siblings = '';
@@ -38,15 +58,8 @@ class WikiLingo_Expression extends Jison_ParserValue
 		if (!empty($this->staticContent)) {
 			$staticContent = $this->staticContent;
 		} else {
-			foreach($this->siblings as $sibling)
-			{
-				$siblings .= $sibling->text->render($parser);
-			}
-
-			foreach($this->children as $child)
-			{
-				$children .= $child->render($parser);
-			}
+            $siblings = $this->renderSiblings($parser);
+            $children = $this->renderChildren($parser);
 		}
 
 		return $this->stringBefore . $children . $staticContent . $this->stringAfter . $siblings;
