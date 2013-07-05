@@ -16,7 +16,6 @@ abstract class WikiLingo_Plugin_Base
 	public $icon = 'img/icons/mime/html.png';
 	public $tags = array( 'basic' );
 	public $np = true;
-    public $parent;
 
 	public function info()
 	{

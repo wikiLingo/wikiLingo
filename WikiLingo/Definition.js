@@ -921,886 +921,903 @@ performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
 case 0:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-		return 5;
-	
+    return 5;
+
 break;
 case 1:
-	    //js
-		    if (parser.npStack != true) return 11;
-		    lexer.popState();
-		    parser.npStack = false;
-		    yy_.yytext = parser.noParse(yy_.yytext);
+    //js
+        if (parser.npStack != true) return 11;
+        lexer.popState();
+        parser.npStack = false;
+        yy_.yytext = parser.noParse(yy_.yytext);
 
-        /*php
-		    if ($this->npStack != true) return 11;
-		    $this->popState();
-		    $this->npStack = false;
-		    $yy_.yytext = $this->noParse($yy_.yytext);
-        */
+    /*php
+        if ($this->npStack != true) return 11;
+        $this->popState();
+        $this->npStack = false;
+        $yy_.yytext = $this->noParse($yy_.yytext);
+    */
 
-		return 14;
-	
+    return 14;
+
 break;
 case 2:
-	    //js
-		    if (parser.isContent()) return 11;
-		    lexer.begin('np');
-		    parser.npStack = true;
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('np');
+        parser.npStack = true;
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('np');
-		    $this->npStack = true;
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('np');
+        $this->npStack = true;
+    */
 
-		return 13;
-	
+    return 13;
+
 break;
 case 3:
-	    //js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 4:
-	    //js
-		    if (parser.ppStack != true) return 11;
-		    lexer.popState();
-		    parser.ppStack = false;
-		    yy_.yytext = parser.preFormattedText(yy_.yytext);
+    //js
+        if (parser.ppStack != true) return 11;
+        lexer.popState();
+        parser.ppStack = false;
+        yy_.yytext = parser.preFormattedText(yy_.yytext);
 
-        /*php
-		    if ($this->ppStack != true) return 11;
-		    $this->popState();
-		    $this->ppStack = false;
-		    $yy_.yytext = $this->preFormattedText($yy_.yytext);
-        */
+    /*php
+        if ($this->ppStack != true) return 11;
+        $this->popState();
+        $this->ppStack = false;
+        $yy_.yytext = $this->preFormattedText($yy_.yytext);
+    */
 
-		return 16;
-	
+    return 16;
+
 break;
 case 5:
-	    //js
-		    if (parser.isContent()) return 11;
-		    lexer.begin('pp');
-		    parser.ppStack = true;
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('pp');
+        parser.ppStack = true;
 
-        /*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('pp');
-		    $this->ppStack = true;
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('pp');
+        $this->ppStack = true;
+    */
 
-		return 15;
-	
+    return 15;
+
 break;
-case 6:return 12;
+case 6:
+    return 12;
+
 break;
 case 7:
-	    //js
-		    if (parser.isContent()) return 11;
+    //js
+        if (parser.isContent()) return 11;
 
-        /*php
-            if ($this->isContent()) return 11;
-        */
+    /*php
+        if ($this->isContent()) return 11;
+    */
 
-		return 17;
-	
+    return 17;
+
 break;
 case 8:
-	    //js
-		    if (parser.isContent()) return 11;
+    //js
+        if (parser.isContent()) return 11;
 
-        /*php
-            if ($this->isContent()) return 11;
-        */
+    /*php
+        if ($this->isContent()) return 11;
+    */
 
-		return 18;
-	
+    return 18;
+
 break;
 case 9:
-	    //js
-            if (parser.isContent(['linkStack'])) return 11;
+    //js
+        if (parser.isContent(['linkStack'])) return 11;
 
-        /*php
-            if ($this->isContent(array('linkStack'))) return 11;
-        */
+    /*php
+        if ($this->isContent(array('linkStack'))) return 11;
+    */
 
-        return 19;
-    
+    return 19;
+
 break;
-case 10:return 57;
+case 10:
+    return 57;
+
 break;
-case 11:return 11;//For now let individual plugins handle else
+case 11:
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('block');
+
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('block');
+    */
+
+    return 8;
+
 break;
 case 12:
-	    //js
-		    if (parser.isContent()) return 11;
-            lexer.begin('block');
+    /*php
+        $this->popState();
+        return 51;
+    */
 
-        /*php
-            if ($this->isContent()) return 11;
-            $this->begin('block');
-        */
-
-        return 8;
-	
 break;
 case 13:
-		/*php
-			$this->popState();
-			return 51;
-		*/
-	
+    //js
+        if (parser.isContent()) return 11;
+        yy_.yytext = parser.inlinePlugin(yy_.yytext);
+
+    /*php
+        $this->begin('inlinePlugin');
+    */
+
+    return 50;
+
 break;
 case 14:
-	    //js
-		    if (parser.isContent()) return 11;
-		    yy_.yytext = parser.inlinePlugin(yy_.yytext);
+    /*php
+        $this->popState();
+        $this->begin('plugin');
+        return 53;
+    */
 
-        /*php
-            $this->begin('inlinePlugin');
-		*/
-
-		return 50;
-	
 break;
 case 15:
-        /*php
-            $this->popState();
-            $this->begin('plugin');
-            return 53;
-        */
-    
+    //js
+        if (parser.npStack || parser.ppStack) return 11;
+
+        lexer.begin('pluginStart');
+        yy.pluginStack = parser.stackPlugin(yy_.yytext, yy.pluginStack);
+
+        if (parser.size(yy.pluginStack) == 1) {
+            return 52;
+        }
+
+        return 11;
+
+    /*php
+        $this->begin('pluginStart');
+        $this->stackPlugin($yy_.yytext);
+        return 52;
+    */
+
 break;
 case 16:
-	    //js
-            if (parser.npStack || parser.ppStack) return 11;
+    //js
+        lexer.conditionStack = [];
 
-            lexer.begin('pluginStart');
-            yy.pluginStack = parser.stackPlugin(yy_.yytext, yy.pluginStack);
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-            if (parser.size(yy.pluginStack) == 1) {
-                return 52;
-            }
+    return 5;
 
-            return 11;
-
-        /*php
-		    $this->begin('pluginStart');
-		    $this->stackPlugin($yy_.yytext);
-	        return 52;
-		*/
-	
 break;
 case 17:
-	    //js
-		    lexer.conditionStack = [];
-
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
-
-        return 5;
-	
-break;
-case 18:
-	    //js
-            var plugin = yy.pluginStack[yy.pluginStack.length - 1];
-            if (('{' + plugin.name + '}') == yy_.yytext) {
-                lexer.popState();
-                if (yy.pluginStack) {
-                    if (
-                        parser.size(yy.pluginStack) > 0 &&
-                        parser.substring(yy_.yytext, 1, -1) == yy.pluginStack[parser.size(yy.pluginStack) - 1].name
-                    ) {
-                        if (parser.size(yy.pluginStack) == 1) {
-                            yy_.yytext = yy.pluginStack[parser.size(yy.pluginStack) - 1];
-                            yy.pluginStack = parser.pop(yy.pluginStack);
-                            return 54;
-                        } else {
-                            yy.pluginStack = parser.pop(yy.pluginStack);
-                            return 11;
-                        }
+    //js
+        var plugin = yy.pluginStack[yy.pluginStack.length - 1];
+        if (('{' + plugin.name + '}') == yy_.yytext) {
+            lexer.popState();
+            if (yy.pluginStack) {
+                if (
+                    parser.size(yy.pluginStack) > 0 &&
+                    parser.substring(yy_.yytext, 1, -1) == yy.pluginStack[parser.size(yy.pluginStack) - 1].name
+                ) {
+                    if (parser.size(yy.pluginStack) == 1) {
+                        yy_.yytext = yy.pluginStack[parser.size(yy.pluginStack) - 1];
+                        yy.pluginStack = parser.pop(yy.pluginStack);
+                        return 54;
+                    } else {
+                        yy.pluginStack = parser.pop(yy.pluginStack);
+                        return 11;
                     }
                 }
             }
+        }
 
-		/*php
-            $name = end($this->pluginStack);
-            if (substr($yy_.yytext, 1, -1) == $name && $this->pluginStackCount > 0) {
-				$this->popState();
-				$this->pluginStackCount--;
-				array_pop($this->pluginStack);
-				return 54;
-            }
-		*/
+    /*php
+        $name = end($this->pluginStack);
+        if (substr($yy_.yytext, 1, -1) == $name && $this->pluginStackCount > 0) {
+            $this->popState();
+            $this->pluginStackCount--;
+            array_pop($this->pluginStack);
+            return 54;
+        }
+    */
 
-		return 11;
-	
+    return 11;
+
+break;
+case 18:
+    //js
+        lexer.conditionStack = [];
+
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
+
+    return 5;
+
 break;
 case 19:
-	    //js
-		    lexer.conditionStack = [];
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-        return 5;
-	
+
+    return 9;
+
 break;
 case 20:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('block');
 
-        /*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('block');
+    */
 
+    return 8;
 
-		return 9;
-	
 break;
 case 21:
-    	//js
-            if (parser.isContent()) return 11;
-            lexer.begin('block');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('block');
 
-        /*php
-            if ($this->isContent()) return 11;
-            $this->begin('block');
-        */
+    /*php
+        $this->popState();
+        if ($this->isContent()) return 11;
+        $this->begin('block');
+    */
 
-        return 8;
-	
+    return 8;
+
 break;
 case 22:
-		//js
-		    if (parser.isContent() || parser.tableStack) return 11;
+    //js
+        if (parser.isContent() || parser.tableStack) return 11;
 
-		/*php
-		    if ($this->isContent() || !empty($this->tableStack)) return 11;
-        */
+    /*php
+        if ($this->isContent() || !empty($this->tableStack)) return 11;
+    */
 
-		return 55;
-	
+    return 55;
+
 break;
 case 23:
-		//js
-	    	if (parser.isContent()) return 11;
+    //js
+        if (parser.isContent()) return 11;
 
-        /*php
-            if ($this->isContent()) return 11;
-        */
+    /*php
+        if ($this->isContent()) return 11;
+    */
 
-        return 21;
-	
+    return 21;
+
 break;
 case 24:
-		//js
-		    if (parser.isContent()) return 11;
+    //js
+        if (parser.isContent()) return 11;
 
-        /*php
-            if ($this->isContent()) return 11;
-        */
+    /*php
+        if ($this->isContent()) return 11;
+    */
 
-        return 56;
-	
+    return 56;
+
 break;
 case 25:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 26:
-	    //js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-		return 23;
-	
+    return 23;
+
 break;
 case 27:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.begin('bold');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('bold');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('bold');
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('bold');
+    */
 
-		return 22;
-	
+    return 22;
+
 break;
 case 28:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 29:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-		return 25;
-	
+    return 25;
+
 break;
 case 30:
-	    //js
-            if (parser.isContent()) return 11;
-            lexer.begin('box');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('box');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('box');
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('box');
+    */
 
+    return 24;
 
-		return 24;
-	
 break;
 case 31:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 32:
-	    //js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
 
-		return 27;
-	
+    return 27;
+
 break;
 case 33:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.begin('center');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('center');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('center');
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('center');
+    */
 
-		return 26;
-	
+    return 26;
+
 break;
 case 34:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 35:
-	    //js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-		return 29;
-	
+    return 29;
+
 break;
 case 36:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.begin('code');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('code');
 
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('code');
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('code');
+    */
 
-		return 28;
-	
+    return 28;
+
 break;
 case 37:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 38:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-		return 31;
-	
+    return 31;
+
 break;
 case 39:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.begin('color');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('color');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('color');
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('color');
+    */
 
-		return 30;
-	
+    return 30;
+
 break;
 case 40:
-	    //js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 41:
-	    //js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-		return 33;
-	
+    return 33;
+
 break;
 case 42:
-	    //js
-            if (parser.isContent()) return 11;
-            lexer.begin('italic');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('italic');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('italic');
-		*/
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('italic');
+    */
 
-		return 32;
-	
+    return 32;
+
 break;
 case 43:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 44:
-	    //js
-            if (parser.isContent(['linkStack'])) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent(['linkStack'])) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent(array('linkStack'))) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent(array('linkStack'))) return 11;
+        $this->popState();
+    */
 
-		return 35;
-	
+    return 35;
+
 break;
 case 45:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.begin('unlink');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('unlink');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('unlink');
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('unlink');
+    */
 
-		return 34;
-	
+    return 34;
+
 break;
 case 46:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-		/*php
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-		return 5;
-	
+    return 5;
+
 break;
 case 47:
-		//js
-            if (parser.isContent(['linkStack'])) return 11;
-            parser.linkStack = false;
-            lexer.popState();
+    //js
+        if (parser.isContent(['linkStack'])) return 11;
+        parser.linkStack = false;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent(array('linkStack'))) return 11;
-            $this->linkStack = false;
-            $this->popState();
-        */
+    /*php
+        if ($this->isContent(array('linkStack'))) return 11;
+        $this->linkStack = false;
+        $this->popState();
+    */
 
-		return 37;
-	
+    return 37;
+
 break;
 case 48:
-	    //js
-            if (parser.isContent()) return 11;
-            parser.linkStack = true;
-            lexer.begin('link');
-            yy_.yytext = 'external';
+    //js
+        if (parser.isContent()) return 11;
+        parser.linkStack = true;
+        lexer.begin('link');
+        yy_.yytext = 'external';
 
-		/*php
-		    if ($this->isContent()) return 11;
-            $this->linkStack = true;
-            $this->begin('link');
-            $yy_.yytext = 'external';
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->linkStack = true;
+        $this->begin('link');
+        $yy_.yytext = 'external';
+    */
 
-		return 36;
-	
+    return 36;
+
 break;
 case 49:
-	    //js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 50:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-		return 39;
-	
+    return 39;
+
 break;
 case 51:
-	    //js
-            if (parser.isContent()) return 11;
-            lexer.begin('strike');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('strike');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('strike');
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('strike');
+    */
 
-		return 38;
-	
+    return 38;
+
 break;
 case 52:
-        return 40;
-	
+    return 40;
+
 break;
 case 53:
-	    //js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-		/*php
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-		return 5;
-	
+    return 5;
+
 break;
 case 54:
-		//js
-		    if (parser.isContent()) return 11;
-		    lexer.popState();
-            parser.tableStack.pop();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
+        parser.tableStack.pop();
 
-		/*php
-		    if ($this->isContent()) return 11;
-            $this->popState();
-            array_pop($this->tableStack);
-		*/
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+        array_pop($this->tableStack);
+    */
 
-		return 42;
-	
+    return 42;
+
 break;
 case 55:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.begin('table');
-            parser.tableStack.push(true);
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('table');
+        parser.tableStack.push(true);
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('table');
-		    $this->tableStack[] = true;
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('table');
+        $this->tableStack[] = true;
+    */
 
-		return 41;
-	
+    return 41;
+
 break;
 case 56:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-        /*php
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-        return 5;
-	
+    return 5;
+
 break;
 case 57:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-		return 44;
-	
+    return 44;
+
 break;
 case 58:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.begin('titleBar');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('titleBar');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->begin('titleBar');
-		*/
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('titleBar');
+    */
 
-		return 43;
-	
+    return 43;
+
 break;
 case 59:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-		/*php
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-		return 5;
-	
+    return 5;
+
 break;
 case 60:
-	    //js
-            if (parser.isContent()) return 11;
-            lexer.popState();
+    //js
+        if (parser.isContent()) return 11;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->popState();
+    */
 
-		return 46;
-	
+    return 46;
+
 break;
 case 61:
-		//js
-            if (parser.isContent()) return 11;
-            lexer.begin('underscore');
+    //js
+        if (parser.isContent()) return 11;
+        lexer.begin('underscore');
 
-		/*php
-		    if ($this->isContent()) return 11;
-    		$this->begin('underscore');
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->begin('underscore');
+    */
 
-		return 45;
-	
+    return 45;
+
 break;
 case 62:
-		//js
-		    lexer.conditionStack = [];
+    //js
+        lexer.conditionStack = [];
 
-		/*php
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        */
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
 
-		return 5;
-	
+    return 5;
+
 break;
 case 63:
-		//js
-		    if (parser.isContent(['linkStack'])) return 11;
-		    parser.linkStack = false;
-		    lexer.popState();
+    //js
+        if (parser.isContent(['linkStack'])) return 11;
+        parser.linkStack = false;
+        lexer.popState();
 
-		/*php
-		    if ($this->isContent(array('linkStack'))) return 11;
-		    $this->linkStack = false;
-		    $this->popState();
-		*/
+    /*php
+        if ($this->isContent(array('linkStack'))) return 11;
+        $this->linkStack = false;
+        $this->popState();
+    */
 
-		return 48;
-	
+    return 48;
+
 break;
 case 64:
-		//js
-            if (parser.isContent()) return 11;
-            parser.linkStack = true;
-            lexer.begin('wikiLink');
+    //js
+        if (parser.isContent()) return 11;
+        parser.linkStack = true;
+        lexer.begin('wikiLink');
 
-		/*php
-		    if ($this->isContent()) return 11;
-            $this->linkStack = true;
-            $this->begin('wikiLink');
-            $yy_.yytext = array('type' => 'wiki', 'syntax' => $yy_.yytext);
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->linkStack = true;
+        $this->begin('wikiLink');
+        $yy_.yytext = array('type' => 'wiki', 'syntax' => $yy_.yytext);
+    */
 
-		return 47;
-	
+    return 47;
+
 break;
 case 65:
-		//js
-            if (parser.isContent()) return 11;
-            parser.linkStack = true;
-            lexer.begin('wikiLink');
+    //js
+        if (parser.isContent()) return 11;
+        parser.linkStack = true;
+        lexer.begin('wikiLink');
 
-		/*php
-		    if ($this->isContent()) return 11;
-		    $this->linkStack = true;
-		    $this->begin('wikiLink');
-		    $yy_.yytext = array('type' => 'np', 'syntax' => $yy_.yytext);
-        */
+    /*php
+        if ($this->isContent()) return 11;
+        $this->linkStack = true;
+        $this->begin('wikiLink');
+        $yy_.yytext = array('type' => 'np', 'syntax' => $yy_.yytext);
+    */
 
-		return 47;
-	
+    return 47;
+
 break;
 case 66:
-		//js
-		    if (parser.isContent()) return 11;
-		    parser.linkStack = true;
-            lexer.begin('wikiLink');
+    //js
+        if (parser.isContent()) return 11;
+        parser.linkStack = true;
+        lexer.begin('wikiLink');
 
-		/*php
-		    if ($this->isContent()) return 11;
-            $this->linkStack = true;
-            $this->begin('wikiLink');
-            $yy_.yytext = array('syntax' => $yy_.yytext, 'type' => substr($yy_.yytext, 1, -1));
-		*/
+    /*php
+        if ($this->isContent()) return 11;
+        $this->linkStack = true;
+        $this->begin('wikiLink');
+        $yy_.yytext = array('syntax' => $yy_.yytext, 'type' => substr($yy_.yytext, 1, -1));
+    */
 
-		return 47;
-	
+    return 47;
+
 break;
 case 67:
-	    //js
-		    if (parser.isContent()) return 11;
+    //js
+        if (parser.isContent()) return 11;
 
-		/*php
-		    if ($this->isContent()) return 11;
-        */
+    /*php
+        if ($this->isContent()) return 11;
+    */
 
-		return 49;
-	
+    return 49;
+
 break;
-case 68:return 57;
+case 68:
+    return 57;
+
 break;
 case 69:
-		//js
-		    return 20;
+    //js
+        return 20;
 
-		/*php
-		    if (JisonParser_Html_Handler::isHtmlTag($yy_.yytext)) {
-		        return 20;
-		    }
-		    $tag = $yy_.yytext;
-		    $yy_.yytext = $yy_.yytext{0};
-		    $this->unput(substr($tag, 1));
-		    return 11;
-		*/
-	
+    /*php
+        if (JisonParser_Html_Handler::isHtmlTag($yy_.yytext)) {
+            return 20;
+        }
+        $tag = $yy_.yytext;
+        $yy_.yytext = $yy_.yytext{0};
+        $this->unput(substr($tag, 1));
+        return 11;
+    */
+
 break;
 case 70:/*skip REAL_EOF*/
 break;
@@ -1848,8 +1865,8 @@ case 91:return 5;
 break;
 }
 },
-rules: [/^(?:$)/,/^(?:~\/np~)/,/^(?:~np~)/,/^(?:$)/,/^(?:~\/pp~)/,/^(?:~pp~)/,/^(?:~tc~((.|\n)+)~\/tc~)/,/^(?:[%][%](([0-9A-Za-z ]{3,}))[%][%])/,/^(?:[%](([0-9A-Za-z ]{3,}))[%])/,/^(?:\{\{(([0-9A-Za-z ]{3,}))([|](([0-9A-Za-z ]{3,})))?\}\})/,/^(?:\{rm\})/,/^(?:\{ELSE\})/,/^(?:((\n))(\{r2l\}|\{l2r\}))/,/^(?:(.+?\}))/,/^(?:\{([a-z_]+))/,/^(?:.*?\)\})/,/^(?:\{([A-Z_]+)\()/,/^(?:$)/,/^(?:\{([A-Z_]+)\})/,/^(?:$)/,/^(?:(?=((\n))))/,/^(?:((\n))(?=(([\!*#+;]))))/,/^(?:((\n)))/,/^(?:---)/,/^(?:%%%)/,/^(?:$)/,/^(?:[_][_])/,/^(?:[_][_])/,/^(?:$)/,/^(?:[\^])/,/^(?:[\^])/,/^(?:$)/,/^(?:[:][:])/,/^(?:[:][:])/,/^(?:$)/,/^(?:\+-)/,/^(?:-\+)/,/^(?:$)/,/^(?:[\~][\~])/,/^(?:[\~][\~])/,/^(?:$)/,/^(?:[']['])/,/^(?:[']['])/,/^(?:$)/,/^(?:(@np|\]\]|\]))/,/^(?:\[\[)/,/^(?:$)/,/^(?:\])/,/^(?:\[(?![ ]))/,/^(?:$)/,/^(?:[-][-])/,/^(?:[-][-](?![ ]|$))/,/^(?:[ ][-][-][ ])/,/^(?:$)/,/^(?:[|][|])/,/^(?:[|][|])/,/^(?:$)/,/^(?:[=][-])/,/^(?:[-][=])/,/^(?:$)/,/^(?:[=][=][=])/,/^(?:[=][=][=])/,/^(?:$)/,/^(?:\)\)|\(\()/,/^(?:\(\()/,/^(?:\)\))/,/^(?:\(((([a-z0-9-]+)))\()/,/^(?:(?:[ \n\t\r\,\;]|^)(([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,})(?=$|[ \n\t\r\,\;\.]))/,/^(?:&)/,/^(?:[<](.|\n)*?[>])/,/^(?:≤REAL_EOF≥)/,/^(?:≤REAL_LT≥(.|\n)*?≤REAL_GT≥)/,/^(?:(§[a-z0-9]{32}§))/,/^(?:(≤(.)+≥))/,/^(?:([A-Za-z0-9 .,?;]+))/,/^(?:(?!([{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]))(((.?)))?(?=([{}\n_\^:\~'-|=\(\)\[\]*#+%<≤])))/,/^(?:([ ]+?))/,/^(?:(~bs~|~BS~))/,/^(?:(~hs~|~HS~))/,/^(?:(~amp~|~amp~))/,/^(?:(~ldq~|~LDQ~))/,/^(?:(~rdq~|~RDQ~))/,/^(?:(~lsq~|~LSQ~))/,/^(?:(~rsq~|~RSQ~))/,/^(?:(~c~|~C~))/,/^(?:~--~)/,/^(?:=>)/,/^(?:(~lt~|~LT~))/,/^(?:(~gt~|~GT~))/,/^(?:\{([0-9]+)\})/,/^(?:(.))/,/^(?:$)/],
-conditions: {"np":{"rules":[0,1,2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"pp":{"rules":[2,3,4,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"pluginStart":{"rules":[2,5,6,7,8,9,10,11,12,14,15,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"plugin":{"rules":[2,5,6,7,8,9,10,11,12,14,16,17,18,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"inlinePlugin":{"rules":[2,5,6,7,8,9,10,11,12,13,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"line":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"block":{"rules":[2,5,6,7,8,9,10,11,12,14,16,19,20,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"bold":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,25,26,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"box":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,28,29,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"center":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,31,32,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"code":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,34,35,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"color":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,37,38,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"italic":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,40,41,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"unlink":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,43,44,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"link":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,46,47,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"strike":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,49,50,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"table":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,53,54,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"titleBar":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,56,57,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"underscore":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,59,60,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"wikiLink":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"INITIAL":{"rules":[2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true}}
+rules: [/^(?:$)/,/^(?:~\/np~)/,/^(?:~np~)/,/^(?:$)/,/^(?:~\/pp~)/,/^(?:~pp~)/,/^(?:~tc~((.|\n)+)~\/tc~)/,/^(?:[%][%](([0-9A-Za-z ]{3,}))[%][%])/,/^(?:[%](([0-9A-Za-z ]{3,}))[%])/,/^(?:\{\{(([0-9A-Za-z ]{3,}))([|](([0-9A-Za-z ]{3,})))?\}\})/,/^(?:\{rm\})/,/^(?:((\n))(\{r2l\}|\{l2r\}))/,/^(?:(.+?\}))/,/^(?:\{([a-z_]+))/,/^(?:.*?\)\})/,/^(?:\{([A-Z_]+)\()/,/^(?:$)/,/^(?:\{([A-Z_]+)\})/,/^(?:$)/,/^(?:(?=((\n))))/,/^(?:((\n))(?=(([\!*#+;]))))/,/^(?:(?=(([\!*#+;]))))/,/^(?:((\n)))/,/^(?:---)/,/^(?:%%%)/,/^(?:$)/,/^(?:[_][_])/,/^(?:[_][_])/,/^(?:$)/,/^(?:[\^])/,/^(?:[\^])/,/^(?:$)/,/^(?:[:][:])/,/^(?:[:][:])/,/^(?:$)/,/^(?:\+-)/,/^(?:-\+)/,/^(?:$)/,/^(?:[\~][\~])/,/^(?:[\~][\~])/,/^(?:$)/,/^(?:[']['])/,/^(?:[']['])/,/^(?:$)/,/^(?:(@np|\]\]|\]))/,/^(?:\[\[)/,/^(?:$)/,/^(?:\])/,/^(?:\[(?![ ]))/,/^(?:$)/,/^(?:[-][-])/,/^(?:[-][-](?![ ]|$))/,/^(?:[ ][-][-][ ])/,/^(?:$)/,/^(?:[|][|])/,/^(?:[|][|])/,/^(?:$)/,/^(?:[=][-])/,/^(?:[-][=])/,/^(?:$)/,/^(?:[=][=][=])/,/^(?:[=][=][=])/,/^(?:$)/,/^(?:\)\)|\(\()/,/^(?:\(\()/,/^(?:\)\))/,/^(?:\(((([a-z0-9-]+)))\()/,/^(?:(?:[ \n\t\r\,\;]|^)(([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,})(?=$|[ \n\t\r\,\;\.]))/,/^(?:&)/,/^(?:[<](.|\n)*?[>])/,/^(?:≤REAL_EOF≥)/,/^(?:≤REAL_LT≥(.|\n)*?≤REAL_GT≥)/,/^(?:(§[a-z0-9]{32}§))/,/^(?:(≤(.)+≥))/,/^(?:([A-Za-z0-9 .,?;]+))/,/^(?:(?!([{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]))(((.?)))?(?=([{}\n_\^:\~'-|=\(\)\[\]*#+%<≤])))/,/^(?:([ ]+?))/,/^(?:(~bs~|~BS~))/,/^(?:(~hs~|~HS~))/,/^(?:(~amp~|~amp~))/,/^(?:(~ldq~|~LDQ~))/,/^(?:(~rdq~|~RDQ~))/,/^(?:(~lsq~|~LSQ~))/,/^(?:(~rsq~|~RSQ~))/,/^(?:(~c~|~C~))/,/^(?:~--~)/,/^(?:=>)/,/^(?:(~lt~|~LT~))/,/^(?:(~gt~|~GT~))/,/^(?:\{([0-9]+)\})/,/^(?:(.))/,/^(?:$)/],
+conditions: {"BOF":{"rules":[2,5,6,7,8,9,10,11,13,15,20,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"np":{"rules":[0,1,2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"pp":{"rules":[2,3,4,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"pluginStart":{"rules":[2,5,6,7,8,9,10,11,13,14,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"plugin":{"rules":[2,5,6,7,8,9,10,11,13,15,16,17,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"inlinePlugin":{"rules":[2,5,6,7,8,9,10,11,12,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"line":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"block":{"rules":[2,5,6,7,8,9,10,11,13,15,18,19,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"bold":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,25,26,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"box":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,28,29,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"center":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,31,32,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"code":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,34,35,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"color":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,37,38,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"italic":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,40,41,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"unlink":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,43,44,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"link":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,46,47,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"strike":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,49,50,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"table":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,53,54,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"titleBar":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,56,57,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"underscore":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,59,60,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"wikiLink":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true},"INITIAL":{"rules":[2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91],"inclusive":true}}
 };
 return lexer;
 })();

@@ -93,7 +93,7 @@ class WikiLingoWYSIWYG extends WikiLingo
 		return $this->createWikiTag(
 			"plugin",
 			"span",
-			"Plugin:" . $plugin->name,
+            $plugin,
 			array(
 				"data-syntax" => rawurlencode($plugin->syntax),
 				"data-body" => rawurlencode($plugin->bodySyntax),

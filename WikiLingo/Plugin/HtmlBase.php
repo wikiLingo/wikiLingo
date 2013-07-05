@@ -284,6 +284,14 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 
 	public function render(&$plugin, &$parser)
 	{
+        $body = '';
+        if ($this->hasHtmlBody == true) {
+            if (!empty($plugin->body)) { //make parent callable from child
+                $plugin->body->parent = $plugin;
+            }
+            $body = $plugin->body->render($parser) . (isset($this->button) ? $this->button : '');
+        }
+
         $output = '<' . $this->htmlTagType;;
         $this->paramDefaults($plugin->parameters);
 		$style = $this->stylize($plugin->parameters);
@@ -299,14 +307,17 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 			}
 		}
 
-		if ($this->hasHtmlBody == true) {
-            if (!empty($plugin->body)) { //make parent callable from child
-                $plugin->body->parent = $plugin;
+        foreach ($plugin->runtimeAttributes as $attribute => $value) {
+            if (!empty($value)) {
+                $output .= ' ' . $attribute . '="' . ($value) . '"';
             }
-			$output .=  '>' . $plugin->body->render($parser) . (isset($this->button) ? $this->button : '') . '</' . $this->htmlTagType . '>';
-		} else {
-			$output .= ' />';
-		}
+        }
+
+		if (empty($body)) {
+            $output .= '/>';
+        } else {
+            $output .= '>' . $body . '</' . $this->htmlTagType . '>';
+        }
 
 		//TODO: Handle np more dynamically
 		/*if ($this->np == true) {

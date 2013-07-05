@@ -12,12 +12,13 @@ class WikiLingo_Plugin_flash extends WikiLingo_Plugin_HtmlBase
         'style'=>'',
         'width'=>640,
         'height'=>480,
-        'src'=>'',
+        'src'=>''
     );
     public function render(&$plugin, &$parser)
     {
         $movie = '';
 
+        $plugin->parent->addAttribute('onmousedown', "alert('t');");
         extract($plugin->parameters);
 
         $this->htmlAttributes['src'] = $movie;

@@ -4,6 +4,7 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
 {
     public $name;
     public $parameters;
+    public $runtimeAttributes = array();
     public $body;
     public $syntax;
     public $bodySyntax;
@@ -13,6 +14,7 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
 	public $exists;
     public $className;
     public $class;
+    public $parent;
 
     public static $info;
     public static $parametersParser;
@@ -62,6 +64,8 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         } else {
             $this->class = null;
         }
+
+        $this->text = $this;
     }
 
     public function render(&$parser)
@@ -195,5 +199,9 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         $parameters = rtrim($parameters, '&');
 
         return $parameters;
+    }
+
+    public function addAttribute($name, $value) {
+        $this->runtimeAttributes[$name] = $value;
     }
 }

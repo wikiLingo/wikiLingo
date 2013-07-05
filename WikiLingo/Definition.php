@@ -5014,17 +5014,17 @@ class WikiLingo_Definition extends Jison_Base
 					8=>"/^(?:[%](([0-9A-Za-z ]{3,}))[%])/",
 					9=>"/^(?:\{\{(([0-9A-Za-z ]{3,}))([|](([0-9A-Za-z ]{3,})))?\}\})/",
 					10=>"/^(?:\{rm\})/",
-					11=>"/^(?:\{ELSE\})/",
-					12=>"/^(?:((\n))(\{r2l\}|\{l2r\}))/",
-					13=>"/^(?:(.+?\}))/",
-					14=>"/^(?:\{([a-z_]+))/",
-					15=>"/^(?:.*?\)\})/",
-					16=>"/^(?:\{([A-Z_]+)\()/",
-					17=>"/^(?:$)/",
-					18=>"/^(?:\{([A-Z_]+)\})/",
-					19=>"/^(?:$)/",
-					20=>"/^(?:(?=((\n))))/",
-					21=>"/^(?:((\n))(?=(([\!*#+;]))))/",
+					11=>"/^(?:((\n))(\{r2l\}|\{l2r\}))/",
+					12=>"/^(?:(.+?\}))/",
+					13=>"/^(?:\{([a-z_]+))/",
+					14=>"/^(?:.*?\)\})/",
+					15=>"/^(?:\{([A-Z_]+)\()/",
+					16=>"/^(?:$)/",
+					17=>"/^(?:\{([A-Z_]+)\})/",
+					18=>"/^(?:$)/",
+					19=>"/^(?:(?=((\n))))/",
+					20=>"/^(?:((\n))(?=(([\!*#+;]))))/",
+					21=>"/^(?:(?=(([\!*#+;]))))/",
 					22=>"/^(?:((\n)))/",
 					23=>"/^(?:---)/",
 					24=>"/^(?:%%%)/",
@@ -5099,27 +5099,28 @@ class WikiLingo_Definition extends Jison_Base
 
 			$this->conditions = array(
 				
-					"np"=>new Jison_LexerConditions(array( 0,1,2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"pp"=>new Jison_LexerConditions(array( 2,3,4,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"pluginStart"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,15,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"plugin"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,17,18,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"inlinePlugin"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"line"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"block"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,19,20,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"bold"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,25,26,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"box"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,28,29,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"center"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,31,32,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"code"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,34,35,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"color"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,37,38,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"italic"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,40,41,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"unlink"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,43,44,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"link"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,46,47,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"strike"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,49,50,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"table"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,53,54,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"titleBar"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,56,57,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"underscore"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,59,60,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"wikiLink"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
-					"INITIAL"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,14,16,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true)
+					"BOF"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,21,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"np"=>new Jison_LexerConditions(array( 0,1,2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"pp"=>new Jison_LexerConditions(array( 2,3,4,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"pluginStart"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,14,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"plugin"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,16,17,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"inlinePlugin"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"line"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"block"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,18,19,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"bold"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,25,26,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"box"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,28,29,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"center"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,31,32,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"code"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,34,35,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"color"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,37,38,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"italic"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,40,41,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"unlink"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,43,44,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"link"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,46,47,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"strike"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,49,50,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"table"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,53,54,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"titleBar"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,56,57,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"underscore"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,59,60,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"wikiLink"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true),
+					"INITIAL"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,13,15,20,22,23,24,27,30,33,36,39,42,45,48,51,52,55,58,61,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91), true)
 				);
 
 
@@ -5385,618 +5386,631 @@ break;
 ;
 switch($avoidingNameCollisions) {
 case 0:
-		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-		return 5;
-	
+    return 5;
+
 break;
 case 1:
-	    
-		    if ($this->npStack != true) return 11;
-		    $this->popState();
-		    $this->npStack = false;
-		    $this->yy->text = $this->noParse($this->yy->text);
-        
+    
+        if ($this->npStack != true) return 11;
+        $this->popState();
+        $this->npStack = false;
+        $this->yy->text = $this->noParse($this->yy->text);
+    
 
-		return 14;
-	
+    return 14;
+
 break;
 case 2:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->begin('np');
-		    $this->npStack = true;
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('np');
+        $this->npStack = true;
+    
 
-		return 13;
-	
+    return 13;
+
 break;
 case 3:
-	    
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 4:
-	    
-		    if ($this->ppStack != true) return 11;
-		    $this->popState();
-		    $this->ppStack = false;
-		    $this->yy->text = $this->preFormattedText($this->yy->text);
-        
+    
+        if ($this->ppStack != true) return 11;
+        $this->popState();
+        $this->ppStack = false;
+        $this->yy->text = $this->preFormattedText($this->yy->text);
+    
 
-		return 16;
-	
+    return 16;
+
 break;
 case 5:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->begin('pp');
-		    $this->ppStack = true;
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('pp');
+        $this->ppStack = true;
+    
 
-		return 15;
-	
+    return 15;
+
 break;
-case 6:return 12;
+case 6:
+    return 12;
+
 break;
 case 7:
-	    
-            if ($this->isContent()) return 11;
-        
+    
+        if ($this->isContent()) return 11;
+    
 
-		return 17;
-	
+    return 17;
+
 break;
 case 8:
-	    
-            if ($this->isContent()) return 11;
-        
+    
+        if ($this->isContent()) return 11;
+    
 
-		return 18;
-	
+    return 18;
+
 break;
 case 9:
-	    
-            if ($this->isContent(array('linkStack'))) return 11;
-        
-
-        return 19;
     
+        if ($this->isContent(array('linkStack'))) return 11;
+    
+
+    return 19;
+
 break;
-case 10:return 57;
+case 10:
+    return 57;
+
 break;
-case 11:return 11;
+case 11:
+    
+        if ($this->isContent()) return 11;
+        $this->begin('block');
+    
+
+    return 8;
+
 break;
 case 12:
-	    
-            if ($this->isContent()) return 11;
-            $this->begin('block');
-        
+    
+        $this->popState();
+        return 51;
+    
 
-        return 8;
-	
 break;
 case 13:
-		
-			$this->popState();
-			return 51;
-		
-	
+    
+        $this->begin('inlinePlugin');
+    
+
+    return 50;
+
 break;
 case 14:
-	    
-            $this->begin('inlinePlugin');
-		
+    
+        $this->popState();
+        $this->begin('plugin');
+        return 53;
+    
 
-		return 50;
-	
 break;
 case 15:
-        
-            $this->popState();
-            $this->begin('plugin');
-            return 53;
-        
     
+        $this->begin('pluginStart');
+        $this->stackPlugin($this->yy->text);
+        return 52;
+    
+
 break;
 case 16:
-	    
-		    $this->begin('pluginStart');
-		    $this->stackPlugin($this->yy->text);
-	        return 52;
-		
-	
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
+
+    return 5;
+
 break;
 case 17:
-	    
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $name = end($this->pluginStack);
+        if (substr($this->yy->text, 1, -1) == $name && $this->pluginStackCount > 0) {
+            $this->popState();
+            $this->pluginStackCount--;
+            array_pop($this->pluginStack);
+            return 54;
+        }
+    
 
-        return 5;
-	
+    return 11;
+
 break;
 case 18:
-	    
-            $name = end($this->pluginStack);
-            if (substr($this->yy->text, 1, -1) == $name && $this->pluginStackCount > 0) {
-				$this->popState();
-				$this->pluginStackCount--;
-				array_pop($this->pluginStack);
-				return 54;
-            }
-		
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-		return 11;
-	
+    return 5;
+
 break;
 case 19:
-	    
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-        return 5;
-	
+
+    return 9;
+
 break;
 case 20:
-		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('block');
+    
 
+    return 8;
 
-		return 9;
-	
 break;
 case 21:
-    	
-            if ($this->isContent()) return 11;
-            $this->begin('block');
-        
+    
+        $this->popState();
+        if ($this->isContent()) return 11;
+        $this->begin('block');
+    
 
-        return 8;
-	
+    return 8;
+
 break;
 case 22:
-		
-		    if ($this->isContent() || !empty($this->tableStack)) return 11;
-        
+    
+        if ($this->isContent() || !empty($this->tableStack)) return 11;
+    
 
-		return 55;
-	
+    return 55;
+
 break;
 case 23:
-		
-            if ($this->isContent()) return 11;
-        
+    
+        if ($this->isContent()) return 11;
+    
 
-        return 21;
-	
+    return 21;
+
 break;
 case 24:
-		
-            if ($this->isContent()) return 11;
-        
+    
+        if ($this->isContent()) return 11;
+    
 
-        return 56;
-	
+    return 56;
+
 break;
 case 25:
-		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 26:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-		return 23;
-	
+    return 23;
+
 break;
 case 27:
-		
-		    if ($this->isContent()) return 11;
-		    $this->begin('bold');
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('bold');
+    
 
-		return 22;
-	
+    return 22;
+
 break;
 case 28:
-		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 29:
-		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-		return 25;
-	
+    return 25;
+
 break;
 case 30:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->begin('box');
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('box');
+    
 
+    return 24;
 
-		return 24;
-	
 break;
 case 31:
-		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 32:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
 
-		return 27;
-	
+    return 27;
+
 break;
 case 33:
-		
-		    if ($this->isContent()) return 11;
-		    $this->begin('center');
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('center');
+    
 
-		return 26;
-	
+    return 26;
+
 break;
 case 34:
-		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 35:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-		return 29;
-	
+    return 29;
+
 break;
 case 36:
-		
-		    if ($this->isContent()) return 11;
-		    $this->begin('code');
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('code');
+    
 
-		return 28;
-	
+    return 28;
+
 break;
 case 37:
-		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 38:
-		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-		return 31;
-	
+    return 31;
+
 break;
 case 39:
-		
-		    if ($this->isContent()) return 11;
-		    $this->begin('color');
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('color');
+    
 
-		return 30;
-	
+    return 30;
+
 break;
 case 40:
-	    
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 41:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-		return 33;
-	
+    return 33;
+
 break;
 case 42:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->begin('italic');
-		
+    
+        if ($this->isContent()) return 11;
+        $this->begin('italic');
+    
 
-		return 32;
-	
+    return 32;
+
 break;
 case 43:
-		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 44:
-	    
-		    if ($this->isContent(array('linkStack'))) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent(array('linkStack'))) return 11;
+        $this->popState();
+    
 
-		return 35;
-	
+    return 35;
+
 break;
 case 45:
-		
-		    if ($this->isContent()) return 11;
-		    $this->begin('unlink');
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('unlink');
+    
 
-		return 34;
-	
+    return 34;
+
 break;
 case 46:
-		
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-		return 5;
-	
+    return 5;
+
 break;
 case 47:
-		
-		    if ($this->isContent(array('linkStack'))) return 11;
-            $this->linkStack = false;
-            $this->popState();
-        
+    
+        if ($this->isContent(array('linkStack'))) return 11;
+        $this->linkStack = false;
+        $this->popState();
+    
 
-		return 37;
-	
+    return 37;
+
 break;
 case 48:
-	    
-		    if ($this->isContent()) return 11;
-            $this->linkStack = true;
-            $this->begin('link');
-            $this->yy->text = 'external';
-        
+    
+        if ($this->isContent()) return 11;
+        $this->linkStack = true;
+        $this->begin('link');
+        $this->yy->text = 'external';
+    
 
-		return 36;
-	
+    return 36;
+
 break;
 case 49:
-	    
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 50:
-		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-		return 39;
-	
+    return 39;
+
 break;
 case 51:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->begin('strike');
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('strike');
+    
 
-		return 38;
-	
+    return 38;
+
 break;
 case 52:
-        return 40;
-	
+    return 40;
+
 break;
 case 53:
-	    
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-		return 5;
-	
+    return 5;
+
 break;
 case 54:
-		
-		    if ($this->isContent()) return 11;
-            $this->popState();
-            array_pop($this->tableStack);
-		
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+        array_pop($this->tableStack);
+    
 
-		return 42;
-	
+    return 42;
+
 break;
 case 55:
-		
-		    if ($this->isContent()) return 11;
-		    $this->begin('table');
-		    $this->tableStack[] = true;
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('table');
+        $this->tableStack[] = true;
+    
 
-		return 41;
-	
+    return 41;
+
 break;
 case 56:
-		
-            $this->conditionStackCount = 0;
-            $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-        return 5;
-	
+    return 5;
+
 break;
 case 57:
-		
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-		return 44;
-	
+    return 44;
+
 break;
 case 58:
-		
-		    if ($this->isContent()) return 11;
-		    $this->begin('titleBar');
-		
+    
+        if ($this->isContent()) return 11;
+        $this->begin('titleBar');
+    
 
-		return 43;
-	
+    return 43;
+
 break;
 case 59:
-		
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-		return 5;
-	
+    return 5;
+
 break;
 case 60:
-	    
-		    if ($this->isContent()) return 11;
-		    $this->popState();
-        
+    
+        if ($this->isContent()) return 11;
+        $this->popState();
+    
 
-		return 46;
-	
+    return 46;
+
 break;
 case 61:
-		
-		    if ($this->isContent()) return 11;
-    		$this->begin('underscore');
-        
+    
+        if ($this->isContent()) return 11;
+        $this->begin('underscore');
+    
 
-		return 45;
-	
+    return 45;
+
 break;
 case 62:
-		
-		    $this->conditionStackCount = 0;
-		    $this->conditionStack = array();
-        
+    
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
 
-		return 5;
-	
+    return 5;
+
 break;
 case 63:
-		
-		    if ($this->isContent(array('linkStack'))) return 11;
-		    $this->linkStack = false;
-		    $this->popState();
-		
+    
+        if ($this->isContent(array('linkStack'))) return 11;
+        $this->linkStack = false;
+        $this->popState();
+    
 
-		return 48;
-	
+    return 48;
+
 break;
 case 64:
-		
-		    if ($this->isContent()) return 11;
-            $this->linkStack = true;
-            $this->begin('wikiLink');
-            $this->yy->text = array('type' => 'wiki', 'syntax' => $this->yy->text);
-        
+    
+        if ($this->isContent()) return 11;
+        $this->linkStack = true;
+        $this->begin('wikiLink');
+        $this->yy->text = array('type' => 'wiki', 'syntax' => $this->yy->text);
+    
 
-		return 47;
-	
+    return 47;
+
 break;
 case 65:
-		
-		    if ($this->isContent()) return 11;
-		    $this->linkStack = true;
-		    $this->begin('wikiLink');
-		    $this->yy->text = array('type' => 'np', 'syntax' => $this->yy->text);
-        
+    
+        if ($this->isContent()) return 11;
+        $this->linkStack = true;
+        $this->begin('wikiLink');
+        $this->yy->text = array('type' => 'np', 'syntax' => $this->yy->text);
+    
 
-		return 47;
-	
+    return 47;
+
 break;
 case 66:
-		
-		    if ($this->isContent()) return 11;
-            $this->linkStack = true;
-            $this->begin('wikiLink');
-            $this->yy->text = array('syntax' => $this->yy->text, 'type' => substr($this->yy->text, 1, -1));
-		
+    
+        if ($this->isContent()) return 11;
+        $this->linkStack = true;
+        $this->begin('wikiLink');
+        $this->yy->text = array('syntax' => $this->yy->text, 'type' => substr($this->yy->text, 1, -1));
+    
 
-		return 47;
-	
+    return 47;
+
 break;
 case 67:
-	    
-		    if ($this->isContent()) return 11;
-        
+    
+        if ($this->isContent()) return 11;
+    
 
-		return 49;
-	
+    return 49;
+
 break;
-case 68:return 57;
+case 68:
+    return 57;
+
 break;
 case 69:
-		
-		    if (JisonParser_Html_Handler::isHtmlTag($this->yy->text)) {
-		        return 20;
-		    }
-		    $tag = $this->yy->text;
-		    $this->yy->text = $this->yy->text{0};
-		    $this->unput(substr($tag, 1));
-		    return 11;
-		
-	
+    
+        if (JisonParser_Html_Handler::isHtmlTag($this->yy->text)) {
+            return 20;
+        }
+        $tag = $this->yy->text;
+        $this->yy->text = $this->yy->text{0};
+        $this->unput(substr($tag, 1));
+        return 11;
+    
+
 break;
 case 70:
 break;

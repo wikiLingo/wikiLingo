@@ -62,6 +62,9 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
                 if ($this->state == 'closed' && $this->open == false) {
                     $attributes = json_decode($this->attributes['data-parameters']);
                     $name = '';
+                    $body = '';
+
+                    $body .= $this->renderChildren($parser);
 
                     $attributesArray = array();
                     foreach($attributes as $key => $attribute) {
@@ -74,7 +77,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
                         $result = '{' . $name . '(';
                         $result .= implode($attributesArray, ' ');
                         $result .= ')}';
-                        $result .= rawurldecode($this->attributes['data-body']);
+                        $result .= $body;
                         $result .= '{' . $name . '}';
                     } else {
                         //inline plugin
@@ -257,8 +260,8 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
 			//line
 			case "line":
-				if ($this->stackCount == 0) {
-					$result = $this->newLine();
+				if (is_null($this->parent)) {
+					$result = $this->newLine($parser);
 				} else {
 					$result = $this->elementFromTag();
 				}
@@ -447,7 +450,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
     private function syntax($contents)
     {
-        $this->Parser->processedTypeStack[] = $tag->type;
+        $this->Parser->processedTypeStack[] = $this->type;
         $this->Parser->firstLineHandled = true;
         return $this->preNonBlock() . $contents;
     }
@@ -467,5 +470,16 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
         }
 
         return $this->preNonBlock() . $result;
+    }
+
+    public function newLine(&$parser)
+    {
+        if (empty($parser->firstLineType)) {
+            $parser->firstLineType = 'newLine';
+        }
+
+        $parser->lastBlockWasFrom = 'newLine';
+        $parser->firstLineHandled = true;
+        return "~REAL_NEW_LINE~";
     }
 }

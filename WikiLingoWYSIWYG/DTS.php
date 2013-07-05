@@ -153,17 +153,6 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 		return new WikiLingoWYSIWYG_Expression("");
 	}
 
-	public function newLine()
-	{
-		if (empty($this->Parser->firstLineType)) {
-			$this->Parser->firstLineType = 'newLine';
-		}
-
-		$this->Parser->lastBlockWasFrom = 'newLine';
-		$this->Parser->firstLineHandled = true;
-		return "~REAL_NEW_LINE~";
-	}
-
 	public function preNonBlock()
 	{
 		$lastParsedType = $this->lastParsedType();

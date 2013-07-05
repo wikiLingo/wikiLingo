@@ -1619,4 +1619,11 @@ class WikiLingo extends WikiLingo_Definition
         return $scriptLocations . "<script type='text/javascript'>" . $scripts . "</script>";
 
     }
+
+    public function setInput($input)
+    {
+        parent::setInput($input);
+
+        $this->begin('BOF');
+    }
 }

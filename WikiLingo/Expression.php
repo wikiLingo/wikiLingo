@@ -34,6 +34,7 @@ class WikiLingo_Expression extends Jison_ParserValue
         $siblings = '';
         foreach($this->siblings as $sibling)
         {
+            $sibling->text->parent =& $this->parent;
             $siblings .= $sibling->text->render($parser);
         }
         return $siblings;
@@ -44,6 +45,7 @@ class WikiLingo_Expression extends Jison_ParserValue
         $children = '';
         foreach($this->children as $child)
         {
+            $child->text->parent =& $this->parent;
             $children .= $child->text->render($parser);
         }
         return $children;
@@ -67,15 +69,16 @@ class WikiLingo_Expression extends Jison_ParserValue
 
 	public function addChild(&$child)
 	{
-		$child->parent = &$this;
+		$child->parent =& $this->parent;
 		$this->children[] = $child;
 		$this->childrenCount++;
 	}
 
 	public function addSibling(&$sibling)
 	{
-		$this->siblings[] = $sibling;
-		$this->siblingsCount++;
+
+        $this->siblings[] = $sibling;
+        $this->siblingsCount++;
 
         if (isset($this->loc)) {
             $this->loc->lastLine = $sibling->loc->lastLine;
