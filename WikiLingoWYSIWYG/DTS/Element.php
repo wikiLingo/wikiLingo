@@ -60,7 +60,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 			//plugin
 			case "plugin":
                 if ($this->state == 'closed' && $this->open == false) {
-                    $attributes = json_decode($this->attributes['data-parameters']);
+                    $attributes = json_decode(rawurldecode($this->attributes['data-parameters']));
                     $name = '';
                     $body = '';
 

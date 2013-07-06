@@ -307,7 +307,7 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 			}
 		}
 
-        foreach ($plugin->runtimeAttributes as $attribute => $value) {
+        foreach ($plugin->attributes as $attribute => $value) {
             if (!empty($value)) {
                 $output .= ' ' . $attribute . '="' . ($value) . '"';
             }

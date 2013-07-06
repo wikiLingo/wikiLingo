@@ -60,8 +60,8 @@ class WikiLingo_Expression extends Jison_ParserValue
 		if (!empty($this->staticContent)) {
 			$staticContent = $this->staticContent;
 		} else {
-            $siblings = $this->renderSiblings($parser);
-            $children = $this->renderChildren($parser);
+            $siblings .= $this->renderSiblings($parser);
+            $children .= $this->renderChildren($parser);
 		}
 
 		return $this->stringBefore . $children . $staticContent . $this->stringAfter . $siblings;

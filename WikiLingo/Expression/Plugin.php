@@ -3,8 +3,8 @@
 class WikiLingo_Expression_Plugin extends WikiLingo_Expression
 {
     public $name;
-    public $parameters;
-    public $runtimeAttributes = array();
+    public $parameters; //parameters are server side
+    public $attributes = array(); //attributes are client/tag side
     public $body;
     public $syntax;
     public $bodySyntax;
@@ -202,6 +202,6 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
     }
 
     public function addAttribute($name, $value) {
-        $this->runtimeAttributes[$name] = $value;
+        $this->attributes[$name] = $value;
     }
 }

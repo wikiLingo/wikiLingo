@@ -90,18 +90,13 @@ class WikiLingoWYSIWYG extends WikiLingo
 	public function plugin(&$name, &$parameters, &$end = null, &$body = null)
 	{
         $plugin = parent::plugin($name, $parameters, $end, $body);
-		return $this->createWikiTag(
-			"plugin",
-			"span",
-            $plugin,
-			array(
-				"data-syntax" => rawurlencode($plugin->syntax),
-				"data-body" => rawurlencode($plugin->bodySyntax),
-				"data-parameters" => json_encode($plugin->parameters),
-				"data-name" => $plugin->name,
-				"contenteditable" => "false"
-			)
-		);
+		$plugin->attributes["data-syntax"] = rawurlencode($plugin->syntax);
+        $plugin->attributes["data-body"] = rawurlencode($plugin->bodySyntax);
+        $plugin->attributes["data-parameters"] = rawurlencode(json_encode($plugin->parameters));
+        $plugin->attributes["data-name"] = $plugin->name;
+        $plugin->attributes["contenteditable"] = "false";
+        $plugin->attributes["data-t"] = self::$typeShorthand["plugin"];
+        return $plugin;
 	}
 
 	/**
