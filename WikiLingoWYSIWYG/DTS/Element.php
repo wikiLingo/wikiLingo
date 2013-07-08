@@ -89,11 +89,12 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
                         $result .= '{' . $name . '}';
                     } else {
                         //inline plugin
-                        $name .= strtoupper($this->attr('data-name'));
+                        $name .= strtolower($this->attr('data-name'));
                         $result = '{' . $name . ' ';
                         $result .= implode($attributesArray, ' ');
                         $result .= '}';
                     }
+                    $result .= $this->renderSiblings($parser);
                     return $result;
                 }
 				break;
