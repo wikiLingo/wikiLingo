@@ -76,7 +76,6 @@ class WikiLingo_Expression extends Jison_ParserValue
 
 	public function addSibling(&$sibling)
 	{
-
         $this->siblings[] = $sibling;
         $this->siblingsCount++;
 

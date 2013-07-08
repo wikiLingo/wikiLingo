@@ -586,83 +586,83 @@ performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
 case 0:
-		/*php
-		    //A tag that doesn't need to track state
-            if (WikiLingoWYSIWYG_DTS::isHtmlTag($yy_.yytext) == true) {
-               return "HTML_TAG_INLINE";
-            }
+    /*php
+        //A tag that doesn't need to track state
+        if (WikiLingoWYSIWYG_DTS::isHtmlTag($yy_.yytext) == true) {
+           return "HTML_TAG_INLINE";
+        }
 
-            //A non-valid html tag, return "<" put the rest back into the parser
-            if (isset($yy_.yytext{0})) {
-               $tag = $yy_.yytext;
-               $yy_.yytext = $yy_.yytext{0};
-               $this->unput(substr($tag, 1));
-            }
-            return 7;
-        */
-	
+        //A non-valid html tag, return "<" put the rest back into the parser
+        if (isset($yy_.yytext{0})) {
+           $tag = $yy_.yytext;
+           $yy_.yytext = $yy_.yytext{0};
+           $this->unput(substr($tag, 1));
+        }
+        return 7;
+    */
+
 break;
 case 1:
-		/*php
-		    //A tag that was left open, and needs to close
-            $name = end($this->htmlElementsStack);
-            $element = end($this->htmlElementStack);
-            return 7;
-		*/
-	
+    /*php
+        //A tag that was left open, and needs to close
+        $name = end($this->htmlElementsStack);
+        $element = end($this->htmlElementStack);
+        return 7;
+    */
+
 break;
 case 2:
-	    /*php
-            //A tag that is open and we just found the close for it
-            $element = $this->unStackHtmlElement($yy_.yytext);
-            if (isset($element)) {
-               $yy_.yytext = $element;
-               $this->popState();
-               return "HTML_TAG_CLOSE";
-            }
-            return 7;
-    	*/
-	
+    /*php
+        //A tag that is open and we just found the close for it
+        $element = $this->unStackHtmlElement($yy_.yytext);
+        if (isset($element)) {
+           $yy_.yytext = $element;
+           $this->popState();
+           return "HTML_TAG_CLOSE";
+        }
+        return 7;
+    */
+
 break;
 case 3:
-	    /*php
-            //An tag open
-            if (WikiLingoWYSIWYG_DTS::isHtmlTag($yy_.yytext)) {
-               $this->stackHtmlElement($yy_.yytext);
-               $this->begin('htmlElement');
-               return "HTML_TAG_OPEN";
-            }
+    /*php
+        //An tag open
+        if (WikiLingoWYSIWYG_DTS::isHtmlTag($yy_.yytext)) {
+           $this->stackHtmlElement($yy_.yytext);
+           $this->begin('htmlElement');
+           return "HTML_TAG_OPEN";
+        }
 
-            //A non-valid html tag, return the first character in the stack and put the rest back into the parser
-            if (isset($yy_.yytext{0})) {
-               $tag = $yy_.yytext;
-               $yy_.yytext = $yy_.yytext{0};
-               $this->unput(substr($tag, 1));
-            }
+        //A non-valid html tag, return the first character in the stack and put the rest back into the parser
+        if (isset($yy_.yytext{0})) {
+           $tag = $yy_.yytext;
+           $yy_.yytext = $yy_.yytext{0};
+           $this->unput(substr($tag, 1));
+        }
 
-            return 7;
-        */
-	
+        return 7;
+    */
+
 break;
 case 4:
-	    /*php
-		    //A tag that was not opened, needs to be ignored
-    	    return 7;
-    	*/
-	
+    /*php
+        //A tag that was not opened, needs to be ignored
+        return 7;
+    */
+
 break;
 case 5:return 7;
 break;
 case 6:return 7;
 break;
 case 7:
-		/*php
-            if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
-               return 8;
-            }
-            return 7;
-		*/
-	
+    /*php
+        if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
+           return 8;
+        }
+        return 7;
+    */
+
 break;
 case 8:return 7;
 break;

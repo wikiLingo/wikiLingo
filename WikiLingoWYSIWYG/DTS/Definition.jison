@@ -13,85 +13,79 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 %s htmlElement
 
 %%
-{HTML_TAG_INLINE}
-	%{
-		/*php
-		    //A tag that doesn't need to track state
-            if (WikiLingoWYSIWYG_DTS::isHtmlTag($yytext) == true) {
-               return "HTML_TAG_INLINE";
-            }
+{HTML_TAG_INLINE} {
+    /*php
+        //A tag that doesn't need to track state
+        if (WikiLingoWYSIWYG_DTS::isHtmlTag($yytext) == true) {
+           return "HTML_TAG_INLINE";
+        }
 
-            //A non-valid html tag, return "<" put the rest back into the parser
-            if (isset($yytext{0})) {
-               $tag = $yytext;
-               $yytext = $yytext{0};
-               $this->unput(substr($tag, 1));
-            }
-            return 'CONTENT';
-        */
-	%}
+        //A non-valid html tag, return "<" put the rest back into the parser
+        if (isset($yytext{0})) {
+           $tag = $yytext;
+           $yytext = $yytext{0};
+           $this->unput(substr($tag, 1));
+        }
+        return 'CONTENT';
+    */
+}
 
 
-<htmlElement><<EOF>>
-	%{
-		/*php
-		    //A tag that was left open, and needs to close
-            $name = end($this->htmlElementsStack);
-            $element = end($this->htmlElementStack);
-            return 'CONTENT';
-		*/
-	%}
-<htmlElement>{HTML_TAG_CLOSE}
-	%{
-	    /*php
-            //A tag that is open and we just found the close for it
-            $element = $this->unStackHtmlElement($yytext);
-            if (isset($element)) {
-               $yytext = $element;
-               $this->popState();
-               return "HTML_TAG_CLOSE";
-            }
-            return 'CONTENT';
-    	*/
-	%}
-{HTML_TAG_OPEN}
-	%{
-	    /*php
-            //An tag open
-            if (WikiLingoWYSIWYG_DTS::isHtmlTag($yytext)) {
-               $this->stackHtmlElement($yytext);
-               $this->begin('htmlElement');
-               return "HTML_TAG_OPEN";
-            }
+<htmlElement><<EOF>> {
+    /*php
+        //A tag that was left open, and needs to close
+        $name = end($this->htmlElementsStack);
+        $element = end($this->htmlElementStack);
+        return 'CONTENT';
+    */
+}
+<htmlElement>{HTML_TAG_CLOSE} {
+    /*php
+        //A tag that is open and we just found the close for it
+        $element = $this->unStackHtmlElement($yytext);
+        if (isset($element)) {
+           $yytext = $element;
+           $this->popState();
+           return "HTML_TAG_CLOSE";
+        }
+        return 'CONTENT';
+    */
+}
+{HTML_TAG_OPEN} {
+    /*php
+        //An tag open
+        if (WikiLingoWYSIWYG_DTS::isHtmlTag($yytext)) {
+           $this->stackHtmlElement($yytext);
+           $this->begin('htmlElement');
+           return "HTML_TAG_OPEN";
+        }
 
-            //A non-valid html tag, return the first character in the stack and put the rest back into the parser
-            if (isset($yytext{0})) {
-               $tag = $yytext;
-               $yytext = $yytext{0};
-               $this->unput(substr($tag, 1));
-            }
+        //A non-valid html tag, return the first character in the stack and put the rest back into the parser
+        if (isset($yytext{0})) {
+           $tag = $yytext;
+           $yytext = $yytext{0};
+           $this->unput(substr($tag, 1));
+        }
 
-            return 'CONTENT';
-        */
-	%}
-{HTML_TAG_CLOSE}
-	%{
-	    /*php
-		    //A tag that was not opened, needs to be ignored
-    	    return 'CONTENT';
-    	*/
-	%}
+        return 'CONTENT';
+    */
+}
+{HTML_TAG_CLOSE} {
+    /*php
+        //A tag that was not opened, needs to be ignored
+        return 'CONTENT';
+    */
+}
 ([A-Za-z0-9 .,?;]+)                         return 'CONTENT';
 ([ ])                                       return 'CONTENT';
-{LINE_END}
-	%{
-		/*php
-            if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
-               return 'LINE_END';
-            }
-            return 'CONTENT';
-		*/
-	%}
+{LINE_END} {
+    /*php
+        if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
+           return 'LINE_END';
+        }
+        return 'CONTENT';
+    */
+}
 (.)                                         return 'CONTENT';
 <<EOF>>										return 'EOF';
 

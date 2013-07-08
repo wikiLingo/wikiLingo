@@ -59,12 +59,20 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 		{
 			//plugin
 			case "plugin":
-                if ($this->state == 'closed' && $this->open == false) {
+                if (
+                        (
+                            $this->state == 'closed'
+                            || $this->state == 'inline'
+                        )
+                        && $this->open == false
+                ) {
                     $attributes = json_decode(rawurldecode($this->attributes['data-parameters']));
                     $name = '';
                     $body = '';
 
-                    $body .= $this->renderChildren($parser);
+                    foreach($this->children as $child) {
+                        $body .= $child->text->render($parser);
+                    }
 
                     $attributesArray = array();
                     foreach($attributes as $key => $attribute) {

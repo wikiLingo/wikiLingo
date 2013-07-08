@@ -1,4 +1,5 @@
 <?php
+
 class WikiLingoWYSIWYG extends WikiLingo
 {
 	/* wiki syntax type tracking */
@@ -47,16 +48,14 @@ class WikiLingoWYSIWYG extends WikiLingo
 		"plugin" =>                     "pl",
 	);
 
-	function __construct()
-	{
-		parent::__construct();
-
-		if (empty(self::$typeShorthandName)) {
-			foreach (self::$typeShorthand as $type => $shorthand) {
-				self::$typeShorthandName[$shorthand] = $type;
-			}
-		}
-	}
+    public static function staticConstruct()
+    {
+        if (empty(self::$typeShorthandName)) {
+            foreach (self::$typeShorthand as $type => $shorthand) {
+                self::$typeShorthandName[$shorthand] = $type;
+            }
+        }
+    }
 
 	//end state handlers
 	//Wiki Syntax Objects Parsing Start
@@ -334,3 +333,5 @@ class WikiLingoWYSIWYG extends WikiLingo
 		return parent::createWikiTag($syntaxType, $tagType, $content, $params, $type);
 	}
 }
+
+WikiLingoWYSIWYG::staticConstruct();
