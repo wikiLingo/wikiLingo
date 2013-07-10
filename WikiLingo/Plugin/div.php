@@ -4,6 +4,8 @@
 class WikiLingo_Plugin_div extends WikiLingo_Plugin_HtmlBase
 {
 	public $type = 'div';
+    public $htmlTagType = 'div';
+    public $wysiwygTagType = 'div';
 	public $documentation = 'PluginDIV';
 	public $validate = 'all';
 	public $filter = 'rawhtml_unsafe';

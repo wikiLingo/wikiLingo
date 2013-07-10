@@ -7,7 +7,7 @@
 
 abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 {
-	public $htmlTagType = 'div';
+	public $htmlTagType = 'span';
 	public $hasHtmlBody = true;
 	public $htmlAttributes = array('id'=>'', 'class'=>'', 'style'=>'');
 	public $button;
@@ -292,14 +292,19 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
             $body = $plugin->body->render($parser) . (isset($this->button) ? $this->button : '');
         }
 
-        $output = '<' . $this->htmlTagType;;
+        if (isset($parser->wysiwyg) && $this->wysiwygTagType) {
+            $output = '<' . $this->wysiwygTagType;
+        } else {
+            $output = '<' . $this->htmlTagType;
+        }
+
         $this->paramDefaults($plugin->parameters);
 		$style = $this->stylize($plugin->parameters);
 
-		$htmlAttributes = $this->htmlAttributes;
+		$htmlAttributes = array();
         $htmlAttributes['id'] = $this->id($plugin->index);
-        $htmlAttributes['class'] .= (empty($htmlAttributes['class']) ? '' : ' ' ) . 'wikiLingoPlugin_' . $this->type;
-        $htmlAttributes['style'] .= $style;
+        $htmlAttributes['class'] = (empty($htmlAttributes['class']) ? '' : ' ' ) . 'wikiLingoPlugin_' . $this->type;
+        $htmlAttributes['style'] = $style;
 
 		foreach ($htmlAttributes as $attribute => $value) {
 			if (!empty($value)) {
@@ -316,7 +321,13 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 		if (empty($body)) {
             $output .= '/>';
         } else {
-            $output .= '>' . $body . '</' . $this->htmlTagType . '>';
+            $output .= '>' . $body;
+
+            if (isset($parser->wysiwyg) && $this->wysiwygTagType) {
+                $output .= '</' . $this->wysiwygTagType . '>';
+            } else {
+                $output .= '</' . $this->htmlTagType . '>';
+            }
         }
 
 		//TODO: Handle np more dynamically

@@ -57,6 +57,8 @@ class WikiLingoWYSIWYG extends WikiLingo
         }
     }
 
+    public $wysiwyg = true;
+
 	//end state handlers
 	//Wiki Syntax Objects Parsing Start
 	/**

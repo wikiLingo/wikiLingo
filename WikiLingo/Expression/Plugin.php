@@ -70,7 +70,8 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
 
     public function render(&$parser)
     {
-	    return $this->class->render($this, $parser);
+        $rendered = $this->class->render($this, $parser);
+        return $rendered;
     }
 
     public function fingerprint()
