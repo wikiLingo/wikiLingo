@@ -37,10 +37,6 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 			return "";
 		}
 
-		//non wiki tags are ignored
-		if ($this->hasClass("wlw") != true) {
-			//return $this->elementFromTag($contents, true);
-		}
 
 		$result = '';
 

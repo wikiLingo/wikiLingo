@@ -7,7 +7,7 @@ class WikiLingo_Plugin_flash extends WikiLingo_Plugin_HtmlBase
     public $hasHtmlBody = false;
     public $htmlTagType = 'embed';
     public $wysiwygTagType = 'img';
-    public $htmlAttributes = array(
+    public $attributes = array(
         'id'=>'',
         'class'=>'',
         'style'=>'',

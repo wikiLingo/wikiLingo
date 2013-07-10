@@ -300,23 +300,17 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
 
         $this->paramDefaults($plugin->parameters);
 		$style = $this->stylize($plugin->parameters);
+		$this->attributeDefaults($plugin->attributes);
 
-		$htmlAttributes = array();
-        $htmlAttributes['id'] = $this->id($plugin->index);
-        $htmlAttributes['class'] = (empty($htmlAttributes['class']) ? '' : ' ' ) . 'wikiLingoPlugin_' . $this->type;
-        $htmlAttributes['style'] = $style;
+        $plugin->attributes['id'] = $this->id($plugin->index);
+        $plugin->attributes['class'] = (empty($plugin->attributes['class']) ? '' : ' ' ) . 'wikiLingoPlugin_' . $this->type;
+        $plugin->attributes['style'] = $style;
 
-		foreach ($htmlAttributes as $attribute => $value) {
+		foreach ($plugin->attributes as $attribute => $value) {
 			if (!empty($value)) {
 				$output .= ' ' . $attribute . '="' . addslashes($value) . '"';
 			}
 		}
-
-        foreach ($plugin->attributes as $attribute => $value) {
-            if (!empty($value)) {
-                $output .= ' ' . $attribute . '="' . ($value) . '"';
-            }
-        }
 
 		if (empty($body)) {
             $output .= '/>';

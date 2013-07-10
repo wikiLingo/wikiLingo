@@ -70,7 +70,9 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
 
     public function render(&$parser)
     {
+        $parser->events->trigger(__FUNCTION__ .'.pre', $this);
         $rendered = $this->class->render($this, $parser);
+        $parser->events->trigger(__FUNCTION__ .'.post', $this);
         return $rendered;
     }
 

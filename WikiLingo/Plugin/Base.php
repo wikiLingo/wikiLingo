@@ -6,6 +6,7 @@ abstract class WikiLingo_Plugin_Base
 	public $description;
 	public $body;
 	public $params = array();
+	public $attributes = array();
 	public $type;
 	public $documentation;
 	public $prefs = array();
@@ -44,17 +45,29 @@ abstract class WikiLingo_Plugin_Base
 		return $this;
 	}
 
-	protected function paramDefaults(&$params)
+	protected function attributeDefaults(&$attributes)
 	{
 		$defaults = array();
-		foreach ($this->params as $param => $setting) {
+		foreach ($this->attributes as $param => $setting) {
 			if (!empty($setting)) {
-				$defaults[$param] = $setting;
+                $defaults[$param] = $setting;
 			}
 		}
 
-		$params = array_merge($defaults, $params);
+        $attributes = array_merge($defaults, $attributes);
 	}
+
+    protected function paramDefaults(&$params)
+    {
+        $defaults = array();
+        foreach ($this->params as $param => $setting) {
+            if (!empty($setting)) {
+                $defaults[$param] = $setting;
+            }
+        }
+
+        $params = array_merge($defaults, $params);
+    }
 
 	public function render(&$plugin, &$parser)
 	{

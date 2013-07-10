@@ -1,4 +1,6 @@
 <?php
+use Zend\EventManager\EventManager;
+
 class WikiLingo extends WikiLingo_Definition
 {
     /* parser tracking */
@@ -8,6 +10,8 @@ class WikiLingo extends WikiLingo_Definition
 
     /* the root parser, where many variables need to be tracked from, maintained on any hierarchy of children parsers */
     public $Parser;
+
+    public $events;
 
     /* parser debug */
     public $parserDebug = false;
@@ -38,10 +42,6 @@ class WikiLingo extends WikiLingo_Definition
     The next break sets it back to false; */
     public $skipBr = false;
     public $tableStack = array();
-
-    /* header tracking */
-    public $header;
-    public $headerStack = false;
 
     /* list tracking and parser */
     public $list;
@@ -118,10 +118,6 @@ class WikiLingo extends WikiLingo_Definition
             $this->pluginNegotiator = new WikiLingo_PluginNegotiator($this->Parser);
         }
 
-        if (isset($this->Parser->header) == false) {
-            $this->Parser->header = new WikiLingo_Expression_Header($this->Parser);
-        }
-
         if (isset($this->Parser->list) == false) {
             $this->Parser->list = new WikiLingo_Expression_List($this->Parser);
         }
@@ -141,6 +137,8 @@ class WikiLingo extends WikiLingo_Definition
         if (isset($this->specialCharacter) == false) {
             $this->specialCharacter = new WikiLingo_Expression_SpecialChar($this->Parser);
         }
+
+        $this->events = new EventManager(__CLASS__);
 
         parent::__construct();
     }
@@ -770,100 +768,6 @@ class WikiLingo extends WikiLingo_Definition
     }
 
     /**
-     * syntax handler: header, \n!$content
-     * <p>
-     * Uses $this->Parser->header as a processor.  Is called from $this->block().
-     *
-     * @access  public
-     * @param   $content string parsed content  found inside detected syntax
-     * @return  string  $content desired output from syntax
-     */
-    function header($content, $trackExclamationCount = false) //!content
-    {
-        global $prefs;
-        $exclamationCount = 0;
-        $headerLength = strlen($content);
-        for ($i = 0; $i < $headerLength; $i++) {
-            if ($content[$i] == '!') {
-                $exclamationCount++;
-            } else {
-                break;
-            }
-        }
-
-        $content = substr($content, $exclamationCount);
-        $this->removeEOF($content);
-
-        $hNum = min(6, $exclamationCount); //html doesn't support 7+ header level
-        $id = $this->Parser->header->stack($hNum, $content);
-        $button = '';
-        global $section, $tiki_p_edit;
-        if (
-            $prefs['wiki_edit_section'] === 'y' &&
-            $section === 'wiki page' &&
-            $tiki_p_edit === 'y' &&
-            (
-                $prefs['wiki_edit_section_level'] == 0 ||
-                $hNum <= $prefs['wiki_edit_section_level']
-            ) &&
-            ! $this->getOption('print') &&
-            ! $this->getOption('suppress_icons') &&
-            ! $this->getOption('preview_mode')
-        ) {
-            $button = $this->createWikiHelper("header", "span", $this->Parser->header->button($prefs['wiki_edit_icons_toggle']));
-        }
-
-        $this->skipBr = true;
-
-        //expanding headers
-        $expandingHeaderClose = '';
-        $expandingHeaderOpen = '';
-
-        if ($this->headerStack == true) {
-            $this->headerStack = false;
-            $expandingHeaderClose = $this->createWikiHelper("header", "div", "", array(), "close");
-        }
-
-        if ($content{0} == '-') {
-            $content = substr($content, 1);
-            $this->headerStack = true;
-            $expandingHeaderOpen =
-                $this->createWikiHelper(
-                    "header", "a", "[+]",
-                    array(
-                        "id" => "flipperflip" . $id,
-                        "href" => "javascript:flipWithSign(\'flip' . $id .'\')"
-                    )
-                ) .
-                $this->createWikiHelper(
-                    "header", "div", "",
-                    array(
-                        "id" => "flip". $id,
-                        "class" => "showhide_heading",
-                    ), "open"
-                );
-        }
-
-        $params = array(
-            "id" => $id,
-        );
-
-        if ($trackExclamationCount) {
-            $params['data-count'] = $exclamationCount;
-        }
-
-        $result =
-            $expandingHeaderClose .
-            $button .
-            $this->createWikiTag(
-                "header", 'h' . $hNum, $content, $params
-            ) .
-            $expandingHeaderOpen;
-
-        return $result;
-    }
-
-    /**
      * syntax handler: list, \n*$content
      * <p>
      * List types: * (unordered), # (ordered), + (line break), - (expandable), ; (definition list)
@@ -1260,13 +1164,16 @@ class WikiLingo extends WikiLingo_Definition
         return '<!---->';
     }
 
-    public $blocks = array(
-        "header" => array('!'),
+    public static $blocks = array(
+        '!' => 'header',
 
-        "stackList" => array('*','#','+',';'),
+        '*' => 'list',
+        '#' => 'list',
+        '+' => 'list',
+        ';' => 'list',
 
-        "r2l" => array('{r2l}'),
-        "l2r" => array('{l2r}'),
+        '{r2l}' => 'r2l',
+        '{l2r}' => 'l2r'
     );
 
     /**
@@ -1276,24 +1183,21 @@ class WikiLingo extends WikiLingo_Definition
      * @param   $content string parsed content  found inside detected syntax
      * @return  string  $content desired output from syntax
      */
-    function block($content)
+    function block($newLine, $content)
     {
-        $this->line++;
-        $this->skipBr = false;
-        $this->isFirstBr = true;
+        $text = '';
 
-        $newLine = $content{0};
-        $content = substr($content, 1);
+        if (isset(self::$blocks[$content->text->stringBefore])) {
+            $blockType = self::$blocks[$content->text->stringBefore];
 
-        foreach ($this->blocks as $function => &$set) {
-            foreach ($set as &$startsWith) {
-                if ($this->beginsWith($content, $startsWith)) {
-                    return $this->$function($content);
-                }
+            switch ($blockType) {
+                case 'header': return new WikiLingo_Expression_Header($content);
             }
+        } else {
+            return new WikiLingo_Expression($newLine);
         }
 
-        return $newLine . $content;
+
     }
 
     /**
@@ -1422,13 +1326,7 @@ class WikiLingo extends WikiLingo_Definition
 
     function isBlockStartSyntax($char)
     {
-        if (
-            $char == "*" ||
-            $char == "#" ||
-            $char == "+" ||
-            $char == ";" ||
-            $char == "!"
-        ) {
+        if (isset($this->blocks[$char])) {
             return true;
         }
     }

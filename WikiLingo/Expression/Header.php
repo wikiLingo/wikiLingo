@@ -5,16 +5,21 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: Header.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class WikiLingo_Expression_Header
+class WikiLingo_Expression_Header extends WikiLingo_Expression
 {
 	public $stack = array();
 	public $count = 0;
 	public $idCount = array();
 	public $headerIds = array();
 
-	public function stack($level, $content)
+    public function __construct($content)
+    {
+
+    }
+
+	public function stack($content)
 	{
-		JisonParser_Wiki_Handler::deleteEntities($content);
+		WikiLingo::deleteEntities($content);
 		$id = implode('_', JisonParser_Phraser_Handler::sanitizeToWords($content));
 
 		if (isset($this->idCount[$id])) {
@@ -99,4 +104,89 @@ class WikiLingo_Expression_Header
 
 		return $button;
 	}
+
+    public function render(&$parser)
+    {
+        global $prefs;
+        $exclamationCount = 0;
+        $headerLength = strlen($content);
+        for ($i = 0; $i < $headerLength; $i++) {
+            if ($content[$i] == '!') {
+                $exclamationCount++;
+            } else {
+                break;
+            }
+        }
+
+        $content = substr($content, $exclamationCount);
+        $this->removeEOF($content);
+
+        $hNum = min(6, $exclamationCount); //html doesn't support 7+ header level
+        $id = $this->Parser->header->stack($hNum, $content);
+        $button = '';
+        global $section, $tiki_p_edit;
+        if (
+            $prefs['wiki_edit_section'] === 'y' &&
+            $section === 'wiki page' &&
+            $tiki_p_edit === 'y' &&
+            (
+                $prefs['wiki_edit_section_level'] == 0 ||
+                $hNum <= $prefs['wiki_edit_section_level']
+            ) &&
+            ! $this->getOption('print') &&
+            ! $this->getOption('suppress_icons') &&
+            ! $this->getOption('preview_mode')
+        ) {
+            $button = $this->createWikiHelper("header", "span", $this->Parser->header->button($prefs['wiki_edit_icons_toggle']));
+        }
+
+        $this->skipBr = true;
+
+        //expanding headers
+        $expandingHeaderClose = '';
+        $expandingHeaderOpen = '';
+
+        if ($this->headerStack == true) {
+            $this->headerStack = false;
+            $expandingHeaderClose = $this->createWikiHelper("header", "div", "", array(), "close");
+        }
+
+        if ($content{0} == '-') {
+            $content = substr($content, 1);
+            $this->headerStack = true;
+            $expandingHeaderOpen =
+                $this->createWikiHelper(
+                    "header", "a", "[+]",
+                    array(
+                        "id" => "flipperflip" . $id,
+                        "href" => "javascript:flipWithSign(\'flip' . $id .'\')"
+                    )
+                ) .
+                $this->createWikiHelper(
+                    "header", "div", "",
+                    array(
+                        "id" => "flip". $id,
+                        "class" => "showhide_heading",
+                    ), "open"
+                );
+        }
+
+        $params = array(
+            "id" => $id,
+        );
+
+        if ($trackExclamationCount) {
+            $params['data-count'] = $exclamationCount;
+        }
+
+        $result =
+            $expandingHeaderClose .
+            $button .
+            $this->createWikiTag(
+                "header", 'h' . $hNum, $content, $params
+            ) .
+            $expandingHeaderOpen;
+
+        return $result;
+    }
 }
