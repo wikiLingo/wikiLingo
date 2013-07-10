@@ -14,7 +14,7 @@ $loader
 $original = "
 __test__
 {DIV()}
-{flash movie='//www.youtube.com/v/xH2968yeG6s'}
+{flash movie=`//www.youtube.com/v/xH2968yeG6s`}
 {DIV}";
 
 
@@ -48,7 +48,7 @@ $wikiLingo
                         editor.on( 'configLoaded', function() {
 
                             // Remove unnecessary plugins to make the editor simpler.
-                            editor.config.removePlugins = 'colorbutton,find,flash,font,' +
+                            editor.config.removePlugins = 'colorbutton,find,font,' +
                                 'forms,iframe,image,newpage,removeformat,' +
                                 'smiley,specialchar,stylescombo,templates';
 
@@ -59,6 +59,18 @@ $wikiLingo
                                 { name: 'clipboard',	groups: [ 'selection', 'clipboard' ] },
                                 { name: 'about' }
                             ];
+
+                            editor.config.allowedContent = {
+                                'h1 h2 h3 p blockquote strong em div br;' +
+                                'embed;' +
+                                'a[!href];' +
+                                'img(left,right)[!src,alt,width,height];' +
+                                'table tr th td caption;' +
+                                'span{!font-family};' +'
+                                'span{!color};' +
+                                'span(!marker);' +
+                                'del ins'
+                            };
                         });
                     }
                 });");
@@ -71,9 +83,18 @@ $script = $wikiLingo->renderScript();
     <?php echo $css . $script; ?>
 </head>
 <body>
+    <h2>WikiLingo</h2>
+    <pre><?php echo $original;?></pre><br />
+
+    <h2>WikiLingo to Standard Html Output</h2>
     <div contenteditable="false"><?php echo $output;?></div>
+
+    <h2>WikiLingo to WYSIWYG Html Output</h2>
     <div contenteditable="true"><?php echo $outputWYSIWYG;?></div>
-    <div contenteditable="false"><?php echo $dtsOutput;?></div>
+
+    <h2>WikiLingo to WYSIWYG Html Output and back to WikiLingo Source</h2>
+    <pre><?php echo $dtsOutput?></pre>
+
     <input type="button" value="To Source"/>
 </body>
 </html>

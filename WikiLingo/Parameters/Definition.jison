@@ -10,9 +10,10 @@
 //Named Regex Patterns
 singleQuote                     "'"
 doubleQuote                     '"'
+angleQuote                      [`]
 parameterName                   [a-zA-Z0-9_-]+
 equals                          ([=]|[=][>])
-%s singleQuoteParameter doubleQuoteParameter
+%s singleQuoteParameter doubleQuoteParameter angleQuoteParameter
 
 
 //Start Lexical Tokens
@@ -30,12 +31,22 @@ equals                          ([=]|[=][>])
         $this->popState();
     */
 %}
+<angleQuoteParameter>{angleQuote}
+%{
+    /*php
+        $this->popState();
+    */
+%}
 
 <singleQuoteParameter>.*?(?={singleQuote})
 %{
     return 'PARAMETER_VALUE';
 %}
 <doubleQuoteParameter>.*?(?={doubleQuote})
+%{
+    return 'PARAMETER_VALUE';
+%}
+<angleQuoteParameter>.*?(?={angleQuote})
 %{
     return 'PARAMETER_VALUE';
 %}
@@ -50,6 +61,12 @@ equals                          ([=]|[=][>])
 %{
     /*php
         $this->begin('doubleQuoteParameter');
+    */
+%}
+{angleQuote}
+%{
+    /*php
+        $this->begin('angleQuoteParameter');
     */
 %}
 {parameterName}(?={equals})

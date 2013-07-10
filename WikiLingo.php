@@ -67,10 +67,6 @@ class WikiLingo extends WikiLingo_Definition
     /* html tag tracking */
     public $nonBreakingTagDepth = 0;
 
-    /* line tracking */
-    public $isFirstBr = false;
-    public $line = 0;
-
     public $user;
     public $prefs;
     public $page;
@@ -261,20 +257,7 @@ class WikiLingo extends WikiLingo_Definition
             $this->Parser->list->reset();
         }
 
-        $this->line = 0;
-        $this->isFirstBr = false;
-        $this->skipBr = false;
-        $this->tableStack = array();
-        $this->nonBreakingTagDepth = 0;
-        $this->npStack = false;
-        $this->ppStack = false;
-        $this->linkStack = false;
-
-        if ($input{0} == "\n" && $this->isBlockStartSyntax($input{1})) {
-            $this->isFirstBr = true;
-        }
-
-        $input = "\n" . $input . "≤REAL_EOF≥"; //here we add 2 lines, so the parser doesn't have to do special things to track the first line and last, we remove these when we insert breaks, these are dynamically removed later
+        $input = $input . "≤REAL_EOF≥"; //here we add 2 lines, so the parser doesn't have to do special things to track the first line and last, we remove these when we insert breaks, these are dynamically removed later
         $input = str_replace("\r", "", $input);
         $input = $this->specialCharacter->protect($input);
 
@@ -432,11 +415,6 @@ class WikiLingo extends WikiLingo_Definition
             if (isset($types[$skipType])) {
                 unset($types[$skipType]);
             }
-        }
-
-        //first off, if in plugin
-        if ($this->pluginStackCount > 0) {
-            return true;
         }
 
         //second, if we are not in a plugin, check if we are in content, ie, non-parse-able wiki syntax
@@ -964,25 +942,7 @@ class WikiLingo extends WikiLingo_Definition
      */
     function line($ch)
     {
-        $this->line++;
-        $skipBr = $this->skipBr;
-        $this->skipBr = false; //skipBr must always must be false when done processing line
-
-        //The first \n was inserted just before parse
-        if ($this->isFirstBr == false) {
-            $this->isFirstBr = true;
-            return new WikiLingoWYSIWYG_Expression($ch->text);
-        }
-
-        $result = new WikiLingoWYSIWYG_Expression('');
-
-        if ($skipBr == false && $this->nonBreakingTagDepth == 0) {
-            $result = $this->createWikiTag("line", "br", "", array(), "inline");
-        }
-
-	    $result->text .= $ch->text;
-
-        return $result;
+        return $this->createWikiTag("line", "br", "", array(), "inline");
     }
 
     /**

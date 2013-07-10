@@ -76,7 +76,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
                     $attributesArray = array();
                     foreach($attributes as $key => $attribute) {
-                        $attributesArray[] = $key . '="' . $attribute . '"';
+                        $attributesArray[] = $key . '=`' . $attribute . '`';
                     }
 
                     if (isset($this->attributes['data-body'])) {
@@ -94,8 +94,6 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
                         $result .= implode($attributesArray, ' ');
                         $result .= '}';
                     }
-                    $result .= $this->renderSiblings($parser);
-                    return $result;
                 }
 				break;
 
@@ -341,6 +339,8 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 			default:
 				throw new Exception("Unhandled type:" . $this->type);
 		}
+
+        $result .= $this->renderSiblings($parser);
 
 		$this->Parser->typeStack[$this->type]--;
 

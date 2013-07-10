@@ -159,21 +159,25 @@ class WikiLingo_Parameters_Definition extends Jison_Base
 				
 					0=>"/^(?:('))/",
 					1=>"/^(?:(\"))/",
-					2=>"/^(?:.*?(?=(')))/",
-					3=>"/^(?:.*?(?=(\")))/",
-					4=>"/^(?:('))/",
-					5=>"/^(?:(\"))/",
-					6=>"/^(?:([a-zA-Z0-9_-]+)(?=(([=]|[=][>]))))/",
-					7=>"/^(?:(([=]|[=][>])))/",
-					8=>"/^(?:\s\b)/",
-					9=>"/^(?:$)/"
+					2=>"/^(?:([`]))/",
+					3=>"/^(?:.*?(?=(')))/",
+					4=>"/^(?:.*?(?=(\")))/",
+					5=>"/^(?:.*?(?=([`])))/",
+					6=>"/^(?:('))/",
+					7=>"/^(?:(\"))/",
+					8=>"/^(?:([`]))/",
+					9=>"/^(?:([a-zA-Z0-9_-]+)(?=(([=]|[=][>]))))/",
+					10=>"/^(?:(([=]|[=][>])))/",
+					11=>"/^(?:\s)/",
+					12=>"/^(?:$)/"
 				);
 
 			$this->conditions = array(
 				
-					"singleQuoteParameter"=>new Jison_LexerConditions(array( 0,2,4,5,6,7,8,9), true),
-					"doubleQuoteParameter"=>new Jison_LexerConditions(array( 1,3,4,5,6,7,8,9), true),
-					"INITIAL"=>new Jison_LexerConditions(array( 4,5,6,7,8,9), true)
+					"singleQuoteParameter"=>new Jison_LexerConditions(array( 0,3,6,7,8,9,10,11,12), true),
+					"doubleQuoteParameter"=>new Jison_LexerConditions(array( 1,4,6,7,8,9,10,11,12), true),
+					"angleQuoteParameter"=>new Jison_LexerConditions(array( 2,5,6,7,8,9,10,11,12), true),
+					"INITIAL"=>new Jison_LexerConditions(array( 6,7,8,9,10,11,12), true)
 				);
 
 
@@ -184,6 +188,7 @@ class WikiLingo_Parameters_Definition extends Jison_Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
 	{
 		
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -213,7 +218,7 @@ break;
 	{
 		
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -228,7 +233,9 @@ case 1:
 
 break;
 case 2:
-    return 8;
+    
+        $this->popState();
+    
 
 break;
 case 3:
@@ -236,28 +243,42 @@ case 3:
 
 break;
 case 4:
+    return 8;
+
+break;
+case 5:
+    return 8;
+
+break;
+case 6:
     
         $this->begin('singleQuoteParameter');
     
 
 break;
-case 5:
+case 7:
     
         $this->begin('doubleQuoteParameter');
     
 
 break;
-case 6:
+case 8:
+    
+        $this->begin('angleQuoteParameter');
+    
+
+break;
+case 9:
     
         return 7;
     
 
 break;
-case 7:
+case 10:
 break;
-case 8:
+case 11:
 break;
-case 9:return 4;
+case 12:return 4;
 break;
 }
 
