@@ -12,11 +12,11 @@ SYNTAX_CHARS                    [{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
-BLOCK_START                     ([\!*#+;])
+BLOCK_START                     ([\!*#+;]+)
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
-%s BOF np pp pluginStart plugin inlinePlugin line block bold box center code color italic unlink link strike table titleBar underscore wikiLink
+%s BOF np pp pluginStart plugin inlinePlugin line preBlock block preBlockEnd bold box center code color italic unlink link strike table titleBar underscore wikiLink
 
 %%
 
@@ -158,11 +158,11 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 {LINE_END}("{r2l}"|"{l2r}") {
     //js
         if (parser.isContent()) return 'CONTENT';
-        lexer.begin('block');
+        lexer.begin('preBlock');
 
     /*php
         if ($this->isContent()) return 'CONTENT';
-        $this->begin('block');
+        $this->begin('preBlock');
     */
 
     return 'BLOCK_START';
@@ -275,6 +275,13 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'EOF';
 }
+<preBlock>{BLOCK_START} {
+	/*php
+		$this->popState();
+		$this->begin('block');
+		return 'BLOCK_START';
+	*/
+}
 <block>(?={LINE_END}) {
     //js
         if (parser.isContent()) return 'CONTENT';
@@ -291,27 +298,27 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 {LINE_END}(?={BLOCK_START}) {
     //js
         if (parser.isContent()) return 'CONTENT';
-        lexer.begin('block');
+        lexer.begin('preBlock');
 
     /*php
         if ($this->isContent()) return 'CONTENT';
-        $this->begin('block');
+        $this->begin('preBlock');
     */
 
-    return 'BLOCK_START';
+    return 'PRE_BLOCK_START';
 }
 <BOF>(?={BLOCK_START}) {
     //js
         if (parser.isContent()) return 'CONTENT';
-        lexer.begin('block');
+        lexer.begin('preBlock');
 
     /*php
         $this->popState();
         if ($this->isContent()) return 'CONTENT';
-        $this->begin('block');
+        $this->begin('preBlock');
     */
 
-    return 'BLOCK_START';
+    return 'PRE_BLOCK_START';
 }
 {LINE_END} {
     //js
@@ -1009,25 +1016,26 @@ line
             $$ = $1->text;
         */
     }
- | BLOCK_START BLOCK_END
+ | PRE_BLOCK_START BLOCK_START BLOCK_END
     {
 	    //js
-	    $$ = parser.block($1);
+	    $$ = parser.block($2);
 
 	    /*php
-	        $$ = $this->block($1);
+	        $$ = $this->block($2);
         */
 	}
- | BLOCK_START contents BLOCK_END
+ | PRE_BLOCK_START BLOCK_START contents BLOCK_END
     {
         //js
-            $$ = parser.block($1 + $2);
+            $$ = parser.block($2 + $3);
 
         /*php
-            $$ = $this->block($1, $2);
+            $$ = $this->block($2, $3);
         */
     }
- | BLOCK_START
+ | PRE_BLOCK_START BLOCK_START
+ | PRE_BLOCK_START
  ;
 
 contents

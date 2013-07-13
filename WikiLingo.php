@@ -1183,21 +1183,25 @@ class WikiLingo extends WikiLingo_Definition
      * @param   $content string parsed content  found inside detected syntax
      * @return  string  $content desired output from syntax
      */
-    function block($newLine, $content)
+    function block($blockStart, $content)
     {
         $text = '';
 
-        if (isset(self::$blocks[$content->text->stringBefore])) {
-            $blockType = self::$blocks[$content->text->stringBefore];
+        if (isset(self::$blocks[$blockStart->text{0}])) {
+            $blockType = self::$blocks[$blockStart->text{0}];
 
             switch ($blockType) {
-                case 'header': return new WikiLingo_Expression_Header($content);
+                case 'header': return new WikiLingo_Expression_Header($blockStart, $content);
             }
-        } else {
-            return new WikiLingo_Expression($newLine);
+        } else if (isset(self::$blocks[$blockStart->text])) {
+	        $blockType = self::$blocks[$blockStart->text];
+	        switch ($blockType) {
+		        //case 'l2r': return new WikiLingo_Expression_Header($content);
+		        //case 'r2l': return new WikiLingo_Expression_Header($content);
+	        }
         }
 
-
+	    return new WikiLingo_Expression('');
     }
 
     /**

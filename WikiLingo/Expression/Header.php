@@ -12,8 +12,9 @@ class WikiLingo_Expression_Header extends WikiLingo_Expression
 	public $idCount = array();
 	public $headerIds = array();
 
-    public function __construct($content)
+    public function __construct($blockStart, $content)
     {
+	    $this->count = strlen($blockStart->text);
 
     }
 

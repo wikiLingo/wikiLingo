@@ -3,7 +3,7 @@
 require_once ('index.php');
 
 $original = "
-!header
+!!!header
 __test__
 {DIV()}
 {flash movie=`//www.youtube.com/v/xH2968yeG6s`}
