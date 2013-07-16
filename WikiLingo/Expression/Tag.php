@@ -1,5 +1,5 @@
 <?php
-class WikiLingoWYSIWYG_Expression extends WikiLingo_Expression
+class WikiLingo_Expression_Tag extends WikiLingo_Expression
 {
     public $hasChildren = false;
 

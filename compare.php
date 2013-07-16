@@ -3,11 +3,18 @@
 require_once ('index.php');
 
 $original = "
-!!!header
+{toc}
+!Test
 __test__
+!!!Test2
+
+!!!Test3
 {DIV()}
 {flash movie=`//www.youtube.com/v/xH2968yeG6s`}
-{DIV}";
+{DIV}
+
+!Test 4
+";
 
 
 $wikiLingo = new WikiLingo();
@@ -22,7 +29,16 @@ $wikiLingo
     ->addScript("
         CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
         CKEDITOR.config.allowedContent =
-            'h1 h2 h3 p blockquote em;' +
+            'h1[*];' +
+            'h2[*];' +
+            'h3[*];' +
+            'h4[*];' +
+            'h5[*];' +
+            'h6[*];' +
+            'ul[*];' +
+            'ol[*];' +
+            'li[*];' +
+            'p blockquote em;' +
             'img[*];' +
             'embed[*];' +
             'div[*];' +

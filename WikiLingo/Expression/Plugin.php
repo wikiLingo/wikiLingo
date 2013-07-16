@@ -3,7 +3,7 @@
 class WikiLingo_Expression_Plugin extends WikiLingo_Expression
 {
     public $name;
-    public $parameters; //parameters are server side
+    public $parameters = array(); //parameters are server side
     public $attributes = array(); //attributes are client/tag side
     public $body;
     public $syntax;
@@ -37,17 +37,16 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         $this->index = self::incrementPluginIndex($name);
         $this->key = '§' . md5('plugin:' . $name . '_' . $this->index) . '§';
 
-        $parameters = substr($parameters, 0, -1);
-        if ($parameters{strlen($parameters) - 1} == ')') {
+        if ($parameters != '}') {
             $parameters = substr($parameters, 0, -1);
+            if ($parameters{strlen($parameters) - 1} == ')') {
+                $parameters = substr($parameters, 0, -1);
+            }
+
+            if (!empty($parameters)) {
+                $this->parameters = self::$parametersParser->parse($parameters);
+            }
         }
-
-
-	    if (empty($parameters)) {
-		    $this->parameters = array();
-	    } else {
-		    $this->parameters = self::$parametersParser->parse($parameters);
-	    }
 
         $this->body = $body;
         $this->bodySyntax = $bodySyntax;

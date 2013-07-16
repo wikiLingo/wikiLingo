@@ -5,20 +5,18 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: Header.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class WikiLingo_Expression_Header extends WikiLingo_Expression
+class WikiLingo_Expression_Header extends WikiLingo_Expression_Tag
 {
-	public $stack = array();
+    public $name = 'header';
 	public $count = 0;
-	public $idCount = array();
-	public $headerIds = array();
 
-    public function __construct($blockStart, $content)
+    public function __construct($count, $content)
     {
-	    $this->count = strlen($blockStart->text);
-
+	    $this->count = $count;
+        $this->addChild($content);
     }
 
-	public function stack($content)
+	/*public function stack($content)
 	{
 		WikiLingo::deleteEntities($content);
 		$id = implode('_', JisonParser_Phraser_Handler::sanitizeToWords($content));
@@ -108,7 +106,7 @@ class WikiLingo_Expression_Header extends WikiLingo_Expression
 
     public function render(&$parser)
     {
-        global $prefs;
+        /*global $prefs;
         $exclamationCount = 0;
         $headerLength = strlen($content);
         for ($i = 0; $i < $headerLength; $i++) {
@@ -189,5 +187,8 @@ class WikiLingo_Expression_Header extends WikiLingo_Expression
             $expandingHeaderOpen;
 
         return $result;
-    }
+
+
+        return parent::render($parser);
+    }*/
 }

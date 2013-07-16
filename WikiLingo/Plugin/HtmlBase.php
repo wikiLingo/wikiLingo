@@ -289,7 +289,10 @@ abstract class WikiLingo_Plugin_HtmlBase extends WikiLingo_Plugin_Base
             if (!empty($plugin->body)) { //make parent callable from child
                 $plugin->body->parent = $plugin;
             }
-            $body = $plugin->body->render($parser) . (isset($this->button) ? $this->button : '');
+
+            if (!empty($plugin->body)) {
+                $body = $plugin->body->render($parser) . (isset($this->button) ? $this->button : '');
+            }
         }
 
         if (isset($parser->wysiwyg) && $this->wysiwygTagType) {

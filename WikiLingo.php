@@ -7,6 +7,8 @@ class WikiLingo extends WikiLingo_Definition
     private $parsing = false;
     private static $spareParsers = array();
     public $parseDepth = 0;
+    public $types = array();
+    public $typesCount = array();
 
     /* the root parser, where many variables need to be tracked from, maintained on any hierarchy of children parsers */
     public $Parser;
@@ -201,6 +203,17 @@ class WikiLingo extends WikiLingo_Definition
         }
 
         return $output;
+    }
+
+    public function addType(&$type)
+    {
+        if (empty($this->types[$type->name])) {
+            $this->types[$type->name] = array();
+            $this->typesCount[$type->name] = -1;
+        }
+        $this->types[$type->name][] =& $type;
+        $this->typesCount[$type->name]++;
+        return $type->index = $this->typesCount[$type->name];
     }
 
     /**
@@ -434,37 +447,6 @@ class WikiLingo extends WikiLingo_Definition
     static function deleteEntities(&$input)
     {
         $input = preg_replace('/§[a-z0-9]{32}§/', '', $input);
-    }
-
-    /**
-     * restores the plugins back into the string being parsed.
-     *
-     * @access  private
-     * @param   string  $output Parsed syntax
-     */
-    private function restorePluginEntities(&$output)
-    {
-        //use of array_reverse, jison is a reverse bottom-up parser, if it doesn't reverse jison doesn't restore the plugins in the right order, leaving the some nested keys as a result
-        array_reverse($this->pluginEntries);
-        $iterations = 0;
-        $limit = 100;
-
-        while (!empty($this->pluginEntries) && $iterations <= $limit) {
-            $iterations++;
-            foreach ($this->pluginEntries as $key => $entity) {
-                if (strstr($output, $key)) {
-                    if ($this->getOption('stripplugins') == true) {
-                        $output = str_replace($key, '', $output);
-                    } else {
-                        $output = str_replace($key, $entity, $output);
-                    }
-                }
-            }
-        }
-
-        if ($this->Parser->parseDepth == 0) {
-            $this->pluginNegotiator->executeAwaiting($output);
-        }
     }
 
 
@@ -1185,13 +1167,19 @@ class WikiLingo extends WikiLingo_Definition
      */
     function block($blockStart, $content)
     {
-        $text = '';
+        $result = null;
 
         if (isset(self::$blocks[$blockStart->text{0}])) {
             $blockType = self::$blocks[$blockStart->text{0}];
 
             switch ($blockType) {
-                case 'header': return new WikiLingo_Expression_Header($blockStart, $content);
+                case 'header':
+                    $count = min(strlen($blockStart->text), 7);
+                    $result = $this->createWikiTag('header', 'h' . $count, $content);
+                    $type = new WikiLingo_Expression_Header($count, $content);
+                    $this->addType($type);
+                    return $result;
+                    break;
             }
         } else if (isset(self::$blocks[$blockStart->text])) {
 	        $blockType = self::$blocks[$blockStart->text];
@@ -1265,16 +1253,16 @@ class WikiLingo extends WikiLingo_Definition
 
         switch ($type) {
             case "inline": $tagOpen .= "/>";
-                return new WikiLingoWYSIWYG_Expression($tagOpen);
+                return new WikiLingo_Expression_Tag($tagOpen);
             case "standard":
                 $tagOpen .= ">";
                 $tagClose = "</" . $tagType . ">";
-                return new WikiLingoWYSIWYG_Expression($tagOpen, $tagClose, $content);
+                return new WikiLingo_Expression_Tag($tagOpen, $tagClose, $content);
             case "open": $tagOpen .= ">";
-                return new WikiLingoWYSIWYG_Expression($tagOpen);
+                return new WikiLingo_Expression_Tag($tagOpen);
             case "close":
                 $tagClose = '</' .$tagType . '>';
-                return new WikiLingoWYSIWYG_Expression($tagClose);
+                return new WikiLingo_Expression_Tag($tagClose);
         }
     }
 
