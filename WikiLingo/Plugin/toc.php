@@ -32,11 +32,26 @@ class WikiLingo_Plugin_toc extends WikiLingo_Plugin_HtmlBase
         foreach ($headers as $key => $header) {
             if ($lastI > -1) {
                 if ($lastI < $header->count) {
-                    $result .= str_repeat("<" . $tagType . ">", $header->count - $lastI);
+                    $difference = $header->count - $lastI;
+
+                    $opening = "<" . $tagType . ">";
+                    $result .= $opening;
+
+                    if ($difference > 1) {
+                        $result .= str_repeat('<li class="empty">' . $opening, $difference - 1);
+                    }
                 }
 
                 if ($lastI > $header->count) {
-                    $result .= str_repeat("</" . $tagType . ">", $lastI - $header->count);
+                    $difference = $lastI - $header->count;
+
+                    $closing = "</" . $tagType . ">";
+
+                    $result .= $closing;
+
+                    if ($difference > 1) {
+                        $result .= str_repeat('</li>' . $closing, $difference - 1);
+                    }
                 }
             }
             $result .= '<li>' . $header->render($parser);

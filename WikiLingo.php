@@ -47,6 +47,8 @@ class WikiLingo extends WikiLingo_Definition
 
     /* list tracking and parser */
     public $list;
+    public $listLast;
+    public $listLastLineNo = 0;
 
     /* autoLink parser */
     public $autoLink;
@@ -121,7 +123,7 @@ class WikiLingo extends WikiLingo_Definition
         }
 
         if (isset($this->Parser->list) == false) {
-            $this->Parser->list = new WikiLingo_Expression_List($this->Parser);
+            //$this->Parser->list = new WikiLingo_Expression_List($this->Parser);
         }
 
         if (isset($this->Parser->hotWords) == false) {
@@ -264,8 +266,6 @@ class WikiLingo extends WikiLingo_Definition
         if ($this->Parser->parseDepth == 0) {
             $this->pcreRecursionLimit = ini_get("pcre.recursion_limit");
             ini_set("pcre.recursion_limit", "524");
-
-            $this->Parser->list->reset();
         }
 
         $input = $input . "≤REAL_EOF≥"; //here we add 2 lines, so the parser doesn't have to do special things to track the first line and last, we remove these when we insert breaks, these are dynamically removed later
@@ -1180,6 +1180,23 @@ class WikiLingo extends WikiLingo_Definition
                     $this->addType($type);
                     return $result;
                     break;
+                case 'list':
+                    $type = new WikiLingo_Expression_List($blockStart, $content);
+
+                    if ($this->listLastLineNo == $blockStart->lineNo - 1) {
+                        $this->listLastLineNo = $blockStart->lineNo;
+
+                        if (isset($this->listLast)) {
+                            $this->listLast->addItem($type);
+                        }
+                        $type = $this->listLast;
+                    } else {
+                        $this->listLast = $type;
+                    }
+                    return $type;
+
+
+                    break;
             }
         } else if (isset(self::$blocks[$blockStart->text])) {
 	        $blockType = self::$blocks[$blockStart->text];
@@ -1189,7 +1206,7 @@ class WikiLingo extends WikiLingo_Definition
 	        }
         }
 
-	    return new WikiLingo_Expression('');
+	    return new WikiLingo_Expression();
     }
 
     /**

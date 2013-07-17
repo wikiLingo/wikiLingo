@@ -3,17 +3,10 @@
 require_once ('index.php');
 
 $original = "
-{toc}
-!Test
-__test__
-!!!Test2
-
-!!!Test3
-{DIV()}
-{flash movie=`//www.youtube.com/v/xH2968yeG6s`}
-{DIV}
-
-!Test 4
+*test1
+**test2
+*test3
+****Test 4
 ";
 
 

@@ -5,9 +5,23 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id: List.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class WikiLingo_Expression_List
+class WikiLingo_Expression_List extends WikiLingo_Expression
 {
-	public $stacks = array();
+    public $blockStart;
+    public $items = array();
+
+    function __construct(&$blockStart, &$content)
+    {
+        $this->items[] = $content;
+        $this->blockStart = $blockStart;
+    }
+
+    function addItem(&$item)
+    {
+        $this->items[] = $item;
+    }
+
+	/*public $stacks = array();
 	public $index = 0;
 	public $lineNumberLast;
 	public $levelLast = 0;
@@ -293,5 +307,5 @@ class WikiLingo_Expression_List
 		}
 
 		return $result;
-	}
+	}*/
 }
