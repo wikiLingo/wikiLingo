@@ -9,17 +9,90 @@ class WikiLingo_Expression_List extends WikiLingo_Expression
 {
     public $blockStart;
     public $items = array();
+	public $type = 'list';
+	public $count = 0;
+	public $listType = '';
+	public $listModifier = '';
+
+	public static $listTypes = array(
+		'+' => "Break",
+		'*' => "Unordered",
+		'#' => "Ordered",
+		';' => "Definition"
+	);
+
+	public $modifierUsed = false;
+	public static $listModifiers = array(
+		'-' => 'Toggle'
+	);
 
     function __construct(&$blockStart, &$content)
     {
-        $this->items[] = $content;
+	    $this->loc = $blockStart->loc;
         $this->blockStart = $blockStart;
+	    $this->text = $content->text;
+	    $len = $this->count = strlen($blockStart->text);
+	    $this->type = self::$listTypes[$blockStart->text{0}];
+	    if (isset(self::$listModifiers[$blockStart->text{$len - 1}])) {
+		    $this->listModifier = self::$listModifiers[$blockStart->text{$len - 1}];
+		    $this->modifierUsed = true;
+		    $this->count--;
+	    }
+	    $this->items[] =& $this;
     }
 
-    function addItem(&$item)
-    {
-        $this->items[] = $item;
-    }
+	function addItem(&$item) {
+		$this->items[] = $item;
+	}
+
+	function render(&$parser)
+	{
+		$result = '';
+		$lastI = -1;
+		$lastType = '';
+		$parentTagTypes = array(
+			"Break" => '',
+			"Unordered" => 'ul',
+			"Ordered" => 'ol',
+			"Definition"
+		);
+		$tagType = 'ul';
+
+		foreach ($this->items as $key => $item) {
+			if ($lastI > -1) {
+				if ($lastI < $item->count) {
+					$difference = $item->count - $lastI;
+
+					$opening = "<" . $tagType . ">";
+					$result .= $opening;
+
+					if ($difference > 1) {
+						$result .= str_repeat('<li class="empty">' . $opening, $difference - 1);
+					}
+				}
+
+				if ($lastI > $item->count) {
+					$difference = $lastI - $item->count;
+
+					$closing = "</" . $tagType . ">";
+
+					$result .= $closing;
+
+					if ($difference > 1) {
+						$result .= str_repeat('</li>' . $closing, $difference - 1);
+					}
+				}
+			}
+			$result .= '<li>' . $item->text->render($parser);
+			if ($key > 0) {
+				$result .= '</li>';
+			}
+			$lastI = $item->count;
+		}
+
+		//$child = new WikiLingo_Expression_Tag('<' . $tagType . '>', '</' . $tagType . '>', $result);
+		return '<ul>' . $result . '</ul>';
+	}
 
 	/*public $stacks = array();
 	public $index = 0;

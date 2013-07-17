@@ -48,7 +48,7 @@ class WikiLingo extends WikiLingo_Definition
     /* list tracking and parser */
     public $list;
     public $listLast;
-    public $listLastLineNo = 0;
+    public $listLastLineNo = -1;
 
     /* autoLink parser */
     public $autoLink;
@@ -1184,16 +1184,13 @@ class WikiLingo extends WikiLingo_Definition
                     $type = new WikiLingo_Expression_List($blockStart, $content);
 
                     if ($this->listLastLineNo == $blockStart->lineNo - 1) {
-                        $this->listLastLineNo = $blockStart->lineNo;
+                        $this->listLast->addItem($type);
 
-                        if (isset($this->listLast)) {
-                            $this->listLast->addItem($type);
-                        }
-                        $type = $this->listLast;
                     } else {
                         $this->listLast = $type;
                     }
-                    return $type;
+                    $this->listLastLineNo = $blockStart->lineNo;
+                    return $this->listLast;
 
 
                     break;
