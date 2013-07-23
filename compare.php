@@ -5,6 +5,7 @@ require_once ('index.php');
 $original = "
 {TABS()}
 {tab title='test'}
+{tab title='test2'}
 {TABS}
 ";
 
@@ -15,9 +16,11 @@ $wikiLingoWYSIWYG = new WikiLingoWYSIWYG();
 $outputWYSIWYG = $wikiLingoWYSIWYG->parse($original);
 
 $wikiLingo
+    ->addCssLocation("http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
     ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
     ->addScriptLocation("ckeditor/ckeditor.js")
     ->addScriptLocation("WikiLingoWYSIWYG/styles.js")
+    ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
     ->addScript("
         CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
         CKEDITOR.config.allowedContent =
@@ -40,6 +43,11 @@ $wikiLingo
             'a[*];' +
             'table tr th td caption;' +
             'del ins';")
+    ->addScript("
+         $(function() {
+             $( \"#tabs\" ).tabs();
+                    });
+                ")
     ->addScript("
         $(function() {
             $('#wysiwygToSource').click(function() {
@@ -73,6 +81,22 @@ $script = $wikiLingo->renderScript();
 <div id="dtsOutput" style="display: none;">
     <h2>WikiLingo to WYSIWYG Html Output and back to WikiLingo Source</h2>
     <pre></pre>
+</div>
+
+<div id="tabs">
+    <ul>
+
+        <li><a href="#tabs-1">First</a></li>
+        <li><a href="#tabs-2">Second</a></li>
+
+    </ul>
+
+    <div id="tabs-1">
+           <p>First</p>
+    </div>
+    <div id="tabs-2">
+           <p>Second</p>
+    </div>
 </div>
 </body>
 </html>

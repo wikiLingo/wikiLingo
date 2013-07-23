@@ -1,6 +1,9 @@
 <?php
 class WikiLingo_Plugin_tab extends WikiLingo_Plugin_HtmlBase
 {
+    public $type = 'tab';
+    public $htmlTagType = 'div';
+
     public function render(&$plugin, &$parser)
     {
         if (isset($plugin->parameters['title'])) {
@@ -10,6 +13,6 @@ class WikiLingo_Plugin_tab extends WikiLingo_Plugin_HtmlBase
             $plugin->parent->parameters['titles'][] = '';
         }
 
-        $var = '';
+        return parent::render($plugin, $parser);
     }
 }

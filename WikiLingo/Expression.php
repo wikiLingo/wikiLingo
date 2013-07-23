@@ -17,15 +17,21 @@ class WikiLingo_Expression extends Jison_ParserValue
 	public function __construct(&$before = null, $after = null, $staticContent = '')
 	{
         if (isset($before)) {
-            $this->stringBefore = $before->text;
-            $this->stringAfter = (isset($after) ? $after->text : '');
-            $this->staticContent = $staticContent;
+            if (isset($before->text)) {
+                $this->stringBefore = $before->text;
+                $this->stringAfter = (isset($after) ? $after->text : '');
 
-            $this->loc = $before->loc;
-            if (isset($after)) {
-                $this->loc->lastColumn = $after->loc->lastColumn;
-                $this->loc->lastLine = $after->loc->lastLine;
+                $this->loc = $before->loc;
+                if (isset($after)) {
+                    $this->loc->lastColumn = $after->loc->lastColumn;
+                    $this->loc->lastLine = $after->loc->lastLine;
+                }
+            } else {
+                $this->stringBefore = $before;
+                $this->stringAfter = (isset($after) ? $after : '');
             }
+
+            $this->staticContent = $staticContent;
         }
 	}
 
