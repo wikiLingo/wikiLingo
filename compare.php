@@ -3,10 +3,9 @@
 require_once ('index.php');
 
 $original = "
-*test1
-**test2
-*test3
-****Test 4
+{TABS()}
+{tab title='test'}
+{TABS}
 ";
 
 

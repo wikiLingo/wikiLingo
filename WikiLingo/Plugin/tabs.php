@@ -5,6 +5,8 @@ class WikiLingo_Plugin_tabs extends WikiLingo_Plugin_HtmlBase
 
     public function render(&$plugin, &$parser)
     {
+        $plugin->parameters['titles'] = array();
+
         $this->paramDefaults($plugin->parameters);
 
         $output = <<<output
@@ -12,15 +14,11 @@ class WikiLingo_Plugin_tabs extends WikiLingo_Plugin_HtmlBase
 
 output;
 
-        //add a js src to the page like this: $parser->addScriptLocation("location");
-        //add js to the page like this: $parser->addScript("location");
-        //add css to the page like this: $parser->addCssLocation("location");
-        //split content by "/////"
-        $child = new WikiLingo_Expression();
-        $child->staticContent = $output;
-        $plugin->body->addChild($child);
 
-        return parent::render($plugin, $parser);
+
+        $parsed = parent::render($plugin, $parser);
+
+        return $parsed;
     }
 }
 
