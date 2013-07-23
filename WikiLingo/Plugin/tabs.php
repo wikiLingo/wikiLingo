@@ -9,11 +9,7 @@ class WikiLingo_Plugin_tabs extends WikiLingo_Plugin_HtmlBase
 
         $this->paramDefaults($plugin->parameters);
 
-        $output = <<<output
-    <html lang="en">
-
-output;
-
+      
 
 
         $parsed = parent::render($plugin, $parser);
