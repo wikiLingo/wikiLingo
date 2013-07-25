@@ -109,7 +109,7 @@ case 4:
             this.$ = $$[$0];
 
         /*php
-            this.$ = $$[$0]->text;
+            this.$ = $$[$0];
         */
     
 break;
@@ -118,7 +118,7 @@ case 5:
             this.$ = $$[$0-1] + $$[$0];
 
         /*php
-            this.$ = $$[$0-1]->text->addSibling($$[$0]);
+            this.$ = $$[$0-1]->addSibling($$[$0]);
         */
     
 break;
@@ -127,7 +127,7 @@ case 6:
             this.$ = $$[$0];
 
         /*php
-            this.$ = $$[$0]->text;
+            this.$ = $$[$0];
         */
     
 break;
@@ -154,7 +154,7 @@ case 11:
 	        this.$ = $$[$0];
 
 	    /*php
-	        this.$ = $$[$0]->text;
+	        this.$ = $$[$0];
 	    */
 	
 break;
@@ -163,9 +163,7 @@ case 12:
 		    this.$ = $$[$0-1] + $$[$0];
 
 		/*php
-			if (isset($$[$0]->text)) {
-		        this.$ = $$[$0-1]->text->addSibling($$[$0]);
-		    }
+			this.$ = $$[$0-1]->addSibling($$[$0]);
         */
 	
 break;
@@ -372,7 +370,7 @@ case 65:
 		    this.$ = parser.link($$[$0-2]['type'], $$[$0-1]);
 
 		/*php
-		    this.$ = this->link($$[$0-2]->text['type'], $$[$0-1]);
+		    this.$ = this->link($$[$0-2]->type, $$[$0-1]);
         */
 	
 break;

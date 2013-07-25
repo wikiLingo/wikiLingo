@@ -1,6 +1,9 @@
 <?php
 
-class WikiLingo_Plugin_toc extends WikiLingo_Plugin_HtmlBase
+namespace WikiLingo\Plugin;
+use WikiLingo;
+
+class toc extends WikiLingo\Plugin\HtmlBase
 {
 	public $type = 'toc';
     public static $ordered = true;
@@ -61,7 +64,7 @@ class WikiLingo_Plugin_toc extends WikiLingo_Plugin_HtmlBase
             $lastI = $header->count;
         }
 
-        $child = new WikiLingo_Expression_Tag('<' . $tagType . '>', '</' . $tagType . '>', $result);
+        $child = new WikiLingo\Expression\Tag('<' . $tagType . '>', '</' . $tagType . '>', $result);
         $plugin->body = $child;
         $result = parent::render($plugin, $parser);
         return $result;

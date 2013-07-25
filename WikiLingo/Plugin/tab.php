@@ -1,5 +1,9 @@
 <?php
-class WikiLingo_Plugin_tab extends WikiLingo_Plugin_HtmlBase
+
+namespace WikiLingo\Plugin;
+use WikiLingo;
+
+class tab extends WikiLingo\Plugin\HtmlBase
 {
     public $type = 'tab';
     public $htmlTagType = 'div';

@@ -1,6 +1,7 @@
 <?php
+namespace WikiLingo;
 
-class WikiLingo_PluginAlias
+class PluginAlias
 {
 	static public function info( $name )
 	{

@@ -1,6 +1,6 @@
-//phpOption parserClass:WikiLingoWYSIWYG_DTS_Definition
-//phpOption fileName:Definition.php
-//phpOption usingZend:true
+//option namespace:WikiLingoWYSIWYG\DTS
+//option class:Definition
+//option fileName:Definition.php
 
 //Lexical Grammar
 %lex

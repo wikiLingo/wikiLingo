@@ -1,6 +1,6 @@
-//phpOption parserClass:WikiLingo_Definition
-//phpOption fileName:Definition.php
-//phpOption usingZend:true
+//option namespace:WikiLingo
+//option class:Definition
+//option fileName:Definition.php
 
 //Lexical Grammer
 %lex
@@ -992,7 +992,7 @@ lines
             $$ = $1;
 
         /*php
-            $$ = $1->text;
+            $$ = $1;
         */
     }
  | lines line
@@ -1001,7 +1001,7 @@ lines
             $$ = $1 + $2;
 
         /*php
-            $$ = $1->text->addSibling($2);
+            $$ = $1->addSibling($2);
         */
     }
  ;
@@ -1013,7 +1013,7 @@ line
             $$ = $1;
 
         /*php
-            $$ = $1->text;
+            $$ = $1;
         */
     }
  | PRE_BLOCK_START BLOCK_START BLOCK_END
@@ -1045,7 +1045,7 @@ contents
 	        $$ = $1;
 
 	    /*php
-	        $$ = $1->text;
+	        $$ = $1;
 	    */
 	}
  | contents content
@@ -1054,9 +1054,7 @@ contents
 		    $$ = $1 + $2;
 
 		/*php
-			if (isset($2->text)) {
-		        $$ = $1->text->addSibling($2);
-		    }
+			$$ = $1->addSibling($2);
         */
 	}
  ;
@@ -1296,7 +1294,7 @@ content
 		    $$ = parser.link($1['type'], $2);
 
 		/*php
-		    $$ = $this->link($1->text['type'], $2);
+		    $$ = $this->link($1->type, $2);
         */
 	}
  | WIKI_LINK

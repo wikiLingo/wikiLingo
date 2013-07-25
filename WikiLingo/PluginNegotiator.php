@@ -1,11 +1,9 @@
 <?php
-// (c) Copyright 2002-2013 by authors of the Tiki Wiki CMS Groupware Project
-//
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id: PluginNegotiator.php 44849 2013-02-08 18:41:20Z lphuberdeau $
 
-class WikiLingo_PluginNegotiator
+namespace WikiLingo;
+use WikiLingo;
+
+class PluginNegotiator
 {
 	public $plugin;
 	public $info;
@@ -43,8 +41,8 @@ class WikiLingo_PluginNegotiator
 		$this->page = & $parser->page;
 		$this->prefs = & $parser->prefs;
 		$this->parserOption = & $parser->option;
-		$this->parameterParser = new WikiLingo_Parameters();
-		$this->alias = new WikiLingo_PluginAlias();
+		$this->parameterParser = new Parameters();
+		$this->alias = new PluginAlias();
 	}
 
 	public function setPlugin(&$plugin)
@@ -233,11 +231,11 @@ class WikiLingo_PluginNegotiator
 		}
 
 		if ( $includeReal && $includeAlias ) {
-			$plugins = array_merge($real, WikiLingo_PluginAlias::getList());
+			$plugins = array_merge($real, PluginAlias::getList());
 		} elseif ( $includeReal ) {
 			$plugins = $real;
 		} elseif ( $includeAlias ) {
-			$plugins = WikiLingo_PluginAlias::getList();
+			$plugins = PluginAlias::getList();
 		} else {
 			$plugins = array();
 		}

@@ -1,11 +1,9 @@
 <?php
-// (c) Copyright 2002-2013 by authors of the Tiki Wiki CMS Groupware Project
-// 
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id: textlinkbutton.php 44444 2013-01-05 21:24:24Z changi67 $
 
-class WikiPlugin_textlinkbutton extends WikiLingo_Plugin_HtmlBase
+namespace WikiLingo\Plugin;
+use WikiLingo;
+
+class textlinkbutton extends WikiLingo\Plugin\HtmlBase
 {
 	public $type = 'textlinkbutton';
 	public $documentation = '';

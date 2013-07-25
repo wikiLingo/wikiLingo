@@ -1,8 +1,11 @@
 <?php
-class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
+
+namespace WikiLingoWYSIWYG;
+use WikiLingoWYSIWYG;
+
+class DTS extends WikiLingoWYSIWYG\DTS\Definition
 {
 	public $parsing = false;
-	public $parseDepth = 0;
 	private $parserDebug = true;
 	private $lexerDebug = true;
 
@@ -57,28 +60,20 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 		die;
 	}
 */
-	public function __construct(&$Parser = null)
+	public function __construct()
 	{
-		if (empty($Parser)) {
-			$this->Parser = &$this;
-		} else {
-			$this->Parser = &$Parser;
-		}
-
 		parent::__construct();
 	}
 
 	public function preParse(&$input)
 	{
-		if ($this->Parser->parseDepth == 0) {
-			$this->Parser->typeIndex = array();
-			$this->Parser->typeStack = array();
-			$this->Parser->type = array();
-			$this->Parser->lastBlockWasFrom = '';
-			$this->Parser->firstLineType = '';
-			$this->Parser->firstLineHandled = false;
-			$this->Parser->processedTypeStack = array();
-		}
+        $this->typeIndex = array();
+        $this->typeStack = array();
+        $this->type = array();
+        $this->lastBlockWasFrom = '';
+        $this->firstLineType = '';
+        $this->firstLineHandled = false;
+        $this->processedTypeStack = array();
 
 		$this->htmlElementStack = array();
 		$this->htmlElementStackCount = array();
@@ -92,23 +87,11 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 			return $input;
 		}
 
-		if ($this->parsing == true) {
-			$class = get_class($this->Parser);
-			$parser = new $class($this->Parser);
-			$output = $parser->parse($input)->text;
-			unset($parser);
-		} else {
-			$this->parsing = true;
-
-			$this->preParse($input);
-
-			$this->Parser->parseDepth++;
-			$output = parent::parse($input)->text;
-			$this->Parser->parseDepth--;
-
-			$this->parsing = false;
-			$this->postParse($output);
-		}
+        $this->parsing = true;
+        $this->preParse($input);
+        $output = parent::parse($input)->text;
+        $this->parsing = false;
+        $this->postParse($output);
 
 		return $output;
 	}
@@ -119,19 +102,18 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 		 * it is also valid, but treated and restored as with "\n" just before it, here we remove that extra "\n" but
 		 * only if we are a block, which are determined from $this->blockChars
 		*/
-		$output = $output->render($this->Parser);
-		if ($this->Parser->parseDepth == 0) {
-			$output = str_replace('~REAL_BLOCK~', "\n", $output);
-			$output = str_replace('~REAL_NEW_LINE~', "\n", $output);
+		$output = $output->render($this);
+        $output = str_replace('~REAL_BLOCK~', "\n", $output);
+        $output = str_replace('~REAL_NEW_LINE~', "\n", $output);
 
-			if ($this->Parser->firstLineType == 'block' && $this->isStaticTag == false) {
-				foreach($this->blockSyntax as $syntax) {
-					if (strpos($output, $syntax) === 0) {
-						$output = substr($output, 1); //we only want to get rid of "\n", not the whole syntax
-					}
-				}
-			}
-		}
+        if ($this->firstLineType == 'block' && $this->isStaticTag == false) {
+            foreach($this->blockSyntax as $syntax) {
+                if (strpos($output, $syntax) === 0) {
+                    $output = substr($output, 1); //we only want to get rid of "\n", not the whole syntax
+                }
+            }
+        }
+
 	}
 
 	function isStaticTag($isStaticTag)
@@ -160,8 +142,8 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 			return '';
 		}
 
-		if ($this->Parser->lastBlockWasFrom == 'block') {
-			$this->Parser->lastBlockWasFrom = '';
+		if ($this->lastBlockWasFrom == 'block') {
+			$this->lastBlockWasFrom = '';
 			return "\n";
 		}
 		return "";
@@ -169,25 +151,25 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 
 	public function stashStatic($whatToStash, $id)
 	{
-		if (!isset($this->Parser->stash[$id])) {
-			$this->Parser->stash[$id] = array();
+		if (!isset($this->stash[$id])) {
+			$this->stash[$id] = array();
 		}
 
-		$this->Parser->stash[$id][] = $whatToStash;
+		$this->stash[$id][] = $whatToStash;
 	}
 
 	public function replaceStashStatic($array = array(), $id)
 	{
-		$this->Parser->stash[$id] = $array;
+		$this->stash[$id] = $array;
 	}
 
 	public function unStashStatic($id)
 	{
 		$stash = array();
 
-		if (isset($this->Parser->stash[$id])) {
-			$stash = $this->Parser->stash[$id];
-			unset($this->Parser->stash[$id]);
+		if (isset($this->stash[$id])) {
+			$stash = $this->stash[$id];
+			unset($this->stash[$id]);
 		}
 
 		return (isset($stash) ? $stash : array());
@@ -210,7 +192,7 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 
 	public function typeDepth($type)
 	{
-		return (isset($this->Parser->typeStack[$type]) ? $this->Parser->typeStack[$type] : -1);
+		return (isset($this->typeStack[$type]) ? $this->typeStack[$type] : -1);
 	}
 
 	public function stackHtmlElement($tag)
@@ -236,7 +218,7 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 		$element->close = $ending;
 
 		if (!empty($element->type)) {
-			array_pop($this->Parser->typeIndex);
+			array_pop($this->typeIndex);
 		}
 
 		return $element;
@@ -244,41 +226,40 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 
     public function elementFromString(&$tag, $closed = false)
     {
-        return new WikiLingoWYSIWYG_DTS_Element($tag, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
+        return new WikiLingoWYSIWYG\DTS\Element($tag, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
     }
 
 	public function element(&$tag, $closed = false)
 	{
-		return new WikiLingoWYSIWYG_DTS_Element($tag->text, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
+		return new WikiLingoWYSIWYG\DTS\Element($tag->text, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
 	}
 
 	public function inlineElement(&$tag)
 	{
-		return new WikiLingoWYSIWYG_DTS_Element($tag->text, $this->htmlElementStackCount, 'inline');
+		return new WikiLingoWYSIWYG\DTS\Element($tag->text, $this->htmlElementStackCount, 'inline');
 	}
 
 	public function blockStart()
 	{
 		if (
-			$this->Parser->lastBlockWasFrom == 'newLine' &&
+			$this->lastBlockWasFrom == 'newLine' &&
 			$this->lastParsedType() == ''
 		) {
-			$this->Parser->lastBlockWasFrom = 'block';
-			$this->Parser->firstLineHandled = true;
+			$this->lastBlockWasFrom = 'block';
+			$this->firstLineHandled = true;
 			return '';
 		}
 
-		if (empty($this->Parser->firstLineType)) {
-			$this->Parser->firstLineType = 'block';
+		if (empty($this->firstLineType)) {
+			$this->firstLineType = 'block';
 		}
 
 		if (
 			(
-				$this->Parser->parseDepth == 1 &&
-				$this->Parser->firstLineHandled == false
+				$this->firstLineHandled == false
 			)
 		) {
-			$this->Parser->firstLineHandled = true;
+			$this->firstLineHandled = true;
 			return '';
 		}
 		return "~REAL_BLOCK~";
@@ -286,8 +267,8 @@ class WikiLingoWYSIWYG_DTS extends WikiLingoWYSIWYG_DTS_Definition
 
 	public function lastParsedType()
 	{
-		if (isset($this->Parser->processedTypeStack[count($this->Parser->processedTypeStack) - 1])) {
-			return $this->Parser->processedTypeStack[count($this->Parser->processedTypeStack) - 1];
+		if (isset($this->processedTypeStack[count($this->processedTypeStack) - 1])) {
+			return $this->processedTypeStack[count($this->processedTypeStack) - 1];
 		}
 		return '';
 	}

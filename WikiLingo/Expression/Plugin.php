@@ -1,6 +1,9 @@
 <?php
 
-class WikiLingo_Expression_Plugin extends WikiLingo_Expression
+namespace WikiLingo\Expression;
+use WikiLingo;
+
+class Plugin extends WikiLingo\Expression
 {
     public $name;
     public $parameters = array(); //parameters are server side
@@ -23,7 +26,7 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
     function __construct($name, $parameters, $closing, $body = null, $bodySyntax = null, $syntax)
     {
         if (!isset(self::$parametersParser)) {
-            self::$parametersParser = new WikiLingo_Parameters();
+            self::$parametersParser = new WikiLingo\Parameters();
         }
 
         $this->name = $name = strtolower(substr($name, 1));
@@ -32,7 +35,7 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
             $this->name = $name = strtolower(substr($name, 0, -1));
         }
 
-        $this->className = 'WikiLingo_Plugin_' . $name;
+        $this->className = $name;
 	    $this->exists = class_exists($this->className);
         $this->index = self::incrementPluginIndex($name);
         $this->key = '§' . md5('plugin:' . $name . '_' . $this->index) . '§';
@@ -54,12 +57,12 @@ class WikiLingo_Expression_Plugin extends WikiLingo_Expression
         $this->ignored = false;
 
         if ($this->exists == true) {
-            if (empty(WikiLingo_PluginNegotiator::$pluginInstances[$this->className])) {
-                WikiLingo_PluginNegotiator::$pluginInstances[$this->className] = new $this->className;
+            if (empty(WikiLingo\PluginNegotiator::$pluginInstances[$this->className])) {
+                WikiLingo\PluginNegotiator::$pluginInstances[$this->className] = new $this->className;
             }
-            $this->class = WikiLingo_PluginNegotiator::$pluginInstances[$this->className];
-        } else if (WikiLingo_PluginNegotiator::injectedExists() == true) {
-            $this->class = WikiLingo_PluginNegotiator::$pluginInstances[$this->name];
+            $this->class = WikiLingo\PluginNegotiator::$pluginInstances[$this->className];
+        } else if (WikiLingo\PluginNegotiator::injectedExists() == true) {
+            $this->class = WikiLingo\PluginNegotiator::$pluginInstances[$this->name];
         } else {
             $this->class = null;
         }

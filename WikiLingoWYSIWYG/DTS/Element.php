@@ -1,6 +1,10 @@
 <?php
 
-class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
+namespace WikiLingoWYSIWYG\DTS;
+use WikiLingoWYSIWYG;
+use WikiLingo;
+
+class Element extends WikiLingo\Expression
 {
 	public $name;
 	public $attributes;
@@ -40,16 +44,16 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
 		$result = '';
 
-		if (!isset($this->Parser->typeStack[$this->type])) {
-			$this->Parser->typeStack[$this->type] = 0;
+		if (!isset($this->typeStack[$this->type])) {
+			$this->typeStack[$this->type] = 0;
 		}
-		$this->Parser->typeStack[$this->type]++;
+		$this->typeStack[$this->type]++;
 
 
-		if (!isset($this->Parser->typeIndex[$this->type])) {
-			$this->Parser->typeIndex[$this->type] = 0;
+		if (!isset($this->typeIndex[$this->type])) {
+			$this->typeIndex[$this->type] = 0;
 		}
-		$this->Parser->typeIndex[$this->type]++;
+		$this->typeIndex[$this->type]++;
 
 		switch($this->type)
 		{
@@ -338,7 +342,7 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
         $result .= $this->renderSiblings($parser);
 
-		$this->Parser->typeStack[$this->type]--;
+		$this->typeStack[$this->type]--;
 
 		return $result;
 	}
@@ -369,8 +373,8 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
 	private function blockSyntax($open, $contents, $parse = true)
 	{
-		$this->Parser->processedTypeStack[] = $this->type;
-		$this->Parser->firstLineHandled = true;
+		$this->processedTypeStack[] = $this->type;
+		$this->firstLineHandled = true;
 		if ($parse == true) {
 			$contents = $this->parse($contents);
 		}
@@ -455,15 +459,15 @@ class WikiLingoWYSIWYG_DTS_Element extends WikiLingo_Expression
 
     private function syntax($contents)
     {
-        $this->Parser->processedTypeStack[] = $this->type;
-        $this->Parser->firstLineHandled = true;
+        $this->processedTypeStack[] = $this->type;
+        $this->firstLineHandled = true;
         return $this->preNonBlock() . $contents;
     }
 
     private function statedSyntax($tag, $open, $contents, $close, $parse = true)
     {
-        $this->Parser->processedTypeStack[] = $tag->type;
-        $this->Parser->firstLineHandled = true;
+        $this->processedTypeStack[] = $tag->type;
+        $this->firstLineHandled = true;
         if ($parse == true) {
             $contents = $this->parse($contents);
         }

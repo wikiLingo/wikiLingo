@@ -1,5 +1,9 @@
 <?php
-class WikiLingo_Plugin_flash extends WikiLingo_Plugin_HtmlBase
+
+namespace WikiLingo\Plugin;
+use WikiLingo;
+
+class flash extends WikiLingo\Plugin\HtmlBase
 
 {
 

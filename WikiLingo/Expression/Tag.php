@@ -1,5 +1,9 @@
 <?php
-class WikiLingo_Expression_Tag extends WikiLingo_Expression
+
+namespace WikiLingo\Expression;
+use WikiLingo;
+
+class Tag extends WikiLingo\Expression
 {
     public $hasChildren = false;
 

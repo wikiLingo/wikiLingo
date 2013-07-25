@@ -1,7 +1,6 @@
-
-//phpOption parserClass:WikiLingo_Parameters_Definition
-//phpOption fileName:Definition.php
-//phpOption usingZend:true
+//option namespace:WikiLingo\Parameters
+//option class:Definition
+//option fileName:Definition.php
 
 
 //Lexical Grammar
