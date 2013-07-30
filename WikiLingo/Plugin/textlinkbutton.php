@@ -1,9 +1,7 @@
 <?php
-
 namespace WikiLingo\Plugin;
-use WikiLingo;
 
-class textlinkbutton extends WikiLingo\Plugin\HtmlBase
+class textlinkbutton extends HtmlBase
 {
 	public $type = 'textlinkbutton';
 	public $documentation = '';

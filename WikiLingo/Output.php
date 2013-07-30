@@ -1,10 +1,15 @@
 <?php
 
 namespace WikiLingo;
-use WikiLingo;
 
 class Output
 {
+
+	public $parser;
+	function __construct(&$parser)
+	{
+		$this->parser = $parser;
+	}
 
     public $disposable = false;
 
@@ -92,4 +97,9 @@ class Output
         $this->disposable = true;
         return $this;
     }
+
+	public function render($parsed)
+	{
+		return $parsed;
+	}
 }

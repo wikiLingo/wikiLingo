@@ -1,6 +1,8 @@
 //option namespace:WikiLingo
 //option class:Definition
 //option fileName:Definition.php
+//option extends:Base
+//option parserValue:Parsed
 
 //Lexical Grammer
 %lex
@@ -967,7 +969,7 @@ wiki
  | lines EOF
 	{
 	    //js
-		    return $1 + $2;
+		    return $1;
 
 		/*php
 		    return $1;
@@ -1001,28 +1003,21 @@ lines
             $$ = $1 + $2;
 
         /*php
-            $$ = $1->addSibling($2);
+            $1->addLine($2);
         */
     }
  ;
 
 line
  : contents
-    {
-        //js
-            $$ = $1;
-
-        /*php
-            $$ = $1;
-        */
-    }
  | PRE_BLOCK_START BLOCK_START BLOCK_END
     {
 	    //js
 	    $$ = parser.block($2);
 
 	    /*php
-	        $$ = $this->block($2);
+	        $1->setType('Block');
+	        $1->setOption('Empty', 'true');
         */
 	}
  | PRE_BLOCK_START BLOCK_START contents BLOCK_END
@@ -1031,7 +1026,14 @@ line
             $$ = parser.block($2 + $3);
 
         /*php
-            $$ = $this->block($2, $3);
+            $$type = $1;
+            $$type->setType('Block');
+            $$type->addArgument($2);
+            $$type->addArgument($3);
+
+            $$typeChild =& $3;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
     }
  | PRE_BLOCK_START BLOCK_START
@@ -1040,21 +1042,13 @@ line
 
 contents
  : content
-	{
-	    //js
-	        $$ = $1;
-
-	    /*php
-	        $$ = $1;
-	    */
-	}
  | contents content
 	{
 		//js
 		    $$ = $1 + $2;
 
 		/*php
-			$$ = $1->addSibling($2);
+			$1->addContent($2);
         */
 	}
  ;
@@ -1066,7 +1060,7 @@ content
 	        $$ = $1;
 
 	    /*php
-	        $$ = $this->content($1);
+	        $1->setType('Content');
 	    */
 	}
  | COMMENT
@@ -1075,7 +1069,7 @@ content
             $$ = parser.comment($1);
 
         /*php
-            $$ = $this->comment($1);
+            $1->setType('Comment');
         */
     }
  | NO_PARSE_START
@@ -1086,7 +1080,11 @@ content
             $$ = parser.noParse($2);
 
         /*php
-            $$ = $this->noParse($2);
+            $$type =& $1;
+            $$type->setType('NoParse');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
     }
  | PREFORMATTED_TEXT_START
@@ -1097,7 +1095,11 @@ content
             $$ = parser.preFormattedText($2);
 
         /*php
-            $$ = $this->preFormattedText($2);
+            $$type =& $1;
+            $$type->setType('PreFormattedText');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
     }
  | DOUBLE_DYNAMIC_VAR
@@ -1106,7 +1108,9 @@ content
             $$ = parser.doubleDynamicVar($1);
 
         /*php
-            $$ = $this->doubleDynamicVar($1);
+            $$type =& $1;
+            $$type->setType('DynamicVariable');
+            $$type->setOption('Double', true);
         */
     }
  | SINGLE_DYNAMIC_VAR
@@ -1115,7 +1119,7 @@ content
             $$ = parser.singleDynamicVar($1);
 
         /*php
-            $$ = $this->singleDynamicVar($1);
+            $1->setType('DynamicVariable');
         */
      }
  | ARGUMENT_VAR
@@ -1124,7 +1128,7 @@ content
             $$ = parser.argumentVar($1);
 
         /*php
-            $$ = $this->argumentVar($1);
+            $1->setType('ArgumentVariable');
         */
     }
  | HTML_TAG
@@ -1133,7 +1137,7 @@ content
             $$ = parser.htmlTag($1);
 
         /*php
-            $$ = $this->htmlTag($1);
+            $1->setType('Tag');
         */
     }
  | HORIZONTAL_BAR
@@ -1142,7 +1146,7 @@ content
 		    $$ = parser.hr();
 
 		/*php
-		    $$ = $this->hr();
+		    $1->setType('Row');
         */
 	}
  | BOLD_START
@@ -1153,7 +1157,11 @@ content
 		    $$ = parser.bold($2);
 
 		/*php
-		    $$ = $this->bold($2);
+		    $$type =& $1;
+            $$type->setType('Bold');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | BOX_START
@@ -1164,7 +1172,11 @@ content
 		    $$ = parser.box($2);
 
 		/*php
-		    $$ = $this->box($2);
+		    $$type =& $1;
+            $$type->setType('Box');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | CENTER_START
@@ -1175,7 +1187,11 @@ content
 		    $$ = parser.center($2);
 
 		/*php
-		    $$ = $this->center($2);
+		    $$type =& $1;
+            $$type->setType('Center');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | CODE_START
@@ -1186,7 +1202,11 @@ content
 		    $$ = parser.code($2);
 
 		/*php
-		    $$ = $this->code($2);
+		    $$type =& $1;
+            $$type->setType('Code');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | COLOR_START
@@ -1197,7 +1217,11 @@ content
 		    $$ = parser.color($2);
 
 		/*php
-		    $$ = $this->color($2);
+		    $$type =& $1;
+            $$type->setType('Color');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | ITALIC_START
@@ -1208,7 +1232,11 @@ content
 		    $$ = parser.italic($2);
 
 		/*php
-		    $$ = $this->italic($2);
+		    $$type =& $1;
+            $$type->setType('Italic');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | UNLINK_START
@@ -1219,7 +1247,11 @@ content
 		    $$ = parser.unlink($1 + $2 + $3);
 
 		/*php
-		    $$ = $this->unlink($1, $2, $3);
+		    $$type =& $1;
+            $$type->setType('Unlink');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | LINK_START
@@ -1230,7 +1262,12 @@ content
 		    $$ = parser.link($1, $2);
 
 		/*php
-		    $$ = $this->link($1, $2);
+		    //type already set
+
+		    $$type =& $1;
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | STRIKE_START
@@ -1241,7 +1278,11 @@ content
 		    $$ = parser.strike($2);
 
 		/*php
-		    $$ = $this->strike($2);
+		    $$type =& $1;
+            $$type->setType('Strike');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | DOUBLE_DASH
@@ -1250,7 +1291,7 @@ content
             $$ = parser.doubleDash();
 
         /*php
-            $$ = $this->doubleDash();
+            $1->setType('DoubleDash');
         */
     }
  | TABLE_START
@@ -1261,7 +1302,11 @@ content
 		    $$ = parser.tableParser($2);
 
 		/*php
-		    $$ = $this->tableParser($2);
+		    $$type =& $1;
+            $$type->setType('Table');
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | TITLE_BAR_START
@@ -1272,7 +1317,11 @@ content
 		    $$ = parser.titleBar($2);
 
 		/*php
-		    $$ = $this->titleBar($2);
+			$$type =& $1;
+			$$type->setType('TitleBar');
+			$$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | UNDERSCORE_START
@@ -1283,7 +1332,12 @@ content
 		    $$ = parser.underscore($2);
 
 		/*php
-		    $$ = $this->underscore($2);
+		    $$type =& $1;
+		    $$type->setType('Underscore');
+
+		    $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
         */
 	}
  | WIKI_LINK_START
@@ -1294,7 +1348,11 @@ content
 		    $$ = parser.link($1['type'], $2);
 
 		/*php
-		    $$ = $this->link($1->type, $2);
+			//Type already set
+			$$type =& $1;
+			$$typeChild =& $2;
+			$$typeChild->setParent($$type);
+			$$type->addChild($$typeChild);
         */
 	}
  | WIKI_LINK
@@ -1303,7 +1361,10 @@ content
             $$ = parser.link('word', $1);
 
         /*php
-            $$ = $this->link('word', $1);
+            $$type =& $1;
+            $$type->setType('WordLink');
+            $$type->addArgument($1);
+
         */
     }
  | INLINE_PLUGIN_START
@@ -1313,7 +1374,11 @@ content
  		    $$ = parser.plugin($1, $2);
 
  		/*php
- 		    $$ = $this->plugin($1, $2);
+ 		    $$type =& $1;
+ 		    $$type->setType('Plugin');
+            $$type->setOption('NoBody', true);
+            $$type->setOption('Inline', true);
+            $$type->addArgument($2);
         */
  	}
  | PLUGIN_START PLUGIN_PARAMETERS contents PLUGIN_END
@@ -1322,7 +1387,13 @@ content
  		    $$ = parser.plugin($1, $2, $3, $4);
 
  		/*php
- 		    $$ = $this->plugin($1, $2, $4, $3);
+ 		    $$type =& $1;
+ 		    $$type->setType('Plugin');
+ 		    $$type->addArgument($2);
+
+ 		    $$typeChild = $3;
+ 		    $$typeChild->setParent($$type);
+ 		    $$type->addChild($$typeChild);
         */
  	}
  | PLUGIN_START PLUGIN_PARAMETERS PLUGIN_END
@@ -1332,7 +1403,10 @@ content
             $$ = parser.plugin($1);
 
         /*php
-            $$ = $this->plugin($1, $2, $3);
+            $$type =& $1;
+            $$type->setType('Plugin');
+            $$type->addArgument($2);
+            $$type->addArgument($3);
         */
      }
  | PLUGIN_START PLUGIN_PARAMETERS
@@ -1343,7 +1417,7 @@ content
             $$ = parser.line($1);
 
         /*php
-            $$ = $this->line($1);
+            $1->setType('Line');
         */
     }
  | FORCED_LINE_END
@@ -1352,7 +1426,7 @@ content
             $$ = parser.forcedLineEnd();
 
         /*php
-            $$ = $this->forcedLineEnd();
+            $1->setType('ForcedLine');
         */
     }
  | CHAR
@@ -1361,7 +1435,7 @@ content
             $$ = parser.char($1);
 
         /*php
-            $$ = $this->char($1);
+            $1->setType('Char');
         */
     }
  ;

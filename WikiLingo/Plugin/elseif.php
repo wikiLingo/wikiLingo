@@ -1,9 +1,7 @@
 <?php
-
 namespace WikiLingo\Plugin;
-use WikiLingo;
 
-class _elseif_ extends WikiLingo\Plugin\Base
+class _elseif_ extends Base
 {
 
 }

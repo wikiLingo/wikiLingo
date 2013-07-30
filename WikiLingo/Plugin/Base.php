@@ -1,6 +1,5 @@
 <?php
 namespace WikiLingo\Plugin;
-use WikiLingo;
 
 abstract class Base
 {
@@ -36,7 +35,7 @@ abstract class Base
         if (isset($plugin->parent)) {
             return $plugin->parent;
         } else {
-            return new WikiLingo\Expression();
+            return null;
         }
     }
 

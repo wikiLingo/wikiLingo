@@ -3,7 +3,7 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
-class DynamicVariables
+class DynamicVariable extends Base
 {
 	public $parser;
 	static $dynamicVariables = array();

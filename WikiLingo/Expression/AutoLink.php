@@ -3,7 +3,7 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
-class AutoLink extends WikiLingo\Expression
+class AutoLink extends Base
 {
 	public $parser;
 	public $text;

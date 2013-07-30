@@ -1,9 +1,7 @@
 <?php
-
 namespace WikiLingo\Plugin;
-use WikiLingo;
 
-class gmaps extends WikiLingo\Plugin\HtmlBase
+class gmaps extends HtmlBase
 {
     public $type = 'gmaps';
     public $hasHtmlBody = false;

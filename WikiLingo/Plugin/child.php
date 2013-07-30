@@ -1,9 +1,7 @@
 <?php
-
 namespace WikiLingo\Plugin;
-use WikiLingo;
 
-class child extends WikiLingo\Plugin\HtmlBase
+class child extends HtmlBase
 {
     public function render(&$plugin, &$parser)
     {

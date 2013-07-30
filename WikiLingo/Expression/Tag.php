@@ -3,7 +3,7 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
-class Tag extends WikiLingo\Expression
+class Tag extends Base
 {
     public $hasChildren = false;
 

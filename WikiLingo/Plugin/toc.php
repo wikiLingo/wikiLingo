@@ -1,9 +1,8 @@
 <?php
-
 namespace WikiLingo\Plugin;
 use WikiLingo;
 
-class toc extends WikiLingo\Plugin\HtmlBase
+class toc extends HtmlBase
 {
 	public $type = 'toc';
     public static $ordered = true;

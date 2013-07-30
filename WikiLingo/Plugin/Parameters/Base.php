@@ -1,9 +1,8 @@
 <?php
 
-namespace WikiLingo;
-use WikiLingo;
+namespace WikiLingo\Plugin\Parameters;
 
-class Parameters extends WikiLingo\Parameters\Definition
+class Base
 {
     public $parameters = array();
 

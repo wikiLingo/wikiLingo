@@ -1,9 +1,9 @@
 <?php
-
 namespace WikiLingo\Expression;
+
 use WikiLingo;
 
-class Plugin extends WikiLingo\Expression
+class Plugin
 {
     public $name;
     public $parameters = array(); //parameters are server side
@@ -23,10 +23,16 @@ class Plugin extends WikiLingo\Expression
     public static $parametersParser;
     public static $indexes = array();
 
-    function __construct($name, $parameters, $closing, $body = null, $bodySyntax = null, $syntax)
+    function __construct(\WikiLingo\Parsed &$parsed)
     {
+	    $name = $parsed->text;
+	    $parameters = $parsed->arguments[0]->text;
+	    $body = $parsed->children;
+	    $bodySyntax = '';
+	    $syntax = '';
+
         if (!isset(self::$parametersParser)) {
-            self::$parametersParser = new WikiLingo\Parameters();
+            self::$parametersParser = new \WikiLingo\Plugin\Parameters\Definition();
         }
 
         $this->name = $name = strtolower(substr($name, 1));
@@ -57,17 +63,15 @@ class Plugin extends WikiLingo\Expression
         $this->ignored = false;
 
         if ($this->exists == true) {
-            if (empty(WikiLingo\PluginNegotiator::$pluginInstances[$this->className])) {
-                WikiLingo\PluginNegotiator::$pluginInstances[$this->className] = new $this->className;
+            if (empty(WikiLingo\Plugin\Negotiator::$pluginInstances[$this->className])) {
+                WikiLingo\Plugin\Negotiator::$pluginInstances[$this->className] = new $this->className;
             }
-            $this->class = WikiLingo\PluginNegotiator::$pluginInstances[$this->className];
-        } else if (WikiLingo\PluginNegotiator::injectedExists() == true) {
-            $this->class = WikiLingo\PluginNegotiator::$pluginInstances[$this->name];
+            $this->class = WikiLingo\Plugin\Negotiator::$pluginInstances[$this->className];
+        } else if (WikiLingo\Plugin\Negotiator::injectedExists() == true) {
+            $this->class = WikiLingo\Plugin\Negotiator::$pluginInstances[$this->name];
         } else {
             $this->class = null;
         }
-
-        $this->text = $this;
     }
 
     public function render(&$parser)

@@ -1,9 +1,8 @@
 <?php
 
-namespace WikiLingo;
-use WikiLingo;
+namespace WikiLingo\Plugin;
 
-class PluginNegotiator
+class Negotiator
 {
 	public $plugin;
 	public $info;
@@ -42,7 +41,7 @@ class PluginNegotiator
 		$this->prefs = & $parser->prefs;
 		$this->parserOption = & $parser->option;
 		$this->parameterParser = new Parameters();
-		$this->alias = new PluginAlias();
+		$this->alias = new Alias();
 	}
 
 	public function setPlugin(&$plugin)

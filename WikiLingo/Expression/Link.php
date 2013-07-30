@@ -2,7 +2,7 @@
 
 namespace WikiLingo\Expression;
 
-class Link
+class Link extends Base
 {
 	public $parser;
 	public $page;

@@ -1,7 +1,6 @@
 <?php
 
 namespace WikiLingo;
-use WikiLingo;
 
 class HtmlElement
 {
@@ -75,7 +74,7 @@ class HtmlElement
 
     public function addSibling(&$sibling)
     {
-        $this->siblings[] = &$sibling;
+        $this->siblings[] =& $sibling;
         $this->siblingsCount++;
 
         if (isset($this->loc)) {
@@ -87,7 +86,7 @@ class HtmlElement
         return $this;
     }
 
-    public function addParsed(Jison_ParserValue &$parsed)
+    public function addParsed(ParserValue &$parsed)
     {
         $this->parsed[] = $parsed;
     }

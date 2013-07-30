@@ -9,8 +9,8 @@ class ListBuilderItem extends WikiLingo\HtmlElement
     {
         $element = new WikiLingo\HtmlElement('list', 'li');
 
-        $element->parsed[] = &$blockStart;
-        $element->parsed[] = &$content;
+        $element->parsed[] =& $blockStart;
+        $element->parsed[] =& $content;
 
         return $element;
     }

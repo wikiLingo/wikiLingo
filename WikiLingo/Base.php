@@ -1,11 +1,13 @@
 <?php
-use Zend\EventManager\EventManager;
+namespace WikiLingo;
 
-class WikiLingo extends WikiLingo\Definition
+use Zend\EventManager\EventManager;
+use Exception;
+
+class Base
 {
     /* parser tracking */
     private $parsing = false;
-    private static $spareParsers = array();
     public $parseDepth = 0;
     public $types = array();
     public $typesCount = array();
@@ -76,13 +78,6 @@ class WikiLingo extends WikiLingo\Definition
     public $page;
 
     public $isHtmlPurifying = false;
-    private $pcreRecursionLimit;
-
-    public $cssLocations = array();
-    public $scriptLocations = array();
-    public $scripts = array();
-
-    public $existingScriptsAndLocations = array();
 
     public $option = array();
 	public $optionProtectEmail = false;
@@ -97,51 +92,7 @@ class WikiLingo extends WikiLingo\Definition
     public $optionParseSmileys = true;
     public $optionSkipPageCache = false;
 
-    /**
-     * construct
-     *
-     * @access  public
-     * @param   JisonParser_Wiki_Handler  $Parser Filename to be used
-     */
-    public function __construct()
-    {
-        global $user;
-        $this->emptyParserValue = new WikiLingo\Expression();
-        parent::__construct();
 
-
-        $this->user = (isset($user) ? $user : '');
-        /*
-
-        if (isset($this->pluginNegotiator) == false) {
-            $this->pluginNegotiator = new WikiLingo\PluginNegotiator($this->Parser);
-        }
-
-        if (isset($this->Parser->list) == false) {
-            //$this->Parser->list = new WikiLingo_Expression_List($this->Parser);
-        }
-
-        if (isset($this->Parser->hotWords) == false) {
-            $this->Parser->hotWords = new WikiLingo\Expression\HotWords($this->Parser);
-        }
-
-        if (isset($this->Parser->smileys) == false) {
-            $this->Parser->smileys = new WikiLingo\Expression\Smileys();
-        }
-
-        if (isset($this->Parser->dynamicVar) == false) {
-            $this->Parser->dynamicVar = new WikiLingo\Expression\DynamicVariables($this->Parser);
-        }
-*/
-        if (isset($this->specialCharacter) == false) {
-            $this->specialCharacter = new WikiLingo\Expression\SpecialChar($this);
-        }
-
-
-        $this->events = new EventManager(__CLASS__);
-
-        parent::__construct();
-    }
 
     /*
         function parserPerformAction(&$thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O)
@@ -168,27 +119,7 @@ class WikiLingo extends WikiLingo\Definition
         }
     */
 
-    /**
-     * Where a parse generally starts.  Can be self-called, as this is detected, and if nested, a new parser is instantiated
-     *
-     * @access  private
-     * @param   string  $input Wiki syntax to be parsed
-     * @return  string  $output Parsed wiki syntax
-     */
 
-    function parse($input)
-    {
-        if (empty($input)) {
-            return $input;
-        }
-        $this->parsing = true;
-        $this->preParse($input);
-        $output = parent::parse($input);
-        $this->parsing = false;
-        $this->postParse($output);
-
-        return $output;
-    }
 
     public function addType(&$type)
     {
@@ -232,91 +163,9 @@ class WikiLingo extends WikiLingo\Definition
         }
     }
 
-
-    /**
-     * Event just before JisonParser_Wiki->parse(), used to ready parser, ensuring defaults needed for parsing are set.
-     * <p>
-     * pcre.recursion_limit is temporarily changed here. php default is 100,000 which is just too much for this type of
-     * parser. The reason for this code is the use of preg_* functions using pcre library.  Some of the regex needed is
-     * just too much for php to handle, so by limiting this for regex we speed up the parser and allow it to safely
-     * lex/parse a string more here: http://stackoverflow.com/questions/7620910/regexp-in-preg-match-function-returning-browser-error
-     *
-     * @access  private
-     * @param   string  &$input input that will be parsed
-     */
-    private function preParse(&$input)
-    {
-        $this->pcreRecursionLimit = ini_get("pcre.recursion_limit");
-        ini_set("pcre.recursion_limit", "524");
-
-
-        $input = $input . "≤REAL_EOF≥"; //here we add 2 lines, so the parser doesn't have to do special things to track the first line and last, we remove these when we insert breaks, these are dynamically removed later
-        $input = str_replace("\r", "", $input);
-        $input = $this->specialCharacter->protect($input);
-
-        $this->originalInput = preg_split('/\n/', $input);
-    }
-
-    /**
-     * Event just after JisonParser_Wiki->parse(), used to ready parser, ensuring defaults needed for parsing are set.
-     * <p>
-     * pcre.recursion_limit is reset here if parser depth is 0 (ie, no nested parsing)
-     *
-     * @access  private
-     * @param   string  &$output parsed output of wiki syntax
-     */
-    function postParse(&$output)
-    {
-	    /*
-        //remove comment artifacts
-        $output = str_replace("<!---->", "", $output);
-
-        //Replace special end tag
-        $this->removeEOF($output);
-
-        if ( $this->getOption('parseLists') == true) {
-            $lists = $this->Parser->list->toHtml();
-            if (!empty($lists)) {
-                $lists = array_reverse($lists);
-                foreach ($lists as $key => &$list) {
-
-                    $output = str_replace($key, $list, $output);
-                    unset($list);
-
-                }
-            }
-        }
-
-        if (isset($this->Parser->smileys) && $this->getOption('parseSmileys')) {
-            $this->Parser->smileys->parse($output);
-        }
-
-        $this->restorePluginEntities($output);
-
-        if (isset($this->Parser->autoLink)) {
-            $this->Parser->autoLink->parse($output);
-        }
-
-        if (isset($this->Parser->hotWords)) {
-            $this->Parser->hotWords->parse($output);
-        }
-
-        if (isset($this->Parser->dynamicVar)) {
-            $this->Parser->dynamicVar->makeForum($output);
-        }
-
-        if ($this->Parser->parseDepth == 0) {
-            ini_set("pcre.recursion_limit", $this->pcreRecursionLimit);
-            $output = $this->specialCharacter->unprotect($output);
-        }
-	    */
-
-	    $output = $output->render($this);
-    }
-
 	public function content(&$content)
 	{
-		return new WikiLingo\Expression($content);
+		return new Expression\Base($content);
 	}
 
     /**
@@ -330,10 +179,10 @@ class WikiLingo extends WikiLingo\Definition
     public function plugin(&$name, &$parameters, &$end = null, &$body = null)
     {
         if (is_null($body)) {
-            return new WikiLingo\Expression\Plugin($name->text, $parameters->text, (isset($end->text) ? $end->text : null), null, null, '');
+            return new Expression\Plugin($name->text, $parameters->text, (isset($end->text) ? $end->text : null), null, null, '');
         }
 
-        return new WikiLingo\Expression\Plugin($name->text, $parameters->text, $end->text, $body->text, $this->syntaxBetween($parameters->loc, $end->loc), $this->syntax($name->loc, $end->loc));
+        return new Expression\Plugin($name->text, $parameters->text, $end->text, $body->text, $this->syntaxBetween($parameters->loc, $end->loc), $this->syntax($name->loc, $end->loc));
 
 	    /*//TODO: move to expression post-parse
         $negotiator =& $this->pluginNegotiator;
@@ -369,7 +218,7 @@ class WikiLingo extends WikiLingo\Definition
     public function inlinePlugin($yytext)
     {
         $pluginName = $this->match('/^\{([a-z]+)/', $yytext);
-        return new WikiLingo\Plugin($pluginName, $yytext, '', $yytext, '');
+        return new Expression\Plugin($pluginName, $yytext, '', $yytext, '');
     }
 
     /**
@@ -419,16 +268,6 @@ class WikiLingo extends WikiLingo\Definition
         return null;
     }
 
-    /**
-     * Removed any entity (plugin, list, header) from an input
-     *
-     * @param   string  $input The analysed text from the wiki parser
-     */
-    static function deleteEntities(&$input)
-    {
-        $input = preg_replace('/§[a-z0-9]{32}§/', '', $input);
-    }
-
 
     //end state handlers
     //Wiki Syntax Objects Parsing Start
@@ -441,11 +280,7 @@ class WikiLingo extends WikiLingo\Definition
      */
     public function noParse($content)
     {
-        if ( $this->getOption('parseNps') == true) {
-            $content = $this->specialCharacter->unprotect($content);
-        }
-
-        return $content;
+        return new Expression\NoParse($content);
     }
 
     /**
@@ -457,7 +292,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function preFormattedText($content)
     {
-        return new WikiLingo\HtmlElement("preFormattedText", "pre", $content);
+	    return new Expression\PreFormattedText($content);
+        //return new HtmlElement("preFormattedText", "pre", $content);
     }
 
     /**
@@ -613,7 +449,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function bold($content) //__content__
     {
-        return new WikiLingo\HtmlElement("bold", "strong", $content);
+	    return new Expression\Bold($content);
+        //return new HtmlElement("bold", "strong", $content);
     }
 
     /**
@@ -625,7 +462,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function box($content) //^content^
     {
-        return new WikiLingo\HtmlElement("box", "div", $content->text, array("class" => "simplebox"));
+	    return new Expression\Box($content);
+        //return new HtmlElement("box", "div", $content->text, array("class" => "simplebox"));
     }
 
     /**
@@ -637,14 +475,15 @@ class WikiLingo extends WikiLingo\Definition
      */
     function center($content) //::content::
     {
-        return new WikiLingo\HtmlElement(
+	    return new Expression\Center($content);
+        /*return new HtmlElement(
             "center",
             "div",
             $content,
             array(
                 "style" => "text-align: center;"
             )
-        );
+        );*/
     }
 
     /**
@@ -656,7 +495,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function code($content)
     {
-        return new WikiLingo\HtmlElement("code", "code", $content);
+	    return new Expression\Code($content);
+        //return new HtmlElement("code", "code", $content);
     }
 
     /**
@@ -672,12 +512,14 @@ class WikiLingo extends WikiLingo\Definition
         $color = $text[0];
         $content = $text[1];
 
-        return new WikiLingo\HtmlElement(
+	    return new Expression\Color($color, $content);
+	    /*
+        return new HtmlElement(
             "color", "span", $content,
             array(
                 "style" => "color:" . $color .';'
             )
-        );
+        );*/
     }
 
     /**
@@ -689,7 +531,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function italic($content) //''content''
     {
-        return new WikiLingo\HtmlElement("italic", "em", $content);
+	    return new Expression\Italic($content);
+        //return new HtmlElement("italic", "em", $content);
     }
 
     /**
@@ -702,12 +545,14 @@ class WikiLingo extends WikiLingo\Definition
     function l2r($content)
     {
         $content = substr($content, 5);
-        return new WikiLingo\HtmlElement(
+	    return new Expression\L2R($content);
+	    /*
+        return new HtmlElement(
             "l2r", "div", $content,
             array(
                 "dir" => "ltr"
             )
-        );
+        );*/
     }
 
     /**
@@ -720,13 +565,14 @@ class WikiLingo extends WikiLingo\Definition
     function r2l($content)
     {
         $content = substr($content, 5);
-
-        return new WikiLingo\HtmlElement(
+	    return new Expression\R2L($content);
+	    /*
+        return new HtmlElement(
             "r2l", "div", $content,
             array(
                 "dir" => "rtl"
             )
-        );
+        );*/
     }
 
     /**
@@ -791,9 +637,11 @@ class WikiLingo extends WikiLingo\Definition
      */
     function hr() //---
     {
-        $this->line++;
+	    return new Expression\Row();
+        /*$this->line++;
         $this->skipBr = true;
-        return new WikiLingo\HtmlElement("horizontalRow", "hr", "", array(), "inline");
+        return new HtmlElement("horizontalRow", "hr", "", array(), "inline");
+        */
     }
 
     /**
@@ -808,7 +656,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function line($ch)
     {
-        return new WikiLingo\HtmlElement("line", "br", "", array(), "inline");
+	    return new Expression\Line($ch);
+        //return new HtmlElement("line", "br", "", array(), "inline");
     }
 
     /**
@@ -821,7 +670,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function forcedLineEnd()
     {
-        return new WikiLingo\HtmlElement("forcedLineEnd", "br", "", array(), "inline");
+	    return new Expression\ForcedLine();
+        //return new HtmlElement("forcedLineEnd", "br", "", array(), "inline");
     }
 
     /**
@@ -850,7 +700,9 @@ class WikiLingo extends WikiLingo\Definition
             $content = substr($content, 1);
         }
 
-        return new WikiLingo\HtmlElement("unlink", "span", $content);
+	    return new Expression\Unlink($content);
+
+        //return new HtmlElement("unlink", "span", $content);
     }
 
     /**
@@ -894,7 +746,7 @@ class WikiLingo extends WikiLingo\Definition
             $prefs['feature_wikiwords'] = $feature_wikiwords;
         }
 
-        return WikiLingo\Expression\Link::page($page, $this)
+        return Expression\Link::page($page, $this)
             ->setNamespace($this->getOption('namespace'))
             ->setDescription($description)
             ->setType($type)
@@ -916,7 +768,8 @@ class WikiLingo extends WikiLingo\Definition
     {
         //this needs more tlc too
         //TODO: new WikiLingo_HtmlElement(
-        return '<img src="img/smiles/icon_' . $content . '.gif" alt="' . $content . '" />';
+	    return new Expression\Smile($content);
+        //return '<img src="img/smiles/icon_' . $content . '.gif" alt="' . $content . '" />';
     }
 
     /**
@@ -928,7 +781,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function strike($content) //--content--
     {
-        return new WikiLingo\HtmlElement("strike", "strike", $content);
+	    return new Expression\Strike($content);
+        return new HtmlElement("strike", "strike", $content);
     }
 
     /**
@@ -939,7 +793,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function doubleDash()
     {
-        return new WikiLingo\HtmlElement("doubleDash", "span", " &mdash; ");
+	    return new Expression\DoubleDash();
+        //return new HtmlElement("doubleDash", "span", " &mdash; ");
     }
 
     /**
@@ -1005,7 +860,7 @@ class WikiLingo extends WikiLingo\Definition
             }
         }
 
-        return new WikiLingo\HtmlElement("char", "span", $result);
+        return new HtmlElement("char", "span", $result);
     }
 
     /**
@@ -1019,6 +874,8 @@ class WikiLingo extends WikiLingo\Definition
     {
         $tableContents = '';
         $rows = explode("\n", $content);
+
+	    return new Expression\Table($content);
 
         if ($incomplete) {
             $result = '';
@@ -1043,9 +900,9 @@ class WikiLingo extends WikiLingo\Definition
             $tableContents .= $this->table_tr($row);
         }
 
-        $tbody = new WikiLingo\HtmlElement('tableBody', 'tbody', $tableContents);
+        $tbody = new HtmlElement('tableBody', 'tbody', $tableContents);
 
-        return new WikiLingo\HtmlElement(
+        return new HtmlElement(
             "table", "table", $tbody,
             array(
                 "class" => "wikitable"
@@ -1062,7 +919,7 @@ class WikiLingo extends WikiLingo\Definition
      */
     private function table_tr($content)
     {
-        return new WikiLingo\HtmlElement("tableRow", "tr", $content);
+        return new HtmlElement("tableRow", "tr", $content);
     }
 
     /**
@@ -1074,7 +931,7 @@ class WikiLingo extends WikiLingo\Definition
      */
     private function table_td($content)
     {
-        return new WikiLingo\HtmlElement(
+        return new HtmlElement(
             "tableData", "td", $content,
             array(
                 "class" => "wikicell"
@@ -1091,13 +948,15 @@ class WikiLingo extends WikiLingo\Definition
      */
     function titleBar($content) //-=content=-
     {
+	    return new Expression\TitleBar($content);
+	    /*
         $this->skipBr = true;
-        return new WikiLingo\HtmlElement(
+        return new HtmlElement(
             "titleBar", "div", $content,
             array(
                 "class" => "titlebar"
             )
-        );
+        );*/
     }
 
     /**
@@ -1109,7 +968,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function underscore($content) //===content===
     {
-        return new WikiLingo\HtmlElement("underscore", "u", $content);
+	    return new Expression\Underscore($content);
+        //return new HtmlElement("underscore", "u", $content);
     }
 
 
@@ -1122,7 +982,8 @@ class WikiLingo extends WikiLingo\Definition
      */
     function comment($content)
     {
-        return '<!---->';
+	    return new Expression\Comment($content);
+        //return '<!---->';
     }
 
     public static $blocks = array(
@@ -1162,8 +1023,8 @@ class WikiLingo extends WikiLingo\Definition
                 case 'header':
                     $count = min(strlen($blockStart->text), 7);
 
-                    $result = new WikiLingo\HtmlElement('header', 'h' . $count, $content);
-                    $type = new WikiLingo\Expression\Header($count, $content);
+                    $result = new HtmlElement('header', 'h' . $count, $content);
+                    $type = new Expression\Header($count, $content);
                     $this->addType($type);
                     return $result;
                     break;
@@ -1173,11 +1034,11 @@ class WikiLingo extends WikiLingo\Definition
                 case 'definitionList':
                     $result = null;
                     if (!isset($this->listLast) || ($this->listLast->type != $blockType || $this->listLastLineNo != $blockStart->lineNo - 1)) {
-                        $result = $this->listLast = new WikiLingo\Expression\ListBuilder($blockType);
+                        $result = $this->listLast = new Expression\ListBuilder($blockType);
                     }
                     $list = $this->listLast;
 
-                    $item = new WikiLingo\Expression\ListBuilderItem($blockStart, $content);
+                    $item = new Expression\ListBuilderItem($blockStart, $content);
                     $list->addItem($item);
 
                     return $result;
@@ -1191,7 +1052,7 @@ class WikiLingo extends WikiLingo\Definition
 	        }
         }
 
-	    return new WikiLingo\Expression();
+	    return new Base($content);
     }
 
     /**
@@ -1250,7 +1111,7 @@ class WikiLingo extends WikiLingo\Definition
         }
     }
 
-    function syntax(WikiLingo\ParserLocation $startLoc, WikiLingo\ParserLocation $endLoc = null)
+    function syntax(ParserLocation $startLoc, ParserLocation $endLoc = null)
     {
         $firstLine = $startLoc->firstLine;
         $lastLine = (isset($endLoc) ? $endLoc->lastLine : $startLoc->lastLine);
@@ -1282,7 +1143,7 @@ class WikiLingo extends WikiLingo\Definition
         }
     }
 
-    public function syntaxBetween(WikiLingo\ParserLocation $startLoc, WikiLingo\ParserLocation $endLoc)
+    public function syntaxBetween(ParserLocation $startLoc, ParserLocation $endLoc)
     {
         $firstLine = $startLoc->lastLine;
         $lastLine = $endLoc->firstLine;
@@ -1317,84 +1178,6 @@ class WikiLingo extends WikiLingo\Definition
     function removeEOF( &$output )
     {
         $output = str_replace("≤REAL_EOF≥", "", $output);
-    }
-
-    public function addCssLocation( $href, $i = -1 )
-    {
-        if (isset($this->existingScriptsAndLocations[$href])) {
-            return $this;
-        }
-
-        if ($i > -1) {
-            $this->cssLocations[$i] = $href;
-        } else {
-            $this->cssLocations[] = $href;
-        }
-
-        $this->existingScriptsAndLocations[$href] = true;
-
-        return $this;
-    }
-
-    public function addScriptLocation( $src, $i = -1 )
-    {
-        if (isset($this->existingScriptsAndLocations[$src])) {
-            return $this;
-        }
-
-        if ($i > -1) {
-            $this->scriptLocations[$i] = $src;
-        } else {
-            $this->scriptLocations[] = $src;
-        }
-
-        $this->existingScriptsAndLocations[$src] = true;
-
-        return $this;
-    }
-
-    public function addScript( $script, $i = -1 )
-    {
-        if (isset($this->existingScriptsAndLocations[$script])) {
-            return $this;
-        }
-
-        if ($i > -1) {
-            $this->scripts[$i] = $script;
-        } else {
-            $this->scripts[] = $script;
-        }
-
-        $this->existingScriptsAndLocations[$script] = true;
-
-        return $this;
-    }
-
-    public function renderCss()
-    {
-        $css = '';
-        foreach ($this->cssLocations as $location) {
-            $css .= "<link rel='stylesheel' type='text/css' href='" . $location . "' />";
-        }
-        return $css;
-    }
-
-    public function renderScript()
-    {
-        $scriptLocations = '';
-
-        foreach ($this->scriptLocations as $location) {
-            $scriptLocations .= "<script type='text/javascript' src='" . $location . "'></script>";
-        }
-
-        $scripts = "";
-        foreach ($this->scripts as $script) {
-            $scripts .=  $script;
-        }
-
-
-        return $scriptLocations . "<script type='text/javascript'>" . $scripts . "</script>";
-
     }
 
     public function setInput($input)

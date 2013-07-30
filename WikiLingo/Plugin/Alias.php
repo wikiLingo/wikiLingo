@@ -1,7 +1,7 @@
 <?php
-namespace WikiLingo;
+namespace WikiLingo\Plugin;
 
-class PluginAlias
+class Alias
 {
 	static public function info( $name )
 	{
@@ -11,7 +11,7 @@ class PluginAlias
 			return false;
 		}
 
-		$name = TikiLib::strtolower($name);
+		$name = strtolower($name);
 
 		$prefName = "pluginalias_" . $name;
 

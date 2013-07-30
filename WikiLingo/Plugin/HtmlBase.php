@@ -3,7 +3,7 @@
 namespace WikiLingo\Plugin;
 use WikiLingo;
 
-abstract class HtmlBase extends WikiLingo\Plugin\Base
+abstract class HtmlBase extends Base
 {
 	public $htmlTagType = 'span';
 	public $hasHtmlBody = true;

@@ -1,7 +1,7 @@
-//option namespace:WikiLingo\Parameters
+//option namespace:WikiLingo\Plugin\Parameters
 //option class:Definition
 //option fileName:Definition.php
-
+//option extends:Base
 
 //Lexical Grammar
 %lex
