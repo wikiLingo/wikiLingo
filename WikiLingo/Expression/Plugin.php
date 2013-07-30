@@ -8,31 +8,27 @@ class Plugin
     public $name;
     public $parameters = array(); //parameters are server side
     public $attributes = array(); //attributes are client/tag side
-    public $body;
-    public $syntax;
-    public $bodySyntax;
     public $closing;
     public $index;
     public $key;
 	public $exists;
     public $className;
     public $class;
+    public $parsed;
     public $parent;
 
     public static $info;
     public static $parametersParser;
     public static $indexes = array();
 
-    function __construct(\WikiLingo\Parsed &$parsed)
+    function __construct(WikiLingo\Parsed &$parsed)
     {
+        $this->parsed =& $parsed;
 	    $name = $parsed->text;
 	    $parameters = $parsed->arguments[0]->text;
-	    $body = $parsed->children;
-	    $bodySyntax = '';
-	    $syntax = '';
 
         if (!isset(self::$parametersParser)) {
-            self::$parametersParser = new \WikiLingo\Plugin\Parameters\Definition();
+            self::$parametersParser = new WikiLingo\Plugin\Parameters\Definition();
         }
 
         $this->name = $name = strtolower(substr($name, 1));
@@ -41,7 +37,7 @@ class Plugin
             $this->name = $name = strtolower(substr($name, 0, -1));
         }
 
-        $this->className = $name;
+        $this->className = "WikiLingo\\Plugin\\$name";
 	    $this->exists = class_exists($this->className);
         $this->index = self::incrementPluginIndex($name);
         $this->key = '§' . md5('plugin:' . $name . '_' . $this->index) . '§';
@@ -57,9 +53,6 @@ class Plugin
             }
         }
 
-        $this->body = $body;
-        $this->bodySyntax = $bodySyntax;
-        $this->syntax = $syntax;
         $this->ignored = false;
 
         if ($this->exists == true) {
@@ -74,10 +67,11 @@ class Plugin
         }
     }
 
-    public function render(&$parser)
+    public function render(&$parser, &$renderedChildren = '')
     {
         $parser->events->trigger(__FUNCTION__ .'.pre', $this);
-        $rendered = $this->class->render($this, $parser);
+        $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
+        $rendered = $this->class->render($this, $renderedChildren, $parser);
         $parser->events->trigger(__FUNCTION__ .'.post', $this);
         return $rendered;
     }

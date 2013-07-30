@@ -1,44 +1,32 @@
 <?php
-namespace WikiLingo;
 
-use WikiLingo\Expression;
+namespace WikiLingo;
 
 class Render
 {
 	public $parser;
 	function __construct(&$parser)
 	{
-		$this->parser =& $parser;
+		$this->parser = $parser;
 	}
 
-	function constructAndRenderType(Parsed &$parsed)
+	public function render(Parsed &$parsed)
 	{
-		$class = "WikiLingo\\Expression\\$parsed->type";
-		$expression = new $class($parsed);
-		if ($expression) {
+        $renderedChildren = '';
+        foreach ($parsed->children as &$child) {
+            $renderedChildren .= $this->render($child);
+        }
 
-		}
-	}
+        $renderedSiblings = '';
+        foreach ($parsed->siblings as &$sibling) {
+            $renderedSiblings .= $this->render($sibling);
+        }
 
-	function render(Parsed &$parsed)
-	{
-		$children = '';
-		foreach($parsed->children as &$child) {
-			$children .= $this->render($child);
-		}
+        $renderedLines = '';
+        foreach ($parsed->lines as &$line) {
+            $renderedLines .= $this->render($line);
+        }
 
-		$content = '';
-		foreach($parsed->contents as &$content) {
-			$content .= $this->render($content);
-		}
-
-		$lines = '';
-		foreach($parsed->lines as &$line) {
-			$lines .= $this->render($line);
-		}
-
-		$output = $this->constructAndRenderType($parsed, $children);
-
-		return $output;
+        return $parsed->expression->render($this->parser, $renderedChildren) . $renderedSiblings . $renderedLines;
 	}
 }

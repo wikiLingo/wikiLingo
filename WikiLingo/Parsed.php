@@ -11,10 +11,10 @@ class Parsed extends ParserValue
 		$this->lines[] =& $line;
 	}
 
-	public $contents = array();
-	public function addContent(Parsed &$content)
+	public $siblings = array();
+	public function addContent(Parsed &$sibling)
 	{
-		$this->contents[] =& $content;
+		$this->siblings[] =& $sibling;
 	}
 
 	public $arguments = array();
@@ -26,6 +26,7 @@ class Parsed extends ParserValue
 	public function setType($type)
 	{
 		$this->type = $type;
+        $this->setExpression();
 	}
 
 	public $options = array();
@@ -38,6 +39,10 @@ class Parsed extends ParserValue
 	public function setParent(Parsed &$parent)
 	{
 		$this->parent =& $parent;
+
+        foreach($this->siblings as &$sibling) {
+            $sibling->setParent($parent);
+        }
 	}
 
 	public $children = array();
@@ -45,4 +50,14 @@ class Parsed extends ParserValue
 	{
 		$this->children[] =& $child;
 	}
+
+    public $expression;
+    public function setExpression()
+    {
+        $class = "WikiLingo\\Expression\\$this->type";
+        $expression = new $class($this);
+        if ($expression) {
+            $this->expression =& $expression;
+        }
+    }
 }

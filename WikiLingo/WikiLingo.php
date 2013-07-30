@@ -155,9 +155,10 @@ class WikiLingo extends Definition {
 					$output = $this->specialCharacter->unprotect($output);
 				}
 				*/
-		$output = new Render($this);
 
-		return $output->render($parsed);
+        $render = new Render($this);
+
+		return $render->render($parsed);
 	}
 
 
@@ -236,6 +237,5 @@ class WikiLingo extends Definition {
 
 
 		return $scriptLocations . "<script type='text/javascript'>" . $scripts . "</script>";
-
 	}
 }

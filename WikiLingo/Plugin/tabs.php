@@ -7,14 +7,16 @@ class tabs extends HtmlBase
     public $public = 'tabs';
     public $htmlTagType = 'div';
 
-    public function render(&$plugin, &$parser)
+    public function render(&$plugin, &$body = '', &$parser)
     {
 
-        $plugin->parameters['titles'] = array();
+        if (isset($plugin->parameters['titles'])) {
+            
+        }
 
         $this->paramDefaults($plugin->parameters);
 
-        $tabs = parent::render($plugin, $parser);
+        $tabs = parent::render($plugin, $body, $parser);
 
         return $tabs;
     }

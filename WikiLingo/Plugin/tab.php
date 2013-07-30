@@ -6,7 +6,7 @@ class tab extends HtmlBase
     public $type = 'tab';
     public $htmlTagType = 'div';
 
-    public function render(&$plugin, &$parser)
+    public function render(&$plugin, &$body = '', &$parser)
     {
         if (isset($plugin->parameters['title'])) {
 
@@ -15,6 +15,6 @@ class tab extends HtmlBase
             $plugin->parent->parameters['titles'][] = '';
         }
 
-        return parent::render($plugin, $parser);
+        return parent::render($plugin, $body, $parser);
     }
 }

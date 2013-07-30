@@ -1016,8 +1016,8 @@ line
 	    $$ = parser.block($2);
 
 	    /*php
-	        $1->setType('Block');
 	        $1->setOption('Empty', 'true');
+	        $1->setType('Block');
         */
 	}
  | PRE_BLOCK_START BLOCK_START contents BLOCK_END
@@ -1027,13 +1027,13 @@ line
 
         /*php
             $$type = $1;
-            $$type->setType('Block');
             $$type->addArgument($2);
             $$type->addArgument($3);
 
             $$typeChild =& $3;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Block');
         */
     }
  | PRE_BLOCK_START BLOCK_START
@@ -1081,10 +1081,10 @@ content
 
         /*php
             $$type =& $1;
-            $$type->setType('NoParse');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('NoParse');
         */
     }
  | PREFORMATTED_TEXT_START
@@ -1096,10 +1096,10 @@ content
 
         /*php
             $$type =& $1;
-            $$type->setType('PreFormattedText');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('PreFormattedText');
         */
     }
  | DOUBLE_DYNAMIC_VAR
@@ -1109,8 +1109,8 @@ content
 
         /*php
             $$type =& $1;
-            $$type->setType('DynamicVariable');
             $$type->setOption('Double', true);
+            $$type->setType('DynamicVariable');
         */
     }
  | SINGLE_DYNAMIC_VAR
@@ -1158,10 +1158,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Bold');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Bold');
         */
 	}
  | BOX_START
@@ -1173,10 +1173,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Box');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Box');
         */
 	}
  | CENTER_START
@@ -1188,10 +1188,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Center');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Center');
         */
 	}
  | CODE_START
@@ -1203,10 +1203,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Code');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Code');
         */
 	}
  | COLOR_START
@@ -1218,10 +1218,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Color');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Color');
         */
 	}
  | ITALIC_START
@@ -1233,10 +1233,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Italic');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Italic');
         */
 	}
  | UNLINK_START
@@ -1248,10 +1248,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Unlink');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Unlink');
         */
 	}
  | LINK_START
@@ -1279,10 +1279,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Strike');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Strike');
         */
 	}
  | DOUBLE_DASH
@@ -1303,10 +1303,10 @@ content
 
 		/*php
 		    $$type =& $1;
-            $$type->setType('Table');
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Table');
         */
 	}
  | TITLE_BAR_START
@@ -1318,10 +1318,10 @@ content
 
 		/*php
 			$$type =& $1;
-			$$type->setType('TitleBar');
 			$$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('TitleBar');
         */
 	}
  | UNDERSCORE_START
@@ -1333,11 +1333,10 @@ content
 
 		/*php
 		    $$type =& $1;
-		    $$type->setType('Underscore');
-
 		    $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
+            $$type->setType('Underscore');
         */
 	}
  | WIKI_LINK_START
@@ -1362,8 +1361,8 @@ content
 
         /*php
             $$type =& $1;
-            $$type->setType('WordLink');
             $$type->addArgument($1);
+            $$type->setType('WordLink');
 
         */
     }
@@ -1375,10 +1374,10 @@ content
 
  		/*php
  		    $$type =& $1;
- 		    $$type->setType('Plugin');
             $$type->setOption('NoBody', true);
             $$type->setOption('Inline', true);
             $$type->addArgument($2);
+            $$type->setType('Plugin');
         */
  	}
  | PLUGIN_START PLUGIN_PARAMETERS contents PLUGIN_END
@@ -1388,12 +1387,12 @@ content
 
  		/*php
  		    $$type =& $1;
- 		    $$type->setType('Plugin');
  		    $$type->addArgument($2);
 
  		    $$typeChild = $3;
  		    $$typeChild->setParent($$type);
  		    $$type->addChild($$typeChild);
+ 		    $$type->setType('Plugin');
         */
  	}
  | PLUGIN_START PLUGIN_PARAMETERS PLUGIN_END
@@ -1404,9 +1403,9 @@ content
 
         /*php
             $$type =& $1;
-            $$type->setType('Plugin');
             $$type->addArgument($2);
             $$type->addArgument($3);
+            $$type->setType('Plugin');
         */
      }
  | PLUGIN_START PLUGIN_PARAMETERS

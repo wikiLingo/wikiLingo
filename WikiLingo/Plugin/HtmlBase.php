@@ -280,19 +280,8 @@ abstract class HtmlBase extends Base
 		return $styles;
 	}
 
-	public function render(&$plugin, &$parser)
+	public function render(&$plugin, $body = '', &$parser)
 	{
-        $body = '';
-        if ($this->hasHtmlBody == true) {
-            if (!empty($plugin->body)) { //make parent callable from child
-                $plugin->body->parent = $plugin;
-            }
-
-            if (!empty($plugin->body)) {
-                $body = $plugin->body->render($parser) . (isset($this->button) ? $this->button : '');
-            }
-        }
-
         if (isset($parser->wysiwyg) && $this->wysiwygTagType) {
             $output = '<' . $this->wysiwygTagType;
         } else {
@@ -304,7 +293,7 @@ abstract class HtmlBase extends Base
 		$this->attributeDefaults($plugin->attributes);
 
         $plugin->attributes['id'] = $this->id($plugin->index);
-        $plugin->attributes['class'] = (empty($plugin->attributes['class']) ? '' : ' ' ) . 'wikiLingoPlugin_' . $this->type;
+        $plugin->attributes['class'] = (empty($plugin->attributes['class']) ? '' : ' ' ) . 'wl-plugin-' . $this->type;
         $plugin->attributes['style'] = $style;
 
 		foreach ($plugin->attributes as $attribute => $value) {
@@ -325,12 +314,6 @@ abstract class HtmlBase extends Base
             }
         }
 
-		//TODO: Handle np more dynamically
-		/*if ($this->np == true) {
-			return '~np~'.$output.'~/np~';
-		} else {
-			return $output;
-		}*/
 		return $output;
 	}
 }
