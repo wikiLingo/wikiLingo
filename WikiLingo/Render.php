@@ -27,6 +27,8 @@ class Render
             $renderedLines .= $this->render($line);
         }
 
-        return $parsed->expression->render($this->parser, $renderedChildren) . $renderedSiblings . $renderedLines;
+		$rendered = $parsed->expression->render($this->parser, $renderedChildren);
+
+        return $rendered . $renderedSiblings . $renderedLines;
 	}
 }

@@ -3,8 +3,8 @@ require_once("index.php");
 
 $original = "
 {TABS()}
-{tab title='test'}
-{tab title='test2'}
+{TAB(title='test1 title')}Test1{TAB}
+{TAB(title='test2 title')}Test2{TAB}
 {TABS}
 ";
 

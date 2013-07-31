@@ -9,7 +9,6 @@ class tab extends HtmlBase
     public function render(&$plugin, &$body = '', &$parser)
     {
         if (isset($plugin->parameters['title'])) {
-
             $plugin->parent->parameters['titles'][] = $plugin->parameters['title'];
         } else {
             $plugin->parent->parameters['titles'][] = '';

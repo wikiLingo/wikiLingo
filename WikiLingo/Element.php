@@ -4,7 +4,7 @@ namespace WikiLingo;
 class Element
 {
     public $type;
-    public $state;
+    public $state = "inline";
     public $attributes = array();
 
     public $children = array();
@@ -55,7 +55,7 @@ class Element
             }
         }
 
-        switch ($this->type) {
+        switch ($this->state) {
             case "inline": $open .= "/>";
                 return $open;
             case "standard":

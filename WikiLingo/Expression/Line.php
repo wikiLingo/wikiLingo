@@ -13,6 +13,8 @@ class Line
 
     function render(&$parser)
     {
-        return (new WikiLingo\Element('br'))->render();
+	    $element = new WikiLingo\Element('br');
+	    $line = $element->render();
+        return $line;
     }
 }
