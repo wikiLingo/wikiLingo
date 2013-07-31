@@ -7,5 +7,5 @@ $loader = new Zend\Loader\StandardAutoloader(array('autoregister_zf' => true, 'f
 $dir = dirname(__FILE__);
 $loader
     ->registerNamespace('WikiLingo', $dir)
-    //->registerNamespace('WikiLingoWYSIWYG', $dir)
+    ->registerNamespace('WYSIWYGWikiLingo', $dir)
 	->register();

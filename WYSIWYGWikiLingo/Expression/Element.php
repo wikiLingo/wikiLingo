@@ -1,10 +1,9 @@
 <?php
+namespace WYSIWYGWikiLingo;
 
-namespace WikiLingoWYSIWYG\DTS;
-use WikiLingoWYSIWYG;
 use WikiLingo;
 
-class Element extends WikiLingo\Expression
+class Element extends WikiLingo\Expression\Base
 {
 	public $name;
 	public $attributes;

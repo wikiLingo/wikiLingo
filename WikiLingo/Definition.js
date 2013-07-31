@@ -1627,7 +1627,7 @@ case 70:
         return 21;
 
     /*php
-        if (JisonParser_Html_Handler::isHtmlTag($yy_.yytext)) {
+        if (Expression\Tag::isHtmlTag($yy_.yytext)) {
             return 'HTML_TAG';
         }
         $tag = $yy_.yytext;

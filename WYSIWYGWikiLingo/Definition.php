@@ -1,9 +1,12 @@
 <?php
 /* Jison generated parser */
+namespace WYSIWYGWikiLingo;
+use Exception;
 
-namespace WikiLingoWYSIWYG\DTS;
 
-class Definition
+
+
+class Definition extends  Base
 {
     public $symbols = array();
     public $terminals = array();
@@ -309,7 +312,6 @@ class Definition
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
-/* this == yyval */
 
 
 switch ($yystate) {
@@ -474,7 +476,7 @@ break;
                         //TODO: add ranges
                     }
 
-                    $r = $this->parserPerformAction($_yy->value, $yy, $action->state->index, $vstack, $vstackCount - 1);
+                    $r = $this->parserPerformAction($_yy->text, $yy, $action->state->index, $vstack, $vstackCount - 1);
 
                     if (isset($r)) {
                         return $r;
@@ -493,7 +495,7 @@ break;
 
                     if (is_null($_yy))
                     {
-                        $vstack[] = new /**/ParserValue/**/();
+                        $vstack[] = new ParserValue();
                     }
                     else
                     {
@@ -543,7 +545,7 @@ break;
     {
         $this->input = $input;
         $this->more = $this->less = $this->done = false;
-        $this->yy = new /**/ParserValue/**/();
+        $this->yy = new ParserValue();
         $this->conditionStack = array('INITIAL');
         $this->conditionStackCount = 1;
 
@@ -559,7 +561,7 @@ break;
     function input()
     {
         $ch = $this->input[0];
-        $this->yy->value .= $ch;
+        $this->yy->text .= $ch;
         $this->yy->leng++;
         $this->offset++;
         $this->match .= $ch;
@@ -586,7 +588,7 @@ break;
         $linesCount = count($lines);
 
         $this->input = $ch . $this->input;
-        $this->yy->value = substr($this->yy->value, 0, $len - 1);
+        $this->yy->text = substr($this->yy->text, 0, $len - 1);
         //$this->yylen -= $len;
         $this->offset -= $len;
         $oldLines = explode("/(?:\r\n?|\n)/", $this->match);
@@ -656,7 +658,7 @@ break;
         }
 
         if ($this->more == false) {
-            $this->yy->value = '';
+            $this->yy->text = '';
             $this->match = '';
         }
 
@@ -688,12 +690,12 @@ break;
             );
 
 
-            $this->yy->value .= $match[0];
+            $this->yy->text .= $match[0];
             $this->match .= $match[0];
             $this->matches = $match;
             $this->matched .= $match[0];
 
-            $this->yy->leng = strlen($this->yy->value);
+            $this->yy->leng = strlen($this->yy->text);
             if (isset($this->ranges)) {
                 $this->yy->loc->range = new ParserRange($this->offset, $this->offset += $this->yy->leng);
             }
@@ -758,7 +760,7 @@ break;
     {
         
 
-;
+
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -835,7 +837,7 @@ case 7:
         if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
            return 8;
         }
-        return 7;
+        return 'CONTENT';
     
 
 break;
@@ -880,7 +882,7 @@ class ParserValue
     public $leng = 0;
     public $loc;
     public $lineNo = 0;
-    public $value;
+    public $text;
 
     function __clone() {
         $clone = new ParserValue();
@@ -889,7 +891,7 @@ class ParserValue
             $clone->loc = clone $this->loc;
         }
         $clone->lineNo = $this->lineNo;
-        $clone->value = $this->value;
+        $clone->text = $this->text;
         return $clone;
     }
 }

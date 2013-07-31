@@ -2,7 +2,7 @@
 namespace WikiLingo;
 use Zend\EventManager\EventManager;
 
-class WikiLingo extends Definition {
+class Parser extends Definition {
 
 	private $parsing = false;
 	private $pcreRecursionLimit;
@@ -46,9 +46,6 @@ class WikiLingo extends Definition {
 			  $this->Parser->dynamicVar = new WikiLingo\Expression\DynamicVariables($this->Parser);
 		  }
   */
-		if (isset($this->specialCharacter) == false) {
-			$this->specialCharacter = new Expression\SpecialChar($this);
-		}
 
 
 		$this->events = new EventManager(__CLASS__);
@@ -97,7 +94,6 @@ class WikiLingo extends Definition {
 
 		$input = $input . "≤REAL_EOF≥"; //here we add 2 lines, so the parser doesn't have to do special things to track the first line and last, we remove these when we insert breaks, these are dynamically removed later
 		$input = str_replace("\r", "", $input);
-		$input = $this->specialCharacter->protect($input);
 
 		$this->originalInput = preg_split('/\n/', $input);
 	}

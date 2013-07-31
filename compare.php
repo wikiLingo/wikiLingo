@@ -6,10 +6,14 @@ $original = "
 {TAB(title='test1 title')}Test1{TAB}
 {TAB(title='test2 title')}Test2{TAB}
 {TABS}
+
+<div>Test</div>
 ";
 
-$htmlParser = new WikiLingo\WikiLingo;
-$htmlParser
+$parser = new WikiLingo\Parser();
+$wysiwygParser = new WikiLingoWYSIWYG\Parser();
+
+$parser
 	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
 	->addScriptLocation("ckeditor/ckeditor.js")
@@ -49,14 +53,12 @@ $htmlParser
             });
         });
     ");
-$output = $htmlParser->parse($original);
-//$wikiLingoWYSIWYG = new WikiLingoWYSIWYG();
-//$outputWYSIWYG = $wikiLingoWYSIWYG->parse($original);
 
+$output = $parser->parse($original);
+$outputWYSIWYG = $wysiwygParser->parse($original);
 
-
-$css = $htmlParser->renderCss();
-$script = $htmlParser->renderScript();
+$css = $parser->renderCss();
+$script = $parser->renderScript();
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +72,7 @@ $script = $htmlParser->renderScript();
 <div><?php echo $output;?></div>
 
 <h2>WikiLingo to WYSIWYG Html Output</h2>
-<div contenteditable="true" id="wysiwyg">php echo $outputWYSIWYG;?></div>
+<div contenteditable="true" id="wysiwyg"><?php echo $outputWYSIWYG;?></div>
 <input type="button" value="To Source" id="wysiwygToSource"/>
 <div id="dtsOutput" style="display: none;">
     <h2>WikiLingo to WYSIWYG Html Output and back to WikiLingo Source</h2>

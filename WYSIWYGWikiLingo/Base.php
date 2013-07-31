@@ -1,9 +1,7 @@
 <?php
+namespace WYSIWYGWikiLingo;
 
-namespace WikiLingoWYSIWYG;
-use WikiLingoWYSIWYG;
-
-class DTS extends WikiLingoWYSIWYG\DTS\Definition
+class Base
 {
 	public $parsing = false;
 	private $parserDebug = true;
@@ -226,7 +224,7 @@ class DTS extends WikiLingoWYSIWYG\DTS\Definition
 
     public function elementFromString(&$tag, $closed = false)
     {
-        return new WikiLingoWYSIWYG\DTS\Element($tag, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
+        return new Expression\Element($tag, $this->htmlElementStackCount, ($closed == true ? 'closed' : 'open'));
     }
 
 	public function element(&$tag, $closed = false)

@@ -6536,7 +6536,7 @@ case 69:
 break;
 case 70:
     
-        if (JisonParser_Html_Handler::isHtmlTag($this->yy->text)) {
+        if (\WikiLingo\Expression\Tag::isHtmlTag($this->yy->text)) {
             return 'HTML_TAG';
         }
         $tag = $this->yy->text;

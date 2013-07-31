@@ -925,7 +925,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
         return 'HTML_TAG';
 
     /*php
-        if (JisonParser_Html_Handler::isHtmlTag($yytext)) {
+        if (Expression\Tag::isHtmlTag($yytext)) {
             return 'HTML_TAG';
         }
         $tag = $yytext;

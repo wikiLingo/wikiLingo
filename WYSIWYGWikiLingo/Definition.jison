@@ -1,6 +1,7 @@
-//option namespace:WikiLingoWYSIWYG\DTS
+//option namespace:WYSIWYGWikiLingo
 //option class:Definition
 //option fileName:Definition.php
+//option extends: Base
 
 //Lexical Grammar
 %lex

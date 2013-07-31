@@ -1,7 +1,10 @@
 <?php
+namespace WikiLingoWYSIWYG;
 
+use WikiLingo;
+use Exception;
 
-class WikiLingoWYSIWYG extends WikiLingo
+class Parser extends WikiLingo\Parser
 {
 	/* wiki syntax type tracking */
 	static $typeIndex = array();
@@ -280,4 +283,4 @@ class WikiLingoWYSIWYG extends WikiLingo
 	}
 }
 
-WikiLingoWYSIWYG::staticConstruct();
+Parser::staticConstruct();
