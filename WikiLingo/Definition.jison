@@ -989,14 +989,6 @@ wiki
 
 lines
  : line
-    {
-        //js
-            $$ = $1;
-
-        /*php
-            $$ = $1;
-        */
-    }
  | lines line
     {
         //js

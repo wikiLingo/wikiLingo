@@ -165,7 +165,7 @@ class Base
 
 	public function content(&$content)
 	{
-		return new Expression\Base($content);
+		return new Expression\Content($content);
 	}
 
     /**
@@ -1174,6 +1174,16 @@ class Base
             return $syntax;
         }
     }
+
+	function element(Element $element)
+	{
+
+	}
+
+	function helper(Element $element)
+	{
+
+	}
 
     function removeEOF( &$output )
     {

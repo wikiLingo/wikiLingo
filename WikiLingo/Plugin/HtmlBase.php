@@ -1,13 +1,13 @@
 <?php
-
 namespace WikiLingo\Plugin;
+
 use WikiLingo;
 
 abstract class HtmlBase extends Base
 {
 	public $htmlTagType = 'span';
 	public $hasHtmlBody = true;
-	public $htmlAttributes = array('id'=>'', 'class'=>'', 'style'=>'');
+	public $attributes = array('id'=>'', 'class'=>'', 'style'=>'');
 	public $button;
 
 	static $style = array(
@@ -269,18 +269,18 @@ abstract class HtmlBase extends Base
 		return $this;
 	}
 
-	protected function stylize(&$params)
+	protected function stylize(&$cssStyles)
 	{
-		$styles = '';
-		foreach ($params as $style => $setting) {
-			if (!empty($style) && isset(self::$style[$style])) {
-				$styles .= $style . ':' . trim($setting, "'") . ';';
+		$style = '';
+		foreach ($cssStyles as $cssStyle => $setting) {
+			if (!empty($cssStyle) && isset(self::$style[$cssStyle])) {
+				$style .= $cssStyle . ':' . trim($setting, "'") . ';';
 			}
 		}
-		return $styles;
+		return $style;
 	}
 
-	public function render(&$plugin, $body = '', &$parser)
+	public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
 	{
         if (isset($parser->wysiwyg) && $this->wysiwygTagType) {
             $output = '<' . $this->wysiwygTagType;
@@ -288,7 +288,7 @@ abstract class HtmlBase extends Base
             $output = '<' . $this->htmlTagType;
         }
 
-        $this->paramDefaults($plugin->parameters);
+        $this->parameterDefaults($plugin->parameters);
 		$style = $this->stylize($plugin->parameters);
 		$this->attributeDefaults($plugin->attributes);
 

@@ -2,16 +2,10 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
-class Content
+class Content extends Base
 {
-	public $content;
-	function __construct(WikiLingo\Parsed &$content)
+	public function render(&$parser)
 	{
-		$this->content = $content;
-	}
-
-	function render()
-	{
-		return $this->content->text;
+		return $this->parsed->text;
 	}
 }

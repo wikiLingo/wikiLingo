@@ -1,6 +1,8 @@
 <?php
 namespace WikiLingo\Plugin;
 
+use WikiLingo;
+
 class tabs extends HtmlBase
 {
     public $type = 'tabs';
@@ -10,12 +12,30 @@ class tabs extends HtmlBase
 		'titles' => array()
 	);
 
-    public function render(&$plugin, &$body = '', &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
-	    $this->paramDefaults($plugin->parameters);
+	    $this->parameterDefaults($plugin->parameters);
+	    $id = $this->id($plugin->index);
+	    $parser->addScript(<<<JS
+$(function() {
+	var tabs = $('#$id');
+	tabs.tabs();
+});
+JS
+);
+        if (!empty($plugin->parameters['titles'])) {
+	        $ul = new WikiLingo\Helper('ul');
+	        foreach($plugin->parameters['titles'] as $tabId => $title) {
+		        $a = new WikiLingo\Helper('a');
+		        $a->attributes['href'] = '#' . $tabId;
+		        $a->staticChildren[] = $title;
 
-        if (isset($plugin->parameters['titles'])) {
+		        $li = new WikiLingo\Helper('li');
+		        $li->children[] = $a;
+		        $ul->children[] = $li;
+	        }
 
+	        $body = $ul->render() . $body;
         }
 
         $tabs = parent::render($plugin, $body, $parser);

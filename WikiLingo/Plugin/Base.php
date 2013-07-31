@@ -1,12 +1,14 @@
 <?php
 namespace WikiLingo\Plugin;
 
+use WikiLingo;
+
 abstract class Base
 {
 	public $name;
 	public $description;
 	public $body;
-	public $params = array();
+	public $parameters = array();
 	public $attributes = array();
 	public $type;
 	public $documentation;
@@ -39,9 +41,9 @@ abstract class Base
         }
     }
 
-	public function addParam($key, $param)
+	public function addParameter($key, $param)
 	{
-		$this->params[$key] = $param;
+		$this->parameters[$key] = $param;
 
 		return $this;
 	}
@@ -58,27 +60,24 @@ abstract class Base
         $attributes = array_merge($defaults, $attributes);
 	}
 
-    protected function paramDefaults(&$params)
+    protected function parameterDefaults(&$parameters)
     {
         $defaults = array();
-        foreach ($this->params as $param => $setting) {
+        foreach ($this->parameters as $param => $setting) {
             if (!empty($setting)) {
                 $defaults[$param] = $setting;
             }
         }
 
-        $params = array_merge($defaults, $params);
+	    $parameters = array_merge($defaults, $parameters);
     }
 
-	public function render(&$plugin, &$parser)
+	public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
-		$this->paramDefaults($params);
+		$this->parameterDefaults($plugin->parameters);
 
-		if ($this->np == true) {
-		//	return '~np~'.$data.'~/np~';
-		} else {
-		//	return $data;
-		}
+		//Todo: Need a wrapper for WYSIWYG
+		return $body;
 	}
 
 	function id($index = 0)

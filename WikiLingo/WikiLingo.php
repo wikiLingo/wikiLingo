@@ -217,7 +217,7 @@ class WikiLingo extends Definition {
 	{
 		$css = '';
 		foreach ($this->cssLocations as $location) {
-			$css .= "<link rel='stylesheel' type='text/css' href='" . $location . "' />";
+			$css .= "<link rel='stylesheet' type='text/css' href='" . $location . "' />";
 		}
 		return $css;
 	}

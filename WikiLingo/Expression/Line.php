@@ -3,18 +3,19 @@ namespace WikiLingo\Expression;
 
 use WikiLingo;
 
-class Line
+class Line extends Base
 {
-    public $parsed;
-	function __construct(WikiLingo\Parsed & $parsed)
-	{
-        $this->parsed =& $parsed;
-	}
-
     function render(&$parser)
     {
-	    $element = new WikiLingo\Element('br');
-	    $line = $element->render();
-        return $line;
+	    $parent = $this->parent();
+
+	    if (empty($parent) || (!empty($parent) && $parent->allowsBreaks)) {
+		    $element = new WikiLingo\Element('br');
+		    $element->setInline();
+		    $line = $element->render();
+            return $line . $this->parsed->text;
+	    }
+
+	    return $this->parsed->text;
     }
 }

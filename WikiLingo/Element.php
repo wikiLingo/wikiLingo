@@ -4,10 +4,12 @@ namespace WikiLingo;
 class Element
 {
     public $type;
-    public $state = "inline";
+    public $state = "standard";
     public $attributes = array();
+	public $classes = array('wl-element');
 
     public $children = array();
+	public $staticChildren = array();
 
     function __construct($type)
     {
@@ -51,9 +53,15 @@ class Element
 
         if (!empty($this->attributes)) {
             foreach ($this->attributes as $attribute => $value) {
-                $open .= " " . $attribute . "='" . addslashes(trim($value)) . "'";
+	            if (strtolower($attribute) != 'class') {
+                    $open .= " " . $attribute . "='" . addslashes(trim($value)) . "'";
+	            }
             }
         }
+
+	    if (!empty($this->classes)) {
+		    $open .= ' class="' . implode($this->classes, ' ') . '"';
+	    }
 
         switch ($this->state) {
             case "inline": $open .= "/>";
@@ -73,9 +81,15 @@ class Element
     public function renderChildren()
     {
         $children = '';
-        foreach($this->children as $child) {
-            $children .= $child->render();
-        }
+
+	    if (empty($this->staticChildren)) {
+		    foreach($this->children as &$child) {
+			    $children .= $child->render();
+		    }
+	    } else {
+		    $children .= implode($this->staticChildren, '');
+	    }
+
         return $children;
     }
 }

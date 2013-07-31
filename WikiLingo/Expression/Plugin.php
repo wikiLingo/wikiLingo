@@ -3,7 +3,7 @@ namespace WikiLingo\Expression;
 
 use WikiLingo;
 
-class Plugin
+class Plugin extends Base
 {
     public $name;
     public $parameters = array(); //parameters are server side
@@ -16,6 +16,7 @@ class Plugin
     public $class;
     public $parsed;
     public $parent;
+	public $allowsBreaks = false;
 
     public static $info;
     public static $parametersParser;

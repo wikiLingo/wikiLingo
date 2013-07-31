@@ -20,7 +20,7 @@ class toc extends HtmlBase
 		);
 	}
 
-    public function render(&$plugin, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, $body, &$parser)
     {
         if (!isset($parser->types['header'])) {
             return '';
