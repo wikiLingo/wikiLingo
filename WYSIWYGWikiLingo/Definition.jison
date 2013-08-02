@@ -19,7 +19,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 {HTML_TAG_INLINE} {
     /*php
         //A tag that doesn't need to track state
-        if (WikiLingo\Utilities\Html::isHtmlTag($yytext) == true) {
+        if (WikiLingo\Utilities\Html::isHtmlTag($yytext)) {
            return "HTML_TAG_INLINE";
         }
 
@@ -45,9 +45,9 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 <htmlElement>{HTML_TAG_CLOSE} {
     /*php
         //A tag that is open and we just found the close for it
-        $element = $this->unStackHtmlElement($yytext);
+        $element = $this->unStackHtmlElement($this->yy);
         if (isset($element)) {
-           $yytext = $element;
+           $this->yy = $element;
            $this->popState();
            return "HTML_TAG_CLOSE";
         }
@@ -58,7 +58,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
     /*php
         //An tag open
         if (WikiLingo\Utilities\Html::isHtmlTag($yytext)) {
-           $this->stackHtmlElement($yytext);
+           $this->stackHtmlElement(clone($this->yy));
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
         }
@@ -134,6 +134,20 @@ content
 	    /*php
             $$type =& $1;
             $$type->setType('Element');
+        */
+	}
+ | HTML_TAG_OPEN
+	{
+	    /*php
+            $$type =& $1;
+            $$type->setType('BrokenElement');
+        */
+	}
+ | HTML_TAG_CLOSE
+	{
+	    /*php
+            $$type =& $1;
+            $$type->setType('BrokenElement');
         */
 	}
  | HTML_TAG_OPEN contents HTML_TAG_CLOSE

@@ -15,11 +15,12 @@ $original = "
 &lt;div&gt;Test&lt;/div&gt;
 ";
 
+$scripts = new WikiLingo\Utilities\Scripts();
 $wikiLingo = new WikiLingo\Parser();
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
 $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
 
-$wikiLingo
+$scripts
 	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
 	->addScriptLocation("ckeditor/ckeditor.js")
@@ -64,8 +65,8 @@ $outputWikiLingo = $wikiLingo->parse($original);
 $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
 $outputWYSIWYGWikiLingo = $wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
 
-$css = $wikiLingo->renderCss();
-$script = $wikiLingo->renderScript();
+$css = $scripts->renderCss();
+$script = $scripts->renderScript();
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -81,9 +82,9 @@ $script = $wikiLingo->renderScript();
 <h2>WikiLingo to WYSIWYG Html Output</h2>
 <div contenteditable="true" id="wysiwyg"><?php echo $outputWikiLingoWYSIWYG;?></div>
 <input type="button" value="To Source" id="wysiwygToSource"/>
-<div id="dtsOutput" style="display: none;">
+<div id="dtsOutput">
     <h2>WikiLingo to WYSIWYG Html Output and back to WikiLingo Source</h2>
-    <pre>$outputWYSIWYGWikiLingo</pre>
+    <pre><? echo $outputWYSIWYGWikiLingo; ?></pre>
 </div>
 </body>
 </html>

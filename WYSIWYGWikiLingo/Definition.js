@@ -76,7 +76,7 @@ var parser = {trace: function trace() { },
 yy: {},
 symbols_: {"error":2,"wiki":3,"contents":4,"EOF":5,"content":6,"CONTENT":7,"LINE_END":8,"HTML_TAG_INLINE":9,"HTML_TAG_OPEN":10,"HTML_TAG_CLOSE":11,"$accept":0,"$end":1},
 terminals_: {2:"error",5:"EOF",7:"CONTENT",8:"LINE_END",9:"HTML_TAG_INLINE",10:"HTML_TAG_OPEN",11:"HTML_TAG_CLOSE"},
-productions_: [0,[3,1],[3,2],[3,1],[4,1],[4,2],[6,1],[6,1],[6,1],[6,3],[6,2]],
+productions_: [0,[3,1],[3,2],[3,1],[4,1],[4,2],[6,1],[6,1],[6,1],[6,1],[6,1],[6,3],[6,2]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -115,6 +115,20 @@ case 8:
 break;
 case 9:
 	    /*php
+            $type =& $$[$0];
+            $type->setType('BrokenElement');
+        */
+	
+break;
+case 10:
+	    /*php
+            $type =& $$[$0];
+            $type->setType('BrokenElement');
+        */
+	
+break;
+case 11:
+	    /*php
             $type =& $$[$0-2];
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
@@ -123,7 +137,7 @@ case 9:
         */
 	
 break;
-case 10:
+case 12:
 	    /*php
             $type =& $$[$0-1];
             $type->setType('Element');
@@ -132,8 +146,8 @@ case 10:
 break;
 }
 },
-table: [{3:1,4:2,5:[1,3],6:4,7:[1,5],8:[1,6],9:[1,7],10:[1,8]},{1:[3]},{1:[2,1],5:[1,9],6:10,7:[1,5],8:[1,6],9:[1,7],10:[1,8]},{1:[2,3]},{1:[2,4],5:[2,4],7:[2,4],8:[2,4],9:[2,4],10:[2,4],11:[2,4]},{1:[2,6],5:[2,6],7:[2,6],8:[2,6],9:[2,6],10:[2,6],11:[2,6]},{1:[2,7],5:[2,7],7:[2,7],8:[2,7],9:[2,7],10:[2,7],11:[2,7]},{1:[2,8],5:[2,8],7:[2,8],8:[2,8],9:[2,8],10:[2,8],11:[2,8]},{4:11,6:4,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,12]},{1:[2,2]},{1:[2,5],5:[2,5],7:[2,5],8:[2,5],9:[2,5],10:[2,5],11:[2,5]},{6:10,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,13]},{1:[2,10],5:[2,10],7:[2,10],8:[2,10],9:[2,10],10:[2,10],11:[2,10]},{1:[2,9],5:[2,9],7:[2,9],8:[2,9],9:[2,9],10:[2,9],11:[2,9]}],
-defaultActions: {3:[2,3],9:[2,2]},
+table: [{3:1,4:2,5:[1,3],6:4,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9]},{1:[3]},{1:[2,1],5:[1,10],6:11,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9]},{1:[2,3]},{1:[2,4],5:[2,4],7:[2,4],8:[2,4],9:[2,4],10:[2,4],11:[2,4]},{1:[2,6],5:[2,6],7:[2,6],8:[2,6],9:[2,6],10:[2,6],11:[2,6]},{1:[2,7],5:[2,7],7:[2,7],8:[2,7],9:[2,7],10:[2,7],11:[2,7]},{1:[2,8],5:[2,8],7:[2,8],8:[2,8],9:[2,8],10:[2,8],11:[2,8]},{1:[2,9],4:12,5:[2,9],6:4,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,13]},{1:[2,10],5:[2,10],7:[2,10],8:[2,10],9:[2,10],10:[2,10],11:[2,10]},{1:[2,2]},{1:[2,5],5:[2,5],7:[2,5],8:[2,5],9:[2,5],10:[2,5],11:[2,5]},{6:11,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,14]},{1:[2,12],5:[2,12],7:[2,12],8:[2,12],9:[2,12],10:[2,12],11:[2,12]},{1:[2,11],5:[2,11],7:[2,11],8:[2,11],9:[2,11],10:[2,11],11:[2,11]}],
+defaultActions: {3:[2,3],10:[2,2]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -593,7 +607,7 @@ switch($avoiding_name_collisions) {
 case 0:
     /*php
         //A tag that doesn't need to track state
-        if (WikiLingo\Utilities\Html::isHtmlTag($yy_.yytext) == true) {
+        if (WikiLingo\Utilities\Html::isHtmlTag($yy_.yytext)) {
            return "HTML_TAG_INLINE";
         }
 
@@ -619,9 +633,9 @@ break;
 case 2:
     /*php
         //A tag that is open and we just found the close for it
-        $element = $this->unStackHtmlElement($yy_.yytext);
+        $element = $this->unStackHtmlElement($this->yy);
         if (isset($element)) {
-           $yy_.yytext = $element;
+           $this->yy = $element;
            $this->popState();
            return "HTML_TAG_CLOSE";
         }
@@ -633,7 +647,7 @@ case 3:
     /*php
         //An tag open
         if (WikiLingo\Utilities\Html::isHtmlTag($yy_.yytext)) {
-           $this->stackHtmlElement($yy_.yytext);
+           $this->stackHtmlElement(clone($this->yy));
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
         }

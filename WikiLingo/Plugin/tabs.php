@@ -16,7 +16,7 @@ class tabs extends HtmlBase
     {
 	    $this->parameterDefaults($plugin->parameters);
 	    $id = $this->id($plugin->index);
-	    $parser->addScript(<<<JS
+	    self::$scripts->addScript(<<<JS
 $(function() {
 	var tabs = $('#$id');
 	tabs.tabs();

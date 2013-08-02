@@ -22,6 +22,8 @@ abstract class Base
 	public $np = true;
     public $wysiwygTagType = 'span';
 
+    public static $scripts;
+
 	public function info()
 	{
 		$info = array();
@@ -84,4 +86,11 @@ abstract class Base
 	{
 		return $this->type . $index;
 	}
+
+    function __construct()
+    {
+        if (is_null(self::$scripts)) {
+            self::$scripts = new WikiLingo\Utilities\Scripts();
+        }
+    }
 }
