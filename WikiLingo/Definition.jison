@@ -3,6 +3,7 @@
 //option fileName:Definition.php
 //option extends:Base
 //option parserValue:Parsed
+//option use:WikiLingo\Utilities;
 
 //Lexical Grammer
 %lex
@@ -925,7 +926,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
         return 'HTML_TAG';
 
     /*php
-        if (Expression\Tag::isHtmlTag($yytext)) {
+        if (Utilities\Html::isTag($yytext)) {
             return 'HTML_TAG';
         }
         $tag = $yytext;

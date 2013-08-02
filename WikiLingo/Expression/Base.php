@@ -21,5 +21,7 @@ abstract class Base
 		return null;
 	}
 
+    public $renderedChildren = '';
+
 	abstract function render(&$parser);
 }

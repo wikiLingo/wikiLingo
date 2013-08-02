@@ -3,7 +3,7 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
-class Header extends Tag
+class Header extends Base
 {
     public $name = 'header';
 	public $count = 0;

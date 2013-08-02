@@ -3,8 +3,7 @@ namespace WYSIWYGWikiLingo\Expression;
 
 use WikiLingo;
 
-class Element extends WikiLingo\Expression\Content
-
+class Line extends WikiLingo\Expression\Line
 {
 
 }

@@ -10,7 +10,7 @@ class Line extends Base
 	    $parent = $this->parent();
 
 	    if (empty($parent) || (!empty($parent) && $parent->allowsBreaks)) {
-		    $element = new WikiLingo\Element('br');
+		    $element = $parser->element(__CLASS__, 'br');
 		    $element->setInline();
 		    $line = $element->render();
             return $line . $this->parsed->text;

@@ -2,18 +2,24 @@
 require_once("index.php");
 
 $original = "
+--Test __Bold__-- ===Test===
+-=Title=-
+''This is a test''
 {TABS()}
 {TAB(title='test1 title')}Test1{TAB}
 {TAB(title='test2 title')}Test2{TAB}
 {TABS}
 
 <div>Test</div>
+
+&lt;div&gt;Test&lt;/div&gt;
 ";
 
-$parser = new WikiLingo\Parser();
-$wysiwygParser = new WikiLingoWYSIWYG\Parser();
+$wikiLingo = new WikiLingo\Parser();
+$wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
+$wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
 
-$parser
+$wikiLingo
 	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
 	->addScriptLocation("ckeditor/ckeditor.js")
@@ -54,11 +60,12 @@ $parser
         });
     ");
 
-$output = $parser->parse($original);
-$outputWYSIWYG = $wysiwygParser->parse($original);
+$outputWikiLingo = $wikiLingo->parse($original);
+$outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
+$outputWYSIWYGWikiLingo = $wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
 
-$css = $parser->renderCss();
-$script = $parser->renderScript();
+$css = $wikiLingo->renderCss();
+$script = $wikiLingo->renderScript();
 ?><!DOCTYPE html>
 <html>
 <head>
@@ -69,14 +76,14 @@ $script = $parser->renderScript();
 <pre><?php echo $original;?></pre><br />
 
 <h2>WikiLingo to Standard Html Output</h2>
-<div><?php echo $output;?></div>
+<div><?php echo $outputWikiLingo;?></div>
 
 <h2>WikiLingo to WYSIWYG Html Output</h2>
-<div contenteditable="true" id="wysiwyg"><?php echo $outputWYSIWYG;?></div>
+<div contenteditable="true" id="wysiwyg"><?php echo $outputWikiLingoWYSIWYG;?></div>
 <input type="button" value="To Source" id="wysiwygToSource"/>
 <div id="dtsOutput" style="display: none;">
     <h2>WikiLingo to WYSIWYG Html Output and back to WikiLingo Source</h2>
-    <pre></pre>
+    <pre>$outputWYSIWYGWikiLingo</pre>
 </div>
 </body>
 </html>

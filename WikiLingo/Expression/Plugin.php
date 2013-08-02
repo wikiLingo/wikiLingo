@@ -68,11 +68,11 @@ class Plugin extends Base
         }
     }
 
-    public function render(&$parser, &$renderedChildren = '')
+    public function render(&$parser)
     {
         $parser->events->trigger(__FUNCTION__ .'.pre', $this);
         $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
-        $rendered = $this->class->render($this, $renderedChildren, $parser);
+        $rendered = $this->class->render($this, $this->renderedChildren, $parser);
         $parser->events->trigger(__FUNCTION__ .'.post', $this);
         return $rendered;
     }

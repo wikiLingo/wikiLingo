@@ -1,19 +1,18 @@
 <?php
-namespace WikiLingo;
+namespace WikiLingo\Renderer;
 
-class Element
+class Element extends Base
 {
     public $type;
+    public $name;
     public $state = "standard";
     public $attributes = array();
-	public $classes = array('wl-element');
+	public $classes = array();
 
-    public $children = array();
-	public $staticChildren = array();
-
-    function __construct($type)
+    function __construct($type, $name)
     {
         $this->type = $type;
+        $this->name = $name;
     }
 
     function setInline()
@@ -40,16 +39,11 @@ class Element
      * tag creation, should only be used with items that are directly related to wiki syntax, buttons etc, should use createWikiHelper
      *
      * @access  public
-     * @param   $syntaxType string from what syntax type
-     * @param   $tagType string what output tag type
-     * @param   $content string what is inside the tag
-     * @param   $params array what params to add to the tag, array, key = param, value = value
-     * @param   $inline bool the content to be ignored and for tag to close, ie <tag />
      * @return  string  $tag desired output from syntax
      */
     public function render()
     {
-        $open = "<" . $this->type;
+        $open = "<" . $this->name;
 
         if (!empty($this->attributes)) {
             foreach ($this->attributes as $attribute => $value) {
@@ -68,28 +62,13 @@ class Element
                 return $open;
             case "standard":
                 $open .= ">";
-                $close = "</" . $this->type . ">";
+                $close = "</" . $this->name . ">";
                 return $open . $this->renderChildren() . $close;
             case "open": $open .= ">";
                 return $open;
             case "close":
-                $close = '</' . $this->type . '>';
+                $close = '</' . $this->name . '>';
                 return $close;
         }
-    }
-
-    public function renderChildren()
-    {
-        $children = '';
-
-	    if (empty($this->staticChildren)) {
-		    foreach($this->children as &$child) {
-			    $children .= $child->render();
-		    }
-	    } else {
-		    $children .= implode($this->staticChildren, '');
-	    }
-
-        return $children;
     }
 }

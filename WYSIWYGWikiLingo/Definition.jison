@@ -1,7 +1,9 @@
 //option namespace:WYSIWYGWikiLingo
 //option class:Definition
 //option fileName:Definition.php
-//option extends: Base
+//option extends:Base
+//option parserValue:Parsed
+//option use:WikiLingo;
 
 //Lexical Grammar
 %lex
@@ -17,7 +19,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 {HTML_TAG_INLINE} {
     /*php
         //A tag that doesn't need to track state
-        if (WikiLingoWYSIWYG_DTS::isHtmlTag($yytext) == true) {
+        if (WikiLingo\Utilities\Html::isHtmlTag($yytext) == true) {
            return "HTML_TAG_INLINE";
         }
 
@@ -55,7 +57,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 {HTML_TAG_OPEN} {
     /*php
         //An tag open
-        if (WikiLingoWYSIWYG_DTS::isHtmlTag($yytext)) {
+        if (WikiLingo\Utilities\Html::isHtmlTag($yytext)) {
            $this->stackHtmlElement($yytext);
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
@@ -106,16 +108,10 @@ wiki
 
 contents
  : content
-	{
-		/*php
-			$$ = $1->text;
-		*/
-	}
  | contents content
 	{
 		/*php
-		    $1->text->addSibling($2);
-		    $$ = $1->text;
+		    $1->addContent($2);
 		*/
 	}
  ;
@@ -123,26 +119,38 @@ contents
 content
  : CONTENT
     {
-        //php $$ = $this->content($1);
+        /*php
+            $1->setType('Content');
+        */
     }
  | LINE_END
     {
-        //php $$ = $this->lineEnd($1);
+        /*php
+            $1->setType('Line');
+        */
     }
  | HTML_TAG_INLINE
 	{
-	    //php $$ = $this->inlineElement($1);
+	    /*php
+            $$type =& $1;
+            $$type->setType('Element');
+        */
 	}
  | HTML_TAG_OPEN contents HTML_TAG_CLOSE
 	{
 	    /*php
-	        $1->text = $this->element($1, true);
-	        $1->text->addChild($2);
-	        $$ = $1->text;
-	    */
+            $$type =& $1;
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->addChild($$typeChild);
+            $$type->setType('Element');
+        */
 	}
  | HTML_TAG_OPEN HTML_TAG_CLOSE
 	{
-	    //php $$ = $this->element($1, true);
+	    /*php
+            $$type =& $1;
+            $$type->setType('Element');
+        */
 	}
  ;

@@ -24,13 +24,13 @@ $(function() {
 JS
 );
         if (!empty($plugin->parameters['titles'])) {
-	        $ul = new WikiLingo\Helper('ul');
+	        $ul = $parser->helper('ul');
 	        foreach($plugin->parameters['titles'] as $tabId => $title) {
-		        $a = new WikiLingo\Helper('a');
+		        $a = $parser->helper('a');
 		        $a->attributes['href'] = '#' . $tabId;
 		        $a->staticChildren[] = $title;
 
-		        $li = new WikiLingo\Helper('li');
+		        $li = $parser->helper('li');
 		        $li->children[] = $a;
 		        $ul->children[] = $li;
 	        }

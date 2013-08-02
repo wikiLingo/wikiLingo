@@ -4,9 +4,9 @@ namespace WYSIWYGWikiLingo;
 use Exception;
 
 
+use WikiLingo;
 
-
-class Definition extends  Base
+class Definition extends Base
 {
     public $symbols = array();
     public $terminals = array();
@@ -312,6 +312,7 @@ class Definition extends  Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -321,41 +322,46 @@ case 2:return $s[$o-1];
 break;
 case 3:return "";
 break;
-case 4:
-		
-			$thisS = $s[$o]->text;
-		
-	
-break;
 case 5:
 		
-		    $s[$o-1]->text->addSibling($s[$o]);
-		    $thisS = $s[$o-1]->text;
+		    $s[$o-1]->addContent($s[$o]);
 		
 	
 break;
 case 6:
-         $thisS = $this->content($s[$o]);
+        
+            $s[$o]->setType('Content');
+        
     
 break;
 case 7:
-         $thisS = $this->lineEnd($s[$o]);
+        
+            $s[$o]->setType('Line');
+        
     
 break;
 case 8:
-	     $thisS = $this->inlineElement($s[$o]);
+	    
+            $type =& $s[$o];
+            $type->setType('Element');
+        
 	
 break;
 case 9:
 	    
-	        $s[$o-2]->text = $this->element($s[$o-2], true);
-	        $s[$o-2]->text->addChild($s[$o-1]);
-	        $thisS = $s[$o-2]->text;
-	    
+            $type =& $s[$o-2];
+            $typeChild =& $s[$o-1];
+            $typeChild->setParent($type);
+            $type->addChild($typeChild);
+            $type->setType('Element');
+        
 	
 break;
 case 10:
-	     $thisS = $this->element($s[$o-1], true);
+	    
+            $type =& $s[$o-1];
+            $type->setType('Element');
+        
 	
 break;
 }
@@ -495,7 +501,7 @@ break;
 
                     if (is_null($_yy))
                     {
-                        $vstack[] = new ParserValue();
+                        $vstack[] = new Parsed();
                     }
                     else
                     {
@@ -545,7 +551,7 @@ break;
     {
         $this->input = $input;
         $this->more = $this->less = $this->done = false;
-        $this->yy = new ParserValue();
+        $this->yy = new Parsed();
         $this->conditionStack = array('INITIAL');
         $this->conditionStackCount = 1;
 
@@ -760,12 +766,12 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
     
         //A tag that doesn't need to track state
-        if (WikiLingoWYSIWYG_DTS::isHtmlTag($this->yy->text) == true) {
+        if (WikiLingo\Utilities\Html::isHtmlTag($this->yy->text) == true) {
            return "HTML_TAG_INLINE";
         }
 
@@ -804,7 +810,7 @@ break;
 case 3:
     
         //An tag open
-        if (WikiLingoWYSIWYG_DTS::isHtmlTag($this->yy->text)) {
+        if (WikiLingo\Utilities\Html::isHtmlTag($this->yy->text)) {
            $this->stackHtmlElement($this->yy->text);
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
@@ -837,7 +843,7 @@ case 7:
         if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
            return 8;
         }
-        return 'CONTENT';
+        return 7;
     
 
 break;

@@ -55,9 +55,11 @@ class Parsed extends ParserValue
     public function setExpression()
     {
         $class = "WikiLingo\\Expression\\$this->type";
-        $expression = new $class($this);
-        if ($expression) {
-            $this->expression =& $expression;
+        if (class_exists($class)) {
+            $expression = new $class($this);
+            if ($expression) {
+                $this->expression =& $expression;
+            }
         }
     }
 }

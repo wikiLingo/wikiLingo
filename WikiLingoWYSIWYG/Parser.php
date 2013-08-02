@@ -281,6 +281,16 @@ class Parser extends WikiLingo\Parser
 		$this->skipBr = false;
 		return parent::line($ch);
 	}
+
+    function element($type, $name)
+    {
+        return new Renderer\Element($type, $name);
+    }
+
+    function helper($name)
+    {
+        return new Renderer\Helper($name);
+    }
 }
 
 Parser::staticConstruct();

@@ -3,6 +3,7 @@ namespace WikiLingo;
 
 use Zend\EventManager\EventManager;
 use Exception;
+use WikiLingo\Renderer;
 
 class Base
 {
@@ -602,9 +603,9 @@ class Base
      * @access  public
      * @return  string  html break, <br />
      */
-    function forcedLineEnd()
+    function forcedLineEnd($content)
     {
-	    return new Expression\ForcedLine();
+	    return new Expression\ForcedLine($content);
         //return new HtmlElement("forcedLineEnd", "br", "", array(), "inline");
     }
 
@@ -716,7 +717,6 @@ class Base
     function strike($content) //--content--
     {
 	    return new Expression\Strike($content);
-        return new HtmlElement("strike", "strike", $content);
     }
 
     /**
@@ -1109,14 +1109,14 @@ class Base
         }
     }
 
-	function element(Element $element)
+	function element($type, $name)
 	{
-
+        return new Renderer\Element($type, $name);
 	}
 
-	function helper(Element $element)
+	function helper($name)
 	{
-
+        return new Renderer\Helper($name);
 	}
 
     function removeEOF( &$output )
