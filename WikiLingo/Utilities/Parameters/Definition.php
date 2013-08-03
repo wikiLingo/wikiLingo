@@ -1,6 +1,6 @@
 <?php
 /* Jison generated parser */
-namespace WikiLingo\Plugin\Parameters;
+namespace WikiLingo\Utilities\Parameters;
 use Exception;
 
 
@@ -188,7 +188,7 @@ class Definition extends Base
 					8=>"/^(?:([`]))/",
 					9=>"/^(?:([a-zA-Z0-9_-]+)(?=(([=]|[=][>]))))/",
 					10=>"/^(?:(([=]|[=][>])))/",
-					11=>"/^(?:\s\b)/",
+					11=>"/^(?:\s)/",
 					12=>"/^(?:$)/"
 				);
 
@@ -206,6 +206,7 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -629,7 +630,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
     

@@ -1,7 +1,9 @@
 <?
 namespace WYSIWYGWikiLingo\Expression;
 
-class BrokenElement extends Element
+use WikiLingo;
+
+class BrokenElement extends WikiLingo\Expression\Content
 {
 
 }

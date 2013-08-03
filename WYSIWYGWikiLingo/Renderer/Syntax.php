@@ -1,46 +1,22 @@
 <?php
-namespace WYSIWYGWikiLingo\Expression;
+namespace WYSIWYGWikiLingo\Renderer;
 
 use WikiLingo;
 use DOMDocument;
 
-class Syntax extends WikiLingo\Renderer\Base
+class Syntax
 {
-	public $name;
-	public $attributes;
-	public $open;
-	public $state = "open";
-	public $type;
-	public $stackCount;
-
-	function __construct($tag, $stackCount, $state = '')
-	{
-
-		$parts = preg_split("/[ >]/", substr($tag, 1)); //<tag> || <tag name="">
-		$name = array_shift($parts);
-		$this->name = strtolower(trim($name));
-		$end = array_pop($parts);
-		$this->attributes = implode(" ", $parts);
-        $this->state = $state;
-		$type = "";
-
-		$this->open = ($state == 'closed' || $state == 'inline' ? false : true);
-		$this->stackCount = $stackCount;
-
-		$this->parseElementAttributes();
-
-		if (isset($this->attributes['data-t'])) {
-			$this->type = WikiLingoWYSIWYG::typeFromShorthand(strtolower($this->attributes['data-t']));
-		}
-	}
-
-    public function render(&$parser)
+    public function render(&$parsed)
     {
-		//helpers
-		if ($this->hasClass("wlwh") == true) {
-			return "";
-		}
+        $element = $parsed->expression;
 
+        if ($element->isStatic) {
+            return $parsed->text;
+        }
+
+        if ($element->isHelper) {
+            return '';
+        }
 
 		$result = '';
 

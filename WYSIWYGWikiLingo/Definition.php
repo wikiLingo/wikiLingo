@@ -363,7 +363,7 @@ break;
 case 8:
 	    
             $type =& $s[$o];
-            $type->setType('Element');
+            $type->setType('InlineElement');
         
 	
 break;
@@ -388,6 +388,7 @@ case 11:
             $typeChild->setParent($type);
             $type->addChild($typeChild);
             $type->setType('Element');
+            $type->expression->setClosing($s[$o]);
         
 	
 break;
@@ -395,6 +396,7 @@ case 12:
 	    
             $type =& $s[$o-1];
             $type->setType('Element');
+            $type->expression->setClosing($s[$o]);
         
 	
 break;

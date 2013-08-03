@@ -133,7 +133,7 @@ content
 	{
 	    /*php
             $$type =& $1;
-            $$type->setType('Element');
+            $$type->setType('InlineElement');
         */
 	}
  | HTML_TAG_OPEN
@@ -158,6 +158,7 @@ content
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
             $$type->setType('Element');
+            $$type->expression->setClosing($3);
         */
 	}
  | HTML_TAG_OPEN HTML_TAG_CLOSE
@@ -165,6 +166,7 @@ content
 	    /*php
             $$type =& $1;
             $$type->setType('Element');
+            $$type->expression->setClosing($2);
         */
 	}
  ;

@@ -1,6 +1,6 @@
 <?php
 
-namespace WikiLingo\Plugin\Parameters;
+namespace WikiLingo\Utilities\Parameters;
 
 class Base
 {

@@ -29,7 +29,7 @@ class Plugin extends Base
 	    $parameters = $parsed->arguments[0]->text;
 
         if (!isset(self::$parametersParser)) {
-            self::$parametersParser = new WikiLingo\Plugin\Parameters\Definition();
+            self::$parametersParser = new WikiLingo\Utilities\Parameters\Definition();
         }
 
         $this->name = $name = strtolower(substr($name, 1));

@@ -74,82 +74,36 @@
 var Definition = (function(){
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"wiki":3,"contents":4,"EOF":5,"content":6,"CONTENT":7,"LINE_END":8,"HTML_TAG_INLINE":9,"HTML_TAG_OPEN":10,"HTML_TAG_CLOSE":11,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",7:"CONTENT",8:"LINE_END",9:"HTML_TAG_INLINE",10:"HTML_TAG_OPEN",11:"HTML_TAG_CLOSE"},
-productions_: [0,[3,1],[3,2],[3,1],[4,1],[4,2],[6,1],[6,1],[6,1],[6,1],[6,1],[6,3],[6,2]],
+symbols_: {"error":2,"arguments":3,"EOF":4,"parameters":5,"parameter":6,"PARAMETER_NAME":7,"PARAMETER_VALUE":8,"$accept":0,"$end":1},
+terminals_: {2:"error",4:"EOF",7:"PARAMETER_NAME",8:"PARAMETER_VALUE"},
+productions_: [0,[3,1],[3,2],[5,1],[5,2],[6,1],[6,2]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
 var $0 = $$.length - 1;
 switch (yystate) {
-case 1:return $$[$0];
+case 1:
+        /*php
+            return array();
+        */
+    
 break;
-case 2:return $$[$0-1];
-break;
-case 3:return "";
-break;
-case 5:
-		/*php
-		    $$[$0-1]->addContent($$[$0]);
-		*/
-	
+case 2:
+        /*php
+            return this->get();
+        */
+    
 break;
 case 6:
         /*php
-            $$[$0]->setType('Content');
+            this->add($$[$0-1]->text, $$[$0]->text);
         */
     
-break;
-case 7:
-        /*php
-            $$[$0]->setType('Line');
-        */
-    
-break;
-case 8:
-	    /*php
-            $type =& $$[$0];
-            $type->setType('InlineElement');
-        */
-	
-break;
-case 9:
-	    /*php
-            $type =& $$[$0];
-            $type->setType('BrokenElement');
-        */
-	
-break;
-case 10:
-	    /*php
-            $type =& $$[$0];
-            $type->setType('BrokenElement');
-        */
-	
-break;
-case 11:
-	    /*php
-            $type =& $$[$0-2];
-            $typeChild =& $$[$0-1];
-            $typeChild->setParent($type);
-            $type->addChild($typeChild);
-            $type->setType('Element');
-            $type->expression->setClosing($$[$0]);
-        */
-	
-break;
-case 12:
-	    /*php
-            $type =& $$[$0-1];
-            $type->setType('Element');
-            $type->expression->setClosing($$[$0]);
-        */
-	
 break;
 }
 },
-table: [{3:1,4:2,5:[1,3],6:4,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9]},{1:[3]},{1:[2,1],5:[1,10],6:11,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,9]},{1:[2,3]},{1:[2,4],5:[2,4],7:[2,4],8:[2,4],9:[2,4],10:[2,4],11:[2,4]},{1:[2,6],5:[2,6],7:[2,6],8:[2,6],9:[2,6],10:[2,6],11:[2,6]},{1:[2,7],5:[2,7],7:[2,7],8:[2,7],9:[2,7],10:[2,7],11:[2,7]},{1:[2,8],5:[2,8],7:[2,8],8:[2,8],9:[2,8],10:[2,8],11:[2,8]},{1:[2,9],4:12,5:[2,9],6:4,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,13]},{1:[2,10],5:[2,10],7:[2,10],8:[2,10],9:[2,10],10:[2,10],11:[2,10]},{1:[2,2]},{1:[2,5],5:[2,5],7:[2,5],8:[2,5],9:[2,5],10:[2,5],11:[2,5]},{6:11,7:[1,5],8:[1,6],9:[1,7],10:[1,8],11:[1,14]},{1:[2,12],5:[2,12],7:[2,12],8:[2,12],9:[2,12],10:[2,12],11:[2,12]},{1:[2,11],5:[2,11],7:[2,11],8:[2,11],9:[2,11],10:[2,11],11:[2,11]}],
-defaultActions: {3:[2,3],10:[2,2]},
+table: [{3:1,4:[1,2],5:3,6:4,7:[1,5]},{1:[3]},{1:[2,1]},{4:[1,6],6:7,7:[1,5]},{4:[2,3],7:[2,3]},{4:[2,5],7:[2,5],8:[1,8]},{1:[2,2]},{4:[2,4],7:[2,4]},{4:[2,6],7:[2,6]}],
+defaultActions: {2:[2,1],6:[2,2]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -608,91 +562,68 @@ var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
 case 0:
     /*php
-        //A tag that doesn't need to track state
-        if (WikiLingo\Utilities\Html::isHtmlTag($yy_.yytext)) {
-           return "HTML_TAG_INLINE";
-        }
-
-        //A non-valid html tag, return "<" put the rest back into the parser
-        if (isset($yy_.yytext{0})) {
-           $tag = $yy_.yytext;
-           $yy_.yytext = $yy_.yytext{0};
-           $this->unput(substr($tag, 1));
-        }
-        return 7;
+        $this->popState();
     */
 
 break;
 case 1:
     /*php
-        //A tag that was left open, and needs to close
-        $name = end($this->htmlElementsStack);
-        $element = end($this->htmlElementStack);
-        return 7;
+        $this->popState();
     */
 
 break;
 case 2:
     /*php
-        //A tag that is open and we just found the close for it
-        $element = $this->unStackHtmlElement($this->yy);
-        if (isset($element)) {
-           $this->yy = $element;
-           $this->popState();
-           return "HTML_TAG_CLOSE";
-        }
-        return 7;
+        $this->popState();
     */
 
 break;
 case 3:
-    /*php
-        //An tag open
-        if (WikiLingo\Utilities\Html::isHtmlTag($yy_.yytext)) {
-           $this->stackHtmlElement(clone($this->yy));
-           $this->begin('htmlElement');
-           return "HTML_TAG_OPEN";
-        }
-
-        //A non-valid html tag, return the first character in the stack and put the rest back into the parser
-        if (isset($yy_.yytext{0})) {
-           $tag = $yy_.yytext;
-           $yy_.yytext = $yy_.yytext{0};
-           $this->unput(substr($tag, 1));
-        }
-
-        return 7;
-    */
+    return 8;
 
 break;
 case 4:
-    /*php
-        //A tag that was not opened, needs to be ignored
-        return 7;
-    */
+    return 8;
 
 break;
-case 5:return 7;
+case 5:
+    return 8;
+
 break;
-case 6:return 7;
+case 6:
+    /*php
+        $this->begin('singleQuoteParameter');
+    */
+
 break;
 case 7:
     /*php
-        if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
-           return 8;
-        }
+        $this->begin('doubleQuoteParameter');
+    */
+
+break;
+case 8:
+    /*php
+        $this->begin('angleQuoteParameter');
+    */
+
+break;
+case 9:
+    /*php
         return 7;
     */
 
 break;
-case 8:return 7;
+case 10:/*skip equals*/
 break;
-case 9:return 5;
+case 11:/*skip whitespace*/
+break;
+case 12:return 4;
 break;
 }
 },
-rules: [/^(?:(<(.|\n)[^>]*?\/>))/,/^(?:$)/,/^(?:(<\/(.|\n)[^>]*?>))/,/^(?:(<(.|\n)[^>]*?>))/,/^(?:(<\/(.|\n)[^>]*?>))/,/^(?:([A-Za-z0-9 .,?;]+))/,/^(?:([ ]))/,/^(?:((\n\r|\r\n|[\n\r])))/,/^(?:(.))/,/^(?:$)/],
-conditions: {"htmlElement":{"rules":[0,1,2,3,4,5,6,7,8,9],"inclusive":true},"INITIAL":{"rules":[0,3,4,5,6,7,8,9],"inclusive":true}}
+rules: [/^(?:('))/,/^(?:("))/,/^(?:([`]))/,/^(?:.*?(?=(')))/,/^(?:.*?(?=(")))/,/^(?:.*?(?=([`])))/,/^(?:('))/,/^(?:("))/,/^(?:([`]))/,/^(?:([a-zA-Z0-9_-]+)(?=(([=]|[=][>]))))/,/^(?:(([=]|[=][>])))/,/^(?:\s)/,/^(?:$)/],
+conditions: {"singleQuoteParameter":{"rules":[0,3,6,7,8,9,10,11,12],"inclusive":true},"doubleQuoteParameter":{"rules":[1,4,6,7,8,9,10,11,12],"inclusive":true},"angleQuoteParameter":{"rules":[2,5,6,7,8,9,10,11,12],"inclusive":true},"INITIAL":{"rules":[6,7,8,9,10,11,12],"inclusive":true}}
 };
 return lexer;
 })();

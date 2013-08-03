@@ -1,4 +1,4 @@
-//option namespace:WikiLingo\Plugin\Parameters
+//option namespace:WikiLingo\Utilities\Parameters
 //option class:Definition
 //option fileName:Definition.php
 //option extends:Base
