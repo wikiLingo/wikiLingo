@@ -60,9 +60,9 @@ class Negotiator
 		unset(self::$pluginInfo[$this->name]);
 	}
 
-	function injectedExists()
+	public static function injectedExists($name)
 	{
-		if (isset(self::$pluginInstances[$this->name]) && gettype(self::$pluginInstances[$this->name]) == 'object') {
+		if (isset(self::$pluginInstances[$name]) && gettype(self::$pluginInstances[$name]) == 'object') {
 			return true;
 		}
 

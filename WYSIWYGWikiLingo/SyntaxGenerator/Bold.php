@@ -1,4 +1,4 @@
-<?
+<?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
 class Bold extends Base

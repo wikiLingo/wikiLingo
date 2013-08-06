@@ -1,4 +1,4 @@
-<?
+<?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
 class Line extends Base

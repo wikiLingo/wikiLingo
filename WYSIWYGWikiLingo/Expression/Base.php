@@ -1,4 +1,4 @@
-<?
+<?php
 namespace WYSIWYGWikiLingo\Expression;
 
 use WikiLingo;

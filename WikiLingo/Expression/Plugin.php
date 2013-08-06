@@ -61,7 +61,7 @@ class Plugin extends Base
                 WikiLingo\Plugin\Negotiator::$pluginInstances[$this->className] = new $this->className;
             }
             $this->class = WikiLingo\Plugin\Negotiator::$pluginInstances[$this->className];
-        } else if (WikiLingo\Plugin\Negotiator::injectedExists() == true) {
+        } else if (WikiLingo\Plugin\Negotiator::injectedExists($this->className) == true) {
             $this->class = WikiLingo\Plugin\Negotiator::$pluginInstances[$this->name];
         } else {
             $this->class = null;

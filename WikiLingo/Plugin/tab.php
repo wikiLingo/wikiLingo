@@ -1,12 +1,14 @@
 <?php
 namespace WikiLingo\Plugin;
 
+use WikiLingo;
+
 class tab extends HtmlBase
 {
     public $type = 'tab';
     public $htmlTagType = 'div';
 
-    public function render(&$plugin, &$body = '', &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 	    if (!isset($plugin->parent->parameters['titles'])) {
 		    $plugin->parent->parameters['titles'] = array();

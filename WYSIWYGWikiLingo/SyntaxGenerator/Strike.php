@@ -1,4 +1,4 @@
-<?
+<?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
 class Strike extends Base

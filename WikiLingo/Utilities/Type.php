@@ -1,4 +1,4 @@
-<?
+<?php
 namespace WikiLingo\Utilities;
 
 class Type
