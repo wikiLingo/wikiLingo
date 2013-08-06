@@ -4,17 +4,15 @@ namespace WYSIWYGWikiLingo\Expression;
 use WikiLingo;
 use WYSIWYGWikiLingo;
 
-class Element extends WikiLingo\Expression\Content
+class Element extends Base
 {
+    public $isElement = true;
+
     public $isClosed = false;
     public $closing;
 
-    public $isHelper = false;
-    public $isElement = false;
-    public $isStatic = false;
-
     public static $parameterParser;
-    public $parameters = array();
+
     function __construct(WYSIWYGWikiLingo\Parsed &$parsed)
     {
         parent::__construct($parsed);
@@ -22,7 +20,7 @@ class Element extends WikiLingo\Expression\Content
         $pos = strpos($parsed->text, ' ');
         if ($pos != false) {
             $parametersString = trim(substr($parsed->text, $pos, -1));
-            $this->parameters = InlineElement::$parameterParser->parse($parametersString);
+            $this->parameters = self::$parameterParser->parse($parametersString);
 
             if (isset($this->parameters['class'])) {
                 if (strpos($this->parameters['class'], 'wl-element') != false) {

@@ -8,16 +8,27 @@ class Syntax
 {
     public function render(&$parsed)
     {
-        $element = $parsed->expression;
+        $expression = $parsed->expression;
 
-        if ($element->isStatic) {
-            return $parsed->text;
+        if (!empty($expression->parameters['data-type']) && $expression->isElement) {
+
+            $longTypeName = $expression->parameters['data-type'];
+            if (isset($longTypeName)) {
+                $typeName = WikiLingo\Utilities\Type::normalize($longTypeName);
+                $typeClass = 'WYSIWYGWikiLingo\SyntaxGenerator\\' . $typeName;
+                if (class_exists($typeClass))
+                {
+                    $type = new $typeClass($this, $expression);
+                    return $type->generate();
+                }
+            }
         }
 
-        if ($element->isHelper) {
+        if ($expression->isHelper) {
             return '';
         }
 
+        return $parsed->text;
 		$result = '';
 
 		if (!isset($this->typeStack[$this->type])) {

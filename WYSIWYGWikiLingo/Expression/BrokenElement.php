@@ -3,7 +3,7 @@ namespace WYSIWYGWikiLingo\Expression;
 
 use WikiLingo;
 
-class BrokenElement extends WikiLingo\Expression\Content
+class BrokenElement extends Base
 {
-
+    public $isStatic = true;
 }

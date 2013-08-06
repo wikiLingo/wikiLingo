@@ -3,10 +3,7 @@ namespace WYSIWYGWikiLingo\Expression;
 
 use WikiLingo;
 
-class Line extends WikiLingo\Expression\Line
+class Line extends Base
 {
-    function render(&$parser)
-    {
-        return $this->parsed->text;
-    }
+    public $isHelper = true;
 }

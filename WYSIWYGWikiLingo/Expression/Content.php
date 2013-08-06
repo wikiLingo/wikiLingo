@@ -3,7 +3,7 @@ namespace WYSIWYGWikiLingo\Expression;
 
 use WikiLingo;
 
-class Content extends WikiLingo\Expression\Content
+class Content extends Base
 {
-
+    public $isStatic = true;
 }
