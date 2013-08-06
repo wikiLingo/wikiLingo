@@ -1,6 +1,7 @@
 <?php
 require_once("index.php");
 
+
 $original = "
 --Test __Bold__-- ===Test===
 -=Title=-
@@ -10,11 +11,15 @@ $original = "
 {TAB(title='test2 title')}Test2{TAB}
 {TABS}
 
+{ACCORDIONS()}
+{ACCORDION(title='test1 title')}Test1{ACCORDION}
+{ACCORDION(title='test2 title')}Test2{ACCORDION}
+{ACCORDIONS}
+
 <div>Test</div>
 
 &lt;div&gt;Test&lt;/div&gt;
 ";
-
 $scripts = new WikiLingo\Utilities\Scripts();
 $wikiLingo = new WikiLingo\Parser();
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
