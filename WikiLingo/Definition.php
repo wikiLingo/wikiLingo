@@ -5465,7 +5465,7 @@ case 68:
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addArgument($s[$o]);
-            $type->setType('Plugin');
+            $type->setType('InlinePlugin');
         
  	
 break;

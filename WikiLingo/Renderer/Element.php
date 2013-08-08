@@ -7,6 +7,8 @@ class Element extends Base
     public $name;
     public $state = "standard";
     public $attributes = array();
+    public $detailedAttributes = array();
+    public $useDetailedAttributes = false;
 	public $classes = array();
 
     function __construct($type, $name)
@@ -50,6 +52,14 @@ class Element extends Base
 	            if (strtolower($attribute) != 'class') {
                     $open .= " " . $attribute . "='" . addslashes(trim($value)) . "'";
 	            }
+            }
+        }
+
+        if ($this->useDetailedAttributes && !empty($this->detailedAttributes)) {
+            foreach ($this->detailedAttributes as $attribute => $value) {
+                if (strtolower($attribute) != 'class') {
+                    $open .= " " . $attribute . "='" . addslashes(trim($value)) . "'";
+                }
             }
         }
 

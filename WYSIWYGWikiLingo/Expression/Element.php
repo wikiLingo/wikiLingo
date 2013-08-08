@@ -18,14 +18,14 @@ class Element extends Base
         parent::__construct($parsed);
 
         $pos = strpos($parsed->text, ' ');
-        if ($pos != false) {
+        if ($pos !== false) {
             $parametersString = trim(substr($parsed->text, $pos, -1));
             $this->parameters = self::$parameterParser->parse($parametersString);
 
             if (isset($this->parameters['class'])) {
-                if (strpos($this->parameters['class'], 'wl-element') != false) {
+                if (strpos($this->parameters['class'], 'wl-element') !== false) {
                     $this->isElement = true;
-                } else if (strpos($this->parameters['class'], 'wl-helper') != false) {
+                } else if (strpos($this->parameters['class'], 'wl-helper') !== false) {
                     $this->isHelper = true;
                 } else {
                     $this->isStatic = true;
@@ -38,6 +38,14 @@ class Element extends Base
     {
         $this->isClosed = true;
         $this->closing =& $parsed;
+    }
+
+    public function render(&$parser)
+    {
+        if ($this->isHelper) {
+            return '';
+        }
+        return parent::render($parser);
     }
 }
 

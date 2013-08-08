@@ -5,6 +5,6 @@ class Line extends Base
 {
     public function generate()
     {
-        return '\n';
+        return "\n";
     }
 }

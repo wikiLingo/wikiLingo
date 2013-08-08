@@ -8,7 +8,6 @@ class Plugin extends Base
     public $name;
     public $parameters = array(); //parameters are server side
     public $attributes = array(); //attributes are client/tag side
-    public $closing;
     public $index;
     public $key;
 	public $exists;
@@ -17,6 +16,7 @@ class Plugin extends Base
     public $parsed;
     public $parent;
 	public $allowsBreaks = false;
+    public $isInline = false;
 
     public static $info;
     public static $parametersParser;
@@ -44,9 +44,12 @@ class Plugin extends Base
         $this->key = '§' . md5('plugin:' . $name . '_' . $this->index) . '§';
 
         if ($parameters != '}') {
-            $parameters = substr($parameters, 0, -1);
-            if ($parameters{strlen($parameters) - 1} == ')') {
+            if ($this->isInline) {
+                //{plugin}
                 $parameters = substr($parameters, 0, -1);
+            } else {
+                //{PLUGIN()}
+                $parameters = substr($parameters, 0, -2);
             }
 
             if (!empty($parameters)) {

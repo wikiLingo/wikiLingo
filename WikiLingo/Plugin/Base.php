@@ -10,6 +10,7 @@ abstract class Base
 	public $body;
 	public $parameters = array();
 	public $attributes = array();
+    public $privateAttributes = array();
 	public $type;
 	public $documentation;
 	public $prefs = array();

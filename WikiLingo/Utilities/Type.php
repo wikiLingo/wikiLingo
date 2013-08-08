@@ -5,6 +5,7 @@ class Type
 {
     public static function normalize($type)
     {
-        return str_replace('WikiLingo\\\\Expression\\\\', '', $type);
+        $type = str_replace('WikiLingo\\\\Expression\\\\', '', $type);
+        return $type;
     }
 }

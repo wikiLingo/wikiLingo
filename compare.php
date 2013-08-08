@@ -16,8 +16,11 @@ $original = "
 {ACCORDION(title='test2 title')}Test2{ACCORDION}
 {ACCORDIONS}
 
-<div>Test</div>
 
+
+{div}
+<div>Test</div>
+<script>console.log('If you see me in the console more than 1 time, something is wrong!');</script>
 &lt;div&gt;Test&lt;/div&gt;
 ";
 $scripts = new WikiLingo\Utilities\Scripts();
@@ -28,11 +31,11 @@ $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
 $scripts
 	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
-	->addScriptLocation("ckeditor/ckeditor.js")
-	->addScriptLocation("WikiLingoWYSIWYG/styles.js")
-	->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
-	->addScript("
-        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+    ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+    ->addScriptLocation("ckeditor/ckeditor.js")
+    ->addScriptLocation("WikiLingoWYSIWYG/styles.js")
+    ->addScript(
+        "CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
         CKEDITOR.config.allowedContent =
             'h1[*];' +
             'h2[*];' +
@@ -53,8 +56,8 @@ $scripts
             'a[*];' +
             'table tr th td caption;' +
             'del ins';")
-	->addScript("
-        $(function() {
+    ->addScript(
+        "$(function() {
             $('#wysiwygToSource').click(function() {
                 var data = CKEDITOR.instances.wysiwyg.getData();
                 $('#dtsOutput').hide();
@@ -63,8 +66,8 @@ $scripts
                     $('#dtsOutput').show();
                 });
             });
-        });
-    ");
+        });"
+    );
 
 $outputWikiLingo = $wikiLingo->parse($original);
 $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);

@@ -23,9 +23,9 @@ $(function() {
 });
 JS
 );
-        if (!empty($plugin->parameters['titles'])) {
+        if (!empty($plugin->privateAttributes['titles'])) {
 	        $ul = $parser->helper('ul');
-	        foreach($plugin->parameters['titles'] as $tabId => $title) {
+	        foreach($plugin->privateAttributes['titles'] as $tabId => $title) {
 		        $a = $parser->helper('a');
 		        $a->attributes['href'] = '#' . $tabId;
 		        $a->staticChildren[] = $title;

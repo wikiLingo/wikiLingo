@@ -24,4 +24,8 @@ abstract class Base
     public $renderedChildren = '';
 
 	abstract function render(&$parser);
+
+    public function preRender(&$parser)
+    {
+    }
 }

@@ -12,6 +12,8 @@ class Render
 
 	public function render(Parsed &$parsed)
 	{
+        $parsed->expression->preRender($this->parser);
+
         $renderedChildren = '';
         foreach ($parsed->children as &$child) {
             $renderedChildren .= $this->render($child);

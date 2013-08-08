@@ -5,7 +5,6 @@ class div extends HtmlBase
 {
 	public $type = 'div';
     public $htmlTagType = 'div';
-    public $wysiwygTagType = 'div';
 	public $documentation = 'PluginDIV';
 	public $validate = 'all';
 	public $filter = 'rawhtml_unsafe';

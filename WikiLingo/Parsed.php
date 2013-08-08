@@ -50,6 +50,10 @@ class Parsed extends ParserValue
 	{
 		$this->children[] =& $child;
 	}
+    public function removeChildren()
+    {
+        $this->children = [];
+    }
 
     public $expression;
     public function setExpression()

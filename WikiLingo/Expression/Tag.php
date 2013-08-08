@@ -7,6 +7,7 @@ class Tag extends Base
 {
     public $name;
     public $close = false;
+    public $allowed = false;
 
 	public static $notAllowed = array(
 		'script' => true
@@ -36,6 +37,7 @@ class Tag extends Base
 
 	function __construct(WikiLingo\Parsed &$parsed)
 	{
+        $this->parsed =& $parsed;
         $parts = preg_split("/[ >]/", substr($parsed->text, 1)); //<tag> || <tag name="">
         $name = $parts[0];
         if ($name{0} == '/') {
@@ -45,15 +47,19 @@ class Tag extends Base
             $this->name = $name;
         }
 
+        if (isset(self::$allowedBlock[$this->name]) && self::$allowedBlock[$this->name]) {
+            $this->allowed = true;
+        }
+
 		parent::__construct($parsed);
 	}
 
 	function render(&$parser)
 	{
-        if (isset(self::$allowedBlock[$this->name]) && self::$allowedBlock[$this->name]) {
+        if ($this->allowed) {
 		    return $this->parsed->text;
         } else {
-            return '';
+            return htmlspecialchars($this->parsed->text);
         }
 	}
 }

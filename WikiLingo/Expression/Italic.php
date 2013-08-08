@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
-class Italic
+class Italic extends Base
 {
     public function render(&$parser)
     {

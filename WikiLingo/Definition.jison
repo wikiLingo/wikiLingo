@@ -1370,7 +1370,7 @@ content
             $$type->setOption('NoBody', true);
             $$type->setOption('Inline', true);
             $$type->addArgument($2);
-            $$type->setType('Plugin');
+            $$type->setType('InlinePlugin');
         */
  	}
  | PLUGIN_START PLUGIN_PARAMETERS contents PLUGIN_END

@@ -23,6 +23,8 @@ abstract class Base extends WikiLingo\Expression\Content
                     $type = new $typeClass($this, $this);
                     $generated = $type->generate();
                     return $generated;
+                } else {
+                    throw new \Exception("Type '" . $typeClass . "' not found");
                 }
             }
         }

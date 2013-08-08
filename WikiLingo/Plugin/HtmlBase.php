@@ -282,38 +282,35 @@ abstract class HtmlBase extends Base
 
 	public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
 	{
-        if (isset($parser->wysiwyg) && $this->wysiwygTagType) {
-            $output = '<' . $this->wysiwygTagType;
-        } else {
-            $output = '<' . $this->htmlTagType;
-        }
+        $elementName = (
+            isset($parser->wysiwyg)
+            && $this->wysiwygTagType
+
+            ?
+                $this->wysiwygTagType
+            :
+                $this->htmlTagType
+        );
+
+        $element = $parser->element('WikiLingo\\Expression\\Plugin', $elementName);
 
         $this->parameterDefaults($plugin->parameters);
 		$style = $this->stylize($plugin->parameters);
 		$this->attributeDefaults($plugin->attributes);
 
-        $plugin->attributes['id'] = $this->id($plugin->index);
-        $plugin->attributes['class'] = (empty($plugin->attributes['class']) ? '' : ' ' ) . 'wl-plugin-' . $this->type;
-        $plugin->attributes['style'] = $style;
-
-		foreach ($plugin->attributes as $attribute => $value) {
-			if (!empty($value)) {
-				$output .= ' ' . $attribute . '="' . addslashes($value) . '"';
-			}
-		}
+        $element->attributes['id'] = $this->id($plugin->index);
+        $element->attributes['class'] = (empty($plugin->attributes['class']) ? '' : ' ' ) . 'wl-plugin-' . $this->type;
+        $element->attributes['style'] = $style;
+        $element->detailedAttributes['data-plugintype'] = $this->type;
+        $element->detailedAttributes['data-pluginparameters'] = urlencode(json_encode($plugin->parameters));
+        $element->detailedAttributes['data-isinline'] = $plugin->isInline;
 
 		if (empty($body)) {
-            $output .= '/>';
+            $element->setInline();
         } else {
-            $output .= '>' . $body;
-
-            if (isset($parser->wysiwyg) && $this->wysiwygTagType) {
-                $output .= '</' . $this->wysiwygTagType . '>';
-            } else {
-                $output .= '</' . $this->htmlTagType . '>';
-            }
+            $element->staticChildren[] = $body;
         }
 
-		return $output;
+		return $element->render();
 	}
 }
