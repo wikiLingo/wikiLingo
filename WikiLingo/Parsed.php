@@ -4,18 +4,46 @@ namespace WikiLingo;
 class Parsed extends ParserValue
 {
 	public $type;
+    public $render;
+    public $siblingIndex = 0;
+    public $siblingsLength = 0;
+    public $lineIndex = 0;
+    public $linesLength = 0;
 
 	public $lines = array();
 	public function addLine(Parsed &$line)
 	{
+        $this->lineIndex++;
+        $line->lineIndex = $this->lineIndex;
+
+        $line->parent =& $this;
 		$this->lines[] =& $line;
 	}
+    public function previousLine()
+    {
+        return $this->parent->lines[$this->lineIndex - 1];
+    }
+    public function nextLine()
+    {
+        return $this->parent->lines[$this->lineIndex + 1];
+    }
 
 	public $siblings = array();
 	public function addContent(Parsed &$sibling)
 	{
-		$this->siblings[] =& $sibling;
+        $this->siblingIndex++;
+        $sibling->siblingIndex = $this->siblingsLength;
+
+        $this->siblings[] =& $sibling;
 	}
+    public function previousSibling()
+    {
+        return $this->siblings[$this->siblingIndex - 1];
+    }
+    public function nextSibling()
+    {
+        return $this->siblings[$this->siblingIndex + 1];
+    }
 
 	public $arguments = array();
 	public function addArgument(Parsed &$argument)

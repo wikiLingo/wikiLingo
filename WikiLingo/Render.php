@@ -5,6 +5,7 @@ namespace WikiLingo;
 class Render
 {
 	public $parser;
+
 	function __construct(&$parser)
 	{
 		$this->parser = $parser;
