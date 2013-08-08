@@ -92,6 +92,9 @@ class Block extends Base
     public function render(&$parser)
     {
         $prev = $this->parsed->previousLine();
+        if ($prev != null) {
+
+        }
         $test = '';
         return $test;
     }

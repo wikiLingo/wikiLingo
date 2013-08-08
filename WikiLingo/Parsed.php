@@ -13,36 +13,53 @@ class Parsed extends ParserValue
 	public $lines = array();
 	public function addLine(Parsed &$line)
 	{
-        $this->lineIndex++;
-        $line->lineIndex = $this->lineIndex;
+        $this->lineLength++;
+        $line->lineIndex = $this->lineLength;
 
         $line->parent =& $this;
-		$this->lines[] =& $line;
+		$this->lines[$this->lineLength] =& $line;
 	}
     public function previousLine()
     {
-        return $this->parent->lines[$this->lineIndex - 1];
+        $lineIndex = $this->lineIndex - 1;
+        if ($lineIndex == 0) {
+            return null;
+        }
+        $line = $this->parent->lines[$lineIndex];
+        return $line;
     }
     public function nextLine()
     {
+        $lineIndex = $this->lineIndex + 1;
+        if ($lineIndex > $this->parent->lineLength) {
+            return null;
+        }
         return $this->parent->lines[$this->lineIndex + 1];
     }
 
 	public $siblings = array();
 	public function addContent(Parsed &$sibling)
 	{
-        $this->siblingIndex++;
+        $this->siblingsLength++;
         $sibling->siblingIndex = $this->siblingsLength;
 
-        $this->siblings[] =& $sibling;
+        $this->siblings[$this->siblingsLength] =& $sibling;
 	}
     public function previousSibling()
     {
-        return $this->siblings[$this->siblingIndex - 1];
+        $siblingIndex = $this->siblingIndex - 1;
+        if ($siblingIndex > $this->parent->siblingLength) {
+            return null;
+        }
+        return $this->siblings[$siblingIndex];
     }
     public function nextSibling()
     {
-        return $this->siblings[$this->siblingIndex + 1];
+        $siblingIndex = $this->siblingIndex + 1;
+        if ($siblingIndex > $this->parent->siblingLength) {
+            return null;
+        }
+        return $this->siblings[$siblingIndex];
     }
 
 	public $arguments = array();
