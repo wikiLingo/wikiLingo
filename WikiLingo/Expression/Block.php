@@ -13,10 +13,10 @@ class Block extends Base
     public static $expressionTypes = array(
         'header' => 'Header',
 
-        'unorderedList' => 'ListBuilder',
-        'orderedList' => 'ListBuilder',
-        'listBreak' => 'ListBuilder',
-        'definitionList' => 'ListBuilder',
+        'unorderedList' => 'ListItems',
+        'orderedList' => 'ListItems',
+        'listBreak' => 'ListItems',
+        'definitionList' => 'ListItems',
 
         'r2l' => 'R2L',
         'l2r' => 'L2R'
@@ -110,8 +110,9 @@ class Block extends Base
 
     public function render(&$parser)
     {
-
-        $test = '';
-        return $test;
+        if ($this->actualExpression->needed) {
+            return $this->actualExpression->render($parser);
+        }
+        return '';
     }
 }

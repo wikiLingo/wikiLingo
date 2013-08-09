@@ -1,16 +1,13 @@
 <?
 namespace WikiLingo\Expression;
 
-class EmptyListItem extends ListItem
+class EmptyListItems extends ListItems
 {
-    function __construct($lineNo)
-    {
-        $this->lineNo = $lineNo;
-    }
+    function __construct() {}
 
     public function render(&$parser)
     {
-        $helper = $parser->helper('li');
+        $helper = $parser->helper('ul');
         $helper->classes[] = 'empty';
         $helper->staticChildren[] = $this->renderedChildren;
         return $helper->render();

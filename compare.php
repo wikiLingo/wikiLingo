@@ -16,10 +16,10 @@ $original = "
 {ACCORDION(title='test2 title')}Test2{ACCORDION}
 {ACCORDIONS}
 
-**Test
-*Test
-#Test
-#Test
+**List at 2
+*List at 1
+#List number 1
+#List numner 2
 
 {div}
 <div>Test</div>

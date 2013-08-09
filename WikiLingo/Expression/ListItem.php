@@ -3,15 +3,16 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
-class ListBuilderItem extends Base
+class ListItem extends Base
 {
     public $parsed;
-    public $items = array();
-    public $itemCount = 0;
-	public $type = 'list';
-	public $depth = 0;
+    public $block;
+    public $children = array();
+    public $childrenLength = 0;
 	public $listType = '';
 	public $listModifier = '';
+    public $content;
+    public $lineNo;
 
 	public static $listTypes = array(
 		'+' => "Break",
@@ -20,88 +21,56 @@ class ListBuilderItem extends Base
 		';' => "Definition"
 	);
 
-	public $modifierUsed = false;
-	public static $listModifiers = array(
-		'-' => 'Toggle'
-	);
-
     function __construct(WikiLingo\Parsed &$parsed, Block &$block)
     {
         $this->parsed = $parsed;
-	    $depth = $this->depth = strlen($parsed->text);
-	    if (isset(self::$listModifiers[$parsed->text{$depth - 1}])) {
-		    $this->listModifier = self::$listModifiers[$parsed->text{$depth - 1}];
-		    $this->modifierUsed = true;
-		    $this->depth--;
-	    }
-    }
+        $this->block = $block;
 
-    private function addRecursiveChildrenUntil(
-        $depth = 0,
-        $depthNeeded = 0,
-        ListBuilder $parent,
-        EmptyListItem $bridge = null,
-        ListBuilder $child
-    )
-    {
-        if ($depth == 0) {
-            $nextBridgeItem = new EmptyListItem($child);
-            return $this->addRecursiveChildrenUntil($parent, $nextBridgeItem, $child);
-        } elseif ($depth < $depthNeeded) {
-            $nextBridgeItem = new EmptyListItem($child);
+        $this->content = $parsed->arguments[1];
 
-            return $this->addRecursiveChildrenUntil($parent, $nextBridgeItem, $child);
-        }
+        $this->lineNo = $parsed->lineNo;
     }
 
 	function render(&$parser)
 	{
-		$result = '';
-		$lastI = -1;
-		$lastType = '';
-		$parentTagTypes = array(
-			"Break" => '',
-			"Unordered" => 'ul',
-			"Ordered" => 'ol',
-			"Definition"
-		);
-		$tagType = 'ul';
-
-		foreach ($this->items as $key => $item) {
-			if ($lastI > -1) {
-				if ($lastI < $item->depth) {
-					$difference = $item->depth - $lastI;
-
-					$opening = "<" . $tagType . ">";
-					$result .= $opening;
-
-					if ($difference > 1) {
-						$result .= str_repeat('<li class="empty">' . $opening, $difference - 1);
-					}
-				}
-
-				if ($lastI > $item->depth) {
-					$difference = $lastI - $item->depth;
-
-					$closing = "</" . $tagType . ">";
-
-					$result .= $closing;
-
-					if ($difference > 1) {
-						$result .= str_repeat('</li>' . $closing, $difference - 1);
-					}
-				}
-			}
-			$result .= '<li>' . $item->text->render($parser);
-			if ($key > 0) {
-				$result .= '</li>';
-			}
-			$lastI = $item->depth;
-		}
-
-		//$child = new WikiLingo_Expression_Tag('<' . $tagType . '>', '</' . $tagType . '>', $result);
-		return '<ul>' . $result . '</ul>' . parent::render($parser);
+		$element = $parser->element(__CLASS__, 'li');
+        $element->staticChildren[] = $this->content->expression->render($parser);
+        foreach ($this->children as &$child)
+        {
+            $element->staticChildren[] = $child->render($parser);
+        }
+        return $element->render();
 	}
+
+    public function addChildren(
+        $depth = 0,
+        $depthNeeded = 0,
+        &$parent,
+        &$childItem,
+        &$childItems = null
+    )
+    {
+        if ($depth < $depthNeeded) {
+            $depth++;
+
+            if (isset($parent->lastItem)) {
+                $nextChildItems = $parent->lastItem;
+            } else {
+                $nextChildItems = new EmptyListItems();
+            }
+
+            $listItem = new EmptyListItem();
+
+            $nextChildItems->addItem($listItem);
+
+            $parent->childrenLength++;
+            $parent->children[] =& $listItems;
+
+            $this->addChildren($depth, $depthNeeded, $listItems, $childItem, $nextChildItems);
+        } else {
+            $childItems->addItem($childItem);
+        }
+    }
 
 	/*public $stacks = array();
 	public $index = 0;
