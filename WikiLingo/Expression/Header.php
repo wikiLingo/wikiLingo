@@ -8,20 +8,24 @@ class Header extends Base
     public $parsed;
     public $block;
 	public $count = 0;
+    public $content;
     public $needed = true;
 
     public function __construct(WikiLingo\Parsed &$parsed, Block &$block)
     {
 	    $this->parsed =& $parsed;
         $this->block =& $block;
+        $this->count = min($parsed->arguments[0]->leng, 6);
+        $this->content = &$parsed->arguments[1];
 
-        $parsed->parser->headers[] =& $this;
-        $parsed->parser->headersLength++;
+        $parsed->parser->addType(__CLASS__, $this);
     }
 
     public function render(&$parser)
     {
-
+        $element = $parser->element(__CLASS__, 'h' . $this->count);
+        $element->staticChildren[] = $this->content->expression->render($parser);
+        return $element->render();
     }
 
 	/*public function stack($content)

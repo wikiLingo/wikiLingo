@@ -124,15 +124,15 @@ class Base
 
 
 
-    public function addType(&$type)
+    public function addType($class, &$type)
     {
-        if (empty($this->types[$type->name])) {
-            $this->types[$type->name] = array();
-            $this->typesCount[$type->name] = -1;
+        if (empty($this->types[$class])) {
+            $this->types[$class] = array();
+            $this->typesCount[$class] = -1;
         }
-        $this->types[$type->name][] =& $type;
-        $this->typesCount[$type->name]++;
-        return $type->index = $this->typesCount[$type->name];
+        $this->types[$class][] =& $type;
+        $this->typesCount[$class]++;
+        return $type->index = $this->typesCount[$class];
     }
 
     /**

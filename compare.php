@@ -3,6 +3,7 @@ require_once("index.php");
 
 
 $original = "
+{toc}
 --Test __Bold__-- ===Test===
 -=Title=-
 ''This is a test''
@@ -10,6 +11,9 @@ $original = "
 {TAB(title='test1 title')}Test1{TAB}
 {TAB(title='test2 title')}Test2{TAB}
 {TABS}
+
+!''Header 1 ===Gess===''
+!!Header2
 
 {ACCORDIONS()}
 {ACCORDION(title='test1 title')}Test1{ACCORDION}

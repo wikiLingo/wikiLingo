@@ -22,11 +22,11 @@ class toc extends HtmlBase
 
     public function render(WikiLingo\Expression\Plugin &$plugin, $body, &$parser)
     {
-        if (!isset($parser->types['header'])) {
+        if (!isset($parser->types['WikiLingo\Expression\Header'])) {
             return '';
         }
 
-        $headers = $parser->types['header'];
+        $headers = $parser->types['WikiLingo\Expression\Header'];
         $result = '';
         $lastI = -1;
         $tagType = (self::$ordered ? 'ol' : 'ul');
@@ -56,16 +56,14 @@ class toc extends HtmlBase
                     }
                 }
             }
-            $result .= '<li>' . $header->render($parser);
+            $result .= '<li>' . $header->content->expression->render($parser);
             if ($key > 0) {
                 $result .= '</li>';
             }
             $lastI = $header->count;
         }
 
-        $child = new WikiLingo\Expression\Tag('<' . $tagType . '>', '</' . $tagType . '>', $result);
-        $plugin->body = $child;
-        $result = parent::render($plugin, $parser);
+        $result = parent::render($plugin, $result, $parser);
         return $result;
     }
 }
