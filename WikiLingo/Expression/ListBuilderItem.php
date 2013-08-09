@@ -3,28 +3,15 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
-class ListBuilderItem extends WikiLingo\HtmlElement
+class ListBuilderItem extends Base
 {
-    public static function handle(&$blockStart, &$content)
-    {
-        $element = new WikiLingo\HtmlElement('list', 'li');
-
-        $element->parsed[] =& $blockStart;
-        $element->parsed[] =& $content;
-
-        return $element;
-    }
-    public $blockStart;
+    public $parsed;
     public $items = array();
     public $itemCount = 0;
 	public $type = 'list';
 	public $depth = 0;
 	public $listType = '';
 	public $listModifier = '';
-
-    public $lastItem;
-    public $prevItem = null;
-    public $nextItem = null;
 
 	public static $listTypes = array(
 		'+' => "Break",
@@ -38,54 +25,33 @@ class ListBuilderItem extends WikiLingo\HtmlElement
 		'-' => 'Toggle'
 	);
 
-    function __construct(&$blockStart, &$content)
+    function __construct(WikiLingo\Parsed &$parsed, Block &$block)
     {
-	    $this->loc = $blockStart->loc;
-        $this->blockStart = $blockStart;
-	    $this->text = $content->text;
-	    $depth = $this->depth = strlen($blockStart->text);
-	    $this->listType = self::$listTypes[$blockStart->text{0}];
-	    if (isset(self::$listModifiers[$blockStart->text{$depth - 1}])) {
-		    $this->listModifier = self::$listModifiers[$blockStart->text{$depth - 1}];
+        $this->parsed = $parsed;
+	    $depth = $this->depth = strlen($parsed->text);
+	    if (isset(self::$listModifiers[$parsed->text{$depth - 1}])) {
+		    $this->listModifier = self::$listModifiers[$parsed->text{$depth - 1}];
 		    $this->modifierUsed = true;
 		    $this->depth--;
 	    }
-
-	    $this->items[] =& $this;
-        $this->itemCount++;
     }
 
     private function addRecursiveChildrenUntil(
         $depth = 0,
         $depthNeeded = 0,
-        WikiLingo\Expression\ListBuilder $parent,
-        WikiLingo\Expression\EmptyListItem $bridge = null,
-        WikiLingo\Expression\ListBuilder $child
+        ListBuilder $parent,
+        EmptyListItem $bridge = null,
+        ListBuilder $child
     )
     {
         if ($depth == 0) {
-            $nextBridgeItem = new WikiLingo\Expression\EmptyListItem($child);
+            $nextBridgeItem = new EmptyListItem($child);
             return $this->addRecursiveChildrenUntil($parent, $nextBridgeItem, $child);
         } elseif ($depth < $depthNeeded) {
-            $nextBridgeItem = new WikiLingo\Expression\EmptyListItem($child);
+            $nextBridgeItem = new EmptyListItem($child);
 
             return $this->addRecursiveChildrenUntil($parent, $nextBridgeItem, $child);
         }
-    }
-
-    private function setPrevItem(&$item)
-    {
-        $this->prevItem = &$item;
-    }
-
-    private function setNextItem(&$item)
-    {
-        $this->nextItem = &$item;
-    }
-
-    public static function htmlElement(&$blockStart, &$content)
-    {
-        $type = new WikiLingo\HtmlElement('list', self::$listTypes[$blockStart{0}]);
     }
 
 	function render(&$parser)

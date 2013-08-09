@@ -5226,7 +5226,7 @@ break;
 case 7:
 	    
 	        $s[$o-2]->setOption('Empty', 'true');
-	        $s[$o-2]->setType('Block');
+	        $s[$o-2]->setType('Block', $this);
         
 	
 break;
@@ -5239,7 +5239,7 @@ case 8:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Block');
+            $type->setType('Block', $this);
         
     
 break;
@@ -5251,13 +5251,13 @@ case 12:
 break;
 case 13:
 	    
-	        $s[$o]->setType('Content');
+	        $s[$o]->setType('Content', $this);
 	    
 	
 break;
 case 14:
         
-            $s[$o]->setType('Comment');
+            $s[$o]->setType('Comment', $this);
         
     
 break;
@@ -5267,7 +5267,7 @@ case 17:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('NoParse');
+            $type->setType('NoParse', $this);
         
     
 break;
@@ -5277,7 +5277,7 @@ case 20:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('PreFormattedText');
+            $type->setType('PreFormattedText', $this);
         
     
 break;
@@ -5285,31 +5285,31 @@ case 21:
         
             $type =& $s[$o];
             $type->setOption('Double', true);
-            $type->setType('DynamicVariable');
+            $type->setType('DynamicVariable', $this);
         
     
 break;
 case 22:
         
-            $s[$o]->setType('DynamicVariable');
+            $s[$o]->setType('DynamicVariable', $this);
         
      
 break;
 case 23:
         
-            $s[$o]->setType('ArgumentVariable');
+            $s[$o]->setType('ArgumentVariable', $this);
         
     
 break;
 case 24:
         
-            $s[$o]->setType('Tag');
+            $s[$o]->setType('Tag', $this);
         
     
 break;
 case 25:
 		
-		    $s[$o]->setType('Row');
+		    $s[$o]->setType('Row', $this);
         
 	
 break;
@@ -5319,7 +5319,7 @@ case 28:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Bold');
+            $type->setType('Bold', $this);
         
 	
 break;
@@ -5329,7 +5329,7 @@ case 31:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Box');
+            $type->setType('Box', $this);
         
 	
 break;
@@ -5339,7 +5339,7 @@ case 34:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Center');
+            $type->setType('Center', $this);
         
 	
 break;
@@ -5349,7 +5349,7 @@ case 37:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Code');
+            $type->setType('Code', $this);
         
 	
 break;
@@ -5359,7 +5359,7 @@ case 40:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Color');
+            $type->setType('Color', $this);
         
 	
 break;
@@ -5369,7 +5369,7 @@ case 43:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Italic');
+            $type->setType('Italic', $this);
         
 	
 break;
@@ -5379,7 +5379,7 @@ case 46:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Unlink');
+            $type->setType('Unlink', $this);
         
 	
 break;
@@ -5400,13 +5400,13 @@ case 52:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Strike');
+            $type->setType('Strike', $this);
         
 	
 break;
 case 53:
         
-            $s[$o]->setType('DoubleDash');
+            $s[$o]->setType('DoubleDash', $this);
         
     
 break;
@@ -5416,7 +5416,7 @@ case 56:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Table');
+            $type->setType('Table', $this);
         
 	
 break;
@@ -5426,7 +5426,7 @@ case 59:
 			$typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('TitleBar');
+            $type->setType('TitleBar', $this);
         
 	
 break;
@@ -5436,7 +5436,7 @@ case 62:
 		    $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Underscore');
+            $type->setType('Underscore', $this);
         
 	
 break;
@@ -5454,7 +5454,7 @@ case 66:
         
             $type =& $s[$o];
             $type->addArgument($s[$o]);
-            $type->setType('WordLink');
+            $type->setType('WordLink', $this);
 
         
     
@@ -5465,7 +5465,7 @@ case 68:
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addArgument($s[$o]);
-            $type->setType('InlinePlugin');
+            $type->setType('InlinePlugin', $this);
         
  	
 break;
@@ -5477,7 +5477,7 @@ case 69:
  		    $typeChild = $s[$o-1];
  		    $typeChild->setParent($type);
  		    $type->addChild($typeChild);
- 		    $type->setType('Plugin');
+ 		    $type->setType('Plugin', $this);
         
  	
 break;
@@ -5486,25 +5486,25 @@ case 70:
             $type =& $s[$o-2];
             $type->addArgument($s[$o-1]);
             $type->addArgument($s[$o]);
-            $type->setType('Plugin');
+            $type->setType('Plugin', $this);
         
      
 break;
 case 73:
         
-            $s[$o]->setType('Line');
+            $s[$o]->setType('Line', $this);
         
     
 break;
 case 74:
         
-            $s[$o]->setType('ForcedLine');
+            $s[$o]->setType('ForcedLine', $this);
         
     
 break;
 case 75:
         
-            $s[$o]->setType('Char');
+            $s[$o]->setType('Char', $this);
         
     
 break;

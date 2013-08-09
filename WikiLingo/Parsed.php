@@ -9,6 +9,7 @@ class Parsed extends ParserValue
     public $siblingsLength = 0;
     public $lineIndex = 0;
     public $linesLength = 0;
+    public $parser;
 
 	public $lines = array();
 	public function addLine(Parsed &$line)
@@ -68,9 +69,10 @@ class Parsed extends ParserValue
 		$this->arguments[] =& $argument;
 	}
 
-	public function setType($type)
+	public function setType($type, &$parser)
 	{
 		$this->type = $type;
+        $this->parser =& $parser;
         $this->setExpression();
 	}
 

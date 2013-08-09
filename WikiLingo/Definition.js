@@ -119,7 +119,7 @@ case 7:
 
 	    /*php
 	        $$[$0-2]->setOption('Empty', 'true');
-	        $$[$0-2]->setType('Block');
+	        $$[$0-2]->setType('Block', $this);
         */
 	
 break;
@@ -135,7 +135,7 @@ case 8:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Block');
+            $type->setType('Block', $this);
         */
     
 break;
@@ -153,7 +153,7 @@ case 13:
 	        this.$ = $$[$0];
 
 	    /*php
-	        $$[$0]->setType('Content');
+	        $$[$0]->setType('Content', $this);
 	    */
 	
 break;
@@ -162,7 +162,7 @@ case 14:
             this.$ = parser.comment($$[$0]);
 
         /*php
-            $$[$0]->setType('Comment');
+            $$[$0]->setType('Comment', $this);
         */
     
 break;
@@ -175,7 +175,7 @@ case 17:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('NoParse');
+            $type->setType('NoParse', $this);
         */
     
 break;
@@ -188,7 +188,7 @@ case 20:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('PreFormattedText');
+            $type->setType('PreFormattedText', $this);
         */
     
 break;
@@ -199,7 +199,7 @@ case 21:
         /*php
             $type =& $$[$0];
             $type->setOption('Double', true);
-            $type->setType('DynamicVariable');
+            $type->setType('DynamicVariable', $this);
         */
     
 break;
@@ -208,7 +208,7 @@ case 22:
             this.$ = parser.singleDynamicVar($$[$0]);
 
         /*php
-            $$[$0]->setType('DynamicVariable');
+            $$[$0]->setType('DynamicVariable', $this);
         */
      
 break;
@@ -217,7 +217,7 @@ case 23:
             this.$ = parser.argumentVar($$[$0]);
 
         /*php
-            $$[$0]->setType('ArgumentVariable');
+            $$[$0]->setType('ArgumentVariable', $this);
         */
     
 break;
@@ -226,7 +226,7 @@ case 24:
             this.$ = parser.htmlTag($$[$0]);
 
         /*php
-            $$[$0]->setType('Tag');
+            $$[$0]->setType('Tag', $this);
         */
     
 break;
@@ -235,7 +235,7 @@ case 25:
 		    this.$ = parser.hr();
 
 		/*php
-		    $$[$0]->setType('Row');
+		    $$[$0]->setType('Row', $this);
         */
 	
 break;
@@ -248,7 +248,7 @@ case 28:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Bold');
+            $type->setType('Bold', $this);
         */
 	
 break;
@@ -261,7 +261,7 @@ case 31:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Box');
+            $type->setType('Box', $this);
         */
 	
 break;
@@ -274,7 +274,7 @@ case 34:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Center');
+            $type->setType('Center', $this);
         */
 	
 break;
@@ -287,7 +287,7 @@ case 37:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Code');
+            $type->setType('Code', $this);
         */
 	
 break;
@@ -300,7 +300,7 @@ case 40:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Color');
+            $type->setType('Color', $this);
         */
 	
 break;
@@ -313,7 +313,7 @@ case 43:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Italic');
+            $type->setType('Italic', $this);
         */
 	
 break;
@@ -326,7 +326,7 @@ case 46:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Unlink');
+            $type->setType('Unlink', $this);
         */
 	
 break;
@@ -353,7 +353,7 @@ case 52:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Strike');
+            $type->setType('Strike', $this);
         */
 	
 break;
@@ -362,7 +362,7 @@ case 53:
             this.$ = parser.doubleDash();
 
         /*php
-            $$[$0]->setType('DoubleDash');
+            $$[$0]->setType('DoubleDash', $this);
         */
     
 break;
@@ -375,7 +375,7 @@ case 56:
             $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Table');
+            $type->setType('Table', $this);
         */
 	
 break;
@@ -388,7 +388,7 @@ case 59:
 			$typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('TitleBar');
+            $type->setType('TitleBar', $this);
         */
 	
 break;
@@ -401,7 +401,7 @@ case 62:
 		    $typeChild =& $$[$0-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Underscore');
+            $type->setType('Underscore', $this);
         */
 	
 break;
@@ -425,7 +425,7 @@ case 66:
         /*php
             $type =& $$[$0];
             $type->addArgument($$[$0]);
-            $type->setType('WordLink');
+            $type->setType('WordLink', $this);
 
         */
     
@@ -439,7 +439,7 @@ case 68:
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addArgument($$[$0]);
-            $type->setType('InlinePlugin');
+            $type->setType('InlinePlugin', $this);
         */
  	
 break;
@@ -454,7 +454,7 @@ case 69:
  		    $typeChild = $$[$0-1];
  		    $typeChild->setParent($type);
  		    $type->addChild($typeChild);
- 		    $type->setType('Plugin');
+ 		    $type->setType('Plugin', $this);
         */
  	
 break;
@@ -467,7 +467,7 @@ case 70:
             $type =& $$[$0-2];
             $type->addArgument($$[$0-1]);
             $type->addArgument($$[$0]);
-            $type->setType('Plugin');
+            $type->setType('Plugin', $this);
         */
      
 break;
@@ -476,7 +476,7 @@ case 73:
             this.$ = parser.line($$[$0]);
 
         /*php
-            $$[$0]->setType('Line');
+            $$[$0]->setType('Line', $this);
         */
     
 break;
@@ -485,7 +485,7 @@ case 74:
             this.$ = parser.forcedLineEnd();
 
         /*php
-            $$[$0]->setType('ForcedLine');
+            $$[$0]->setType('ForcedLine', $this);
         */
     
 break;
@@ -494,7 +494,7 @@ case 75:
             this.$ = parser.char($$[$0]);
 
         /*php
-            $$[$0]->setType('Char');
+            $$[$0]->setType('Char', $this);
         */
     
 break;

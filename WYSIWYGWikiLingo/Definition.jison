@@ -120,34 +120,34 @@ content
  : CONTENT
     {
         /*php
-            $1->setType('Content');
+            $1->setType('Content', $$this);
         */
     }
  | LINE_END
     {
         /*php
-            $1->setType('Line');
+            $1->setType('Line', $$this);
         */
     }
  | HTML_TAG_INLINE
 	{
 	    /*php
             $$type =& $1;
-            $$type->setType('InlineElement');
+            $$type->setType('InlineElement', $$this);
         */
 	}
  | HTML_TAG_OPEN
 	{
 	    /*php
             $$type =& $1;
-            $$type->setType('BrokenElement');
+            $$type->setType('BrokenElement', $$this);
         */
 	}
  | HTML_TAG_CLOSE
 	{
 	    /*php
             $$type =& $1;
-            $$type->setType('BrokenElement');
+            $$type->setType('BrokenElement', $$this);
         */
 	}
  | HTML_TAG_OPEN contents HTML_TAG_CLOSE
@@ -157,7 +157,7 @@ content
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->addChild($$typeChild);
-            $$type->setType('Element');
+            $$type->setType('Element', $$this);
             $$type->expression->setClosing($3);
         */
 	}
@@ -165,7 +165,7 @@ content
 	{
 	    /*php
             $$type =& $1;
-            $$type->setType('Element');
+            $$type->setType('Element', $$this);
             $$type->expression->setClosing($2);
         */
 	}

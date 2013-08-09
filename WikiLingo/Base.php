@@ -49,7 +49,11 @@ class Base
     public $tableStack = array();
 
     /* list tracking and parser */
-    public $list;
+    public $lists = array();
+    public $listsLength = 0;
+
+    public $headers = array();
+    public $headersLength = 0;
 
     /* autoLink parser */
     public $autoLink;

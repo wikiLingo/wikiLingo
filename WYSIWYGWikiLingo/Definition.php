@@ -350,34 +350,34 @@ case 5:
 break;
 case 6:
         
-            $s[$o]->setType('Content');
+            $s[$o]->setType('Content', $this);
         
     
 break;
 case 7:
         
-            $s[$o]->setType('Line');
+            $s[$o]->setType('Line', $this);
         
     
 break;
 case 8:
 	    
             $type =& $s[$o];
-            $type->setType('InlineElement');
+            $type->setType('InlineElement', $this);
         
 	
 break;
 case 9:
 	    
             $type =& $s[$o];
-            $type->setType('BrokenElement');
+            $type->setType('BrokenElement', $this);
         
 	
 break;
 case 10:
 	    
             $type =& $s[$o];
-            $type->setType('BrokenElement');
+            $type->setType('BrokenElement', $this);
         
 	
 break;
@@ -387,7 +387,7 @@ case 11:
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->addChild($typeChild);
-            $type->setType('Element');
+            $type->setType('Element', $this);
             $type->expression->setClosing($s[$o]);
         
 	
@@ -395,7 +395,7 @@ break;
 case 12:
 	    
             $type =& $s[$o-1];
-            $type->setType('Element');
+            $type->setType('Element', $this);
             $type->expression->setClosing($s[$o]);
         
 	

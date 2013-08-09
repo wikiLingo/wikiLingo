@@ -6,9 +6,23 @@ use WikiLingo;
 class Block extends Base
 {
     public $type = 'Block';
+    public $expressionType;
     public $actualExpression;
+    public $blockType;
 
-    public static $blocks = array(
+    public static $expressionTypes = array(
+        'header' => 'Header',
+
+        'unorderedList' => 'ListBuilder',
+        'orderedList' => 'ListBuilder',
+        'listBreak' => 'ListBuilder',
+        'definitionList' => 'ListBuilder',
+
+        'r2l' => 'R2L',
+        'l2r' => 'L2R'
+    );
+
+    public static $blockTypes = array(
         '!' => 'header',
 
         '*' => 'unorderedList',
@@ -27,12 +41,23 @@ class Block extends Base
         ';' => 'df'
     );
 
-    function isBlockStartSyntax($char)
+    function __construct(WikiLingo\Parsed &$parsed)
     {
-        if (isset(sel::$blocks[$char])) {
-            return true;
+        $this->parsed =& $parsed;
+        $this->blockType = (
+            isset(self::$blockTypes[$parsed->arguments[0]->text{0}])
+                ?
+                    self::$blockTypes[$parsed->arguments[0]->text{0}]
+                :
+                    self::$blockTypes[$parsed->arguments[0]->text]
+        );
+
+        if (isset($this->blockType)) {
+            $this->expressionType = self::$expressionTypes[$this->blockType];
+
+            $class = 'WikiLingo\Expression\\' . $this->expressionType;
+            $this->actualExpression = new $class($parsed, $this);
         }
-        return false;
     }
 
     /**
@@ -42,18 +67,18 @@ class Block extends Base
      * @param   $content string parsed content  found inside detected syntax
      * @return  string  $content desired output from syntax
      */
-    function block()
+    /*function preRender(&$parser)
     {
         $result = null;
 
-        if (isset(self::$blocks[$blockStart->text{0}])) {
-            $blockType = self::$blocks[$blockStart->text{0}];
+        if (isset(self::$blockTypes[$blockStart->text{0}])) {
+            $blockType = self::$blockTypes[$blockStart->text{0}];
 
             switch ($blockType) {
                 case 'header':
                     $count = min(strlen($blockStart->text), 7);
 
-                    $result = new HtmlElement('header', 'h' . $count, $content);
+                    $result = $parser->element(__CLASS__, 'h' . $count, $content);
                     $type = new Header($count, $content);
                     $this->addType($type);
                     return $result;
@@ -74,27 +99,18 @@ class Block extends Base
                     return $result;
                     break;
             }
-        } else if (isset(self::$blocks[$blockStart->text])) {
-            $blockType = self::$blocks[$blockStart->text];
+        } else if (isset(self::$blockTypes[$blockStart->text])) {
+            $blockType = self::$blockTypes[$blockStart->text];
             switch ($blockType) {
                 //case 'l2r': return new WikiLingo_Expression_Header($content);
                 //case 'r2l': return new WikiLingo_Expression_Header($content);
             }
         }
-    }
-
-    function __construct(WikiLingo\Parsed &$parsed)
-    {
-        parent::__construct($parsed);
-        $this->parsed =& $parsed;
-    }
+    }*/
 
     public function render(&$parser)
     {
-        $prev = $this->parsed->previousLine();
-        if ($prev != null) {
 
-        }
         $test = '';
         return $test;
     }

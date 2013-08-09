@@ -5,13 +5,23 @@ use WikiLingo;
 
 class Header extends Base
 {
-    public $name = 'header';
+    public $parsed;
+    public $block;
 	public $count = 0;
+    public $needed = true;
 
-    public function __construct($count, $content)
+    public function __construct(WikiLingo\Parsed &$parsed, Block &$block)
     {
-	    $this->count = $count;
-        $this->addChild($content);
+	    $this->parsed =& $parsed;
+        $this->block =& $block;
+
+        $parsed->parser->headers[] =& $this;
+        $parsed->parser->headersLength++;
+    }
+
+    public function render(&$parser)
+    {
+
     }
 
 	/*public function stack($content)
