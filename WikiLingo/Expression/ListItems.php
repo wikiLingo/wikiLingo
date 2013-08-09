@@ -33,10 +33,7 @@ class ListItems extends Base
         if ($parser->listsLength > 0) {
             $previousList =& $parser->lists[$parser->listsLength - 1];
             $previousItem =& $previousList->lastItem;
-            $previousParsed =& $previousItem->parsed;
-            $previousListLineNumber = $previousParsed->lineNo;
-            $thisListLineNumber = $parsed->lineNo;
-            if ($previousListLineNumber == $thisListLineNumber - 1) {
+            if ($previousItem->lineNo == $parsed->lineNo - 1) {
                 $previousList->addItem($listItem);
             } else {
                 $this->needed = true;
@@ -47,7 +44,7 @@ class ListItems extends Base
         } else {
             if ($depth > 1) {
                 $emptyListItem = new EmptyListItem($parsed->lineNo);
-                $emptyListItem->addChildren(1, $depth, $this, $listItem);
+                $emptyListItem->addChild(1, $depth, $emptyListItem, $listItem);
                 $this->needed = true;
                 $this->addItem($emptyListItem);
                 $parser->lists[] = $this;

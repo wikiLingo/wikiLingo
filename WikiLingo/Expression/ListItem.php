@@ -42,7 +42,7 @@ class ListItem extends Base
         return $element->render();
 	}
 
-    public function addChildren(
+    public function addChild(
         $depth = 0,
         $depthNeeded = 0,
         &$parent,
@@ -57,16 +57,16 @@ class ListItem extends Base
                 $nextChildItems = $parent->lastItem;
             } else {
                 $nextChildItems = new EmptyListItems();
+                $parent->childrenLength++;
+                $parent->children[] =& $nextChildItems;
             }
 
-            $listItem = new EmptyListItem();
+            if ($depth < $depthNeeded) {
+                $listItem = new EmptyListItem($this->lineNo);
+                $nextChildItems->addItem($listItem);
+            }
 
-            $nextChildItems->addItem($listItem);
-
-            $parent->childrenLength++;
-            $parent->children[] =& $listItems;
-
-            $this->addChildren($depth, $depthNeeded, $listItems, $childItem, $nextChildItems);
+            $this->addChild($depth, $depthNeeded, $listItems, $childItem, $nextChildItems);
         } else {
             $childItems->addItem($childItem);
         }

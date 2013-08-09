@@ -12,7 +12,12 @@ class EmptyListItem extends ListItem
     {
         $helper = $parser->helper('li');
         $helper->classes[] = 'empty';
-        $helper->staticChildren[] = $this->renderedChildren;
+
+        foreach($this->children as &$child)
+        {
+            $helper->staticChildren[] = $child->render($parser);
+        }
+
         return $helper->render();
     }
 }
