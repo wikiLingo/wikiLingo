@@ -12,7 +12,7 @@ wikiLingo is a fun and exciting new programming language that you... Don't have 
 
 wikiLingo also incorporates popular wiki syntax, the above can also be written:
 
-__H!__
+__Hi!__
 
 
 
