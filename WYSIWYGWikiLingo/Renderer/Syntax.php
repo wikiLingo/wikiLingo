@@ -6,7 +6,7 @@ use DOMDocument;
 
 class Syntax
 {
-    public function render(&$parsed)
+    /*public function render(&$parsed)
     {
         $expression = $parsed->expression;
 
@@ -477,5 +477,5 @@ class Syntax
         $parser->lastBlockWasFrom = 'newLine';
         $parser->firstLineHandled = true;
         return "~REAL_NEW_LINE~";
-    }
+    }*/
 }

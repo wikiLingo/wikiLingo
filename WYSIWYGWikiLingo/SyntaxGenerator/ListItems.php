@@ -5,6 +5,6 @@ class ListItems extends Base
 {
     public function generate()
     {
-
+	    return '';
     }
 }

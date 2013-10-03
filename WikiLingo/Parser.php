@@ -14,10 +14,7 @@ class Parser extends Definition {
 	 */
 	public function __construct()
 	{
-		global $user;
 		$this->emptyParserValue = new Parsed();
-
-		$this->user = (isset($user) ? $user : '');
 
 
         $this->events = new EventManager(__CLASS__);

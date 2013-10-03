@@ -1,6 +1,12 @@
 <?php
+/**
+ * @namespace
+ */
 namespace WikiLingo;
 
+/**
+ * @constructor
+ */
 class Parsed extends ParserValue
 {
 	public $type;
@@ -8,7 +14,7 @@ class Parsed extends ParserValue
     public $siblingIndex = 0;
     public $siblingsLength = 0;
     public $lineIndex = 0;
-    public $linesLength = 0;
+    public $lineLength = 0;
     public $parser;
 
 	public $lines = array();

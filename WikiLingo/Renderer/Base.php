@@ -5,6 +5,7 @@ class Base
 {
     public $children = array();
     public $staticChildren = array();
+	public static $parserTypeStack = array();
 
     public function renderChildren()
     {

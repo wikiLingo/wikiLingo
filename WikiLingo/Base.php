@@ -1,10 +1,16 @@
 <?php
+/**
+ * @namespace
+ */
 namespace WikiLingo;
 
 use Zend\EventManager\EventManager;
 use Exception;
 use WikiLingo\Renderer;
 
+/**
+ * @constructor
+ */
 class Base
 {
     /* parser tracking */
@@ -43,6 +49,9 @@ class Base
     /* link tracking*/
     public $linkStack = false; //There can only be 1 active link stack
 
+	public $blocks = array();
+	public $blocksLength = 0;
+
     /* used in block level items, should be set to true if the next line needs skipped of a <br />
     The next break sets it back to false; */
     public $skipBr = false;
@@ -51,6 +60,9 @@ class Base
     /* list tracking and parser */
     public $lists = array();
     public $listsLength = 0;
+
+	public $matrixCollection = array();
+	public $matrixCollectionLength = 0;
 
     public $headers = array();
     public $headersLength = 0;

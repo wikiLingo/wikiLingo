@@ -3,32 +3,17 @@ require_once("index.php");
 
 
 $original = "
-{toc}
---Test __Bold__-- ===Test===
--=Title=-
-''This is a test''
-{TABS()}
-{TAB(title='test1 title')}Test1{TAB}
-{TAB(title='test2 title')}Test2{TAB}
-{TABS}
 
-!''Header 1 ===Gess===''
-!!Header2
+*1.1
+*1.2
+**2.1
+**2.2
+*****5.1
+*****5.2
+*****5.3
+**2.3
+*1.3
 
-{ACCORDIONS()}
-{ACCORDION(title='test1 title')}Test1{ACCORDION}
-{ACCORDION(title='test2 title')}Test2{ACCORDION}
-{ACCORDIONS}
-
-**List at 2
-*List at 1
-#List number 1
-#List numner 2
-
-{div}
-<div>Test</div>
-<script>console.log('If you see me in the console more than 1 time, something is wrong!');</script>
-&lt;div&gt;Test&lt;/div&gt;
 ";
 $scripts = new WikiLingo\Utilities\Scripts();
 $wikiLingo = new WikiLingo\Parser();

@@ -7,6 +7,7 @@ abstract class Base
 {
 	public $name;
 	public $description;
+	public $inlineOnly = false;
 	public $body;
 	public $parameters = array();
 	public $attributes = array();

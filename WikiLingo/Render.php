@@ -13,13 +13,13 @@ class Render
 
 	public function render(Parsed &$parsed)
 	{
-        $parsed->expression->preRender($this->parser);
-
+		//children are directly part of the family as a visible child
         $renderedChildren = '';
         foreach ($parsed->children as &$child) {
             $renderedChildren .= $this->render($child);
         }
 
+		//siblings are directly part of the family as a visible sibling
         $renderedSiblings = '';
         foreach ($parsed->siblings as &$sibling) {
             $renderedSiblings .= $this->render($sibling);
@@ -31,7 +31,11 @@ class Render
         }
 
         $parsed->expression->renderedChildren =& $renderedChildren;
-		$rendered = $parsed->expression->render($this->parser);
+		if (isset($parsed->expression) && method_exists($parsed->expression, 'render')) {
+			$rendered = $parsed->expression->render($this->parser);
+		} else {
+			$rendered = '';
+		}
 
         return $rendered . $renderedSiblings . $renderedLines;
 	}

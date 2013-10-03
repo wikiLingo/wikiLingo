@@ -15,6 +15,13 @@ class Element extends Base
     {
         $this->type = $type;
         $this->name = $name;
+
+	    if (end(self::$parserTypeStack) == 'WYSIWYGWikiLingo') {
+	        $this->classes[] = 'wl-element';
+	        $this->useDetailedAttributes = true;
+		    $this->attributes['data-type'] = $type;
+
+	    }
     }
 
     function setInline()

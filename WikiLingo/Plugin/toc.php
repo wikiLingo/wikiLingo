@@ -6,6 +6,7 @@ class toc extends HtmlBase
 {
 	public $type = 'toc';
     public static $ordered = true;
+	public $inlineOnly = true;
 
 	function __construct()
 	{
@@ -22,12 +23,13 @@ class toc extends HtmlBase
 
     public function render(WikiLingo\Expression\Plugin &$plugin, $body, &$parser)
     {
+	    $result = '';
         if (!isset($parser->types['WikiLingo\Expression\Header'])) {
-            return '';
+	        $rendered = parent::render($plugin, $result, $parser);
+	        return $rendered;
         }
 
-        $headers = $parser->types['WikiLingo\Expression\Header'];
-        $result = '';
+        $headers =& $parser->types['WikiLingo\Expression\Header'];
         $lastI = -1;
         $tagType = (self::$ordered ? 'ol' : 'ul');
 
@@ -63,7 +65,89 @@ class toc extends HtmlBase
             $lastI = $header->count;
         }
 
-        $result = parent::render($plugin, $result, $parser);
-        return $result;
+        $rendered = parent::render($plugin, $result, $parser);
+        return $rendered;
     }
+}
+
+class tocItems
+{
+	public $tocItem = [];
+	public $lastItem;
+
+	public function render()
+	{
+
+	}
+}
+
+class tocItem
+{
+	public $children = [];
+	public $childrenLength = 0;
+
+	public function addChild(
+		$depth = 0,
+		$depthNeeded = 0,
+		&$parent,
+		&$childItem,
+		&$childItems = null
+	)
+	{
+		if ($depth < $depthNeeded) {
+			$depth++;
+
+			if (isset($parent->lastItem)) {
+				$nextChildItems = $parent->lastItem;
+			} else {
+				$nextChildItems = new tocItemsEmpty();
+				$parent->childrenLength++;
+				$parent->children[] =& $nextChildItems;
+			}
+
+			if ($depth < $depthNeeded) {
+				$listItem = new tocItemEmpty();
+				$nextChildItems->addItem($listItem);
+			}
+
+			$this->addChild($depth, $depthNeeded, $listItems, $childItem, $nextChildItems);
+		} else {
+			$childItems->addItem($childItem);
+		}
+	}
+
+	public function render()
+	{
+
+	}
+}
+
+class tocItemsEmpty extends tocItems
+{
+	public function render()
+	{
+		$itemsRendered = '';
+		foreach($this->tocHeaderItems as $items)
+		{
+			$itemsRendered .= $items->render();
+		}
+
+		return '<ul>' . $itemsRendered . '</ul>';
+	}
+}
+
+class tocItemEmpty extends tocItem
+{
+	public function render()
+	{
+		$itemsRendered = '<li>';
+
+		foreach($this->children as $items)
+		{
+			$itemsRendered .= $items->render();
+		}
+		$itemsRendered .= '</li>';
+
+		return $itemsRendered;
+	}
 }

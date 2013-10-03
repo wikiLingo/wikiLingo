@@ -5,6 +5,6 @@ class Header extends Base
 {
     public function generate()
     {
-
+	    return '';
     }
 }
