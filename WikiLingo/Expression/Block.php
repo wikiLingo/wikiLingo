@@ -54,7 +54,7 @@ class Block extends Base
 			case 'orderedList':
 			case 'listBreak':
 			case 'definitionList':
-				
+
 				if ($parser->blocksLength > 0) {
 					//last block
 					$previousBlock =& Type::Block($parser->blocks[$parser->blocksLength - 1]);

@@ -80,32 +80,39 @@ class Flat
 		{
 			$emptyParents = array();
 			$emptyParentsIndex = -1;
-			while ($this->activeDepth < $item->depth)
+			while ($this->activeDepth <= $item->depth)
 			{
 				if ($emptyParentsIndex == -1)
 				{
 					//this item already exists
-					$emptyParents[] =& $this->parentAtDepth($this->activeDepth);
+					$emptyParents[] =& $this->parentAtDepth();
 					$emptyParentsIndex++;
 				}
 				else
 				{
 					//this item doesn't exist
-					$emptyParents[] =& $this->parentAtDepth($this->activeDepth)->setParent($emptyParents[$emptyParentsIndex]);
+					$emptyParents[] =& $this->parentAtDepth()->setParent($emptyParents[$emptyParentsIndex]);
 					$emptyParentsIndex++;
 				}
 
 				$this->activeDepth++;
 			}
 			$parent =& $this->parentAtDepth($item->depth);
-			$parent->addChild($item);
+			$parent->addSibling($item);
 		}
 
 		//close out last parent so that another may be built separate from this one, then append
 		elseif ($item->depth < $this->activeDepth)
 		{
 			$this->closeParents($item->depth);
-			$this->parentAtDepth($item->depth)->addChild($item);
+
+			if ($item->depth == 0) {
+				$this->leaders->push($item);
+			}
+			else
+			{
+				$this->parentAtDepth($item->depth)->addSibling($item);
+			}
 		}
 		else
 		{
@@ -127,7 +134,7 @@ class Flat
 	public function makeParent(Hierarchical &$parent)
 	{
 
-		if ($parent->depth == 0 && empty($this->leader)) {
+		if ($parent->depth == 0) {
 			$this->leaders->push($parent);
 
 			if (empty($this->parents[0])) {
@@ -199,7 +206,7 @@ class Flat
 	{
 		while ($depth < $this->activeDepth)
 		{
-			$this->parentActive[$depth]++;
+			$this->parentActive[$this->activeDepth]++;
 			$this->activeDepth--;
 		}
 	}
