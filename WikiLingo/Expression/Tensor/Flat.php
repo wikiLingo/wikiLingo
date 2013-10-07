@@ -75,30 +75,35 @@ class Flat
 		$this->items[] =& $item;
 		$this->length++;
 
-		//build up if needed, then append
-		if ($this->activeDepth < $item->depth)
+        //build up if needed, then append
+        if ($this->activeDepth < $item->depth)
 		{
-			$emptyParents = array();
-			$emptyParentsIndex = -1;
-			while ($this->activeDepth <= $item->depth)
-			{
-				if ($emptyParentsIndex == -1)
-				{
-					//this item already exists
-					$emptyParents[] =& $this->parentAtDepth();
-					$emptyParentsIndex++;
-				}
-				else
-				{
-					//this item doesn't exist
-					$emptyParents[] =& $this->parentAtDepth()->setParent($emptyParents[$emptyParentsIndex]);
-					$emptyParentsIndex++;
-				}
-
-				$this->activeDepth++;
-			}
-			$parent =& $this->parentAtDepth($item->depth);
-			$parent->addSibling($item);
+            //if it is an immediate child, add it as one
+            if ($this->activeDepth + 1 == $item->depth) {
+                $this->makeParent($item);
+                $this->parentAtDepth()->addChild($item);
+            } else {
+                $emptyParents = array();
+                $emptyParentsIndex = -1;
+                while ($this->activeDepth <= $item->depth)
+                {
+                    if ($emptyParentsIndex == -1)
+                    {
+                        //this item already exists
+                        $emptyParents[] =& $this->parentAtDepth();
+                    }
+                    else if ($this->activeDepth < $item->depth)
+                    {
+                        //this item doesn't exist
+                        $emptyParents[] =& $this->parentAtDepth()->setParent($emptyParents[$emptyParentsIndex]);
+                    }
+                    $this->activeDepth++;
+                    $emptyParentsIndex++;
+                }
+                $this->makeParent($item);
+                $parent =& $this->parentAtDepth($item->depth - 1);
+                $parent->addChild($item);
+            }
 		}
 
 		//close out last parent so that another may be built separate from this one, then append

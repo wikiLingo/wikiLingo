@@ -45,15 +45,18 @@ class Block extends Base
 
 		$parser =& $parsed->parser;
 		$result = null;
+        $listCollectionElementName = 'ol';
 
 		switch ($this->blockType) {
 			case 'header':
 				$result = new Header($this);
 				break;
+            case 'listBreak':
+            case 'definitionList':
+
 			case 'unorderedList':
+            $listCollectionElementName = 'ul';
 			case 'orderedList':
-			case 'listBreak':
-			case 'definitionList':
 
 				if ($parser->blocksLength > 0) {
 					//last block
@@ -65,14 +68,14 @@ class Block extends Base
 						$previousBlock->endingLineNo++;
 						//We do not set $result here deliberately, so that the item is added to the already existing list
 						$flat =& Type::Flat($previousBlock->expression);
-						$item = new Tensor\Hierarchical("ul", "li", $this);
+						$item = new Tensor\Hierarchical($listCollectionElementName, "li", $this);
 						$flat->add($item);
 						$flat->block->parsed->addLine($parsed);
 						return false;
 					}
 				}
 
-				$result = new Tensor\Flat("ul", "li", $this);
+				$result = new Tensor\Flat($listCollectionElementName, "li", $this);
 				break;
 			case 'r2l':
 				$result = new R2L($this);

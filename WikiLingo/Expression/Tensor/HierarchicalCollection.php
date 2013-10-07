@@ -9,7 +9,6 @@ class HierarchicalCollection
 {
 	public $block;
 	public $parser;
-	public $element;
 	public $elementName;
 	public $items = array();
 	public $itemsLength = 0;
@@ -17,7 +16,6 @@ class HierarchicalCollection
 	public function __construct($elementName)
 	{
 		$this->elementName = $elementName;
-		$this->element = new Renderer\Element(__CLASS__, $this->elementName);
 	}
 
 	public function push(Hierarchical $item)
@@ -28,10 +26,11 @@ class HierarchicalCollection
 
 	public function render(&$parser)
 	{
+        $element = $parser->element('test', $this->elementName);
 		foreach($this->items as $item)
 		{
-			$this->element->staticChildren[] = Type::Hierarchical($item)->render($parser);
+			$element->staticChildren[] = Type::Hierarchical($item)->render($parser);
 		}
-		return $this->element->render();
+		return $element->render();
 	}
 }

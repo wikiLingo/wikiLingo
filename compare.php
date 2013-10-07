@@ -14,6 +14,16 @@ $original = "
 **2.3
 *1.3
 
+#__Test__
+#__Test__
+##__Test__
+##__Test__
+#####__Test__
+#####__Test__
+#####__Test__
+##__Test__
+#__Test__
+
 ";
 $scripts = new WikiLingo\Utilities\Scripts();
 $wikiLingo = new WikiLingo\Parser();
@@ -63,7 +73,7 @@ $scripts
 
 $outputWikiLingo = $wikiLingo->parse($original);
 $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
-$outputWYSIWYGWikiLingo = $wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
+$outputWYSIWYGWikiLingo = '';//$wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
 
 $css = $scripts->renderCss();
 $script = $scripts->renderScript();

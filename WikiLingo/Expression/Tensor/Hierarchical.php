@@ -17,13 +17,13 @@ class Hierarchical
 	public $block = null;
 	public $index;
 	public $renderClass = 'listItem';
-	public $element;
 	public $collectionElementName;
+    public $elementName;
 
 	function __construct($collectionElementName, $elementName, Expression\Block &$block = null)
 	{
 		$this->collectionElementName = $collectionElementName;
-		$this->element = new Renderer\Element(__CLASS__, $elementName);
+		$this->elementName = $elementName;
 
 		if ($block != null) {
 			$this->block =& $block;
@@ -77,14 +77,15 @@ class Hierarchical
 
 	function render(&$parser)
 	{
+        $element = $parser->element('test2', $this->elementName);
 		if (isset($this->block)) {
-			$this->element->staticChildren[] = $this->block->renderedChildren;
+			$element->staticChildren[] = $this->block->renderedChildren;
 		}
 
 		if (isset($this->children)) {
-			$this->element->staticChildren[] = $this->children->render($parser);
+			$element->staticChildren[] = $this->children->render($parser);
 		}
 
-		return $this->element->render();
+		return $element->render();
 	}
 }

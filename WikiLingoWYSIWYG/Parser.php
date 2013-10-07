@@ -3,7 +3,6 @@ namespace WikiLingoWYSIWYG;
 
 use WikiLingo;
 use Exception;
-use WikiLingo\Renderer;
 
 class Parser extends WikiLingo\Parser
 {
