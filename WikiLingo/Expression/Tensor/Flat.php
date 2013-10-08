@@ -35,7 +35,7 @@ class Flat
 	public $items = array();
 
 	/**
-	 * @var array(Hierarchical)
+	 * @var array(Hierarchical)parents
 	 */
 	public $parents = array();
 
@@ -46,21 +46,15 @@ class Flat
 	public $beginningLineNo;
 	public $endingLineNo;
 	public $length = 0;
-	public $hierarchicalCollectionElementName;
-	public $hierarchicalElementName;
 
 	/**
-	 * @param $hierarchicalCollectionElementName
-	 * @param $hierarchicalElementName
 	 * @param Block $block
 	 */
-	public function __construct($hierarchicalCollectionElementName, $hierarchicalElementName, Block &$block)
+	public function __construct(Block &$block)
 	{
-		$this->hierarchicalCollectionElementName = $hierarchicalCollectionElementName;
-		$this->hierarchicalElementName = $hierarchicalElementName;
 		$this->block =& $block;
-		$this->leaders = new HierarchicalCollection($this->hierarchicalCollectionElementName);
-		$item = new Hierarchical($this->hierarchicalCollectionElementName, $this->hierarchicalElementName, $block);
+		$this->leaders = new HierarchicalCollection($block);
+		$item = new Hierarchical($block);
 		$this->items[] =& $item;
 		$this->add($item);
 		$this->beginningLineNo = $block->parsed->lineNo;
@@ -175,7 +169,7 @@ class Flat
 
 		if (!isset($this->parents[$depth]))
 		{
-			$item =& new Hierarchical($this->hierarchicalCollectionElementName, $this->hierarchicalElementName);
+			$item =& new Hierarchical($this->block->newBlank());
 			$item->depth = $depth;
 			$item->index = $this->length;
 			$this->items[] = $item;
@@ -185,7 +179,8 @@ class Flat
 		}
 		else if (!isset($this->parents[$depth][$this->parentActive[$depth]]))
 		{
-			$item =& new Hierarchical($this->hierarchicalCollectionElementName, $this->hierarchicalElementName);
+
+			$item =& new Hierarchical($this->block->newBlank());
 			$item->depth = $depth;
 			$item->index = $this->length;
 			$this->items[] = $item;
@@ -216,8 +211,8 @@ class Flat
 		}
 	}
 
-	public function render(&$parser)
+	public function render()
 	{
-		return $this->leaders->render($parser);
+		return $this->leaders->render();
 	}
 }

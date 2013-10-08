@@ -13,11 +13,15 @@ use WikiLingo;
 class Block extends Base
 {
     public $type = 'Block';
+    public $blank = false;
     public $expressionType;
     public $expression;
     public $blockType;
 	public $beginningLineNo;
 	public $endingLineNo;
+    public $element;
+    public $collectionElementName;
+    public $elementName;
 
 	public static $blocksTypes = array(
 		'!' => 'header',
@@ -31,8 +35,13 @@ class Block extends Base
 		'{l2r}' => 'l2r'
 	);
 
-	public function __construct(WikiLingo\Parsed &$parsed)
+	public function __construct(WikiLingo\Parsed &$parsed = null)
 	{
+        if ($parsed == null)
+        {
+            return false;
+        }
+
 		$this->parsed =& $parsed;
 		$syntaxState = $parsed->arguments[0];
 		$this->blockType = (
@@ -45,7 +54,7 @@ class Block extends Base
 
 		$parser =& $parsed->parser;
 		$result = null;
-        $listCollectionElementName = 'ol';
+        $collectionElementName = 'ol';
 
 		switch ($this->blockType) {
 			case 'header':
@@ -55,8 +64,10 @@ class Block extends Base
             case 'definitionList':
 
 			case 'unorderedList':
-            $listCollectionElementName = 'ul';
+            $collectionElementName = 'ul';
 			case 'orderedList':
+                $this->collectionElementName = $collectionElementName;
+                $this->elementName = 'li';
 
 				if ($parser->blocksLength > 0) {
 					//last block
@@ -68,14 +79,14 @@ class Block extends Base
 						$previousBlock->endingLineNo++;
 						//We do not set $result here deliberately, so that the item is added to the already existing list
 						$flat =& Type::Flat($previousBlock->expression);
-						$item = new Tensor\Hierarchical($listCollectionElementName, "li", $this);
+						$item = new Tensor\Hierarchical($this);
 						$flat->add($item);
 						$flat->block->parsed->addLine($parsed);
 						return false;
 					}
 				}
 
-				$result = new Tensor\Flat($listCollectionElementName, "li", $this);
+				$result = new Tensor\Flat($this);
 				break;
 			case 'r2l':
 				$result = new R2L($this);
@@ -97,8 +108,40 @@ class Block extends Base
 	public function render(&$parser)
 	{
 		if (isset($this->expression)) {
-			return $this->expression->render($parser);
+			return $this->expression->render();
 		}
 		return '';
 	}
+
+    public function collectionElement()
+    {
+        $element = $this->parsed->parser->element(__CLASS__, $this->collectionElementName);
+
+        if ($this->blank) {
+            $element->classes[] = 'empty';
+        }
+
+        return $element;
+    }
+
+    public function element()
+    {
+        $element = $this->parsed->parser->element(__CLASS__, $this->elementName);
+
+        if ($this->blank) {
+            $element->classes[] = 'empty';
+        }
+
+        return $element;
+    }
+
+    public function newBlank()
+    {
+        $block = new Block();
+        $block->collectionElementName = $this->collectionElementName;
+        $block->elementName = $this->elementName;
+        $block->parsed = $this->parsed;
+        $block->blank = true;
+        return $block;
+    }
 }

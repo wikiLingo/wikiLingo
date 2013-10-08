@@ -4,32 +4,30 @@ namespace WikiLingo\Expression\Tensor;
 use WikiLingo\Expression\Tensor\Hierarchical;
 use Types\Type;
 use WikiLingo\Renderer;
+use WikiLingo\Expression;
 
 class HierarchicalCollection
 {
 	public $block;
-	public $parser;
-	public $elementName;
 	public $items = array();
 	public $itemsLength = 0;
 
-	public function __construct($elementName)
-	{
-		$this->elementName = $elementName;
-	}
-
+    public function __construct(Expression\Block &$block)
+    {
+        $this->block = $block;
+    }
 	public function push(Hierarchical $item)
 	{
 		$this->items[] =& $item;
 		$this->itemsLength++;
 	}
 
-	public function render(&$parser)
+	public function render()
 	{
-        $element = $parser->element('test', $this->elementName);
+        $element = $this->block->collectionElement();
 		foreach($this->items as $item)
 		{
-			$element->staticChildren[] = Type::Hierarchical($item)->render($parser);
+			$element->staticChildren[] = Type::Hierarchical($item)->render();
 		}
 		return $element->render();
 	}
