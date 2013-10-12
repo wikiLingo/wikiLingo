@@ -4,6 +4,7 @@ namespace WikiLingo;
 
 class Render
 {
+	public $depth = 0;
 	public $parser;
 
 	function __construct(&$parser)
@@ -15,9 +16,22 @@ class Render
 	{
 		//children are directly part of the family as a visible child
         $renderedChildren = '';
-        foreach ($parsed->children as &$child) {
-            $renderedChildren .= $this->render($child);
-        }
+		if ($parsed->childrenLength > 0) {
+			$isParent = false;
+			if (
+				isset($parsed->expression->isParent)
+				&& ($isParent = $parsed->expression->isParent) == true) {
+				$this->depth++;
+			}
+
+	        foreach ($parsed->children as &$child) {
+	            $renderedChildren .= $this->render($child);
+	        }
+
+			if ($isParent) {
+				$this->depth--;
+			}
+		}
 
 		//siblings are directly part of the family as a visible sibling
         $renderedSiblings = '';
@@ -32,7 +46,7 @@ class Render
 
         $parsed->expression->renderedChildren =& $renderedChildren;
 		if (isset($parsed->expression) && method_exists($parsed->expression, 'render')) {
-			$rendered = $parsed->expression->render($this->parser);
+			$rendered = $parsed->expression->render($this->parser, $this);
 		} else {
 			$rendered = '';
 		}

@@ -40,5 +40,10 @@ namespace Types
 		{
 			return $obj;
 		}
+
+		public static function WikiLingoParser(WikiLingo\Parser &$obj)
+		{
+			return $obj;
+		}
 	}
 }

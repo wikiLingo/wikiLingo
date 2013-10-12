@@ -3,12 +3,12 @@ namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
 abstract class Base
 {
-    public $renderer;
+    public $parser;
     public $expression;
 
-    function __construct(&$renderer, &$expression)
+    function __construct(&$parser, &$expression)
     {
-        $this->renderer = $renderer;
+        $this->parser = $parser;
         $this->expression = $expression;
     }
 

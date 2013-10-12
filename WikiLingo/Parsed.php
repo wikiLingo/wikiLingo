@@ -99,13 +99,16 @@ class Parsed extends ParserValue
 	}
 
 	public $children = array();
+	public $childrenLength = 0;
 	public function addChild(Parsed &$child)
 	{
 		$this->children[] =& $child;
+		$this->childrenLength++;
 	}
     public function removeChildren()
     {
         $this->children = [];
+	    $this->childrenLength = 0;
     }
 
     public $expression;

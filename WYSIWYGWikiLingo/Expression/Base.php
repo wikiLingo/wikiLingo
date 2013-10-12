@@ -20,7 +20,7 @@ abstract class Base extends WikiLingo\Expression\Content
                 $typeClass = 'WYSIWYGWikiLingo\SyntaxGenerator\\' . $typeName;
                 if (class_exists($typeClass))
                 {
-                    $type = new $typeClass($this, $this);
+                    $type = new $typeClass($parser, $this);
                     $generated = $type->generate();
                     return $generated;
                 } else {

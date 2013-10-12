@@ -4,9 +4,29 @@ namespace WikiLingo\Utilities;
 class Scripts
 {
     public static $cssLocations = array();
+	public static $css = array();
+
     public static $scriptLocations = array();
     public static $scripts = array();
+
     public static $existingScriptsAndLocations = array();
+
+	public function addCss( $css, $i = -1 )
+	{
+		if (isset(self::$existingScriptsAndLocations[$css])) {
+			return $this;
+		}
+
+		if ($i > -1) {
+			self::$css[$i] = $css;
+		} else {
+			self::$css[] = $css;
+		}
+
+		self::$existingScriptsAndLocations[$css] = true;
+
+		return $this;
+	}
 
     public function addCssLocation( $href, $i = -1 )
     {
@@ -62,10 +82,12 @@ class Scripts
     public function renderCss()
     {
         $css = '';
+
         foreach (self::$cssLocations as $location) {
             $css .= "<link rel='stylesheet' type='text/css' href='" . $location . "' />";
         }
-        return $css;
+
+        return $css . (empty(self::$css) ? "" : "<style>" . implode(self::$css) . "</style>");
     }
 
     public function renderScript()
@@ -76,12 +98,6 @@ class Scripts
             $scriptLocations .= "<script type='text/javascript' src='" . $location . "'></script>";
         }
 
-        $scripts = "";
-        foreach (self::$scripts as $script) {
-            $scripts .=  $script;
-        }
-
-
-        return $scriptLocations . "<script type='text/javascript'>" . $scripts . "</script>";
+        return $scriptLocations . (empty(self::$scripts) ? "" : "<script type='text/javascript'>" . implode(self::$scripts) . "</script>");
     }
 }

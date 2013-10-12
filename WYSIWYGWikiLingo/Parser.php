@@ -3,6 +3,22 @@ namespace WYSIWYGWikiLingo;
 
 class Parser extends Definition
 {
+	/**
+	 * construct
+	 *
+	 * @access  public
+	 */
+	public function __construct()
+	{
+		$this->emptyParserValue = new Parsed();
+
+		$this->events = new EventManager(__CLASS__);
+
+		parent::__construct();
+
+		$this->renderer = new Render($this);
+	}
+
     public function preParse()
     {
         $this->typeIndex = [];
@@ -40,8 +56,8 @@ class Parser extends Definition
          * it is also valid, but treated and restored as with "\n" just before it, here we remove that extra "\n" but
          * only if we are a block, which are determined from $this->blockChars
         */
-        $render = new Render($this);
-        return $render->render($parsed);
+
+        return $this->renderer->render($parsed);
 
         if ($this->firstLineType == 'block' && $this->isStaticTag == false) {
             foreach($this->blockSyntax as $syntax) {

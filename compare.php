@@ -73,7 +73,7 @@ $scripts
 
 $outputWikiLingo = $wikiLingo->parse($original);
 $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
-$outputWYSIWYGWikiLingo = '';//$wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
+$outputWYSIWYGWikiLingo = $wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
 
 $css = $scripts->renderCss();
 $script = $scripts->renderScript();
@@ -95,6 +95,7 @@ $script = $scripts->renderScript();
 <div id="dtsOutput">
     <h2>WikiLingo to WYSIWYG Html Output and back to WikiLingo Source</h2>
     <pre><? echo $outputWYSIWYGWikiLingo; ?></pre>
+	<?php echo ($original == $outputWYSIWYGWikiLingo ? "<div style='color: green;'>SUCCESS</div>" : "<div style='color: red;'>FAILURE</div>")?>
 </div>
 </body>
 </html>

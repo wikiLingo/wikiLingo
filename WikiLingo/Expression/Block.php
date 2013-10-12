@@ -6,6 +6,7 @@ namespace WikiLingo\Expression;
 
 use Types\Type;
 use WikiLingo;
+use WikiLingo\Utilities;
 
 /**
  * @constructor
@@ -116,11 +117,7 @@ class Block extends Base
     public function collectionElement()
     {
         $element = $this->parsed->parser->element(__CLASS__, $this->collectionElementName);
-
-        if ($this->blank) {
-            $element->classes[] = 'empty';
-        }
-
+	    Type::Element($element)->classes[] = "wl-parent";
         return $element;
     }
 
@@ -132,11 +129,17 @@ class Block extends Base
             $element->classes[] = 'empty';
         }
 
+	    $element->classes[] = $this->blockType;
+
         return $element;
     }
 
     public function newBlank()
     {
+	    Utilities\Scripts::addCss(
+"li.empty {
+	list-style-type: none ! important;
+}");
         $block = new Block();
         $block->collectionElementName = $this->collectionElementName;
         $block->elementName = $this->elementName;

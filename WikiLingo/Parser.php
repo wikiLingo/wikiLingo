@@ -4,6 +4,7 @@ use Zend\EventManager\EventManager;
 
 class Parser extends Definition {
 
+	public $renderer;
 	private $parsing = false;
 	private $pcreRecursionLimit;
 
@@ -16,10 +17,11 @@ class Parser extends Definition {
 	{
 		$this->emptyParserValue = new Parsed();
 
-
         $this->events = new EventManager(__CLASS__);
 
         parent::__construct();
+
+		$this->renderer = new Render($this);
     }
 
     /**
@@ -120,8 +122,6 @@ class Parser extends Definition {
                 }
                 */
 
-        $render = new Render($this);
-
-        return $render->render($parsed);
+        return $this->renderer->render($parsed);
     }
 }

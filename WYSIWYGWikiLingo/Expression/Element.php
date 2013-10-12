@@ -10,6 +10,9 @@ class Element extends Base
 
     public $isClosed = false;
     public $closing;
+	public $class = array();
+	private $classes = array();
+	public $isParent = false;
 
     public static $parameterParser;
 
@@ -23,9 +26,18 @@ class Element extends Base
             $this->parameters = self::$parameterParser->parse($parametersString);
 
             if (isset($this->parameters['class'])) {
-                if (strpos($this->parameters['class'], 'wl-element') !== false) {
+	            $this->class = explode(" ", $this->parameters["class"]);
+
+	            foreach($this->class as $class) {
+		            $this->classes[$class] = true;
+	            }
+
+	            if ($this->hasClass('wl-parent')) {
+		            $this->isParent = true;
+	            }
+                if ($this->hasClass('wl-element')) {
                     $this->isElement = true;
-                } else if (strpos($this->parameters['class'], 'wl-helper') !== false) {
+                } else if ($this->hasClass('wl-helper')) {
                     $this->isHelper = true;
                 } else {
                     $this->isStatic = true;
@@ -39,6 +51,15 @@ class Element extends Base
         $this->isClosed = true;
         $this->closing =& $parsed;
     }
+
+	public function hasClass($class)
+	{
+		if (isset($this->classes[$class])) {
+			return true;
+		}
+
+		return false;
+	}
 
     public function render(&$parser)
     {

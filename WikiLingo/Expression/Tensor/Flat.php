@@ -113,6 +113,7 @@ class Flat
 				$this->parentAtDepth($item->depth)->addSibling($item);
 			}
 		}
+
 		else
 		{
 			if ($item->index == 0)
@@ -151,6 +152,7 @@ class Flat
 			$this->parents[$parent->depth][$this->parentActive[$parent->depth]] =& $parent;
 			return true;
 		}
+
 		else if (empty($this->parents[$parent->depth][$this->parentActive[$parent->depth]]))
 		{
 			$this->parents[$parent->depth][$this->parentActive[$parent->depth]] =& $parent;
@@ -177,6 +179,7 @@ class Flat
 			$this->makeParent($item);
 			return $item;
 		}
+
 		else if (!isset($this->parents[$depth][$this->parentActive[$depth]]))
 		{
 
@@ -188,6 +191,7 @@ class Flat
 			$this->makeParent($item);
 			return $item;
 		}
+
 		else
 		{
 			$parent =& Type::Hierarchical($this->parents[$depth][$this->parentActive[$depth]]);
