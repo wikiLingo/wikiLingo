@@ -4,6 +4,13 @@ require_once("index.php");
 
 $original = "
 
+''Test''
+!!!Test
+~tc~Comments~/tc~%%%
+
+~~blue:hello world~~
+
+~np~This ''Is a test'' ~/np~
 *1.1
 *1.2
 **2.1
@@ -31,9 +38,9 @@ $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
 $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
 
 $scripts
-	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
-	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
-    ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+	//->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+	//->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
+    //->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
     ->addScriptLocation("ckeditor/ckeditor.js")
     ->addScriptLocation("WikiLingoWYSIWYG/styles.js")
     ->addScript(

@@ -17,6 +17,11 @@ class Block extends Base
 			$trailer = "\n" . str_repeat("#", $this->parser->renderer->depth);
 		}
 
+		else if ($this->expression->hasClass('header'))
+		{
+			$trailer = "\n" . str_repeat("", $this->parser->renderer->depth);
+		}
+
 		return $trailer . $this->expression->renderedChildren;
 	}
 }

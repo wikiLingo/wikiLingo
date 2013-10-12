@@ -40,13 +40,11 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
         if (parser.npStack != true) return 'CONTENT';
         lexer.popState();
         parser.npStack = false;
-        yytext = parser.noParse(yytext);
 
     /*php
         if ($this->npStack != true) return 'CONTENT';
         $this->popState();
         $this->npStack = false;
-        $yytext = $this->noParse($yytext);
     */
 
     return 'NO_PARSE_END';

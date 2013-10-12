@@ -445,7 +445,6 @@ class Base
     function code($content)
     {
 	    return new Expression\Code($content);
-        //return new HtmlElement("code", "code", $content);
     }
 
     /**
@@ -457,18 +456,7 @@ class Base
      */
     function color($content)
     {
-        $text = explode(':', $content);
-        $color = $text[0];
-        $content = $text[1];
-
-	    return new Expression\Color($color, $content);
-	    /*
-        return new HtmlElement(
-            "color", "span", $content,
-            array(
-                "style" => "color:" . $color .';'
-            )
-        );*/
+	    return new Expression\Color($content);
     }
 
     /**

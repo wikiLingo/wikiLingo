@@ -995,13 +995,11 @@ case 1:
         if (parser.npStack != true) return 12;
         lexer.popState();
         parser.npStack = false;
-        yy_.yytext = parser.noParse(yy_.yytext);
 
     /*php
         if ($this->npStack != true) return 12;
         $this->popState();
         $this->npStack = false;
-        $yy_.yytext = $this->noParse($yy_.yytext);
     */
 
     return 15;

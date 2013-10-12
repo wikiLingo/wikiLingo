@@ -5926,7 +5926,6 @@ case 1:
         if ($this->npStack != true) return 12;
         $this->popState();
         $this->npStack = false;
-        $this->yy->text = $this->noParse($this->yy->text);
     
 
     return 15;

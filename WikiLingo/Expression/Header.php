@@ -3,7 +3,7 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
-class Header extends Base
+class Header
 {
     public $parsed;
     public $block;
@@ -21,10 +21,10 @@ class Header extends Base
         $this->parsed->parser->addType(__CLASS__, $this);
     }
 
-    public function render(&$parser)
+    public function render()
     {
-        $element = $parser->element(__CLASS__, 'h' . $this->count);
-        $element->staticChildren[] = $this->content->expression->render($parser);
+        $element = $this->block->parsed->parser->element(__CLASS__, 'h' . $this->count);
+        $element->staticChildren[] = $this->content->expression->render($this->block->parsed->parser);
         return $element->render();
     }
 

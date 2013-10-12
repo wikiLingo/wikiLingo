@@ -10,8 +10,10 @@ class Element extends Base
 
     public $isClosed = false;
     public $closing;
-	public $class = array();
-	private $classes = array();
+	public $styles = array();
+	private $_styles = array();
+	public $classes = array();
+	private $_classes = array();
 	public $isParent = false;
 
     public static $parameterParser;
@@ -25,11 +27,12 @@ class Element extends Base
             $parametersString = trim(substr($parsed->text, $pos, -1));
             $this->parameters = self::$parameterParser->parse($parametersString);
 
+	        //populate classes
             if (isset($this->parameters['class'])) {
-	            $this->class = explode(" ", $this->parameters["class"]);
+	            $this->classes = explode(" ", $this->parameters["class"]);
 
-	            foreach($this->class as $class) {
-		            $this->classes[$class] = true;
+	            foreach($this->classes as $class) {
+		            $this->_classes[$class] = true;
 	            }
 
 	            if ($this->hasClass('wl-parent')) {
@@ -43,6 +46,16 @@ class Element extends Base
                     $this->isStatic = true;
                 }
             }
+
+	        //populate styles
+	        if (isset($this->parameters['style'])) {
+		        $styles = explode(";", $this->parameters['style']);
+		        foreach($styles as $style)
+		        {
+			        $_style = explode(":", $style);
+			        $this->styles[trim(array_pop($_style))] = trim(array_pop($_style));
+		        }
+	        }
         }
     }
 
@@ -54,11 +67,20 @@ class Element extends Base
 
 	public function hasClass($class)
 	{
-		if (isset($this->classes[$class])) {
+		if (isset($this->_classes[$class])) {
 			return true;
 		}
 
 		return false;
+	}
+
+	public function style($style)
+	{
+		if (isset($this->styles[$style])) {
+			return $this->styles[$style];
+		}
+
+		return '';
 	}
 
     public function render(&$parser)
