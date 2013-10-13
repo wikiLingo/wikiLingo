@@ -18,10 +18,6 @@ class Base
     public $parseDepth = 0;
     public $types = array();
     public $typesCount = array();
-
-    /* the root parser, where many variables need to be tracked from, maintained on any hierarchy of children parsers */
-    public $Parser;
-
     public $events;
 
     /* parser debug */
