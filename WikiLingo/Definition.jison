@@ -726,6 +726,16 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'EOF';
 }
+<table>[|] {
+    /*php
+        return TABLE_COLUMN
+    */
+}
+<table>[\n\r] {
+    /*php
+        return TABLE_ROW
+    */
+}
 <table>[|][|] {
     //js
         if (parser.isContent()) return 'CONTENT';
