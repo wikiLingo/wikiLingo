@@ -161,7 +161,9 @@
 
 grid :
 	rows EOF {
-		return $1;
+	    /*php
+		    return $1->text;
+        */
 	}
 	| EOF {
 	    /*php
@@ -222,7 +224,7 @@ rows :
     | rows END_OF_LINE_WITH_EMPTY_COLUMN {
         //rows END_OF_LINE_WITH_EMPTY_COLUMN
         /*php
-            $1->text->rows[$1->length - 1]->addColumn(new TableColumn());
+            $1->text->rows[$1->length - 1]->addColumn();
         */
     }
     | rows END_OF_LINE row {
@@ -234,7 +236,6 @@ rows :
     | rows END_OF_LINE_WITH_EMPTY_NEXT_FIRST_COLUMN row {
         //rows END_OF_LINE_WITH_EMPTY_NEXT_FIRST_COLUMN row
         /*php
-            $3->text->addColumn(new TableColumn());
             $1->text->addRow($3);
         */
     }
@@ -248,7 +249,7 @@ rows :
     | rows END_OF_LINE_WITH_EMPTY_COLUMN row {
         //rows END_OF_LINE_WITH_EMPTY_COLUMN row
         /*php
-            $1->text->rows[$1->length - 1]->addColumn(new TableColumn());
+            $1->text->rows[$1->length - 1]->addColumn();
             $1->text->addRow($3);
         */
     }
@@ -272,13 +273,13 @@ row :
     | row COLUMN_EMPTY {
         //row COLUMN_EMPTY
         /*php
-            $1->text->addColumn(new TableColumn());
+            $1->text->addColumn();
         */
     }
     | row COLUMN_EMPTY string {
         //row COLUMN_EMPTY string
         /*php
-            $1->text->addColumn(new TableColumn());
+            $1->text->addColumn();
             $1->text->addColumn($3);
         */
     }

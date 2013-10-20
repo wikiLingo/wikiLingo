@@ -690,7 +690,6 @@ break;
 case 13:
         
         
-            $s[$o]->text->addColumn();
             $s[$o-2]->text->addRow($s[$o]);
         
     

@@ -1,8 +1,19 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: robert
- * Date: 10/19/13
- * Time: 1:04 PM
- * To change this template use File | Settings | File Templates.
- */
+namespace WikiLingo\ExpressionParser;
+
+class TableColumn
+{
+    public $value = '';
+
+    public function __construct(&$parsed = null)
+    {
+        $this->append($parsed);
+    }
+
+    public function append($parsed)
+    {
+        if ($parsed != null) {
+            $this->value .= $parsed->text;
+        }
+    }
+}

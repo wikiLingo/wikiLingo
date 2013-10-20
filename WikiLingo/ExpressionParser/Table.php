@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\ExpressionParser;
 
-class TableBase
+class Table extends TableBase
 {
     public function setInput($input)
     {

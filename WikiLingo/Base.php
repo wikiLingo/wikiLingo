@@ -1045,11 +1045,4 @@ class Base
     {
         $output = str_replace("≤REAL_EOF≥", "", $output);
     }
-
-    public function setInput($input)
-    {
-        parent::setInput($input);
-
-        $this->begin('BOF');
-    }
 }

@@ -124,4 +124,11 @@ class Parser extends Definition {
 
         return $this->renderer->render($parsed);
     }
+
+    public function setInput($input)
+    {
+        parent::setInput($input);
+
+        $this->begin('BOF');
+    }
 }

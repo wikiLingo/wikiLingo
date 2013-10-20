@@ -3,8 +3,8 @@ require_once("index.php");
 
 
 $original = "
-||item|item
-item|item||
+||item1|item2
+item3|item4||
 
 ''Test''
 !!!Test
