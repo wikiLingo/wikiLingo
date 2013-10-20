@@ -53,7 +53,7 @@ class Element extends Base
 		        foreach($styles as $style)
 		        {
 			        $_style = explode(":", $style);
-			        $this->styles[trim(array_pop($_style))] = trim(array_pop($_style));
+			        $this->styles[trim(array_shift($_style))] = trim(array_shift($_style));
 		        }
 	        }
         }

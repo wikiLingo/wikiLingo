@@ -7,6 +7,7 @@ class Color extends Base
 {
 	public function generate()
 	{
-		return '~~' . $this->expression->style("color") . ":" . $this->expression->renderedChildren . '~~';
+        $color = $this->expression->style("color");
+		return '~~' . $color . ":" . $this->expression->renderedChildren . '~~';
 	}
 }

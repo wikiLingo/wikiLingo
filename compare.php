@@ -3,6 +3,8 @@ require_once("index.php");
 
 
 $original = "
+||item1|item2
+item3|item4||
 
 ''Test''
 !!!Test
@@ -38,9 +40,9 @@ $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
 $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
 
 $scripts
-	//->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
-	//->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
-    //->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
+    ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
     ->addScriptLocation("ckeditor/ckeditor.js")
     ->addScriptLocation("WikiLingoWYSIWYG/styles.js")
     ->addScript(
@@ -55,7 +57,8 @@ $scripts
             'ul[*];' +
             'ol[*];' +
             'li[*];' +
-            'p blockquote em;' +
+            'p blockquote;' +
+            'em[*];' +
             'img[*];' +
             'embed[*];' +
             'div[*];' +
