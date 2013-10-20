@@ -23,9 +23,6 @@ class Negotiator
 	private $prefs;
 	private $alias;
 
-	public static $standardRelativePath = 'lib/wiki-plugins/wikiplugin_';
-	public static $zendRelativePath = 'vendor/zendframework/zendframework1/library/';
-	public static $checkZendPaths = true;
 	static $pluginIndexes = array();
 	static $pluginInfo = array();
 	static $parserLevels = array();
