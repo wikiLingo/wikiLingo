@@ -78,50 +78,6 @@ class Parser extends Definition {
      */
     function postParse(&$parsed)
     {
-        /*
-                //remove comment artifacts
-                $output = str_replace("<!---->", "", $output);
-
-                //Replace special end tag
-                $this->removeEOF($output);
-
-                if ( $this->getOption('parseLists') == true) {
-                    $lists = $this->Parser->list->toHtml();
-                    if (!empty($lists)) {
-                        $lists = array_reverse($lists);
-                        foreach ($lists as $key => &$list) {
-
-                            $output = str_replace($key, $list, $output);
-                            unset($list);
-
-                        }
-                    }
-                }
-
-                if (isset($this->Parser->smileys) && $this->getOption('parseSmileys')) {
-                    $this->Parser->smileys->parse($output);
-                }
-
-                $this->restorePluginEntities($output);
-
-                if (isset($this->Parser->autoLink)) {
-                    $this->Parser->autoLink->parse($output);
-                }
-
-                if (isset($this->Parser->hotWords)) {
-                    $this->Parser->hotWords->parse($output);
-                }
-
-                if (isset($this->Parser->dynamicVar)) {
-                    $this->Parser->dynamicVar->makeForum($output);
-                }
-
-                if ($this->Parser->parseDepth == 0) {
-                    ini_set("pcre.recursion_limit", $this->pcreRecursionLimit);
-                    $output = $this->specialCharacter->unprotect($output);
-                }
-                */
-
         return $this->renderer->render($parsed);
     }
 

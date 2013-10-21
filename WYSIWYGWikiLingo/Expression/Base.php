@@ -9,6 +9,7 @@ abstract class Base extends WikiLingo\Expression\Content
     public $isHelper = false;
     public $isElement = false;
     public $isStatic = false;
+	public $children = array();
 
     public function render(&$parser)
     {

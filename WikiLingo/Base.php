@@ -14,8 +14,6 @@ use WikiLingo\Renderer;
 class Base
 {
     /* parser tracking */
-    private $parsing = false;
-    public $parseDepth = 0;
     public $types = array();
     public $typesCount = array();
 

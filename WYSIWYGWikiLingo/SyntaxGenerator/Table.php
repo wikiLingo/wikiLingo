@@ -5,6 +5,15 @@ class Table extends Base
 {
     public function generate()
     {
-        return '||' . $this->expression->renderedChildren . '||';
+	    $rows = array();
+	    foreach($this->children as $row) {
+		    $columns = array();
+		    foreach($row->children as $column) {
+			    $columns[] = $column->expression->renderedChildren;
+		    }
+		    $rows[] = implode('|', $columns);
+	    }
+
+        return '||' . implode("\n", $rows) . '||';
     }
 }

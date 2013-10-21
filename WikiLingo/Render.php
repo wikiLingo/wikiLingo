@@ -37,6 +37,10 @@ class Render
         $renderedSiblings = '';
         foreach ($parsed->siblings as &$sibling) {
             $renderedSiblings .= $this->render($sibling);
+	        if ($parsed->parent != null) {
+	            $parsed->parent->children[] =& $sibling;
+	        }
+	        array_shift($parsed->siblings);
         }
 
         $renderedLines = '';
