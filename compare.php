@@ -9,7 +9,7 @@ item3|item4||
 
 ''Test''
 !!!Test
-~tc~Comments ~np~I'm testing a potential sub/non-parsed~/np~ very good ~/tc~%%%
+~tc~Comments ''Parsed?''~/tc~%%%
 
 ~~blue:hello world~~
 
@@ -39,10 +39,11 @@ item3|item4||
 $scripts = new WikiLingo\Utilities\Scripts();
 
 $scripts
+	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+
 	->addScriptLocation("ckeditor/ckeditor.js")
-	//->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
-	//->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
-	//->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
+	->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
 	->addScriptLocation("WikiLingoWYSIWYG/styles.js")
 	->addScript(
 		"CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
@@ -56,7 +57,8 @@ $scripts
 			'ul[*];' +
 			'ol[*];' +
 			'li[*];' +
-			'p blockquote;' +
+			'p[*];' +
+			'blockquote[*];' +
 			'em[*];' +
 			'img[*];' +
 			'embed[*];' +
@@ -65,14 +67,17 @@ $scripts
 			'strong[*];' +
 			'br[*];' +
 			'a[*];' +
-			'table tr th td caption;' +
-			'del ins';  "
+			'table[*];' +
+			'tr[*];' +
+			'th[*];' +
+			'td[*];' +
+			'caption[*];' +
+			'del[*];' +
+			'ins[*]';"
 	);
 $wikiLingo = new WikiLingo\Parser();
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
 $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
-
-
 
 $outputWikiLingo = $wikiLingo->parse($original);
 $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
@@ -96,29 +101,44 @@ $script = $scripts->renderScript();
 </head>
 <body>
 <table class="demo">
-	<tr>
-		<th colspan="4"><h1>wikiLingo</h1></th>
-	</tr>
-	<tr>
-		<th>Source</th>
-		<th>Parsed</th>
-		<th>WYSIWYG (CKEditor 4, HTML ContentEditable)</th>
-		<th>WYSIWYG to Source <?php
-			if ($original == $outputWYSIWYGWikiLingo) {
-				echo "<span style='color: green;'>SUCCESS</span>";
-			} else {
-				echo "<span style='color: red;'>FAILURE</span>";
-			}
-		?>
-		</th>
-	</tr>
-	<tr>
-		<td><pre><?php echo $original;?></pre></td>
-		<td><?php echo $outputWikiLingo;?></td>
-		<td><div contenteditable="true" id="wysiwyg"><?php echo $outputWikiLingoWYSIWYG;?></div></td>
-		<td>
-			<pre><? echo $outputWYSIWYGWikiLingo; ?></pre></td>
-	</tr>
+	<colgroup>
+		<col style="width: 20%;"/>
+		<col style="width: 30%;"/>
+		<col style="width: 30%;"/>
+		<col style="width: 20%;"/>
+	</colgroup>
+	<tbody>
+		<tr>
+			<th colspan="4"><h1>wikiLingo</h1></th>
+		</tr>
+		<tr>
+			<th>Source</th>
+			<th>Parsed</th>
+			<th>WYSIWYG (CKEditor 4, HTML ContentEditable)</th>
+			<th>WYSIWYG to Source <?php
+				if ($original == $outputWYSIWYGWikiLingo) {
+					echo "<span style='color: green;'>SUCCESS</span>";
+				} else {
+					echo "<span style='color: red;'>FAILURE</span>";
+				}
+			?>
+			</th>
+		</tr>
+		<tr>
+			<td>
+				<div>
+					<pre><?php echo $original;?></pre>
+				</div>
+			</td>
+			<td><?php echo $outputWikiLingo;?></td>
+			<td><div contenteditable="true" id="wysiwyg"><?php echo $outputWikiLingoWYSIWYG;?></div></td>
+			<td>
+				<div>
+					<pre><? echo $outputWYSIWYGWikiLingo; ?></pre>
+				</div>
+			</td>
+		</tr>
+	</tbody>
 </table>
 </body>
 </html>

@@ -37,7 +37,6 @@ class Negotiator
 		$this->page = & $parser->page;
 		$this->prefs = & $parser->prefs;
 		$this->parserOption = & $parser->option;
-		$this->parameterParser = new Parameters();
 		$this->alias = new Alias();
 	}
 

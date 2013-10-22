@@ -227,7 +227,8 @@ class Base
         $types = array(
             'npStack' => true,
             'ppStack' => true,
-            'linkStack' => true
+            'linkStack' => true,
+	        'tcStack' => true
         );
 
         foreach ($skipTypes as $skipType) {
