@@ -40,7 +40,6 @@ class Render
 	        if ($parsed->parent != null) {
 	            $parsed->parent->children[] =& $sibling;
 	        }
-	        array_shift($parsed->siblings);
         }
 
         $renderedLines = '';

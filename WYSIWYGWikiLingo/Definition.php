@@ -332,7 +332,6 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
-/* this == yyval */
 
 
 switch ($yystate) {
@@ -386,7 +385,6 @@ case 11:
             $type =& $s[$o-2];
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
-            $type->addChild($typeChild);
             $type->setType('Element', $this);
             $type->expression->setClosing($s[$o]);
         
@@ -802,7 +800,7 @@ break;
     {
         
 
-;
+
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -879,7 +877,7 @@ case 7:
         if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
            return 8;
         }
-        return 7;
+        return 'CONTENT';
     
 
 break;

@@ -156,7 +156,6 @@ content
             $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Element', $$this);
             $$type->expression->setClosing($3);
         */

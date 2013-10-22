@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo;
 use Zend\EventManager\EventManager;
+use WikiLingo\Plugin;
 
 class Parser extends Definition {
 
@@ -18,6 +19,8 @@ class Parser extends Definition {
 		$this->emptyParserValue = new Parsed();
 
         $this->events = new EventManager(__CLASS__);
+
+		$this->pluginNegotiator = new Plugin\Negotiator($this);
 
         parent::__construct();
 

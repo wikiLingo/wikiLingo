@@ -11,12 +11,13 @@ class Color extends Base
 	{
 		$this->parsed =& $parsed;
 
-		if ($this->parsed->children[0]->siblings[1]->text == ':') {
+		if ($this->parsed->children[1]->text == ':') {
 			//TODO: ensure color isn't dangerous
 			$this->color = $this->parsed->children[0]->text;
 		}
 
-		$this->parsed->children[0]->text = $this->parsed->children[0]->siblings[1]->text = '';
+		array_shift($this->parsed->children);
+		array_shift($this->parsed->children);
 
 	}
 

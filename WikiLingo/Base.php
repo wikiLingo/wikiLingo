@@ -41,6 +41,9 @@ class Base
     /* pp tracking */
     public $ppStack = false; //There can only be 1 active np stack
 
+	/* tc tracking */
+	public $tcStack = false; //There can only be 1 active tc stack
+
     /* link tracking*/
     public $linkStack = false; //There can only be 1 active link stack
 

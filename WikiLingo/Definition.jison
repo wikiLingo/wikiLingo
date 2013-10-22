@@ -19,7 +19,7 @@ BLOCK_START                     ([\!*#+;]+)
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
-%s BOF np pp pluginStart plugin inlinePlugin line preBlock block preBlockEnd bold box center code color italic unlink link strike table titleBar underscore wikiLink
+%s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block preBlockEnd bold box center code color italic unlink link strike table titleBar underscore wikiLink
 
 %%
 
@@ -82,13 +82,11 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
         if (parser.ppStack != true) return 'CONTENT';
         lexer.popState();
         parser.ppStack = false;
-        yytext = parser.preFormattedText(yytext);
 
     /*php
         if ($this->ppStack != true) return 'CONTENT';
         $this->popState();
         $this->ppStack = false;
-        $yytext = $this->preFormattedText($yytext);
     */
 
     return 'PREFORMATTED_TEXT_END';
@@ -107,12 +105,47 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'PREFORMATTED_TEXT_START';
 }
-
-
 //Comment
-"~tc~"{LINES_CONTENT}"~/tc~" {
-    return 'COMMENT';
+<tc><<EOF>> {
+    //js
+        lexer.conditionStack = [];
+
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
+
+    return 'EOF';
 }
+<tc>"~/tc~" {
+    //js
+        if (parser.tcStack != true) return 'CONTENT';
+        lexer.popState();
+        parser.tcStack = false;
+
+    /*php
+        if ($this->tcStack != true) return 'CONTENT';
+        $this->popState();
+        $this->tcStack = false;
+    */
+
+    return 'COMMENT_END';
+}
+"~tc~" {
+    //js
+        if (parser.isContent()) return 'CONTENT';
+        lexer.begin('tc');
+        parser.tcStack = true;
+
+    /*php
+        if ($this->isContent()) return 'CONTENT';
+        $this->begin('tc');
+        $this->tcStack = true;
+    */
+
+    return 'COMMENT_START';
+}
+
 
 
 //Wiki Variables
@@ -726,16 +759,6 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'EOF';
 }
-<table>[|] {
-    /*php
-        return TABLE_COLUMN
-    */
-}
-<table>[\n\r] {
-    /*php
-        return TABLE_ROW
-    */
-}
 <table>[|][|] {
     //js
         if (parser.isContent()) return 'CONTENT';
@@ -971,11 +994,11 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 %%
 
 wiki
- : lines
+ : contents
  	{
  	    return $1;
  	}
- | lines EOF
+ | contents EOF
 	{
 	    //js
 		    return $1;
@@ -993,52 +1016,6 @@ wiki
             return $1;
         */
     }
- ;
-
-
-lines
- : line
- | lines line
-    {
-        //js
-            $$ = $1 + $2;
-
-        /*php
-            $1->addLine($2);
-        */
-    }
- ;
-
-line
- : contents
- | PRE_BLOCK_START BLOCK_START BLOCK_END
-    {
-	    //js
-	    $$ = parser.block($2);
-
-	    /*php
-	        $1->setOption('Empty', 'true');
-	        $1->setType('Block', $$this);
-        */
-	}
- | PRE_BLOCK_START BLOCK_START contents BLOCK_END
-    {
-        //js
-            $$ = parser.block($2 + $3);
-
-        /*php
-            $$type = $1;
-            $$type->addArgument($2);
-            $$type->addArgument($3);
-
-            $$typeChild =& $3;
-            $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
-            $$type->setType('Block', $$this);
-        */
-    }
- | PRE_BLOCK_START BLOCK_START
- | PRE_BLOCK_START
  ;
 
 contents
@@ -1064,13 +1041,18 @@ content
 	        $1->setType('Content', $$this);
 	    */
 	}
- | COMMENT
+ | COMMENT_START
+ | COMMENT_START COMMENT_END
+ | COMMENT_START contents COMMENT_END
 	{
         //js
-            $$ = parser.comment($1);
+            $$ = parser.comment($2);
 
         /*php
-            $1->setType('Comment', $$this);
+			$$type =& $1;
+			$$typeChild =& $2;
+			$$typeChild->setParent($$type);
+            $$type->setType('Comment', $$this);
         */
     }
  | NO_PARSE_START
@@ -1084,7 +1066,6 @@ content
             $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('NoParse', $$this);
         */
     }
@@ -1099,7 +1080,6 @@ content
             $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('PreFormattedText', $$this);
         */
     }
@@ -1161,7 +1141,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Bold', $$this);
         */
 	}
@@ -1176,7 +1155,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Box', $$this);
         */
 	}
@@ -1191,7 +1169,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Center', $$this);
         */
 	}
@@ -1206,7 +1183,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Code', $$this);
         */
 	}
@@ -1221,7 +1197,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Color', $$this);
         */
 	}
@@ -1236,7 +1211,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Italic', $$this);
         */
 	}
@@ -1251,7 +1225,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Unlink', $$this);
         */
 	}
@@ -1268,7 +1241,7 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
+            $$type->setType('Link', $$this);
         */
 	}
  | STRIKE_START
@@ -1282,7 +1255,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Strike', $$this);
         */
 	}
@@ -1306,7 +1278,6 @@ content
 		    $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Table', $$this);
         */
 	}
@@ -1321,7 +1292,6 @@ content
 			$$type =& $1;
 			$$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('TitleBar', $$this);
         */
 	}
@@ -1336,7 +1306,6 @@ content
 		    $$type =& $1;
 		    $$typeChild =& $2;
             $$typeChild->setParent($$type);
-            $$type->addChild($$typeChild);
             $$type->setType('Underscore', $$this);
         */
 	}
@@ -1352,7 +1321,7 @@ content
 			$$type =& $1;
 			$$typeChild =& $2;
 			$$typeChild->setParent($$type);
-			$$type->addChild($$typeChild);
+			$$type->setType('WikiLink', $$this);
         */
 	}
  | WIKI_LINK
@@ -1392,7 +1361,6 @@ content
 
  		    $$typeChild = $3;
  		    $$typeChild->setParent($$type);
- 		    $$type->addChild($$typeChild);
  		    $$type->setType('Plugin', $$this);
         */
  	}
@@ -1438,6 +1406,33 @@ content
             $1->setType('Char', $$this);
         */
     }
+ | PRE_BLOCK_START BLOCK_START BLOCK_END
+    {
+        //js
+            $$ = parser.block($2);
+
+	    /*php
+	        $1->setOption('Empty', 'true');
+	        $1->setType('Block', $$this);
+	     */
+	}
+| PRE_BLOCK_START BLOCK_START contents BLOCK_END
+	{
+        //js
+            $$ = parser.block($2 + $3);
+
+		/*php
+			$$type = $1;
+			$$type->addArgument($2);
+			$$type->addArgument($3);
+
+			$$typeChild =& $3;
+			$$typeChild->setParent($$type);
+			$$type->setType('Block', $$this);
+		*/
+    }
+ | PRE_BLOCK_START BLOCK_START
+ | PRE_BLOCK_START
  ;
 
 %% /* parser extensions */

@@ -91,10 +91,11 @@ class Parsed extends ParserValue
 	public $parent;
 	public function setParent(Parsed &$parent)
 	{
-		$this->parent =& $parent;
+		$parent->addChild($this);
 
         foreach($this->siblings as &$sibling) {
             $sibling->setParent($parent);
+	        array_shift($this->siblings);
         }
 	}
 
@@ -102,6 +103,7 @@ class Parsed extends ParserValue
 	public $childrenLength = 0;
 	public function addChild(Parsed &$child)
 	{
+		$child->parent =& $this;
 		$this->children[] =& $child;
 		$this->childrenLength++;
 	}
@@ -120,6 +122,8 @@ class Parsed extends ParserValue
             if ($expression) {
                 $this->expression =& $expression;
             }
+        } else {
+	        throw new Exception("Type '" . $this->type . "' does not exist in WikiLingo\\Expression namespace.");
         }
     }
 }
