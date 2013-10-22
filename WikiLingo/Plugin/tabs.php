@@ -18,10 +18,8 @@ class tabs extends HtmlBase
 	    $id = $this->id($plugin->index);
 	    self::$scripts->addScript(<<<JS
 $(function() {
-	setTimeout(function() {
-		var tabs = $('#$id');
-		tabs.tabs();
-	}, 3000);
+	var tabs = $('#$id');
+	tabs.tabs();
 });
 JS
 );
