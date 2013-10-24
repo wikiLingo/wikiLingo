@@ -33,6 +33,7 @@ class Base
 	public $isStaticTag = false;
 	public $firstLineHandled = false;
 	public $processedTypeStack = '';
+    public $closingTagRegex = "/^(?:(<\/(.|\n)[^>]*?>))/";
 
 /*
 	function parser_performAction(&$thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O)
@@ -74,7 +75,6 @@ class Base
 	{
 		if ($this->isStaticTag == true) {
 			return new Expression\Line($line);
-			return new Expression\Line($line);
 		}
 
 		return new Expression\Line($line);
@@ -105,15 +105,21 @@ class Base
 		$this->htmlElementStackCount++;
 	}
 
-	public function unStackHtmlElement(Parsed &$ending = null)
+	public function unStackHtmlElement($ending = null, $isLookAhead = false)
 	{
-		$name = strtolower(substr(str_replace(" ", "", $ending->text), 2, -1));
+		$name = strtolower(substr(str_replace(" ", "", $ending), 2, -1));
 
 		$possibleTagMatch = end($this->htmlElementStack);
 
-		if (strpos($possibleTagMatch->text, $name) != 1) {
+        $pos = strpos($possibleTagMatch->text, $name);
+
+		if ($pos != 1) {
 			return null;
 		}
+
+        if ($isLookAhead) {
+            return $possibleTagMatch;
+        }
 
 		$this->htmlElementStackCount--;
 		$this->htmlElementStackCount = max(0, $this->htmlElementStackCount);
@@ -121,6 +127,13 @@ class Base
 
 		return $beginning;
 	}
+
+    public function killStackedHtmlElement()
+    {
+        $this->htmlElementStackCount--;
+        $this->htmlElementStackCount = max(0, $this->htmlElementStackCount);
+        array_pop($this->htmlElementStack);
+    }
 
 	public function blockStart()
 	{

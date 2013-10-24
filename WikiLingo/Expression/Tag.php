@@ -32,7 +32,8 @@ class Tag extends Base
 		'dl' => true,
 		'div' => true,
 		'table' => true,
-		'p' => true
+		'p' => true,
+        'a' => true
 	);
 
 	function __construct(WikiLingo\Parsed &$parsed)
@@ -51,6 +52,8 @@ class Tag extends Base
             $this->allowed = true;
         }
 
+        $parsed->parser->trigger('WikiLingo\Expression\Tag', 'Allowed', $this);
+
 		parent::__construct($parsed);
 	}
 
@@ -59,6 +62,12 @@ class Tag extends Base
         if ($this->allowed) {
 		    return $this->parsed->text;
         } else {
+            if (isset($parser->wysiwyg)) {
+                $element = $parser->element(__CLASS__, "code");
+                $element->staticChildren[] = htmlspecialchars($this->parsed->text);
+                return $element->render();
+            }
+
             return htmlspecialchars($this->parsed->text);
         }
 	}

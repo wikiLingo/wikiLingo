@@ -6,8 +6,7 @@ use WYSIWYGWikiLingo;
 
 class Element extends Base
 {
-    public $isElement = true;
-
+    public $isElement = false;
     public $isClosed = false;
     public $closing;
 	public $styles = array();
@@ -45,6 +44,8 @@ class Element extends Base
                 } else {
                     $this->isStatic = true;
                 }
+            } else {
+                $this->isStatic = true;
             }
 
 	        //populate styles
@@ -87,7 +88,10 @@ class Element extends Base
     {
         if ($this->isHelper) {
             return '';
+        } else if ($this->isStatic) {
+            return $this->parsed->text . $this->renderedChildren . $this->closing->text;
         }
+
         return parent::render($parser);
     }
 }

@@ -13,7 +13,7 @@ HTML_TAG_INLINE                 "<"(.|\n)[^>]*?"/>"
 HTML_TAG_CLOSE                  "</"(.|\n)[^>]*?">"
 HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 
-%s htmlElement
+%s htmlElement htmlElementClosing
 
 %%
 {HTML_TAG_INLINE} {
@@ -42,16 +42,30 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
         return 'CONTENT';
     */
 }
-<htmlElement>{HTML_TAG_CLOSE} {
+<htmlElement>(?={HTML_TAG_CLOSE}) {
+    /*php
+        //A look ahead for closing tag
+        if ($closingTag = preg_match($this->closingTagRegex, $this->input, $match)) {
+            if (!$this->unStackHtmlElement($match[0], true)) {
+                $this->killStackedHtmlElement();
+                $this->popState();
+                return "BROKEN";
+            }
+
+            $this->popState();
+            $this->begin("htmlElementClosing");
+        }
+    */
+}
+<htmlElementClosing>{HTML_TAG_CLOSE} {
     /*php
         //A tag that is open and we just found the close for it
-        $element = $this->unStackHtmlElement($this->yy);
+        $element = $this->unStackHtmlElement($this->yy->text);
         if (isset($element)) {
-           $this->yy = $element;
            $this->popState();
            return "HTML_TAG_CLOSE";
         }
-        return 'CONTENT';
+        return "CONTENT";
     */
 }
 {HTML_TAG_OPEN} {
@@ -98,74 +112,89 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 %%
 
 wiki
- : contents
- 	{return $1;}
- | contents EOF
-	{return $1;}
- | EOF
-    {return "";}
- ;
-
-contents
- : content
- | contents content
-	{
-		/*php
-		    $1->addContent($2);
-		*/
-	}
- ;
+    : content {
+        return $1;
+    }
+    | content EOF {
+        return $1;
+    }
+    | EOF {
+        return "";
+    }
+    ;
 
 content
- : CONTENT
-    {
+    : CONTENT {
         /*php
             $1->setType('Content', $$this);
         */
     }
- | LINE_END
-    {
+    | content CONTENT {
+        /*php
+            $2->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
+    | LINE_END {
         /*php
             $1->setType('Line', $$this);
         */
     }
- | HTML_TAG_INLINE
-	{
-	    /*php
-            $$type =& $1;
-            $$type->setType('InlineElement', $$this);
+    | content LINE_END {
+        /*php
+            $2->setType('Line', $$this);
+            $1->addContent($2);
         */
-	}
- | HTML_TAG_OPEN
-	{
-	    /*php
-            $$type =& $1;
-            $$type->setType('BrokenElement', $$this);
+    }
+    | element
+    | content element {
+        /*php
+            $1->addContent($2);
         */
-	}
- | HTML_TAG_CLOSE
-	{
-	    /*php
+    }
+	;
+
+element
+    : HTML_TAG_OPEN HTML_TAG_CLOSE {
+        /*php
             $$type =& $1;
-            $$type->setType('BrokenElement', $$this);
+            $$type->setType('Element', $$this);
+            $$type->expression->setClosing($2);
         */
-	}
- | HTML_TAG_OPEN contents HTML_TAG_CLOSE
-	{
-	    /*php
+    }
+    | HTML_TAG_INLINE {
+        /*php
+            $1->setType('InlineElement', $$this);
+        */
+    }
+    | HTML_TAG_OPEN content HTML_TAG_CLOSE {
+        /*php
             $$type =& $1;
             $$typeChild =& $2;
             $$typeChild->setParent($$type);
             $$type->setType('Element', $$this);
             $$type->expression->setClosing($3);
         */
-	}
- | HTML_TAG_OPEN HTML_TAG_CLOSE
-	{
-	    /*php
+    }
+
+    | HTML_TAG_OPEN {
+        /*php
             $$type =& $1;
-            $$type->setType('Element', $$this);
-            $$type->expression->setClosing($2);
+            $$type->setType('BrokenElement', $$this);
         */
-	}
- ;
+    }
+    | HTML_TAG_CLOSE {
+        /*php
+            $$type =& $1;
+            $$type->setType('BrokenElement', $$this);
+        */
+    }
+    | HTML_TAG_OPEN content BROKEN {
+        /*php
+            $$type =& $1;
+            $$typeChild =& $2;
+            $$typeChild->setParent($$type);
+            $$type->setType('BrokenElement', $$this);
+        */
+    }
+    ;

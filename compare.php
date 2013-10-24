@@ -12,7 +12,8 @@ item3|item4||
 ~tc~Comments ''Parsed?''~/tc~%%%
 
 ~~blue:hello world~~
-
+<a href='http://google.com'>This is a link to Google</a>
+<script>alert('test');</script>
 ~np~This ''Is a test'' ~/np~
 {TAB}{TAB(title=`Unorder List`)}
 *1.1
@@ -73,14 +74,15 @@ $scripts
 			'td[*];' +
 			'caption[*];' +
 			'del[*];' +
-			'ins[*]';"
+			'ins[*];' +
+			'code[*];'"
 	);
 $wikiLingo = new WikiLingo\Parser();
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
 $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
 
-$wikiLingo->bind('WikiLingo\Expression\Plugin', 'PreRender', function(&$plugin, &$out) {
-
+$wikiLingo->bind('WikiLingo\Expression\Tag', 'Allowed', function(&$expression, &$out = null) {
+    //$expression->allowed = true;
 });
 
 $outputWikiLingo = $wikiLingo->parse($original);

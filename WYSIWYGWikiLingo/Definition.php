@@ -33,14 +33,15 @@ class Definition extends Base
 			$symbol1 = new ParserSymbol("end", 1);
 			$symbol2 = new ParserSymbol("error", 2);
 			$symbol3 = new ParserSymbol("wiki", 3);
-			$symbol4 = new ParserSymbol("contents", 4);
+			$symbol4 = new ParserSymbol("content", 4);
 			$symbol5 = new ParserSymbol("EOF", 5);
-			$symbol6 = new ParserSymbol("content", 6);
-			$symbol7 = new ParserSymbol("CONTENT", 7);
-			$symbol8 = new ParserSymbol("LINE_END", 8);
-			$symbol9 = new ParserSymbol("HTML_TAG_INLINE", 9);
-			$symbol10 = new ParserSymbol("HTML_TAG_OPEN", 10);
-			$symbol11 = new ParserSymbol("HTML_TAG_CLOSE", 11);
+			$symbol6 = new ParserSymbol("CONTENT", 6);
+			$symbol7 = new ParserSymbol("LINE_END", 7);
+			$symbol8 = new ParserSymbol("element", 8);
+			$symbol9 = new ParserSymbol("HTML_TAG_OPEN", 9);
+			$symbol10 = new ParserSymbol("HTML_TAG_CLOSE", 10);
+			$symbol11 = new ParserSymbol("HTML_TAG_INLINE", 11);
+			$symbol12 = new ParserSymbol("BROKEN", 12);
 			$this->symbols[0] = $symbol0;
 			$this->symbols["accept"] = $symbol0;
 			$this->symbols[1] = $symbol1;
@@ -50,30 +51,33 @@ class Definition extends Base
 			$this->symbols[3] = $symbol3;
 			$this->symbols["wiki"] = $symbol3;
 			$this->symbols[4] = $symbol4;
-			$this->symbols["contents"] = $symbol4;
+			$this->symbols["content"] = $symbol4;
 			$this->symbols[5] = $symbol5;
 			$this->symbols["EOF"] = $symbol5;
 			$this->symbols[6] = $symbol6;
-			$this->symbols["content"] = $symbol6;
+			$this->symbols["CONTENT"] = $symbol6;
 			$this->symbols[7] = $symbol7;
-			$this->symbols["CONTENT"] = $symbol7;
+			$this->symbols["LINE_END"] = $symbol7;
 			$this->symbols[8] = $symbol8;
-			$this->symbols["LINE_END"] = $symbol8;
+			$this->symbols["element"] = $symbol8;
 			$this->symbols[9] = $symbol9;
-			$this->symbols["HTML_TAG_INLINE"] = $symbol9;
+			$this->symbols["HTML_TAG_OPEN"] = $symbol9;
 			$this->symbols[10] = $symbol10;
-			$this->symbols["HTML_TAG_OPEN"] = $symbol10;
+			$this->symbols["HTML_TAG_CLOSE"] = $symbol10;
 			$this->symbols[11] = $symbol11;
-			$this->symbols["HTML_TAG_CLOSE"] = $symbol11;
+			$this->symbols["HTML_TAG_INLINE"] = $symbol11;
+			$this->symbols[12] = $symbol12;
+			$this->symbols["BROKEN"] = $symbol12;
 
 			$this->terminals = array(
 					2=>&$symbol2,
 					5=>&$symbol5,
+					6=>&$symbol6,
 					7=>&$symbol7,
-					8=>&$symbol8,
 					9=>&$symbol9,
 					10=>&$symbol10,
-					11=>&$symbol11
+					11=>&$symbol11,
+					12=>&$symbol12
 				);
 
 			$table0 = new ParserState(0);
@@ -91,18 +95,21 @@ class Definition extends Base
 			$table12 = new ParserState(12);
 			$table13 = new ParserState(13);
 			$table14 = new ParserState(14);
+			$table15 = new ParserState(15);
+			$table16 = new ParserState(16);
+			$table17 = new ParserState(17);
 
 			$tableDefinition0 = array(
 				
 					3=>new ParserAction($this->none, $table1),
 					4=>new ParserAction($this->none, $table2),
 					5=>new ParserAction($this->shift, $table3),
-					6=>new ParserAction($this->none, $table4),
+					6=>new ParserAction($this->shift, $table4),
 					7=>new ParserAction($this->shift, $table5),
-					8=>new ParserAction($this->shift, $table6),
+					8=>new ParserAction($this->none, $table6),
 					9=>new ParserAction($this->shift, $table7),
-					10=>new ParserAction($this->shift, $table8),
-					11=>new ParserAction($this->shift, $table9)
+					10=>new ParserAction($this->shift, $table9),
+					11=>new ParserAction($this->shift, $table8)
 				);
 
 			$tableDefinition1 = array(
@@ -114,12 +121,12 @@ class Definition extends Base
 				
 					1=>new ParserAction($this->reduce, $table1),
 					5=>new ParserAction($this->shift, $table10),
-					6=>new ParserAction($this->none, $table11),
-					7=>new ParserAction($this->shift, $table5),
-					8=>new ParserAction($this->shift, $table6),
+					6=>new ParserAction($this->shift, $table11),
+					7=>new ParserAction($this->shift, $table12),
+					8=>new ParserAction($this->none, $table13),
 					9=>new ParserAction($this->shift, $table7),
-					10=>new ParserAction($this->shift, $table8),
-					11=>new ParserAction($this->shift, $table9)
+					10=>new ParserAction($this->shift, $table9),
+					11=>new ParserAction($this->shift, $table8)
 				);
 
 			$tableDefinition3 = array(
@@ -131,68 +138,73 @@ class Definition extends Base
 				
 					1=>new ParserAction($this->reduce, $table4),
 					5=>new ParserAction($this->reduce, $table4),
+					6=>new ParserAction($this->reduce, $table4),
 					7=>new ParserAction($this->reduce, $table4),
-					8=>new ParserAction($this->reduce, $table4),
 					9=>new ParserAction($this->reduce, $table4),
 					10=>new ParserAction($this->reduce, $table4),
-					11=>new ParserAction($this->reduce, $table4)
+					11=>new ParserAction($this->reduce, $table4),
+					12=>new ParserAction($this->reduce, $table4)
 				);
 
 			$tableDefinition5 = array(
 				
 					1=>new ParserAction($this->reduce, $table6),
 					5=>new ParserAction($this->reduce, $table6),
+					6=>new ParserAction($this->reduce, $table6),
 					7=>new ParserAction($this->reduce, $table6),
-					8=>new ParserAction($this->reduce, $table6),
 					9=>new ParserAction($this->reduce, $table6),
 					10=>new ParserAction($this->reduce, $table6),
-					11=>new ParserAction($this->reduce, $table6)
+					11=>new ParserAction($this->reduce, $table6),
+					12=>new ParserAction($this->reduce, $table6)
 				);
 
 			$tableDefinition6 = array(
 				
-					1=>new ParserAction($this->reduce, $table7),
-					5=>new ParserAction($this->reduce, $table7),
-					7=>new ParserAction($this->reduce, $table7),
-					8=>new ParserAction($this->reduce, $table7),
-					9=>new ParserAction($this->reduce, $table7),
-					10=>new ParserAction($this->reduce, $table7),
-					11=>new ParserAction($this->reduce, $table7)
+					1=>new ParserAction($this->reduce, $table8),
+					5=>new ParserAction($this->reduce, $table8),
+					6=>new ParserAction($this->reduce, $table8),
+					7=>new ParserAction($this->reduce, $table8),
+					9=>new ParserAction($this->reduce, $table8),
+					10=>new ParserAction($this->reduce, $table8),
+					11=>new ParserAction($this->reduce, $table8),
+					12=>new ParserAction($this->reduce, $table8)
 				);
 
 			$tableDefinition7 = array(
 				
-					1=>new ParserAction($this->reduce, $table8),
-					5=>new ParserAction($this->reduce, $table8),
-					7=>new ParserAction($this->reduce, $table8),
-					8=>new ParserAction($this->reduce, $table8),
-					9=>new ParserAction($this->reduce, $table8),
-					10=>new ParserAction($this->reduce, $table8),
-					11=>new ParserAction($this->reduce, $table8)
+					1=>new ParserAction($this->reduce, $table13),
+					4=>new ParserAction($this->none, $table15),
+					5=>new ParserAction($this->reduce, $table13),
+					6=>new ParserAction($this->shift, $table4),
+					7=>new ParserAction($this->shift, $table5),
+					8=>new ParserAction($this->none, $table6),
+					9=>new ParserAction($this->shift, $table7),
+					10=>new ParserAction($this->shift, $table14),
+					11=>new ParserAction($this->shift, $table8),
+					12=>new ParserAction($this->reduce, $table13)
 				);
 
 			$tableDefinition8 = array(
 				
-					1=>new ParserAction($this->reduce, $table9),
-					4=>new ParserAction($this->none, $table12),
-					5=>new ParserAction($this->reduce, $table9),
-					6=>new ParserAction($this->none, $table4),
-					7=>new ParserAction($this->shift, $table5),
-					8=>new ParserAction($this->shift, $table6),
-					9=>new ParserAction($this->shift, $table7),
-					10=>new ParserAction($this->shift, $table8),
-					11=>new ParserAction($this->shift, $table13)
+					1=>new ParserAction($this->reduce, $table11),
+					5=>new ParserAction($this->reduce, $table11),
+					6=>new ParserAction($this->reduce, $table11),
+					7=>new ParserAction($this->reduce, $table11),
+					9=>new ParserAction($this->reduce, $table11),
+					10=>new ParserAction($this->reduce, $table11),
+					11=>new ParserAction($this->reduce, $table11),
+					12=>new ParserAction($this->reduce, $table11)
 				);
 
 			$tableDefinition9 = array(
 				
-					1=>new ParserAction($this->reduce, $table10),
-					5=>new ParserAction($this->reduce, $table10),
-					7=>new ParserAction($this->reduce, $table10),
-					8=>new ParserAction($this->reduce, $table10),
-					9=>new ParserAction($this->reduce, $table10),
-					10=>new ParserAction($this->reduce, $table10),
-					11=>new ParserAction($this->reduce, $table10)
+					1=>new ParserAction($this->reduce, $table14),
+					5=>new ParserAction($this->reduce, $table14),
+					6=>new ParserAction($this->reduce, $table14),
+					7=>new ParserAction($this->reduce, $table14),
+					9=>new ParserAction($this->reduce, $table14),
+					10=>new ParserAction($this->reduce, $table14),
+					11=>new ParserAction($this->reduce, $table14)
 				);
 
 			$tableDefinition10 = array(
@@ -204,43 +216,83 @@ class Definition extends Base
 				
 					1=>new ParserAction($this->reduce, $table5),
 					5=>new ParserAction($this->reduce, $table5),
+					6=>new ParserAction($this->reduce, $table5),
 					7=>new ParserAction($this->reduce, $table5),
-					8=>new ParserAction($this->reduce, $table5),
 					9=>new ParserAction($this->reduce, $table5),
 					10=>new ParserAction($this->reduce, $table5),
-					11=>new ParserAction($this->reduce, $table5)
+					11=>new ParserAction($this->reduce, $table5),
+					12=>new ParserAction($this->reduce, $table5)
 				);
 
 			$tableDefinition12 = array(
 				
-					6=>new ParserAction($this->none, $table11),
-					7=>new ParserAction($this->shift, $table5),
-					8=>new ParserAction($this->shift, $table6),
-					9=>new ParserAction($this->shift, $table7),
-					10=>new ParserAction($this->shift, $table8),
-					11=>new ParserAction($this->shift, $table14)
+					1=>new ParserAction($this->reduce, $table7),
+					5=>new ParserAction($this->reduce, $table7),
+					6=>new ParserAction($this->reduce, $table7),
+					7=>new ParserAction($this->reduce, $table7),
+					9=>new ParserAction($this->reduce, $table7),
+					10=>new ParserAction($this->reduce, $table7),
+					11=>new ParserAction($this->reduce, $table7),
+					12=>new ParserAction($this->reduce, $table7)
 				);
 
 			$tableDefinition13 = array(
 				
-					1=>new ParserAction($this->reduce, $table12),
-					5=>new ParserAction($this->reduce, $table12),
-					7=>new ParserAction($this->reduce, $table12),
-					8=>new ParserAction($this->reduce, $table12),
-					9=>new ParserAction($this->reduce, $table12),
-					10=>new ParserAction($this->reduce, $table12),
-					11=>new ParserAction($this->reduce, $table12)
+					1=>new ParserAction($this->reduce, $table9),
+					5=>new ParserAction($this->reduce, $table9),
+					6=>new ParserAction($this->reduce, $table9),
+					7=>new ParserAction($this->reduce, $table9),
+					9=>new ParserAction($this->reduce, $table9),
+					10=>new ParserAction($this->reduce, $table9),
+					11=>new ParserAction($this->reduce, $table9),
+					12=>new ParserAction($this->reduce, $table9)
 				);
 
 			$tableDefinition14 = array(
 				
-					1=>new ParserAction($this->reduce, $table11),
-					5=>new ParserAction($this->reduce, $table11),
-					7=>new ParserAction($this->reduce, $table11),
-					8=>new ParserAction($this->reduce, $table11),
-					9=>new ParserAction($this->reduce, $table11),
-					10=>new ParserAction($this->reduce, $table11),
-					11=>new ParserAction($this->reduce, $table11)
+					1=>new ParserAction($this->reduce, $table10),
+					5=>new ParserAction($this->reduce, $table10),
+					6=>new ParserAction($this->reduce, $table10),
+					7=>new ParserAction($this->reduce, $table10),
+					9=>new ParserAction($this->reduce, $table10),
+					10=>new ParserAction($this->reduce, $table10),
+					11=>new ParserAction($this->reduce, $table10),
+					12=>new ParserAction($this->reduce, $table10)
+				);
+
+			$tableDefinition15 = array(
+				
+					6=>new ParserAction($this->shift, $table11),
+					7=>new ParserAction($this->shift, $table12),
+					8=>new ParserAction($this->none, $table13),
+					9=>new ParserAction($this->shift, $table7),
+					10=>new ParserAction($this->shift, $table16),
+					11=>new ParserAction($this->shift, $table8),
+					12=>new ParserAction($this->shift, $table17)
+				);
+
+			$tableDefinition16 = array(
+				
+					1=>new ParserAction($this->reduce, $table12),
+					5=>new ParserAction($this->reduce, $table12),
+					6=>new ParserAction($this->reduce, $table12),
+					7=>new ParserAction($this->reduce, $table12),
+					9=>new ParserAction($this->reduce, $table12),
+					10=>new ParserAction($this->reduce, $table12),
+					11=>new ParserAction($this->reduce, $table12),
+					12=>new ParserAction($this->reduce, $table12)
+				);
+
+			$tableDefinition17 = array(
+				
+					1=>new ParserAction($this->reduce, $table15),
+					5=>new ParserAction($this->reduce, $table15),
+					6=>new ParserAction($this->reduce, $table15),
+					7=>new ParserAction($this->reduce, $table15),
+					9=>new ParserAction($this->reduce, $table15),
+					10=>new ParserAction($this->reduce, $table15),
+					11=>new ParserAction($this->reduce, $table15),
+					12=>new ParserAction($this->reduce, $table15)
 				);
 
 			$table0->setActions($tableDefinition0);
@@ -258,6 +310,9 @@ class Definition extends Base
 			$table12->setActions($tableDefinition12);
 			$table13->setActions($tableDefinition13);
 			$table14->setActions($tableDefinition14);
+			$table15->setActions($tableDefinition15);
+			$table16->setActions($tableDefinition16);
+			$table17->setActions($tableDefinition17);
 
 			$this->table = array(
 				
@@ -275,7 +330,10 @@ class Definition extends Base
 					11=>$table11,
 					12=>$table12,
 					13=>$table13,
-					14=>$table14
+					14=>$table14,
+					15=>$table15,
+					16=>$table16,
+					17=>$table17
 				);
 
 			$this->defaultActions = array(
@@ -292,13 +350,16 @@ class Definition extends Base
 					3=>new ParserProduction($symbol3,1),
 					4=>new ParserProduction($symbol4,1),
 					5=>new ParserProduction($symbol4,2),
-					6=>new ParserProduction($symbol6,1),
-					7=>new ParserProduction($symbol6,1),
-					8=>new ParserProduction($symbol6,1),
-					9=>new ParserProduction($symbol6,1),
-					10=>new ParserProduction($symbol6,1),
-					11=>new ParserProduction($symbol6,3),
-					12=>new ParserProduction($symbol6,2)
+					6=>new ParserProduction($symbol4,1),
+					7=>new ParserProduction($symbol4,2),
+					8=>new ParserProduction($symbol4,1),
+					9=>new ParserProduction($symbol4,2),
+					10=>new ParserProduction($symbol8,2),
+					11=>new ParserProduction($symbol8,1),
+					12=>new ParserProduction($symbol8,3),
+					13=>new ParserProduction($symbol8,1),
+					14=>new ParserProduction($symbol8,1),
+					15=>new ParserProduction($symbol8,3)
 				);
 
 
@@ -310,20 +371,22 @@ class Definition extends Base
 				
 					0=>"/^(?:(<(.|\n)[^>]*?\/>))/",
 					1=>"/^(?:$)/",
-					2=>"/^(?:(<\/(.|\n)[^>]*?>))/",
-					3=>"/^(?:(<(.|\n)[^>]*?>))/",
-					4=>"/^(?:(<\/(.|\n)[^>]*?>))/",
-					5=>"/^(?:([A-Za-z0-9 .,?;]+))/",
-					6=>"/^(?:([ ]))/",
-					7=>"/^(?:((\n\r|\r\n|[\n\r])))/",
-					8=>"/^(?:(.))/",
-					9=>"/^(?:$)/"
+					2=>"/^(?:(?=(<\/(.|\n)[^>]*?>)))/",
+					3=>"/^(?:(<\/(.|\n)[^>]*?>))/",
+					4=>"/^(?:(<(.|\n)[^>]*?>))/",
+					5=>"/^(?:(<\/(.|\n)[^>]*?>))/",
+					6=>"/^(?:([A-Za-z0-9 .,?;]+))/",
+					7=>"/^(?:([ ]))/",
+					8=>"/^(?:((\n\r|\r\n|[\n\r])))/",
+					9=>"/^(?:(.))/",
+					10=>"/^(?:$)/"
 				);
 
 			$this->conditions = array(
 				
-					"htmlElement"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9), true),
-					"INITIAL"=>new LexerConditions(array( 0,3,4,5,6,7,8,9), true)
+					"htmlElement"=>new LexerConditions(array( 0,1,2,4,5,6,7,8,9,10), true),
+					"htmlElementClosing"=>new LexerConditions(array( 0,3,4,5,6,7,8,9,10), true),
+					"INITIAL"=>new LexerConditions(array( 0,4,5,6,7,8,9,10), true)
 				);
 
 
@@ -332,71 +395,100 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
-case 1:return $s[$o];
+case 1:
+        return $s[$o];
+    
 break;
-case 2:return $s[$o-1];
+case 2:
+        return $s[$o-1];
+    
 break;
-case 3:return "";
+case 3:
+        return "";
+    
+break;
+case 4:
+        
+            $s[$o]->setType('Content', $this);
+        
+    
 break;
 case 5:
-		
-		    $s[$o-1]->addContent($s[$o]);
-		
-	
+        
+            $s[$o]->setType('Content', $this);
+            $s[$o-1]->addContent($s[$o]);
+        
+    
 break;
 case 6:
         
-            $s[$o]->setType('Content', $this);
+            $s[$o]->setType('Line', $this);
         
     
 break;
 case 7:
         
             $s[$o]->setType('Line', $this);
+            $s[$o-1]->addContent($s[$o]);
         
     
 break;
-case 8:
-	    
-            $type =& $s[$o];
-            $type->setType('InlineElement', $this);
-        
-	
-break;
 case 9:
-	    
-            $type =& $s[$o];
-            $type->setType('BrokenElement', $this);
         
-	
+            $s[$o-1]->addContent($s[$o]);
+        
+    
 break;
 case 10:
-	    
-            $type =& $s[$o];
-            $type->setType('BrokenElement', $this);
         
-	
+            $type =& $s[$o-1];
+            $type->setType('Element', $this);
+            $type->expression->setClosing($s[$o]);
+        
+    
 break;
 case 11:
-	    
+        
+            $s[$o]->setType('InlineElement', $this);
+        
+    
+break;
+case 12:
+        
             $type =& $s[$o-2];
             $typeChild =& $s[$o-1];
             $typeChild->setParent($type);
             $type->setType('Element', $this);
             $type->expression->setClosing($s[$o]);
         
-	
+    
 break;
-case 12:
-	    
-            $type =& $s[$o-1];
-            $type->setType('Element', $this);
-            $type->expression->setClosing($s[$o]);
+case 13:
         
-	
+            $type =& $s[$o];
+            $type->setType('BrokenElement', $this);
+        
+    
+break;
+case 14:
+        
+            $type =& $s[$o];
+            $type->setType('BrokenElement', $this);
+        
+    
+break;
+case 15:
+        
+            $type =& $s[$o-2];
+            $typeChild =& $s[$o-1];
+            $typeChild->setParent($type);
+            $type->setType('BrokenElement', $this);
+        
+    
 break;
 }
 
@@ -800,7 +892,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -815,7 +907,7 @@ case 0:
            $this->yy->text = $this->yy->text{0};
            $this->unput(substr($tag, 1));
         }
-        return 7;
+        return 6;
     
 
 break;
@@ -824,24 +916,39 @@ case 1:
         //A tag that was left open, and needs to close
         $name = end($this->htmlElementsStack);
         $element = end($this->htmlElementStack);
-        return 7;
+        return 6;
     
 
 break;
 case 2:
     
-        //A tag that is open and we just found the close for it
-        $element = $this->unStackHtmlElement($this->yy);
-        if (isset($element)) {
-           $this->yy = $element;
-           $this->popState();
-           return "HTML_TAG_CLOSE";
+        //A look ahead for closing tag
+        if ($closingTag = preg_match($this->closingTagRegex, $this->input, $match)) {
+            if (!$this->unStackHtmlElement($match[0], true)) {
+                $this->killStackedHtmlElement();
+                $this->popState();
+                return "BROKEN";
+            }
+
+            $this->popState();
+            $this->begin("htmlElementClosing");
         }
-        return 7;
     
 
 break;
 case 3:
+    
+        //A tag that is open and we just found the close for it
+        $element = $this->unStackHtmlElement($this->yy->text);
+        if (isset($element)) {
+           $this->popState();
+           return "HTML_TAG_CLOSE";
+        }
+        return "CONTENT";
+    
+
+break;
+case 4:
     
         //An tag open
         if (WikiLingo\Utilities\Html::isHtmlTag($this->yy->text)) {
@@ -857,33 +964,33 @@ case 3:
            $this->unput(substr($tag, 1));
         }
 
-        return 7;
+        return 6;
     
 
 break;
-case 4:
+case 5:
     
         //A tag that was not opened, needs to be ignored
-        return 7;
+        return 6;
     
 
 break;
-case 5:return 7;
+case 6:return 6;
 break;
-case 6:return 7;
+case 7:return 6;
 break;
-case 7:
+case 8:
     
         if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
-           return 8;
+           return 7;
         }
-        return 'CONTENT';
+        return 6;
     
 
 break;
-case 8:return 7;
+case 9:return 6;
 break;
-case 9:return 5;
+case 10:return 5;
 break;
 }
 

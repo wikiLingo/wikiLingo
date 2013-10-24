@@ -392,8 +392,8 @@ class Base
         $this->events->unbind($eventName);
 	}
 
-	public function trigger($eventName)
+	public function trigger($class, $event, &$obj = null, &$out = null)
 	{
-        $this->events->trigger($eventName);
+        $this->events->trigger($class, $event, $obj, $out);
 	}
 }
