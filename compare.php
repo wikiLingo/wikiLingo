@@ -75,7 +75,7 @@ $scripts
 			'caption[*];' +
 			'del[*];' +
 			'ins[*];' +
-			'code[*];'"
+			'code[*];';"
 	);
 $wikiLingo = new WikiLingo\Parser();
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
