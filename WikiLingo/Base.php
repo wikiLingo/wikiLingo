@@ -4,7 +4,6 @@
  */
 namespace WikiLingo;
 
-use Zend\EventManager\EventManager;
 use Exception;
 use WikiLingo\Renderer;
 
@@ -29,7 +28,6 @@ class Base
     public $pluginEntries = array();
     public $plugins = array();
     public static $pluginIndexes = array();
-    public $pluginNegotiator;
     public $originalInput = '';
 
     /* track syntax that is broken */
@@ -383,26 +381,19 @@ class Base
         $this->begin('BOF');
     }
 
-	public function bind($eventName, $fn)
+	public function bind($class, $event, $fn)
 	{
-		if (!isset($this->events)) {
-			$this->events = new Events();
-		}
 
-		$this->events->bind($eventName, $fn);
+		$this->events->bind($class, $event, $fn);
 	}
 
 	public function unbind($eventName)
 	{
-		if (isset($this->events)) {
-			$this->events->unbind($eventName);
-		}
+        $this->events->unbind($eventName);
 	}
 
 	public function trigger($eventName)
 	{
-		if (isset($this->events)) {
-			$this->events->trigger($eventName);
-		}
+        $this->events->trigger($eventName);
 	}
 }

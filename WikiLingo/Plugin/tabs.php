@@ -6,7 +6,6 @@ use WikiLingo;
 class tabs extends HtmlBase
 {
     public $type = 'tabs';
-    public $public = 'tabs';
     public $htmlTagType = 'div';
 	public $parameters = array(
 		'titles' => array()

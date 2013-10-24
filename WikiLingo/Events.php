@@ -5,8 +5,9 @@ class Events
 {
 	public $events = array();
 
-	public function bind($eventName, &$method)
+	public function bind($class, $event, &$method)
 	{
+        $eventName = $class . '.' . $event;
 		if (!isset($this->events[$eventName])) {
 			$this->events[$eventName] = array();
 		}
@@ -19,11 +20,12 @@ class Events
 		$this->events[$eventName] = null;
 	}
 
-	public function trigger($eventName)
+	public function trigger($class, $event, $item = null, $out = null)
 	{
+        $eventName = $class . '.' . $event;
 		if (isset($this->events[$eventName])) {
 			foreach($this->events[$eventName] as &$event) {
-				$event();
+				$event($item, $out);
 			}
 		}
 	}

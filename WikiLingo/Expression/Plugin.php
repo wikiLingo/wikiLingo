@@ -8,6 +8,7 @@ class Plugin extends Base
     public $name;
     public $parameters = array(); //parameters are server side
     public $attributes = array(); //attributes are client/tag side
+    public $privateAttributes = array(); //privateAttributes are server side, used between plugins
     public $index;
     public $key;
 	public $exists;
@@ -17,6 +18,7 @@ class Plugin extends Base
     public $parent;
 	public $allowsBreaks = false;
     public $isInline = false;
+    public static $injected = array();
 
     public static $info;
     public static $parametersParser;
@@ -40,6 +42,12 @@ class Plugin extends Base
 
         $this->className = "WikiLingo\\Plugin\\$name";
 	    $this->exists = class_exists($this->className);
+
+        //it may exist elsewhere
+        if (!$this->exists) {
+            $parsed->parser->events->trigger('WikiLingo\Expression\Plugin', 'Exists', $this);
+        }
+
         $this->index = self::incrementPluginIndex($name);
         $this->key = '§' . md5('plugin:' . $name . '_' . $this->index) . '§';
 
@@ -60,65 +68,29 @@ class Plugin extends Base
         $this->ignored = false;
 
         if ($this->exists == true) {
-            if (empty(WikiLingo\Plugin\Negotiator::$pluginInstances[$this->className])) {
-                WikiLingo\Plugin\Negotiator::$pluginInstances[$this->className] = new $this->className;
+            if (empty($parsed->parser->pluginInstances[$this->className])) {
+                $parsed->parser->pluginInstances[$this->className] = new $this->className;
             }
-            $this->class = WikiLingo\Plugin\Negotiator::$pluginInstances[$this->className];
-        } else if (WikiLingo\Plugin\Negotiator::injectedExists($this->className) == true) {
-            $this->class = WikiLingo\Plugin\Negotiator::$pluginInstances[$this->name];
-        } else {
-            $this->class = null;
+            $this->class = $parsed->parser->pluginInstances[$this->className];
         }
     }
 
     public function render(&$parser)
     {
-        $parser->events->trigger(__FUNCTION__ .'.pre', $this);
-        $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
-        $rendered = $this->class->render($this, $this->renderedChildren, $parser);
-        $parser->events->trigger(__FUNCTION__ .'.post', $this);
-        return $rendered;
-    }
-
-    public function fingerprint()
-    {
-        $validate = (isset($this->info['validate']) ? $this->info['validate'] : '');
-
-        if ( $validate == 'all' || $validate == 'body' )
-            $validateBody = str_replace('<x>', '', $this->body);	// de-sanitize plugin body to make fingerprint consistant with 5.x
-        else
-            $validateBody = '';
-
-        if ( $validate == 'all' || $validate == 'arguments' ) {
-            $validateArgs = $this->args;
-
-            // Remove arguments marked as safe from the fingerprint
-            foreach ( $this->info['params'] as $key => $info ) {
-                if ( isset( $validateArgs[$key] )
-                    && isset( $info['safe'] )
-                    && $info['safe']
-                ) {
-                    unset($validateArgs[$key]);
-                }
-            }
-            // Parameter order needs to be stable
-            ksort($validateArgs);
-
-            if (empty($validateArgs)) {
-                $validateArgs = array( '' => '' );	// maintain compatibility with pre-Tiki 7 fingerprints
-            }
+        $execute = true;
+        $parser->events->trigger('WikiLingo\Expression\Plugin', 'CanExecute', $this, $execute);
+        if ($execute)
+        {
+            $parser->events->trigger('WikiLingo\Expression\Plugin', 'PreRender', $this);
+            $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
+            $rendered = $this->class->render($this, $this->renderedChildren, $parser);
+            $parser->events->trigger('WikiLingo\Expression\Plugin', 'PreRender', $this);
+            return $rendered;
         } else {
-            $validateArgs = array();
+            $return = '';
+            $parser->events->trigger('WikiLingo\Expression\Plugin', 'RenderBlocked', $this, $return);
+            return $return;
         }
-
-        $bodyLen = str_pad(strlen($validateBody), 6, '0', STR_PAD_RIGHT);
-        $serialized = serialize($validateArgs);
-        $parametersLen = str_pad(strlen($serialized), 6, '0', STR_PAD_RIGHT);
-
-        $bodyHash = md5($validateBody);
-        $argsHash = md5($serialized);
-
-        return "$this->name-$bodyHash-$argsHash-$bodyLen-$parametersLen";
     }
 
     public function info()
@@ -157,55 +129,6 @@ class Plugin extends Base
         self::$indexes[$name]++;
 
         return self::$indexes[$name];
-    }
-
-    function enabled(& $output)
-    {
-        $info = $this->info();
-
-        global $prefs;
-
-        $missing = array();
-
-        if ( isset( $info['prefs'] ) ) {
-            foreach ( $info['prefs'] as $pref ) {
-                if ( isset($prefs[$pref]) && $prefs[$pref] != 'y' ) {
-                    $missing[] = $pref;
-                }
-            }
-        }
-
-        if ( count($missing) > 0 ) {//TODO: Handle disabled plugins with some sort of trigger
-            $output = WikiParser_PluginOutput::disabled($this->name, $missing);
-            return false;
-        }
-
-        return true;
-    }
-
-    function urlEncodeParameters()
-    {
-        $parameters = '';// not using http_build_query() as it converts spaces into +
-        $info = $this->info();
-
-        if (!empty($this->parameters)) {
-            foreach ( $this->parameters as $key => $value ) {
-                if (is_array($value)) {
-                    if (isset($info['params'][$key]['separator'])) {
-                        $sep = $info['params'][$key]['separator'];
-                    } else {
-                        $sep = ',';
-                    }
-                    $parameters .= $key.'='.implode($sep, $value).'&';
-                } else {
-                    $parameters .= $key.'='.$value.'&';
-                }
-            }
-        }
-
-        $parameters = rtrim($parameters, '&');
-
-        return $parameters;
     }
 
     public function addAttribute($name, $value) {
