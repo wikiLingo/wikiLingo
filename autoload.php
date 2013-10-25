@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: robert
- * Date: 10/24/13
- * Time: 5:07 PM
- */ 
+
+function __autoload($class) {
+    $root = dirname(__FILE__);
+    $file = $root . "/" . str_replace('\\', '/', $class) . '.php';
+    if (!class_exists($class) && file_exists($file)) {
+        include $file;
+    }
+}
