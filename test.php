@@ -4,4 +4,6 @@ include "autoload.php";
 
 $t = new \Testify\Testify("WikiLingo General HTML Output");
 
-(new Tests\PluginTest($t))->testOutput();
+(new Tests\OutputTest($t))->testOutput();
+
+$t->run();

@@ -8,11 +8,11 @@ class PluginTest extends Base
 		$this->syntaxSets = array(
 			"html_plugin" => array(),
 			"injected_plugin" => array(),
-			"injected_plugin_blocked" => array(),
+			/*"injected_plugin_blocked" => array(),
 			"rejected_plugin_default_validation_behavior" => array(),
 			"expandingoutline_basic" => array(),
 			"parser_level_and_maketoc" => array(),
-			"alias_plugin" => array(),
+			"alias_plugin" => array(),*/
 		);
 	}
 
@@ -47,25 +47,27 @@ class PluginTest extends Base
 			)
 		);*/
 
-        $this->parser->pluginInstances['injected'] = new \Tests\injected();
+
+        $this->parser->bind('WikiLingo\Expression\Plugin', 'Exists', function(&$plugin) {
+            switch ($plugin->name) {
+                case "injected":
+                    $plugin->className = "\\Tests\\injected";
+                    $plugin->class = $this->parser->pluginInstances['injected'] =& new injected();
+                    break;
+            }
+        });
 
 		$syntax = array(
 			"{INJECTED()}__I've been injected!__{INJECTED}"
 		,
-			'<div id="injected1" class="wikiplugin_injected" style=""><strong>I\'ve been injected!</strong></div>'
+			"<div id='injected1'><strong>I've been injected!</strong></div>"
 		);
 
 		$parsed = $this->parser->parse($syntax[0]);
 
-		$this->parser->resetOption();
-
-		$this->tryRemoveIdsFromHtmlList($parsed);
-
-		$this->parser->pluginNegotiator->eject("WikiPlugin_injected");
-
 		return array("parsed" => $parsed, "syntax" => $syntax);
 	}
-
+/*
 	public function injected_plugin_blocked()
 	{
 		$plugin = new WikiPlugin_injected();
@@ -368,5 +370,5 @@ class PluginTest extends Base
 
 		return array("parsed" => $parsed, "syntax" => $syntax);
 
-	}
+	}*/
 }

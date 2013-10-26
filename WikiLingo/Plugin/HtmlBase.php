@@ -300,7 +300,9 @@ abstract class HtmlBase extends Base
 
         $element->attributes['id'] = $this->id($plugin->index);
         $element->attributes['class'] = (empty($plugin->attributes['class']) ? '' : ' ' ) . 'wl-plugin-' . $this->type;
-        $element->attributes['style'] = $style;
+        if (!empty($style)) {
+            $element->attributes['style'] = $style;
+        }
         $element->detailedAttributes['data-plugintype'] = $this->type;
         $element->detailedAttributes['data-pluginparameters'] = urlencode(json_encode($plugin->parameters));
         $element->detailedAttributes['data-isinline'] = $plugin->isInline;

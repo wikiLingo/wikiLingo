@@ -3,7 +3,7 @@ namespace Tests;
 
 use WikiLingo;
 
-class injected extends WikiLingo\Plugin\Html
+class injected extends WikiLingo\Plugin\html
 {
-
+    public $type = 'injected';
 }
