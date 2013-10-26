@@ -10,6 +10,8 @@ class Header
 	public $count = 0;
     public $content;
     public $needed = true;
+    public $id;
+    public static $ids = array();
 
     public function __construct(Block &$block)
     {
@@ -24,7 +26,19 @@ class Header
     public function render()
     {
         $element = $this->block->parsed->parser->element(__CLASS__, 'h' . $this->count);
-        $element->staticChildren[] = $this->content->expression->render($this->block->parsed->parser);
+        $element->staticChildren[] = $children = $this->content->expression->render($this->block->parsed->parser);
+        if (!isset($this->id)) {
+            $id = $this->id = urlencode(strip_tags($children));
+            if (!isset(self::$ids[$id])) {
+                self::$ids[$id] = 1;
+            } else {
+                $this->id .= self::$ids[$id];
+                self::$ids[$id]++;
+            }
+        }
+
+        $element->attributes['id'] = $this->id;
+
         return $element->render();
     }
 }

@@ -9,9 +9,9 @@ class OutputTest extends Base
 		$this->syntaxSets = array(
 			'simple_break'      => array(),
 			//old syntax checks, somewhat modified
-			array('! foo', '<h1 id=\'foo\'> foo</h1>'),	// heading 1
+			array('! foo', '<h1 id=\'+foo\'> foo</h1>'),	// heading 1
 			array('!!foo', '<h2 id=\'foo1\'>foo</h2>'),	// heading 2
-			array('!! foo', '<h2 id=\'foo2\'> foo</h2>'),	// heading 2
+			array('!! foo', '<h2 id=\'+foo2\'> foo</h2>'),	// heading 2
 
 			//heading 1 with collapsible text open
 			/*array(
