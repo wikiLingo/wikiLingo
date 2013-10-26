@@ -1,7 +1,6 @@
 <?php
 namespace Tests;
 
-include_once("../index.php");
 use WikiLingoWYSIWYG;
 use WYSIWYGWikiLingo;
 
@@ -70,9 +69,9 @@ end.
 row 2 cell 1~|~ row 2 cell 2~|~ row 2 cell 3{FANCYTABLE}", "");
 	}
 
-	static function assertSyntaxEquals($expected, $actual, $syntaxName, $syntax)
+	public function assertSyntaxEquals($expected, $actual, $syntaxName, $syntax)
 	{
-		$parsed = self::$htmlToWikiParser->parse($actual);
+		$parsed = $this->htmlToWikiParser->parse($actual);
 
 		if (self::$verbose) {
 			echo "\n\nWiki: '" . $actual . "'";
@@ -80,6 +79,6 @@ row 2 cell 1~|~ row 2 cell 2~|~ row 2 cell 3{FANCYTABLE}", "");
 			echo "\n\nExpected: '" . $syntax . "'";
 		}
 
-		return parent::assertEquals($syntax, $parsed, $syntaxName, $actual);
+		return $this->assertEquals($syntax, $parsed, $syntaxName, $actual);
 	}
 }

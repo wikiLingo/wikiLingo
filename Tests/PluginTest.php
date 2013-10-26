@@ -1,12 +1,5 @@
 <?php
-// (c) Copyright 2002-2013 by authors of the Tiki Wiki CMS Groupware Project
-//
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id: PluginTest.php 44444 2013-01-05 21:24:24Z changi67 $
 namespace Tests;
-
-include_once("../../index.php");
 
 class PluginTest extends Base
 {
@@ -25,12 +18,12 @@ class PluginTest extends Base
 
 	public function html_plugin()
 	{
-		$this->parser->setOption(
+		/*$this->parser->setOption(
 			array(
 				'is_html' => true,
 				'skipvalidation' => true
 			)
-		);
+		);*/
 
 		$syntax = array(
 			"{HTML()}<table><tr><td></td></tr></table>{HTML}"
@@ -40,21 +33,21 @@ class PluginTest extends Base
 
 		$parsed = $this->parser->parse($syntax[0]);
 
-		$this->parser->resetOption();
+		//$this->parser->resetOption();
 
 		return array("parsed" => $parsed, "syntax" => $syntax);
 	}
 
 	public function injected_plugin()
 	{
-		$this->parser->setOption(
+		/*$this->parser->setOption(
 			array(
 				'is_html' => true,
 				'skipvalidation' => true
 			)
-		);
+		);*/
 
-		$this->parser->pluginNegotiator->inject(new WikiPlugin_injected());
+        $this->parser->pluginInstances['injected'] = new \Tests\injected();
 
 		$syntax = array(
 			"{INJECTED()}__I've been injected!__{INJECTED}"
@@ -375,29 +368,5 @@ class PluginTest extends Base
 
 		return array("parsed" => $parsed, "syntax" => $syntax);
 
-	}
-}
-
-class WikiPlugin_injected extends WikiPlugin_HtmlBase
-{
-	public $type = "injected";
-	public $np = false;
-	public $outputOverride;
-
-	public function output(&$data, &$params, &$index, &$parser)
-	{
-		if (isset($this->outputOverride)) {
-			return $this->outputOverride($data, $params, $index, $parser);
-		}
-		return $data;
-	}
-
-	//This gives us the ability to add method on the fly to test different results
-	public function __call($method, $args)
-	{
-		if (isset($this->$method) === true) {
-			$func = $this->$method;
-			return $func($args[0],$args[1],$args[2], $args[3]);
-		}
 	}
 }

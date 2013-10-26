@@ -1,29 +1,28 @@
 <?php
-// (c) Copyright 2002-2013 by authors of the Tiki Wiki CMS Groupware Project
-//
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id: Abstract.php 47914 2013-10-07 20:19:51Z alain_desilets $
 namespace Tests;
-include_once("../index.php");
 
+use Testify\Testify;
 use WikiLingo;
 
-class Base
+abstract class Base
 {
+    public $test;
 	static $verbose = false;
 	public $called;
 	public $parser;
 	public $syntaxSets = array();
 
-	function setUp()
-	{
-		$this->parser = new WikiLingo\Parser();
-		$this->called = 0;
-	}
+    public abstract function provider();
+
+    public function __construct(Testify $test) {
+        $this->parser = new WikiLingo\Parser();
+        $this->called = 0;
+        $this->test = $test;
+    }
 
 	public function testOutput()
 	{
+        $this->provider();
 		$syntaxSets = (isset($this->parentProvider) ? $this->parentProvider->syntaxSets : $this->syntaxSets);
 		foreach ($syntaxSets as $syntaxName => $syntax) {
 			if (isset($syntax[0])) {
@@ -34,10 +33,10 @@ class Base
 				$syntax = $customHandled['syntax'];
 			}
 
-			if (self::$verbose == true) {
+			/*if (self::$verbose == true) {
 				echo $syntaxName . ":\n";
 				echo '"' . $parsed . '"' . "\n\n\n\n";
-			}
+			}*/
 
 			$this->called++;
 
@@ -45,15 +44,15 @@ class Base
 		}
 	}
 
-	static function assertSyntaxEquals($expected, $actual, $syntaxName, $syntax)
+	public function assertSyntaxEquals($expected, $actual, $syntaxName, $syntax)
 	{
-		if ($expected != $actual) {
+		/*if ($expected != $actual) {
 			echo "\n\n\n\nFailure on: $syntaxName\n";
 			echo "Syntax: '$syntax'\n";
 			echo "Output: '$actual'\n";
-		}
+		}*/
 
-		parent::assertEquals($expected, $actual);
+		$this->test->assertEquals($expected, $actual);
 	}
 
 	public function tryRemoveIdsFromHtmlList(&$parsed)

@@ -1,16 +1,9 @@
 <?php
-// (c) Copyright 2002-2013 by authors of the Tiki Wiki CMS Groupware Project
-//
-// All Rights Reserved. See copyright.txt for details and a complete list of authors.
-// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-// $Id: OutputTest.php 44444 2013-01-05 21:24:24Z changi67 $
 namespace Tests;
-
-include_once("../index.php");
 
 class OutputTest extends Base
 {
-	function provider()
+	public function provider()
 	{
 		//self::$verbose = true;
 		$this->syntaxSets = array(
@@ -689,14 +682,14 @@ class OutputTest extends Base
 
 		$result = array("parsed" => $parsed, "syntax" => $syntax);
 
-		$this->parser->resetOption();
+		//$this->parser->resetOption();
 
 		return $result;
 	}
 
 	function no_line_skipping()
 	{
-		$this->parser->setOption(array('is_html' => true));
+		//$this->parser->setOption(array('is_html' => true));
 
 		$syntax = array(
 			"{DIV()}\n" .

@@ -7,7 +7,7 @@ class Tag extends Base
 {
     public $name;
     public $close = false;
-    public $allowed = false;
+    public $allowed = true;
 
 	public static $notAllowed = array(
 		'script' => true
@@ -17,23 +17,6 @@ class Tag extends Base
 		'hr' => true,
 		'br' => true,
         'div' => true
-	);
-
-	public static $allowedBlock = array(
-		'h1' => true,
-		'h2' => true,
-		'h3' => true,
-		'h4' => true,
-		'h5' => true,
-		'h6' => true,
-		'pre' => true,
-		'ul' => true,
-		'li' => true,
-		'dl' => true,
-		'div' => true,
-		'table' => true,
-		'p' => true,
-        'a' => true
 	);
 
 	function __construct(WikiLingo\Parsed &$parsed)
@@ -48,8 +31,8 @@ class Tag extends Base
             $this->name = $name;
         }
 
-        if (isset(self::$allowedBlock[$this->name]) && self::$allowedBlock[$this->name]) {
-            $this->allowed = true;
+        if (isset(self::$notAllowed[$this->name]) && self::$notAllowed[$this->name]) {
+            $this->allowed = false;
         }
 
         $parsed->parser->trigger('WikiLingo\Expression\Tag', 'Allowed', $this);

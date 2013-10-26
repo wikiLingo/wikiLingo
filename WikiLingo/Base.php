@@ -26,6 +26,7 @@ class Base
     public $pluginStack = array();
     public $pluginStackCount = 0;
     public $pluginEntries = array();
+    public $pluginInstances = array();
     public $plugins = array();
     public static $pluginIndexes = array();
     public $originalInput = '';
