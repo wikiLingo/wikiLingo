@@ -11,7 +11,7 @@ wikiLingo is a fun and exciting new programming language that you... Don't have 
 {HTML}
 ```
 
-wikiLingo also incorporates popular wiki syntax, bold sy
+wikiLingo also incorporates popular wiki syntax
 
 
 
