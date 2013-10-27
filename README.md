@@ -30,7 +30,7 @@ wikiLingo also incorporates popular wiki syntax
 * Center - ```::Text::```
 * Code - ```-+Text+-```
 * Color - ```~~Color:Text~~```
-* Comment - ``````
+* Text Comment - ```~tc~Text~/tc~```
 * Forced Line - ```%%%```
 * Header 1 - ```!Text```
 * Header 2 - ```!!Text```
