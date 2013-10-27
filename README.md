@@ -36,26 +36,22 @@ wikiLingo also incorporates popular wiki syntax
 * Header 6 - ```!!!!!!Text```
 * Italic - ```''Text''```
 * Not Parsed - ```~np~Text~/np~```
-* Lists (Unordered) - ```
+* Lists (Unordered) -
+```
 *Item
-
 *Item
-
 **Item at 1 indent
-
 ******************** Item at whatever indent I want ;)
-
-**Item```
-* Lists (Ordered) - ```
+**Item
+```
+* Lists (Ordered) -
+```
 #Item 1.1
-
 #Item 1.2
-
 ##Item 2.1
-
 ####################Item N.1
-
-##Item 2.2```
+##Item 2.2
+```
 * Pre-Formatted Text - ```~pp~Text~/pp~```
 * Strike - ```--Text--```
 * Table - ```||Row 1, Column 1|Row 1, Column 2
