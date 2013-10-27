@@ -11,20 +11,15 @@ wikiLingo is a fun and exciting new programming language that you... Don't have 
 {HTML}
 ```
 
-Syntax types:
-##Plugins
-* Plugin with content body
-```
-{PLUGIN(parameter1="value" parameter2="value")}
+##Syntax types
+###Plugins
+* Plugin with content body```{PLUGIN(parameter1="value" parameter2="value")}
 ...plugin body
 {PLUGIN}
 ```
-* Inline plugin
-```
-{plugin parameter1="value" parameter2="value}
-```
+* Inline plugin```{plugin parameter1="value" parameter2="value}```
 
-##Wiki syntax
+###Wiki syntax
 wikiLingo also incorporates popular wiki syntax
 * Bold - ```__Text__```
 * Center - ```::Text::```
