@@ -12,7 +12,7 @@ wikiLingo is a fun and exciting new programming language that you... Don't have 
 ```
 
 Syntax types:
-!Plugins
+##Plugins
 * Plugin with content body
 ```
 {PLUGIN(parameter1="value" parameter2="value")}
@@ -24,7 +24,7 @@ Syntax types:
 {plugin parameter1="value" parameter2="value}
 ```
 
-!Wiki syntax
+##Wiki syntax
 wikiLingo also incorporates popular wiki syntax
 * Bold - ```__Text__```
 * Center - ```::Text::```
