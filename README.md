@@ -38,19 +38,28 @@ wikiLingo also incorporates popular wiki syntax
 * Not Parsed - ```~np~Text~/np~```
 * Lists (Unordered) - ```
 *Item
+
 *Item
+
 **Item at 1 indent
+
 ******************** Item at whatever indent I want ;)
+
 **Item```
 * Lists (Ordered) - ```
 #Item 1.1
+
 #Item 1.2
+
 ##Item 2.1
+
 ####################Item N.1
+
 ##Item 2.2```
 * Pre-Formatted Text - ```~pp~Text~/pp~```
 * Strike - ```--Text--```
 * Table - ```||Row 1, Column 1|Row 1, Column 2
+
 Row 2, Column 1| Row 2, Column 2||```
 * Title Bar - ```-=Text=-```
 * Underscore - ```===Text===```
