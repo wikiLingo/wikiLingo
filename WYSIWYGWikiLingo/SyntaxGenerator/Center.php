@@ -1,7 +1,7 @@
 <?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
-class Underscore extends Base
+class Center extends Base
 {
     public function generate()
     {

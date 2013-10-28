@@ -2,8 +2,9 @@
 require_once "Testify/lib/Testify/Testify.php";
 include "autoload.php";
 
-$t = new \Testify\Testify("WikiLingo General HTML Output");
+$t = new \Testify\Testify("WikiLingo");
 
-(new Tests\OutputTest($t))->testOutput();
+
+(new WikiLingo\Test\Run("Expression"));
 
 $t->run();

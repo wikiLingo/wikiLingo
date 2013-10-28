@@ -1,7 +1,9 @@
 <?php
-namespace Tests;
+namespace WikiLingo\Test\Expression;
 
-class PluginTest extends Base
+use WikiLingo\Test;
+
+class Plugin extends Test\Base
 {
 	public function provider()
 	{

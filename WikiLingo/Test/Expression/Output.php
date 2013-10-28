@@ -1,7 +1,9 @@
 <?php
-namespace Tests;
+namespace WikiLingo\Test\Expression;
 
-class OutputTest extends Base
+use WikiLingo\Test;
+
+class OutputTest extends Test\Base
 {
 	public function provider()
 	{

@@ -1,7 +1,15 @@
 <?php
 namespace WikiLingo\Expression;
 
-class L2R
-{
+use Types\Type;
 
+class L2R extends Base
+{
+    public function render(&$parser)
+    {
+        $element = Type::Element($parser->element(__CLASS__, 'span'));
+        $element->attributes['dir'] = 'ltr';
+        $element->staticChildren[] = $this->renderedChildren;
+        return $element->render();
+    }
 }
