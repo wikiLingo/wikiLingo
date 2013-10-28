@@ -8,8 +8,8 @@
 //Lexical Grammer
 %lex
 
-PLUGIN_ID   					[A-Z_]+
-INLINE_PLUGIN_ID				[a-z_]+
+PLUGIN_ID   					[A-Z0-9_]+
+INLINE_PLUGIN_ID				[a-z0-9_]+
 VARIABLE_NAME                   ([0-9A-Za-z ]{3,})
 SYNTAX_CHARS                    [{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]
 LINE_CONTENT                    (.?)
@@ -140,15 +140,64 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 }
 
 
-//Directional
-{LINE_END}("{r2l}"|"{l2r}") {
+
+//Block handling
+<block><<EOF>> {
     /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
+
+    return 'EOF';
+}
+<preBlock>{BLOCK_START} {
+	/*php
+		$this->popState();
+		$this->begin('block');
+		return 'BLOCK_START';
+	*/
+}
+<block>(?={LINE_END}) {
+    /*php
+        //returns block end
+        if ($this->isContent()) return 'CONTENT';
+        $this->popState();
+        return 'BLOCK_END';
+    */
+}
+<block><<EOF>> {
+    /*php
+        $this->popState();
+        return 'EOF';
+    */
+}
+
+{LINE_END}(?={BLOCK_START}) {
+    /*php
+        //Block and directional
+        if ($this->isContent()) return 'CONTENT';
+        $this->begin('preBlock');
+        return 'PRE_BLOCK_START';
+    */
+}
+<BOF>(?={BLOCK_START}) {
+    /*php
+        $this->popState();
         if ($this->isContent()) return 'CONTENT';
         $this->begin('preBlock');
     */
 
-    return 'BLOCK_START';
+    return 'PRE_BLOCK_START';
 }
+{LINE_END} {
+    /*php
+        if ($this->isContent() || !empty($this->tableStack)) return 'CONTENT';
+    */
+
+    return 'LINE_END';
+}
+
+
 
 //Inline Plugin
 <inlinePlugin>(.+?"}"|"}") {
@@ -202,65 +251,6 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
     */
 
     return 'CONTENT';
-}
-
-
-//Block handling
-<block><<EOF>> {
-    /*php
-        $this->conditionStackCount = 0;
-        $this->conditionStack = array();
-    */
-
-    return 'EOF';
-}
-<preBlock>{BLOCK_START} {
-	/*php
-		$this->popState();
-		$this->begin('block');
-		return 'BLOCK_START';
-	*/
-}
-<block>(?={LINE_END}) {
-    /*php
-        //returns block end
-        if ($this->isContent()) return 'CONTENT';
-        $this->popState();
-    */
-
-
-    return 'BLOCK_END';
-}
-<block><<EOF>> {
-    /*php
-        $this->popState();
-        return 'EOF';
-    */
-}
-
-{LINE_END}(?={BLOCK_START}) {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('preBlock');
-    */
-
-    return 'PRE_BLOCK_START';
-}
-<BOF>(?={BLOCK_START}) {
-    /*php
-        $this->popState();
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('preBlock');
-    */
-
-    return 'PRE_BLOCK_START';
-}
-{LINE_END} {
-    /*php
-        if ($this->isContent() || !empty($this->tableStack)) return 'CONTENT';
-    */
-
-    return 'LINE_END';
 }
 
 

@@ -81,11 +81,15 @@ class Plugin extends Base
         $parser->events->trigger('WikiLingo\Expression\Plugin', 'CanExecute', $this, $execute);
         if ($execute)
         {
-            $parser->events->trigger('WikiLingo\Expression\Plugin', 'PreRender', $this);
-            $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
-            $rendered = $this->class->render($this, $this->renderedChildren, $parser);
-            $parser->events->trigger('WikiLingo\Expression\Plugin', 'PreRender', $this);
-            return $rendered;
+            if (isset($this->class)) {
+                $parser->events->trigger('WikiLingo\Expression\Plugin', 'PreRender', $this);
+                $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
+                $rendered = $this->class->render($this, $this->renderedChildren, $parser);
+                $parser->events->trigger('WikiLingo\Expression\Plugin', 'PreRender', $this);
+                return $rendered;
+            } else {
+                throw new \Exception('Plugin "' . $this->name . '" does not exists in namespace WikiLingo\Plugin');
+            }
         } else {
             $return = '';
             $parser->events->trigger('WikiLingo\Expression\Plugin', 'RenderBlocked', $this, $return);
