@@ -23,17 +23,15 @@ class Block extends Base
     public $element;
     public $collectionElementName;
     public $elementName;
+    public $modifier;
+    public $parser;
 
 	public static $blocksTypes = array(
 		'!' => 'header',
 
-		'*' => 'unorderedList',
-		'#' => 'orderedList',
-		'+' => 'listBreak',
+		'*' => 'unorderedListItem',
+		'#' => 'orderedListItem',
 		';' => 'descriptionList',
-
-		'{r2l}' => 'r2l',
-		'{l2r}' => 'l2r'
 	);
 
 	public static $blockModifiers = array(
@@ -49,11 +47,12 @@ class Block extends Base
         }
 
 		$this->parsed =& $parsed;
+        $this->parser =& $parsed->parser;
+
 		$syntax = Type::Parsed($parsed->arguments[0])->text;
 		$modifierSyntax = substr($syntax, -1);
-		$modifier = null;
-		if (isset(self::$blockModifiers[$modifierSyntax])) {
-			$modifier = self::$blockModifiers[$modifierSyntax];
+		if (isset(self::$blockModifiers[$modifierSyntax]) && !isset(self::$blockModifiers[$syntax])) {
+			$this->modifier = self::$blockModifiers[$modifierSyntax];
 			$syntax = substr($syntax, 0, -1);
 		}
 		$this->blockType = (
@@ -70,55 +69,35 @@ class Block extends Base
 
 		switch ($this->blockType) {
 			case 'header':
-				$result = new Header($this, strlen($syntax), $modifier);
+				$result = new Header($this, strlen($syntax));
 				break;
 
             case 'descriptionList':
-	            if ($parser->blocksLength > 0) {
-		            $previousBlock =& Type::Block($parser->blocks[$parser->blocksLength - 1]);
-		            if (
-			            $previousBlock->endingLineNo == $this->parsed->lineNo - 1
-			            && $previousBlock->blockType == $this->blockType
-		            ) {
-			            $previousBlock->endingLineNo++;
-			            $descriptionList =& Type::DescriptionList($previousBlock->expression);
-			            $descriptionList->add($this);
-			            return false;
-		            }
+	            if ($previousBlock =& $this->getPreviousBlockIfCompatible()) {
+                    $previousBlock->endingLineNo = $this->parsed->lineNo;
+                    $descriptionList =& Type::DescriptionList($previousBlock->expression);
+                    $descriptionList->add($this);
+                    return false;
 	            }
 				$result = new DescriptionList($this);
 				break;
-			case 'listBreak':
-			case 'unorderedList':
+			case 'unorderedListItem':
             $collectionElementName = 'ul';
-			case 'orderedList':
+			case 'orderedListItem':
                 $this->collectionElementName = $collectionElementName;
                 $this->elementName = 'li';
 
-				if ($parser->blocksLength > 0) {
-					//last block
-					$previousBlock =& Type::Block($parser->blocks[$parser->blocksLength - 1]);
-					if (
-						$previousBlock->endingLineNo == $this->parsed->lineNo - 1
-						&& $previousBlock->blockType == $this->blockType
-					) {
-						$previousBlock->endingLineNo++;
-						//We do not set $result here deliberately, so that the item is added to the already existing list
-						$flat =& Type::Flat($previousBlock->expression);
-						$item = new Tensor\Hierarchical($this);
-						$flat->add($item);
-						$flat->block->parsed->addCousin($parsed, $modifier);
-						return false;
-					}
+                if ($previousBlock =& $this->getPreviousBlockIfCompatible()) {
+                    $previousBlock->endingLineNo = $this->parsed->lineNo;
+                    //We do not set $result here deliberately, so that the item is added to the already existing list
+                    $flat =& Type::Flat($previousBlock->expression);
+                    $item = new Tensor\Hierarchical($this);
+                    $flat->add($item);
+                    $flat->block->parsed->addCousin($parsed);
+                    return false;
 				}
 
-				$result = new Tensor\Flat($this, $modifier);
-				break;
-			case 'r2l':
-				$result = new R2L($this);
-				break;
-			case 'l2r':
-				$result = new L2R($this);
+				$result = new Tensor\Flat($this);
 				break;
 		}
 
@@ -131,6 +110,17 @@ class Block extends Base
 		return true;
 	}
 
+    public function getPreviousBlockIfCompatible()
+    {
+        if ($this->parser->blocksLength > 0) {
+            $previousBlock =& Type::Block($this->parser->blocks[$this->parser->blocksLength - 1]);
+            if ($previousBlock->blockType == $this->blockType) {
+                return $previousBlock;
+            }
+        }
+        return null;
+    }
+
 	public function render(&$parser)
 	{
 		if (isset($this->expression)) {
@@ -141,20 +131,20 @@ class Block extends Base
 
     public function collectionElement()
     {
-        $element = $this->parsed->parser->element(__CLASS__, $this->collectionElementName);
-	    Type::Element($element)->classes[] = "wl-parent";
+        $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->collectionElementName));
+	    $element->classes[] = "wl-parent";
         return $element;
     }
 
     public function element()
     {
-        $element = $this->parsed->parser->element(__CLASS__, $this->elementName);
+        $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->elementName));
+
+        $element->classes[] = $this->blockType;
 
         if ($this->blank) {
             $element->classes[] = 'empty';
         }
-
-	    $element->classes[] = $this->blockType;
 
         return $element;
     }

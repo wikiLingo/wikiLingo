@@ -31,9 +31,12 @@ class TypeNamespace
 			$class = "WikiLingo\\Test\\" . $this->typeNamespace . "\\" . substr($file, 0, -4);
 			$test = new $class();
 			$actual = $this->parser->parse($test->source);
-			$message = "Expecting:<pre>" . htmlentities($test->expected) . "</pre>" .
-				"\n\n\n" .
-				"Got:<pre>" . htmlentities($actual) . "</pre>";
+			$message = "Expecting:<br /><code>" . htmlentities($test->expected) . "</code>" .
+				"<br /><br />" .
+				"Got:<br /><code>" . htmlentities($actual) . "</code>" .
+                "<br /><br />" .
+                "Syntax:<br /><pre>" . $test->source . "</pre>";
+
 
 			$testify->assertEquals($actual, $test->expected, $message);
 		}

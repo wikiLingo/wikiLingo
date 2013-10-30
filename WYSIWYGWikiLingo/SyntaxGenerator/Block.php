@@ -7,12 +7,12 @@ class Block extends Base
 	{
 		$trailer = "";
 
-		if ($this->expression->hasClass('unorderedList'))
+		if ($this->expression->hasClass('unorderedListItem'))
 		{
 			$trailer = "\n" . str_repeat("*", $this->parser->renderer->depth);
 		}
 
-		else if ($this->expression->hasClass('orderedList'))
+		else if ($this->expression->hasClass('orderedListItem'))
 		{
 			$trailer = "\n" . str_repeat("#", $this->parser->renderer->depth);
 		}

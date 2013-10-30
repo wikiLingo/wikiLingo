@@ -62,7 +62,8 @@ class Parser extends Definition {
         $this->pcreRecursionLimit = ini_get("pcre.recursion_limit");
         ini_set("pcre.recursion_limit", "524");
 
-
+        $this->blocks = array();
+        $this->blocksLength = 0;
         $input = $input . "≤REAL_EOF≥"; //here we add 2 lines, so the parser doesn't have to do special things to track the first line and last, we remove these when we insert breaks, these are dynamically removed later
         $input = str_replace("\r", "", $input);
 

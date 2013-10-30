@@ -16,13 +16,13 @@ class Header
     public $id;
     public static $ids = array();
 
-    public function __construct(Block &$block, $len, $modifier = null)
+    public function __construct(Block &$block, $len)
     {
 	    $this->parsed =& $block->parsed;
         $this->block =& $block;
         $this->count = min(max($len, 0), 6);
         $this->content = &$this->parsed->arguments[1];
-	    $this->modifier = $modifier;
+	    $this->modifier = $block->modifier;
 	    $this->parser =& $this->parsed->parser;
         $this->parser->addType(__CLASS__, $this);
     }

@@ -5557,6 +5557,7 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -6270,7 +6271,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -6288,7 +6289,7 @@ case 1:
         $this->npStack = false;
     
 
-    return 'NO_PARSE_END';
+    return 11;
 
 break;
 case 2:
@@ -6298,7 +6299,7 @@ case 2:
         $this->npStack = true;
     
 
-    return 'NO_PARSE_START';
+    return 10;
 
 break;
 case 3:
@@ -6317,7 +6318,7 @@ case 4:
         $this->ppStack = false;
     
 
-    return 'PREFORMATTED_TEXT_END';
+    return 13;
 
 break;
 case 5:
@@ -6327,7 +6328,7 @@ case 5:
         $this->ppStack = true;
     
 
-    return 'PREFORMATTED_TEXT_START';
+    return 12;
 
 break;
 case 6:
@@ -6346,7 +6347,7 @@ case 7:
         $this->tcStack = false;
     
 
-    return 'COMMENT_END';
+    return 9;
 
 break;
 case 8:
@@ -6356,7 +6357,7 @@ case 8:
         $this->tcStack = true;
     
 
-    return 'COMMENT_START';
+    return 8;
 
 break;
 case 9:
@@ -6364,7 +6365,7 @@ case 9:
         if ($this->isContent()) return 7;
     
 
-    return 'DOUBLE_DYNAMIC_VAR';
+    return 14;
 
 break;
 case 10:
@@ -6372,7 +6373,7 @@ case 10:
         if ($this->isContent()) return 7;
     
 
-    return 'SINGLE_DYNAMIC_VAR';
+    return 15;
 
 break;
 case 11:
@@ -6380,7 +6381,7 @@ case 11:
         if ($this->isContent(array('linkStack'))) return 7;
     
 
-    return 'ARGUMENT_VAR';
+    return 16;
 
 break;
 case 12:
@@ -6409,7 +6410,7 @@ case 15:
         //returns block end
         if ($this->isContent()) return 7;
         $this->popState();
-        return 'BLOCK_END';
+        return 57;
     
 
 break;
@@ -6425,7 +6426,7 @@ case 17:
         //Block and directional
         if ($this->isContent()) return 7;
         $this->begin('preBlock');
-        return 'PRE_BLOCK_START';
+        return 55;
     
 
 break;
@@ -6436,7 +6437,7 @@ case 18:
         $this->begin('preBlock');
     
 
-    return 'PRE_BLOCK_START';
+    return 55;
 
 break;
 case 19:
@@ -6444,7 +6445,7 @@ case 19:
         if ($this->isContent() || !empty($this->tableStack)) return 7;
     
 
-    return 'LINE_END';
+    return 52;
 
 break;
 case 20:
@@ -6498,7 +6499,7 @@ case 25:
         }
     
 
-    return 'CONTENT';
+    return 7;
 
 break;
 case 26:
@@ -6506,7 +6507,7 @@ case 26:
         if ($this->isContent()) return 7;
     
 
-    return 'HORIZONTAL_BAR';
+    return 18;
 
 break;
 case 27:
@@ -6514,7 +6515,7 @@ case 27:
         if ($this->isContent()) return 7;
     
 
-    return 'FORCED_LINE_END';
+    return 53;
 
 break;
 case 28:
@@ -6532,7 +6533,7 @@ case 29:
         $this->popState();
     
 
-    return 'BOLD_END';
+    return 20;
 
 break;
 case 30:
@@ -6541,7 +6542,7 @@ case 30:
         $this->begin('bold');
     
 
-    return 'BOLD_START';
+    return 19;
 
 break;
 case 31:
@@ -6559,7 +6560,7 @@ case 32:
         $this->popState();
     
 
-    return 'BOX_END';
+    return 22;
 
 break;
 case 33:
@@ -6568,7 +6569,7 @@ case 33:
         $this->begin('box');
     
 
-    return 'BOX_START';
+    return 21;
 
 break;
 case 34:
@@ -6587,7 +6588,7 @@ case 35:
     
 
 
-    return 'CENTER_END';
+    return 24;
 
 break;
 case 36:
@@ -6596,7 +6597,7 @@ case 36:
         $this->begin('center');
     
 
-    return 'CENTER_START';
+    return 23;
 
 break;
 case 37:
@@ -6614,7 +6615,7 @@ case 38:
         $this->popState();
     
 
-    return 'CODE_END';
+    return 26;
 
 break;
 case 39:
@@ -6623,7 +6624,7 @@ case 39:
         $this->begin('code');
     
 
-    return 'CODE_START';
+    return 25;
 
 break;
 case 40:
@@ -6641,7 +6642,7 @@ case 41:
         $this->popState();
     
 
-    return 'COLOR_END';
+    return 28;
 
 break;
 case 42:
@@ -6650,7 +6651,7 @@ case 42:
         $this->begin('color');
     
 
-    return 'COLOR_START';
+    return 27;
 
 break;
 case 43:
@@ -6668,7 +6669,7 @@ case 44:
         $this->popState();
     
 
-    return 'ITALIC_END';
+    return 30;
 
 break;
 case 45:
@@ -6677,7 +6678,7 @@ case 45:
         $this->begin('italic');
     
 
-    return 'ITALIC_START';
+    return 29;
 
 break;
 case 46:
@@ -6696,7 +6697,7 @@ case 47:
         $this->popState();
     
 
-    return 'LINK_END';
+    return 34;
 
 break;
 case 48:
@@ -6707,7 +6708,7 @@ case 48:
         $this->yy->text = 'external';
     
 
-    return 'LINK_START';
+    return 33;
 
 break;
 case 49:
@@ -6725,7 +6726,7 @@ case 50:
         $this->popState();
     
 
-    return 'STRIKE_END';
+    return 36;
 
 break;
 case 51:
@@ -6734,7 +6735,7 @@ case 51:
         $this->begin('strike');
     
 
-    return 'STRIKE_START';
+    return 35;
 
 break;
 case 52:
@@ -6757,7 +6758,7 @@ case 54:
         array_pop($this->tableStack);
     
 
-    return 'TABLE_END';
+    return 39;
 
 break;
 case 55:
@@ -6767,7 +6768,7 @@ case 55:
         $this->tableStack[] = true;
     
 
-    return 'TABLE_START';
+    return 38;
 
 break;
 case 56:
@@ -6785,7 +6786,7 @@ case 57:
         $this->popState();
     
 
-    return 'TITLE_BAR_END';
+    return 41;
 
 break;
 case 58:
@@ -6794,7 +6795,7 @@ case 58:
         $this->begin('titleBar');
     
 
-    return 'TITLE_BAR_START';
+    return 40;
 
 break;
 case 59:
@@ -6812,7 +6813,7 @@ case 60:
         $this->popState();
     
 
-    return 'UNDERSCORE_END';
+    return 43;
 
 break;
 case 61:
@@ -6821,7 +6822,7 @@ case 61:
         $this->begin('underscore');
     
 
-    return 'UNDERSCORE_START';
+    return 42;
 
 break;
 case 62:
@@ -6840,7 +6841,7 @@ case 63:
         $this->popState();
     
 
-    return 'WIKI_LINK_END';
+    return 45;
 
 break;
 case 64:
@@ -6851,7 +6852,7 @@ case 64:
         $this->yy->text = array('type' => 'wiki', 'syntax' => $this->yy->text);
     
 
-    return 'WIKI_LINK_START';
+    return 44;
 
 break;
 case 65:
@@ -6862,7 +6863,7 @@ case 65:
         $this->yy->text = array('type' => 'np', 'syntax' => $this->yy->text);
     
 
-    return 'WIKI_LINK_START';
+    return 44;
 
 break;
 case 66:
@@ -6873,7 +6874,7 @@ case 66:
         $this->yy->text = array('syntax' => $this->yy->text, 'type' => substr($this->yy->text, 1, -1));
     
 
-    return 'WIKI_LINK_START';
+    return 44;
 
 break;
 case 67:
@@ -6881,7 +6882,7 @@ case 67:
         if ($this->isContent()) return 7;
     
 
-    return 'WIKI_LINK';
+    return 46;
 
 break;
 case 68:
@@ -6896,7 +6897,7 @@ case 69:
         $tag = $this->yy->text;
         $this->yy->text = $this->yy->text{0};
         $this->unput(substr($tag, 1));
-        return 'CONTENT';
+        return 7;
     
 
 break;
