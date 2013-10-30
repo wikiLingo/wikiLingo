@@ -30,10 +30,15 @@ class Block extends Base
 		'*' => 'unorderedList',
 		'#' => 'orderedList',
 		'+' => 'listBreak',
-		';' => 'definitionList',
+		';' => 'descriptionList',
 
 		'{r2l}' => 'r2l',
 		'{l2r}' => 'l2r'
+	);
+
+	public static $blockModifiers = array(
+		'+' => 'toggle',
+		'-' => 'hidden'
 	);
 
 	public function __construct(WikiLingo\Parsed &$parsed = null)
@@ -44,13 +49,19 @@ class Block extends Base
         }
 
 		$this->parsed =& $parsed;
-		$syntaxState = $parsed->arguments[0];
+		$syntax = Type::Parsed($parsed->arguments[0])->text;
+		$modifierSyntax = substr($syntax, -1);
+		$modifier = null;
+		if (isset(self::$blockModifiers[$modifierSyntax])) {
+			$modifier = self::$blockModifiers[$modifierSyntax];
+			$syntax = substr($syntax, 0, -1);
+		}
 		$this->blockType = (
-			isset(self::$blocksTypes[$syntaxState->text{0}])
+			isset(self::$blocksTypes[$syntax{0}])
 				?
-					self::$blocksTypes[$syntaxState->text{0}]
+					self::$blocksTypes[$syntax{0}]
 				:
-					self::$blocksTypes[$syntaxState->text]
+					self::$blocksTypes[$syntax]
 		);
 
 		$parser =& $parsed->parser;
@@ -59,11 +70,25 @@ class Block extends Base
 
 		switch ($this->blockType) {
 			case 'header':
-				$result = new Header($this);
+				$result = new Header($this, strlen($syntax), $modifier);
 				break;
-            case 'listBreak':
-            case 'definitionList':
 
+            case 'descriptionList':
+	            if ($parser->blocksLength > 0) {
+		            $previousBlock =& Type::Block($parser->blocks[$parser->blocksLength - 1]);
+		            if (
+			            $previousBlock->endingLineNo == $this->parsed->lineNo - 1
+			            && $previousBlock->blockType == $this->blockType
+		            ) {
+			            $previousBlock->endingLineNo++;
+			            $descriptionList =& Type::DescriptionList($previousBlock->expression);
+			            $descriptionList->add($this);
+			            return false;
+		            }
+	            }
+				$result = new DescriptionList($this);
+				break;
+			case 'listBreak':
 			case 'unorderedList':
             $collectionElementName = 'ul';
 			case 'orderedList':
@@ -82,12 +107,12 @@ class Block extends Base
 						$flat =& Type::Flat($previousBlock->expression);
 						$item = new Tensor\Hierarchical($this);
 						$flat->add($item);
-						$flat->block->parsed->addLine($parsed);
+						$flat->block->parsed->addCousin($parsed, $modifier);
 						return false;
 					}
 				}
 
-				$result = new Tensor\Flat($this);
+				$result = new Tensor\Flat($this, $modifier);
 				break;
 			case 'r2l':
 				$result = new R2L($this);

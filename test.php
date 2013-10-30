@@ -5,6 +5,8 @@ include "autoload.php";
 $t = new \Testify\Testify("WikiLingo");
 
 
-(new WikiLingo\Test\Run("Expression"));
+$test = new WikiLingo\Test\TypeNamespace("Expression");
 
-$t->run();
+$test->run($t);
+
+$t->report();

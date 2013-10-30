@@ -9,42 +9,6 @@ class OutputTest extends Test\Base
 	{
 		//self::$verbose = true;
 		$this->syntaxSets = array(
-			'simple_break'      => array(),
-			//old syntax checks, somewhat modified
-			array('! foo', '<h1 id=\'+foo\'> foo</h1>'),	// heading 1
-			array('!!foo', '<h2 id=\'foo1\'>foo</h2>'),	// heading 2
-			array('!! foo', '<h2 id=\'+foo2\'> foo</h2>'),	// heading 2
-
-			//heading 1 with collapsible text open
-			/*array(
-				"!+foo\nheading text section",
-				"<h1 class=\"showhide_heading\" id=\"foo\">foo</h1><a id=\"flipperidHomePage1\" class=\"link\" href=\"javascript:flipWithSign('idHomePage1')\">[-]</a><div id=\"idHomePage1\" class=\"showhide_heading\" style=\"display:block;\">\nheading text section<br/>\n</div>",
-				array('page' => 'HomePage'),
-			),
-
-			//heading 1 with collapsible text closed
-			array(
-				"!-foo\nheading text section",
-				"<h1 class=\"showhide_heading\" id=\"foo\">foo</h1><a id=\"flipperidHomePage1\" class=\"link\" href=\"javascript:flipWithSign('idHomePage1')\">[+]</a><div id=\"idHomePage1\" class=\"showhide_heading\" style=\"display:none;\">\nheading text section<br/>\n</div>",
-				array('page' => 'HomePage'),
-			),*/
-
-			"strike_out" => array('--foo--', "<strike>foo</strike>"),
-			"not_parsed" => array('-- foo --', "-- foo --"),
-
-			array('[[foo', '<span>[foo</span>'), // Square brackets
-			array('[[foo]]', '<span>[[foo]]</span>'), // Square brackets
-			array('[[foo]', '<span>[foo]</span>'), // Square brackets
-
-			array('-+foo+- ', '<code>foo</code> '), // Monospace font
-			array('-+ foo +- ', '<code> foo </code> '), // Monospace font
-
-			array('{r2l}foo', "<div dir='rtl'>foo</div>"), // Right to left
-			array('{l2r}foo', "<div dir='ltr'>foo</div>"), // Left to right
-			array('{rm}foo', "<span>&rlm;</span>foo"),
-			array('~amp~foo', "<span>&amp;</span>foo"), // Special character &amp;
-			array('~hs~foo', "<span>&nbsp;</span>foo"), // Hard space
-
 			"definition_list" => array(),
 
 			"old_bulleted_list1" => array(),
@@ -300,21 +264,6 @@ class OutputTest extends Test\Base
 
 		$parsed = $this->parser->parse($syntax[0]);
 		$this->tryRemoveIdsFromHtmlList($parsed);
-
-		return array("parsed" => $parsed, "syntax" => $syntax);
-	}
-
-	function simple_break()
-	{
-		$syntax = array(
-			"\n" .
-			"text\n"
-		,
-			"<br/>\n" .
-			"text<br/>\n"
-		); //a block is open content close, or "\ncontent\n" so a single block should only have 1 br
-
-		$parsed = $this->parser->parse($syntax[0]);
 
 		return array("parsed" => $parsed, "syntax" => $syntax);
 	}

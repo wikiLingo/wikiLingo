@@ -36,6 +36,8 @@ item3|item4||
 ##__Test__
 #__Test__
 {TAB}{TABS}
+
+!+Header
 ";
 $scripts = new WikiLingo\Utilities\Scripts();
 

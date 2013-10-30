@@ -126,4 +126,12 @@ class Parsed extends ParserValue
 	        throw new Exception("Type '" . $this->type . "' does not exist in WikiLingo\\Expression namespace.");
         }
     }
+
+	public $cousins = array();
+	public $cousinsCount = 0;
+	public function addCousin(Parsed &$cousin)
+	{
+		$this->cousins[] =& $cousin;
+		$this->cousinsCount++;
+	}
 }

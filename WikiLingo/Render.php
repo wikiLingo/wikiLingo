@@ -33,19 +33,10 @@ class Render
 			}
 		}
 
-		//siblings are directly part of the family as a visible sibling
-        $renderedSiblings = '';
-        foreach ($parsed->siblings as &$sibling) {
-            $renderedSiblings .= $this->render($sibling);
-	        if ($parsed->parent != null) {
-	            $parsed->parent->children[] =& $sibling;
-	        }
-        }
-
-        $renderedLines = '';
-        foreach ($parsed->lines as &$line) {
-            $renderedLines .= $this->render($line);
-        }
+		$renderedCousins = '';
+		foreach ($parsed->cousins as &$cousin) {
+			$renderedCousins .= $this->render($cousin);
+		}
 
         $parsed->expression->renderedChildren =& $renderedChildren;
 		if (isset($parsed->expression) && method_exists($parsed->expression, 'render')) {
@@ -54,6 +45,20 @@ class Render
 			$rendered = '';
 		}
 
-        return $rendered . $renderedSiblings . $renderedLines;
+		//siblings are directly part of the family as a visible sibling
+		$renderedSiblings = '';
+		foreach ($parsed->siblings as &$sibling) {
+			$renderedSiblings .= $this->render($sibling);
+			if ($parsed->parent != null) {
+				$parsed->parent->children[] =& $sibling;
+			}
+		}
+
+		$renderedLines = '';
+		foreach ($parsed->lines as &$line) {
+			$renderedLines .= $this->render($line);
+		}
+
+        return $rendered . $renderedSiblings . $renderedLines . $renderedCousins;
 	}
 }

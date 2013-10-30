@@ -41,7 +41,17 @@ namespace Types
 			return $obj;
 		}
 
+		public static function Helper(WikiLingo\Renderer\Helper &$obj)
+		{
+			return $obj;
+		}
+
 		public static function WikiLingoParser(WikiLingo\Parser &$obj)
+		{
+			return $obj;
+		}
+
+		public static function DescriptionList(WikiLingo\Expression\DescriptionList &$obj)
 		{
 			return $obj;
 		}

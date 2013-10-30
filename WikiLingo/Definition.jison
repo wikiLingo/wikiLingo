@@ -5,7 +5,7 @@
 //option parserValue:Parsed
 //option use:WikiLingo\Utilities;
 
-//Lexical Grammer
+//Lexical Grammar
 %lex
 
 PLUGIN_ID   					[A-Z0-9_]+
@@ -15,7 +15,7 @@ SYNTAX_CHARS                    [{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
-BLOCK_START                     ([\!*#+;]+)
+BLOCK_START                     ([\!*#;]+)([-+])?
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
@@ -439,33 +439,6 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
 
 
-//Unlink
-<unlink><<EOF>> {
-    /*php
-        $this->conditionStackCount = 0;
-        $this->conditionStack = array();
-    */
-
-    return 'EOF';
-}
-<unlink>("@np"|"]]"|"]") {
-    /*php
-        if ($this->isContent(array('linkStack'))) return 'CONTENT';
-        $this->popState();
-    */
-
-    return 'UNLINK_END';
-}
-"[[" {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('unlink');
-    */
-
-    return 'UNLINK_START';
-}
-
-
 //Link
 <link><<EOF>> {
     /*php
@@ -513,7 +486,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'STRIKE_END';
 }
-[-][-](?![ ]|<<EOF>>) {
+[-][-] {
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('strike');
@@ -902,6 +875,13 @@ content
 	}
     | STRIKE_START
     | STRIKE_START STRIKE_END
+    | STRIKE_START contents EOF
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | STRIKE_START contents STRIKE_END
 	{
 		/*php
