@@ -9,40 +9,8 @@ class OutputTest extends Test\Base
 	{
 		//self::$verbose = true;
 		$this->syntaxSets = array(
-			"definition_list" => array(),
-
-			"old_bulleted_list1" => array(),
-			"old_bulleted_list2" => array(),
-			"old_bulleted_list3" => array(),
-
-			"old_numbered_list1" => array(),
-			"old_numbered_list2" => array(),
-			"old_numbered_list3" => array(),
-
-			array("||r1c1|r1c2\nr2c1|r2c2||", '<table class=\'wikitable\'><tbody><tr><td class=\'wikicell\'>r1c1</td><td class=\'wikicell\'>r1c2</td></tr><tr><td class=\'wikicell\'>r2c1</td><td class=\'wikicell\'>r2c2</td></tr></tbody></table>'),
-			array("~pp~foo~/pp~", "<pre>foo</pre>"),
-
-			//empty or no parse
-			"empty" => array('', ''),
-			"no_parse" => array('foo', "foo"),
 
 			//good state tracking syntax
-			'italic'            => array("''text''", '<em>text</em>'),
-			'bold'              => array('__text__', '<strong>text</strong>'),
-			'bold_spaces'       => array('__ text __', '<strong> text </strong>'),
-			'linethrough'       => array('--text--', '<strike>text</strike>'),
-			'box'               => array('^text^', '<div class=\'simplebox\'>text</div>'),
-			'box_spaces'        => array('^ text ^', '<div class=\'simplebox\'> text </div>'),
-			'center'            => array('::text::', '<div style=\'text-align: center;\'>text</div>'),
-			'center_spaces'     => array(':: text ::', '<div style=\'text-align: center;\'> text </div>'),
-			'underscore'        => array('===text===', '<u>text</u>'),
-			'underscore_spaces' => array('=== text ===', '<u> text </u>'),
-			'titlebar'          => array("-=text=-", '<div class=\'titlebar\'>text</div>'),
-			'titlebar_spaces'   => array("-= text =-", '<div class=\'titlebar\'> text </div>'),
-			'color_text1'       => array('~~red:text~~', '<span style=\'color:red;\'>text</span>'),
-			'color_text2'       => array('~~#ff00ff:text~~', '<span style=\'color:#ff00ff;\'>text</span>'),
-			'htmllink'          => array("[www.google.com]", '<a class=\'wiki\' href=\'www.google.com\'>www.google.com</a>'),
-			'htmllink1'         => array("[www.google.com|Google]", '<a class=\'wiki\' href=\'www.google.com\'>Google</a>'),
 			'wikilink'          => array("((FakePage))", '<a href=\'tiki-index.php?page=FakePage\' title=\'FakePage\' class=\'wiki wiki_page\'>FakePage</a>'),
 			'wikilink_not_exist'=> array("((NoExist))", '<span>NoExist</span><a href=\'tiki-editpage.php?page=NoExist\' title=\'Create page: NoExist\' class=\'wiki wikinew\'>?</a>'),
 			'wikilink_alias'=> array("(alias(FakePage))", '<a href=\'tiki-index.php?page=FakePage\' title=\'FakePage\' class=\'wiki wiki_page alias\' data-reltype=\'alias\'>FakePage</a>'),

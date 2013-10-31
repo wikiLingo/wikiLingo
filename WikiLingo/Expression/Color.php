@@ -10,15 +10,14 @@ class Color extends Base
 	function __construct(WikiLingo\Parsed &$parsed)
 	{
 		$this->parsed =& $parsed;
+        $char = array_shift($this->parsed->children)->text;
+        $this->parsed->childrenLength--;
 
-		if ($this->parsed->children[1]->text == ':') {
-			//TODO: ensure color isn't dangerous
-			$this->color = $this->parsed->children[0]->text;
-		}
-
-		array_shift($this->parsed->children);
-		array_shift($this->parsed->children);
-
+        while ($char != ':' && $this->parsed->childrenLength > 0) {
+            $this->color .= $char;
+            $char = array_shift($this->parsed->children)->text;
+            $this->parsed->childrenLength--;
+        }
 	}
 
     public function render(&$parser)

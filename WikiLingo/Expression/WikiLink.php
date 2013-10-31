@@ -4,7 +4,7 @@ namespace WikiLingo\Expression;
 
 use Types\Type;
 
-class Link extends Base
+class WikiLink extends Base
 {
     public function render(&$parser)
     {

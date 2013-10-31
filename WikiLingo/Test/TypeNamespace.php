@@ -29,7 +29,7 @@ class TypeNamespace
 		foreach($this->files as $file) {
 			if($file === '.' || $file === '..') {continue;}
 			$class = "WikiLingo\\Test\\" . $this->typeNamespace . "\\" . substr($file, 0, -4);
-			$test = new $class();
+			$test = new $class($this->parser);
 			$actual = $this->parser->parse($test->source);
 			$message = "Expecting:<br /><code>" . htmlentities($test->expected) . "</code>" .
 				"<br /><br />" .

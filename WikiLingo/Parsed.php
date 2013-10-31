@@ -4,6 +4,7 @@
  */
 namespace WikiLingo;
 
+use Exception;
 /**
  * @constructor
  */

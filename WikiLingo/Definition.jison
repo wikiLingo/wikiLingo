@@ -19,7 +19,7 @@ BLOCK_START                     ([\!*#;]+)([-+])?
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
-%s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block preBlockEnd bold box center code color italic unlink link strike table titleBar underscore wikiLink
+%s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block bold box center code color italic link strike table titleBar underscore wikiLink wikiLinkType
 
 %%
 
@@ -132,11 +132,6 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
     */
 
     return 'ARGUMENT_VAR';
-}
-
-//?
-"{rm}" {
-    return 'CHAR';
 }
 
 
@@ -274,6 +269,11 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
     return 'FORCED_LINE_END';
 }
 
+//Double Dash
+[ ][-][-][ ] {
+     return 'DOUBLE_DASH';
+ }
+
 
 //Bold
 <bold><<EOF>> {
@@ -393,7 +393,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'EOF';
 }
-<color>[\~][\~] {
+<color>"~~" {
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->popState();
@@ -401,7 +401,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'COLOR_END';
 }
-[\~][\~] {
+"~~" {
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('color');
@@ -462,7 +462,6 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
         if ($this->isContent()) return 'CONTENT';
         $this->linkStack = true;
         $this->begin('link');
-        $yytext = 'external';
     */
 
     return 'LINK_START';
@@ -494,9 +493,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'STRIKE_START';
 }
-[ ][-][-][ ] {
-    return 'DOUBLE_DASH';
-}
+
 
 
 //Table
@@ -582,7 +579,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 }
 
 
-//Wikilink
+//WikiLink
 <wikiLink><<EOF>> {
     /*php
         $this->conditionStackCount = 0;
@@ -591,7 +588,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'EOF';
 }
-<wikiLink>"))"|"((" {
+<wikiLink>"))" {
     /*php
         if ($this->isContent(array('linkStack'))) return 'CONTENT';
         $this->linkStack = false;
@@ -605,37 +602,50 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
         if ($this->isContent()) return 'CONTENT';
         $this->linkStack = true;
         $this->begin('wikiLink');
-        $yytext = array('type' => 'wiki', 'syntax' => $yytext);
     */
 
     return 'WIKI_LINK_START';
 }
-"))" {
+
+
+
+//WikiLinkType
+<wikiLinkType><<EOF>> {
     /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->linkStack = true;
-        $this->begin('wikiLink');
-        $yytext = array('type' => 'np', 'syntax' => $yytext);
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
     */
 
-    return 'WIKI_LINK_START';
+    return 'EOF';
+}
+<wikiLinkType>"))" {
+    /*php
+        if ($this->isContent(array('linkStack'))) return 'CONTENT';
+        $this->linkStack = false;
+        $this->popState();
+    */
+
+    return 'WIKI_LINK_TYPE_END';
 }
 "("{WIKI_LINK_TYPE}"(" {
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->linkStack = true;
-        $this->begin('wikiLink');
-        $yytext = array('syntax' => $yytext, 'type' => substr($yytext, 1, -1));
+        $this->begin('wikiLinkType');
+        $yytext = substr($yytext, 1, -1);
     */
 
-    return 'WIKI_LINK_START';
+    return 'WIKI_LINK_TYPE_START';
 }
+
+
+//WordLink
 (?:[ \n\t\r\,\;]|^){CAPITOL_WORD}(?=$|[ \n\t\r\,\;\.]) {
     /*php
         if ($this->isContent()) return 'CONTENT';
     */
 
-    return 'WIKI_LINK';
+    return 'WORD_LINK';
 }
 
 
@@ -723,8 +733,7 @@ content
 	{
         /*php
 			$$type =& $1;
-			$$typeChild =& $2;
-			$$typeChild->setParent($$type);
+			$2->setParent($$type);
             $$type->setType('Comment', $$this);
         */
     }
@@ -734,8 +743,7 @@ content
     {
         /*php
             $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('NoParse', $$this);
         */
     }
@@ -745,8 +753,7 @@ content
     {
         /*php
             $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('PreFormattedText', $$this);
         */
     }
@@ -788,8 +795,7 @@ content
 	{
 		/*php
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Bold', $$this);
         */
 	}
@@ -799,8 +805,7 @@ content
 	{
 		/*php
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Box', $$this);
         */
 	}
@@ -810,8 +815,7 @@ content
 	{
 		/*php
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Center', $$this);
         */
 	}
@@ -821,8 +825,7 @@ content
 	{
 		/*php
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Code', $$this);
         */
 	}
@@ -832,8 +835,7 @@ content
 	{
 		/*php
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Color', $$this);
         */
 	}
@@ -843,21 +845,8 @@ content
 	{
 		/*php
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Italic', $$this);
-        */
-	}
-    | UNLINK_START
-    | UNLINK_START UNLINK_END
-    | UNLINK_START contents EOF
-    | UNLINK_START contents UNLINK_END
-	{
-		/*php
-		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
-            $$type->setType('Unlink', $$this);
         */
 	}
     | LINK_START
@@ -868,8 +857,7 @@ content
 		    //type already set
 
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Link', $$this);
         */
 	}
@@ -886,8 +874,7 @@ content
 	{
 		/*php
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Strike', $$this);
         */
 	}
@@ -903,8 +890,7 @@ content
 	{
 		/*php
 		    $$type =& $1;
-            $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Table', $$this);
         */
 	}
@@ -914,8 +900,7 @@ content
 	{
 		/*php
 			$$type =& $1;
-			$$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('TitleBar', $$this);
         */
 	}
@@ -925,8 +910,7 @@ content
 	{
 		/*php
 		    $$type =& $1;
-		    $$typeChild =& $2;
-            $$typeChild->setParent($$type);
+            $2->setParent($$type);
             $$type->setType('Underscore', $$this);
         */
 	}
@@ -937,12 +921,22 @@ content
 		/*php
 			//Type already set
 			$$type =& $1;
-			$$typeChild =& $2;
-			$$typeChild->setParent($$type);
+			$2->setParent($$type);
 			$$type->setType('WikiLink', $$this);
         */
 	}
-    | WIKI_LINK
+	| WIKI_LINK_TYPE_START
+    | WIKI_LINK_TYPE_START WIKI_LINK_TYPE_END
+    | WIKI_LINK_TYPE_START contents WIKI_LINK_TYPE_END
+    {
+        /*php
+            //Type already set
+            $$type =& $1;
+            $2->setParent($$type);
+            $$type->setType('WikiLinkType', $$this);
+        */
+    }
+    | WORD_LINK
     {
         /*php
             $$type =& $1;
@@ -967,9 +961,7 @@ content
  	    /*php
  		    $$type =& $1;
  		    $$type->addArgument($2);
-
- 		    $$typeChild = $3;
- 		    $$typeChild->setParent($$type);
+ 		    $3->setParent($$type);
  		    $$type->setType('Plugin', $$this);
         */
  	}
@@ -1015,9 +1007,7 @@ content
 			$$type = $1;
 			$$type->addArgument($2);
 			$$type->addArgument($3);
-
-			$$typeChild =& $3;
-			$$typeChild->setParent($$type);
+			$3->setParent($$type);
 			$$type->setType('Block', $$this);
 		*/
     }
@@ -1027,9 +1017,7 @@ content
             $$type = $1;
             $$type->addArgument($2);
             $$type->addArgument($3);
-
-            $$typeChild =& $3;
-            $$typeChild->setParent($$type);
+            $3->setParent($$type);
             $$type->setType('Block', $$this);
         */
     }
