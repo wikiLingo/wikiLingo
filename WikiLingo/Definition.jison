@@ -17,7 +17,7 @@ LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
 BLOCK_START                     ([\!*#;]+)([-+])?
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
-CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
+CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 
 %s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block bold box center code color italic link strike table titleBar underscore wikiLink wikiLinkType
 
@@ -477,7 +477,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'EOF';
 }
-<strike>[-][-] {
+<strike>"--" {
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->popState();
@@ -485,7 +485,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
     return 'STRIKE_END';
 }
-[-][-] {
+"--" {
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('strike');
@@ -640,7 +640,7 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
 
 
 //WordLink
-(?:[ \n\t\r\,\;]|^){CAPITOL_WORD}(?=$|[ \n\t\r\,\;\.]) {
+{CAPITOL_WORD}(?=$|[ \n\t\r\,\;\.]) {
     /*php
         if ($this->isContent()) return 'CONTENT';
     */
@@ -665,23 +665,10 @@ CAPITOL_WORD                    ([A-Z]{1,}[a-z_\-\x80-\xFF]{1,}){2,}
     */
 }
 "≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};
-"≤REAL_LT≥"(.|\n)*?"≤REAL_GT≥"    	        return 'HTML_TAG';
-("§"[a-z0-9]{32}"§")                        return 'CONTENT';
-("≤"(.)+"≥")                                return 'CONTENT';
 ([A-Za-z0-9 .,?;]+)                         return 'CONTENT';
 (?!{SYNTAX_CHARS})({LINE_CONTENT})?(?={SYNTAX_CHARS})
 											return 'CONTENT';
 ([ ]+?)                                     return 'CONTENT';
-("~bs~"|"~BS~")                             return 'CHAR';
-("~hs~"|"~HS~")                             return 'CHAR';
-("~amp~"|"~amp~")                           return 'CHAR';
-("~ldq~"|"~LDQ~")                           return 'CHAR';
-("~rdq~"|"~RDQ~")                           return 'CHAR';
-("~lsq~"|"~LSQ~")                           return 'CHAR';
-("~rsq~"|"~RSQ~")                           return 'CHAR';
-("~c~"|"~C~")                               return 'CHAR';
-"~--~"                                      return 'CHAR';
-"=>"                                        return 'CHAR';
 ("~lt~"|"~LT~")                             return 'CHAR';
 ("~gt~"|"~GT~")                             return 'CHAR';
 "{"([0-9]+)"}"                              return 'CHAR';
@@ -790,6 +777,18 @@ content
         */
 	}
     | BOLD_START
+    {
+        /*php
+            $1->setType('Content');
+        */
+    }
+    | BOLD_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | BOLD_START BOLD_END
     | BOLD_START contents BOLD_END
 	{
@@ -800,6 +799,13 @@ content
         */
 	}
     | BOX_START
+    | BOX_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | BOX_START BOX_END
     | BOX_START contents BOX_END
 	{
@@ -810,6 +816,13 @@ content
         */
 	}
     | CENTER_START
+    | CENTER_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | CENTER_START CENTER_END
     | CENTER_START contents CENTER_END
 	{
@@ -820,6 +833,13 @@ content
         */
 	}
     | CODE_START
+    | CODE_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | CODE_START CODE_END
     | CODE_START contents CODE_END
 	{
@@ -830,6 +850,13 @@ content
         */
 	}
     | COLOR_START
+    | COLOR_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | COLOR_START COLOR_END
     | COLOR_START contents COLOR_END
 	{
@@ -840,6 +867,13 @@ content
         */
 	}
     | ITALIC_START
+    | ITALIC_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | ITALIC_START ITALIC_END
     | ITALIC_START contents ITALIC_END
 	{
@@ -850,6 +884,18 @@ content
         */
 	}
     | LINK_START
+    {
+        /*php
+            $1->setType('Content', $$this);
+        */
+    }
+    | LINK_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | LINK_START LINK_END
     | LINK_START contents LINK_END
 	{
@@ -862,14 +908,14 @@ content
         */
 	}
     | STRIKE_START
-    | STRIKE_START STRIKE_END
-    | STRIKE_START contents EOF
+    | STRIKE_START contents
     {
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
         */
     }
+    | STRIKE_START STRIKE_END
     | STRIKE_START contents STRIKE_END
 	{
 		/*php
@@ -885,6 +931,13 @@ content
         */
     }
     | TABLE_START
+    | TABLE_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | TABLE_START TABLE_END
     | TABLE_START contents TABLE_END
 	{
@@ -895,6 +948,13 @@ content
         */
 	}
     | TITLE_BAR_START
+    | TITLE_BAR_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | TITLE_BAR_START TITLE_BAR_END
     | TITLE_BAR_START contents TITLE_BAR_END
 	{
@@ -905,6 +965,13 @@ content
         */
 	}
     | UNDERSCORE_START
+    | UNDERSCORE_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | UNDERSCORE_START UNDERSCORE_END
     | UNDERSCORE_START contents UNDERSCORE_END
 	{
@@ -915,6 +982,13 @@ content
         */
 	}
     | WIKI_LINK_START
+    | WIKI_LINK_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | WIKI_LINK_START WIKI_LINK_END
     | WIKI_LINK_START contents WIKI_LINK_END
 	{
@@ -926,6 +1000,13 @@ content
         */
 	}
 	| WIKI_LINK_TYPE_START
+    | WIKI_LINK_TYPE_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | WIKI_LINK_TYPE_START WIKI_LINK_TYPE_END
     | WIKI_LINK_TYPE_START contents WIKI_LINK_TYPE_END
     {
@@ -946,6 +1027,13 @@ content
         */
     }
     | INLINE_PLUGIN_START
+    | INLINE_PLUGIN_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
     | INLINE_PLUGIN_START INLINE_PLUGIN_PARAMETERS
  	{
  		/*php
@@ -1011,7 +1099,7 @@ content
 			$$type->setType('Block', $$this);
 		*/
     }
-    | PRE_BLOCK_START BLOCK_START contents EOF
+    | PRE_BLOCK_START BLOCK_START contents
     {
         /*php
             $$type = $1;

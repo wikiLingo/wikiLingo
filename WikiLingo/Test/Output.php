@@ -10,30 +10,6 @@ class OutputTest extends Test\Base
 		//self::$verbose = true;
 		$this->syntaxSets = array(
 
-			//good state tracking syntax
-			'wikilink'          => array("((FakePage))", '<a href=\'tiki-index.php?page=FakePage\' title=\'FakePage\' class=\'wiki wiki_page\'>FakePage</a>'),
-			'wikilink_not_exist'=> array("((NoExist))", '<span>NoExist</span><a href=\'tiki-editpage.php?page=NoExist\' title=\'Create page: NoExist\' class=\'wiki wikinew\'>?</a>'),
-			'wikilink_alias'=> array("(alias(FakePage))", '<a href=\'tiki-index.php?page=FakePage\' title=\'FakePage\' class=\'wiki wiki_page alias\' data-reltype=\'alias\'>FakePage</a>'),
-			'capitol_wikilink'  => array(),
-			'np_wikilink'       => array(),
-			'wikilink_w_wiki'   => array(),
-			'wikilink_w_table'  => array(),
-			'table'             => array("||A1|B1|C1\nA2|B2|C2||", '<table class=\'wikitable\'><tbody><tr><td class=\'wikicell\'>A1</td><td class=\'wikicell\'>B1</td><td class=\'wikicell\'>C1</td></tr><tr><td class=\'wikicell\'>A2</td><td class=\'wikicell\'>B2</td><td class=\'wikicell\'>C2</td></tr></tbody></table>'),
-
-
-			//error recovery state tracking syntax
-			'italic_r'          => array("''text", "''text"),
-			'bold_r'            => array('__text', '__text'),
-			'linethrough_r'     => array('--text', '--text'),
-			'box_r'             => array('^text', '^text'),
-			'center_r'          => array('::text', '::text'),
-			'underscore_r'      => array('===text', '===text'),
-			'titlebar_r'        => array("-=text", '-=text'),
-			'color_text1_r'     => array('~~red:text', '~~red:text'),
-			'color_text2_r'     => array('~~#ff00ff:text', '~~#ff00ff:text'),
-			'htmllink_r'        => array("[www.google.com|Google", '[www.google.com|Google'),
-			'wikilink_r'        => array("((FakePage", '((FakePage'),
-			'table_r'           => array("||A1|B1|C1\nA2|B2|C2", "||A1|B1|C1<br/>\nA2|B2|C2"),
 
 			'wikilink_nested'   => array("(([FakePage]))", '<a href=\'tiki-index.php?page=%5BFakePage%5D\' title=\'[FakePage]\' class=\'wiki wiki_page\'>[FakePage]</a>'),
 			'htmllink_nested'   => array("[((Linked))]", '<a class=\'wiki\' href=\'((Linked))\'>((Linked))</a>'),

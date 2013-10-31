@@ -12,8 +12,8 @@ class WikiLink extends Base
         $sides = explode("|", $this->renderedChildren);
 
         if (isset($sides[1])) {
-            $text = $sides[1];
-            $href = $sides[0];
+            $href = array_shift($sides);
+	        $text = implode("|", $sides);
         } else {
             $text = $this->renderedChildren;
             $href = $this->renderedChildren;
@@ -21,6 +21,8 @@ class WikiLink extends Base
 
         $element->staticChildren[] = $text;
         $element->attributes['href'] = $href;
+
+	    $parser->trigger(__CLASS__, "render", $element);
 
         return $element->render();
     }

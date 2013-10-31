@@ -17,6 +17,7 @@ class Parsed extends ParserValue
     public $lineIndex = 0;
     public $lineLength = 0;
     public $parser;
+	public static $throwExceptions = true;
 
 	public $lines = array();
 	public function addLine(Parsed &$line)
@@ -123,7 +124,7 @@ class Parsed extends ParserValue
             if ($expression) {
                 $this->expression =& $expression;
             }
-        } else {
+        } else if (self::$throwExceptions) {
 	        throw new Exception("Type '" . $this->type . "' does not exist in WikiLingo\\Expression namespace.");
         }
     }
