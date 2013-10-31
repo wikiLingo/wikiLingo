@@ -195,7 +195,7 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 
 
 //Inline Plugin
-<inlinePlugin>(.+?"}"|"}") {
+<inlinePlugin>(.+?"}")|("}") {
     /*php
         $this->popState();
         return 'INLINE_PLUGIN_PARAMETERS';
