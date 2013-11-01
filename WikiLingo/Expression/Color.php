@@ -18,6 +18,8 @@ class Color extends Base
             $char = array_shift($this->parsed->children)->text;
             $this->parsed->childrenLength--;
         }
+
+        $this->color = preg_replace('/[^#A-Za-z0-9]/', '', $this->color);
 	}
 
     public function render(&$parser)

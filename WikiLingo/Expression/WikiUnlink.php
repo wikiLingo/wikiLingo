@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
-class Unlink extends Base
+class WikiUnlink extends Base
 {
     public function render(&$parser)
     {

@@ -19,7 +19,7 @@ BLOCK_START                     ([\!*#;]+)([-+])?
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 
-%s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block bold box center code color italic link strike table titleBar underscore wikiLink wikiLinkType
+%s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block bold box center code color italic link strike table titleBar underscore wikiLink wikiLinkType wikiUnlink
 
 %%
 
@@ -169,10 +169,14 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 
 {LINE_END}(?={BLOCK_START}) {
     /*php
-        //Block and directional
         if ($this->isContent()) return 'CONTENT';
         $this->begin('preBlock');
         return 'PRE_BLOCK_START';
+    */
+}
+<BOF>(?!{BLOCK_START}) {
+    /*php
+        $this->popState();
     */
 }
 <BOF>(?={BLOCK_START}) {
@@ -597,6 +601,16 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 
     return 'WIKI_LINK_END';
 }
+//This prevents a wikiUnlink's end from becoming content
+<wikiUnlink>"((" {
+    /*php
+        if ($this->isContent(array('linkStack'))) return 'CONTENT';
+        $this->linkStack = false;
+        $this->popState();
+    */
+
+    return 'WIKI_UNLINK_END';
+}
 "((" {
     /*php
         if ($this->isContent()) return 'CONTENT';
@@ -638,6 +652,25 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
     return 'WIKI_LINK_TYPE_START';
 }
 
+//WikiUnlink
+<wikiUnlink><<EOF>> {
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
+
+    return 'EOF';
+}
+"))" {
+    /*php
+        if ($this->isContent()) return 'CONTENT';
+        $this->linkStack = true;
+        $this->begin('wikiUnlink');
+    */
+
+    return 'WIKI_UNLINK_START';
+}
+
 
 //WordLink
 {CAPITOL_WORD}(?=$|[ \n\t\r\,\;\.]) {
@@ -664,7 +697,6 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
         return 'CONTENT';
     */
 }
-"≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};
 ([A-Za-z0-9 .,?;]+)                         return 'CONTENT';
 (?!{SYNTAX_CHARS})({LINE_CONTENT})?(?={SYNTAX_CHARS})
 											return 'CONTENT';
@@ -1015,6 +1047,24 @@ content
             $$type =& $1;
             $2->setParent($$type);
             $$type->setType('WikiLinkType', $$this);
+        */
+    }
+    | WIKI_UNLINK_START
+    | WIKI_UNLINK_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
+    | WIKI_UNLINK_START WIKI_UNLINK_END
+    | WIKI_UNLINK_START contents WIKI_UNLINK_END
+    {
+        /*php
+            //Type already set
+            $$type =& $1;
+            $2->setParent($$type);
+            $$type->setType('WikiUnlink', $$this);
         */
     }
     | WORD_LINK
