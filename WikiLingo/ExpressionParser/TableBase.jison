@@ -309,7 +309,7 @@ string :
 	| string CHAR {
 	    //string CHAR
 	    /*php
-		    $1->append($2);
+		    $1->text->append($2);
         */
 	}
 	| QUOTE_ON string QUOTE_OFF {

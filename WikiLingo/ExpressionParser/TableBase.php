@@ -602,7 +602,6 @@ class TableBase
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
-/* this == yyval */
 
 
 switch ($yystate) {
@@ -762,7 +761,7 @@ break;
 case 24:
 	    
 	    
-		    $s[$o-1]->append($s[$o]);
+		    $s[$o-1]->text->append($s[$o]);
         
 	
 break;
@@ -1173,7 +1172,7 @@ break;
     {
         
 
-;
+
 switch($avoidingNameCollisions) {
 case 0:
     //<QUOTE>(\n|"\n")
@@ -1196,7 +1195,7 @@ case 2:
             $this->begin('STRING');
             return 16;
         } else {
-            return 14;
+            return 'CHAR';
         }
 	
 
