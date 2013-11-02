@@ -20,10 +20,7 @@ class Base
 
 	public $typeStack = [];
 
-	public $lastBlockWasFrom = '';
-	public $firstLineType = '';
 	public $isStaticTag = false;
-	public $firstLineHandled = false;
 	public $processedTypeStack = '';
     public $closingTagRegex = "/^(?:(<\/(.|\n)[^>]*?>))/";
 
@@ -52,45 +49,6 @@ class Base
 		die;
 	}
 */
-
-	function isStaticTag($isStaticTag)
-	{
-		$this->isStaticTag = $isStaticTag;
-	}
-
-	public function content($content)
-	{
-		return new Expression\Content($content->text);
-	}
-
-	public function lineEnd($line)
-	{
-		if ($this->isStaticTag == true) {
-			return new Expression\Line($line);
-		}
-
-		return new Expression\Line($line);
-	}
-
-	public function preNonBlock()
-	{
-		$lastParsedType = $this->lastParsedType();
-		if ($lastParsedType == 'listEmpty') {
-			return '';
-		}
-
-		if ($this->lastBlockWasFrom == 'block') {
-			$this->lastBlockWasFrom = '';
-			return "\n";
-		}
-		return "";
-	}
-
-	public function typeDepth($type)
-	{
-		return (isset($this->typeStack[$type]) ? $this->typeStack[$type] : -1);
-	}
-
 	public function stackHtmlElement($tag)
 	{
 		$this->htmlElementStack[] = $tag;
@@ -126,40 +84,6 @@ class Base
         $this->htmlElementStackCount = max(0, $this->htmlElementStackCount);
         array_pop($this->htmlElementStack);
     }
-
-	public function blockStart()
-	{
-		if (
-			$this->lastBlockWasFrom == 'newLine' &&
-			$this->lastParsedType() == ''
-		) {
-			$this->lastBlockWasFrom = 'block';
-			$this->firstLineHandled = true;
-			return '';
-		}
-
-		if (empty($this->firstLineType)) {
-			$this->firstLineType = 'block';
-		}
-
-		if (
-			(
-				$this->firstLineHandled == false
-			)
-		) {
-			$this->firstLineHandled = true;
-			return '';
-		}
-		return "~REAL_BLOCK~";
-	}
-
-	public function lastParsedType()
-	{
-		if (isset($this->processedTypeStack[count($this->processedTypeStack) - 1])) {
-			return $this->processedTypeStack[count($this->processedTypeStack) - 1];
-		}
-		return '';
-	}
 
 	function getMissingClosingKeys()
 	{

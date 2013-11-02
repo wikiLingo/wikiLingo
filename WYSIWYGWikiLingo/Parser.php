@@ -24,9 +24,6 @@ class Parser extends Definition
         $this->typeIndex = [];
         $this->typeStack = [];
         $this->type = [];
-        $this->lastBlockWasFrom = '';
-        $this->firstLineType = '';
-        $this->firstLineHandled = false;
         $this->processedTypeStack = [];
 
         $this->htmlElementStack = [];
