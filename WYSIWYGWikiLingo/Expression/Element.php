@@ -55,6 +55,8 @@ class Element extends Base
 		        $_style = explode(":", $style);
 		        $this->styles[trim(array_shift($_style))] = trim(array_shift($_style));
 	        }
+        } else {
+	        $this->isStatic = true;
         }
     }
 

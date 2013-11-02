@@ -34,9 +34,9 @@ class NoLineSkipping extends Base
             "</div>" .
             "<dl>" .
                 "<dt>foo</dt>" .
-                "<dd>foo</dd>" .
+                "<dd>foo definition</dd>" .
                 "<dt>foo2</dt>" .
-                "<dd>foo2</dd>" .
+                "<dd>foo2 definition</dd>" .
             "</dl>" .
             "<br/>\n" .
             "<a href='[__bold__'>[__bold__</a><br/>\n" .

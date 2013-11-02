@@ -8,15 +8,15 @@ class TwoLists extends Base
 	public function __construct()
 	{
 
-		$this->source = "
-#Item 1
-#Item 2
-#Item 3
-
-#Item 1
-#Item 2
-#Item 3
-";
+		$this->source =
+			"\n" .
+			"#Item 1\n" .
+			"#Item 2\n" .
+			"#Item 3\n" .
+			"\n" .
+			"#Item 1\n" .
+			"#Item 2\n" .
+			"#Item 3\n";
 
 		$this->expected =
             '<ol>' .

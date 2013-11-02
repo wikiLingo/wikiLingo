@@ -12,18 +12,42 @@ class DescriptionList
 	{
 		$this->parsed =& $block->parsed;
 		$this->block =& $block;
-		if ($this->parsed->childrenLength > 2) {
-			$this->items[] = new DescriptionListItem($this->parsed->children[0]->text, $this->parsed->children[2]->text);
+		$termSet = false;
+		$term = '';
+		$description = '';
+
+		foreach($this->parsed->children as $child) {
+			if ($child->text == ':' && $termSet == false) {
+				$termSet = true;
+			} else if ($termSet == false) {
+				$term .= $child->text;
+			} else {
+				$description .= $child->text;
+			}
 		}
+
+		$this->items[] = new DescriptionListItem($term, $description);
 		$this->parser =& $this->parsed->parser;
 		$this->parser->addType(__CLASS__, $this);
 	}
 
 	public function add(Block &$block)
 	{
-		if ($block->parsed->childrenLength > 2) {
-			$this->items[] = new DescriptionListItem($block->parsed->children[0]->text, $block->parsed->children[2]->text);
+		$termSet = false;
+		$term = '';
+		$description = '';
+
+		foreach($block->parsed->children as $child) {
+			if ($child->text == ':' && $termSet == false) {
+				$termSet = true;
+			} else if ($termSet == false) {
+				$term .= $child->text;
+			} else {
+				$description .= $child->text;
+			}
 		}
+
+		$this->items[] = new DescriptionListItem($term, $description);
 	}
 
 	public function render()

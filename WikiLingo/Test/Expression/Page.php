@@ -10,7 +10,7 @@ class Page extends Base
 	{
 		$parser->typesCount['html'] = 0;
 		$this->source = "! WYSIWYG Sample Page
-Start off by clicking \"edit\" then switching the editor to use the wysiwyg editor using the {html src=\"pics/icons/pencil_go.png\"} button on the toolbar.
+Start off by clicking \"edit\" then switching the editor to use the wysiwyg editor using the {html src=`pics/icons/pencil_go.png`} button on the toolbar.
 !! Text formatting
 __bold__
 ''italic''
@@ -45,7 +45,7 @@ __HAL, in 2001:__ A Space Odyssey (1968)
 {HTML}
 
 !!! Code plugin:
-{HTML(caption=\"Hello World in Pascal\")}
+{HTML(caption=`Hello World in Pascal`)}
 program HelloWorld(output);
 begin
   WriteLn('Hello World!');
@@ -102,7 +102,7 @@ end.
 			'<div class="box">A box</div>' .
 			"<br/>\n" .
 			"<br/>\n" .
-			"A <a href='http://tiki.org'>link</a>" .
+			"A <a href='http://tiki.org'>link|nocache</a>" .
 			"<br/>\n" .
 			"<br/>\n" .
 			"<strong>And these are produced by wiki plugins:</strong><br/>\n" .

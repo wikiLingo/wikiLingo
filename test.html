@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>(93/5) wikiLingo test suite | Testify Suite</title>
+        <title>(97/1) wikiLingo test suite | Testify Suite</title>
         
         <style>
         	*{
@@ -188,9 +188,9 @@
 				</div>
 				
 									
-					<h2 class="fail">
+					<h2 class="pass">
 						WikiLingo Expressions						<span class="result">
-							<span class="green">43</span>/<span class="red">1</span>
+							<span class="green">44</span>/<span class="red">0</span>
 						</span>
 					</h2>	
 					
@@ -462,14 +462,14 @@ test
 &lt;div id='div3'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 &lt;div id='div2'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 &lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;dl&gt;&lt;dt&gt;foo&lt;/dt&gt;&lt;dd&gt;foo&lt;/dd&gt;&lt;dt&gt;foo2&lt;/dt&gt;&lt;dd&gt;foo2&lt;/dd&gt;&lt;/dl&gt;&lt;br/&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;dl&gt;&lt;dt&gt;foo&lt;/dt&gt;&lt;dd&gt;foo definition&lt;/dd&gt;&lt;dt&gt;foo2&lt;/dt&gt;&lt;dd&gt;foo2 definition&lt;/dd&gt;&lt;/dl&gt;&lt;br/&gt;
 &lt;a href='[__bold__'&gt;[__bold__&lt;/a&gt;&lt;br/&gt;
 Test&lt;i&gt;Test Italics&lt;/i&gt;&lt;br/&gt;
 </code><br /><br />Got:<br /><code>&lt;div id='div4'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 &lt;div id='div3'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 &lt;div id='div2'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 &lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;dl&gt;&lt;dt&gt;foo&lt;/dt&gt;&lt;dd&gt;foo&lt;/dd&gt;&lt;dt&gt;foo2&lt;/dt&gt;&lt;dd&gt;foo2&lt;/dd&gt;&lt;/dl&gt;&lt;br/&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;dl&gt;&lt;dt&gt;foo&lt;/dt&gt;&lt;dd&gt;foo definition&lt;/dd&gt;&lt;dt&gt;foo2&lt;/dt&gt;&lt;dd&gt;foo2 definition&lt;/dd&gt;&lt;/dl&gt;&lt;br/&gt;
 &lt;a href='[__bold__'&gt;[__bold__&lt;/a&gt;&lt;br/&gt;
 Test&lt;i&gt;Test Italics&lt;/i&gt;&lt;br/&gt;
 </code><br /><br />Syntax:<br /><pre>{DIV()}
@@ -527,7 +527,7 @@ Continuation2{DIV}
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: Page<br />Expecting:<br /><code>&lt;h1 id='+WYSIWYG+Sample+Page'&gt; WYSIWYG Sample Page&lt;/h1&gt;&lt;br/&gt;
 Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the &lt;span id='html1'/&gt; button on the toolbar.&lt;h2 id='+Text+formatting'&gt; Text formatting&lt;/h2&gt;&lt;br/&gt;
 &lt;strong&gt;bold&lt;/strong&gt;&lt;br/&gt;
@@ -544,7 +544,7 @@ A table:&lt;br/&gt;
 &lt;br/&gt;
 &lt;div class=&quot;box&quot;&gt;A box&lt;/div&gt;&lt;br/&gt;
 &lt;br/&gt;
-A &lt;a href='http://tiki.org'&gt;link&lt;/a&gt;&lt;br/&gt;
+A &lt;a href='http://tiki.org'&gt;link|nocache&lt;/a&gt;&lt;br/&gt;
 &lt;br/&gt;
 &lt;strong&gt;And these are produced by wiki plugins:&lt;/strong&gt;&lt;br/&gt;
 &lt;h2 id='+Plugins'&gt; Plugins&lt;/h2&gt;&lt;h3 id='+Quote+plugin%3A'&gt; Quote plugin:&lt;/h3&gt;&lt;br/&gt;
@@ -591,7 +591,7 @@ begin&lt;br class=&quot;hidden&quot;/&gt;
   WriteLn('Hello World!');&lt;br class=&quot;hidden&quot;/&gt;
 end.&lt;br class=&quot;hidden&quot;/&gt;
 &lt;/span&gt;</code><br /><br />Syntax:<br /><pre>! WYSIWYG Sample Page
-Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=&quot;pics/icons/pencil_go.png&quot;} button on the toolbar.
+Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=`pics/icons/pencil_go.png`} button on the toolbar.
 !! Text formatting
 __bold__
 ''italic''
@@ -626,7 +626,7 @@ __HAL, in 2001:__ A Space Odyssey (1968)
 {HTML}
 
 !!! Code plugin:
-{HTML(caption=&quot;Hello World in Pascal&quot;)}
+{HTML(caption=`Hello World in Pascal`)}
 program HelloWorld(output);
 begin
   WriteLn('Hello World!');
@@ -985,7 +985,7 @@ test|test||
 		  							
 					<h2 class="fail">
 						WYSIWYGWikiLingo Syntax Generator						<span class="result">
-							<span class="green">39</span>/<span class="red">4</span>
+							<span class="green">42</span>/<span class="red">1</span>
 						</span>
 					</h2>	
 					
@@ -1275,7 +1275,7 @@ test&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: NoLineSkipping<br />Expecting:<br /><pre><code>{DIV()}
 {DIV()}
 {DIV()}
@@ -1290,15 +1290,15 @@ Test''Test Italics''
 {DIV()}
 {DIV()}
 {DIV}{DIV}{DIV}{DIV}
-;foo:foo
-;foo2:foo2
+;foo:foo definition
+;foo2:foo2 definition
 [[__bold__]
 Test''Test Italics''
 </code></pre><br /><br />Syntax:<br /><pre><code>&lt;span id='div4' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
 &lt;span id='div3' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
 &lt;span id='div2' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
 &lt;span id='div1' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;dl data-element='true' data-type='WikiLingo\\Expression\\DescriptionList'&gt;&lt;dt data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo&lt;/dt&gt;&lt;dd data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo&lt;/dd&gt;&lt;dt data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo2&lt;/dt&gt;&lt;dd data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo2&lt;/dd&gt;&lt;/dl&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;dl data-element='true' data-type='WikiLingo\\Expression\\DescriptionList'&gt;&lt;dt data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo&lt;/dt&gt;&lt;dd data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo definition&lt;/dd&gt;&lt;dt data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo2&lt;/dt&gt;&lt;dd data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo2 definition&lt;/dd&gt;&lt;/dl&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 &lt;a href='[__bold__' data-element='true' data-type='WikiLingo\\Expression\\Link'&gt;[__bold__&lt;/a&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 Test&lt;i data-element='true' data-type='WikiLingo\\Expression\\Italic'&gt;Test Italics&lt;/i&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 <code></pre>                                </span>
@@ -1352,9 +1352,9 @@ Continuation2&lt;/span&gt;&lt;/li&gt;&lt;li data-element='true' data-type='WikiL
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: Page<br />Expecting:<br /><pre><code>! WYSIWYG Sample Page
-Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=&quot;pics/icons/pencil_go.png&quot;} button on the toolbar.
+Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=`pics/icons/pencil_go.png`} button on the toolbar.
 !! Text formatting
 __bold__
 ''italic''
@@ -1389,7 +1389,7 @@ __HAL, in 2001:__ A Space Odyssey (1968)
 {HTML}
 
 !!! Code plugin:
-{HTML(caption=&quot;Hello World in Pascal&quot;)}
+{HTML(caption=`Hello World in Pascal`)}
 program HelloWorld(output);
 begin
   WriteLn('Hello World!');
@@ -1608,8 +1608,8 @@ test|test||
 							
 													
 							<li>
-								<span class="type fail">
-                                    Testing: TagsUsedWithWikiLingo<br />Expecting:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Got:<br /><pre><code>&lt;b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Syntax:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; &lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt;This is also a test&lt;/strong&gt; &lt;code data-element='true' data-type='WikiLingo\\Expression\\Tag'&gt;&amp;lt;script&amp;gt;&lt;/code&gt;&lt;code data-element='true' data-type='WikiLingo\\Expression\\Tag'&gt;&amp;lt;/script&amp;gt;&lt;/code&gt; <code></pre>                                </span>
+								<span class="type pass">
+                                    Testing: TagsUsedWithWikiLingo<br />Expecting:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Got:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Syntax:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; &lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt;This is also a test&lt;/strong&gt; &lt;code data-element='true' data-type='WikiLingo\\Expression\\Tag'&gt;&amp;lt;script&amp;gt;&lt;/code&gt;&lt;code data-element='true' data-type='WikiLingo\\Expression\\Tag'&gt;&amp;lt;/script&amp;gt;&lt;/code&gt; <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
