@@ -23,6 +23,7 @@ class Base
 	public $isStaticTag = false;
 	public $processedTypeStack = '';
     public $closingTagRegex = "/^(?:(<\/(.|\n)[^>]*?>))/";
+	public $inputAdjustedForLineAtBeginning = false;
 
 /*
 	function parser_performAction(&$thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O)

@@ -26,6 +26,7 @@ class Block extends Base
     public $modifier;
     public $parser;
     public $open = true;
+	public $isFirst = false;
 
 	public static $blocksTypes = array(
 		'!' => 'header',
@@ -97,7 +98,7 @@ class Block extends Base
                     $flat->block->parsed->addCousin($parsed);
                     return false;
 				}
-
+				$this->isFirst = true;
 				$result = new Tensor\Flat($this);
 				break;
 		}
@@ -143,6 +144,9 @@ class Block extends Base
 
         $element->detailedAttributes["data-block-type"] = $this->blockType;
 
+	    if ($this->isFirst && $this->parsed->text === "\n") {
+		    $element->detailedAttributes["data-has-line-before"] = "true";
+	    }
         if ($this->blank) {
             $element->classes[] = 'empty';
 	        $element->detailedAttributes["data-block-type"] = 'empty';

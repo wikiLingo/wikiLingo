@@ -30,6 +30,7 @@ class Parser extends Definition
         $this->htmlElementStackCount = [];
         $this->htmlElementsStackCount = 0;
         $this->htmlElementsStack = [];
+	    $this->inputAdjustedForLineAtBeginning = false;
     }
 
     public function parse($input)
