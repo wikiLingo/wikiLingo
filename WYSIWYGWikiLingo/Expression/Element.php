@@ -6,6 +6,7 @@ use WYSIWYGWikiLingo;
 
 class Element extends Base
 {
+	public $name = '';
     public $isElement = false;
     public $isClosed = false;
     public $closing;
@@ -23,6 +24,7 @@ class Element extends Base
 
         $pos = strpos($parsed->text, ' ');
         if ($pos !== false) {
+	        $this->name = trim(substr($parsed->text, 1, $pos));
             $parametersString = trim(substr($parsed->text, $pos, -1));
             $this->parameters = self::$parameterParser->parse($parametersString);
 

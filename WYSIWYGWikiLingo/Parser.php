@@ -12,7 +12,7 @@ class Parser extends Definition
 	{
 		$this->emptyParserValue = new Parsed();
 
-		$this->events = new EventManager(__CLASS__);
+		$this->events = new Events(__CLASS__);
 
 		parent::__construct();
 

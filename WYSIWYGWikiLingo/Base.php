@@ -9,6 +9,8 @@ class Base
 	private $parserDebug = true;
 	private $lexerDebug = true;
 
+	public $events;
+
 	/* html tag tracking */
 	public $typeIndex = [];
 	public $htmlElementStack = [];
@@ -177,5 +179,21 @@ class Base
 		if (isset($this->htmlElementStack[$element])) {
 			return ['element' => $element];
 		}
+	}
+
+	public function bind($class, $event, $fn)
+	{
+
+		$this->events->bind($class, $event, $fn);
+	}
+
+	public function unbind($eventName)
+	{
+		$this->events->unbind($eventName);
+	}
+
+	public function trigger($class, $event, &$obj = null, &$out = null)
+	{
+		$this->events->trigger($class, $event, $obj, $out);
 	}
 }

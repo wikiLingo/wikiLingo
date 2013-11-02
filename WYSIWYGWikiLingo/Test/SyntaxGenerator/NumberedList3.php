@@ -1,13 +1,12 @@
 <?php
-namespace WikiLingo\Test\Expression;
+namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
-use WikiLingo;
 use WikiLingo\Expression;
 use WikiLingo\Test\Base;
 
 class NumberedList3 extends Base
 {
-    public function __construct(&$parser)
+    public function __construct()
     {
 	    Expression\Plugin::$indexes = array();
 

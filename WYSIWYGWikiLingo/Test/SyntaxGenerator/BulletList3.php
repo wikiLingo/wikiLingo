@@ -1,24 +1,20 @@
 <?php
-namespace WikiLingo\Test\Expression;
+namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
-use WikiLingo;
-use WikiLingo\Expression;
-use WikiLingo\Test\Base;
+use WYSIWYGWikiLingo\Test\Base;
 
-class NumberedList3 extends Base
+class BulletList3 extends Base
 {
-    public function __construct(&$parser)
+    public function __construct()
     {
-	    Expression\Plugin::$indexes = array();
-
         $this->source =
-            "# foo{DIV()}\n" .
+            "* foo{DIV()}\n" .
             " Continuation1\n" .
             "Continuation2{DIV}\n" .
-            "# bar";
+            "* bar";
 
         $this->expected =
-            '<ol>' .
+            '<ul>' .
                 '<li> foo' .
                     "<div id='div1'>" .
                         '<br class="hidden"/>' . "\n" . ' Continuation1' .
@@ -26,6 +22,6 @@ class NumberedList3 extends Base
                     '</div>' .
                 '</li>' .
                 '<li> bar</li>' .
-            '</ol>';
+            '</ul>';
     }
 }

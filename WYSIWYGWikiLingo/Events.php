@@ -3,7 +3,7 @@ namespace WYSIWYGWikiLingo;
 
 use WikiLingo;
 
-class EventManager
+class Events extends WikiLingo\Events
 {
 
 }

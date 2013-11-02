@@ -1,10 +1,10 @@
 <?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
-class Center extends Base
+class DescriptionListItem extends Base
 {
     public function generate()
     {
-        return '::' . $this->expression->renderedChildren . '::';
+	    return '';
     }
 }

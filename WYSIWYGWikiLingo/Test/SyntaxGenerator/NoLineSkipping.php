@@ -1,5 +1,5 @@
 <?php
-namespace WikiLingo\Test\Expression;
+namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
 use WikiLingo\Expression;
 use WikiLingo\Parser;
@@ -7,7 +7,7 @@ use WikiLingo\Test\Base;
 
 class NoLineSkipping extends Base
 {
-	public function __construct(&$parser)
+	public function __construct()
 	{
 		Expression\Plugin::$indexes = array();
 

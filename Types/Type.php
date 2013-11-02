@@ -8,6 +8,7 @@ namespace Types
 	use WikiLingo;
 	use WikiLingo\Expression;
 	use WikiLingo\Expression\Tensor;
+	use WYSIWYGWikiLingo;
 
 	class Type
 	{
@@ -37,6 +38,11 @@ namespace Types
 		}
 
 		public static function Element(WikiLingo\Renderer\Element &$obj)
+		{
+			return $obj;
+		}
+
+		public static function WYSIWYGElement(WYSIWYGWikiLingo\Expression\Element &$obj)
 		{
 			return $obj;
 		}

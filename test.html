@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>(55/0) wikiLingo test suite | Testify Suite</title>
+        <title>(81/17) wikiLingo test suite | Testify Suite</title>
         
         <style>
         	*{
@@ -179,10 +179,10 @@
     	<div id="wrapper">
     	
     		<div id="content">
-	    		<h1 class="pass">
+	    		<h1 class="fail">
 					wikiLingo test suite				</h1>
 				
-				<div class="message pass">
+				<div class="message fail">
 					<span class="green">Far out! Everything passed!</span>
 					<span class="red">Bummer! You have failing tests!</span>
 				</div>
@@ -977,6 +977,792 @@ test|test||
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+											
+					</ul>
+					
+		  							
+					<h2 class="fail">
+						WYSIWYGWikiLingo Syntax Generator						<span class="result">
+							<span class="green">26</span>/<span class="red">17</span>
+						</span>
+					</h2>	
+					
+					<ul class="tests">
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Blank<br />Expecting:<br /><pre><code></code></pre><br /><br />Got:<br /><pre><code></code></pre><br /><br />Syntax:<br /><pre><code><code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Bold<br />Expecting:<br /><pre><code>__foo__ &amp; __ foo __</code></pre><br /><br />Got:<br /><pre><code>__foo__ &amp; __ foo __</code></pre><br /><br />Syntax:<br /><pre><code>__foo__ &amp; __ foo __<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: BoldItalicUnderlineStrike<br />Expecting:<br /><pre><code>__Bold Only ''&amp; Italic ===With Underline --Striken--===''__</code></pre><br /><br />Got:<br /><pre><code>__Bold Only ''&amp; Italic ===With Underline --Striken--===''__</code></pre><br /><br />Syntax:<br /><pre><code>__Bold Only ''&amp; Italic ===With Underline --Striken--===''__<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Box<br />Expecting:<br /><pre><code>^foo^
+^ Another Box ^</code></pre><br /><br />Got:<br /><pre><code>^foo^
+^ Another Box ^</code></pre><br /><br />Syntax:<br /><pre><code>^foo^
+^ Another Box ^<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: BulletList1<br />Expecting:<br /><pre><code>* foo
+* bar</code></pre><br /><br />Got:<br /><pre><code>
+* foo
+* bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo
+* bar<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: BulletList2<br />Expecting:<br /><pre><code>* foo
+** foo
+**foo
+* bar</code></pre><br /><br />Got:<br /><pre><code>
+* foo
+** foo
+**foo
+* bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo
+** foo
+**foo
+* bar<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: BulletList3<br />Expecting:<br /><pre><code>* foo{DIV()}
+ Continuation1
+Continuation2{DIV}
+* bar</code></pre><br /><br />Got:<br /><pre><code>
+* foo{DIV()}
+ Continuation1
+Continuation2{DIV}
+* bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo{DIV()}
+ Continuation1
+Continuation2{DIV}
+* bar<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Center<br />Expecting:<br /><pre><code>::foo:: :: foo 2 ::</code></pre><br /><br />Got:<br /><pre><code>::foo:: :: foo 2 ::</code></pre><br /><br />Syntax:<br /><pre><code>::foo:: :: foo 2 ::<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Code<br />Expecting:<br /><pre><code>-+foo+-</code></pre><br /><br />Got:<br /><pre><code>-+foo+-</code></pre><br /><br />Syntax:<br /><pre><code>-+foo+-<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Color<br />Expecting:<br /><pre><code>~~red:text~~ 
+~~#ff00ff:text~~</code></pre><br /><br />Got:<br /><pre><code>~~red:text~~ 
+~~#ff00ff:text~~</code></pre><br /><br />Syntax:<br /><pre><code>~~red:text~~ 
+~~#ff00ff:text~~<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Comment<br />Expecting:<br /><pre><code>~tc~This is a test comment __this won't be parsed__~/tc~</code></pre><br /><br />Got:<br /><pre><code>~tc~This is a test comment __this won't be parsed__~/tc~</code></pre><br /><br />Syntax:<br /><pre><code>~tc~This is a test comment __this won't be parsed__~/tc~<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Content<br />Expecting:<br /><pre><code>foo</code></pre><br /><br />Got:<br /><pre><code>foo</code></pre><br /><br />Syntax:<br /><pre><code>foo<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: DefinitionList<br />Expecting:<br /><pre><code>;foo1:bar1
+;foo2:bar2</code></pre><br /><br />Got:<br /><pre><code>;foo1:bar1
+;foo2:bar2</code></pre><br /><br />Syntax:<br /><pre><code>;foo1:bar1
+;foo2:bar2<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: ExpandableHeaders<br />Expecting:<br /><pre><code>!+foo
+heading text section
+!-foo
+heading text section</code></pre><br /><br />Got:<br /><pre><code>
+!+foo
+heading text section
+!-foo
+heading text section</code></pre><br /><br />Syntax:<br /><pre><code>!+foo
+heading text section
+!-foo
+heading text section<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: ForcedBreak<br />Expecting:<br /><pre><code>text%%%text</code></pre><br /><br />Got:<br /><pre><code>text%%%text</code></pre><br /><br />Syntax:<br /><pre><code>text%%%text<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: Headers<br />Expecting:<br /><pre><code>!Header 1
+!!Header 2
+!!!Header 3
+!!!!Header 4
+!!!!!Header 5
+!!!!!!Header 6
+!!!!!!Header Attempted 7, but got 6
+</code></pre><br /><br />Got:<br /><pre><code>
+!Header 1
+!!Header 2
+!!!Header 3
+!!!!Header 4
+!!!!!Header 5
+!!!!!!Header 6
+!!!!!!Header Attempted 7, but got 6
+</code></pre><br /><br />Syntax:<br /><pre><code>!Header 1
+!!Header 2
+!!!Header 3
+!!!!Header 4
+!!!!!Header 5
+!!!!!!Header 6
+!!!!!!Header Attempted 7, but got 6
+<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Italic<br />Expecting:<br /><pre><code>''foo''</code></pre><br /><br />Got:<br /><pre><code>''foo''</code></pre><br /><br />Syntax:<br /><pre><code>''foo''<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: Link<br />Expecting:<br /><pre><code>[www.google.com] [www.google.com|Google]</code></pre><br /><br />Got:<br /><pre><code>[www.google.com] [Google]</code></pre><br /><br />Syntax:<br /><pre><code>[www.google.com] [www.google.com|Google]<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: LinksUnparsedText<br />Expecting:<br /><pre><code>[((foo))] (([foo]))</code></pre><br /><br />Got:<br /><pre><code>[((foo))] (([foo]))</code></pre><br /><br />Syntax:<br /><pre><code>[((foo))] (([foo]))<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: MixedLineBreaks<br />Expecting:<br /><pre><code>!header
+test
+test
+test
+*test
+*test
+*test
+*test
+*test
+*test
+test
+test
+test
+!header
+!header
+!header
+!header
+test
+test
+</code></pre><br /><br />Got:<br /><pre><code>
+!header
+test
+test
+test
+*test
+*test
+*test
+*test
+*test
+*test
+test
+test
+test
+!header
+!header
+!header
+!header
+test
+test
+</code></pre><br /><br />Syntax:<br /><pre><code>!header
+test
+test
+test
+*test
+*test
+*test
+*test
+*test
+*test
+test
+test
+test
+!header
+!header
+!header
+!header
+test
+test
+<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: NP<br />Expecting:<br /><pre><code>~np~__foo__ ~np~ &amp; __ foo __~/np~</code></pre><br /><br />Got:<br /><pre><code>~np~__foo__ ~np~ &amp; __ foo __~/np~</code></pre><br /><br />Syntax:<br /><pre><code>~np~__foo__ ~np~ &amp; __ foo __~/np~<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: NoLineSkipping<br />Expecting:<br /><pre><code>{DIV()}
+{DIV()}
+{DIV()}
+{DIV()}
+{DIV}{DIV}{DIV}{DIV}
+;foo:foo definition
+;foo2:foo2 definition
+[[__bold__]
+Test''Test Italics''
+</code></pre><br /><br />Got:<br /><pre><code>{DIV()}
+{DIV()}
+{DIV()}
+{DIV()}
+{DIV}{DIV}{DIV}{DIV};foo:foo
+;foo2:foo2
+[[__bold__]
+Test''Test Italics''
+</code></pre><br /><br />Syntax:<br /><pre><code>{DIV()}
+{DIV()}
+{DIV()}
+{DIV()}
+{DIV}{DIV}{DIV}{DIV}
+;foo:foo definition
+;foo2:foo2 definition
+[[__bold__]
+Test''Test Italics''
+<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: NumberedList1<br />Expecting:<br /><pre><code># foo
+# bar</code></pre><br /><br />Got:<br /><pre><code>
+# foo
+# bar</code></pre><br /><br />Syntax:<br /><pre><code># foo
+# bar<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: NumberedList2<br />Expecting:<br /><pre><code># foo1
+## foo11
+##foo12
+# bar1</code></pre><br /><br />Got:<br /><pre><code>
+# foo1
+## foo11
+##foo12
+# bar1</code></pre><br /><br />Syntax:<br /><pre><code># foo1
+## foo11
+##foo12
+# bar1<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: NumberedList3<br />Expecting:<br /><pre><code># foo{DIV()}
+ Continuation1
+Continuation2{DIV}
+# bar</code></pre><br /><br />Got:<br /><pre><code>
+# foo{DIV()}
+ Continuation1
+Continuation2{DIV}
+# bar</code></pre><br /><br />Syntax:<br /><pre><code># foo{DIV()}
+ Continuation1
+Continuation2{DIV}
+# bar<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: Page<br />Expecting:<br /><pre><code>! WYSIWYG Sample Page
+Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=&quot;pics/icons/pencil_go.png&quot;} button on the toolbar.
+!! Text formatting
+__bold__
+''italic''
+===underlined===
+::centred text::
+
+!! Lists and table
+*An unordered list item
+**A subitem
+And some text
+*Another item
+. . . and more text . . .
+*Item 3
+. . . and some more text, to illustrate the line spacing.
+
+A table:
+||Row One, Column One|Row One, Column Two
+Row Two, Column One|Row Two, Column Two||
+
+^A box^
+
+A [http://tiki.org|link|nocache]
+
+__And these are produced by wiki plugins:__
+
+!! Plugins
+!!! Quote plugin:
+{HTML()}
+Just what do you think you're doing, Dave?
+
+__HAL, in 2001:__ A Space Odyssey (1968)
+{HTML}
+
+!!! Code plugin:
+{HTML(caption=&quot;Hello World in Pascal&quot;)}
+program HelloWorld(output);
+begin
+  WriteLn('Hello World!');
+end.
+{HTML}</code></pre><br /><br />Got:<br /><pre><code>
+! WYSIWYG Sample Page
+Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=`pics/icons/pencil_go.png`} button on the toolbar.
+!! Text formatting
+__bold__
+''italic''
+===underlined===
+::centred text::
+
+!! Lists and table
+*An unordered list item
+**A subitem
+And some text
+*Another item
+. . . and more text . . .
+*Item 3
+. . . and some more text, to illustrate the line spacing.
+
+A table:
+||Row One, Column One|Row One, Column Two
+Row Two, Column One|Row Two, Column Two||
+
+^A box^
+
+A [link]
+
+__And these are produced by wiki plugins:__
+
+!! Plugins
+!!! Quote plugin:
+{HTML()}
+Just what do you think you're doing, Dave?
+
+__HAL, in 2001:__ A Space Odyssey (1968)
+{HTML}
+
+!!! Code plugin:
+{HTML(caption=`Hello World in Pascal`)}
+program HelloWorld(output);
+begin
+  WriteLn('Hello World!');
+end.
+{HTML}</code></pre><br /><br />Syntax:<br /><pre><code>! WYSIWYG Sample Page
+Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=&quot;pics/icons/pencil_go.png&quot;} button on the toolbar.
+!! Text formatting
+__bold__
+''italic''
+===underlined===
+::centred text::
+
+!! Lists and table
+*An unordered list item
+**A subitem
+And some text
+*Another item
+. . . and more text . . .
+*Item 3
+. . . and some more text, to illustrate the line spacing.
+
+A table:
+||Row One, Column One|Row One, Column Two
+Row Two, Column One|Row Two, Column Two||
+
+^A box^
+
+A [http://tiki.org|link|nocache]
+
+__And these are produced by wiki plugins:__
+
+!! Plugins
+!!! Quote plugin:
+{HTML()}
+Just what do you think you're doing, Dave?
+
+__HAL, in 2001:__ A Space Odyssey (1968)
+{HTML}
+
+!!! Code plugin:
+{HTML(caption=&quot;Hello World in Pascal&quot;)}
+program HelloWorld(output);
+begin
+  WriteLn('Hello World!');
+end.
+{HTML}<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: Plugin<br />Expecting:<br /><pre><code>{html test='test'}{HTML()}{HTML} {HTML()}Test{HTML}</code></pre><br /><br />Got:<br /><pre><code>{html test=`test`}{HTML()}{HTML} {HTML()}Test{HTML}</code></pre><br /><br />Syntax:<br /><pre><code>{html test='test'}{HTML()}{HTML} {HTML()}Test{HTML}<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Pp<br />Expecting:<br /><pre><code>~pp~foo~/pp~</code></pre><br /><br />Got:<br /><pre><code>~pp~foo~/pp~</code></pre><br /><br />Syntax:<br /><pre><code>~pp~foo~/pp~<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: SimpleBreak<br />Expecting:<br /><pre><code>
+text
+</code></pre><br /><br />Got:<br /><pre><code>
+text
+</code></pre><br /><br />Syntax:<br /><pre><code>
+text
+<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: SimpleHeaders<br />Expecting:<br /><pre><code>! foo
+!!foo
+!! foo</code></pre><br /><br />Got:<br /><pre><code>
+! foo
+!!foo
+!! foo</code></pre><br /><br />Syntax:<br /><pre><code>! foo
+!!foo
+!! foo<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: StateTracking<br />Expecting:<br /><pre><code>__Here
+''we are test
+^testing state^
+''
+===Tracking===
+--it can get--
+::complex at times, so we want it
+~~purple:to be right
+^even in complex scenarios^
+so that it is easy on the end user~~
+See how we can handle multi lines easily?
+::.
+This should be bold
+
+</code></pre><br /><br />Got:<br /><pre><code>__Here
+''we are test
+^testing state^
+''
+===Tracking===
+--it can get--
+::complex at times, so we want it
+~~purple:to be right
+^even in complex scenarios^
+so that it is easy on the end user~~
+See how we can handle multi lines easily?
+::.
+This should be bold
+
+</code></pre><br /><br />Syntax:<br /><pre><code>__Here
+''we are test
+^testing state^
+''
+===Tracking===
+--it can get--
+::complex at times, so we want it
+~~purple:to be right
+^even in complex scenarios^
+so that it is easy on the end user~~
+See how we can handle multi lines easily?
+::.
+This should be bold
+
+<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Strike<br />Expecting:<br /><pre><code>--foo--</code></pre><br /><br />Got:<br /><pre><code>--foo--</code></pre><br /><br />Syntax:<br /><pre><code>--foo--<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Table<br />Expecting:<br /><pre><code>||r1c1|r1c2
+r2c1|r2c2||</code></pre><br /><br />Got:<br /><pre><code>||r1c1|r1c2
+r2c1|r2c2||</code></pre><br /><br />Syntax:<br /><pre><code>||r1c1|r1c2
+r2c1|r2c2||<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: TableWithBreakJustAfter<br />Expecting:<br /><pre><code>
+||test|test
+test|test||
+</code></pre><br /><br />Got:<br /><pre><code>
+||test|test
+test|test||
+</code></pre><br /><br />Syntax:<br /><pre><code>
+||test|test
+test|test||
+<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: TagsUsedWithWikiLingo<br />Expecting:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Got:<br /><pre><code>&lt;b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Syntax:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; <code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Title<br />Expecting:<br /><pre><code>-=foo=-</code></pre><br /><br />Got:<br /><pre><code>-=foo=-</code></pre><br /><br />Syntax:<br /><pre><code>-=foo=-<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: TwoLists<br />Expecting:<br /><pre><code>
+#Item 1
+#Item 2
+#Item 3
+
+#Item 1
+#Item 2
+#Item 3
+</code></pre><br /><br />Got:<br /><pre><code>
+#Item 1
+#Item 2
+#Item 3
+
+#Item 1
+#Item 2
+#Item 3
+</code></pre><br /><br />Syntax:<br /><pre><code>
+#Item 1
+#Item 2
+#Item 3
+
+#Item 1
+#Item 2
+#Item 3
+<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Underline<br />Expecting:<br /><pre><code>===foo===</code></pre><br /><br />Got:<br /><pre><code>===foo===</code></pre><br /><br />Syntax:<br /><pre><code>===foo===<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: WikiLink<br />Expecting:<br /><pre><code>((foo))</code></pre><br /><br />Got:<br /><pre><code>((foo))</code></pre><br /><br />Syntax:<br /><pre><code>((foo))<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: WikiLinkType<br />Expecting:<br /><pre><code>(type(foo))</code></pre><br /><br />Got:<br /><pre><code>((foo))</code></pre><br /><br />Syntax:<br /><pre><code>(type(foo))<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type fail">
+                                    Testing: WikiLinkWithTable<br />Expecting:<br /><pre><code>((FakePage|||table|table|table||))</code></pre><br /><br />Got:<br /><pre><code>((||table|table|table||))</code></pre><br /><br />Syntax:<br /><pre><code>((FakePage|||table|table|table||))<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: WikiUnlink<br />Expecting:<br /><pre><code>))foo((</code></pre><br /><br />Got:<br /><pre><code>))foo((</code></pre><br /><br />Syntax:<br /><pre><code>))foo((<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: WordLink<br />Expecting:<br /><pre><code> This Not </code></pre><br /><br />Got:<br /><pre><code> This Not </code></pre><br /><br />Syntax:<br /><pre><code> This Not <code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
 							</li>
 							
 											
