@@ -135,14 +135,14 @@ $script = $scripts->renderScript();
 		<tr>
 			<td>
 				<div>
-					<pre><?php echo $original;?></pre>
+					<pre><?php echo htmlspecialchars($original);?></pre>
 				</div>
 			</td>
 			<td><?php echo $outputWikiLingo;?></td>
 			<td><div contenteditable="true" id="wysiwyg"><?php echo $outputWikiLingoWYSIWYG;?></div></td>
 			<td>
 				<div>
-					<pre><? echo $outputWYSIWYGWikiLingo; ?></pre>
+					<pre><? echo htmlspecialchars($outputWYSIWYGWikiLingo); ?></pre>
 				</div>
 			</td>
 		</tr>

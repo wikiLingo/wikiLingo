@@ -25,6 +25,7 @@ class Block extends Base
     public $elementName;
     public $modifier;
     public $parser;
+    public $open = true;
 
 	public static $blocksTypes = array(
 		'!' => 'header',
@@ -114,7 +115,7 @@ class Block extends Base
     {
         if ($this->parser->blocksLength > 0) {
             $previousBlock =& Type::Block($this->parser->blocks[$this->parser->blocksLength - 1]);
-            if ($previousBlock->blockType == $this->blockType) {
+            if ($previousBlock->blockType == $this->blockType && $previousBlock->open) {
                 return $previousBlock;
             }
         }

@@ -31,7 +31,8 @@ class TypeNamespace
 			$class = "WikiLingo\\Test\\" . $this->typeNamespace . "\\" . substr($file, 0, -4);
 			$test = new $class($this->parser);
 			$actual = $this->parser->parse($test->source);
-			$message = "Expecting:<br /><code>" . htmlentities($test->expected) . "</code>" .
+			$message = "Testing: " . substr($file, 0, -4) . "<br />" .
+                "Expecting:<br /><code>" . htmlentities($test->expected) . "</code>" .
 				"<br /><br />" .
 				"Got:<br /><code>" . htmlentities($actual) . "</code>" .
                 "<br /><br />" .

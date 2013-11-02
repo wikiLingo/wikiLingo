@@ -71,13 +71,17 @@ end.
 							'<li class="unorderedListItem">A subitem</li>' .
 						'</ul>' .
 				'</li>' .
+            "</ul>" .
+            "<br/>\n" .
+            'And some text' .
+            '<ul class="wl-parent">' .
 				'<li class="unorderedListItem">Another item</li>' .
+            '</ul>' .
+            "<br/>\n" .
+            '. . . and more text . . .' .
+            '<ul class="wl-parent">' .
 				'<li class="unorderedListItem">Item 3</li>' .
 			'</ul>' .
-			"<br/>\n" .
-			'And some text' .
-			"<br/>\n" .
-			'. . . and more text . . .' .
 			"<br/>\n. . . and some more text, to illustrate the line spacing." .
 			"<br/>\n" .
 			"<br/>\n" .
