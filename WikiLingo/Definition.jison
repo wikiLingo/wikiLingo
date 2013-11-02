@@ -698,7 +698,7 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
     */
 }
 "≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};
-([A-Za-z0-9 .,?;]+)                         return 'CONTENT';
+([A-Za-z0-9.,?;]+)                          return 'CONTENT';
 (?!{SYNTAX_CHARS})({LINE_CONTENT})?(?={SYNTAX_CHARS})
 											return 'CONTENT';
 ([ ]+?)                                     return 'CONTENT';

@@ -19,14 +19,12 @@ class InlineElement extends Base
             $parametersString = trim(substr($parsed->text, $pos, -2));
             $this->parameters = self::$parameterParser->parse($parametersString);
 
-            if (isset($this->parameters['class'])) {
-                if (strpos($this->parameters['class'], 'wl-element') !== false) {
-                    $this->isElement = true;
-                } else if (strpos($this->parameters['class'], 'wl-helper') !== false) {
-                    $this->isHelper = true;
-                } else {
-                    $this->isStatic = true;
-                }
+            if ($this->parameter("data-element") == "true") {
+                $this->isElement = true;
+            } else if ($this->parameter('data-helper') == "true") {
+                $this->isHelper = true;
+            } else {
+                $this->isStatic = true;
             }
         }
     }

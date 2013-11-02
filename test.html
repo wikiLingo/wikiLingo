@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>(46/0) wikiLingo test suite | Testify Suite</title>
+        <title>(55/0) wikiLingo test suite | Testify Suite</title>
         
         <style>
         	*{
@@ -190,7 +190,7 @@
 									
 					<h2 class="pass">
 						WikiLingo Expressions						<span class="result">
-							<span class="green">35</span>/<span class="red">0</span>
+							<span class="green">44</span>/<span class="red">0</span>
 						</span>
 					</h2>	
 					
@@ -237,7 +237,7 @@
 													
 							<li>
 								<span class="type pass">
-                                    Testing: BulletList1<br />Expecting:<br /><code>&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; foo&lt;/li&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Got:<br /><code>&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; foo&lt;/li&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Syntax:<br /><pre>* foo
+                                    Testing: BulletList1<br />Expecting:<br /><code>&lt;ul&gt;&lt;li&gt; foo&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Got:<br /><code>&lt;ul&gt;&lt;li&gt; foo&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Syntax:<br /><pre>* foo
 * bar</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
@@ -247,7 +247,7 @@
 													
 							<li>
 								<span class="type pass">
-                                    Testing: BulletList2<br />Expecting:<br /><code>&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; foo&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; foo&lt;/li&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;foo&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Got:<br /><code>&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; foo&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; foo&lt;/li&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;foo&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Syntax:<br /><pre>* foo
+                                    Testing: BulletList2<br />Expecting:<br /><code>&lt;ul&gt;&lt;li&gt; foo&lt;ul&gt;&lt;li&gt; foo&lt;/li&gt;&lt;li&gt;foo&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Got:<br /><code>&lt;ul&gt;&lt;li&gt; foo&lt;ul&gt;&lt;li&gt; foo&lt;/li&gt;&lt;li&gt;foo&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Syntax:<br /><pre>* foo
 ** foo
 **foo
 * bar</pre>                                </span>
@@ -259,11 +259,11 @@
 													
 							<li>
 								<span class="type pass">
-                                    Testing: BulletList3<br />Expecting:<br /><code>&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; foo&lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+                                    Testing: BulletList3<br />Expecting:<br /><code>&lt;ul&gt;&lt;li&gt; foo&lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
  Continuation1&lt;br class=&quot;hidden&quot;/&gt;
-Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Got:<br /><code>&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; foo&lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Got:<br /><code>&lt;ul&gt;&lt;li&gt; foo&lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
  Continuation1&lt;br class=&quot;hidden&quot;/&gt;
-Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li class=&quot;unorderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Syntax:<br /><pre>* foo{DIV()}
+Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ul&gt;</code><br /><br />Syntax:<br /><pre>* foo{DIV()}
  Continuation1
 Continuation2{DIV}
 * bar</pre>                                </span>
@@ -297,6 +297,15 @@ Continuation2{DIV}
 &lt;span style='color:#ff00ff;'&gt;text&lt;/span&gt;</code><br /><br />Got:<br /><code>&lt;span style='color:red;'&gt;text&lt;/span&gt; &lt;br/&gt;
 &lt;span style='color:#ff00ff;'&gt;text&lt;/span&gt;</code><br /><br />Syntax:<br /><pre>~~red:text~~ 
 ~~#ff00ff:text~~</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Comment<br />Expecting:<br /><code></code><br /><br />Got:<br /><code></code><br /><br />Syntax:<br /><pre>~tc~This is a test comment __this won't be parsed__~/tc~</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
@@ -340,6 +349,33 @@ heading text section</pre>                                </span>
 													
 							<li>
 								<span class="type pass">
+                                    Testing: ForcedBreak<br />Expecting:<br /><code>text&lt;br/&gt;text</code><br /><br />Got:<br /><code>text&lt;br/&gt;text</code><br /><br />Syntax:<br /><pre>text%%%text</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Headers<br />Expecting:<br /><code>&lt;h1 id='Header+1'&gt;Header 1&lt;/h1&gt;&lt;h2 id='Header+2'&gt;Header 2&lt;/h2&gt;&lt;h3 id='Header+3'&gt;Header 3&lt;/h3&gt;&lt;h4 id='Header+4'&gt;Header 4&lt;/h4&gt;&lt;h5 id='Header+5'&gt;Header 5&lt;/h5&gt;&lt;h6 id='Header+6'&gt;Header 6&lt;/h6&gt;&lt;h6 id='Header+Attempted+7%2C+but+got+6'&gt;Header Attempted 7, but got 6&lt;/h6&gt;&lt;br/&gt;
+</code><br /><br />Got:<br /><code>&lt;h1 id='Header+1'&gt;Header 1&lt;/h1&gt;&lt;h2 id='Header+2'&gt;Header 2&lt;/h2&gt;&lt;h3 id='Header+3'&gt;Header 3&lt;/h3&gt;&lt;h4 id='Header+4'&gt;Header 4&lt;/h4&gt;&lt;h5 id='Header+5'&gt;Header 5&lt;/h5&gt;&lt;h6 id='Header+6'&gt;Header 6&lt;/h6&gt;&lt;h6 id='Header+Attempted+7%2C+but+got+6'&gt;Header Attempted 7, but got 6&lt;/h6&gt;&lt;br/&gt;
+</code><br /><br />Syntax:<br /><pre>!Header 1
+!!Header 2
+!!!Header 3
+!!!!Header 4
+!!!!!Header 5
+!!!!!!Header 6
+!!!!!!Header Attempted 7, but got 6
+</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
                                     Testing: Italic<br />Expecting:<br /><code>&lt;i&gt;foo&lt;/i&gt;</code><br /><br />Got:<br /><code>&lt;i&gt;foo&lt;/i&gt;</code><br /><br />Syntax:<br /><pre>''foo''</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
@@ -358,6 +394,61 @@ heading text section</pre>                                </span>
 													
 							<li>
 								<span class="type pass">
+                                    Testing: LinksUnparsedText<br />Expecting:<br /><code>&lt;a href='((foo))'&gt;((foo))&lt;/a&gt; &lt;a href='[foo]'&gt;[foo]&lt;/a&gt;</code><br /><br />Got:<br /><code>&lt;a href='((foo))'&gt;((foo))&lt;/a&gt; &lt;a href='[foo]'&gt;[foo]&lt;/a&gt;</code><br /><br />Syntax:<br /><pre>[((foo))] (([foo]))</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: MixedLineBreaks<br />Expecting:<br /><code>&lt;h1 id='header'&gt;header&lt;/h1&gt;&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;ul&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;h1 id='header1'&gt;header&lt;/h1&gt;&lt;h1 id='header2'&gt;header&lt;/h1&gt;&lt;h1 id='header3'&gt;header&lt;/h1&gt;&lt;h1 id='header4'&gt;header&lt;/h1&gt;&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;br/&gt;
+</code><br /><br />Got:<br /><code>&lt;h1 id='header'&gt;header&lt;/h1&gt;&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;ul&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;li&gt;test&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;h1 id='header1'&gt;header&lt;/h1&gt;&lt;h1 id='header2'&gt;header&lt;/h1&gt;&lt;h1 id='header3'&gt;header&lt;/h1&gt;&lt;h1 id='header4'&gt;header&lt;/h1&gt;&lt;br/&gt;
+test&lt;br/&gt;
+test&lt;br/&gt;
+</code><br /><br />Syntax:<br /><pre>!header
+test
+test
+test
+*test
+*test
+*test
+*test
+*test
+*test
+test
+test
+test
+!header
+!header
+!header
+!header
+test
+test
+</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
                                     Testing: NP<br />Expecting:<br /><code>__foo__ ~np~ &amp; __ foo __</code><br /><br />Got:<br /><code>__foo__ ~np~ &amp; __ foo __</code><br /><br />Syntax:<br /><pre>~np~__foo__ ~np~ &amp; __ foo __~/np~</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
@@ -367,7 +458,39 @@ heading text section</pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: NumberedList1<br />Expecting:<br /><code>&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt; foo&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Got:<br /><code>&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt; foo&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Syntax:<br /><pre># foo
+                                    Testing: NoLineSkipping<br />Expecting:<br /><code>&lt;div id='div4'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+&lt;div id='div3'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+&lt;div id='div2'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+&lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;dl&gt;&lt;dt&gt;foo&lt;/dt&gt;&lt;dd&gt;foo&lt;/dd&gt;&lt;dt&gt;foo2&lt;/dt&gt;&lt;dd&gt;foo2&lt;/dd&gt;&lt;/dl&gt;&lt;br/&gt;
+&lt;a href='[__bold__'&gt;[__bold__&lt;/a&gt;&lt;br/&gt;
+Test&lt;i&gt;Test Italics&lt;/i&gt;&lt;br/&gt;
+</code><br /><br />Got:<br /><code>&lt;div id='div4'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+&lt;div id='div3'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+&lt;div id='div2'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+&lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;dl&gt;&lt;dt&gt;foo&lt;/dt&gt;&lt;dd&gt;foo&lt;/dd&gt;&lt;dt&gt;foo2&lt;/dt&gt;&lt;dd&gt;foo2&lt;/dd&gt;&lt;/dl&gt;&lt;br/&gt;
+&lt;a href='[__bold__'&gt;[__bold__&lt;/a&gt;&lt;br/&gt;
+Test&lt;i&gt;Test Italics&lt;/i&gt;&lt;br/&gt;
+</code><br /><br />Syntax:<br /><pre>{DIV()}
+{DIV()}
+{DIV()}
+{DIV()}
+{DIV}{DIV}{DIV}{DIV}
+;foo:foo definition
+;foo2:foo2 definition
+[[__bold__]
+Test''Test Italics''
+</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: NumberedList1<br />Expecting:<br /><code>&lt;ol&gt;&lt;li&gt; foo&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Got:<br /><code>&lt;ol&gt;&lt;li&gt; foo&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Syntax:<br /><pre># foo
 # bar</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
@@ -377,7 +500,7 @@ heading text section</pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: NumberedList2<br />Expecting:<br /><code>&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt; foo1&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt; foo11&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;foo12&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt; bar1&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Got:<br /><code>&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt; foo1&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt; foo11&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;foo12&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt; bar1&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Syntax:<br /><pre># foo1
+                                    Testing: NumberedList2<br />Expecting:<br /><code>&lt;ol&gt;&lt;li&gt; foo1&lt;ol&gt;&lt;li&gt; foo11&lt;/li&gt;&lt;li&gt;foo12&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;li&gt; bar1&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Got:<br /><code>&lt;ol&gt;&lt;li&gt; foo1&lt;ol&gt;&lt;li&gt; foo11&lt;/li&gt;&lt;li&gt;foo12&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;li&gt; bar1&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Syntax:<br /><pre># foo1
 ## foo11
 ##foo12
 # bar1</pre>                                </span>
@@ -389,11 +512,11 @@ heading text section</pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: NumberedList3<br />Expecting:<br /><code>&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt; foo&lt;div id='div2'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+                                    Testing: NumberedList3<br />Expecting:<br /><code>&lt;ol&gt;&lt;li&gt; foo&lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
  Continuation1&lt;br class=&quot;hidden&quot;/&gt;
-Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Got:<br /><code>&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt; foo&lt;div id='div2'&gt;&lt;br class=&quot;hidden&quot;/&gt;
+Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Got:<br /><code>&lt;ol&gt;&lt;li&gt; foo&lt;div id='div1'&gt;&lt;br class=&quot;hidden&quot;/&gt;
  Continuation1&lt;br class=&quot;hidden&quot;/&gt;
-Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt; bar&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Syntax:<br /><pre># foo{DIV()}
+Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li&gt; bar&lt;/li&gt;&lt;/ol&gt;</code><br /><br />Syntax:<br /><pre># foo{DIV()}
  Continuation1
 Continuation2{DIV}
 # bar</pre>                                </span>
@@ -411,9 +534,9 @@ Start off by clicking &quot;edit&quot; then switching the editor to use the wysi
 &lt;i&gt;italic&lt;/i&gt;&lt;br/&gt;
 &lt;u&gt;underlined&lt;/u&gt;&lt;br/&gt;
 &lt;div class=&quot;center&quot;&gt;centred text&lt;/div&gt;&lt;br/&gt;
-&lt;h2 id='+Lists+and+table'&gt; Lists and table&lt;/h2&gt;&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;An unordered list item&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;A subitem&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
-And some text&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;Another item&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
-. . . and more text . . .&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;Item 3&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
+&lt;h2 id='+Lists+and+table'&gt; Lists and table&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;An unordered list item&lt;ul&gt;&lt;li&gt;A subitem&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
+And some text&lt;ul&gt;&lt;li&gt;Another item&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
+. . . and more text . . .&lt;ul&gt;&lt;li&gt;Item 3&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
 . . . and some more text, to illustrate the line spacing.&lt;br/&gt;
 &lt;br/&gt;
 A table:&lt;br/&gt;
@@ -424,13 +547,13 @@ A table:&lt;br/&gt;
 A &lt;a href='http://tiki.org'&gt;link&lt;/a&gt;&lt;br/&gt;
 &lt;br/&gt;
 &lt;strong&gt;And these are produced by wiki plugins:&lt;/strong&gt;&lt;br/&gt;
-&lt;h2 id='+Plugins'&gt; Plugins&lt;/h2&gt;&lt;h3 id='+Quote+plugin'&gt; Quote plugin&lt;/h3&gt;&lt;br/&gt;
+&lt;h2 id='+Plugins'&gt; Plugins&lt;/h2&gt;&lt;h3 id='+Quote+plugin%3A'&gt; Quote plugin:&lt;/h3&gt;&lt;br/&gt;
 &lt;span id='html2'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 Just what do you think you're doing, Dave?&lt;br class=&quot;hidden&quot;/&gt;
 &lt;br class=&quot;hidden&quot;/&gt;
 &lt;strong&gt;HAL, in 2001:&lt;/strong&gt; A Space Odyssey (1968)&lt;br class=&quot;hidden&quot;/&gt;
 &lt;/span&gt;&lt;br/&gt;
-&lt;h3 id='+Code+plugin'&gt; Code plugin&lt;/h3&gt;&lt;br/&gt;
+&lt;h3 id='+Code+plugin%3A'&gt; Code plugin:&lt;/h3&gt;&lt;br/&gt;
 &lt;span id='html3'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 program HelloWorld(output);&lt;br class=&quot;hidden&quot;/&gt;
 begin&lt;br class=&quot;hidden&quot;/&gt;
@@ -442,9 +565,9 @@ Start off by clicking &quot;edit&quot; then switching the editor to use the wysi
 &lt;i&gt;italic&lt;/i&gt;&lt;br/&gt;
 &lt;u&gt;underlined&lt;/u&gt;&lt;br/&gt;
 &lt;div class=&quot;center&quot;&gt;centred text&lt;/div&gt;&lt;br/&gt;
-&lt;h2 id='+Lists+and+table'&gt; Lists and table&lt;/h2&gt;&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;An unordered list item&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;A subitem&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
-And some text&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;Another item&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
-. . . and more text . . .&lt;ul class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;unorderedListItem&quot;&gt;Item 3&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
+&lt;h2 id='+Lists+and+table'&gt; Lists and table&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;An unordered list item&lt;ul&gt;&lt;li&gt;A subitem&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
+And some text&lt;ul&gt;&lt;li&gt;Another item&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
+. . . and more text . . .&lt;ul&gt;&lt;li&gt;Item 3&lt;/li&gt;&lt;/ul&gt;&lt;br/&gt;
 . . . and some more text, to illustrate the line spacing.&lt;br/&gt;
 &lt;br/&gt;
 A table:&lt;br/&gt;
@@ -455,13 +578,13 @@ A table:&lt;br/&gt;
 A &lt;a href='http://tiki.org'&gt;link&lt;/a&gt;&lt;br/&gt;
 &lt;br/&gt;
 &lt;strong&gt;And these are produced by wiki plugins:&lt;/strong&gt;&lt;br/&gt;
-&lt;h2 id='+Plugins'&gt; Plugins&lt;/h2&gt;&lt;h3 id='+Quote+plugin'&gt; Quote plugin&lt;/h3&gt;&lt;br/&gt;
+&lt;h2 id='+Plugins'&gt; Plugins&lt;/h2&gt;&lt;h3 id='+Quote+plugin%3A'&gt; Quote plugin:&lt;/h3&gt;&lt;br/&gt;
 &lt;span id='html2'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 Just what do you think you're doing, Dave?&lt;br class=&quot;hidden&quot;/&gt;
 &lt;br class=&quot;hidden&quot;/&gt;
 &lt;strong&gt;HAL, in 2001:&lt;/strong&gt; A Space Odyssey (1968)&lt;br class=&quot;hidden&quot;/&gt;
 &lt;/span&gt;&lt;br/&gt;
-&lt;h3 id='+Code+plugin'&gt; Code plugin&lt;/h3&gt;&lt;br/&gt;
+&lt;h3 id='+Code+plugin%3A'&gt; Code plugin:&lt;/h3&gt;&lt;br/&gt;
 &lt;span id='html3'&gt;&lt;br class=&quot;hidden&quot;/&gt;
 program HelloWorld(output);&lt;br class=&quot;hidden&quot;/&gt;
 begin&lt;br class=&quot;hidden&quot;/&gt;
@@ -526,6 +649,15 @@ end.
 													
 							<li>
 								<span class="type pass">
+                                    Testing: PluginInjected<br />Expecting:<br /><code>&lt;span id='injected1'&gt;&lt;strong&gt;I've been injected!&lt;/strong&gt;&lt;/span&gt;</code><br /><br />Got:<br /><code>&lt;span id='injected1'&gt;&lt;strong&gt;I've been injected!&lt;/strong&gt;&lt;/span&gt;</code><br /><br />Syntax:<br /><pre>{INJECTED()}__I've been injected!__{INJECTED}</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
                                     Testing: Pp<br />Expecting:<br /><code>&lt;pre&gt;foo&lt;/pre&gt;</code><br /><br />Got:<br /><code>&lt;pre&gt;foo&lt;/pre&gt;</code><br /><br />Syntax:<br /><pre>~pp~foo~/pp~</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
@@ -561,6 +693,57 @@ text
 													
 							<li>
 								<span class="type pass">
+                                    Testing: StateTracking<br />Expecting:<br /><code>__Here&lt;br/&gt;
+&lt;i&gt;we are test&lt;br/&gt;
+&lt;div class=&quot;box&quot;&gt;testing state&lt;/div&gt;&lt;br/&gt;
+&lt;/i&gt;&lt;br/&gt;
+&lt;u&gt;Tracking&lt;/u&gt;&lt;br/&gt;
+&lt;strike&gt;it can get&lt;/strike&gt;&lt;br/&gt;
+&lt;div class=&quot;center&quot;&gt;complex at times, so we want it&lt;br/&gt;
+&lt;span style='color:purple;'&gt;to be right&lt;br/&gt;
+&lt;div class=&quot;box&quot;&gt;even in complex scenarios&lt;/div&gt;&lt;br/&gt;
+so that it is easy on the end user&lt;/span&gt;&lt;br/&gt;
+See how we can handle multi lines easily?&lt;br/&gt;
+&lt;/div&gt;.&lt;br/&gt;
+This should be bold&lt;br/&gt;
+&lt;br/&gt;
+</code><br /><br />Got:<br /><code>__Here&lt;br/&gt;
+&lt;i&gt;we are test&lt;br/&gt;
+&lt;div class=&quot;box&quot;&gt;testing state&lt;/div&gt;&lt;br/&gt;
+&lt;/i&gt;&lt;br/&gt;
+&lt;u&gt;Tracking&lt;/u&gt;&lt;br/&gt;
+&lt;strike&gt;it can get&lt;/strike&gt;&lt;br/&gt;
+&lt;div class=&quot;center&quot;&gt;complex at times, so we want it&lt;br/&gt;
+&lt;span style='color:purple;'&gt;to be right&lt;br/&gt;
+&lt;div class=&quot;box&quot;&gt;even in complex scenarios&lt;/div&gt;&lt;br/&gt;
+so that it is easy on the end user&lt;/span&gt;&lt;br/&gt;
+See how we can handle multi lines easily?&lt;br/&gt;
+&lt;/div&gt;.&lt;br/&gt;
+This should be bold&lt;br/&gt;
+&lt;br/&gt;
+</code><br /><br />Syntax:<br /><pre>__Here
+''we are test
+^testing state^
+''
+===Tracking===
+--it can get--
+::complex at times, so we want it
+~~purple:to be right
+^even in complex scenarios^
+so that it is easy on the end user~~
+See how we can handle multi lines easily?
+::.
+This should be bold
+
+</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
                                     Testing: Strike<br />Expecting:<br /><code>&lt;strike&gt;foo&lt;/strike&gt;</code><br /><br />Got:<br /><code>&lt;strike&gt;foo&lt;/strike&gt;</code><br /><br />Syntax:<br /><pre>--foo--</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
@@ -572,6 +755,22 @@ text
 								<span class="type pass">
                                     Testing: Table<br />Expecting:<br /><code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;r1c1&lt;/td&gt;&lt;td&gt;r1c2&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;r2c1&lt;/td&gt;&lt;td&gt;r2c2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code><br /><br />Got:<br /><code>&lt;table&gt;&lt;tr&gt;&lt;td&gt;r1c1&lt;/td&gt;&lt;td&gt;r1c2&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;r2c1&lt;/td&gt;&lt;td&gt;r2c2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</code><br /><br />Syntax:<br /><pre>||r1c1|r1c2
 r2c1|r2c2||</pre>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: TableWithBreakJustAfter<br />Expecting:<br /><code>&lt;br/&gt;
+&lt;table&gt;&lt;tr&gt;&lt;td&gt;test&lt;/td&gt;&lt;td&gt;test&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;test&lt;/td&gt;&lt;td&gt;test&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;
+</code><br /><br />Got:<br /><code>&lt;br/&gt;
+&lt;table&gt;&lt;tr&gt;&lt;td&gt;test&lt;/td&gt;&lt;td&gt;test&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;test&lt;/td&gt;&lt;td&gt;test&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br/&gt;
+</code><br /><br />Syntax:<br /><pre>
+||test|test
+test|test||
+</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
@@ -598,10 +797,10 @@ r2c1|r2c2||</pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: TwoLists<br />Expecting:<br /><code>&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 1&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 2&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br/&gt;
-&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 1&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 2&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br/&gt;
-</code><br /><br />Got:<br /><code>&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 1&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 2&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br/&gt;
-&lt;ol class=&quot;wl-parent&quot;&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 1&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 2&lt;/li&gt;&lt;li class=&quot;orderedListItem&quot;&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br/&gt;
+                                    Testing: TwoLists<br />Expecting:<br /><code>&lt;ol&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item 2&lt;/li&gt;&lt;li&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br/&gt;
+&lt;ol&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item 2&lt;/li&gt;&lt;li&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br/&gt;
+</code><br /><br />Got:<br /><code>&lt;ol&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item 2&lt;/li&gt;&lt;li&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br/&gt;
+&lt;ol&gt;&lt;li&gt;Item 1&lt;/li&gt;&lt;li&gt;Item 2&lt;/li&gt;&lt;li&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br/&gt;
 </code><br /><br />Syntax:<br /><pre>
 #Item 1
 #Item 2
@@ -664,7 +863,7 @@ r2c1|r2c2||</pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: WordLink<br />Expecting:<br /><code> This </code><br /><br />Got:<br /><code> This </code><br /><br />Syntax:<br /><pre> This </pre>                                </span>
+                                    Testing: WordLink<br />Expecting:<br /><code> &lt;a href='http://This.com'&gt;This&lt;/a&gt; Not </code><br /><br />Got:<br /><code> &lt;a href='http://This.com'&gt;This&lt;/a&gt; Not </code><br /><br />Syntax:<br /><pre> This Not </pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>

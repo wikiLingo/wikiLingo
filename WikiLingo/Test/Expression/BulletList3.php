@@ -14,14 +14,14 @@ class BulletList3 extends Base
             "* bar";
 
         $this->expected =
-            '<ul class="wl-parent">' .
-                '<li class="unorderedListItem"> foo' .
+            '<ul>' .
+                '<li> foo' .
                     "<div id='div1'>" .
                         '<br class="hidden"/>' . "\n" . ' Continuation1' .
                         '<br class="hidden"/>' . "\n" . 'Continuation2' .
                     '</div>' .
                 '</li>' .
-                '<li class="unorderedListItem"> bar</li>' .
+                '<li> bar</li>' .
             '</ul>';
     }
 }

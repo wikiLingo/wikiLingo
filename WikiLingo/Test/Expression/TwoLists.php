@@ -19,16 +19,16 @@ class TwoLists extends Base
 ";
 
 		$this->expected =
-            '<ol class="wl-parent">' .
-                '<li class="orderedListItem">Item 1</li>' .
-                '<li class="orderedListItem">Item 2</li>' .
-                '<li class="orderedListItem">Item 3</li>' .
+            '<ol>' .
+                '<li>Item 1</li>' .
+                '<li>Item 2</li>' .
+                '<li>Item 3</li>' .
             "</ol>" .
             "<br/>\n" .
-            '<ol class="wl-parent">' .
-                '<li class="orderedListItem">Item 1</li>' .
-                '<li class="orderedListItem">Item 2</li>' .
-                '<li class="orderedListItem">Item 3</li>' .
+            '<ol>' .
+                '<li>Item 1</li>' .
+                '<li>Item 2</li>' .
+                '<li>Item 3</li>' .
             '</ol>' .
             "<br/>\n";
 

@@ -13,9 +13,9 @@ abstract class Base extends WikiLingo\Expression\Content
 
     public function render(&$parser)
     {
-        if (!empty($this->parameters['data-type']) && $this->isElement) {
 
-            $longTypeName = $this->parameters['data-type'];
+        if ($this->isElement) {
+            $longTypeName = $this->parameter('data-type');
             if (isset($longTypeName)) {
                 $typeName = WikiLingo\Utilities\Type::normalize($longTypeName);
                 $typeClass = 'WYSIWYGWikiLingo\SyntaxGenerator\\' . $typeName;
@@ -36,4 +36,13 @@ abstract class Base extends WikiLingo\Expression\Content
 
         return $this->parsed->text;
     }
+
+	public function parameter($parameter)
+	{
+		if(isset($this->parameters[$parameter])) {
+			return $this->parameters[$parameter];
+		}
+
+		return '';
+	}
 }

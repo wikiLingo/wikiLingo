@@ -21,7 +21,7 @@ class WordLink extends Base
 		if ($this->exists) {
 			$result = "";
 
-			$parser->trigger(__CLASS__, "render", $parser, $result);
+			$parser->trigger(__CLASS__, "render", $this, $result);
 
 			return $result;
 		} else {

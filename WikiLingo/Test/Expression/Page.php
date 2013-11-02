@@ -64,23 +64,23 @@ end.
 			'<div class="center">centred text</div>' .
 			'<br/>' . "\n" .
 			"<h2 id='+Lists+and+table'> Lists and table</h2>" .
-			'<ul class="wl-parent">' .
-				'<li class="unorderedListItem">' .
+			'<ul>' .
+				'<li>' .
 					'An unordered list item' .
-						'<ul class="wl-parent">' .
-							'<li class="unorderedListItem">A subitem</li>' .
+						'<ul>' .
+							'<li>A subitem</li>' .
 						'</ul>' .
 				'</li>' .
             "</ul>" .
             "<br/>\n" .
             'And some text' .
-            '<ul class="wl-parent">' .
-				'<li class="unorderedListItem">Another item</li>' .
+            '<ul>' .
+				'<li>Another item</li>' .
             '</ul>' .
             "<br/>\n" .
             '. . . and more text . . .' .
-            '<ul class="wl-parent">' .
-				'<li class="unorderedListItem">Item 3</li>' .
+            '<ul>' .
+				'<li>Item 3</li>' .
 			'</ul>' .
 			"<br/>\n. . . and some more text, to illustrate the line spacing." .
 			"<br/>\n" .
@@ -107,7 +107,7 @@ end.
 			"<br/>\n" .
 			"<strong>And these are produced by wiki plugins:</strong><br/>\n" .
 			"<h2 id='+Plugins'> Plugins</h2>" .
-			"<h3 id='+Quote+plugin'> Quote plugin</h3>" .
+			"<h3 id='+Quote+plugin%3A'> Quote plugin:</h3>" .
 			"<br/>\n" .
 			"<span id='html2'>" .
 				'<br class="hidden"/>' . "\n" .
@@ -118,7 +118,7 @@ end.
 				" A Space Odyssey (1968)" .
 				'<br class="hidden"/>' . "\n" .
 			"</span><br/>\n" .
-			"<h3 id='+Code+plugin'> Code plugin</h3>" .
+			"<h3 id='+Code+plugin%3A'> Code plugin:</h3>" .
 			"<br/>\n" .
 			"<span id='html3'>" .
 				'<br class="hidden"/>' . "\n" .

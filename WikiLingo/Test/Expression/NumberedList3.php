@@ -1,12 +1,16 @@
 <?php
 namespace WikiLingo\Test\Expression;
 
+use WikiLingo;
+use WikiLingo\Expression;
 use WikiLingo\Test\Base;
 
 class NumberedList3 extends Base
 {
-    public function __construct()
+    public function __construct(WikiLingo\Parser &$parser)
     {
+	    Expression\Plugin::$indexes = array();
+
         $this->source =
             "# foo{DIV()}\n" .
             " Continuation1\n" .
@@ -14,14 +18,14 @@ class NumberedList3 extends Base
             "# bar";
 
         $this->expected =
-            '<ol class="wl-parent">' .
-                '<li class="orderedListItem"> foo' .
-                    "<div id='div2'>" .
+            '<ol>' .
+                '<li> foo' .
+                    "<div id='div1'>" .
                         '<br class="hidden"/>' . "\n" . ' Continuation1' .
                         '<br class="hidden"/>' . "\n" . 'Continuation2' .
                     '</div>' .
                 '</li>' .
-                '<li class="orderedListItem"> bar</li>' .
+                '<li> bar</li>' .
             '</ol>';
     }
 }

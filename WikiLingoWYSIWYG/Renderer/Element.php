@@ -7,8 +7,8 @@ class Element extends WikiLingo\Renderer\Element
     public function __construct($type, $name)
     {
         parent::__construct($type, $name);
-        $this->classes[] = 'wl-element';
+        $this->detailedAttributes["data-element"] = 'true';
         $this->useDetailedAttributes = true;
-        $this->attributes['data-type'] = $type;
+        $this->detailedAttributes['data-type'] = $type;
     }
 }

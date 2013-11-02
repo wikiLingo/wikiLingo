@@ -14,14 +14,14 @@ class NumberedList2 extends Base
             "# bar1";
 
         $this->expected =
-            '<ol class="wl-parent">' .
-                '<li class="orderedListItem"> foo1' .
-                    '<ol class="wl-parent">' .
-                        '<li class="orderedListItem"> foo11</li>' .
-                        '<li class="orderedListItem">foo12</li>' .
+            '<ol>' .
+                '<li> foo1' .
+                    '<ol>' .
+                        '<li> foo11</li>' .
+                        '<li>foo12</li>' .
                     '</ol>' .
                 '</li>' .
-                '<li class="orderedListItem"> bar1</li>' .
+                '<li> bar1</li>' .
             '</ol>';
     }
 }

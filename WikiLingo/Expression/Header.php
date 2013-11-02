@@ -18,10 +18,9 @@ class Header
 
     public function __construct(Block &$block, $len)
     {
-	    $this->parsed =& $block->parsed;
+	    ;$this->parsed =& $block->parsed;
         $this->block =& $block;
         $this->count = min(max($len, 0), 6);
-        $this->content = &$this->parsed->arguments[1];
 	    $this->modifier = $block->modifier;
 	    $this->parser =& $this->parsed->parser;
         $this->parser->addType(__CLASS__, $this);
@@ -31,8 +30,11 @@ class Header
     {
         $element = Type::Element($this->parser->element(__CLASS__, 'h' . $this->count));
 
-        $element->staticChildren[] = $children = $this->content->expression->render($this->parser);
-
+	    $children = '';
+	    foreach($this->parsed->children as &$child) {
+            $element->staticChildren[] = $childRendered = $child->expression->render($this->parser);
+		    $children .= $childRendered;
+	    }
 	    if (isset($this->modifier)) {
 		    $element->detailedAttributes['data-modifier'] = $this->modifier;
 		    //TODO: add in js to make expandable

@@ -33,29 +33,25 @@ class Element extends Base
 	            foreach($this->classes as $class) {
 		            $this->_classes[$class] = true;
 	            }
+            }
 
-	            if ($this->hasClass('wl-parent')) {
-		            $this->isParent = true;
-	            }
-                if ($this->hasClass('wl-element')) {
-                    $this->isElement = true;
-                } else if ($this->hasClass('wl-helper')) {
-                    $this->isHelper = true;
-                } else {
-                    $this->isStatic = true;
-                }
+            if ($this->parameter('data-parent')) {
+	            $this->isParent = true;
+            }
+            if ($this->parameter('data-element')) {
+                $this->isElement = true;
+            } else if ($this->parameter('data-helper')) {
+                $this->isHelper = true;
             } else {
                 $this->isStatic = true;
             }
 
 	        //populate styles
-	        if (isset($this->parameters['style'])) {
-		        $styles = explode(";", $this->parameters['style']);
-		        foreach($styles as $style)
-		        {
-			        $_style = explode(":", $style);
-			        $this->styles[trim(array_shift($_style))] = trim(array_shift($_style));
-		        }
+	        $styles = explode(";", $this->parameter('style'));
+	        foreach($styles as $style)
+	        {
+		        $_style = explode(":", $style);
+		        $this->styles[trim(array_shift($_style))] = trim(array_shift($_style));
 	        }
         }
     }
@@ -65,6 +61,15 @@ class Element extends Base
         $this->isClosed = true;
         $this->closing =& $parsed;
     }
+
+	public function parameter($parameter)
+	{
+		if (isset($this->parameters[$parameter])) {
+			return $this->parameters[$parameter];
+		}
+
+		return '';
+	}
 
 	public function hasClass($class)
 	{

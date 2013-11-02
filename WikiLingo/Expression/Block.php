@@ -133,7 +133,7 @@ class Block extends Base
     public function collectionElement()
     {
         $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->collectionElementName));
-	    $element->classes[] = "wl-parent";
+	    $element->detailedAttributes["data-parent"] = "true";
         return $element;
     }
 
@@ -141,10 +141,11 @@ class Block extends Base
     {
         $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->elementName));
 
-        $element->classes[] = $this->blockType;
+        $element->detailedAttributes["data-block-type"] = $this->blockType;
 
         if ($this->blank) {
             $element->classes[] = 'empty';
+	        $element->detailedAttributes["data-block-type"] = 'empty';
         }
 
         return $element;

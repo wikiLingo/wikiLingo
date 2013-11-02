@@ -12,9 +12,9 @@ class NumberedList1 extends Base
             "# bar";
 
         $this->expected =
-            '<ol class="wl-parent">' .
-                '<li class="orderedListItem"> foo</li>' .
-                '<li class="orderedListItem"> bar</li>' .
+            '<ol>' .
+                '<li> foo</li>' .
+                '<li> bar</li>' .
             '</ol>';
     }
 }
