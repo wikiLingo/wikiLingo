@@ -12,11 +12,11 @@ class Link extends Base
         $sides = explode("|", $this->renderedChildren);
 
         if (isset($sides[1])) {
-            $text = $sides[1];
-            $href = $sides[0];
+            $element->detailedAttributes['data-href'] = $href = array_shift($sides);
+	        $text = implode('|', $sides);
         } else {
-            $text = $this->renderedChildren;
             $href = $this->renderedChildren;
+	        $text = $this->renderedChildren;
         }
 
         $element->staticChildren[] = $text;

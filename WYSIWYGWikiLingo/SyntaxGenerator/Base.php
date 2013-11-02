@@ -7,6 +7,7 @@ abstract class Base
     public $expression;
 	public $parsed;
 	public $children;
+	public $index;
 
     public function __construct(&$parser, &$expression)
     {
@@ -15,6 +16,13 @@ abstract class Base
 	    $this->parsed =& $expression->parsed;
 
 	    $this->children =& $expression->parsed->children;
+
+	    if (!isset($parser->typeIndex[__CLASS__])) {
+		    $parser->typeIndex[__CLASS__] = 0;
+	    }
+
+	    $parser->typeIndex[__CLASS__]++;
+	    $this->index = $parser->typeIndex[__CLASS__];
     }
 
     public abstract function generate();

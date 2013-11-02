@@ -20,16 +20,6 @@ class Base
 
 	public $typeStack = [];
 
-	public $blockSyntax = [
-		"\n!",
-		"\n*",
-		"\n#",
-		"\n+",
-		"\n;",
-		"\n{r2l}",
-		"\n{l2r}",
-	];
-
 	public $lastBlockWasFrom = '';
 	public $firstLineType = '';
 	public $isStaticTag = false;

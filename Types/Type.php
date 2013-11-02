@@ -57,6 +57,11 @@ namespace Types
 			return $obj;
 		}
 
+		public static function WYSIWYGWikiLingoParser(WYSIWYGWikiLingo\Parser &$obj)
+		{
+			return $obj;
+		}
+
 		public static function DescriptionList(WikiLingo\Expression\DescriptionList &$obj)
 		{
 			return $obj;

@@ -57,15 +57,13 @@ class Parser extends Definition
          * only if we are a block, which are determined from $this->blockChars
         */
 
-        return $this->renderer->render($parsed);
+        $output = $this->renderer->render($parsed);
 
-        if ($this->firstLineType == 'block' && $this->isStaticTag == false) {
-            foreach($this->blockSyntax as $syntax) {
-                if (strpos($output, $syntax) === 0) {
-                    $output = substr($output, 1); //we only want to get rid of "\n", not the whole syntax
-                }
-            }
+        if ($parsed->isBlock) { //remove the "\n"
+            $output = substr($output, 1);
         }
+
+	    return $output;
 
     }
 }

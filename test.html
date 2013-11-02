@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>(81/17) wikiLingo test suite | Testify Suite</title>
+        <title>(90/8) wikiLingo test suite | Testify Suite</title>
         
         <style>
         	*{
@@ -188,9 +188,9 @@
 				</div>
 				
 									
-					<h2 class="pass">
+					<h2 class="fail">
 						WikiLingo Expressions						<span class="result">
-							<span class="green">44</span>/<span class="red">0</span>
+							<span class="green">43</span>/<span class="red">1</span>
 						</span>
 					</h2>	
 					
@@ -527,7 +527,7 @@ Continuation2{DIV}
 							
 													
 							<li>
-								<span class="type pass">
+								<span class="type fail">
                                     Testing: Page<br />Expecting:<br /><code>&lt;h1 id='+WYSIWYG+Sample+Page'&gt; WYSIWYG Sample Page&lt;/h1&gt;&lt;br/&gt;
 Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the &lt;span id='html1'/&gt; button on the toolbar.&lt;h2 id='+Text+formatting'&gt; Text formatting&lt;/h2&gt;&lt;br/&gt;
 &lt;strong&gt;bold&lt;/strong&gt;&lt;br/&gt;
@@ -575,7 +575,7 @@ A table:&lt;br/&gt;
 &lt;br/&gt;
 &lt;div class=&quot;box&quot;&gt;A box&lt;/div&gt;&lt;br/&gt;
 &lt;br/&gt;
-A &lt;a href='http://tiki.org'&gt;link&lt;/a&gt;&lt;br/&gt;
+A &lt;a href='http://tiki.org'&gt;link|nocache&lt;/a&gt;&lt;br/&gt;
 &lt;br/&gt;
 &lt;strong&gt;And these are produced by wiki plugins:&lt;/strong&gt;&lt;br/&gt;
 &lt;h2 id='+Plugins'&gt; Plugins&lt;/h2&gt;&lt;h3 id='+Quote+plugin%3A'&gt; Quote plugin:&lt;/h3&gt;&lt;br/&gt;
@@ -985,7 +985,7 @@ test|test||
 		  							
 					<h2 class="fail">
 						WYSIWYGWikiLingo Syntax Generator						<span class="result">
-							<span class="green">26</span>/<span class="red">17</span>
+							<span class="green">36</span>/<span class="red">7</span>
 						</span>
 					</h2>	
 					
@@ -1031,10 +1031,9 @@ test|test||
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: BulletList1<br />Expecting:<br /><pre><code>* foo
-* bar</code></pre><br /><br />Got:<br /><pre><code>
-* foo
+* bar</code></pre><br /><br />Got:<br /><pre><code>* foo
 * bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo
 * bar<code></pre>                                </span>
 								<span class="line">line 51</span>
@@ -1044,12 +1043,11 @@ test|test||
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: BulletList2<br />Expecting:<br /><pre><code>* foo
 ** foo
 **foo
-* bar</code></pre><br /><br />Got:<br /><pre><code>
-* foo
+* bar</code></pre><br /><br />Got:<br /><pre><code>* foo
 ** foo
 **foo
 * bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo
@@ -1063,12 +1061,11 @@ test|test||
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: BulletList3<br />Expecting:<br /><pre><code>* foo{DIV()}
  Continuation1
 Continuation2{DIV}
-* bar</code></pre><br /><br />Got:<br /><pre><code>
-* foo{DIV()}
+* bar</code></pre><br /><br />Got:<br /><pre><code>* foo{DIV()}
  Continuation1
 Continuation2{DIV}
 * bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo{DIV()}
@@ -1142,12 +1139,11 @@ Continuation2{DIV}
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: ExpandableHeaders<br />Expecting:<br /><pre><code>!+foo
 heading text section
 !-foo
-heading text section</code></pre><br /><br />Got:<br /><pre><code>
-!+foo
+heading text section</code></pre><br /><br />Got:<br /><pre><code>!+foo
 heading text section
 !-foo
 heading text section</code></pre><br /><br />Syntax:<br /><pre><code>!+foo
@@ -1170,7 +1166,7 @@ heading text section<code></pre>                                </span>
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: Headers<br />Expecting:<br /><pre><code>!Header 1
 !!Header 2
 !!!Header 3
@@ -1178,8 +1174,7 @@ heading text section<code></pre>                                </span>
 !!!!!Header 5
 !!!!!!Header 6
 !!!!!!Header Attempted 7, but got 6
-</code></pre><br /><br />Got:<br /><pre><code>
-!Header 1
+</code></pre><br /><br />Got:<br /><pre><code>!Header 1
 !!Header 2
 !!!Header 3
 !!!!Header 4
@@ -1210,8 +1205,8 @@ heading text section<code></pre>                                </span>
 							
 													
 							<li>
-								<span class="type fail">
-                                    Testing: Link<br />Expecting:<br /><pre><code>[www.google.com] [www.google.com|Google]</code></pre><br /><br />Got:<br /><pre><code>[www.google.com] [Google]</code></pre><br /><br />Syntax:<br /><pre><code>[www.google.com] [www.google.com|Google]<code></pre>                                </span>
+								<span class="type pass">
+                                    Testing: Link<br />Expecting:<br /><pre><code>[www.google.com] [www.google.com|Google]</code></pre><br /><br />Got:<br /><pre><code>[www.google.com] [www.google.com|Google]</code></pre><br /><br />Syntax:<br /><pre><code>[www.google.com] [www.google.com|Google]<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1228,7 +1223,7 @@ heading text section<code></pre>                                </span>
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: MixedLineBreaks<br />Expecting:<br /><pre><code>!header
 test
 test
@@ -1248,8 +1243,7 @@ test
 !header
 test
 test
-</code></pre><br /><br />Got:<br /><pre><code>
-!header
+</code></pre><br /><br />Got:<br /><pre><code>!header
 test
 test
 test
@@ -1318,7 +1312,8 @@ Test''Test Italics''
 {DIV()}
 {DIV()}
 {DIV()}
-{DIV}{DIV}{DIV}{DIV};foo:foo
+{DIV}{DIV}{DIV}{DIV}
+;foo:foo
 ;foo2:foo2
 [[__bold__]
 Test''Test Italics''
@@ -1339,10 +1334,9 @@ Test''Test Italics''
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: NumberedList1<br />Expecting:<br /><pre><code># foo
-# bar</code></pre><br /><br />Got:<br /><pre><code>
-# foo
+# bar</code></pre><br /><br />Got:<br /><pre><code># foo
 # bar</code></pre><br /><br />Syntax:<br /><pre><code># foo
 # bar<code></pre>                                </span>
 								<span class="line">line 51</span>
@@ -1352,12 +1346,11 @@ Test''Test Italics''
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: NumberedList2<br />Expecting:<br /><pre><code># foo1
 ## foo11
 ##foo12
-# bar1</code></pre><br /><br />Got:<br /><pre><code>
-# foo1
+# bar1</code></pre><br /><br />Got:<br /><pre><code># foo1
 ## foo11
 ##foo12
 # bar1</code></pre><br /><br />Syntax:<br /><pre><code># foo1
@@ -1371,12 +1364,11 @@ Test''Test Italics''
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: NumberedList3<br />Expecting:<br /><pre><code># foo{DIV()}
  Continuation1
 Continuation2{DIV}
-# bar</code></pre><br /><br />Got:<br /><pre><code>
-# foo{DIV()}
+# bar</code></pre><br /><br />Got:<br /><pre><code># foo{DIV()}
  Continuation1
 Continuation2{DIV}
 # bar</code></pre><br /><br />Syntax:<br /><pre><code># foo{DIV()}
@@ -1432,8 +1424,7 @@ program HelloWorld(output);
 begin
   WriteLn('Hello World!');
 end.
-{HTML}</code></pre><br /><br />Got:<br /><pre><code>
-! WYSIWYG Sample Page
+{HTML}</code></pre><br /><br />Got:<br /><pre><code>! WYSIWYG Sample Page
 Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=`pics/icons/pencil_go.png`} button on the toolbar.
 !! Text formatting
 __bold__
@@ -1456,7 +1447,7 @@ Row Two, Column One|Row Two, Column Two||
 
 ^A box^
 
-A [link]
+A [http://tiki.org|link|nocache]
 
 __And these are produced by wiki plugins:__
 
@@ -1556,11 +1547,10 @@ text
 							
 													
 							<li>
-								<span class="type fail">
+								<span class="type pass">
                                     Testing: SimpleHeaders<br />Expecting:<br /><pre><code>! foo
 !!foo
-!! foo</code></pre><br /><br />Got:<br /><pre><code>
-! foo
+!! foo</code></pre><br /><br />Got:<br /><pre><code>! foo
 !!foo
 !! foo</code></pre><br /><br />Syntax:<br /><pre><code>! foo
 !!foo
@@ -1680,7 +1670,7 @@ test|test||
 							
 													
 							<li>
-								<span class="type pass">
+								<span class="type fail">
                                     Testing: TwoLists<br />Expecting:<br /><pre><code>
 #Item 1
 #Item 2
@@ -1689,8 +1679,7 @@ test|test||
 #Item 1
 #Item 2
 #Item 3
-</code></pre><br /><br />Got:<br /><pre><code>
-#Item 1
+</code></pre><br /><br />Got:<br /><pre><code>#Item 1
 #Item 2
 #Item 3
 

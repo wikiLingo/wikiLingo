@@ -7,6 +7,7 @@ class DescriptionList extends Base
 {
     public function generate()
     {
+	    $this->parsed->isBlock = true;
 	    $items = array();
 	    $item = '';
 	    foreach($this->children as $descriptionList) {

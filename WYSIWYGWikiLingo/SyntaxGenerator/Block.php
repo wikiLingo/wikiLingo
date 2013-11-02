@@ -5,6 +5,7 @@ class Block extends Base
 {
 	public function generate()
 	{
+		$this->parsed->isBlock = true;
 		$trailer = "";
 		switch ($this->expression->parameter('data-block-type'))
 		{
