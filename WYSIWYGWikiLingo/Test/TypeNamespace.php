@@ -45,7 +45,7 @@ class TypeNamespace
 				"<br /><br />" .
 				"Got:<br /><pre><code>" . htmlentities($actual) . "</code></pre>" .
                 "<br /><br />" .
-                "Syntax:<br /><pre><code>" . htmlentities($test->source) . "<code></pre>";
+                "Syntax:<br /><pre><code>" . htmlentities($source) . "<code></pre>";
 
 
 			$testify->assertEquals($actual, $expected, $message);

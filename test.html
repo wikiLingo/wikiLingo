@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>(90/8) wikiLingo test suite | Testify Suite</title>
+        <title>(93/5) wikiLingo test suite | Testify Suite</title>
         
         <style>
         	*{
@@ -640,7 +640,7 @@ end.
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Plugin<br />Expecting:<br /><code>&lt;span id='html1'/&gt;&lt;span id='html2'/&gt; &lt;span id='html3'&gt;Test&lt;/span&gt;</code><br /><br />Got:<br /><code>&lt;span id='html1'/&gt;&lt;span id='html2'/&gt; &lt;span id='html3'&gt;Test&lt;/span&gt;</code><br /><br />Syntax:<br /><pre>{html test='test'}{HTML()}{HTML} {HTML()}Test{HTML}</pre>                                </span>
+                                    Testing: Plugin<br />Expecting:<br /><code>&lt;span id='html1'/&gt;&lt;span id='html2'/&gt; &lt;span id='html3'&gt;Test&lt;/span&gt;</code><br /><br />Got:<br /><code>&lt;span id='html1'/&gt;&lt;span id='html2'/&gt; &lt;span id='html3'&gt;Test&lt;/span&gt;</code><br /><br />Syntax:<br /><pre>{html test=`test`}{HTML()}{HTML} {HTML()}Test{HTML}</pre>                                </span>
 								<span class="line">line 42</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
@@ -985,7 +985,7 @@ test|test||
 		  							
 					<h2 class="fail">
 						WYSIWYGWikiLingo Syntax Generator						<span class="result">
-							<span class="green">36</span>/<span class="red">7</span>
+							<span class="green">39</span>/<span class="red">4</span>
 						</span>
 					</h2>	
 					
@@ -1002,7 +1002,7 @@ test|test||
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Bold<br />Expecting:<br /><pre><code>__foo__ &amp; __ foo __</code></pre><br /><br />Got:<br /><pre><code>__foo__ &amp; __ foo __</code></pre><br /><br />Syntax:<br /><pre><code>__foo__ &amp; __ foo __<code></pre>                                </span>
+                                    Testing: Bold<br />Expecting:<br /><pre><code>__foo__ &amp; __ foo __</code></pre><br /><br />Got:<br /><pre><code>__foo__ &amp; __ foo __</code></pre><br /><br />Syntax:<br /><pre><code>&lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt;foo&lt;/strong&gt; &amp; &lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt; foo &lt;/strong&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1011,7 +1011,7 @@ test|test||
 													
 							<li>
 								<span class="type pass">
-                                    Testing: BoldItalicUnderlineStrike<br />Expecting:<br /><pre><code>__Bold Only ''&amp; Italic ===With Underline --Striken--===''__</code></pre><br /><br />Got:<br /><pre><code>__Bold Only ''&amp; Italic ===With Underline --Striken--===''__</code></pre><br /><br />Syntax:<br /><pre><code>__Bold Only ''&amp; Italic ===With Underline --Striken--===''__<code></pre>                                </span>
+                                    Testing: BoldItalicUnderlineStrike<br />Expecting:<br /><pre><code>__Bold Only ''&amp; Italic ===With Underline --Striken--===''__</code></pre><br /><br />Got:<br /><pre><code>__Bold Only ''&amp; Italic ===With Underline --Striken--===''__</code></pre><br /><br />Syntax:<br /><pre><code>&lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt;Bold Only &lt;i data-element='true' data-type='WikiLingo\\Expression\\Italic'&gt;&amp; Italic &lt;u data-element='true' data-type='WikiLingo\\Expression\\Underscore'&gt;With Underline &lt;strike data-element='true' data-type='WikiLingo\\Expression\\Strike'&gt;Striken&lt;/strike&gt;&lt;/u&gt;&lt;/i&gt;&lt;/strong&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1022,8 +1022,8 @@ test|test||
 								<span class="type pass">
                                     Testing: Box<br />Expecting:<br /><pre><code>^foo^
 ^ Another Box ^</code></pre><br /><br />Got:<br /><pre><code>^foo^
-^ Another Box ^</code></pre><br /><br />Syntax:<br /><pre><code>^foo^
-^ Another Box ^<code></pre>                                </span>
+^ Another Box ^</code></pre><br /><br />Syntax:<br /><pre><code>&lt;div data-element='true' data-type='WikiLingo\\Expression\\Box' class=&quot;box&quot;&gt;foo&lt;/div&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;div data-element='true' data-type='WikiLingo\\Expression\\Box' class=&quot;box&quot;&gt; Another Box &lt;/div&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1034,8 +1034,7 @@ test|test||
 								<span class="type pass">
                                     Testing: BulletList1<br />Expecting:<br /><pre><code>* foo
 * bar</code></pre><br /><br />Got:<br /><pre><code>* foo
-* bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo
-* bar<code></pre>                                </span>
+* bar</code></pre><br /><br />Syntax:<br /><pre><code>&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt; foo&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt; bar&lt;/li&gt;&lt;/ul&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1050,10 +1049,7 @@ test|test||
 * bar</code></pre><br /><br />Got:<br /><pre><code>* foo
 ** foo
 **foo
-* bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo
-** foo
-**foo
-* bar<code></pre>                                </span>
+* bar</code></pre><br /><br />Syntax:<br /><pre><code>&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt; foo&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt; foo&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;foo&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt; bar&lt;/li&gt;&lt;/ul&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1068,10 +1064,9 @@ Continuation2{DIV}
 * bar</code></pre><br /><br />Got:<br /><pre><code>* foo{DIV()}
  Continuation1
 Continuation2{DIV}
-* bar</code></pre><br /><br />Syntax:<br /><pre><code>* foo{DIV()}
- Continuation1
-Continuation2{DIV}
-* bar<code></pre>                                </span>
+* bar</code></pre><br /><br />Syntax:<br /><pre><code>&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt; foo&lt;span id='div2' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+ Continuation1&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+Continuation2&lt;/span&gt;&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt; bar&lt;/li&gt;&lt;/ul&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1080,7 +1075,7 @@ Continuation2{DIV}
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Center<br />Expecting:<br /><pre><code>::foo:: :: foo 2 ::</code></pre><br /><br />Got:<br /><pre><code>::foo:: :: foo 2 ::</code></pre><br /><br />Syntax:<br /><pre><code>::foo:: :: foo 2 ::<code></pre>                                </span>
+                                    Testing: Center<br />Expecting:<br /><pre><code>::foo:: :: foo 2 ::</code></pre><br /><br />Got:<br /><pre><code>::foo:: :: foo 2 ::</code></pre><br /><br />Syntax:<br /><pre><code>&lt;div data-element='true' data-type='WikiLingo\\Expression\\Center' class=&quot;center&quot;&gt;foo&lt;/div&gt; &lt;div data-element='true' data-type='WikiLingo\\Expression\\Center' class=&quot;center&quot;&gt; foo 2 &lt;/div&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1089,7 +1084,7 @@ Continuation2{DIV}
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Code<br />Expecting:<br /><pre><code>-+foo+-</code></pre><br /><br />Got:<br /><pre><code>-+foo+-</code></pre><br /><br />Syntax:<br /><pre><code>-+foo+-<code></pre>                                </span>
+                                    Testing: Code<br />Expecting:<br /><pre><code>-+foo+-</code></pre><br /><br />Got:<br /><pre><code>-+foo+-</code></pre><br /><br />Syntax:<br /><pre><code>&lt;pre data-element='true' data-type='WikiLingo\\Expression\\Code'&gt;foo&lt;/pre&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1100,8 +1095,8 @@ Continuation2{DIV}
 								<span class="type pass">
                                     Testing: Color<br />Expecting:<br /><pre><code>~~red:text~~ 
 ~~#ff00ff:text~~</code></pre><br /><br />Got:<br /><pre><code>~~red:text~~ 
-~~#ff00ff:text~~</code></pre><br /><br />Syntax:<br /><pre><code>~~red:text~~ 
-~~#ff00ff:text~~<code></pre>                                </span>
+~~#ff00ff:text~~</code></pre><br /><br />Syntax:<br /><pre><code>&lt;span style='color:red;' data-element='true' data-type='WikiLingo\\Expression\\Color'&gt;text&lt;/span&gt; &lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;span style='color:#ff00ff;' data-element='true' data-type='WikiLingo\\Expression\\Color'&gt;text&lt;/span&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1110,7 +1105,7 @@ Continuation2{DIV}
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Comment<br />Expecting:<br /><pre><code>~tc~This is a test comment __this won't be parsed__~/tc~</code></pre><br /><br />Got:<br /><pre><code>~tc~This is a test comment __this won't be parsed__~/tc~</code></pre><br /><br />Syntax:<br /><pre><code>~tc~This is a test comment __this won't be parsed__~/tc~<code></pre>                                </span>
+                                    Testing: Comment<br />Expecting:<br /><pre><code>~tc~This is a test comment __this won't be parsed__~/tc~</code></pre><br /><br />Got:<br /><pre><code>~tc~This is a test comment __this won't be parsed__~/tc~</code></pre><br /><br />Syntax:<br /><pre><code>&lt;span data-element='true' data-type='WikiLingo\\Expression\\Comment' class=&quot;comment&quot;&gt;This is a test comment __this won't be parsed__&lt;/span&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1130,8 +1125,7 @@ Continuation2{DIV}
 								<span class="type pass">
                                     Testing: DefinitionList<br />Expecting:<br /><pre><code>;foo1:bar1
 ;foo2:bar2</code></pre><br /><br />Got:<br /><pre><code>;foo1:bar1
-;foo2:bar2</code></pre><br /><br />Syntax:<br /><pre><code>;foo1:bar1
-;foo2:bar2<code></pre>                                </span>
+;foo2:bar2</code></pre><br /><br />Syntax:<br /><pre><code>&lt;dl data-element='true' data-type='WikiLingo\\Expression\\DescriptionList'&gt;&lt;dt data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo1&lt;/dt&gt;&lt;dd data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;bar1&lt;/dd&gt;&lt;dt data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo2&lt;/dt&gt;&lt;dd data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;bar2&lt;/dd&gt;&lt;/dl&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1146,9 +1140,8 @@ heading text section
 heading text section</code></pre><br /><br />Got:<br /><pre><code>!+foo
 heading text section
 !-foo
-heading text section</code></pre><br /><br />Syntax:<br /><pre><code>!+foo
-heading text section
-!-foo
+heading text section</code></pre><br /><br />Syntax:<br /><pre><code>&lt;h1 id='foo1' data-element='true' data-type='WikiLingo\\Expression\\Header' data-modifier='toggle'&gt;foo&lt;a href='#' data-helper='true'&gt;[+]&lt;/a&gt;&lt;/h1&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+heading text section&lt;h1 id='foo2' data-element='true' data-type='WikiLingo\\Expression\\Header' data-modifier='hidden'&gt;foo&lt;a href='#' data-helper='true'&gt;[-]&lt;/a&gt;&lt;/h1&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 heading text section<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
@@ -1158,7 +1151,7 @@ heading text section<code></pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: ForcedBreak<br />Expecting:<br /><pre><code>text%%%text</code></pre><br /><br />Got:<br /><pre><code>text%%%text</code></pre><br /><br />Syntax:<br /><pre><code>text%%%text<code></pre>                                </span>
+                                    Testing: ForcedBreak<br />Expecting:<br /><pre><code>text%%%text</code></pre><br /><br />Got:<br /><pre><code>text%%%text</code></pre><br /><br />Syntax:<br /><pre><code>text&lt;br data-element='true' data-type='WikiLingo\\Expression\\ForcedLine'/&gt;text<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1181,13 +1174,7 @@ heading text section<code></pre>                                </span>
 !!!!!Header 5
 !!!!!!Header 6
 !!!!!!Header Attempted 7, but got 6
-</code></pre><br /><br />Syntax:<br /><pre><code>!Header 1
-!!Header 2
-!!!Header 3
-!!!!Header 4
-!!!!!Header 5
-!!!!!!Header 6
-!!!!!!Header Attempted 7, but got 6
+</code></pre><br /><br />Syntax:<br /><pre><code>&lt;h1 id='Header+1' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header 1&lt;/h1&gt;&lt;h2 id='Header+2' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header 2&lt;/h2&gt;&lt;h3 id='Header+3' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header 3&lt;/h3&gt;&lt;h4 id='Header+4' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header 4&lt;/h4&gt;&lt;h5 id='Header+5' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header 5&lt;/h5&gt;&lt;h6 id='Header+6' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header 6&lt;/h6&gt;&lt;h6 id='Header+Attempted+7%2C+but+got+6' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header Attempted 7, but got 6&lt;/h6&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
@@ -1197,7 +1184,7 @@ heading text section<code></pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Italic<br />Expecting:<br /><pre><code>''foo''</code></pre><br /><br />Got:<br /><pre><code>''foo''</code></pre><br /><br />Syntax:<br /><pre><code>''foo''<code></pre>                                </span>
+                                    Testing: Italic<br />Expecting:<br /><pre><code>''foo''</code></pre><br /><br />Got:<br /><pre><code>''foo''</code></pre><br /><br />Syntax:<br /><pre><code>&lt;i data-element='true' data-type='WikiLingo\\Expression\\Italic'&gt;foo&lt;/i&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1206,7 +1193,7 @@ heading text section<code></pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Link<br />Expecting:<br /><pre><code>[www.google.com] [www.google.com|Google]</code></pre><br /><br />Got:<br /><pre><code>[www.google.com] [www.google.com|Google]</code></pre><br /><br />Syntax:<br /><pre><code>[www.google.com] [www.google.com|Google]<code></pre>                                </span>
+                                    Testing: Link<br />Expecting:<br /><pre><code>[www.google.com] [www.google.com|Google]</code></pre><br /><br />Got:<br /><pre><code>[www.google.com] [www.google.com|Google]</code></pre><br /><br />Syntax:<br /><pre><code>&lt;a href='www.google.com' data-element='true' data-type='WikiLingo\\Expression\\Link'&gt;www.google.com&lt;/a&gt; &lt;a href='www.google.com' data-element='true' data-type='WikiLingo\\Expression\\Link' data-href='www.google.com'&gt;Google&lt;/a&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1215,7 +1202,7 @@ heading text section<code></pre>                                </span>
 													
 							<li>
 								<span class="type pass">
-                                    Testing: LinksUnparsedText<br />Expecting:<br /><pre><code>[((foo))] (([foo]))</code></pre><br /><br />Got:<br /><pre><code>[((foo))] (([foo]))</code></pre><br /><br />Syntax:<br /><pre><code>[((foo))] (([foo]))<code></pre>                                </span>
+                                    Testing: LinksUnparsedText<br />Expecting:<br /><pre><code>[((foo))] (([foo]))</code></pre><br /><br />Got:<br /><pre><code>[((foo))] (([foo]))</code></pre><br /><br />Syntax:<br /><pre><code>&lt;a href='((foo))' data-element='true' data-type='WikiLingo\\Expression\\Link'&gt;((foo))&lt;/a&gt; &lt;a href='[foo]' data-element='true' data-type='WikiLingo\\Expression\\WikiLink'&gt;[foo]&lt;/a&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1262,25 +1249,15 @@ test
 !header
 test
 test
-</code></pre><br /><br />Syntax:<br /><pre><code>!header
-test
-test
-test
-*test
-*test
-*test
-*test
-*test
-*test
-test
-test
-test
-!header
-!header
-!header
-!header
-test
-test
+</code></pre><br /><br />Syntax:<br /><pre><code>&lt;h1 id='header' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;header&lt;/h1&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+test&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+test&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+test&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;test&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;test&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;test&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;test&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;test&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;test&lt;/li&gt;&lt;/ul&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+test&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+test&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+test&lt;h1 id='header1' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;header&lt;/h1&gt;&lt;h1 id='header2' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;header&lt;/h1&gt;&lt;h1 id='header3' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;header&lt;/h1&gt;&lt;h1 id='header4' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;header&lt;/h1&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+test&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+test&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
@@ -1290,7 +1267,7 @@ test
 													
 							<li>
 								<span class="type pass">
-                                    Testing: NP<br />Expecting:<br /><pre><code>~np~__foo__ ~np~ &amp; __ foo __~/np~</code></pre><br /><br />Got:<br /><pre><code>~np~__foo__ ~np~ &amp; __ foo __~/np~</code></pre><br /><br />Syntax:<br /><pre><code>~np~__foo__ ~np~ &amp; __ foo __~/np~<code></pre>                                </span>
+                                    Testing: NP<br />Expecting:<br /><pre><code>~np~__foo__ ~np~ &amp; __ foo __~/np~</code></pre><br /><br />Got:<br /><pre><code>~np~__foo__ ~np~ &amp; __ foo __~/np~</code></pre><br /><br />Syntax:<br /><pre><code>&lt;span data-element='true' data-type='WikiLingo\\Expression\\NoParse'&gt;__foo__ ~np~ &amp; __ foo __&lt;/span&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1317,15 +1294,13 @@ Test''Test Italics''
 ;foo2:foo2
 [[__bold__]
 Test''Test Italics''
-</code></pre><br /><br />Syntax:<br /><pre><code>{DIV()}
-{DIV()}
-{DIV()}
-{DIV()}
-{DIV}{DIV}{DIV}{DIV}
-;foo:foo definition
-;foo2:foo2 definition
-[[__bold__]
-Test''Test Italics''
+</code></pre><br /><br />Syntax:<br /><pre><code>&lt;span id='div4' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+&lt;span id='div3' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+&lt;span id='div2' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+&lt;span id='div1' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;dl data-element='true' data-type='WikiLingo\\Expression\\DescriptionList'&gt;&lt;dt data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo&lt;/dt&gt;&lt;dd data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo&lt;/dd&gt;&lt;dt data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo2&lt;/dt&gt;&lt;dd data-element='true' data-type='WikiLingo\\Expression\\DescriptionListItem'&gt;foo2&lt;/dd&gt;&lt;/dl&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;a href='[__bold__' data-element='true' data-type='WikiLingo\\Expression\\Link'&gt;[__bold__&lt;/a&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+Test&lt;i data-element='true' data-type='WikiLingo\\Expression\\Italic'&gt;Test Italics&lt;/i&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
@@ -1337,8 +1312,7 @@ Test''Test Italics''
 								<span class="type pass">
                                     Testing: NumberedList1<br />Expecting:<br /><pre><code># foo
 # bar</code></pre><br /><br />Got:<br /><pre><code># foo
-# bar</code></pre><br /><br />Syntax:<br /><pre><code># foo
-# bar<code></pre>                                </span>
+# bar</code></pre><br /><br />Syntax:<br /><pre><code>&lt;ol data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt; foo&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt; bar&lt;/li&gt;&lt;/ol&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1353,10 +1327,7 @@ Test''Test Italics''
 # bar1</code></pre><br /><br />Got:<br /><pre><code># foo1
 ## foo11
 ##foo12
-# bar1</code></pre><br /><br />Syntax:<br /><pre><code># foo1
-## foo11
-##foo12
-# bar1<code></pre>                                </span>
+# bar1</code></pre><br /><br />Syntax:<br /><pre><code>&lt;ol data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt; foo1&lt;ol data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt; foo11&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt;foo12&lt;/li&gt;&lt;/ol&gt;&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt; bar1&lt;/li&gt;&lt;/ol&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1371,10 +1342,9 @@ Continuation2{DIV}
 # bar</code></pre><br /><br />Got:<br /><pre><code># foo{DIV()}
  Continuation1
 Continuation2{DIV}
-# bar</code></pre><br /><br />Syntax:<br /><pre><code># foo{DIV()}
- Continuation1
-Continuation2{DIV}
-# bar<code></pre>                                </span>
+# bar</code></pre><br /><br />Syntax:<br /><pre><code>&lt;ol data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt; foo&lt;span id='div1' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+ Continuation1&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+Continuation2&lt;/span&gt;&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt; bar&lt;/li&gt;&lt;/ol&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1465,57 +1435,38 @@ program HelloWorld(output);
 begin
   WriteLn('Hello World!');
 end.
-{HTML}</code></pre><br /><br />Syntax:<br /><pre><code>! WYSIWYG Sample Page
-Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the {html src=&quot;pics/icons/pencil_go.png&quot;} button on the toolbar.
-!! Text formatting
-__bold__
-''italic''
-===underlined===
-::centred text::
-
-!! Lists and table
-*An unordered list item
-**A subitem
-And some text
-*Another item
-. . . and more text . . .
-*Item 3
-. . . and some more text, to illustrate the line spacing.
-
-A table:
-||Row One, Column One|Row One, Column Two
-Row Two, Column One|Row Two, Column Two||
-
-^A box^
-
-A [http://tiki.org|link|nocache]
-
-__And these are produced by wiki plugins:__
-
-!! Plugins
-!!! Quote plugin:
-{HTML()}
-Just what do you think you're doing, Dave?
-
-__HAL, in 2001:__ A Space Odyssey (1968)
-{HTML}
-
-!!! Code plugin:
-{HTML(caption=&quot;Hello World in Pascal&quot;)}
-program HelloWorld(output);
-begin
-  WriteLn('Hello World!');
-end.
-{HTML}<code></pre>                                </span>
-								<span class="line">line 51</span>
-								<span class="file">TypeNamespace.php</span>
-								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
-							</li>
-							
-													
-							<li>
-								<span class="type fail">
-                                    Testing: Plugin<br />Expecting:<br /><pre><code>{html test='test'}{HTML()}{HTML} {HTML()}Test{HTML}</code></pre><br /><br />Got:<br /><pre><code>{html test=`test`}{HTML()}{HTML} {HTML()}Test{HTML}</code></pre><br /><br />Syntax:<br /><pre><code>{html test='test'}{HTML()}{HTML} {HTML()}Test{HTML}<code></pre>                                </span>
+{HTML}</code></pre><br /><br />Syntax:<br /><pre><code>&lt;h1 id='+WYSIWYG+Sample+Page' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt; WYSIWYG Sample Page&lt;/h1&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+Start off by clicking &quot;edit&quot; then switching the editor to use the wysiwyg editor using the &lt;span id='html1' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='html' data-pluginparameters='%7B%22src%22%3A%22pics%5C%2Ficons%5C%2Fpencil_go.png%22%7D' data-isinline='1'/&gt; button on the toolbar.&lt;h2 id='+Text+formatting' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt; Text formatting&lt;/h2&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt;bold&lt;/strong&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;i data-element='true' data-type='WikiLingo\\Expression\\Italic'&gt;italic&lt;/i&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;u data-element='true' data-type='WikiLingo\\Expression\\Underscore'&gt;underlined&lt;/u&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;div data-element='true' data-type='WikiLingo\\Expression\\Center' class=&quot;center&quot;&gt;centred text&lt;/div&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;h2 id='+Lists+and+table' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt; Lists and table&lt;/h2&gt;&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;An unordered list item&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;A subitem&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+And some text&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;Another item&lt;/li&gt;&lt;/ul&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+. . . and more text . . .&lt;ul data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='unorderedListItem'&gt;Item 3&lt;/li&gt;&lt;/ul&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+. . . and some more text, to illustrate the line spacing.&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+A table:&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;table data-element='true' data-type='WikiLingo\\Expression\\Table'&gt;&lt;tr data-element='true' data-type='WikiLingo\\Expression\\TableRow'&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;Row One, Column One&lt;/td&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;Row One, Column Two&lt;/td&gt;&lt;/tr&gt;&lt;tr data-element='true' data-type='WikiLingo\\Expression\\TableRow'&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;Row Two, Column One&lt;/td&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;Row Two, Column Two&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;div data-element='true' data-type='WikiLingo\\Expression\\Box' class=&quot;box&quot;&gt;A box&lt;/div&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+A &lt;a href='http://tiki.org' data-element='true' data-type='WikiLingo\\Expression\\Link' data-href='http://tiki.org'&gt;link|nocache&lt;/a&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt;And these are produced by wiki plugins:&lt;/strong&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;h2 id='+Plugins' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt; Plugins&lt;/h2&gt;&lt;h3 id='+Quote+plugin%3A' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt; Quote plugin:&lt;/h3&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;span id='html2' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='html' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+Just what do you think you're doing, Dave?&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+&lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt;HAL, in 2001:&lt;/strong&gt; A Space Odyssey (1968)&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+&lt;/span&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;h3 id='+Code+plugin%3A' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt; Code plugin:&lt;/h3&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;span id='html3' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='html' data-pluginparameters='%7B%22caption%22%3A%22Hello+World+in+Pascal%22%7D' data-isinline=''&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+program HelloWorld(output);&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+begin&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+  WriteLn('Hello World!');&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+end.&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line' class=&quot;hidden&quot;/&gt;
+&lt;/span&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1524,7 +1475,16 @@ end.
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Pp<br />Expecting:<br /><pre><code>~pp~foo~/pp~</code></pre><br /><br />Got:<br /><pre><code>~pp~foo~/pp~</code></pre><br /><br />Syntax:<br /><pre><code>~pp~foo~/pp~<code></pre>                                </span>
+                                    Testing: Plugin<br />Expecting:<br /><pre><code>{html test=`test`}{HTML()}{HTML} {HTML()}Test{HTML}</code></pre><br /><br />Got:<br /><pre><code>{html test=`test`}{HTML()}{HTML} {HTML()}Test{HTML}</code></pre><br /><br />Syntax:<br /><pre><code>&lt;span id='html4' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='html' data-pluginparameters='%7B%22test%22%3A%22test%22%7D' data-isinline='1'/&gt;&lt;span id='html5' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='html' data-pluginparameters='%5B%5D' data-isinline=''/&gt; &lt;span id='html6' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='html' data-pluginparameters='%5B%5D' data-isinline=''&gt;Test&lt;/span&gt;<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: Pp<br />Expecting:<br /><pre><code>~pp~foo~/pp~</code></pre><br /><br />Got:<br /><pre><code>~pp~foo~/pp~</code></pre><br /><br />Syntax:<br /><pre><code>&lt;pre data-element='true' data-type='WikiLingo\\Expression\\PreFormattedText'&gt;foo&lt;/pre&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1537,8 +1497,8 @@ end.
 text
 </code></pre><br /><br />Got:<br /><pre><code>
 text
-</code></pre><br /><br />Syntax:<br /><pre><code>
-text
+</code></pre><br /><br />Syntax:<br /><pre><code>&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+text&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
@@ -1552,9 +1512,7 @@ text
 !!foo
 !! foo</code></pre><br /><br />Got:<br /><pre><code>! foo
 !!foo
-!! foo</code></pre><br /><br />Syntax:<br /><pre><code>! foo
-!!foo
-!! foo<code></pre>                                </span>
+!! foo</code></pre><br /><br />Syntax:<br /><pre><code>&lt;h1 id='+foo2' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt; foo&lt;/h1&gt;&lt;h2 id='foo3' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;foo&lt;/h2&gt;&lt;h2 id='+foo3' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt; foo&lt;/h2&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1591,20 +1549,20 @@ See how we can handle multi lines easily?
 ::.
 This should be bold
 
-</code></pre><br /><br />Syntax:<br /><pre><code>__Here
-''we are test
-^testing state^
-''
-===Tracking===
---it can get--
-::complex at times, so we want it
-~~purple:to be right
-^even in complex scenarios^
-so that it is easy on the end user~~
-See how we can handle multi lines easily?
-::.
-This should be bold
-
+</code></pre><br /><br />Syntax:<br /><pre><code>__Here&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;i data-element='true' data-type='WikiLingo\\Expression\\Italic'&gt;we are test&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;div data-element='true' data-type='WikiLingo\\Expression\\Box' class=&quot;box&quot;&gt;testing state&lt;/div&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;/i&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;u data-element='true' data-type='WikiLingo\\Expression\\Underscore'&gt;Tracking&lt;/u&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;strike data-element='true' data-type='WikiLingo\\Expression\\Strike'&gt;it can get&lt;/strike&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;div data-element='true' data-type='WikiLingo\\Expression\\Center' class=&quot;center&quot;&gt;complex at times, so we want it&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;span style='color:purple;' data-element='true' data-type='WikiLingo\\Expression\\Color'&gt;to be right&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;div data-element='true' data-type='WikiLingo\\Expression\\Box' class=&quot;box&quot;&gt;even in complex scenarios&lt;/div&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+so that it is easy on the end user&lt;/span&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+See how we can handle multi lines easily?&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;/div&gt;.&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+This should be bold&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
@@ -1614,7 +1572,7 @@ This should be bold
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Strike<br />Expecting:<br /><pre><code>--foo--</code></pre><br /><br />Got:<br /><pre><code>--foo--</code></pre><br /><br />Syntax:<br /><pre><code>--foo--<code></pre>                                </span>
+                                    Testing: Strike<br />Expecting:<br /><pre><code>--foo--</code></pre><br /><br />Got:<br /><pre><code>--foo--</code></pre><br /><br />Syntax:<br /><pre><code>&lt;strike data-element='true' data-type='WikiLingo\\Expression\\Strike'&gt;foo&lt;/strike&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1625,8 +1583,7 @@ This should be bold
 								<span class="type pass">
                                     Testing: Table<br />Expecting:<br /><pre><code>||r1c1|r1c2
 r2c1|r2c2||</code></pre><br /><br />Got:<br /><pre><code>||r1c1|r1c2
-r2c1|r2c2||</code></pre><br /><br />Syntax:<br /><pre><code>||r1c1|r1c2
-r2c1|r2c2||<code></pre>                                </span>
+r2c1|r2c2||</code></pre><br /><br />Syntax:<br /><pre><code>&lt;table data-element='true' data-type='WikiLingo\\Expression\\Table'&gt;&lt;tr data-element='true' data-type='WikiLingo\\Expression\\TableRow'&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;r1c1&lt;/td&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;r1c2&lt;/td&gt;&lt;/tr&gt;&lt;tr data-element='true' data-type='WikiLingo\\Expression\\TableRow'&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;r2c1&lt;/td&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;r2c2&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1641,9 +1598,8 @@ test|test||
 </code></pre><br /><br />Got:<br /><pre><code>
 ||test|test
 test|test||
-</code></pre><br /><br />Syntax:<br /><pre><code>
-||test|test
-test|test||
+</code></pre><br /><br />Syntax:<br /><pre><code>&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;table data-element='true' data-type='WikiLingo\\Expression\\Table'&gt;&lt;tr data-element='true' data-type='WikiLingo\\Expression\\TableRow'&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;test&lt;/td&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;test&lt;/td&gt;&lt;/tr&gt;&lt;tr data-element='true' data-type='WikiLingo\\Expression\\TableRow'&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;test&lt;/td&gt;&lt;td data-element='true' data-type='WikiLingo\\Expression\\TableCell'&gt;test&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
@@ -1653,7 +1609,7 @@ test|test||
 													
 							<li>
 								<span class="type fail">
-                                    Testing: TagsUsedWithWikiLingo<br />Expecting:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Got:<br /><pre><code>&lt;b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Syntax:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; <code></pre>                                </span>
+                                    Testing: TagsUsedWithWikiLingo<br />Expecting:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Got:<br /><pre><code>&lt;b&gt; __This is also a test__ &lt;script&gt;&lt;/script&gt; </code></pre><br /><br />Syntax:<br /><pre><code>&lt;b&gt;This is a test&lt;/b&gt; &lt;strong data-element='true' data-type='WikiLingo\\Expression\\Bold'&gt;This is also a test&lt;/strong&gt; &lt;code data-element='true' data-type='WikiLingo\\Expression\\Tag'&gt;&amp;lt;script&amp;gt;&lt;/code&gt;&lt;code data-element='true' data-type='WikiLingo\\Expression\\Tag'&gt;&amp;lt;/script&amp;gt;&lt;/code&gt; <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1662,7 +1618,7 @@ test|test||
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Title<br />Expecting:<br /><pre><code>-=foo=-</code></pre><br /><br />Got:<br /><pre><code>-=foo=-</code></pre><br /><br />Syntax:<br /><pre><code>-=foo=-<code></pre>                                </span>
+                                    Testing: Title<br />Expecting:<br /><pre><code>-=foo=-</code></pre><br /><br />Got:<br /><pre><code>-=foo=-</code></pre><br /><br />Syntax:<br /><pre><code>&lt;div data-element='true' data-type='WikiLingo\\Expression\\TitleBar' class=&quot;title&quot;&gt;foo&lt;/div&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1686,14 +1642,8 @@ test|test||
 #Item 1
 #Item 2
 #Item 3
-</code></pre><br /><br />Syntax:<br /><pre><code>
-#Item 1
-#Item 2
-#Item 3
-
-#Item 1
-#Item 2
-#Item 3
+</code></pre><br /><br />Syntax:<br /><pre><code>&lt;ol data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt;Item 1&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt;Item 2&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
+&lt;ol data-element='true' data-type='WikiLingo\\Expression\\Block' data-parent='true'&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt;Item 1&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt;Item 2&lt;/li&gt;&lt;li data-element='true' data-type='WikiLingo\\Expression\\Block' data-block-type='orderedListItem'&gt;Item 3&lt;/li&gt;&lt;/ol&gt;&lt;br data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;
 <code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
@@ -1703,7 +1653,7 @@ test|test||
 													
 							<li>
 								<span class="type pass">
-                                    Testing: Underline<br />Expecting:<br /><pre><code>===foo===</code></pre><br /><br />Got:<br /><pre><code>===foo===</code></pre><br /><br />Syntax:<br /><pre><code>===foo===<code></pre>                                </span>
+                                    Testing: Underline<br />Expecting:<br /><pre><code>===foo===</code></pre><br /><br />Got:<br /><pre><code>===foo===</code></pre><br /><br />Syntax:<br /><pre><code>&lt;u data-element='true' data-type='WikiLingo\\Expression\\Underscore'&gt;foo&lt;/u&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1712,25 +1662,7 @@ test|test||
 													
 							<li>
 								<span class="type pass">
-                                    Testing: WikiLink<br />Expecting:<br /><pre><code>((foo))</code></pre><br /><br />Got:<br /><pre><code>((foo))</code></pre><br /><br />Syntax:<br /><pre><code>((foo))<code></pre>                                </span>
-								<span class="line">line 51</span>
-								<span class="file">TypeNamespace.php</span>
-								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
-							</li>
-							
-													
-							<li>
-								<span class="type fail">
-                                    Testing: WikiLinkType<br />Expecting:<br /><pre><code>(type(foo))</code></pre><br /><br />Got:<br /><pre><code>((foo))</code></pre><br /><br />Syntax:<br /><pre><code>(type(foo))<code></pre>                                </span>
-								<span class="line">line 51</span>
-								<span class="file">TypeNamespace.php</span>
-								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
-							</li>
-							
-													
-							<li>
-								<span class="type fail">
-                                    Testing: WikiLinkWithTable<br />Expecting:<br /><pre><code>((FakePage|||table|table|table||))</code></pre><br /><br />Got:<br /><pre><code>((||table|table|table||))</code></pre><br /><br />Syntax:<br /><pre><code>((FakePage|||table|table|table||))<code></pre>                                </span>
+                                    Testing: WikiLink<br />Expecting:<br /><pre><code>((foo))</code></pre><br /><br />Got:<br /><pre><code>((foo))</code></pre><br /><br />Syntax:<br /><pre><code>&lt;a href='foo' data-element='true' data-type='WikiLingo\\Expression\\WikiLink'&gt;foo&lt;/a&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
@@ -1739,7 +1671,25 @@ test|test||
 													
 							<li>
 								<span class="type pass">
-                                    Testing: WikiUnlink<br />Expecting:<br /><pre><code>))foo((</code></pre><br /><br />Got:<br /><pre><code>))foo((</code></pre><br /><br />Syntax:<br /><pre><code>))foo((<code></pre>                                </span>
+                                    Testing: WikiLinkType<br />Expecting:<br /><pre><code>(type(foo))</code></pre><br /><br />Got:<br /><pre><code>(type(foo))</code></pre><br /><br />Syntax:<br /><pre><code>&lt;a href='foo' data-element='true' data-type='WikiLingo\\Expression\\WikiLinkType' data-wiki-link-type='type'&gt;foo&lt;/a&gt;<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: WikiLinkWithTable<br />Expecting:<br /><pre><code>((FakePage|||table|table|table||))</code></pre><br /><br />Got:<br /><pre><code>((FakePage|||table|table|table||))</code></pre><br /><br />Syntax:<br /><pre><code>&lt;a href='FakePage' data-element='true' data-type='WikiLingo\\Expression\\WikiLink' data-href='FakePage'&gt;||table|table|table||&lt;/a&gt;<code></pre>                                </span>
+								<span class="line">line 51</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    Testing: WikiUnlink<br />Expecting:<br /><pre><code>))foo((</code></pre><br /><br />Got:<br /><pre><code>))foo((</code></pre><br /><br />Syntax:<br /><pre><code>&lt;span data-element='true' data-type='WikiLingo\\Expression\\WikiUnlink'&gt;foo&lt;/span&gt;<code></pre>                                </span>
 								<span class="line">line 51</span>
 								<span class="file">TypeNamespace.php</span>
 								<div class="source">$testify-&gt;assertEquals($actual, $expected, $message);</div>

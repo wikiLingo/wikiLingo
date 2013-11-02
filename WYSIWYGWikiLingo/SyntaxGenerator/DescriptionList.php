@@ -17,10 +17,10 @@ class DescriptionList extends Base
 				    $item .= ':' . $expression->renderedChildren;
 				    $items[] = $item;
 			    case "dt":
-				    $item = ';' . $expression->renderedChildren;
+				    $item = "\n;" . $expression->renderedChildren;
 		    }
 	    }
 
-	    return implode("\n", $items);
+	    return implode('', $items);
     }
 }

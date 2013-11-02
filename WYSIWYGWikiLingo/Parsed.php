@@ -5,6 +5,8 @@ use WikiLingo;
 
 class Parsed extends WikiLingo\Parsed
 {
+	public $isBlock = false;
+
     public function setExpression()
     {
         $class = "WYSIWYGWikiLingo\\Expression\\$this->type";

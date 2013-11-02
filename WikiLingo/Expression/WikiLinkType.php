@@ -32,7 +32,7 @@ class WikiLinkType extends Base
 
         $element->staticChildren[] = $text;
         $element->attributes['href'] = $href;
-        $element->detailedAttributes['type'] = $this->type;
+        $element->detailedAttributes['data-wiki-link-type'] = $this->type;
 
         $parser->trigger(__CLASS__, "render", $element);
 

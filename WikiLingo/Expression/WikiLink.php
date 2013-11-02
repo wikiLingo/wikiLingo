@@ -12,7 +12,7 @@ class WikiLink extends Base
         $sides = explode("|", $this->renderedChildren);
 
         if (isset($sides[1])) {
-            $href = array_shift($sides);
+            $element->detailedAttributes['data-href'] = $href = array_shift($sides);
 	        $text = implode("|", $sides);
         } else {
             $text = $this->renderedChildren;
