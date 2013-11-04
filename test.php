@@ -14,6 +14,11 @@ $tf->test("WikiLingo Expression Error Recovery", function($tf) {
 	(new WikiLingo\Test\TypeNamespace("ExpressionErrorRecovery"))->run($tf);
 });
 
+//Test Plugins
+$tf->test("WikiLingo Plugins", function($tf) {
+	(new WikiLingo\Test\TypeNamespace("Plugin"))->run($tf);
+});
+
 //Test WYSIWYGWikiLingo Syntax Generator
 $tf->test("WYSIWYGWikiLingo Syntax Generator", function($tf) {
 	(new WYSIWYGWikiLingo\Test\TypeNamespace("SyntaxGenerator"))->run($tf);

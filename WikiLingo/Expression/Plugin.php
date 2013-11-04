@@ -138,4 +138,13 @@ class Plugin extends Base
     public function addAttribute($name, $value) {
         $this->attributes[$name] = $value;
     }
+
+	public function parameter($name)
+	{
+		if (isset($this->parameters[$name]))
+		{
+			return $this->parameters[$name];
+		}
+		return '';
+	}
 }

@@ -14,6 +14,7 @@ class Header
     public $needed = true;
 	public $modifier;
     public $id;
+	public $pointer = false;
     public static $ids = array();
 
     public function __construct(Block &$block, $len)
@@ -28,7 +29,7 @@ class Header
 
     public function render()
     {
-        $element = Type::Element($this->parser->element(__CLASS__, 'h' . $this->count));
+        $element = Type::Element($this->parser->element(__CLASS__, ($this->pointer ? 'a' : 'h' . $this->count)));
 
 	    $children = '';
 	    foreach($this->parsed->children as &$child) {
@@ -64,7 +65,11 @@ class Header
             }
         }
 
-        $element->attributes['id'] = $this->id;
+	    if ($this->pointer) {
+		    $element->attributes['href'] = '#' . $this->id;
+	    } else {
+            $element->attributes['id'] = $this->id;
+	    }
 
         return $element->render();
     }

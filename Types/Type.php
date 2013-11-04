@@ -66,5 +66,10 @@ namespace Types
 		{
 			return $obj;
 		}
+
+		public static function WikiLingoExpressionHeader(WikiLingo\Expression\Header &$obj)
+		{
+			return $obj;
+		}
 	}
 }

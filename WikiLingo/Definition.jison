@@ -686,10 +686,13 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 "&" {
     return 'CHAR';
 }
+//Look for "<" or ">" that ARE NOT the start and end of a tag
 "<"(?![a-zA-Z\/])|">" {
 	//special character
 	return 'SPECIAL_CHAR';
 }
+
+//Look for "<" or ">" that ARE the start and end of a tag
 [<](.|\n)*?[>] {
     /*php
         //html tag

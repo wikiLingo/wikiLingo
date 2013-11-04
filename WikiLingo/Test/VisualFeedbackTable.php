@@ -40,6 +40,9 @@ class VisualFeedbackTable
 		$actual = htmlentities($this->actual);
 		$expected = htmlentities($this->expected);
 		return <<<html
+		<style>* {
+			background-color: black ! important;
+		}</style>
 <h2 onclick='this.nextSibling.style.display = (this.nextSibling.style.display ? "" : "none")'><a>$name</a></h2><div style='overflow: auto; display: none;'>
 	<table style='width: 100%;'>
 		<colgroup>

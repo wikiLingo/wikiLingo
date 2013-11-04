@@ -72,7 +72,11 @@ class Hierarchical
         $element = $this->block->element();
 
 		if (isset($this->block)) {
-			$element->staticChildren[] = $this->block->renderedChildren;
+			if (!empty($this->block->renderedChildren)) {
+				$element->staticChildren[] = $this->block->renderedChildren;
+			} else if (\method_exists($this->block->expression, "render")) {
+				$element->staticChildren[] = $this->block->expression->render();
+			}
 		}
 
 		if (isset($this->children)) {
