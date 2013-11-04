@@ -15,7 +15,7 @@ class Headers extends Base
 			"!!!!Header 4\n" .
 			"!!!!!Header 5\n" .
 			"!!!!!!Header 6\n" .
-			"!!!!!!Header Attempted 7, but got 6\n"
+			"!!!!!!!Header Attempted 7, but got 6\n"
 		;
 
 		$this->expected =
@@ -25,7 +25,7 @@ class Headers extends Base
 			"<h4 id='Header+4'>Header 4</h4>" .
 			"<h5 id='Header+5'>Header 5</h5>" .
 			"<h6 id='Header+6'>Header 6</h6>" .
-			"<h6 id='Header+Attempted+7%2C+but+got+6'>Header Attempted 7, but got 6</h6><br/>";
+			"<h6 id='Header+Attempted+7%2C+but+got+6'>Header Attempted 7, but got 6</h6>";
 
 	}
 }

@@ -17,9 +17,9 @@ class ExpandableHeaders extends Base
 				"heading text section";
 
 		$this->expected =
-			"<h1 id='foo'>foo<a href='#'>[+]</a></h1>" . "<br/>" .
+			"<h1 id='foo'>foo<a href='#'>[+]</a></h1>" .
 				"heading text section" .
-			"<h1 id='foo1'>foo<a href='#'>[-]</a></h1>" . "<br/>" .
+			"<h1 id='foo1'>foo<a href='#'>[-]</a></h1>" .
 				"heading text section";
 
 	}

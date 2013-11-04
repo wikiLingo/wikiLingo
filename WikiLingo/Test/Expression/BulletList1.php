@@ -12,9 +12,9 @@ class BulletList1 extends Base
             "* bar";
 
         $this->expected =
-            '<ul>' .
-				'<li> foo</li>' .
-				'<li> bar</li>' .
-			'</ul>';
+            "<ul>" .
+				"<li><span class='whitespace'> </span>foo</li>" .
+				"<li><span class='whitespace'> </span>bar</li>" .
+			"</ul>";
     }
 }

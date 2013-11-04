@@ -10,7 +10,7 @@ class Link extends Base
 
 		$this->source = "[www.google.com] [www.google.com|Google]";
 
-		$this->expected = "<a href='www.google.com'>www.google.com</a> <a href='www.google.com'>Google</a>";
+		$this->expected = "<a href='www.google.com'>www.google.com</a><span class='whitespace'> </span><a href='www.google.com'>Google</a>";
 
 	}
 }

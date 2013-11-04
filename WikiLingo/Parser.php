@@ -1,10 +1,12 @@
 <?php
 namespace WikiLingo;
 use WikiLingo\Plugin;
+use WikiLingo\Utilities;
 
 class Parser extends Definition {
 
 	public $renderer;
+	public $scripts;
 	private $parsing = false;
 	private $pcreRecursionLimit;
 
@@ -13,8 +15,14 @@ class Parser extends Definition {
 	 *
 	 * @access  public
 	 */
-	public function __construct()
+	public function __construct(Utilities\Scripts &$scripts = null)
 	{
+		if ($scripts != null) {
+			$this->scripts =& $scripts;
+		} else {
+			$this->scripts = new Utilities\Scripts();
+
+		}
 		$this->emptyParserValue = new Parsed();
 
         $this->events = new Events();

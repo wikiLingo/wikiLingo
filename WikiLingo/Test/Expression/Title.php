@@ -10,7 +10,7 @@ class Title extends Base
 
 		$this->source = "-=foo=-";
 
-		$this->expected = '<div class="title">foo</div>';
+		$this->expected = "<div class='title'>foo</div>";
 
 	}
 }

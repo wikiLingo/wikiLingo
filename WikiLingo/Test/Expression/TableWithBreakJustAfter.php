@@ -24,7 +24,6 @@ class TableWithBreakJustAfter extends Base
 					"<td>test</td>" .
 					"<td>test</td>" .
 				"</tr>" .
-			"</table>" .
-			"<br/>";
+			"</table>";
 	}
 }

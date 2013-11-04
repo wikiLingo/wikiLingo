@@ -21,6 +21,7 @@ class Line extends Base
 
     function render(&$parser)
     {
+
 	    $allowLines = true;
 	    if ($parent = $this->parent()) {
 		    $allowLines = $parent->expression->allowLines;
@@ -38,6 +39,7 @@ class Line extends Base
 
 	    if ($allowLines == false)
 	    {
+		    //Type::Scripts($parser->scripts)->addCss("br.hidden {display: none;}");
 		    $element->classes[] = 'hidden';
 	    }
 

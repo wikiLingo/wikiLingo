@@ -14,9 +14,9 @@ class NoBlock extends Base
 			" !<-Exclamation Point";
 
 		$this->expected =
-			" #<span>&lt;</span>-asterisk<br/>" .
-			" *<span>&lt;</span>-start<br/>" .
-			" !<span>&lt;</span>-Exclamation Point";
+			"<span class='whitespace'> </span>#<span>&lt;</span>-asterisk<br/>" .
+			"<span class='whitespace'> </span>*<span>&lt;</span>-start<br/>" .
+			"<span class='whitespace'> </span>!<span>&lt;</span>-Exclamation Point";
 
 	}
 }

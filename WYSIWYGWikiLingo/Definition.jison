@@ -94,7 +94,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
     */
 }
 ([A-Za-z0-9 .,?;]+)                         return 'CONTENT';
-([ ])                                       return 'CONTENT';
+([ ])+                                      return 'CONTENT';
 {LINE_END} {
     /*php
         if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {

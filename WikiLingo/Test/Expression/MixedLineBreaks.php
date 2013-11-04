@@ -30,7 +30,6 @@ class MixedLineBreaks extends Base
 
 		$this->expected =
             "<h1 id='header'>header</h1>" .
-            "<br/>" .
             "test<br/>" .
 			"test<br/>" .
             "test" .
@@ -42,7 +41,6 @@ class MixedLineBreaks extends Base
                 '<li>test</li>' .
                 '<li>test</li>' .
             '</ul>' .
-            "<br/>" .
             "test<br/>" .
             "test<br/>" .
             "test" .
@@ -50,7 +48,6 @@ class MixedLineBreaks extends Base
             "<h1 id='header2'>header</h1>" .
             "<h1 id='header3'>header</h1>" .
             "<h1 id='header4'>header</h1>" .
-            "<br/>" .
             "test<br/>" .
             "test<br/>";
 	}

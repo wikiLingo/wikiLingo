@@ -26,8 +26,8 @@ And some text
 . . . and some more text, to illustrate the line spacing.
 
 A table:
-||Row One, Column One|Row One, Column Two
-Row Two, Column One|Row Two, Column Two||
+||Row One,  Column One|Row One,  Column Two
+Row Two,  Column One|Row Two,  Column Two||
 
 ^A box^
 
@@ -52,82 +52,77 @@ end.
 {HTML}";
 
 		$this->expected =
-			"<h1 id='+WYSIWYG+Sample+Page'> WYSIWYG Sample Page</h1>" .
-			'<br/>' .
-			'Start off by clicking "edit" then switching the editor to use the wysiwyg editor using the ' .
-			"<span id='html1'/> button on the toolbar." .
-			"<h2 id='+Text+formatting'> Text formatting</h2><br/>" .
+			"<h1 id='+WYSIWYG+Sample+Page'><span class='whitespace'> </span>WYSIWYG Sample Page</h1>" .
+			"Start off by clicking \"edit\"<span class='whitespace'> </span>then switching the editor to use the wysiwyg editor using the " .
+			"<span id='html1'/><span class='whitespace'> </span>button on the toolbar." .
+			"<h2 id='+Text+formatting'><span class='whitespace'> </span>Text formatting</h2>" .
 			'<strong>bold</strong><br/>' .
 			"<i>italic</i><br/>" .
 			'<u>underlined</u><br/>' .
-			'<div class="center">centred text</div>' .
+			"<div class='center'>centred text</div>" .
 			'<br/>' .
-			"<h2 id='+Lists+and+table'> Lists and table</h2>" .
+			"<h2 id='+Lists+and+table'><span class='whitespace'> </span>Lists and table</h2>" .
 			'<ul>' .
 				'<li>' .
-					'An unordered list item' .
+					"An unordered list item" .
 						'<ul>' .
 							'<li>A subitem</li>' .
 						'</ul>' .
 				'</li>' .
             "</ul>" .
-            "<br/>" .
-            'And some text' .
+            "And some text" .
             '<ul>' .
-				'<li>Another item</li>' .
+				"<li>Another item</li>" .
             '</ul>' .
-            "<br/>" .
             '. . . and more text . . .' .
             '<ul>' .
-				'<li>Item 3</li>' .
+				"<li>Item 3</li>" .
 			'</ul>' .
-			"<br/>. . . and some more text, to illustrate the line spacing." .
+			". . . and some more text, to illustrate the line spacing." .
 			"<br/>" .
 			"<br/>" .
 			"A table:" .
 			"<br/>" .
 			"<table>" .
 				"<tr>" .
-					"<td>Row One, Column One</td>" .
-					"<td>Row One, Column Two</td>" .
+					"<td>Row One, <span class='whitespace'> </span>Column One</td>" .
+					"<td>Row One, <span class='whitespace'> </span>Column Two</td>" .
 				"</tr>" .
 				"<tr>" .
-					"<td>Row Two, Column One</td>" .
-					"<td>Row Two, Column Two</td>" .
+					"<td>Row Two, <span class='whitespace'> </span>Column One</td>" .
+					"<td>Row Two, <span class='whitespace'> </span>Column Two</td>" .
 				"</tr>" .
 			"</table>" .
 			"<br/>" .
-			"<br/>" .
-			'<div class="box">A box</div>' .
+			"<div class='box'>A box</div>" .
 			"<br/>" .
 			"<br/>" .
 			"A <a href='http://tiki.org'>link|nocache</a>" .
 			"<br/>" .
 			"<br/>" .
-			"<strong>And these are produced by wiki plugins:</strong><br/>" .
-			"<h2 id='+Plugins'> Plugins</h2>" .
-			"<h3 id='+Quote+plugin%3A'> Quote plugin:</h3>" .
+			"<strong>And these are produced by wiki plugins:</strong>" .
 			"<br/>" .
+			"<h2 id='+Plugins'><span class='whitespace'> </span>Plugins</h2>" .
+			"<h3 id='+Quote+plugin%3A'><span class='whitespace'> </span>Quote plugin:</h3>" .
 			"<span id='html2'>" .
-				'<br class="hidden"/>' .
+				"<br class='hidden'/>" .
 				"Just what do you think you're doing, Dave?" .
-				'<br class="hidden"/>' .
-				'<br class="hidden"/>' .
+				"<br class='hidden'/>" .
+				"<br class='hidden'/>" .
 				"<strong>HAL, in 2001:</strong>" .
-				" A Space Odyssey (1968)" .
-				'<br class="hidden"/>' .
+				"<span class='whitespace'> </span>A Space Odyssey (1968)" .
+				"<br class='hidden'/>" .
 			"</span><br/>" .
-			"<h3 id='+Code+plugin%3A'> Code plugin:</h3>" .
-			"<br/>" .
+			"<h3 id='+Code+plugin%3A'><span class='whitespace'> </span>Code plugin:</h3>" .
 			"<span id='html3'>" .
-				'<br class="hidden"/>' .
+				"<br class='hidden'/>" .
 				'program HelloWorld(output);' .
-				'<br class="hidden"/>' .
-				'begin<br class="hidden"/>' .
-				"  WriteLn('Hello World!');" .
-				'<br class="hidden"/>' .
+				"<br class='hidden'/>" .
+				"begin<br class='hidden'/>" .
+				"<span class='whitespace'>  </span>WriteLn('Hello World!');" .
+				"<br class='hidden'/>" .
 				'end.' .
-				'<br class="hidden"/>' .
+				"<br class='hidden'/>" .
 			'</span>';
 	}
 }

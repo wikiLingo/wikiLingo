@@ -18,14 +18,9 @@ class Base
 
     public $events;
 
-    /* parser debug */
-    public $parserDebug = false;
-    public $lexerDebug = false;
-
     /* plugin tracking */
     public $pluginStack = array();
     public $pluginStackCount = 0;
-    public $pluginEntries = array();
     public $pluginInstances = array();
     public $plugins = array();
     public static $pluginIndexes = array();
@@ -100,35 +95,6 @@ class Base
     public $optionParseSmileys = true;
     public $optionSkipPageCache = false;
 
-
-
-    /*
-        function parserPerformAction(&$thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O)
-        {
-            $result = parent::parser_performAction($thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O);
-            if ($this->parserDebug == true) {
-                $thisS = "{" . $thisS . ":" . $yystate ."," . $this->skipBr . "}";
-            }
-            return $result;
-        }
-
-        function lexerPerformAction(&$yy, $yy_, $avoiding_name_collisions, $YY_START = null) {
-            $result = parent::lexer_performAction($yy, $yy_, $avoiding_name_collisions, $YY_START);
-            if ($this->lexerDebug == true) {
-                echo "{" . $result . ":" .$avoiding_name_collisions . "," . $this->skipBr . "}" . $yy_->yytext . "\n";
-            }
-            return $result;
-        }
-
-        function parseError($error, $info)
-        {
-            echo $error;
-            die;
-        }
-    */
-
-
-
     public function addType($class, &$type)
     {
         if (empty($this->types[$class])) {
@@ -140,64 +106,6 @@ class Base
         return $type->index = $this->typesCount[$class];
     }
 
-    /**
-     * Parse a plugin's body.  public so that negotiator can use.  option 'noparseplugins' makes this function return the body without parse.
-     *
-     * @access  public
-     * @param   string  $input Plugin body
-     * @return  string  $output Parsed plugin body or $input if not parsed
-     */
-    public function parsePlugin($input)
-    {
-        if (empty($input)) return "";
-
-        if ($this->getOption('noparseplugins') == false) {
-
-            $is_html = $this->getOption('is_html');
-
-            if ($is_html == false) {
-                $this->setOption(array('is_html' => true));
-            }
-
-            $output = $this->parse($input);
-
-            if ($is_html == false) {
-                $this->setOption(array('is_html' => $is_html));
-            }
-
-            return $output;
-        } else {
-            return $input;
-        }
-    }
-
-	public function content(&$content)
-	{
-		return new Expression\Content($content);
-	}
-
-    /**
-     * Handles plugins directly from the wiki parser.  A plugin can be on a different level of the current parser, and
-     * if so, the execution is delayed until the parser reaches that level.
-     *
-     * @access  private
-     * @param   array  &$pluginDetails plugins details in an array
-     * @return  string  either returns $key or block from execution message
-     */
-    public function plugin(&$name, &$parameters, &$end = null, &$body = null)
-    {
-        if (is_null($body)) {
-            return new Expression\Plugin($name->text, $parameters->text, (isset($end->text) ? $end->text : null), null, null, '');
-        }
-
-        return new Expression\Plugin($name->text, $parameters->text, $end->text, $body->text, $this->syntaxBetween($parameters->loc, $end->loc), $this->syntax($name->loc, $end->loc));
-    }
-
-    public function inlinePlugin($yytext)
-    {
-        $pluginName = $this->match('/^\{([a-z]+)/', $yytext);
-        return new Expression\Plugin($pluginName, $yytext, '', $yytext, '');
-    }
 
     /**
      * Stacks plugins for execution, since plugins can be called within each other.  Public because called directly by
@@ -273,27 +181,6 @@ class Base
         preg_match($pattern, $subject, $match);
 
         return (!empty($match[1]) ? $match[1] : false);
-    }
-
-    function isRepairing($syntaxType, $pop = false)
-    {
-        $isRepairing = false;
-        end($this->repairingStack);
-        $key = key($this->repairingStack);
-
-
-        if (isset($this->repairingStack[$key])) {
-            $lastRepaired = $this->repairingStack[$key];
-
-            if ($lastRepaired == $syntaxType) {
-                $isRepairing = true;
-                if ($pop == true) {
-                    array_pop($this->repairingStack);
-                }
-            }
-        }
-
-        return $isRepairing;
     }
 
     function syntax(ParserLocation $startLoc, ParserLocation $endLoc = null)
@@ -384,7 +271,6 @@ class Base
 
 	public function bind($class, $event, $fn)
 	{
-
 		$this->events->bind($class, $event, $fn);
 	}
 

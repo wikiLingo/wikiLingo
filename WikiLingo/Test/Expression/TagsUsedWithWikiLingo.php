@@ -10,7 +10,7 @@ class TagsUsedWithWikiLingo extends Base
 
 		$this->source = "<b>This is a test</b> __This is also a test__ <script></script> ";
 
-		$this->expected = "<b>This is a test</b> <strong>This is also a test</strong> &lt;script&gt;&lt;/script&gt; ";
+		$this->expected = "<b>This is a test</b><span class='whitespace'> </span><strong>This is also a test</strong><span class='whitespace'> </span>&lt;script&gt;&lt;/script&gt;<span class='whitespace'> </span>";
 
 	}
 }

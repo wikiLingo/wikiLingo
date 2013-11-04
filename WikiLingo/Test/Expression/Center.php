@@ -8,9 +8,15 @@ class Center extends Base
 	public function __construct()
 	{
 
-		$this->source = "::foo:: :: foo 2 ::";
+		$this->source =
+			"::foo:: :: foo 2 ::";
 
-		$this->expected = '<div class="center">foo</div> <div class="center"> foo 2 </div>';
+		$this->expected =
+			"<div class='center'>foo</div>" .
+			"<span class='whitespace'> </span>" .
+			"<div class='center'>" .
+				"<span class='whitespace'> </span>foo 2 " .
+			"</div>";
 
 	}
 }

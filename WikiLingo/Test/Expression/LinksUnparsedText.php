@@ -10,7 +10,7 @@ class LinksUnparsedText extends Base
 
 		$this->source = "[((foo))] (([foo]))";
 
-		$this->expected = "<a href='((foo))'>((foo))</a> <a href='[foo]'>[foo]</a>";
+		$this->expected = "<a href='((foo))'>((foo))</a><span class='whitespace'> </span><a href='[foo]'>[foo]</a>";
 
 	}
 }

@@ -71,5 +71,10 @@ namespace Types
 		{
 			return $obj;
 		}
+
+		public static function Scripts(WikiLingo\Utilities\Scripts &$obj)
+		{
+			return $obj;
+		}
 	}
 }

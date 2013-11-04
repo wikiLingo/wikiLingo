@@ -13,8 +13,8 @@ class Box extends Base
             "^ Another Box ^";
 
 		$this->expected =
-            '<div class="box">foo</div><br/>' .
-            '<div class="box"> Another Box </div>';
+            "<div class='box'>foo</div><br/>" .
+            "<div class='box'><span class='whitespace'> </span>Another Box </div>";
 
 	}
 }

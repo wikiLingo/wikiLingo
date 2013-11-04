@@ -11,15 +11,17 @@
 PLUGIN_ID   					[A-Z0-9_]+
 INLINE_PLUGIN_ID				[a-z0-9_]+
 VARIABLE_NAME                   ([0-9A-Za-z ]{3,})
-SYNTAX_CHARS                    [{}\n_\^:\~'-|=\(\)\[\]*#+%<≤]
+SYNTAX_CHARS                    [{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
 BLOCK_START                     ([\!*#;]+)([-+])?
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
+WHITE_SPACE                     ([ ])+
+CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
-%s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block bold box center code color italic link strike table titleBar underscore wikiLink wikiLinkType wikiUnlink
+%s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block bold box center code color italic link skip strike table titleBar underscore wikiLink wikiLinkType wikiUnlink
 
 %%
 
@@ -673,23 +675,40 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 
 
 //WordLink
+<skip>. {
+	/*php
+		$this->popState();
+		return 'CONTENT';
+	*/
+}
 {CAPITOL_WORD}(?=$|[ \n\t\r\,\;\.]) {
     /*php
         if ($this->isContent()) return 'CONTENT';
-    */
 
-    return 'WORD_LINK';
+        $isLink = false;
+        $this->events->trigger("WikiLingo\\Expression\\WordLink", "exists", $yytext, $isLink);
+
+        if ($isLink) {
+            return 'WORD_LINK';
+        } else {
+            $this->unput($yytext);
+            $this->begin('skip');
+        }
+    */
 }
 
 
 //Misc.
-"&" {
+"&"(?![ ]) {
     return 'CHAR';
 }
 //Look for "<" or ">" that ARE NOT the start and end of a tag
 "<"(?![a-zA-Z\/])|">" {
 	//special character
-	return 'SPECIAL_CHAR';
+	/*php
+		if ($this->isContent()) return 'CONTENT';
+		return 'SPECIAL_CHAR';
+	*/
 }
 
 //Look for "<" or ">" that ARE the start and end of a tag
@@ -706,10 +725,15 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
     */
 }
 "≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};
-([A-Za-z0-9.,?;]+)                          return 'CONTENT';
+{CONTENT}                                   return 'CONTENT';
 (?!{SYNTAX_CHARS})({LINE_CONTENT})?(?={SYNTAX_CHARS})
 											return 'CONTENT';
-([ ]+?)                                     return 'CONTENT';
+{WHITE_SPACE} {
+	/*php
+		if ($this->isContent()) return 'CONTENT';
+		return 'WHITE_SPACE';
+	*/
+}
 (.)                                         return 'CONTENT';
 <<EOF>>										return 'EOF';
 /lex
@@ -1142,6 +1166,12 @@ content
     {
         /*php
             $1->setType('SpecialChar', $$this);
+        */
+    }
+    | WHITE_SPACE
+    {
+        /*php
+            $1->setType('WhiteSpace', $$this);
         */
     }
     | PRE_BLOCK_START BLOCK_START BLOCK_END

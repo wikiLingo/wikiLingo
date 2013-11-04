@@ -19,13 +19,13 @@ class NumberedList3 extends Base
 
         $this->expected =
             '<ol>' .
-                '<li> foo' .
+                "<li><span class='whitespace'> </span>foo" .
                     "<div id='div1'>" .
-                        '<br class="hidden"/>' . ' Continuation1' .
-                        '<br class="hidden"/>' . 'Continuation2' .
+                        "<br class='hidden'/>" . "<span class='whitespace'> </span>Continuation1" .
+                        "<br class='hidden'/>" . 'Continuation2' .
                     '</div>' .
                 '</li>' .
-                '<li> bar</li>' .
+                "<li><span class='whitespace'> </span>bar</li>" .
             '</ol>';
     }
 }

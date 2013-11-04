@@ -14,14 +14,14 @@ class BulletList2 extends Base
             "* bar";
 
         $this->expected =
-            '<ul>' .
-                '<li> foo' .
-                    '<ul>' .
-                        '<li> foo</li>' .
-                        '<li>foo</li>'.
-                    '</ul>' .
-                '</li>' .
-                '<li> bar</li>' .
-            '</ul>';
+            "<ul>" .
+                "<li><span class='whitespace'> </span>foo" .
+                    "<ul>" .
+                        "<li><span class='whitespace'> </span>foo</li>" .
+                        "<li>foo</li>" .
+                    "</ul>" .
+                "</li>" .
+                "<li><span class='whitespace'> </span>bar</li>" .
+            "</ul>";
     }
 }

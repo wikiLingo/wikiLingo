@@ -376,7 +376,7 @@ class Definition extends Base
 					4=>"/^(?:(<(.|\n)[^>]*?>))/",
 					5=>"/^(?:(<\/(.|\n)[^>]*?>))/",
 					6=>"/^(?:([A-Za-z0-9 .,?;]+))/",
-					7=>"/^(?:([ ]))/",
+					7=>"/^(?:([ ])+)/",
 					8=>"/^(?:((\n\r|\r\n|[\n\r])))/",
 					9=>"/^(?:(.))/",
 					10=>"/^(?:$)/"
@@ -395,7 +395,6 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
-/* this == yyval */
 
 
 switch ($yystate) {
@@ -892,7 +891,7 @@ break;
     {
         
 
-;
+
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -984,7 +983,7 @@ case 8:
         if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
            return 7;
         }
-        return 6;
+        return 'CONTENT';
     
 
 break;

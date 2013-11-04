@@ -7,15 +7,18 @@ class tabs extends HtmlBase
 {
     public $type = 'tabs';
     public $htmlTagType = 'div';
+    public $wysiwygTagType = 'div';
 	public $parameters = array(
 		'titles' => array()
 	);
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
+	    $plugin->allowLineAfter = false;
 	    $this->parameterDefaults($plugin->parameters);
 	    $id = $this->id($plugin->index);
-	    self::$scripts->addScript(<<<JS
+
+	    $parser->scripts->addScript(<<<JS
 $(function() {
 	var tabs = $('#$id');
 	tabs.tabs();

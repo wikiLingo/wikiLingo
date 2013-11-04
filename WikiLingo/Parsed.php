@@ -14,6 +14,7 @@ class Parsed extends ParserValue
 {
 	public $type;
     public $render;
+	public $firstSibling;
     public $siblingIndex = 0;
     public $siblingsLength = 0;
     public $lineIndex = 0;
@@ -54,7 +55,8 @@ class Parsed extends ParserValue
         $this->siblingsLength++;
         $sibling->siblingIndex = $this->siblingsLength;
 
-        $this->siblings[$this->siblingsLength] =& $sibling;
+        $this->siblings[] =& $sibling;
+		$sibling->firstSibling =& $this;
 	}
     public function previousSibling()
     {
@@ -67,8 +69,12 @@ class Parsed extends ParserValue
 		    return Type::Parsed($this->parent->children[$siblingIndex]);
 	    }
 
-	    if (isset($this->siblings[$siblingIndex])) {
-            return Type::Parsed($this->siblings[$siblingIndex]);
+	    if ($siblingIndex == 0) {
+		    return Type::Parsed($this->firstSibling);
+	    }
+
+	    if (isset($this->firstSibling->siblings[$siblingIndex - 1])) {
+            return Type::Parsed($this->firstSibling->siblings[$siblingIndex - 1]);
 	    }
 
 	    return null;

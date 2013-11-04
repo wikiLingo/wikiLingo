@@ -5,6 +5,7 @@ use WikiLingo;
 
 class VisualFeedbackTable
 {
+	public static $styled = false;
 	public $name;
 	public $source;
 	public $expected;
@@ -39,11 +40,25 @@ class VisualFeedbackTable
 		$source = htmlentities($this->source);
 		$actual = htmlentities($this->actual);
 		$expected = htmlentities($this->expected);
+		$style = '';
+		if (!self::$styled) {
+			$style =
+"<style>
+	.fail .output {
+		display: ;
+	}
+	.pass .output {
+		display: none;
+	}
+	.output {
+		overflow: auto;
+	}
+</style>";
+			self::$styled = true;
+		}
 		return <<<html
-		<style>* {
-			background-color: black ! important;
-		}</style>
-<h2 onclick='this.nextSibling.style.display = (this.nextSibling.style.display ? "" : "none")'><a>$name</a></h2><div style='overflow: auto; display: none;'>
+$style
+<h2 onclick='this.nextSibling.style.display = (this.nextSibling.style.display ? "" : "block")'><a>$name</a></h2><div class="output">
 	<table style='width: 100%;'>
 		<colgroup>
 			<col style="width: 33%; background-color: "/>
@@ -53,18 +68,18 @@ class VisualFeedbackTable
 		<tbody>
 			<tr>
 				<th style="text-align: center;">Source</th>
-				<th style="text-align: center;">Expected</th>
-				<th style="text-align: center;">Actual</th>
 			</tr>
 			<tr>
-				<td style="background-color: #F0F0F0;">
+				<td style="background-color: #F0F0F0;" rowspan="2">
 					<pre><code>$source</code></pre>
 				</td>
 				<td style="background-color: #F0F0F0;">
-					<pre><code>$expected</code></pre>
+					Expected: <pre><code>$expected</code></pre>
 				</td>
+			</tr>
+			<tr>
 				<td style="background-color: #F0F0F0;">
-					<pre><code>$actual</code></pre>
+					Actual: <pre><code>$actual</code></pre>
 				</td>
 			</tr>
 		</tbody>

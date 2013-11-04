@@ -2,11 +2,10 @@
 require_once("index.php");
 
 
-$original = "
-{TABS()}{TAB(title=`Misc.`)}
+$original = "{TABS()}{TAB(title=`Misc.`)}
 ||item1|item2
 item3|item4||
- # <>
+ # <> &
 ''Test''
 !!!Test
 ~tc~Comments ''Parsed?''~/tc~
@@ -36,48 +35,22 @@ item3|item4||
 #__Test__
 {TAB}{TABS}
 
-!+Header
-";
+!+Header";
 $scripts = new WikiLingo\Utilities\Scripts();
 
 $scripts
 	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 
-	->addScriptLocation("ckeditor/ckeditor.js")
+	//->addScriptLocation("ckeditor/ckeditor.js")
 	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
 	->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
 	->addScriptLocation("WikiLingoWYSIWYG/styles.js")
-	->addScript(
-		"CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
-		CKEDITOR.config.allowedContent =
-			'h1[*];' +
-			'h2[*];' +
-			'h3[*];' +
-			'h4[*];' +
-			'h5[*];' +
-			'h6[*];' +
-			'ul[*];' +
-			'ol[*];' +
-			'li[*];' +
-			'p[*];' +
-			'blockquote[*];' +
-			'em[*];' +
-			'img[*];' +
-			'embed[*];' +
-			'div[*];' +
-			'span[*];' +
-			'strong[*];' +
-			'br[*];' +
-			'a[*];' +
-			'table[*];' +
-			'tr[*];' +
-			'th[*];' +
-			'td[*];' +
-			'caption[*];' +
-			'del[*];' +
-			'ins[*];' +
-			'code[*];';"
-	);
+	/*->addScript(
+		"CKEDITOR.config.allowedContent = true;
+		CKEDITOR.config.extraAllowedContent = true;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;"
+	)*/;
+
 $wikiLingo = new WikiLingo\Parser();
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
 $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
@@ -95,7 +68,6 @@ $script = $scripts->renderScript();
 ?><!DOCTYPE html>
 <html>
 <head>
-<?php echo $css . $script; ?>
 	<style>
 		table.demo {
 			width: 100%;
@@ -103,9 +75,6 @@ $script = $scripts->renderScript();
 		table.demo, table.demo td {
 			border: 1px solid pink;
 			vertical-align: top;
-		}
-		.output {
-			white-space: pre;
 		}
 	</style>
 </head>
@@ -141,7 +110,7 @@ $script = $scripts->renderScript();
 				</div>
 			</td>
 			<td class="output"><?php echo $outputWikiLingo;?></td>
-			<td class="output" contenteditable="true" id="wysiwyg"><?php echo $outputWikiLingoWYSIWYG;?></td>
+			<td><div id="wysiwyg" class="output" contenteditable="true"><?php echo $outputWikiLingoWYSIWYG;?></div></td>
 			<td>
 				<div>
 					<pre><? echo htmlspecialchars($outputWYSIWYGWikiLingo); ?></pre>
@@ -150,5 +119,6 @@ $script = $scripts->renderScript();
 		</tr>
 	</tbody>
 </table>
+<?php echo $css . $script; ?>
 </body>
 </html>

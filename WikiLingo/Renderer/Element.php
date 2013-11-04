@@ -46,11 +46,16 @@ class Element extends Base
     public function render()
     {
         $open = "<" . $this->name;
+	    $attributes = array();
+
+	    if (!empty($this->classes)) {
+		    $attributes[] = "class='" . implode($this->classes, ' ') . "'";
+	    }
 
         if (!empty($this->attributes)) {
             foreach ($this->attributes as $attribute => $value) {
 	            if (strtolower($attribute) != 'class') {
-                    $open .= " " . $attribute . "='" . addslashes(trim($value)) . "'";
+                    $attributes[] = $attribute . "='" . addslashes(trim($value)) . "'";
 	            }
             }
         }
@@ -58,13 +63,13 @@ class Element extends Base
         if ($this->useDetailedAttributes && !empty($this->detailedAttributes)) {
             foreach ($this->detailedAttributes as $attribute => $value) {
                 if (strtolower($attribute) != 'class') {
-                    $open .= " " . $attribute . "='" . addslashes(trim($value)) . "'";
+                    $attributes[] = $attribute . "='" . addslashes(trim($value)) . "'";
                 }
             }
         }
 
-	    if (!empty($this->classes)) {
-		    $open .= ' class="' . implode($this->classes, ' ') . '"';
+	    if (isset($attributes[0])) {
+	        $open .= ' ' . implode($attributes, ' ');
 	    }
 
         switch ($this->state) {

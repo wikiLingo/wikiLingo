@@ -13,5 +13,7 @@ class Headers extends Base
 		$this->expected = (new WikiLingoTestExpression\Headers())->source;
 		$this->source = $parser->parse($this->expected);
 
+		$this->expected = str_replace("!!!!!!!", "!!!!!!", $this->expected);
+
 	}
 }

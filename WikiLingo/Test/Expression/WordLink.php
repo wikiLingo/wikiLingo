@@ -11,26 +11,24 @@ class WordLink extends Base
 	{
 
 		if ($parser != null) {
-			$parser->bind("WikiLingo\\Expression\\WordLink", "exists", function(Expression\WordLink &$expression) {
-				if ($expression->parsed->text == "This") {
-					$expression->exists = true;
-					$expression->text = "This";
-					$expression->href = "http://This.com";
+			$parser->bind("WikiLingo\\Expression\\WordLink", "exists", function(&$text, &$exists) {
+				if ($text == "This") {
+					$exists = true;
 				}
 
 			});
 
 			$parser->bind("WikiLingo\\Expression\\WordLink", "render", function(Expression\WordLink &$expression, &$result) {
 				$element = $expression->parsed->parser->element("WikiLingo\\Expression\\WordLink", "a");
-				$element->staticChildren[] = $expression->text;
-				$element->attributes["href"] = $expression->href;
+				$element->staticChildren[] = "This";
+				$element->attributes["href"] = "http://This.com";
 				$result = $element->render();
 			});
 		}
 
 		$this->source = " This Not ";
 
-		$this->expected = " <a href='http://This.com'>This</a> Not ";
+		$this->expected = "<span class='whitespace'> </span><a href='http://This.com'>This</a><span class='whitespace'> </span>Not ";
 
 	}
 }

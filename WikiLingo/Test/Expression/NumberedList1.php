@@ -13,8 +13,8 @@ class NumberedList1 extends Base
 
         $this->expected =
             '<ol>' .
-                '<li> foo</li>' .
-                '<li> bar</li>' .
+                "<li><span class='whitespace'> </span>foo</li>" .
+                "<li><span class='whitespace'> </span>bar</li>" .
             '</ol>';
     }
 }
