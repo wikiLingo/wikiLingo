@@ -17,8 +17,8 @@ class BulletList3 extends Base
             '<ul>' .
                 '<li> foo' .
                     "<div id='div1'>" .
-                        '<br class="hidden"/>' . "\n" . ' Continuation1' .
-                        '<br class="hidden"/>' . "\n" . 'Continuation2' .
+                        '<br class="hidden"/> Continuation1' .
+                        '<br class="hidden"/>Continuation2' .
                     '</div>' .
                 '</li>' .
                 '<li> bar</li>' .

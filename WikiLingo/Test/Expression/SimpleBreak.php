@@ -12,7 +12,7 @@ class SimpleBreak extends Base
 			"text\n";
 
 		$this->expected =
-			"<br/>\n" .
-			"text<br/>\n";
+			"<br/>" .
+			"text<br/>";
 	}
 }

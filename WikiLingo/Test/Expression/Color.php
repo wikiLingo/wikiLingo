@@ -13,7 +13,7 @@ class Color extends Base
             "~~#ff00ff:text~~";
 
 		$this->expected =
-            '<span style=\'color:red;\'>text</span> <br/>' . "\n" .
+            '<span style=\'color:red;\'>text</span> <br/>' .
             '<span style=\'color:#ff00ff;\'>text</span>';
 
 	}

@@ -5,6 +5,8 @@
 namespace WikiLingo;
 
 use Exception;
+use Types\Type;
+
 /**
  * @constructor
  */
@@ -57,10 +59,19 @@ class Parsed extends ParserValue
     public function previousSibling()
     {
         $siblingIndex = $this->siblingIndex - 1;
-        if ($siblingIndex > $this->parent->siblingLength) {
+        if ($siblingIndex < 0) {
             return null;
         }
-        return $this->siblings[$siblingIndex];
+
+	    if (isset($this->parent->children[$siblingIndex])) {
+		    return Type::Parsed($this->parent->children[$siblingIndex]);
+	    }
+
+	    if (isset($this->siblings[$siblingIndex])) {
+            return Type::Parsed($this->siblings[$siblingIndex]);
+	    }
+
+	    return null;
     }
     public function nextSibling()
     {
@@ -68,7 +79,7 @@ class Parsed extends ParserValue
         if ($siblingIndex > $this->parent->siblingLength) {
             return null;
         }
-        return $this->siblings[$siblingIndex];
+        return Type::Parsed($this->siblings[$siblingIndex]);
     }
 
 	public $arguments = array();

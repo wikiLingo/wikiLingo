@@ -28,16 +28,16 @@ class TypeNamespace
 	{
 		foreach($this->files as $file) {
 			if($file === '.' || $file === '..') {continue;}
-			$class = "WikiLingo\\Test\\" . $this->typeNamespace . "\\" . substr($file, 0, -4);
+			$name = substr($file, 0, -4);
+			$class = "WikiLingo\\Test\\" . $this->typeNamespace . "\\" . $name;
 			$test = new $class($this->parser);
 			$actual = $this->parser->parse($test->source);
-			$message = "Testing: " . substr($file, 0, -4) . "<br />" .
-                "Expecting:<br /><code>" . htmlentities($test->expected) . "</code>" .
-				"<br /><br />" .
-				"Got:<br /><code>" . htmlentities($actual) . "</code>" .
-                "<br /><br />" .
-                "Syntax:<br /><pre>" . htmlentities($test->source) . "</pre>";
 
+			$message = (new VisualFeedbackTable($name))
+				->setSource($test->source)
+				->setExpected($test->expected)
+				->setActual($actual)
+				->render();
 
 			$testify->assertEquals($actual, $test->expected, $message);
 		}

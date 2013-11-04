@@ -1,20 +1,15 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class SimpleHeaders extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
-		$this->source =
-			"! foo\n" .
-			"!!foo\n" .
-			"!! foo";
-
-		$this->expected =
-			"<h1 id='+foo'> foo</h1>" .
-			"<h2 id='foo'>foo</h2>" .
-			"<h2 id='+foo1'> foo</h2>";
+		$this->expected = (new WikiLingoTestExpression\SimpleHeaders())->source;
+		$this->source = $parser->parse($this->expected);
 	}
 }

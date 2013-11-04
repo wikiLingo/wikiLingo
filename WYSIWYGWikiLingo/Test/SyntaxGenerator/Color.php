@@ -1,20 +1,17 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class Color extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
 
-		$this->source =
-            "~~red:text~~ \n" .
-            "~~#ff00ff:text~~";
-
-		$this->expected =
-            '<span style=\'color:red;\'>text</span> <br/>' . "\n" .
-            '<span style=\'color:#ff00ff;\'>text</span>';
+		$this->expected = (new WikiLingoTestExpression\Color())->source;
+		$this->source = $parser->parse($this->expected);
 
 	}
 }

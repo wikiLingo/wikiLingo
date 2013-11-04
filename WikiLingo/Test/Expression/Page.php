@@ -6,9 +6,8 @@ use WikiLingo\Test\Base;
 
 class Page extends Base
 {
-	public function __construct(WikiLingo\Parser &$parser)
+	public function __construct()
 	{
-		$parser->typesCount['html'] = 0;
 		$this->source = "! WYSIWYG Sample Page
 Start off by clicking \"edit\" then switching the editor to use the wysiwyg editor using the {html src=`pics/icons/pencil_go.png`} button on the toolbar.
 !! Text formatting
@@ -54,15 +53,15 @@ end.
 
 		$this->expected =
 			"<h1 id='+WYSIWYG+Sample+Page'> WYSIWYG Sample Page</h1>" .
-			'<br/>' . "\n" .
+			'<br/>' .
 			'Start off by clicking "edit" then switching the editor to use the wysiwyg editor using the ' .
 			"<span id='html1'/> button on the toolbar." .
-			"<h2 id='+Text+formatting'> Text formatting</h2><br/>\n" .
-			'<strong>bold</strong><br/>' . "\n" .
-			"<i>italic</i><br/>\n" .
-			'<u>underlined</u><br/>' . "\n" .
+			"<h2 id='+Text+formatting'> Text formatting</h2><br/>" .
+			'<strong>bold</strong><br/>' .
+			"<i>italic</i><br/>" .
+			'<u>underlined</u><br/>' .
 			'<div class="center">centred text</div>' .
-			'<br/>' . "\n" .
+			'<br/>' .
 			"<h2 id='+Lists+and+table'> Lists and table</h2>" .
 			'<ul>' .
 				'<li>' .
@@ -72,21 +71,21 @@ end.
 						'</ul>' .
 				'</li>' .
             "</ul>" .
-            "<br/>\n" .
+            "<br/>" .
             'And some text' .
             '<ul>' .
 				'<li>Another item</li>' .
             '</ul>' .
-            "<br/>\n" .
+            "<br/>" .
             '. . . and more text . . .' .
             '<ul>' .
 				'<li>Item 3</li>' .
 			'</ul>' .
-			"<br/>\n. . . and some more text, to illustrate the line spacing." .
-			"<br/>\n" .
-			"<br/>\n" .
+			"<br/>. . . and some more text, to illustrate the line spacing." .
+			"<br/>" .
+			"<br/>" .
 			"A table:" .
-			"<br/>\n" .
+			"<br/>" .
 			"<table>" .
 				"<tr>" .
 					"<td>Row One, Column One</td>" .
@@ -97,38 +96,38 @@ end.
 					"<td>Row Two, Column Two</td>" .
 				"</tr>" .
 			"</table>" .
-			"<br/>\n" .
-			"<br/>\n" .
+			"<br/>" .
+			"<br/>" .
 			'<div class="box">A box</div>' .
-			"<br/>\n" .
-			"<br/>\n" .
+			"<br/>" .
+			"<br/>" .
 			"A <a href='http://tiki.org'>link|nocache</a>" .
-			"<br/>\n" .
-			"<br/>\n" .
-			"<strong>And these are produced by wiki plugins:</strong><br/>\n" .
+			"<br/>" .
+			"<br/>" .
+			"<strong>And these are produced by wiki plugins:</strong><br/>" .
 			"<h2 id='+Plugins'> Plugins</h2>" .
 			"<h3 id='+Quote+plugin%3A'> Quote plugin:</h3>" .
-			"<br/>\n" .
+			"<br/>" .
 			"<span id='html2'>" .
-				'<br class="hidden"/>' . "\n" .
+				'<br class="hidden"/>' .
 				"Just what do you think you're doing, Dave?" .
-				'<br class="hidden"/>' . "\n" .
-				'<br class="hidden"/>' . "\n" .
+				'<br class="hidden"/>' .
+				'<br class="hidden"/>' .
 				"<strong>HAL, in 2001:</strong>" .
 				" A Space Odyssey (1968)" .
-				'<br class="hidden"/>' . "\n" .
-			"</span><br/>\n" .
+				'<br class="hidden"/>' .
+			"</span><br/>" .
 			"<h3 id='+Code+plugin%3A'> Code plugin:</h3>" .
-			"<br/>\n" .
+			"<br/>" .
 			"<span id='html3'>" .
-				'<br class="hidden"/>' . "\n" .
+				'<br class="hidden"/>' .
 				'program HelloWorld(output);' .
-				'<br class="hidden"/>' . "\n" .
-				'begin<br class="hidden"/>' . "\n" .
+				'<br class="hidden"/>' .
+				'begin<br class="hidden"/>' .
 				"  WriteLn('Hello World!');" .
-				'<br class="hidden"/>' . "\n" .
+				'<br class="hidden"/>' .
 				'end.' .
-				'<br class="hidden"/>' . "\n" .
+				'<br class="hidden"/>' .
 			'</span>';
 	}
 }

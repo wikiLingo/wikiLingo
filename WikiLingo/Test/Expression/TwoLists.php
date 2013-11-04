@@ -24,13 +24,13 @@ class TwoLists extends Base
                 '<li>Item 2</li>' .
                 '<li>Item 3</li>' .
             "</ol>" .
-            "<br/>\n" .
+            "<br/>" .
             '<ol>' .
                 '<li>Item 1</li>' .
                 '<li>Item 2</li>' .
                 '<li>Item 3</li>' .
             '</ol>' .
-            "<br/>\n";
+            "<br/>";
 
 	}
 }

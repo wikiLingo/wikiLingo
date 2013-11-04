@@ -1,30 +1,16 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WikiLingo\Expression;
 use WikiLingo\Test\Base;
 
 class NumberedList3 extends Base
 {
-    public function __construct()
+    public function __construct(WikiLingoWYSIWYG\Parser &$parser)
     {
-	    Expression\Plugin::$indexes = array();
-
-        $this->source =
-            "# foo{DIV()}\n" .
-            " Continuation1\n" .
-            "Continuation2{DIV}\n" .
-            "# bar";
-
-        $this->expected =
-            '<ol>' .
-                '<li> foo' .
-                    "<div id='div1'>" .
-                        '<br class="hidden"/>' . "\n" . ' Continuation1' .
-                        '<br class="hidden"/>' . "\n" . 'Continuation2' .
-                    '</div>' .
-                '</li>' .
-                '<li> bar</li>' .
-            '</ol>';
+	    $this->expected = (new WikiLingoTestExpression\NumberedList3())->source;
+	    $this->source = $parser->parse($this->expected);
     }
 }

@@ -1,16 +1,17 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class WikiLinkWithTable extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
 
-		$this->source = "((FakePage|||table|table|table||))";
-
-		$this->expected = "<a href='FakePage'>||table|table|table||</a>";
+		$this->expected = (new WikiLingoTestExpression\WikiLinkWithTable())->source;
+		$this->source = $parser->parse($this->expected);
 
 	}
 }

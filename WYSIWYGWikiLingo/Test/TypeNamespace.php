@@ -35,20 +35,18 @@ class TypeNamespace
 
 			$class = substr($file, 0, -4);
 			$fullyQualifiedClass = "WYSIWYGWikiLingo\\Test\\" . $this->typeNamespace . "\\" . $class;
-			$test = new $fullyQualifiedClass($this->parser);
+			$test = new $fullyQualifiedClass($this->preParser);
+
 			//the idea here is to take WYSIWYGWikiLingo Markup, and to turn it into WikiLingo Markup, so source comes from the WikiLingoWYSIWYG Parser
-			$source = $this->preParser->parse($test->source);
-			$expected = $test->source;
-			$actual = $this->parser->parse($source);
-			$message = "Testing: " . substr($file, 0, -4) . "<br />" .
-                "Expecting:<br /><pre><code>" . htmlentities($expected) . "</code></pre>" .
-				"<br /><br />" .
-				"Got:<br /><pre><code>" . htmlentities($actual) . "</code></pre>" .
-                "<br /><br />" .
-                "Syntax:<br /><pre><code>" . htmlentities($source) . "<code></pre>";
+			$actual = $this->parser->parse($test->source);
 
+			$message = (new WikiLingo\Test\VisualFeedbackTable($class))
+				->setSource($test->source)
+				->setExpected($test->expected)
+				->setActual($actual)
+				->render();
 
-			$testify->assertEquals($actual, $expected, $message);
+			$testify->assertEquals($actual, $test->expected, $message);
 		}
 	}
 }

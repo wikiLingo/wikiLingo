@@ -1,30 +1,16 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class TableWithBreakJustAfter extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
 
-		$this->source =
-			"\n" .
-			"||test|test\n" .
-			"test|test||\n";
-
-		$this->expected =
-			"<br/>\n" .
-			"<table>" .
-				"<tr>" .
-					"<td>test</td>" .
-					"<td>test</td>" .
-				"</tr>" .
-				"<tr>" .
-					"<td>test</td>" .
-					"<td>test</td>" .
-				"</tr>" .
-			"</table>" .
-			"<br/>\n";
+		$this->expected = (new WikiLingoTestExpression\TableWithBreakJustAfter())->source;
+		$this->source = $parser->parse($this->expected);
 	}
 }

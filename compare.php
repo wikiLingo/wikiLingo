@@ -6,16 +6,15 @@ $original = "
 {TABS()}{TAB(title=`Misc.`)}
 ||item1|item2
 item3|item4||
-
+ # <>
 ''Test''
 !!!Test
-~tc~Comments ''Parsed?''~/tc~%%%
-
+~tc~Comments ''Parsed?''~/tc~
 ~~blue:hello world~~
 <a href='http://google.com'>This is a link to Google</a>
 <script>alert('test');</script>
 ~np~This ''Is a test'' ~/np~
-{TAB}{TAB(title=`Unorder List`)}
+{TAB}{TAB(title=`Unordered List`)}
 *1.1
 *1.2
 **2.1
@@ -105,6 +104,9 @@ $script = $scripts->renderScript();
 			border: 1px solid pink;
 			vertical-align: top;
 		}
+		.output {
+			white-space: pre;
+		}
 	</style>
 </head>
 <body>
@@ -138,8 +140,8 @@ $script = $scripts->renderScript();
 					<pre><?php echo htmlspecialchars($original);?></pre>
 				</div>
 			</td>
-			<td><?php echo $outputWikiLingo;?></td>
-			<td><div contenteditable="true" id="wysiwyg"><?php echo $outputWikiLingoWYSIWYG;?></div></td>
+			<td class="output"><?php echo $outputWikiLingo;?></td>
+			<td class="output" contenteditable="true" id="wysiwyg"><?php echo $outputWikiLingoWYSIWYG;?></td>
 			<td>
 				<div>
 					<pre><? echo htmlspecialchars($outputWYSIWYGWikiLingo); ?></pre>

@@ -1,15 +1,15 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class Content extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
-		$this->source = "foo";
-
-		$this->expected = "foo";
-
+		$this->expected = (new WikiLingoTestExpression\Content())->source;
+		$this->source = $parser->parse($this->expected);
 	}
 }

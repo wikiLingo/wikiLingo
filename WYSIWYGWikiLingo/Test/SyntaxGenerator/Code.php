@@ -1,16 +1,17 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class Code extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
 
-		$this->source = "-+foo+-";
-
-		$this->expected = "<pre>foo</pre>";
+		$this->expected = (new WikiLingoTestExpression\Code())->source;
+		$this->source = $parser->parse($this->expected);
 
 	}
 }

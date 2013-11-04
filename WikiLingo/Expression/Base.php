@@ -2,11 +2,13 @@
 namespace WikiLingo\Expression;
 
 use WikiLingo;
+use Types\Type;
 
 abstract class Base
 {
 	public $parsed;
-	public $allowsBreaks = true;
+	public $allowLines = true;
+	public $allowLineAfter = true;
 
 	function __construct(WikiLingo\Parsed &$parsed)
 	{
@@ -15,8 +17,8 @@ abstract class Base
 
 	function parent()
 	{
-		if (isset($this->parsed->parent->expression)) {
-			return $this->parsed->parent->expression;
+		if (isset($this->parsed->parent)) {
+			return Type::Parsed($this->parsed->parent);
 		}
 		return null;
 	}

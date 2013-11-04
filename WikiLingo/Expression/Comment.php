@@ -3,6 +3,8 @@ namespace WikiLingo\Expression;
 
 class Comment extends Base
 {
+	public $allowLineAfter = false;
+
 	public function render(&$parser)
 	{
 		if (isset($parser->wysiwyg)) {

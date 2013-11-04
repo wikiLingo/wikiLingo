@@ -6,6 +6,7 @@ use WikiLingo\ExpressionParser;
 
 class Table extends Base
 {
+	public $allowLineAfter = false;
     public function render(&$parser)
     {
         $tableParser = new ExpressionParser\Table();

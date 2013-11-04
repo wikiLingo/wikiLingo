@@ -1,27 +1,15 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class BulletList2 extends Base
 {
-    public function __construct()
+    public function __construct(WikiLingoWYSIWYG\Parser &$parser)
     {
-        $this->source =
-            "* foo\n" .
-            "** foo\n" .
-            "**foo\n" .
-            "* bar";
-
-        $this->expected =
-            '<ul>' .
-                '<li> foo' .
-                    '<ul>' .
-                        '<li> foo</li>' .
-                        '<li>foo</li>'.
-                    '</ul>' .
-                '</li>' .
-                '<li> bar</li>' .
-            '</ul>';
+        $this->expected = (new WikiLingoTestExpression\BulletList2())->source;
+	    $this->source = $parser->parse($this->expected);
     }
 }

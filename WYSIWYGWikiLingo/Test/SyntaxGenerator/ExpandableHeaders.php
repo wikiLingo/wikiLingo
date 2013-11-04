@@ -1,23 +1,16 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class ExpandableHeaders extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
-		$this->source =
-			"!+foo\n" .
-				"heading text section\n" .
-			"!-foo\n" .
-				"heading text section";
-
-		$this->expected =
-			"<h1 id='foo'>foo<a href='#'>[+]</a></h1>" . "<br/>\n" .
-				"heading text section" .
-			"<h1 id='foo1'>foo<a href='#'>[-]</a></h1>" . "<br/>\n" .
-				"heading text section";
+		$this->expected = (new WikiLingoTestExpression\ExpandableHeaders())->source;
+		$this->source = $parser->parse($this->expected);
 
 	}
 }

@@ -1,28 +1,17 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class Table extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
 
-		$this->source =
-            "||r1c1|r1c2\n" .
-            "r2c1|r2c2||";
-
-		$this->expected =
-            "<table>" .
-                "<tr>" .
-                    "<td>r1c1</td>" .
-                    "<td>r1c2</td>" .
-                "</tr>" .
-                "<tr>" .
-                    "<td>r2c1</td>" .
-                    "<td>r2c2</td>" .
-                "</tr>" .
-            "</table>";
+		$this->expected = (new WikiLingoTestExpression\Table())->source;
+		$this->source = $parser->parse($this->expected);
 
 
 	}

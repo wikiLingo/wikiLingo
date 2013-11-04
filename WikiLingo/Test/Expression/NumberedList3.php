@@ -7,7 +7,7 @@ use WikiLingo\Test\Base;
 
 class NumberedList3 extends Base
 {
-    public function __construct(&$parser)
+    public function __construct()
     {
 	    Expression\Plugin::$indexes = array();
 
@@ -21,8 +21,8 @@ class NumberedList3 extends Base
             '<ol>' .
                 '<li> foo' .
                     "<div id='div1'>" .
-                        '<br class="hidden"/>' . "\n" . ' Continuation1' .
-                        '<br class="hidden"/>' . "\n" . 'Continuation2' .
+                        '<br class="hidden"/>' . ' Continuation1' .
+                        '<br class="hidden"/>' . 'Continuation2' .
                     '</div>' .
                 '</li>' .
                 '<li> bar</li>' .

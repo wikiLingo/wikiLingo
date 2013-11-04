@@ -1,20 +1,18 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class Box extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
 
-		$this->source =
-            "^foo^\n" .
-            "^ Another Box ^";
+		$this->expected = (new WikiLingoTestExpression\Box())->source;
 
-		$this->expected =
-            '<div class="box">foo</div><br/>' . "\n" .
-            '<div class="box"> Another Box </div>';
+		$this->source = $parser->parse($this->expected);
 
 	}
 }

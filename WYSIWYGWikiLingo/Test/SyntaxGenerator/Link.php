@@ -1,16 +1,17 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class Link extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
 
-		$this->source = "[www.google.com] [www.google.com|Google]";
-
-		$this->expected = "<a href='www.google.com'>www.google.com</a> <a href='www.google.com'>Google</a>";
+		$this->expected = (new WikiLingoTestExpression\Link())->source;
+		$this->source = $parser->parse($this->expected);
 
 	}
 }

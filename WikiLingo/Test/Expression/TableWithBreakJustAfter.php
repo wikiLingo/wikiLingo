@@ -14,7 +14,7 @@ class TableWithBreakJustAfter extends Base
 			"test|test||\n";
 
 		$this->expected =
-			"<br/>\n" .
+			"<br/>" .
 			"<table>" .
 				"<tr>" .
 					"<td>test</td>" .
@@ -25,6 +25,6 @@ class TableWithBreakJustAfter extends Base
 					"<td>test</td>" .
 				"</tr>" .
 			"</table>" .
-			"<br/>\n";
+			"<br/>";
 	}
 }

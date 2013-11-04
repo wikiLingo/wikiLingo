@@ -6,7 +6,7 @@ use WikiLingo\Test\Base;
 
 class Plugin extends Base
 {
-	public function __construct(WikiLingo\Parser &$parser)
+	public function __construct()
 	{
 
 		WikiLingo\Expression\Plugin::$indexes['html'] = null;

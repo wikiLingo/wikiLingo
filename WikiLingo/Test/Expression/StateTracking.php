@@ -25,20 +25,20 @@ class StateTracking extends Base
 			"\n";
 
 		$this->expected =
-            "__Here<br/>\n" .
-            "<i>we are test<br/>\n" .
-                '<div class="box">testing state</div><br/>' . "\n" .
-            "</i><br/>\n" .
-            "<u>Tracking</u><br/>\n" .
-            "<strike>it can get</strike><br/>\n" .
-            '<div class="center">complex at times, so we want it<br/>' . "\n" .
-                "<span style='color:purple;'>to be right<br/>\n" .
-                    '<div class="box">even in complex scenarios</div><br/>' . "\n" .
-                'so that it is easy on the end user</span><br/>' . "\n" .
-                "See how we can handle multi lines easily?<br/>\n" .
-            "</div>.<br/>\n" .
-            "This should be bold<br/>\n" .
-            "<br/>\n";
+            "__Here<br/>" .
+            "<i>we are test<br/>" .
+                '<div class="box">testing state</div><br/>' .
+            "</i><br/>" .
+            "<u>Tracking</u><br/>" .
+            "<strike>it can get</strike><br/>" .
+            '<div class="center">complex at times, so we want it<br/>' .
+                "<span style='color:purple;'>to be right<br/>" .
+                    '<div class="box">even in complex scenarios</div><br/>' .
+                'so that it is easy on the end user</span><br/>' .
+                "See how we can handle multi lines easily?<br/>" .
+            "</div>.<br/>" .
+            "This should be bold<br/>" .
+            "<br/>";
 
 	}
 }

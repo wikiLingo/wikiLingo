@@ -1,16 +1,17 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class Title extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
 
-		$this->source = "-=foo=-";
-
-		$this->expected = '<div class="title">foo</div>';
+		$this->expected = (new WikiLingoTestExpression\Title())->source;
+		$this->source = $parser->parse($this->expected);
 
 	}
 }

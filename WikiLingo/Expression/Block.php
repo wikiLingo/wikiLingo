@@ -27,6 +27,7 @@ class Block extends Base
     public $parser;
     public $open = true;
 	public $isFirst = false;
+	public $allowLineAfter = false;
 
 	public static $blocksTypes = array(
 		'!' => 'header',

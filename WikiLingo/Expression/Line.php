@@ -21,20 +21,27 @@ class Line extends Base
 
     function render(&$parser)
     {
-	    $parent = $this->parent();
-
-	    $element = $parser->element(__CLASS__, 'br');
-	    $element->setInline();
-
-	    if (empty($parent) || (!empty($parent) && $parent->allowsBreaks)) {
-		    $line = $element->render();
-            return $line . $this->parsed->text;
+	    $allowLines = true;
+	    if ($parent = $this->parent()) {
+		    $allowLines = $parent->expression->allowLines;
 	    }
-	    else
+
+	    $element = Type::Element($parser->element(__CLASS__, 'br'));
+	    $element->setInline();
+	    if ($previousSibling = $this->parsed->previousSibling()) {
+		    if ($previousSibling->expression->allowLineAfter == false && empty($parser->wysiwyg)) {
+			    return '';
+		    }
+	    } else if ($allowLines) {
+
+	    }
+
+	    if ($allowLines == false)
 	    {
 		    $element->classes[] = 'hidden';
-		    $line = $element->render();
-		    return $line . $this->parsed->text;
 	    }
+
+	    $line = $element->render();
+	    return $line;
     }
 }

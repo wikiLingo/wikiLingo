@@ -686,8 +686,13 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 "&" {
     return 'CHAR';
 }
+"<"(?![a-zA-Z\/])|">" {
+	//special character
+	return 'SPECIAL_CHAR';
+}
 [<](.|\n)*?[>] {
     /*php
+        //html tag
         if (Utilities\Html::isTag($yytext)) {
             return 'HTML_TAG';
         }
@@ -702,9 +707,6 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 (?!{SYNTAX_CHARS})({LINE_CONTENT})?(?={SYNTAX_CHARS})
 											return 'CONTENT';
 ([ ]+?)                                     return 'CONTENT';
-("~lt~"|"~LT~")                             return 'CHAR';
-("~gt~"|"~GT~")                             return 'CHAR';
-"{"([0-9]+)"}"                              return 'CHAR';
 (.)                                         return 'CONTENT';
 <<EOF>>										return 'EOF';
 /lex
@@ -1131,6 +1133,12 @@ content
     {
         /*php
             $1->setType('Char', $$this);
+        */
+    }
+    | SPECIAL_CHAR
+    {
+        /*php
+            $1->setType('SpecialChar', $$this);
         */
     }
     | PRE_BLOCK_START BLOCK_START BLOCK_END

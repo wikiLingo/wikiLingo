@@ -16,7 +16,7 @@ class Plugin extends Base
     public $class;
     public $parsed;
     public $parent;
-	public $allowsBreaks = false;
+	public $allowLines = false;
     public $isInline = false;
     public static $injected = array();
 

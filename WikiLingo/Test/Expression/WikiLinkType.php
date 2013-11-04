@@ -6,10 +6,8 @@ use WikiLingo\Test\Base;
 
 class WikiLinkType extends Base
 {
-	public function __construct(WikiLingo\Parser &$parser)
+	public function __construct()
 	{
-        $parser->bind("WikiLingo\\Expression\\WikiLinkType", "render", function(&$element) {});
-
         $this->source = "(type(foo))";
 
 		$this->expected = "<a href='foo'>foo</a>";

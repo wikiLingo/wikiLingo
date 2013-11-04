@@ -1,16 +1,15 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class Bold extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
-
-		$this->source = "__foo__ & __ foo __";
-
-		$this->expected = "<strong data-type=''>foo</strong> & <strong> foo </strong>";
-
+		$this->expected = (new WikiLingoTestExpression\Bold())->source;
+		$this->source = $parser->parse($this->expected);
 	}
 }

@@ -7,7 +7,7 @@ use WikiLingo\Test\Base;
 
 class NoLineSkipping extends Base
 {
-	public function __construct(&$parser)
+	public function __construct()
 	{
 		Expression\Plugin::$indexes = array();
 
@@ -24,10 +24,10 @@ class NoLineSkipping extends Base
 			"''Test Italics''\n";
 
 		$this->expected =
-            "<div id='div4'>" . '<br class="hidden"/>' . "\n" .
-                "<div id='div3'>" . '<br class="hidden"/>' . "\n" .
-                    "<div id='div2'>" . '<br class="hidden"/>' . "\n" .
-                        "<div id='div1'>" . '<br class="hidden"/>' . "\n" .
+            "<div id='div4'>" . '<br class="hidden"/>' .
+                "<div id='div3'>" . '<br class="hidden"/>' .
+                    "<div id='div2'>" . '<br class="hidden"/>' .
+                        "<div id='div1'>" . '<br class="hidden"/>' .
                         "</div>" .
                     "</div>" .
                 "</div>" .
@@ -38,9 +38,9 @@ class NoLineSkipping extends Base
                 "<dt>foo2</dt>" .
                 "<dd>foo2 definition</dd>" .
             "</dl>" .
-            "<br/>\n" .
-            "<a href='[__bold__'>[__bold__</a><br/>\n" .
-            "Test<i>Test Italics</i><br/>\n";
+            "<br/>" .
+            "<a href='[__bold__'>[__bold__</a><br/>" .
+            "Test<i>Test Italics</i><br/>";
 
 	}
 }

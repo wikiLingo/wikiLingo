@@ -1,16 +1,15 @@
 <?php
 namespace WYSIWYGWikiLingo\Test\SyntaxGenerator;
 
+use WikiLingoWYSIWYG;
+use WikiLingo\Test\Expression as WikiLingoTestExpression;
 use WYSIWYGWikiLingo\Test\Base;
 
 class BoldItalicUnderlineStrike extends Base
 {
-	public function __construct()
+	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
 	{
-
-		$this->source = "__Bold Only ''& Italic ===With Underline --Striken--===''__";
-
-		$this->expected = "<strong>Bold Only <i>& Italic <u>With Underline <strike>Striken</strike></u></i></strong>";
-
+		$this-> expected = (new WikiLingoTestExpression\BoldItalicUnderlineStrike())->source;
+		$this->source = $parser->parse($this->expected);
 	}
 }
