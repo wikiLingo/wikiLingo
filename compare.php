@@ -1,12 +1,14 @@
 <?php
 require_once("index.php");
-
+use WikiLingo\Event\Expression\Tag;
+use WikiLingo\Event\Expression\Variable;
+use Types\Type;
 
 $original = "{TABS()}{TAB(title=`Misc.`)}
 ||item1|item2
 item3|item4||
  # <> &
-''Test''
+''Test'' {{argument}}
 !!!Test
 ~tc~Comments ''Parsed?''~/tc~
 ~~blue:hello world~~
@@ -41,23 +43,27 @@ $scripts = new WikiLingo\Utilities\Scripts();
 $scripts
 	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 
-	//->addScriptLocation("ckeditor/ckeditor.js")
+	->addScriptLocation("ckeditor/ckeditor.js")
 	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
 	->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
 	->addScriptLocation("WikiLingoWYSIWYG/styles.js")
-	/*->addScript(
+	->addScript(
 		"CKEDITOR.config.allowedContent = true;
 		CKEDITOR.config.extraAllowedContent = true;
         CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;"
-	)*/;
+	);
 
 $wikiLingo = new WikiLingo\Parser();
 $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
 $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
 
-$wikiLingo->bind('WikiLingo\Expression\Tag', 'Allowed', function(&$expression, &$out = null) {
-    //$expression->allowed = true;
-});
+Type::Events($wikiLingo->events)
+	->bind(new Tag\Allowed(function(&$expression) {
+		$expression->allowed;
+	}))
+	->bind(new Variable\Lookup(function($key, &$element) {
+		$key;
+	}));
 
 $outputWikiLingo = $wikiLingo->parse($original);
 $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
@@ -106,14 +112,14 @@ $script = $scripts->renderScript();
 		<tr>
 			<td>
 				<div>
-					<pre><?php echo htmlspecialchars($original);?></pre>
+					<pre><code><?php echo htmlspecialchars($original);?></code></pre>
 				</div>
 			</td>
 			<td class="output"><?php echo $outputWikiLingo;?></td>
 			<td><div id="wysiwyg" class="output" contenteditable="true"><?php echo $outputWikiLingoWYSIWYG;?></div></td>
 			<td>
 				<div>
-					<pre><? echo htmlspecialchars($outputWYSIWYGWikiLingo); ?></pre>
+					<pre><code><? echo htmlspecialchars($outputWYSIWYGWikiLingo); ?></code></pre>
 				</div>
 			</td>
 		</tr>

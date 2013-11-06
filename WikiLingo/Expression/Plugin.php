@@ -2,6 +2,7 @@
 namespace WikiLingo\Expression;
 
 use WikiLingo;
+use Types\Type;
 
 class Plugin extends Base
 {
@@ -45,7 +46,7 @@ class Plugin extends Base
 
         //it may exist elsewhere
         if (!$this->exists) {
-            $parsed->parser->events->trigger('WikiLingo\Expression\Plugin', 'Exists', $this);
+            Type::Events($parsed->parser->events)->triggerExpressionPluginExists($this);
         }
 
         $this->index = self::incrementPluginIndex($name);
@@ -78,21 +79,21 @@ class Plugin extends Base
     public function render(&$parser)
     {
         $execute = true;
-        $parser->events->trigger('WikiLingo\Expression\Plugin', 'CanExecute', $this, $execute);
+	    Type::Events($parser->events)->triggerExpressionPluginCanExecute($this);
         if ($execute)
         {
             if (isset($this->class)) {
-                $parser->events->trigger('WikiLingo\Expression\Plugin', 'PreRender', $this);
+                Type::Events($parser->events)->triggerExpressionPluginPreRender($this);
                 $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
                 $rendered = $this->class->render($this, $this->renderedChildren, $parser);
-                $parser->events->trigger('WikiLingo\Expression\Plugin', 'PreRender', $this);
+                //Type::Events($parser->events)->triggerWikiLingoEventExpressionPluginPostRender($this);
                 return $rendered;
             } else {
                 throw new \Exception('Plugin "' . $this->name . '" does not exists in namespace WikiLingo\Plugin');
             }
         } else {
             $return = '';
-            $parser->events->trigger('WikiLingo\Expression\Plugin', 'RenderBlocked', $this, $return);
+            Type::Events($parser->events)->triggerExpressionPluginRenderBlocked($this, $return);
             return $return;
         }
     }

@@ -1,9 +1,12 @@
 <?php
 namespace WikiLingo\Test\Expression;
 
+use WikiLingo\Renderer;
 use WikiLingo;
 use WikiLingo\Test\Base;
 use WikiLingo\Expression;
+use WikiLingo\Event\Expression\WordLink\Exists;
+use WikiLingo\Event\Expression\WordLink\Render;
 
 class WordLink extends Base
 {
@@ -11,19 +14,18 @@ class WordLink extends Base
 	{
 
 		if ($parser != null) {
-			$parser->bind("WikiLingo\\Expression\\WordLink", "exists", function(&$text, &$exists) {
+			$parser->events->bind(new Exists(function(&$text, &$exists) {
 				if ($text == "This") {
 					$exists = true;
 				}
-
-			});
-
-			$parser->bind("WikiLingo\\Expression\\WordLink", "render", function(Expression\WordLink &$expression, &$result) {
-				$element = $expression->parsed->parser->element("WikiLingo\\Expression\\WordLink", "a");
-				$element->staticChildren[] = "This";
-				$element->attributes["href"] = "http://This.com";
-				$result = $element->render();
-			});
+			}));
+;
+			$parser->events->bind(new Render(function(Renderer\Element &$element, &$wordLink) use (&$parser) {
+				if ($wordLink->parsed->text == "This") {
+					$element->staticChildren[] = "This";
+					$element->attributes["href"] = "http://This.com";
+				}
+			}));
 		}
 
 		$this->source = " This Not ";

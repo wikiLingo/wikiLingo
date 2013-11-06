@@ -95,20 +95,4 @@ class Base
 			return ['element' => $element];
 		}
 	}
-
-	public function bind($class, $event, $fn)
-	{
-
-		$this->events->bind($class, $event, $fn);
-	}
-
-	public function unbind($eventName)
-	{
-		$this->events->unbind($eventName);
-	}
-
-	public function trigger($class, $event, &$obj = null, &$out = null)
-	{
-		$this->events->trigger($class, $event, $obj, $out);
-	}
 }

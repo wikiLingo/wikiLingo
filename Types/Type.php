@@ -42,6 +42,11 @@ namespace Types
 			return $obj;
 		}
 
+		public static function Events(\WikiLingo\Events &$obj)
+		{
+			return $obj;
+		}
+
 		public static function WYSIWYGElement(WYSIWYGWikiLingo\Expression\Element &$obj)
 		{
 			return $obj;

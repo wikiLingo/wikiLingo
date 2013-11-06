@@ -11,10 +11,8 @@ class WordLink extends Base
 
 	public function render(&$parser)
 	{
-		$result = "";
-
-		$parser->trigger(__CLASS__, "render", $this, $result);
-
-		return $result;
+		$element = $parser->element(__CLASS__, "a");
+		Type::Events($parser->events)->triggerExpressionWordLinkRender($element, $this);
+		return $element->render();
 	}
 }

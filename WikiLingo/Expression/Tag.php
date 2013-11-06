@@ -2,6 +2,7 @@
 
 namespace WikiLingo\Expression;
 use WikiLingo;
+use Types\Type;
 
 class Tag extends Base
 {
@@ -35,7 +36,7 @@ class Tag extends Base
             $this->allowed = false;
         }
 
-        $parsed->parser->trigger('WikiLingo\Expression\Tag', 'Allowed', $this);
+        Type::Events($parsed->parser->events)->triggerExpressionTagAllowed($this);
 
 		parent::__construct($parsed);
 	}

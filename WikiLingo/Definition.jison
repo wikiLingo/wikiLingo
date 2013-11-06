@@ -127,13 +127,13 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'SINGLE_DYNAMIC_VAR';
 }
 
-//Argument Variables
+//Variables
 "{{"{VARIABLE_NAME}([|]{VARIABLE_NAME})?"}}" {
     /*php
         if ($this->isContent(array('linkStack'))) return 'CONTENT';
     */
 
-    return 'ARGUMENT_VAR';
+    return 'VAR';
 }
 
 
@@ -686,7 +686,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
         if ($this->isContent()) return 'CONTENT';
 
         $isLink = false;
-        $this->events->trigger("WikiLingo\\Expression\\WordLink", "exists", $yytext, $isLink);
+        $this->events->triggerExpressionWordLinkExists($yytext, $isLink);
 
         if ($isLink) {
             return 'WORD_LINK';
@@ -815,15 +815,15 @@ content
         */
     }
     | SINGLE_DYNAMIC_VAR
-     {
+    {
         /*php
             $1->setType('DynamicVariable', $$this);
         */
-     }
-    | ARGUMENT_VAR
+    }
+    | VAR
     {
         /*php
-            $1->setType('ArgumentVariable', $$this);
+            $1->setType('Variable', $$this);
         */
     }
     | HTML_TAG

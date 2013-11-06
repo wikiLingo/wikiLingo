@@ -22,7 +22,7 @@ class WikiLink extends Base
         $element->staticChildren[] = $text;
         $element->attributes['href'] = $href;
 
-	    $parser->trigger(__CLASS__, "render", $element);
+	    Type::Events($parser->events)->triggerExpressionWikiLinkRender($element, $this);
 
         return $element->render();
     }

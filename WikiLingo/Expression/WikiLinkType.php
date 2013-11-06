@@ -34,7 +34,7 @@ class WikiLinkType extends Base
         $element->attributes['href'] = $href;
         $element->detailedAttributes['data-wiki-link-type'] = $this->type;
 
-        $parser->trigger(__CLASS__, "render", $element);
+	    Type::Events($parser->events)->triggerExpressionWikiLinkTypeRender($element, $this);
 
         return $element->render();
     }

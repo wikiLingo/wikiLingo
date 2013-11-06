@@ -45,7 +45,7 @@ class Definition extends Base
 			$symbol13 = new ParserSymbol("PREFORMATTED_TEXT_END", 13);
 			$symbol14 = new ParserSymbol("DOUBLE_DYNAMIC_VAR", 14);
 			$symbol15 = new ParserSymbol("SINGLE_DYNAMIC_VAR", 15);
-			$symbol16 = new ParserSymbol("ARGUMENT_VAR", 16);
+			$symbol16 = new ParserSymbol("VAR", 16);
 			$symbol17 = new ParserSymbol("HTML_TAG", 17);
 			$symbol18 = new ParserSymbol("HORIZONTAL_BAR", 18);
 			$symbol19 = new ParserSymbol("BOLD_START", 19);
@@ -124,7 +124,7 @@ class Definition extends Base
 			$this->symbols[15] = $symbol15;
 			$this->symbols["SINGLE_DYNAMIC_VAR"] = $symbol15;
 			$this->symbols[16] = $symbol16;
-			$this->symbols["ARGUMENT_VAR"] = $symbol16;
+			$this->symbols["VAR"] = $symbol16;
 			$this->symbols[17] = $symbol17;
 			$this->symbols["HTML_TAG"] = $symbol17;
 			$this->symbols[18] = $symbol18;
@@ -6532,11 +6532,11 @@ case 17:
         
             $s[$o]->setType('DynamicVariable', $this);
         
-     
+    
 break;
 case 18:
         
-            $s[$o]->setType('ArgumentVariable', $this);
+            $s[$o]->setType('Variable', $this);
         
     
 break;
@@ -7398,7 +7398,7 @@ case 11:
         if ($this->isContent(array('linkStack'))) return 7;
     
 
-    return 'ARGUMENT_VAR';
+    return 'VAR';
 
 break;
 case 12:
@@ -7942,7 +7942,7 @@ case 72:
         if ($this->isContent()) return 7;
 
         $isLink = false;
-        $this->events->trigger("WikiLingo\\Expression\\WordLink", "exists", $this->yy->text, $isLink);
+        $this->events->triggerExpressionWordLinkExists($this->yy->text, $isLink);
 
         if ($isLink) {
             return 'WORD_LINK';

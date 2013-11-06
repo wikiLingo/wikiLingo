@@ -14,28 +14,75 @@ If you'd like to learn what wikiLingo Looks like (ie, if you want to actually co
 
 ##Syntax types
 ###Plugins
-* Plugin with content body```{PLUGIN(parameter1="value" parameter2="value")}
+* Plugin with content body
+```
+{PLUGIN(parameter1="value" parameter2="value")}
 ...plugin body
 {PLUGIN}
 ```
-* Inline plugin```{plugin parameter1="value" parameter2="value}```
+* Inline plugin
+```
+{plugin parameter1="value" parameter2="value}
+```
 
 ###Wiki syntax
 wikiLingo also incorporates popular wiki syntax
-* Bold - ```__Text__```
-* Center - ```::Text::```
-* Code - ```-+Text+-```
-* Color - ```~~Color:Text~~```
-* Text Comment - ```~tc~Text~/tc~```
-* Forced Line - ```%%%```
-* Header 1 - ```!Text```
-* Header 2 - ```!!Text```
-* Header 3 - ```!!!Text```
-* Header 4 - ```!!!!Text```
-* Header 5 - ```!!!!!Text```
-* Header 6 - ```!!!!!!Text```
-* Italic - ```''Text''```
-* Not Parsed - ```~np~Text~/np~```
+* Bold -
+```
+__Text__
+```
+* Center -
+```
+::Text::
+```
+* Code -
+```
+-+Text+-
+```
+* Color -
+```
+~~Color:Text~~
+```
+* Text Comment -
+```
+~tc~Text~/tc~
+```
+* Forced Line -
+```
+%%%
+```
+* Header 1 -
+```
+!Text
+```
+* Header 2 -
+```
+!!Text
+```
+* Header 3 -
+```
+!!!Text
+```
+* Header 4 -
+```
+!!!!Text
+```
+* Header 5 -
+```
+!!!!!Text
+```
+* Header 6 -
+```
+!!!!!!Text
+```
+* Italic -
+```
+''Text''
+```
+* Not Parsed -
+```
+~np~Text~/np~
+```
 * Lists (Unordered) -
 ```
 *Item
@@ -52,12 +99,26 @@ wikiLingo also incorporates popular wiki syntax
 ####################Item N.1
 ##Item 2.2
 ```
-* Pre-Formatted Text - ```~pp~Text~/pp~```
-* Strike - ```--Text--```
-* Table - ```||Row 1, Column 1|Row 1, Column 2
-
-Row 2, Column 1| Row 2, Column 2||```
-* Title Bar - ```-=Text=-```
-* Underscore - ```===Text===```
+* Pre-Formatted Text -
+```
+~pp~Text~/pp~
+```
+* Strike -
+```
+--Text--
+```
+* Table -
+```
+||Row 1, Column 1|Row 1, Column 2
+Row 2, Column 1| Row 2, Column 2||
+```
+* Title Bar -
+```
+-=Text=-
+```
+* Underscore -
+```
+===Text===
+```
 
 More to come!
