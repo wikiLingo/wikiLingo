@@ -1,10 +1,12 @@
 <?php
 require_once("index.php");
-use WikiLingo\Event\Expression\Tag;
-use WikiLingo\Event\Expression\Variable;
-use Types\Type;
 
-$original = "{TABS()}{TAB(title=`Misc.`)}
+use Types\Type;
+use WikiLingo\Event;
+use WikiLingo\Parsed;
+use WikiLingo\Expression;
+
+    $original = "{TABS()}{TAB(title=`Misc.`)}
 ||item1|item2
 item3|item4||
  # <> &
@@ -37,33 +39,66 @@ item3|item4||
 #__Test__
 {TAB}{TABS}
 
-!+Header";
-$scripts = new WikiLingo\Utilities\Scripts();
+!+Header
+{ILLEGAL()}
+    {HTML()}
+        <script>alert('t');</script>
+    {HTML}
+{ILLEGAL}";
+    $scripts = new WikiLingo\Utilities\Scripts();
 
-$scripts
-	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+    $scripts
+        ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 
-	->addScriptLocation("ckeditor/ckeditor.js")
-	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
-	->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
-	->addScriptLocation("WikiLingoWYSIWYG/styles.js")
-	->addScript(
-		"CKEDITOR.config.allowedContent = true;
-		CKEDITOR.config.extraAllowedContent = true;
-        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;"
-	);
+        ->addScriptLocation("ckeditor/ckeditor.js")
+        ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
+        ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+        ->addScriptLocation("WikiLingoWYSIWYG/styles.js")
+        ->addScript(
+            "CKEDITOR.config.allowedContent = true;
+            CKEDITOR.config.extraAllowedContent = true;
+            CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;"
+        );
 
-$wikiLingo = new WikiLingo\Parser();
-$wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser();
-$wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
+    $wikiLingo = new WikiLingo\Parser($scripts);
+    $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser($scripts);
+    $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
 
-Type::Events($wikiLingo->events)
-	->bind(new Tag\Allowed(function(&$expression) {
-		$expression->allowed;
-	}))
-	->bind(new Variable\Lookup(function($key, &$element) {
-		$key;
-	}));
+    Type::Events($wikiLingo->events)
+        ->bind(new Event\Expression\Tag\Allowed(function(&$expression) {
+            if (!$expression->allowed) {
+
+            }
+        }))
+
+        ->bind(new Event\Parsed\RenderPermission(function(Parsed &$parsed) {
+            if (
+                $parsed->type == "Plugin"
+                && $parsed->expression->name == "illegal"
+            ) {
+                $parsed->expressionPermissible = false;
+            }
+        }))
+        ->bind(new Event\Parsed\RenderBlocked(function(Parsed &$parsed, &$return) {
+            $return = '';
+        }))
+
+        ->bind(new Event\Expression\Variable\Lookup(function($key, &$element) {
+            $key;
+        }))
+
+
+
+        ->bind(new Event\Expression\Plugin\PreRender(function(Expression\Plugin &$plugin) {
+            $test = '';
+        }));
+
+    Type::Events($wikiLingoWYSIWYG->events)
+        ->bind(new Event\Expression\Tag\Render(function(&$element, &$expression) {
+            if (!$expression->allowed) {
+                Type::Element($element)->attributes['style'] = 'background-color: red;';
+            }
+        }));
 
 $outputWikiLingo = $wikiLingo->parse($original);
 $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);

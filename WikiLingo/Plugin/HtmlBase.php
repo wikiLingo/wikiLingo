@@ -303,6 +303,10 @@ abstract class HtmlBase extends Base
         if (!empty($style)) {
             $element->attributes['style'] = $style;
         }
+
+        if (empty($this->type)) {
+            throw new \Exception("Plugin attribute 'type' not set");
+        }
         $element->detailedAttributes['data-plugintype'] = $this->type;
         $element->detailedAttributes['data-pluginparameters'] = urlencode(json_encode($plugin->parameters));
         $element->detailedAttributes['data-isinline'] = $plugin->isInline;

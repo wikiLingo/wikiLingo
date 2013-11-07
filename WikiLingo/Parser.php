@@ -73,7 +73,8 @@ class Parser extends Definition {
         $this->blocksLength = 0;
         $input = $input . "≤REAL_EOF≥"; //this is dynamically removed later
         $input = str_replace("\r", "", $input);
-
+        //this is used for returning the syntax of a parsed
+        $this->originalInput = explode("\n", $input);
         //$this->originalInput = preg_split('/\n/', $input);
     }
 

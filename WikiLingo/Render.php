@@ -2,6 +2,8 @@
 
 namespace WikiLingo;
 
+use Types\Type;
+
 class Render
 {
 	public $depth = 0;
@@ -14,6 +16,20 @@ class Render
 
 	public function render(Parsed &$parsed)
 	{
+        Type::Events($this->parser->events)
+            ->triggerParsedRenderPermission($parsed);
+
+        if (!$parsed->expressionPermissible) {
+            if (isset($parsed->stateEnd)) {
+                $syntax = $this->parser->syntax($parsed->loc, $parsed->stateEnd->loc);
+            } else {
+                $syntax = $this->parser->syntax($parsed->loc);
+            }
+            Type::Events($this->parser->events)
+                ->triggerParsedRenderBlocked($parsed, $syntax);
+            return $syntax;
+        }
+
 		//children are directly part of the family as a visible child
         $renderedChildren = '';
 		if ($parsed->childrenLength > 0) {

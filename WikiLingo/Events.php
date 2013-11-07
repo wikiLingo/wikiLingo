@@ -4,20 +4,22 @@ namespace WikiLingo;
 class Events
 {
 	//possible events, I hate to re-declare all of them, but it is strongly typed, what can you say
-	public $ExpressionPluginExists = array();
-	public $ExpressionPluginCanExecute = array();
-	public $ExpressionPluginPreRender = array();
-	public $ExpressionPluginRenderBlocked = array();
+	private $ExpressionPluginExists = array();
+    private $ExpressionPluginPreRender = array();
 
-	public $ExpressionTagAllowed = array();
+    private $ExpressionTagAllowed = array();
+    private $ExpressionTagRender = array();
 
-	public $ExpressionVariableLookup = array();
+    private $ExpressionVariableLookup = array();
 
-	public $ExpressionWikiLinkRender = array();
-	public $ExpressionWikiLinkTypeRender = array();
+    private $ExpressionWikiLinkRender = array();
+    private $ExpressionWikiLinkTypeRender = array();
 
-	public $ExpressionWordLinkExists = array();
-	public $ExpressionWordLinkRender = array();
+    private $ExpressionWordLinkExists = array();
+    private $ExpressionWordLinkRender = array();
+
+    private $ParsedRenderPermission = array();
+    private $ParsedRenderBlocked = array();
 
 	public function bind(&$event)
 	{
@@ -35,13 +37,6 @@ class Events
 			$event->trigger($plugin);
 		}
 	}
-	public function triggerExpressionPluginCanExecute(Expression\Plugin &$plugin)
-	{
-		foreach($this->ExpressionPluginCanExecute as &$event)
-		{
-			$event->trigger($plugin);
-		}
-	}
 	public function triggerExpressionPluginPreRender(Expression\Plugin &$plugin)
 	{
 		foreach($this->ExpressionPluginPreRender as &$event)
@@ -49,13 +44,7 @@ class Events
 			$event->trigger($plugin);
 		}
 	}
-	public function triggerExpressionPluginRenderBlocked(Expression\Plugin &$plugin, &$return)
-	{
-		foreach($this->ExpressionPluginRenderBlocked as &$event)
-		{
-			$event->trigger($plugin, $return);
-		}
-	}
+
 
 	public function triggerExpressionTagAllowed(Expression\Tag &$tag)
 	{
@@ -64,6 +53,14 @@ class Events
 			$event->trigger($tag);
 		}
 	}
+
+    public function triggerExpressionTagRender(Renderer\Element &$element, Expression\Tag &$tag)
+    {
+        foreach($this->ExpressionTagRender as &$event)
+        {
+            $event->trigger($element, $tag);
+        }
+    }
 
 	public function triggerExpressionVariableLookup(&$key, Renderer\Element &$element, Expression\Variable &$variable)
 	{
@@ -103,4 +100,19 @@ class Events
 			$event->trigger($element, $wordLink);
 		}
 	}
+
+    public function triggerParsedRenderPermission(Parsed &$parsed)
+    {
+        foreach($this->ParsedRenderPermission as &$event)
+        {
+            $event->trigger($parsed);
+        }
+    }
+    public function triggerParsedRenderBlocked(Parsed &$parsed, &$return)
+    {
+        foreach($this->ParsedRenderBlocked as &$event)
+        {
+            $event->trigger($parsed, $return);
+        }
+    }
 }

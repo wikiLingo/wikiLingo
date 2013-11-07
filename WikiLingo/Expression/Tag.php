@@ -14,12 +14,6 @@ class Tag extends Base
 		'script' => true
 	);
 
-	public static $ignoresNextLine = array(
-		'hr' => true,
-		'br' => true,
-        'div' => true
-	);
-
 	function __construct(WikiLingo\Parsed &$parsed)
 	{
         $this->parsed =& $parsed;
@@ -49,6 +43,7 @@ class Tag extends Base
             if (isset($parser->wysiwyg)) {
                 $element = $parser->element(__CLASS__, "code");
                 $element->staticChildren[] = htmlspecialchars($this->parsed->text);
+                Type::Events($parser->events)->triggerExpressionTagRender($element, $this);
                 return $element->render();
             }
 

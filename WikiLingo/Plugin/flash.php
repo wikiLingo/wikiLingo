@@ -2,7 +2,6 @@
 namespace WikiLingo\Plugin;
 
 class flash extends HtmlBase
-
 {
 
     public $type = 'flash';

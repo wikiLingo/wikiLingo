@@ -6,18 +6,18 @@
  * Time: 8:07 PM
  */
 
-namespace WikiLingo\Event\Expression\Plugin;
+namespace WikiLingo\Event\Parsed;
 
 use WikiLingo\Event\Base;
-use WikiLingo\Expression\Plugin;
+use WikiLingo\Parsed;
 
-class CanExecute extends Base
+class RenderPermission extends Base
 {
-	public function trigger(Plugin &$plugin)
+	public function trigger(Parsed &$parsed)
 	{
 		foreach($this->delegates as &$delegate)
 		{
-			$delegate($plugin);
+			$delegate($parsed);
 		}
 	}
 } 

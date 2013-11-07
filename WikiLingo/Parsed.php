@@ -20,6 +20,7 @@ class Parsed extends ParserValue
     public $lineIndex = 0;
     public $lineLength = 0;
     public $parser;
+    public $stateEnd;
 	public static $throwExceptions = true;
 
 	public $lines = array();
@@ -133,6 +134,7 @@ class Parsed extends ParserValue
     }
 
     public $expression;
+    public $expressionPermissible = true;
     public function setExpression()
     {
         $class = "WikiLingo\\Expression\\$this->type";

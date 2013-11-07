@@ -78,24 +78,15 @@ class Plugin extends Base
 
     public function render(&$parser)
     {
-        $execute = true;
-	    Type::Events($parser->events)->triggerExpressionPluginCanExecute($this);
-        if ($execute)
-        {
-            if (isset($this->class)) {
-                Type::Events($parser->events)->triggerExpressionPluginPreRender($this);
-                $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
-                $rendered = $this->class->render($this, $this->renderedChildren, $parser);
-                //Type::Events($parser->events)->triggerWikiLingoEventExpressionPluginPostRender($this);
-                return $rendered;
-            } else {
-                throw new \Exception('Plugin "' . $this->name . '" does not exists in namespace WikiLingo\Plugin');
-            }
+        if (isset($this->class)) {
+            $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
         } else {
-            $return = '';
-            Type::Events($parser->events)->triggerExpressionPluginRenderBlocked($this, $return);
-            return $return;
+            throw new \Exception('Plugin "' . $this->name . '" does not exists in namespace WikiLingo\Plugin');
         }
+
+        Type::Events($parser->events)->triggerExpressionPluginPreRender($this);
+        $rendered = $this->class->render($this, $this->renderedChildren, $parser);
+        return $rendered;
     }
 
     public function info()

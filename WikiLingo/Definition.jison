@@ -1130,6 +1130,7 @@ content
  		    $$type =& $1;
  		    $$type->addArgument($2);
  		    $3->setParent($$type);
+ 		    $$type->stateEnd = $4;
  		    $$type->setType('Plugin', $$this);
         */
  	}
@@ -1139,6 +1140,7 @@ content
             $$type =& $1;
             $$type->addArgument($2);
             $$type->addArgument($3);
+            $$type->stateEnd = $4;
             $$type->setType('Plugin', $$this);
         */
      }
