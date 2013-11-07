@@ -1140,7 +1140,7 @@ content
             $$type =& $1;
             $$type->addArgument($2);
             $$type->addArgument($3);
-            $$type->stateEnd = $4;
+            $$type->stateEnd = $3;
             $$type->setType('Plugin', $$this);
         */
      }

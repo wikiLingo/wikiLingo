@@ -6827,7 +6827,7 @@ case 83:
             $type =& $s[$o-2];
             $type->addArgument($s[$o-1]);
             $type->addArgument($s[$o]);
-            $type->stateEnd = $s[$o1];
+            $type->stateEnd = $s[$o];
             $type->setType('Plugin', $this);
         
      

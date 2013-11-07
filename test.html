@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>(100/0) wikiLingo test suite | Testify Suite</title>
+        <title>(102/0) wikiLingo test suite | Testify Suite</title>
         
         <style>
         	*{
@@ -2366,11 +2366,52 @@ test|test||
 		  							
 					<h2 class="pass">
 						WikiLingo Plugins						<span class="result">
-							<span class="green">1</span>/<span class="red">0</span>
+							<span class="green">2</span>/<span class="red">0</span>
 						</span>
 					</h2>	
 					
 					<ul class="tests">
+													
+							<li>
+								<span class="type pass">
+                                    
+<h2 onclick='this.nextSibling.style.display = (this.nextSibling.style.display ? "" : "block")'><a>illegal</a></h2><div class="output">
+	<table style='width: 100%;'>
+		<colgroup>
+			<col style="width: 33%; background-color: "/>
+			<col style="width: 33%"/>
+			<col style="width: 33%"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<th style="text-align: center;">Source</th>
+			</tr>
+			<tr>
+				<td style="background-color: #F0F0F0;" rowspan="2">
+					<pre><code>{ILLEGAL()}
+                {HTML()}
+!Header 1
+!Header 2
+                {HTML}
+{ILLEGAL}</code></pre>
+				</td>
+				<td style="background-color: #F0F0F0;">
+					Expected: <pre><code></code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: #F0F0F0;">
+					Actual: <pre><code></code></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
 													
 							<li>
 								<span class="type pass">
@@ -2415,7 +2456,7 @@ test|test||
 		  							
 					<h2 class="pass">
 						WYSIWYGWikiLingo Syntax Generator						<span class="result">
-							<span class="green">43</span>/<span class="red">0</span>
+							<span class="green">44</span>/<span class="red">0</span>
 						</span>
 					</h2>	
 					
@@ -3026,6 +3067,52 @@ heading text section</code></pre>
 !!!!!!Header 6
 !!!!!!Header Attempted 7, but got 6
 </code></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>                                </span>
+								<span class="line">line 49</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    
+<h2 onclick='this.nextSibling.style.display = (this.nextSibling.style.display ? "" : "block")'><a>Illegal</a></h2><div class="output">
+	<table style='width: 100%;'>
+		<colgroup>
+			<col style="width: 33%; background-color: "/>
+			<col style="width: 33%"/>
+			<col style="width: 33%"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<th style="text-align: center;">Source</th>
+			</tr>
+			<tr>
+				<td style="background-color: #F0F0F0;" rowspan="2">
+					<pre><code>&lt;span id='illegal2' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='illegal' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;&lt;span class='whitespace' data-element='true' data-type='WikiLingo\\Expression\\WhiteSpace'&gt;                &lt;/span&gt;&lt;span id='html5' data-element='true' data-type='WikiLingo\\Expression\\Plugin' data-plugintype='html' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;h1 id='Header+11' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header 1&lt;/h1&gt;&lt;h1 id='Header+21' data-element='true' data-type='WikiLingo\\Expression\\Header'&gt;Header 2&lt;/h1&gt;&lt;br class='hidden' data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;&lt;span class='whitespace' data-element='true' data-type='WikiLingo\\Expression\\WhiteSpace'&gt;                &lt;/span&gt;&lt;/span&gt;&lt;br class='hidden' data-element='true' data-type='WikiLingo\\Expression\\Line'/&gt;&lt;/span&gt;</code></pre>
+				</td>
+				<td style="background-color: #F0F0F0;">
+					Expected: <pre><code>{ILLEGAL()}
+                {HTML()}
+!Header 1
+!Header 2
+                {HTML}
+{ILLEGAL}</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: #F0F0F0;">
+					Actual: <pre><code>{ILLEGAL()}
+                {HTML()}
+!Header 1
+!Header 2
+                {HTML}
+{ILLEGAL}</code></pre>
 				</td>
 			</tr>
 		</tbody>

@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Plugin;
 
-class expandingoutline extends Base
+class ExpandingOutline extends Base
 {
 	public $type = 'expandingoutline';
 	public $documentation = 'PluginExpandingOutline';

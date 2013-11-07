@@ -440,7 +440,7 @@ case 83:
             $type =& $$[$0-2];
             $type->addArgument($$[$0-1]);
             $type->addArgument($$[$0]);
-            $type->stateEnd = $$[$01];
+            $type->stateEnd = $$[$0];
             $type->setType('Plugin', $this);
         */
      
