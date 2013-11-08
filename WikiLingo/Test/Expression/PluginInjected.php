@@ -11,7 +11,7 @@ class PluginInjected extends Base
 	public function __construct(WikiLingo\Parser &$parser)
 	{
 		$fn = function(WikiLingo\Expression\Plugin &$plugin) use (&$parser) {
-			switch ($plugin->name) {
+			switch ($plugin->type) {
 				case "injected":
 					$plugin->className = "\\Tests\\injected";
 					$plugin->class = $parser->pluginInstances['injected'] =& new Test\injected();

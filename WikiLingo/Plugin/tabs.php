@@ -5,7 +5,6 @@ use WikiLingo;
 
 class tabs extends HtmlBase
 {
-    public $type = 'tabs';
     public $htmlTagType = 'div';
     public $wysiwygTagType = 'div';
 	public $parameters = array(
@@ -16,7 +15,7 @@ class tabs extends HtmlBase
     {
 	    $plugin->allowLineAfter = false;
 	    $this->parameterDefaults($plugin->parameters);
-	    $id = $this->id($plugin->index);
+	    $id = $plugin->id();
 
 	    $parser->scripts->addScript(<<<JS
 $(function() {

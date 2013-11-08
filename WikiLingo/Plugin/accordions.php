@@ -11,15 +11,13 @@ use WikiLingo;
 
 class accordions extends HtmlBase
 {
-    public $type = 'accordions';
-    public $public = 'accordions';
     public $htmlTagType = 'div';
 
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
         $this->parameterDefaults($plugin->parameters);
-        $id = $this->id($plugin->index);
+        $id = $plugin->id();
         self::$scripts->addScript(<<<JS
 $(function() {
 	 $( '#$id' ).accordion();

@@ -11,7 +11,6 @@ use WikiLingo;
 
 class accordion extends HtmlBase
 {
-    public $type = 'accordion';
     public $htmlTagType = 'div';
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)

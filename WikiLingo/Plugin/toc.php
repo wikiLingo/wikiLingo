@@ -7,7 +7,6 @@ use WikiLingo\Expression\Tensor;
 
 class toc extends HtmlBase
 {
-	public $type = 'toc';
 	public $htmlTagType = 'div';
     public static $ordered = true;
 	public $inlineOnly = true;

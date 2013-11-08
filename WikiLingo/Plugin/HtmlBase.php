@@ -9,6 +9,7 @@ abstract class HtmlBase extends Base
 	public $hasHtmlBody = true;
 	public $attributes = array('id'=>'', 'class'=>'', 'style'=>'');
 	public $button;
+	public $expressionType = 'WikiLingo\\Expression\\Plugin';
 
 	static $style = array(
 		'@keyframes' => array('filter' => 'text', 'default' => ''),
@@ -292,22 +293,18 @@ abstract class HtmlBase extends Base
                 $this->htmlTagType
         );
 
-        $element = $parser->element('WikiLingo\\Expression\\Plugin', $elementName);
+        $element = $parser->element($this->expressionType, $elementName);
 
         $this->parameterDefaults($plugin->parameters);
 		$style = $this->stylize($plugin->parameters);
 		$this->attributeDefaults($plugin->attributes);
 
-        $element->attributes['id'] = $this->id($plugin->index);
-        $element->attributes['class'] = (empty($plugin->attributes['class']) ? '' : ' ' ) . 'wl-plugin-' . $this->type;
+        $element->attributes['id'] = $plugin->id();
+        $element->attributes['class'] = (empty($plugin->attributes['class']) ? '' : ' ' ) . 'wl-plugin-' . $plugin->type;
         if (!empty($style)) {
             $element->attributes['style'] = $style;
         }
-
-        if (empty($this->type)) {
-            throw new \Exception("Plugin attribute 'type' not set");
-        }
-        $element->detailedAttributes['data-plugintype'] = $this->type;
+        $element->detailedAttributes['data-plugintype'] = $plugin->type;
         $element->detailedAttributes['data-pluginparameters'] = urlencode(json_encode($plugin->parameters));
         $element->detailedAttributes['data-isinline'] = $plugin->isInline;
 

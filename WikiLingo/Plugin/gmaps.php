@@ -3,7 +3,6 @@ namespace WikiLingo\Plugin;
 
 class gmaps extends HtmlBase
 {
-    public $type = 'gmaps';
     public $hasHtmlBody = false;
     public $htmlTagType = 'iframe';
     public $htmlAttributes = array(

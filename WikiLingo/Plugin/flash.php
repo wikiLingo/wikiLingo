@@ -3,8 +3,6 @@ namespace WikiLingo\Plugin;
 
 class flash extends HtmlBase
 {
-
-    public $type = 'flash';
     public $hasHtmlBody = false;
     public $htmlTagType = 'embed';
     public $wysiwygTagType = 'img';

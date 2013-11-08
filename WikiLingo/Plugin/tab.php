@@ -5,7 +5,6 @@ use WikiLingo;
 
 class tab extends HtmlBase
 {
-    public $type = 'tab';
     public $htmlTagType = 'div';
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
@@ -15,9 +14,9 @@ class tab extends HtmlBase
 	    }
 
         if (isset($plugin->parameters['title'])) {
-            $plugin->parent->privateAttributes['titles'][$this->id($plugin->index)] = $plugin->parameters['title'];
+            $plugin->parent->privateAttributes['titles'][$plugin->id()] = $plugin->parameters['title'];
         } else {
-            $plugin->parent->privateAttributes['titles'][$this->id($plugin->index)] = '';
+            $plugin->parent->privateAttributes['titles'][$plugin->id()] = '';
         }
 
         return parent::render($plugin, $body, $parser);

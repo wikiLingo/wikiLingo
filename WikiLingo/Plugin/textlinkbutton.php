@@ -3,7 +3,6 @@ namespace WikiLingo\Plugin;
 
 class textlinkbutton extends HtmlBase
 {
-	public $type = 'textlinkbutton';
 	public $documentation = '';
 	public $prefs = array('feature_wiki', 'wikiplugin_textlink', 'feature_forwardlinkprotocol');
 	public $filter = 'rawhtml_unsafe';

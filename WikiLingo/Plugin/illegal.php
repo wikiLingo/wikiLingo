@@ -11,5 +11,4 @@ namespace WikiLingo\Plugin;
 
 class illegal extends HtmlBase
 {
-    public $type = 'illegal';
 }

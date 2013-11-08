@@ -19,7 +19,7 @@ class illegal extends Base
                 ->bind(new Event\Parsed\RenderPermission(function(Parsed &$parsed) {
                     if (
                         $parsed->type == "Plugin"
-                        && $parsed->expression->name == "illegal"
+                        && $parsed->expression->type == "illegal"
                     ) {
                         $parsed->expressionPermissible = false;
                     }

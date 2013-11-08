@@ -6,14 +6,14 @@ use Types\Type;
 
 class Plugin extends Base
 {
-    public $name;
+    public $type;
     public $parameters = array(); //parameters are server side
     public $attributes = array(); //attributes are client/tag side
     public $privateAttributes = array(); //privateAttributes are server side, used between plugins
     public $index;
     public $key;
 	public $exists;
-    public $className;
+    public $classType;
     public $class;
     public $parsed;
     public $parent;
@@ -28,29 +28,29 @@ class Plugin extends Base
     function __construct(WikiLingo\Parsed &$parsed)
     {
         $this->parsed =& $parsed;
-	    $name = $parsed->text;
+	    $type = $parsed->text;
 	    $parameters = $parsed->arguments[0]->text;
 
         if (!isset(self::$parametersParser)) {
             self::$parametersParser = new WikiLingo\Utilities\Parameters\Definition();
         }
 
-        $this->name = $name = strtolower(substr($name, 1));
+        $this->type = $type = strtolower(substr($type, 1));
 
-        if ($name{strlen($name) - 1} == "(") {
-            $this->name = $name = strtolower(substr($name, 0, -1));
+        if ($type{strlen($type) - 1} == "(") {
+            $this->type = $type = strtolower(substr($type, 0, -1));
         }
 
-        $this->className = "WikiLingo\\Plugin\\$name";
-	    $this->exists = class_exists($this->className);
+        $this->classType = "WikiLingo\\Plugin\\$type";
+	    $this->exists = class_exists($this->classType);
 
         //it may exist elsewhere
         if (!$this->exists) {
             Type::Events($parsed->parser->events)->triggerExpressionPluginExists($this);
         }
 
-        $this->index = self::incrementPluginIndex($name);
-        $this->key = '§' . md5('plugin:' . $name . '_' . $this->index) . '§';
+        $this->index = self::incrementPluginIndex($type);
+        $this->key = '§' . md5('plugin:' . $type . '_' . $this->index) . '§';
 
         if ($parameters != '}') {
             if ($this->isInline) {
@@ -69,10 +69,10 @@ class Plugin extends Base
         $this->ignored = false;
 
         if ($this->exists == true) {
-            if (empty($parsed->parser->pluginInstances[$this->className])) {
-                $parsed->parser->pluginInstances[$this->className] = new $this->className;
+            if (empty($parsed->parser->pluginInstances[$this->classType])) {
+                $parsed->parser->pluginInstances[$this->classType] = new $this->classType;
             }
-            $this->class = $parsed->parser->pluginInstances[$this->className];
+            $this->class = $parsed->parser->pluginInstances[$this->classType];
         }
     }
 
@@ -81,7 +81,7 @@ class Plugin extends Base
         if (isset($this->class)) {
             $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
         } else {
-            throw new \Exception('Plugin "' . $this->name . '" does not exists in namespace WikiLingo\Plugin');
+            throw new \Exception('Plugin "' . $this->type . '" does not exists in namespace WikiLingo\Plugin');
         }
 
         Type::Events($parser->events)->triggerExpressionPluginPreRender($this);
@@ -91,16 +91,16 @@ class Plugin extends Base
 
     public function info()
     {
-        if ( isset( self::$info[$this->name] ) ) {
-            return self::$info[$this->name];
+        if ( isset( self::$info[$this->type] ) ) {
+            return self::$info[$this->type];
         }
 
         if (isset($this->class)) {
-            self::$info[$this->name] = $this->class->info();
-            if (isset(self::$info[$this->name]['params'])) {
-                self::$info[$this->name]['params'] = array_merge(self::$info[$this->name]['params'], $this->class->style());
+            self::$info[$this->type] = $this->class->info();
+            if (isset(self::$info[$this->type]['params'])) {
+                self::$info[$this->type]['params'] = array_merge(self::$info[$this->type]['params'], $this->class->style());
             }
-            return self::$info[$this->name];
+            return self::$info[$this->type];
         }
 
         return false;
@@ -111,32 +111,37 @@ class Plugin extends Base
      * are static, so that all index are unique
      *
      * @access  private
-     * @param   string  $name plugin name
+     * @param   string  $type plugin type
      * @return  string  $index
      */
-    private function incrementPluginIndex($name)
+    private function incrementPluginIndex($type)
     {
-        $name = strtolower($name);
+	    $type = strtolower($type);
 
-        if (isset(self::$indexes[$name]) == false) {
-            self::$indexes[$name] = 0;
+        if (isset(self::$indexes[$type]) == false) {
+            self::$indexes[$type] = 0;
         }
 
-        self::$indexes[$name]++;
+        self::$indexes[$type]++;
 
-        return self::$indexes[$name];
+        return self::$indexes[$type];
     }
 
-    public function addAttribute($name, $value) {
-        $this->attributes[$name] = $value;
+    public function addAttribute($type, $value) {
+        $this->attributes[$type] = $value;
     }
 
-	public function parameter($name)
+	public function parameter($type)
 	{
-		if (isset($this->parameters[$name]))
+		if (isset($this->parameters[$type]))
 		{
-			return $this->parameters[$name];
+			return $this->parameters[$type];
 		}
 		return '';
+	}
+
+	public function id()
+	{
+		return $this->type . $this->index;
 	}
 }

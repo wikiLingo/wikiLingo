@@ -1,24 +1,9 @@
 <?php
 namespace WikiLingo\Plugin;
 
-class ExpandingOutline extends Base
+class expandingoutline extends Base
 {
-	public $type = 'expandingoutline';
-	public $documentation = 'PluginExpandingOutline';
-	public $prefs = array('wikiplugin_expandingoutline', 'feature_jison_wiki_parser');
-	public $filter = 'rawhtml_unsafe';
-	public $icon = 'img/icons/mime/html.png';
-	public $tags = array( 'basic' );
-
-	function __construct()
-	{
-		$this->name = tr('Expanding Outline');
-		$this->description = tr('Turns wiki list into an expandable outline');
-		$this->body = tr('Wiki syntax of list');
-		$this->params = array();
-	}
-
-	function output(&$data, &$params, &$index, &$parser)
+	function render(&$data, &$params, &$index, &$parser)
 	{
 		global $headerlib;
 
