@@ -2,6 +2,7 @@
 namespace WYSIWYGWikiLingo\Expression;
 
 use WikiLingo;
+use Types\Type;
 
 abstract class Base extends WikiLingo\Expression\Content
 {
@@ -17,7 +18,7 @@ abstract class Base extends WikiLingo\Expression\Content
         if ($this->isElement) {
             $longTypeName = $this->parameter('data-type');
             if (isset($longTypeName)) {
-                $typeName = WikiLingo\Utilities\Type::normalize($longTypeName);
+                $typeName = Type::classNameSimple($longTypeName);
                 $typeClass = 'WYSIWYGWikiLingo\SyntaxGenerator\\' . $typeName;
                 if (class_exists($typeClass))
                 {

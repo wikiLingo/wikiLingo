@@ -11,8 +11,6 @@ class Parser extends WikiLingo\Parser
     function element($type, $name)
     {
         $element = new Renderer\Element($type, $name);
-        $element->detailedAttributes["data-element"] = 'true';
-        $element->detailedAttributes['data-type'] = $type;
         $element->useDetailedAttributes = true;
         return $element;
     }
@@ -20,7 +18,6 @@ class Parser extends WikiLingo\Parser
     function helper($name)
     {
         $helper = new Renderer\Helper($name);
-        $helper->detailedAttributes['data-helper'] = 'true';
         $helper->useDetailedAttributes = true;
         return $helper;
     }

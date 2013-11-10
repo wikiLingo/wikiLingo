@@ -16,14 +16,10 @@ class accordion extends HtmlBase
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
         $header = $parser->helper('h3');
-
-        $header->staticChildren[] = ($plugin->parameters['title']);
-
-
+        $header->staticChildren[] = $plugin->parameters['title'];
 
         $accordion = parent::render($plugin, $body, $parser);
 
         return $header->render() . $accordion;
-
     }
 }

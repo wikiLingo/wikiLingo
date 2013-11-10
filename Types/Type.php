@@ -81,5 +81,11 @@ namespace Types
 		{
 			return $obj;
 		}
+
+		public static function classNameSimple($type)
+		{
+			$type = array_pop(explode('\\', $type));
+			return $type;
+		}
 	}
 }

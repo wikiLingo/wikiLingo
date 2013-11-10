@@ -715,13 +715,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 [<](.|\n)*?[>] {
     /*php
         //html tag
-        if (Utilities\Html::isTag($yytext)) {
-            return 'HTML_TAG';
-        }
-        $tag = $yytext;
-        $yytext = $yytext{0};
-        $this->unput(substr($tag, 1));
-        return 'CONTENT';
+        return 'HTML_TAG';
     */
 }
 "≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};

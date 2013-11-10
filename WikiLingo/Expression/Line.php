@@ -39,7 +39,7 @@ class Line extends Base
 
 	    if ($allowLines == false)
 	    {
-		    //Type::Scripts($parser->scripts)->addCss("br.hidden {display: none;}");
+		    Type::Scripts($parser->scripts)->addCss("br.hidden {display: none;}");
 		    $element->classes[] = 'hidden';
 	    }
 

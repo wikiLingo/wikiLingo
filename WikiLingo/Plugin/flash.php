@@ -15,7 +15,7 @@ class flash extends HtmlBase
         'src'=>''
     );
 
-    public function render(&$plugin, &$parser)
+    public function render(&$plugin, &$body, &$parser)
     {
         $movie = '';
 
@@ -26,7 +26,8 @@ class flash extends HtmlBase
             $plugin->attributes['src'] = $movie;
         }
 
-        return parent::render($plugin, $parser);
+        $flash = parent::render($plugin, $body, $parser);
+	    return $flash;
     }
 }
 

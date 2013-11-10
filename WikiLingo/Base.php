@@ -10,7 +10,7 @@ use WikiLingo\Renderer;
 /**
  * @constructor
  */
-class Base
+abstract class Base
 {
     /* parser tracking */
     public $types = array();
@@ -262,10 +262,4 @@ class Base
         $output = str_replace("≤REAL_EOF≥", "", $output);
     }
 
-    public function setInput($input)
-    {
-        parent::setInput($input);
-
-        $this->begin('BOF');
-    }
 }

@@ -18,12 +18,13 @@ class accordions extends HtmlBase
     {
         $this->parameterDefaults($plugin->parameters);
         $id = $plugin->id();
-        self::$scripts->addScript(<<<JS
+        $parser->scripts->addScript(<<<JS
 $(function() {
-	 $( '#$id' ).accordion();
+	 $( '#$id' ).accordion({
+	    header: 'h3'
+	 });
 });
 JS
-
         );
         $accordions = parent::render($plugin, $body, $parser);
 

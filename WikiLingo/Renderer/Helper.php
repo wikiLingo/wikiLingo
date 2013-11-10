@@ -6,5 +6,7 @@ class Helper extends Element
     function __construct($name)
     {
         $this->name = $name;
+
+	    $this->detailedAttributes['data-helper'] = true;
     }
 }

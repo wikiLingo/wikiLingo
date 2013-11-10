@@ -3,6 +3,7 @@ namespace WikiLingo\Expression;
 
 use WikiLingo;
 use Types\Type;
+Use Exception;
 
 class Plugin extends Base
 {
@@ -73,6 +74,7 @@ class Plugin extends Base
                 $parsed->parser->pluginInstances[$this->classType] = new $this->classType;
             }
             $this->class = $parsed->parser->pluginInstances[$this->classType];
+	        $this->parsed->expressionPermissible = $this->class->np;
         }
     }
 
@@ -81,7 +83,7 @@ class Plugin extends Base
         if (isset($this->class)) {
             $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
         } else {
-            throw new \Exception('Plugin "' . $this->type . '" does not exists in namespace WikiLingo\Plugin');
+            throw new Exception('Plugin "' . $this->type . '" does not exists in namespace WikiLingo\Plugin');
         }
 
         Type::Events($parser->events)->triggerExpressionPluginPreRender($this);

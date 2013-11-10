@@ -15,6 +15,9 @@ class Element extends Base
     {
         $this->type = $type;
         $this->name = $name;
+
+	    $this->detailedAttributes['data-type'] = $type;
+	    $this->detailedAttributes['data-element'] = 'true';
     }
 
     function setInline()

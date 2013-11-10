@@ -44,21 +44,29 @@ item3|item4||
     {HTML()}
         <script>alert('t');</script>
     {HTML}
-{ILLEGAL}";
+{ILLEGAL}
+
+{ACCORDIONS()}
+	{ACCORDION(title=`Thumb Wars`)}{flash movie=`https://youtube.googleapis.com/v/lJ06RKGcPBI`}{ACCORDION}
+	{ACCORDION(title=`ThumbTanic`)}{flash movie=`http://www.youtube.com/v/Rgdd8kMeaj0`}{ACCORDION}
+	{ACCORDION(title=`BatThumb`)}{flash movie=`https://www.youtube.com/v/HUlbfmKtKcw`}{ACCORDION}
+{ACCORDIONS}
+
+";
     $scripts = new WikiLingo\Utilities\Scripts();
 
     $scripts
         ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 
-        ->addScriptLocation("ckeditor/ckeditor.js")
+        //->addScriptLocation("ckeditor/ckeditor.js")
         ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
         ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
         ->addScriptLocation("WikiLingoWYSIWYG/styles.js")
-        ->addScript(
+        /*->addScript(
             "CKEDITOR.config.allowedContent = true;
             CKEDITOR.config.extraAllowedContent = true;
             CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;"
-        );
+        )*/;
 
     $wikiLingo = new WikiLingo\Parser($scripts);
     $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser($scripts);
