@@ -6,6 +6,7 @@ class Events
 	//possible events, I hate to re-declare all of them, but it is strongly typed, what can you say
 	private $ExpressionPluginExists = array();
     private $ExpressionPluginPreRender = array();
+    private $ExpressionPluginPostRender = array();
 
     private $ExpressionTagAllowed = array();
     private $ExpressionTagRender = array();
@@ -42,6 +43,13 @@ class Events
 		foreach($this->ExpressionPluginPreRender as &$event)
 		{
 			$event->trigger($plugin);
+		}
+	}
+	public function triggerExpressionPluginPostRender(&$rendered, Expression\Plugin &$plugin)
+	{
+		foreach($this->ExpressionPluginPostRender as &$event)
+		{
+			$event->trigger($rendered, $plugin);
 		}
 	}
 

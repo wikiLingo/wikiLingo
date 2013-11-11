@@ -54,7 +54,7 @@ end.
 		$this->expected =
 			"<h1 id='+WYSIWYG+Sample+Page'><span class='whitespace'> </span>WYSIWYG Sample Page</h1>" .
 			"Start off by clicking \"edit\"<span class='whitespace'> </span>then switching the editor to use the wysiwyg editor using the " .
-			"<span id='html1'/><span class='whitespace'> </span>button on the toolbar." .
+			"<span id='html1'></span><span class='whitespace'> </span>button on the toolbar." .
 			"<h2 id='+Text+formatting'><span class='whitespace'> </span>Text formatting</h2>" .
 			'<strong>bold</strong><br/>' .
 			"<i>italic</i><br/>" .

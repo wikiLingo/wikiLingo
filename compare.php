@@ -61,6 +61,9 @@ item3|item4||
         //->addScriptLocation("ckeditor/ckeditor.js")
         ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
         ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+        ->addScriptLocation('WikiLingoWYSIWYG/Scripts/wikiLingo.js')
+        ->addScriptLocation('WikiLingoWYSIWYG/Scripts/wikiLingo.plugin.js')
+        ->addCssLocation('WikiLingoWYSIWYG/Styles/wikiLingo.css')
         ->addScriptLocation("WikiLingoWYSIWYG/styles.js")
         /*->addScript(
             "CKEDITOR.config.allowedContent = true;

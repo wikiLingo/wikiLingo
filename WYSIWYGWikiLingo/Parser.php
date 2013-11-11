@@ -15,8 +15,6 @@ class Parser extends Definition
 		$this->events = new Events(__CLASS__);
 
 		parent::__construct();
-
-		$this->renderer = new Render($this);
 	}
 
     public function preParse()
@@ -55,7 +53,7 @@ class Parser extends Definition
          * only if we are a block, which are determined from $this->blockChars
         */
 
-        $output = $this->renderer->render($parsed);
+        $output = $parsed->render();
 
         if ($parsed->isBlock) { //remove the "\n"
             $output = substr($output, 1);

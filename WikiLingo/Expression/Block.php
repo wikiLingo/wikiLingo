@@ -126,6 +126,7 @@ class Block extends Base
 
 	public function render(&$parser)
 	{
+
 		if (isset($this->expression)) {
 			return $this->expression->render();
 		}

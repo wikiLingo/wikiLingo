@@ -19,7 +19,7 @@ class Header
 
     public function __construct(Block &$block, $len)
     {
-	    ;$this->parsed =& $block->parsed;
+	    $this->parsed =& $block->parsed;
         $this->block =& $block;
         $this->count = min(max($len, 0), 6);
 	    $this->modifier = $block->modifier;
@@ -29,13 +29,20 @@ class Header
 
     public function render()
     {
-        $element = Type::Element($this->parser->element(__CLASS__, ($this->pointer ? 'a' : 'h' . $this->count)));
-
+	    $tagType = 'h' . $this->count;
 	    $children = '';
 	    foreach($this->parsed->children as &$child) {
-            $element->staticChildren[] = $childRendered = $child->expression->render($this->parser);
-		    $children .= $childRendered;
+		    $children .= $child->render();
 	    }
+
+	    if ($this->pointer) {
+		    $tagType = 'a';
+		    $children = strip_tags($children);
+	    }
+
+        $element = Type::Element($this->parser->element(__CLASS__, $tagType));
+	    $element->staticChildren[] = $children;
+
 	    if (isset($this->modifier)) {
 		    $element->detailedAttributes['data-modifier'] = $this->modifier;
 		    //TODO: add in js to make expandable
@@ -71,6 +78,7 @@ class Header
             $element->attributes['id'] = $this->id;
 	    }
 
-        return $element->render();
+	    $header = $element->render();
+        return $header;
     }
 }

@@ -2,6 +2,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
+use Types\Type;
 
 abstract class HtmlBase extends Base
 {
@@ -293,13 +294,13 @@ abstract class HtmlBase extends Base
                 $this->htmlTagType
         );
 
-        $element = $parser->element($this->expressionType, $elementName);
+        $element = Type::Element($parser->element($this->expressionType, $elementName));
 
         $this->parameterDefaults($plugin->parameters);
 		$style = $this->stylize($plugin->parameters);
 		$this->attributeDefaults($plugin->attributes);
 
-        $element->attributes['id'] = $plugin->id();
+        $id = $element->attributes['id'] = $plugin->id();
 		foreach ($plugin->attributes as $attribute => $value) {
 			$element->attributes[$attribute] = $value;
 		}
@@ -308,12 +309,12 @@ abstract class HtmlBase extends Base
         $element->detailedAttributes['data-pluginparameters'] = urlencode(json_encode($plugin->parameters));
         $element->detailedAttributes['data-isinline'] = $plugin->isInline;
 
-		if (empty($body) && $plugin->isInline) {
-            $element->setInline();
-        } else {
+		if (!empty($body)) {
             $element->staticChildren[] = $body;
-        }
+		}
 
-		return $element->render();
+		$renderedPluginElement = $element->render();
+
+		return $renderedPluginElement;
 	}
 }

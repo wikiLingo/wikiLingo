@@ -3,9 +3,9 @@ namespace WikiLingo;
 use WikiLingo\Plugin;
 use WikiLingo\Utilities;
 
-class Parser extends Definition {
+class Parser extends Definition
+{
 
-	public $renderer;
 	public $scripts;
 	private $parsing = false;
 	private $pcreRecursionLimit;
@@ -21,21 +21,17 @@ class Parser extends Definition {
 			$this->scripts =& $scripts;
 		} else {
 			$this->scripts = new Utilities\Scripts();
-
 		}
+
 		$this->emptyParserValue = new Parsed();
 
         $this->events = new Events();
 
         parent::__construct();
-
-		$this->renderer = new Render($this);
     }
 
     /**
-     * Where a parse generally starts.  Can be self-called, as this is detected, and if nested, a new parser is instantiated
      *
-     * @access  private
      * @param   string  $input Wiki syntax to be parsed
      * @return  string  $output Parsed wiki syntax
      */
@@ -78,9 +74,9 @@ class Parser extends Definition {
         //$this->originalInput = preg_split('/\n/', $input);
     }
 
-    public function postParse(&$parsed)
+    public function postParse(Parsed &$parsed)
     {
-        return $this->renderer->render($parsed);
+        return $parsed->render();
     }
 
     public function setInput($input)

@@ -21,6 +21,7 @@ class Parsed extends ParserValue
     public $lineLength = 0;
     public $parser;
     public $stateEnd;
+	public $depth = 0;
 	public static $throwExceptions = true;
 
 	public $lines = array();
@@ -154,5 +155,68 @@ class Parsed extends ParserValue
 	{
 		$this->cousins[] =& $cousin;
 		$this->cousinsCount++;
+	}
+
+	public function render()
+	{
+		Type::Events($this->parser->events)
+			->triggerParsedRenderPermission($this);
+
+		if (!$this->expressionPermissible) {
+			if (isset($this->stateEnd)) {
+				$syntax = $this->parser->syntax($this->loc, $this->stateEnd->loc);
+			} else {
+				$syntax = $this->parser->syntax($this->loc);
+			}
+			Type::Events($this->parser->events)
+				->triggerParsedRenderBlocked($this, $syntax);
+			return $syntax;
+		}
+
+		//children are directly part of the family as a visible child
+		$renderedChildren = '';
+		if ($this->childrenLength > 0) {
+
+			//detect if it is a syntax parent
+			$addedDepth = 0;
+			if (
+				isset($this->expression->isParent)
+				&& ($isParent = $this->expression->isParent) == true) {
+				$addedDepth = 1;
+			}
+
+			foreach ($this->children as &$child) {
+				$child->depth += $this->depth + $addedDepth;
+				$renderedChildren .= $child->render();
+			}
+		}
+
+		$renderedCousins = '';
+		foreach ($this->cousins as &$cousin) {
+			$renderedCousins .= $cousin->render();
+		}
+
+		$this->expression->renderedChildren =& $renderedChildren;
+		if (isset($this->expression) && method_exists($this->expression, 'render')) {
+			$rendered = $this->expression->render($this->parser, $this);
+		} else {
+			$rendered = '';
+		}
+
+		//siblings are directly part of the family as a visible sibling
+		$renderedSiblings = '';
+		foreach ($this->siblings as &$sibling) {
+			$renderedSiblings .= $sibling->render();
+			if ($this->parent != null) {
+				$this->parent->children[] =& $sibling;
+			}
+		}
+
+		$renderedLines = '';
+		foreach ($this->lines as &$line) {
+			$renderedLines .= $this->render($line);
+		}
+
+		return $rendered . $renderedSiblings . $renderedLines . $renderedCousins;
 	}
 }

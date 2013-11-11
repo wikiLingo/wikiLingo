@@ -89,4 +89,10 @@ class Element extends Base
                 return $close;
         }
     }
+
+	public function setAttribute($attr, $value)
+	{
+		$this->attributes[$attr] = $value;
+		return $this;
+	}
 }

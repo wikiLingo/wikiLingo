@@ -18,13 +18,13 @@ class Block extends Base
 		switch ($this->expression->parameter('data-block-type'))
 		{
 			case "unorderedListItem":
-				$trailer = $newLineChar . str_repeat("*", $this->parser->renderer->depth);
+				$trailer = $newLineChar . str_repeat("*", $this->parsed->depth);
 				break;
 			case "orderedListItem":
-				$trailer = $newLineChar . str_repeat("#", $this->parser->renderer->depth);
+				$trailer = $newLineChar . str_repeat("#", $this->parsed->depth);
 				break;
 			case "header":
-				$trailer = $newLineChar . str_repeat("", $this->parser->renderer->depth);
+				$trailer = $newLineChar . str_repeat("", $this->parsed->depth);
 				break;
 		}
 
