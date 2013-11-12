@@ -74,7 +74,7 @@ item3|item4||
     $wikiLingo = new WikiLingo\Parser($scripts);
     $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser($scripts);
     $wYSIWYGWikiLingo = new WYSIWYGWikiLingo\Parser();
-
+/*
     Type::Events($wikiLingo->events)
         ->bind(new Event\Expression\Tag\Allowed(function(&$expression) {
             if (!$expression->allowed) {
@@ -110,13 +110,13 @@ item3|item4||
                 Type::Element($element)->attributes['style'] = 'background-color: red;';
             }
         }));
+*/
+    $outputWikiLingo = $wikiLingo->parse($original);
+    $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
+    $outputWYSIWYGWikiLingo = $wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
 
-$outputWikiLingo = $wikiLingo->parse($original);
-$outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
-$outputWYSIWYGWikiLingo = $wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
-
-$css = $scripts->renderCss();
-$script = $scripts->renderScript();
+    $css = $scripts->renderCss();
+    $script = $scripts->renderScript();
 ?><!DOCTYPE html>
 <html>
 <head>

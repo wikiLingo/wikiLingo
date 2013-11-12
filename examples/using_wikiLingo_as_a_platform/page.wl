@@ -3,9 +3,9 @@
 !What is ((wikiLingo))?
 __Let us first identify what it is not__
 !!((wikiLingo)) is not
-* it is not just another wysiwyg editor for the web (although it has one, ckeditor)
-* it is not yet another wiki markup (although that is supported)
-* it is not just another programming language (although it contains them)
+* just another wysiwyg editor for the web (although it has one, ckeditor)
+* yet another wiki markup (although that is supported)
+* just another programming language (although it contains them)
 
 !!((wikiLingo)) does that!
 * ((wikiLingo)) is fun, exciting, intuitive, yet pure, and simple. ((wikiLingo)) is a pluggable and event driven architecture based around content.  Yet it is more...
@@ -15,4 +15,7 @@ __Let us first identify what it is not__
 	{TAB(title="More about wikiLingo")}
 		{flash movie=""}
 	{TAB}
+	{TAB(title="Tab 2")}
+        Test
+    {TAB}
 {TABS}

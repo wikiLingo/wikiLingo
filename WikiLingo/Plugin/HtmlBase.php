@@ -309,6 +309,10 @@ abstract class HtmlBase extends Base
         $element->detailedAttributes['data-pluginparameters'] = urlencode(json_encode($plugin->parameters));
         $element->detailedAttributes['data-isinline'] = $plugin->isInline;
 
+        if ($plugin->isInline) {
+            $element->detailedAttributes['contenteditable'] = 'false';
+        }
+
 		if (!empty($body)) {
             $element->staticChildren[] = $body;
 		}

@@ -82,21 +82,26 @@
 	</style>
 	<script>
 		$(function() {
-			$('#edit')
-				.click(function() {
-					$('#static').toggle();
-					if ($('#editable').hasClass('hidden')) {
-						$('#editable').removeClass('hidden');
-					} else {
-						$('#editable').toggle();
-					}
-				});
+			var $pluginButton = $('a.wl-plugin-button').hide(),
+                $edit = $('#edit').click(function() {
+                    $pluginButton.toggle();
+                    $edit.toggle();
+                    $save.toggle();
+                    $editable.attr('contenteditable', 'true');
+                }),
+                $save = $('#save').click(function() {
+                    $pluginButton.toggle();
+                    $edit.toggle();
+                    $save.toggle();
+                    $editable.removeAttr('contenteditable');
+                }).hide(),
+                $editable = $('#editable');
 		});
 	</script>
 </head>
 <body>
+<button id="save">save</button>
 <button id="edit">edit</button>
-<div id="static"><?php echo $out;?></div>
-<div id="editable" contenteditable="true" class="hidden"><?php echo $outEditable?></div>
+<div id="editable"><?php echo $outEditable?></div>
 </body>
 </html>

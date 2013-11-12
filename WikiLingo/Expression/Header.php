@@ -73,7 +73,7 @@ class Header
         }
 
 	    if ($this->pointer) {
-		    $element->attributes['href'] = '#' . $this->id;
+		    $element->attributes['href'] = '#' . urlencode($this->id);
 	    } else {
             $element->attributes['id'] = $this->id;
 	    }
