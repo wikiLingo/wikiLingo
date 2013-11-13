@@ -10,72 +10,76 @@
 singleQuote                     "'"
 doubleQuote                     '"'
 angleQuote                      [`]
-parameterName                   [a-zA-Z0-9_-]+
-equals                          ([=]|[=][>])
-%s singleQuoteParameter doubleQuoteParameter angleQuoteParameter
+simpleString                    [a-zA-Z0-9_-]+
+equals                          [=]
 
+%s singleQuoteParameter doubleQuoteParameter angleQuoteParameter equals
 
 //Start Lexical Tokens
 %%
 
-<singleQuoteParameter>{singleQuote}
-%{
+<singleQuoteParameter>{singleQuote} {
     /*php
         $this->popState();
     */
-%}
-<doubleQuoteParameter>{doubleQuote}
-%{
+}
+<doubleQuoteParameter>{doubleQuote} {
     /*php
         $this->popState();
     */
-%}
-<angleQuoteParameter>{angleQuote}
-%{
+}
+<angleQuoteParameter>{angleQuote} {
     /*php
         $this->popState();
     */
-%}
+}
 
-<singleQuoteParameter>.*?(?={singleQuote})
-%{
+<singleQuoteParameter>.*?(?={singleQuote}) {
     return 'PARAMETER_VALUE';
-%}
-<doubleQuoteParameter>.*?(?={doubleQuote})
-%{
+}
+<doubleQuoteParameter>.*?(?={doubleQuote}) {
     return 'PARAMETER_VALUE';
-%}
-<angleQuoteParameter>.*?(?={angleQuote})
-%{
+}
+<angleQuoteParameter>.*?(?={angleQuote}) {
     return 'PARAMETER_VALUE';
-%}
+}
+<equals>{simpleString} {
+	/*php
+		$this->popState();
+		return 'PARAMETER_VALUE';
+	*/
+}
 
-{singleQuote}
-%{
+
+<equals>{singleQuote} {
     /*php
+        $this->popState();
         $this->begin('singleQuoteParameter');
     */
-%}
-{doubleQuote}
-%{
+}
+<equals>{doubleQuote} {
     /*php
+        $this->popState();
         $this->begin('doubleQuoteParameter');
     */
-%}
-{angleQuote}
-%{
+}
+<equals>{angleQuote} {
     /*php
+        $this->popState();
         $this->begin('angleQuoteParameter');
     */
-%}
-{parameterName}(?={equals})
-%{
-    /*php
-        return 'PARAMETER_NAME';
-    */
-%}
-{equals}                                    {/*skip equals*/}
-\s                                          {/*skip whitespace*/}
+}
+
+{simpleString} {
+    return 'PARAMETER_NAME';
+}
+{equals} {
+	/*php
+		$this->begin('equals');
+	*/
+}
+<equals>\s+                                 {/*skip whitespace*/}
+\s+                                         {/*skip whitespace*/}
 <<EOF>>										return 'EOF';
 /lex
 
