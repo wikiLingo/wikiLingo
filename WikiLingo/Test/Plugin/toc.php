@@ -21,8 +21,8 @@ class toc extends Base
 		$this->expected =
             "<div id='toc1'>" .
                 "<ol>" .
-                    "<li><a href='#Header+1'>Header 1</a></li>" .
-                    "<li><a href='#Header+2'>Header 2</a></li>" .
+                    "<li><a href='#Header%2B1'>Header 1</a></li>" .
+                    "<li><a href='#Header%2B2'>Header 2</a></li>" .
                 "</ol>" .
             "</div>" .
             "<h1 id='Header+1'>Header 1</h1>" .

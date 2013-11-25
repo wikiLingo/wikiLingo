@@ -9,7 +9,6 @@ abstract class HtmlBase extends Base
 	public $htmlTagType = 'span';
 	public $hasHtmlBody = true;
 	public $attributes = array('id'=>'', 'class'=>'', 'style'=>'');
-	public $button;
 	public $expressionType = 'WikiLingo\\Expression\\Plugin';
 
 	static $style = array(
@@ -296,11 +295,12 @@ abstract class HtmlBase extends Base
 
         $element = Type::Element($parser->element($this->expressionType, $elementName));
 
+        $element->attributes['style'] = $this->stylize($plugin->parameters);;
+        $element->attributes['id'] = $plugin->id();
+
         $this->parameterDefaults($plugin->parameters);
-		$style = $this->stylize($plugin->parameters);
 		$this->attributeDefaults($plugin->attributes);
 
-        $id = $element->attributes['id'] = $plugin->id();
 		foreach ($plugin->attributes as $attribute => $value) {
 			$element->attributes[$attribute] = $value;
 		}

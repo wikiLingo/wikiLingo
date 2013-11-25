@@ -6,35 +6,14 @@ use WikiLingo;
 abstract class Base
 {
 	public $name;
-	public $description;
 	public $inlineOnly = false;
-	public $body;
 	public $parameters = array();
 	public $attributes = array();
     public $privateAttributes = array();
 	public $type;
-	public $documentation;
-	public $prefs = array();
-	public $parserLevel = 0;
-	public $format;
-	public $validate;
-	public $filter = 'rawhtml_unsafe';
-	public $icon = 'img/icons/mime/html.png';
 	public $tags = array( 'basic' );
-	public $np = true;
+	public $permissible = true;
     public $wysiwygTagType = 'span';
-
-    public static $scripts;
-
-	public function info()
-	{
-		$info = array();
-		foreach ($this as $key => $param) {
-			$info[$key] = $param;
-		}
-
-		return $info;
-	}
 
     public function getParent( &$plugin )
     {
@@ -76,23 +55,5 @@ abstract class Base
 	    $parameters = array_merge($defaults, $parameters);
     }
 
-	public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
-	{
-		$this->parameterDefaults($plugin->parameters);
-
-		//Todo: Need a wrapper for WYSIWYG
-		return $body;
-	}
-
-	function id($index = 0)
-	{
-		return $this->type . $index;
-	}
-
-    function __construct()
-    {
-        if (is_null(self::$scripts)) {
-            self::$scripts = new WikiLingo\Utilities\Scripts();
-        }
-    }
+	public abstract function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser);
 }

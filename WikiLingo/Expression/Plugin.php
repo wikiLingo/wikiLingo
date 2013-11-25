@@ -74,7 +74,7 @@ class Plugin extends Base
                 $parsed->parser->pluginInstances[$this->classType] = new $this->classType;
             }
             $this->class = $parsed->parser->pluginInstances[$this->classType];
-	        $this->parsed->expressionPermissible = $this->class->np;
+	        $this->parsed->expressionPermissible = $this->class->permissible;
         }
     }
 

@@ -1,6 +1,8 @@
 <?php
 namespace WikiLingo\Plugin;
 
+use WikiLingo;
+
 class flash extends HtmlBase
 {
     public $hasHtmlBody = false;
@@ -15,7 +17,7 @@ class flash extends HtmlBase
         'src'=>''
     );
 
-    public function render(&$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
         $movie = '';
 

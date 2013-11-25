@@ -11,7 +11,7 @@ class toc extends HtmlBase
     public static $ordered = true;
 	public $inlineOnly = true;
 
-    public function render(WikiLingo\Expression\Plugin &$plugin, $body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 	    $result = '';
         if (!isset($parser->types['WikiLingo\Expression\Header'])) {

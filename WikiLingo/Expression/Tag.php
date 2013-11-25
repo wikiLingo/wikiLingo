@@ -11,7 +11,11 @@ class Tag extends Base
     public $allowed = true;
 
 	public static $notAllowed = array(
-		'script' => true
+        'applet' => true,
+        'iframe' => true,
+        'link' => true,
+        'script' => true,
+        'style' => true
 	);
 
 	function __construct(WikiLingo\Parsed &$parsed)
