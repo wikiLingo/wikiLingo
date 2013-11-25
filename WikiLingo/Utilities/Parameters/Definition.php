@@ -183,21 +183,24 @@ class Definition extends Base
 					3=>"/^(?:.*?(?=(')))/",
 					4=>"/^(?:.*?(?=(\")))/",
 					5=>"/^(?:.*?(?=([`])))/",
-					6=>"/^(?:('))/",
-					7=>"/^(?:(\"))/",
-					8=>"/^(?:([`]))/",
-					9=>"/^(?:([a-zA-Z0-9_-]+)(?=(([=]|[=][>]))))/",
-					10=>"/^(?:(([=]|[=][>])))/",
-					11=>"/^(?:\s)/",
-					12=>"/^(?:$)/"
+					6=>"/^(?:([a-zA-Z0-9_-]+))/",
+					7=>"/^(?:('))/",
+					8=>"/^(?:(\"))/",
+					9=>"/^(?:([`]))/",
+					10=>"/^(?:([a-zA-Z0-9_-]+))/",
+					11=>"/^(?:([=]))/",
+					12=>"/^(?:\s+)/",
+					13=>"/^(?:\s+)/",
+					14=>"/^(?:$)/"
 				);
 
 			$this->conditions = array(
 				
-					"singleQuoteParameter"=>new LexerConditions(array( 0,3,6,7,8,9,10,11,12), true),
-					"doubleQuoteParameter"=>new LexerConditions(array( 1,4,6,7,8,9,10,11,12), true),
-					"angleQuoteParameter"=>new LexerConditions(array( 2,5,6,7,8,9,10,11,12), true),
-					"INITIAL"=>new LexerConditions(array( 6,7,8,9,10,11,12), true)
+					"singleQuoteParameter"=>new LexerConditions(array( 0,3,10,11,13,14), true),
+					"doubleQuoteParameter"=>new LexerConditions(array( 1,4,10,11,13,14), true),
+					"angleQuoteParameter"=>new LexerConditions(array( 2,5,10,11,13,14), true),
+					"equals"=>new LexerConditions(array( 6,7,8,9,10,11,12,13,14), true),
+					"INITIAL"=>new LexerConditions(array( 10,11,13,14), true)
 				);
 
 
@@ -206,7 +209,6 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
-/* this == yyval */
 
 
 switch ($yystate) {
@@ -630,7 +632,7 @@ break;
     {
         
 
-;
+
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -663,34 +665,48 @@ case 5:
 
 break;
 case 6:
-    
-        $this->begin('singleQuoteParameter');
-    
+	
+		$this->popState();
+		return 8;
+	
 
 break;
 case 7:
     
-        $this->begin('doubleQuoteParameter');
+        $this->popState();
+        $this->begin('singleQuoteParameter');
     
 
 break;
 case 8:
     
-        $this->begin('angleQuoteParameter');
+        $this->popState();
+        $this->begin('doubleQuoteParameter');
     
 
 break;
 case 9:
     
-        return 7;
+        $this->popState();
+        $this->begin('angleQuoteParameter');
     
 
 break;
 case 10:
+    return 7;
+
 break;
 case 11:
+	
+		$this->begin('equals');
+	
+
 break;
-case 12:return 4;
+case 12:
+break;
+case 13:
+break;
+case 14:return 4;
 break;
 }
 
