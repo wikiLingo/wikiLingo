@@ -1,15 +1,18 @@
 <?php
 namespace WikiLingo\Plugin;
 
+use WikiLingo;
+
+
 class expandingoutline extends Base
 {
-	function render(&$data, &$params, &$index, &$parser)
+	function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
 		global $headerlib;
 
 		$tempParser = new JisonParser_Wiki_Handler();
 		$tempParser->list = new WikiPlugin_expandingoutline_list($parser->list, $tempParser);
-		$id = $this->id($index);
+		$id = $plugin->id();
 
 		$headerlib->add_jq_onready(
 <<<JQ

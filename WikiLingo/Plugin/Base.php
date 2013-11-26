@@ -7,11 +7,11 @@ abstract class Base
 {
 	public $name;
 	public $inlineOnly = false;
+    public $expressionType = 'WikiLingo\\Expression\\Plugin';
 	public $parameters = array();
 	public $attributes = array();
     public $privateAttributes = array();
 	public $type;
-	public $tags = array( 'basic' );
 	public $permissible = true;
     public $wysiwygTagType = 'span';
 

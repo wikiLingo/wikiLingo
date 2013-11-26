@@ -1,14 +1,14 @@
 <?php
 namespace WikiLingo\Plugin;
 
+use WikiLingo;
+
 class child extends HtmlBase
 {
-    public function render(&$plugin, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
-        $parent = $plugin->getParent();
+        $parent = $plugin->parent();
 
-        $parent->addTabTitle("");
-
-        return parent::render($plugin, $parser);
+        return parent::render($plugin, $body, $parser);
     }
 }

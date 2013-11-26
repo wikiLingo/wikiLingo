@@ -8,8 +8,8 @@ abstract class HtmlBase extends Base
 {
 	public $htmlTagType = 'span';
 	public $hasHtmlBody = true;
-	public $attributes = array('id'=>'', 'class'=>'', 'style'=>'');
-	public $expressionType = 'WikiLingo\\Expression\\Plugin';
+	public $attributes = array();
+    public $permissibleChildren = array();
 
 	static $style = array(
 		'@keyframes' => true,
