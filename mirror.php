@@ -1,10 +1,10 @@
 <?php
 require_once('index.php');
 
-$scripts = (new WikiLingo\Utilities\Scripts())
-    ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
-    ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
-    ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js");
+$scripts = new WikiLingo\Utilities\Scripts();
+$scripts->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css");
+$scripts->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js");
+$scripts->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js");
 
 $parser = new WikiLingo\Parser($scripts);
 
