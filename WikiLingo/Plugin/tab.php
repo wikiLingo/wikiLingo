@@ -3,9 +3,10 @@ namespace WikiLingo\Plugin;
 
 use WikiLingo;
 
-class tab extends HtmlBase
+class tab extends Base
 {
     public $htmlTagType = 'div';
+    public $parameters = array('title');
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {

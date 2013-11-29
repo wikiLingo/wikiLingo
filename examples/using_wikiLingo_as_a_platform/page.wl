@@ -3,9 +3,9 @@
 !What is ((wikiLingo))?
 __Let us first identify what it is not__
 !!((wikiLingo)) is not
-* just another wysiwyg editor for the web (although it has one, ckeditor)
-* yet another wiki markup (although that is supported)
-* just another programming language (although it contains them)
+* just another wysiwyg editor for the web (''although it does that'')
+* yet another wiki markup (''although that is supported'')
+* just another programming language (''although it contains __them__'')
 
 !!((wikiLingo)) does that!
 * ((wikiLingo)) is fun, exciting, intuitive, yet pure, and simple. ((wikiLingo)) is a pluggable and event driven architecture based around content.  Yet it is more...
@@ -19,3 +19,6 @@ __Let us first identify what it is not__
         Test
     {TAB}
 {TABS}
+<script>alert('t');</script>
+<iframe></iframe>
+<b>Success</b>

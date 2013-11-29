@@ -25,6 +25,12 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 %%
 
+
+//html comment
+[<][!][-][-](.*?)[-][-][>] {
+    return 'HTML_TAG';
+}
+
 //no parse
 <np><<EOF>> {
     /*php

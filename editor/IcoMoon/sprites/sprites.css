@@ -1,0 +1,89 @@
+[class*="icon-"] {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background-image: url(sprites.svg);
+	background-repeat: no-repeat;
+}
+.icon-link {
+	background-position: 0 0;
+	width: 30px;
+}
+.icon-list {
+	background-position: -46px 0;
+	width: 30px;
+}
+.icon-numbered-list {
+	background-position: -92px 0;
+	width: 30px;
+}
+.icon-checkbox-unchecked {
+	background-position: -138px 0;
+	width: 30px;
+}
+.icon-paragraph-center {
+	background-position: -184px 0;
+	width: 30px;
+}
+.icon-bold {
+	background-position: -230px 0;
+	width: 30px;
+}
+.icon-underline {
+	background-position: -276px 0;
+	width: 30px;
+}
+.icon-italic {
+	background-position: -322px 0;
+	width: 30px;
+}
+.icon-strikethrough {
+	background-position: -368px 0;
+	width: 30px;
+}
+.icon-code {
+	background-position: -414px 0;
+	width: 30px;
+}
+.icon-droplet {
+	background-position: -460px 0;
+	width: 30px;
+}
+.icon-paint-format {
+	background-position: -506px 0;
+	width: 30px;
+}
+.icon-image {
+	background-position: -552px 0;
+	width: 30px;
+}
+.icon-film {
+	background-position: -598px 0;
+	width: 30px;
+}
+.icon-bubble {
+	background-position: -644px 0;
+	width: 30px;
+}
+.icon-list2 {
+	background-position: -690px 0;
+	width: 30px;
+}
+.icon-power-cord {
+	background-position: 0 -46px;
+}
+.icon-menu {
+	background-position: -46px -46px;
+}
+.icon-blocked {
+	background-position: -92px -46px;
+}
+.icon-shield {
+	background-position: -138px -46px;
+}
+.icon-table {
+	background-position: -184px -46px;
+}
+.icon-lab {
+	background-position: -230px -46px;
+}

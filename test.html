@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>(102/0) wikiLingo test suite | Testify Suite</title>
+        <title>(103/0) wikiLingo test suite | Testify Suite</title>
         
         <style>
         	*{
@@ -2366,7 +2366,7 @@ test|test||
 		  							
 					<h2 class="pass">
 						WikiLingo Plugins						<span class="result">
-							<span class="green">2</span>/<span class="red">0</span>
+							<span class="green">3</span>/<span class="red">0</span>
 						</span>
 					</h2>	
 					
@@ -2402,6 +2402,43 @@ test|test||
 			<tr>
 				<td style="background-color: #F0F0F0;">
 					Actual: <pre><code></code></pre>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>                                </span>
+								<span class="line">line 42</span>
+								<span class="file">TypeNamespace.php</span>
+								<div class="source">$testify-&gt;assertEquals($actual, $test-&gt;expected, $message);</div>
+							</li>
+							
+													
+							<li>
+								<span class="type pass">
+                                    
+<h2 onclick='this.nextSibling.style.display = (this.nextSibling.style.display ? "" : "block")'><a>pluginAttributes</a></h2><div class="output">
+	<table style='width: 100%;'>
+		<colgroup>
+			<col style="width: 33%; background-color: "/>
+			<col style="width: 33%"/>
+			<col style="width: 33%"/>
+		</colgroup>
+		<tbody>
+			<tr>
+				<th style="text-align: center;">Source</th>
+			</tr>
+			<tr>
+				<td style="background-color: #F0F0F0;" rowspan="2">
+					<pre><code>{HTML(attr1 = something attr2 = 'something else')}
+{HTML}</code></pre>
+				</td>
+				<td style="background-color: #F0F0F0;">
+					Expected: <pre><code>&lt;span id='html5'&gt;&lt;br class='hidden'/&gt;&lt;/span&gt;</code></pre>
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: #F0F0F0;">
+					Actual: <pre><code>&lt;span id='html5'&gt;&lt;br class='hidden'/&gt;&lt;/span&gt;</code></pre>
 				</td>
 			</tr>
 		</tbody>
@@ -2704,7 +2741,7 @@ test|test||
 			</tr>
 			<tr>
 				<td style="background-color: #F0F0F0;" rowspan="2">
-					<pre><code>&lt;ul data-type='WikiLingo\\Expression\\Block' data-element='true' data-parent='true'&gt;&lt;li data-type='WikiLingo\\Expression\\Block' data-element='true' data-block-type='unorderedListItem'&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;foo&lt;span id='div2' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;Continuation1&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;Continuation2&lt;/span&gt;&lt;/li&gt;&lt;li data-type='WikiLingo\\Expression\\Block' data-element='true' data-block-type='unorderedListItem'&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;bar&lt;/li&gt;&lt;/ul&gt;</code></pre>
+					<pre><code>&lt;ul data-type='WikiLingo\\Expression\\Block' data-element='true' data-parent='true'&gt;&lt;li data-type='WikiLingo\\Expression\\Block' data-element='true' data-block-type='unorderedListItem'&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;foo&lt;div id='div2' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;Continuation1&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li data-type='WikiLingo\\Expression\\Block' data-element='true' data-block-type='unorderedListItem'&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;bar&lt;/li&gt;&lt;/ul&gt;</code></pre>
 				</td>
 				<td style="background-color: #F0F0F0;">
 					Expected: <pre><code>* foo{DIV()}
@@ -3094,7 +3131,7 @@ heading text section</code></pre>
 			</tr>
 			<tr>
 				<td style="background-color: #F0F0F0;" rowspan="2">
-					<pre><code>&lt;span id='illegal2' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='illegal' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt;                &lt;/span&gt;&lt;span id='html5' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='html' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;h1 id='Header+11' data-type='WikiLingo\\Expression\\Header' data-element='true'&gt;Header 1&lt;/h1&gt;&lt;h1 id='Header+21' data-type='WikiLingo\\Expression\\Header' data-element='true'&gt;Header 2&lt;/h1&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt;                &lt;/span&gt;&lt;/span&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;/span&gt;</code></pre>
+					<pre><code>&lt;span id='illegal2' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='illegal' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt;                &lt;/span&gt;&lt;span id='html6' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='html' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;h1 id='Header+11' data-type='WikiLingo\\Expression\\Header' data-element='true'&gt;Header 1&lt;/h1&gt;&lt;h1 id='Header+21' data-type='WikiLingo\\Expression\\Header' data-element='true'&gt;Header 2&lt;/h1&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt;                &lt;/span&gt;&lt;/span&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;/span&gt;</code></pre>
 				</td>
 				<td style="background-color: #F0F0F0;">
 					Expected: <pre><code>{ILLEGAL()}
@@ -3358,7 +3395,7 @@ test
 			</tr>
 			<tr>
 				<td style="background-color: #F0F0F0;" rowspan="2">
-					<pre><code>&lt;span id='div4' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span id='div3' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span id='div2' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span id='div1' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;dl data-type='WikiLingo\\Expression\\DescriptionList' data-element='true'&gt;&lt;dt data-type='WikiLingo\\Expression\\DescriptionListItem' data-element='true'&gt;foo&lt;/dt&gt;&lt;dd data-type='WikiLingo\\Expression\\DescriptionListItem' data-element='true'&gt;foo definition&lt;/dd&gt;&lt;dt data-type='WikiLingo\\Expression\\DescriptionListItem' data-element='true'&gt;foo2&lt;/dt&gt;&lt;dd data-type='WikiLingo\\Expression\\DescriptionListItem' data-element='true'&gt;foo2 definition&lt;/dd&gt;&lt;/dl&gt;&lt;br data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;a href='[__bold__' data-type='WikiLingo\\Expression\\Link' data-element='true'&gt;[__bold__&lt;/a&gt;&lt;br data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;Test&lt;i data-type='WikiLingo\\Expression\\Italic' data-element='true'&gt;Test Italics&lt;/i&gt;&lt;br data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;</code></pre>
+					<pre><code>&lt;div id='div4' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;div id='div3' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;div id='div2' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;div id='div1' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;dl data-type='WikiLingo\\Expression\\DescriptionList' data-element='true'&gt;&lt;dt data-type='WikiLingo\\Expression\\DescriptionListItem' data-element='true'&gt;foo&lt;/dt&gt;&lt;dd data-type='WikiLingo\\Expression\\DescriptionListItem' data-element='true'&gt;foo definition&lt;/dd&gt;&lt;dt data-type='WikiLingo\\Expression\\DescriptionListItem' data-element='true'&gt;foo2&lt;/dt&gt;&lt;dd data-type='WikiLingo\\Expression\\DescriptionListItem' data-element='true'&gt;foo2 definition&lt;/dd&gt;&lt;/dl&gt;&lt;br data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;a href='[__bold__' data-type='WikiLingo\\Expression\\Link' data-element='true'&gt;[__bold__&lt;/a&gt;&lt;br data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;Test&lt;i data-type='WikiLingo\\Expression\\Italic' data-element='true'&gt;Test Italics&lt;/i&gt;&lt;br data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;</code></pre>
 				</td>
 				<td style="background-color: #F0F0F0;">
 					Expected: <pre><code>{DIV()}
@@ -3492,7 +3529,7 @@ Test''Test Italics''
 			</tr>
 			<tr>
 				<td style="background-color: #F0F0F0;" rowspan="2">
-					<pre><code>&lt;ol data-type='WikiLingo\\Expression\\Block' data-element='true' data-parent='true'&gt;&lt;li data-type='WikiLingo\\Expression\\Block' data-element='true' data-block-type='orderedListItem'&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;foo&lt;span id='div1' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;Continuation1&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;Continuation2&lt;/span&gt;&lt;/li&gt;&lt;li data-type='WikiLingo\\Expression\\Block' data-element='true' data-block-type='orderedListItem'&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;bar&lt;/li&gt;&lt;/ol&gt;</code></pre>
+					<pre><code>&lt;ol data-type='WikiLingo\\Expression\\Block' data-element='true' data-parent='true'&gt;&lt;li data-type='WikiLingo\\Expression\\Block' data-element='true' data-block-type='orderedListItem'&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;foo&lt;div id='div1' data-type='WikiLingo\\Expression\\Plugin' data-element='true' data-plugintype='div' data-pluginparameters='%5B%5D' data-isinline=''&gt;&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;Continuation1&lt;br class='hidden' data-type='WikiLingo\\Expression\\Line' data-element='true'/&gt;Continuation2&lt;/div&gt;&lt;/li&gt;&lt;li data-type='WikiLingo\\Expression\\Block' data-element='true' data-block-type='orderedListItem'&gt;&lt;span class='whitespace' data-type='WikiLingo\\Expression\\WhiteSpace' data-element='true'&gt; &lt;/span&gt;bar&lt;/li&gt;&lt;/ol&gt;</code></pre>
 				</td>
 				<td style="background-color: #F0F0F0;">
 					Expected: <pre><code># foo{DIV()}

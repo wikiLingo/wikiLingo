@@ -9,6 +9,6 @@
 namespace WikiLingo\Plugin;
 
 
-class illegal extends HtmlBase
+class illegal extends Base
 {
 }

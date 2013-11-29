@@ -1,6 +1,6 @@
 <?php
 namespace WikiLingo\Plugin;
 
-class html extends HtmlBase
+class html extends Base
 {
 }

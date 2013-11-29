@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Plugin;
 
-class div extends HtmlBase
+class div extends Base
 {
     public $htmlTagType = 'div';
     public $wysiwygTagType = 'div';

@@ -159,8 +159,11 @@ class Parsed extends ParserValue
 
 	public function render()
 	{
-		Type::Events($this->parser->events)
-			->triggerParsedRenderPermission($this);
+        if (isset($this->parser->events))
+        {
+		    Type::Events($this->parser->events)
+			    ->triggerParsedRenderPermission($this);
+        }
 
 		if (!$this->expressionPermissible) {
 			if (isset($this->stateEnd)) {

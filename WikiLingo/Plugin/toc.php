@@ -5,10 +5,10 @@ use WikiLingo;
 use Types\Type;
 use WikiLingo\Expression\Tensor;
 
-class toc extends HtmlBase
+class toc extends Base
 {
 	public $htmlTagType = 'div';
-    public static $ordered = true;
+    public $ordered = true;
 	public $inlineOnly = true;
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)

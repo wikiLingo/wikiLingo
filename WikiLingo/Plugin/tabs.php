@@ -2,19 +2,17 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
+use Types\Type;
 
-class tabs extends HtmlBase
+class tabs extends Base
 {
     public $htmlTagType = 'div';
     public $wysiwygTagType = 'div';
-	public $parameters = array(
-		'titles' => array()
-	);
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
 	    $plugin->allowLineAfter = false;
-	    $this->parameterDefaults($plugin->parameters);
+	    self::parameterDefaults($plugin->parameters);
 	    $id = $plugin->id();
 
 	    $parser->scripts->addScript(<<<JS
@@ -25,13 +23,13 @@ $(function() {
 JS
 );
         if (!empty($plugin->privateAttributes['titles'])) {
-	        $ul = $parser->helper('ul');
+	        $ul = Type::Helper($parser->helper('ul'));
 	        foreach($plugin->privateAttributes['titles'] as $tabId => $title) {
-		        $a = $parser->helper('a');
+		        $a = Type::Helper($parser->helper('a'));
 		        $a->attributes['href'] = '#' . $tabId;
 		        $a->staticChildren[] = $title;
 
-		        $li = $parser->helper('li');
+		        $li = Type::Helper($parser->helper('li'));
 		        $li->children[] = $a;
 		        $ul->children[] = $li;
 	        }

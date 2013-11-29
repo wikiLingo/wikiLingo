@@ -57,19 +57,16 @@ item3|item4||
 
     $scripts
         ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+        ->addCssLocation("mercury2/distro/mercury.bundle.css")
+        ->addCssLocation("mercury2/distro/mercury_regions.bundle.css")
 
-        //->addScriptLocation("ckeditor/ckeditor.js")
         ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
         ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
-        ->addScriptLocation('WikiLingoWYSIWYG/Scripts/wikiLingo.js')
-        ->addScriptLocation('WikiLingoWYSIWYG/Scripts/wikiLingo.plugin.js')
-        ->addCssLocation('WikiLingoWYSIWYG/Styles/wikiLingo.css')
-        ->addScriptLocation("WikiLingoWYSIWYG/styles.js")
-        /*->addScript(
-            "CKEDITOR.config.allowedContent = true;
-            CKEDITOR.config.extraAllowedContent = true;
-            CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;"
-        )*/;
+        ->addScriptLocation("mercury2/dependencies/liguidmetal-1.2.1.js")
+        ->addScriptLocation("mercury2/distro/mercury.js")
+        ->addScriptLocation("mercury2/distro/locales/nl.js")
+        ->addScriptLocation("mercury2/regions/html.js");
+
 
     $wikiLingo = new WikiLingo\Parser($scripts);
     $wikiLingoWYSIWYG = new WikiLingoWYSIWYG\Parser($scripts);
@@ -114,7 +111,6 @@ item3|item4||
     $outputWikiLingo = $wikiLingo->parse($original);
     $outputWikiLingoWYSIWYG = $wikiLingoWYSIWYG->parse($original);
     $outputWYSIWYGWikiLingo = $wYSIWYGWikiLingo->parse($outputWikiLingoWYSIWYG);
-
     $css = $scripts->renderCss();
     $script = $scripts->renderScript();
 ?><!DOCTYPE html>
@@ -129,6 +125,7 @@ item3|item4||
 			vertical-align: top;
 		}
 	</style>
+    <?php echo $css; ?>
 </head>
 <body>
 <table class="demo">
@@ -145,7 +142,10 @@ item3|item4||
 		<tr>
 			<th>Source</th>
 			<th>Parsed</th>
-			<th>WYSIWYG (CKEditor 4, HTML ContentEditable)</th>
+			<th>WYSIWYG (CKEditor 4, HTML ContentEditable) <input type="button" value="Edit" onclick="
+			    $('#wysiwyg').attr('contenteditable', true);
+			    Mercury.init();
+			    return false;" /></th>
 			<th>WYSIWYG to Source <?php
 				if ($original == $outputWYSIWYGWikiLingo) {
 					echo "<span style='color: green;'>SUCCESS</span>";
@@ -162,7 +162,7 @@ item3|item4||
 				</div>
 			</td>
 			<td class="output"><?php echo $outputWikiLingo;?></td>
-			<td><div id="wysiwyg" class="output" contenteditable="true"><?php echo $outputWikiLingoWYSIWYG;?></div></td>
+			<td><div id="wysiwyg" class="output" data-mercury="html"  data-region-options='{"name": "editable", "allowDirection": true}'><?php echo $outputWikiLingoWYSIWYG;?></div></td>
 			<td>
 				<div>
 					<pre><code><? echo htmlspecialchars($outputWYSIWYGWikiLingo); ?></code></pre>
@@ -171,6 +171,6 @@ item3|item4||
 		</tr>
 	</tbody>
 </table>
-<?php echo $css . $script; ?>
+<?php echo $script; ?>
 </body>
 </html>

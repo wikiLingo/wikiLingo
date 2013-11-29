@@ -3,7 +3,7 @@ namespace WikiLingo\Plugin;
 
 use WikiLingo;
 
-class flash extends HtmlBase
+class flash extends Base
 {
     public $hasHtmlBody = false;
     public $htmlTagType = 'embed';

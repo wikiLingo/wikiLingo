@@ -9,7 +9,7 @@ namespace WikiLingo\Plugin;
 
 use WikiLingo;
 
-class accordion extends HtmlBase
+class accordion extends Base
 {
     public $htmlTagType = 'div';
 

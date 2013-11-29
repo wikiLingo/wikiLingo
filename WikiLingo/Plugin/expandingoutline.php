@@ -6,7 +6,7 @@ use WikiLingo;
 
 class expandingoutline extends Base
 {
-	function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+	public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
 		global $headerlib;
 
