@@ -35,15 +35,22 @@ $parser = new WikiLingo\Parser($scripts);
         <td style="padding: 20px;"><textarea id="wL" style="width: 100%;"></textarea></td>
         <td style="padding: 20px;" id="wLOut"></td>
     </tr>
+    <tr>
+        <th colspan="2">out source</th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <pre id="wLOutSource"></pre>
+        </td>
+    </tr>
 </table>
-<pre id="wLOutSource"></pre>
 </body>
 <?php echo $scripts->renderScript(); ?>
 <script>
     $(function() {
         var wL = $('#wL').height(window.innerHeight * 0.8),
             wLOut = $('#wLOut'),
-            wLOutSource = $('#wLOutSrouce'),
+            wLOutSource = $('#wLOutSource'),
             head = $('head');
 
         $('#wLUpdate').click(function() {
@@ -53,6 +60,7 @@ $parser = new WikiLingo\Parser($scripts);
                 data: {w: wL.val()},
                 success: function(result) {
                     wLOut.html(result.output);
+                    wLOutSource.text(result.output);
 
                     if (result.script) {
                         head.append(result.script);
