@@ -24,8 +24,16 @@ var WikiLingoBubble = (function(d, w, m) {
             point = d.createElement('div'),
             firewall = d.createElement('div'),
             highlightedHtml,
-            tempStyleElement;
+            tempStyleElement,
+	        factory = this.factory = d.createElement('div');
 
+	    factory.createElement = function(e) {
+		    this.innerHTML = e.example;
+		    if (this.children[0].innerHTML === 'expression') {
+			    this.children[0].innerHTML = '';
+		    }
+		    return this.children[0];
+	    };
         container.className = 'wikiLingo-container';
         container.appendChild(bubble);
         bubble.className = 'wikiLingo-bubble';
@@ -39,34 +47,30 @@ var WikiLingoBubble = (function(d, w, m) {
             e.example = decodeURIComponent(e.example).replace(/[+]/g, ' ');
             button = d.createElement('li');
             button.onmousedown = function() {
-                highlightedHtml = me.getHighlightedHtml();
-                console.log(highlightedHtml);
-                //check if we need to remove style
-                if (highlightedHtml.elements) {
-                    for(var i in highlightedHtml.elements) {
-                        var element = highlightedHtml.elements[i];
-                        if (element) {
-                            if (element.attributes) {
-                                if (element.attributes['data-type']) {
-                                    if (element.attributes['data-type'].value.split('\\').pop() == this.expression.name) {
-                                        element.parentNode.removeChild(element);
-                                        d.execCommand('insertHTML', false, element.innerHTML);
-                                        return false;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                firewall.innerHTML = this.expression.example;
-                tempStyleElement = firewall.children[0];
-                tempStyleElement.setAttribute('id', 'bubbleInserted');
+	            var element = factory.createElement(this.expression),
+		            attributes = {},
+		            i;
 
-                d.execCommand('insertHTML', false, firewall.innerHTML);
-                tempStyleElement.removeAttribute('id');
-                tempStyleElement = d.getElementById('bubbleInserted');
-                tempStyleElement.innerHTML = highlightedHtml;
-                tempStyleElement.removeAttribute('id');
+	            if (element.children.length == 0) {
+		            for (i = 0; i < element.attributes.length; i++) {
+			            attributes[element.attributes[i].name] = element.attributes[i].value;
+		            }
+
+		            for (i in this.expression.extraAttributes) {
+			            attributes[i] = this.expression.extraAttributes[i];
+		            }
+
+		            var applier = (rangy.createCssClassApplier(element.className, {
+			            wikiLingoTypeName: e.name,
+			            elementTagName: element.tagName.toLowerCase(),
+			            elementAttributes: attributes
+		            }));
+
+		            applier.toggleSelection();
+	            } else {
+		            d.execCommand('insertHTML', false, this.expression.example);
+	            }
+
                 return false;
             }
             button.innerHTML = e.icon;
@@ -89,7 +93,7 @@ var WikiLingoBubble = (function(d, w, m) {
         this.appendGroup('misc', true);
 
         point.className = 'wikiLingo-bubble-point';
-        point.innerText = '&#x25BE;';
+        point.innerHTML = '&#9662;';
         container.appendChild(point);
 
         this.container = container;
@@ -126,7 +130,7 @@ var WikiLingoBubble = (function(d, w, m) {
             } else {
                 s.display = 'inline-block';
                 c.className = 'wikiLingo-container show';
-                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 45) + "px";
+                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 50) + "px";
                 s.left = ((high.boundary.left + (high.boundary.width / 2))  - (c.clientWidth / 2)) + "px";
             }
         },
@@ -139,25 +143,6 @@ var WikiLingoBubble = (function(d, w, m) {
                 text : range.toString().trim(),
                 boundary : range.getBoundingClientRect()
             };
-        },
-        getHighlightedHtml: function() {
-            var html = "";
-            if (typeof window.getSelection != "undefined") {
-                var sel = window.getSelection();
-                if (sel.rangeCount) {
-                    var container = document.createElement("div");
-                    for (var i = 0, len = sel.rangeCount; i < len; ++i) {
-                        container.appendChild(sel.getRangeAt(i).cloneContents());
-                    }
-                    html = new String(container.innerHTML);
-                    html.elements = [sel.focusNode.parentNode, sel.focusNode.nextSibling, sel.focusNode.previousSibling, sel.anchorNode.nextSibling];
-                }
-            } else if (typeof document.selection != "undefined") {
-                if (document.selection.type == "Text") {
-                    html = document.selection.createRange().htmlText;
-                }
-            }
-            return html;
         }
     };
 

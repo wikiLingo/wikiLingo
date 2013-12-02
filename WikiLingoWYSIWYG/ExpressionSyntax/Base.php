@@ -2,6 +2,7 @@
 
 namespace WikiLingoWYSIWYG\ExpressionSyntax;
 
+use WikiLingoWYSIWYG;
 
 abstract class Base
 {
@@ -9,9 +10,9 @@ abstract class Base
 
     public $types = array();
 
-    public $icon = '?';
+    public $icon = '';
 
     public $iconClass = '';
 
-    abstract public function example();
+    abstract public function example(WikiLingoWYSIWYG\Parser &$parser);
 } 

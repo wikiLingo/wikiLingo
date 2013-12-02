@@ -17,6 +17,7 @@ class ExpressionType
     public $icon;
     public $iconClass;
     public $group;
+	public $extraAttributes = array();
 
     public function __construct($name, $example, $types, $icon, $iconClass, $group)
     {

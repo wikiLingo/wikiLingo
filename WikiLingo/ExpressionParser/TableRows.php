@@ -15,7 +15,11 @@ class TableRows
 
     public function addRow($row)
     {
-        $this->rows[] = new Expression\TableRow($row->text);
+	    if (isset($row->text)) {
+            $this->rows[] = new Expression\TableRow($row->text);
+	    } else {
+		    //$this->rows[] = $row;
+	    }
         $this->length++;
     }
 

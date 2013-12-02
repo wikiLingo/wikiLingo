@@ -10,6 +10,7 @@ class Element extends Base
     public $detailedAttributes = array();
     public $useDetailedAttributes = false;
 	public $classes = array();
+	public $detailedAttributesClass = 'element';
 
     function __construct($type, $name)
     {
@@ -50,6 +51,10 @@ class Element extends Base
     {
         $open = "<" . $this->name;
 	    $attributes = array();
+
+	    if ($this->useDetailedAttributes && !empty($this->detailedAttributesClass)) {
+		    $this->classes[] = $this->detailedAttributesClass;
+	    }
 
 	    if (!empty($this->classes)) {
 		    $attributes[] = "class='" . implode($this->classes, ' ') . "'";

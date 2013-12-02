@@ -2,6 +2,7 @@
 namespace WikiLingoWYSIWYG\ExpressionSyntax;
 
 use Types\Type;
+use WikiLingoWYSIWYG;
 
 class Variable extends Base
 {
@@ -9,7 +10,7 @@ class Variable extends Base
     public $iconClass = 'icon-lab';
     public $group = 'misc';
 
-	public function example()
+	public function example(WikiLingoWYSIWYG\Parser &$parser)
 	{
 		return '{{expression}}';
 	}

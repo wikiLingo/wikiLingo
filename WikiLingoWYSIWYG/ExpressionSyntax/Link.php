@@ -3,6 +3,7 @@
 namespace WikiLingoWYSIWYG\ExpressionSyntax;
 
 use Types\Type;
+use WikiLingoWYSIWYG;
 
 class Link extends Base
 {
@@ -10,7 +11,7 @@ class Link extends Base
     public $iconClass = 'icon-link';
     public $group = 'link';
 
-    public function example()
+    public function example(WikiLingoWYSIWYG\Parser &$parser)
     {
         return '[location|expression]';
     }

@@ -4,7 +4,7 @@ namespace WikiLingoWYSIWYG\ExpressionSyntax;
 use WikiLingo;
 use Types\Type;
 Use Exception;
-Use WikiLingoWYSIWYG;
+use WikiLingoWYSIWYG;
 
 class Plugin extends Base
 {
@@ -29,7 +29,7 @@ class Plugin extends Base
         }
     }
 
-    public function example()
+    public function example(WikiLingoWYSIWYG\Parser &$parser)
     {
         return '';
     }

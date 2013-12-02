@@ -1,13 +1,15 @@
 <?php
 namespace WikiLingoWYSIWYG\ExpressionSyntax;
 
+use WikiLingoWYSIWYG;
+
 class Bold extends Base
 {
     public $icon = ' ';
     public $iconClass = 'icon-bold';
     public $group = 'common';
 
-    public function example()
+    public function example(WikiLingoWYSIWYG\Parser &$parser)
     {
         return '__expression__';
     }

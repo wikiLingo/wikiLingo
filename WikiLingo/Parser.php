@@ -17,15 +17,19 @@ class Parser extends Definition
 	 */
 	public function __construct(Utilities\Scripts &$scripts = null)
 	{
-		if ($scripts != null) {
-			$this->scripts =& $scripts;
-		} else {
-			$this->scripts = new Utilities\Scripts();
+		if (empty($this->scripts)) {
+			if ($scripts != null ) {
+				$this->scripts =& $scripts;
+			} else {
+				$this->scripts = new Utilities\Scripts();
+			}
 		}
 
 		$this->emptyParserValue = new Parsed();
 
-        $this->events = new Events();
+		if (empty($this->events)) {
+            $this->events = new Events();
+		}
 
         parent::__construct();
     }

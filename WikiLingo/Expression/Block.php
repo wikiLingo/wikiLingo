@@ -22,6 +22,7 @@ class Block extends Base
 	public $endingLineNo;
     public $element;
     public $collectionElementName;
+    public $css;
     public $elementName;
     public $modifier;
     public $parser;

@@ -4,28 +4,28 @@ namespace WikiLingo;
 class Events
 {
 	//possible events, I hate to re-declare all of them, but it is strongly typed, what can you say
-	private $ExpressionPluginExists = array();
-    private $ExpressionPluginPreRender = array();
-    private $ExpressionPluginPostRender = array();
+	private $WikiLingoEventExpressionPluginExists = array();
+    private $WikiLingoEventExpressionPluginPreRender = array();
+    private $WikiLingoEventExpressionPluginPostRender = array();
 
-    private $ExpressionTagAllowed = array();
-    private $ExpressionTagRender = array();
+    private $WikiLingoEventExpressionTagAllowed = array();
+    private $WikiLingoEventExpressionTagRender = array();
 
-    private $ExpressionVariableLookup = array();
+    private $WikiLingoEventExpressionVariableLookup = array();
 
-    private $ExpressionWikiLinkRender = array();
-    private $ExpressionWikiLinkTypeRender = array();
+    private $WikiLingoEventExpressionWikiLinkRender = array();
+    private $WikiLingoEventExpressionWikiLinkTypeRender = array();
 
-    private $ExpressionWordLinkExists = array();
-    private $ExpressionWordLinkRender = array();
+    private $WikiLingoEventExpressionWordLinkExists = array();
+    private $WikiLingoEventExpressionWordLinkRender = array();
 
-    private $ParsedRenderPermission = array();
-    private $ParsedRenderBlocked = array();
+    private $WikiLingoEventParsedRenderPermission = array();
+    private $WikiLingoEventParsedRenderBlocked = array();
 
 	public function bind(&$event)
 	{
 		//reduce to fully qualified class name, then remove WikiLingoEvent from front
-        $eventName = substr(str_replace("\\", "", get_class($event)), 14);
+        $eventName = str_replace("\\", "", get_class($event));
 		$this->{$eventName}[] =& $event;
 
 		return $this;
@@ -33,21 +33,21 @@ class Events
 
 	public function triggerExpressionPluginExists(Expression\Plugin &$plugin)
 	{
-		foreach($this->ExpressionPluginExists as &$event)
+		foreach($this->WikiLingoEventExpressionPluginExists as &$event)
 		{
 			$event->trigger($plugin);
 		}
 	}
 	public function triggerExpressionPluginPreRender(Expression\Plugin &$plugin)
 	{
-		foreach($this->ExpressionPluginPreRender as &$event)
+		foreach($this->WikiLingoEventExpressionPluginPreRender as &$event)
 		{
 			$event->trigger($plugin);
 		}
 	}
 	public function triggerExpressionPluginPostRender(&$rendered, Expression\Plugin &$plugin)
 	{
-		foreach($this->ExpressionPluginPostRender as &$event)
+		foreach($this->WikiLingoEventExpressionPluginPostRender as &$event)
 		{
 			$event->trigger($rendered, $plugin);
 		}
@@ -56,7 +56,7 @@ class Events
 
 	public function triggerExpressionTagAllowed(Expression\Tag &$tag)
 	{
-		foreach($this->ExpressionTagAllowed as &$event)
+		foreach($this->WikiLingoEventExpressionTagAllowed as &$event)
 		{
 			$event->trigger($tag);
 		}
@@ -64,7 +64,7 @@ class Events
 
     public function triggerExpressionTagRender(Renderer\Element &$element, Expression\Tag &$tag)
     {
-        foreach($this->ExpressionTagRender as &$event)
+        foreach($this->WikiLingoEventExpressionTagRender as &$event)
         {
             $event->trigger($element, $tag);
         }
@@ -72,7 +72,7 @@ class Events
 
 	public function triggerExpressionVariableLookup(&$key, Renderer\Element &$element, Expression\Variable &$variable)
 	{
-		foreach($this->ExpressionVariableLookup as &$event)
+		foreach($this->WikiLingoEventExpressionVariableLookup as &$event)
 		{
 			$event->trigger($key, $element, $variable);
 		}
@@ -80,7 +80,7 @@ class Events
 
 	public function triggerExpressionWikiLinkRender(Renderer\Element &$element, Expression\WikiLink &$wikiLink)
 	{
-		foreach($this->ExpressionWikiLinkRender as &$event)
+		foreach($this->WikiLingoEventExpressionWikiLinkRender as &$event)
 		{
 			$event->trigger($element, $wikiLink);
 		}
@@ -88,7 +88,7 @@ class Events
 
 	public function triggerExpressionWikiLinkTypeRender(Renderer\Element &$element, Expression\WikiLinkType &$wikiLinkType)
 	{
-		foreach($this->ExpressionWikiLinkTypeRender as &$event)
+		foreach($this->WikiLingoEventExpressionWikiLinkTypeRender as &$event)
 		{
 			$event->trigger($element, $wikiLinkType);
 		}
@@ -96,14 +96,14 @@ class Events
 
 	public function triggerExpressionWordLinkExists($word, &$exists)
 	{
-		foreach($this->ExpressionWordLinkExists as &$event)
+		foreach($this->WikiLingoEventExpressionWordLinkExists as &$event)
 		{
 			$event->trigger($word, $exists);
 		}
 	}
 	public function triggerExpressionWordLinkRender(Renderer\Element &$element, Expression\WordLink &$wordLink)
 	{
-		foreach($this->ExpressionWordLinkRender as &$event)
+		foreach($this->WikiLingoEventExpressionWordLinkRender as &$event)
 		{
 			$event->trigger($element, $wordLink);
 		}
@@ -111,14 +111,14 @@ class Events
 
     public function triggerParsedRenderPermission(Parsed &$parsed)
     {
-        foreach($this->ParsedRenderPermission as &$event)
+        foreach($this->WikiLingoEventParsedRenderPermission as &$event)
         {
             $event->trigger($parsed);
         }
     }
     public function triggerParsedRenderBlocked(Parsed &$parsed, &$return)
     {
-        foreach($this->ParsedRenderBlocked as &$event)
+        foreach($this->WikiLingoEventParsedRenderBlocked as &$event)
         {
             $event->trigger($parsed, $return);
         }

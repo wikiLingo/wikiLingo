@@ -13,15 +13,17 @@
     border-style: solid;
 }
 .wikiLingo-bubble, .wikiLingo-bubble ul {
-    padding: 0;
+	padding: 0px;
+    padding-top: 4px;
     margin: 0;
-    border-width: 5px;
+    border-width: 2px;
     border-radius: 5px;
     background-color: rgba(0, 0, 0, 0.9);
 }
 .wikiLingo-bubble > li {
     opacity: 0.7;
-    padding-left: 3px;
+    margin-left: 3px;
+	margin-right: 3px;
 }
 
 /*setup animation*/
@@ -44,7 +46,6 @@
 }
 
 .wikiLingo-bubble button, .wikiLingo-bubble-minimize {
-    border-radius: 3px;
     float: left;
     border: 0 none;
     color: inherit;
@@ -75,7 +76,8 @@
     position: relative;
     color: rgba(0, 0, 0, 0.9);
     width: 100%;
-    top: -7px;
+	font-size: 15px;
+    top: -8px;
     cursor: pointer;
 }
 

@@ -3,6 +3,7 @@
 namespace WikiLingoWYSIWYG\ExpressionSyntax;
 use WikiLingo;
 use Types\Type;
+use WikiLingoWYSIWYG;
 
 class Header6 extends Base
 {
@@ -10,7 +11,7 @@ class Header6 extends Base
     public $icon = '';
     public $iconClass = 'icon-menu';
 
-    public function example()
+    public function example(WikiLingoWYSIWYG\Parser &$parser)
     {
         return "\n!!!!!!expression";
     }
