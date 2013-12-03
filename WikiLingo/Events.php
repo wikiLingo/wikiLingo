@@ -4,23 +4,23 @@ namespace WikiLingo;
 class Events
 {
 	//possible events, I hate to re-declare all of them, but it is strongly typed, what can you say
-	private $WikiLingoEventExpressionPluginExists = array();
-    private $WikiLingoEventExpressionPluginPreRender = array();
-    private $WikiLingoEventExpressionPluginPostRender = array();
+	public $WikiLingoEventExpressionPluginExists = array();
+    public $WikiLingoEventExpressionPluginPreRender = array();
+    public $WikiLingoEventExpressionPluginPostRender = array();
 
-    private $WikiLingoEventExpressionTagAllowed = array();
-    private $WikiLingoEventExpressionTagRender = array();
+    public $WikiLingoEventExpressionTagAllowed = array();
+    public $WikiLingoEventExpressionTagRender = array();
 
-    private $WikiLingoEventExpressionVariableLookup = array();
+    public $WikiLingoEventExpressionVariableLookup = array();
 
-    private $WikiLingoEventExpressionWikiLinkRender = array();
-    private $WikiLingoEventExpressionWikiLinkTypeRender = array();
+    public $WikiLingoEventExpressionWikiLinkRender = array();
+    public $WikiLingoEventExpressionWikiLinkTypeRender = array();
 
-    private $WikiLingoEventExpressionWordLinkExists = array();
-    private $WikiLingoEventExpressionWordLinkRender = array();
+    public $WikiLingoEventExpressionWordLinkExists = array();
+    public $WikiLingoEventExpressionWordLinkRender = array();
 
-    private $WikiLingoEventParsedRenderPermission = array();
-    private $WikiLingoEventParsedRenderBlocked = array();
+    public $WikiLingoEventParsedRenderPermission = array();
+    public $WikiLingoEventParsedRenderBlocked = array();
 
 	public function bind(&$event)
 	{

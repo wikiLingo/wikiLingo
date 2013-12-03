@@ -9,6 +9,7 @@ class Parser extends Definition
 	public $scripts;
 	private $parsing = false;
 	private $pcreRecursionLimit;
+    public $wysiwyg = false;
 
 	/**
 	 * construct

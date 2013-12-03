@@ -7,12 +7,11 @@ use Types\Type;
 class tabs extends Base
 {
     public $htmlTagType = 'div';
-    public $wysiwygTagType = 'div';
+    public $permissibleChildren = array('tab');
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
 	    $plugin->allowLineAfter = false;
-	    self::parameterDefaults($plugin->parameters);
 	    $id = $plugin->id();
 
 	    $parser->scripts->addScript(<<<JS

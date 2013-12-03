@@ -14,6 +14,7 @@ abstract class Base
     public $htmlTagType = 'span';
     public $wysiwygTagType = '';
     public $hasHtmlBody = true;
+    public $permissibleParents = array();
     public $permissibleChildren = array();
     public $style = array(
         '@keyframes' => true,
@@ -320,7 +321,8 @@ abstract class Base
         );
 
         $element = Type::Element($parser->element($this->expressionType, $elementName));
-        $element->attributes['id'] = $plugin->id();
+        $element->classes[] = $plugin->type;
+        $element->attributes['id'] = $id = $plugin->id();
 
         $style = $this->stylize($plugin->parameters);
         if (!empty($style)) {

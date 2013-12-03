@@ -6,7 +6,7 @@ use WikiLingo;
 class Events extends WikiLingo\Events
 {
 	//possible events, I hate to re-declare all of them, but it is strongly typed, what can you say
-	private $WikiLingoWYSIWYGEventExpressionSyntaxRegistered = array();
+	public $WikiLingoWYSIWYGEventExpressionSyntaxRegistered = array();
 
 	public function bind(&$event)
 	{
