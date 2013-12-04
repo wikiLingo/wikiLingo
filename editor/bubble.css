@@ -40,8 +40,6 @@
 }
 
 .wikiLingo-bubble li {
-    height: 30px;
-    width: 30px;
     cursor: pointer;
 }
 
@@ -110,4 +108,22 @@
     max-height: 1000px;
     overflow: hidden;
     opacity: 1;
+}
+
+.drag {
+	width: 20px;
+	height: 20px;
+	border-width: 2px;
+	border-radius: 5px;
+	background-color: rgba(0, 0, 0, 0.9);
+	position: absolute;
+	opacity: 0.7;
+	margin-top: -20px;
+	border: none;
+	cursor: move;
+}
+
+.representation {
+	border: rgba(0, 0, 0, 0.9) dashed 5px;
+	position: absolute;
 }
