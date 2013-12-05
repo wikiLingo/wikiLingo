@@ -13,9 +13,6 @@ $parser = new WikiLingo\Parser($scripts);
 <head>
     <meta charset="utf-8">
     <title>wikiLingo mirror</title>
-    <script src="editor/bubble.js"></script>
-    <link rel=stylesheet href="editor/bubble.css"/>
-    <link rel=stylesheet href="editor/IcoMoon/sprites/sprites.css"/>
     <?php echo $scripts->renderCss(); ?>
     <style>
         table td {

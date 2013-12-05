@@ -8,6 +8,7 @@ class tab extends Base
     public $htmlTagType = 'div';
     public $parameters = array('title');
     public $permissibleParents = array('tabs');
+    public $allowLines = true;
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {

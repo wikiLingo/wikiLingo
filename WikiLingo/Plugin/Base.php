@@ -263,6 +263,7 @@ abstract class Base
         'outline-offset' => true,
         'resize' => true,
     );
+    public $allowLines = false;
 
     public function getParent( &$plugin )
     {
