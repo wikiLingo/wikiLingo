@@ -289,7 +289,9 @@ abstract class Base
     {
         $defaults = array();
         foreach ($this->parameters as $param => $setting) {
-            if (!empty($setting)) {
+            if (is_numeric($param)) {
+                $defaults[$setting] = '';
+            } else if (!empty($setting)) {
                 $defaults[$param] = $setting;
             }
         }

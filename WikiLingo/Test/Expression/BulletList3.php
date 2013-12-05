@@ -16,7 +16,7 @@ class BulletList3 extends Base
         $this->expected =
             "<ul>" .
                 "<li><span class='whitespace'> </span>foo" .
-                    "<div id='div1'>" .
+                    "<div class='div' id='div1'>" .
                         "<br class='hidden'/>" .
                         "<span class='whitespace'> </span>Continuation1<br class='hidden'/>" .
                         "Continuation2" .

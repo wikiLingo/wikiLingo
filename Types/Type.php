@@ -12,72 +12,72 @@ namespace Types
 
 	class Type
 	{
-		public static function Block(Expression\Block &$obj)
+		public static function Block(Expression\Block $obj)
 		{
 			return $obj;
 		}
 
-		public static function Flat(Tensor\Flat &$obj)
+		public static function Flat(Tensor\Flat $obj)
 		{
 			return $obj;
 		}
 
-		public static function Hierarchical(Tensor\Hierarchical &$obj)
+		public static function Hierarchical(Tensor\Hierarchical $obj)
 		{
 			return $obj;
 		}
 
-		public static function HierarchicalCollection(Tensor\HierarchicalCollection &$obj)
+		public static function HierarchicalCollection(Tensor\HierarchicalCollection $obj)
 		{
 			return $obj;
 		}
 
-		public static function Parsed(WikiLingo\Parsed &$obj)
+		public static function Parsed(WikiLingo\Parsed $obj)
 		{
 			return $obj;
 		}
 
-		public static function Element(WikiLingo\Renderer\Element &$obj)
+		public static function Element(WikiLingo\Renderer\Element $obj)
 		{
 			return $obj;
 		}
 
-		public static function Events(\WikiLingo\Events &$obj)
+		public static function Events(\WikiLingo\Events $obj)
 		{
 			return $obj;
 		}
 
-		public static function WYSIWYGElement(WYSIWYGWikiLingo\Expression\Element &$obj)
+		public static function WYSIWYGElement(WYSIWYGWikiLingo\Expression\Element $obj)
 		{
 			return $obj;
 		}
 
-		public static function Helper(WikiLingo\Renderer\Helper &$obj)
+		public static function Helper(WikiLingo\Renderer\Helper $obj)
 		{
 			return $obj;
 		}
 
-		public static function WikiLingoParser(WikiLingo\Parser &$obj)
+		public static function WikiLingoParser(WikiLingo\Parser $obj)
 		{
 			return $obj;
 		}
 
-		public static function WYSIWYGWikiLingoParser(WYSIWYGWikiLingo\Parser &$obj)
+		public static function WYSIWYGWikiLingoParser(WYSIWYGWikiLingo\Parser $obj)
 		{
 			return $obj;
 		}
 
-		public static function DescriptionList(WikiLingo\Expression\DescriptionList &$obj)
+		public static function DescriptionList(WikiLingo\Expression\DescriptionList $obj)
 		{
 			return $obj;
 		}
 
-		public static function WikiLingoExpressionHeader(WikiLingo\Expression\Header &$obj)
+		public static function WikiLingoExpressionHeader(WikiLingo\Expression\Header $obj)
 		{
 			return $obj;
 		}
 
-		public static function Scripts(WikiLingo\Utilities\Scripts &$obj)
+		public static function Scripts(WikiLingo\Utilities\Scripts $obj)
 		{
 			return $obj;
 		}

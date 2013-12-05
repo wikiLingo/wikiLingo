@@ -24,10 +24,10 @@ class NoLineSkipping extends Base
 			"''Test Italics''\n";
 
 		$this->expected =
-            "<div id='div4'>" . "<br class='hidden'/>" .
-                "<div id='div3'>" . "<br class='hidden'/>" .
-                    "<div id='div2'>" . "<br class='hidden'/>" .
-                        "<div id='div1'>" . "<br class='hidden'/>" .
+            "<div class='div' id='div4'>" . "<br class='hidden'/>" .
+                "<div class='div' id='div3'>" . "<br class='hidden'/>" .
+                    "<div class='div' id='div2'>" . "<br class='hidden'/>" .
+                        "<div class='div' id='div1'>" . "<br class='hidden'/>" .
                         "</div>" .
                     "</div>" .
                 "</div>" .

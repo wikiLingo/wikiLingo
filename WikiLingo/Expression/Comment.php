@@ -7,7 +7,7 @@ class Comment extends Base
 
 	public function render(&$parser)
 	{
-		if (isset($parser->wysiwyg)) {
+		if ($parser->wysiwyg) {
 			$element = $parser->element(__CLASS__, 'span');
 			$element->staticChildren[] = $this->renderedChildren;
 			$element->classes[] = 'comment';

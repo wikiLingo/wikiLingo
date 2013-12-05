@@ -19,7 +19,7 @@ class toc extends Base
 			"!Header 2";
 
 		$this->expected =
-            "<div id='toc1'>" .
+            "<div class='toc' id='toc1'>" .
                 "<ol>" .
                     "<li><a href='#Header%2B1'>Header 1</a></li>" .
                     "<li><a href='#Header%2B2'>Header 2</a></li>" .

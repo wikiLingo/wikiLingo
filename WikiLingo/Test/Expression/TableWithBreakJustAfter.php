@@ -17,12 +17,12 @@ class TableWithBreakJustAfter extends Base
 			"<br/>" .
 			"<table>" .
 				"<tr>" .
-					"<td>test</td>" .
-					"<td>test</td>" .
+					"<td class='table-cell'>test</td>" .
+					"<td class='table-cell'>test</td>" .
 				"</tr>" .
 				"<tr>" .
-					"<td>test</td>" .
-					"<td>test</td>" .
+					"<td class='table-cell'>test</td>" .
+					"<td class='table-cell'>test</td>" .
 				"</tr>" .
 			"</table>";
 	}

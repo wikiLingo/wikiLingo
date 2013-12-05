@@ -22,7 +22,7 @@ class pluginAttributes extends Base
 			"{HTML(attr1 = something attr2 = 'something else')}
 {HTML}";
 
-		$this->expected = "<span id='html5'><br class='hidden'/></span>";
+		$this->expected = "<span class='html' id='html5'><br class='hidden'/></span>";
 
 	}
 } 

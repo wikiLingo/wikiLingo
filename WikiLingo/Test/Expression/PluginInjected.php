@@ -23,7 +23,7 @@ class PluginInjected extends Base
 
 		$this->source = "{INJECTED()}__I've been injected!__{INJECTED}";
 
-		$this->expected = "<span id='injected1'><strong>I've been injected!</strong></span>";
+		$this->expected = "<span class='injected' id='injected1'><strong>I've been injected!</strong></span>";
 
 	}
 }

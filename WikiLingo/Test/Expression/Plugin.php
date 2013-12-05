@@ -14,7 +14,7 @@ class Plugin extends Base
 
 		$this->source = "{html test=`test`}{HTML()}{HTML} {HTML()}Test{HTML}";
 
-		$this->expected = "<span id='html1'></span><span id='html2'></span><span class='whitespace'> </span><span id='html3'>Test</span>";
+		$this->expected = "<span class='html' id='html1'></span><span class='html' id='html2'></span><span class='whitespace'> </span><span class='html' id='html3'>Test</span>";
 
 	}
 }

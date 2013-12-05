@@ -98,7 +98,7 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
     var WikiLingoPlugin = function(el) {
         el.onmousedown = function() {
-            return false;
+            //return false;
         };
         el.onmouseenter = function() {
             console.log(this);
