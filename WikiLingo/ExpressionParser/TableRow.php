@@ -17,7 +17,7 @@ class TableRow
         if ($column == null) {
             $this->columns[] = new Expression\TableCell("");
         } else {
-            $this->columns[] =& new Expression\TableCell($column->text->value);
+            $this->columns[] = new Expression\TableCell($column->text->value);
         }
 
         $this->length++;

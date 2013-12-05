@@ -48,7 +48,7 @@ class Hierarchical
 
 		if (empty($child->parent))
 		{
-			$child->parent =& Type::Hierarchical($this);
+			$child->parent = Type::Hierarchical($this);
 		}
 		$this->children->push($child);
 		$this->childrenLength++;
