@@ -11,14 +11,16 @@ $scripts = (new WikiLingo\Utilities\Scripts())
     //add some css
     ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 	->addCssLocation("editor/Medium.js/medium.css")
-
+	->addCssLocation("editor/bubble.css")
+    ->addCssLocation("editor/IcoMoon/sprites/sprites.css")
 
     //add some javascript
     ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
     ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
     ->addScriptLocation("editor/rangy/uncompressed/rangy-core.js")
     ->addScriptLocation("editor/rangy/uncompressed/rangy-cssclassapplier.js")
-    ->addScriptLocation("editor/Medium.js/medium.js");
+    ->addScriptLocation("editor/Medium.js/medium.js")
+    ->addScriptLocation("editor/bubble/js");
 
 
 
@@ -77,9 +79,6 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 <head>
     <meta charset="utf-8">
     <title>wikiLingo editor (contenteditable only and a tiny bit of js and css)</title>
-    <script src="editor/bubble.js"></script>
-    <link rel=stylesheet href="editor/bubble.css"/>
-    <link rel=stylesheet href="editor/IcoMoon/sprites/sprites.css"/>
     <?php
         //render css from scripts collector and bring it to the page
         echo $scripts->renderCss();
