@@ -14,7 +14,7 @@ class Line extends Base
         //If we are not in a plugin, and there are blocks, go ahead and close them so no more can be added
         $parser =& $parsed->parser;
         if ($parser->pluginStackCount == 0 && $parser->blocksLength > 0) {
-            $block =& Type::Block($parser->blocks[$parser->blocksLength - 1]);
+            $block = Type::Block($parser->blocks[$parser->blocksLength - 1]);
             $block->open = false;
         }
     }

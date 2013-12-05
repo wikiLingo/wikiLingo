@@ -17,12 +17,4 @@ class Base
 	{
 		$this->delegates[] =& $delegate;
 	}
-
-	public function trigger(&$object)
-	{
-		foreach($this->delegates as &$delegate)
-		{
-			$delegate($object);
-		}
-	}
 } 

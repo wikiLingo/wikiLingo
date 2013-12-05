@@ -171,7 +171,7 @@ class Flat
 
 		if (!isset($this->parents[$depth]))
 		{
-			$item =& new Hierarchical($this->block->newBlank());
+			$item = new Hierarchical($this->block->newBlank());
 			$item->depth = $depth;
 			$item->index = $this->length;
 			$this->items[] = $item;
@@ -183,7 +183,7 @@ class Flat
 		else if (!isset($this->parents[$depth][$this->parentActive[$depth]]))
 		{
 
-			$item =& new Hierarchical($this->block->newBlank());
+			$item = new Hierarchical($this->block->newBlank());
 			$item->depth = $depth;
 			$item->index = $this->length;
 			$this->items[] = $item;
@@ -194,7 +194,7 @@ class Flat
 
 		else
 		{
-			$parent =& Type::Hierarchical($this->parents[$depth][$this->parentActive[$depth]]);
+			$parent = Type::Hierarchical($this->parents[$depth][$this->parentActive[$depth]]);
 			return $parent;
 		}
 	}

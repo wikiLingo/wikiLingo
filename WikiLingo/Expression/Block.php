@@ -77,9 +77,9 @@ class Block extends Base
 				break;
 
             case 'descriptionList':
-	            if ($previousBlock =& $this->getPreviousBlockIfCompatible()) {
+	            if ($previousBlock = $this->getPreviousBlockIfCompatible()) {
                     $previousBlock->endingLineNo = $this->parsed->lineNo;
-                    $descriptionList =& Type::DescriptionList($previousBlock->expression);
+                    $descriptionList = Type::DescriptionList($previousBlock->expression);
                     $descriptionList->add($this);
                     return false;
 	            }
@@ -91,10 +91,10 @@ class Block extends Base
                 $this->collectionElementName = $collectionElementName;
                 $this->elementName = 'li';
 
-                if ($previousBlock =& $this->getPreviousBlockIfCompatible()) {
+                if ($previousBlock = $this->getPreviousBlockIfCompatible()) {
                     $previousBlock->endingLineNo = $this->parsed->lineNo;
                     //We do not set $result here deliberately, so that the item is added to the already existing list
-                    $flat =& Type::Flat($previousBlock->expression);
+                    $flat = Type::Flat($previousBlock->expression);
                     $item = new Tensor\Hierarchical($this);
                     $flat->add($item);
                     $flat->block->parsed->addCousin($parsed);
@@ -117,7 +117,7 @@ class Block extends Base
     public function getPreviousBlockIfCompatible()
     {
         if ($this->parser->blocksLength > 0) {
-            $previousBlock =& Type::Block($this->parser->blocks[$this->parser->blocksLength - 1]);
+            $previousBlock = Type::Block($this->parser->blocks[$this->parser->blocksLength - 1]);
             if ($previousBlock->blockType == $this->blockType && $previousBlock->open) {
                 return $previousBlock;
             }
