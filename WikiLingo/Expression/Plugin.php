@@ -87,7 +87,7 @@ class Plugin extends Base
         }
 
         Type::Events($parser->events)->triggerExpressionPluginPreRender($this);
-        $rendered =& $this->class->render($this, $this->renderedChildren, $parser);
+        $rendered = $this->class->render($this, $this->renderedChildren, $parser);
 	    Type::Events($parser->events)->triggerExpressionPluginPostRender($rendered, $this);
         return $rendered;
     }
