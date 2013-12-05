@@ -4,7 +4,7 @@ require_once('index.php');
 ob_start();
 $scripts = new WikiLingo\Utilities\Scripts();
 if (isset($_REQUEST['wysiwyg'])) {
-    $parser = new WYSIWYGWikiLingo\Parser($scripts);
+    $parser = new WikiLingoWYSIWYG\Parser($scripts);
     $output = $parser->parse($_REQUEST['w']);
 } else {
     $parser = new WikiLingo\Parser($scripts);

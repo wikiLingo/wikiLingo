@@ -1,4 +1,4 @@
-var WikiLingoBubble = (function(d, w, m) {
+var WikiLingoBubble = (function(d, w, m, rangy) {
     if (!String.prototype.trim) {
         String.prototype.trim = function(){
             return this.replace(/^\s+|\s+$/g, '');
@@ -130,7 +130,7 @@ var WikiLingoBubble = (function(d, w, m) {
             } else {
                 s.display = 'inline-block';
                 c.className = 'wikiLingo-container show';
-                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 50) + "px";
+                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 40) + "px";
                 s.left = ((high.boundary.left + (high.boundary.width / 2))  - (c.clientWidth / 2)) + "px";
             }
         },
@@ -147,4 +147,4 @@ var WikiLingoBubble = (function(d, w, m) {
     };
 
     return construct;
-})(document, window, Math);
+})(document, window, Math, rangy);

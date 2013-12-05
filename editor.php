@@ -31,7 +31,7 @@ $parser = new WikiLingoWYSIWYG\Parser($scripts);
 $parser->events->bind(new WikiLingo\Event\Expression\Plugin\PostRender(function(&$rendered, WikiLingo\Expression\Plugin &$plugin) use ($parser) {
     $id = $plugin->id();
     $parser->scripts->addScript(<<<JS
-     (new WikiLingoPlugin(document.getElementById('$id')));
+     (new WLPlugin(document.getElementById('$id')));
 JS
     );
 }));
@@ -96,14 +96,42 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 </body>
 <script>
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
-    var WikiLingoPlugin = function(el) {
-        el.onmousedown = function() {
-            //return false;
-        };
-        el.onmouseenter = function() {
-            console.log(this);
-        };
-    };
+    var
+	    WLPlugin = function(el) {
+		    var me = this, $el = $(el);
+		    el.wLPlugin = this;
+
+	        $el
+		        .on('mousedown', function() {
+		            return false;
+		        })
+		        .on('mouseenter', function() {
+			        me.assistant = el.wLPluginAssistant = new WLPluginAssistant(el, this);
+		        });
+	    },
+	    WLPluginAssistant = function(el, plugin) {
+		    var $el = $(el),
+			    cl = el.getAttribute('id') + 'button',
+			    others = $('img.' + cl).remove(),
+			    //representation = this.representation = $('<div class="helper representation" data-helper="1" contenteditable="false"></div>'),
+		        button = this.button = $('<img data-helper="1" class="helper drag" src="editor/IcoMoon/PNG/location.png" />')
+			        .addClass(cl)
+			        .insertBefore(el);
+
+		    button[0].el = el;
+		    button[0].$el = $el;
+
+		    button
+			    .on('mousedown', function() {
+				    $el.detach();
+			    })
+			    .on('dragend', function() {
+			        button = $('img.' + cl).filter(':visible');
+
+			        $el.insertAfter(button);
+			        button.hide();
+			    });
+	    };
 </script>
 <?php
     //echo script from the scripts collector to page

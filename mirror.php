@@ -32,7 +32,7 @@ $parser = new WikiLingo\Parser($scripts);
 <table style="width: 100%;">
     <tr>
         <th style="width: 50%;">in</th>
-        <th style="width: 50%;">out <button id="wLUpdate">Update</button></th>
+        <th style="width: 50%;">out <button id="wLUpdate">Update</button> (wysiwyg output? <input type="checkbox" id="wLWYSIWYGOutput" />)</th>
     </tr>
     <tr>
         <td style="padding: 20px;"><textarea id="wL" style="width: 100%;"></textarea></td>
@@ -54,13 +54,23 @@ $parser = new WikiLingo\Parser($scripts);
         var wL = $('#wL').height(window.innerHeight * 0.8),
             wLOut = $('#wLOut'),
             wLOutSource = $('#wLOutSource'),
+	        wLWYSIWYGOutput = $('#wLWYSIWYGOutput'),
             head = $('head');
 
         $('#wLUpdate').click(function() {
+
+	        var data = {
+		        w: wL.val()
+	        };
+
+	        if (wLWYSIWYGOutput.is(':checked')) {
+		        data.wysiwyg = true;
+	        }
+
             $.ajax({
                 dataType: 'json',
                 url: 'reflect.php',
-                data: {w: wL.val()},
+                data: data,
                 success: function(result) {
                     wLOut.html(result.output);
                     wLOutSource.text(vkbeautify.xml(result.output));
