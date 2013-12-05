@@ -20,7 +20,7 @@ $scripts = (new WikiLingo\Utilities\Scripts())
     ->addScriptLocation("editor/rangy/uncompressed/rangy-core.js")
     ->addScriptLocation("editor/rangy/uncompressed/rangy-cssclassapplier.js")
     ->addScriptLocation("editor/Medium.js/medium.js")
-    ->addScriptLocation("editor/bubble/js");
+    ->addScriptLocation("editor/bubble.js");
 
 
 
