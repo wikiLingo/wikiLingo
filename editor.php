@@ -91,7 +91,7 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 <div id="header" style="text-align: center;">
     <h1>wikiLingo</h1>
 </div><?php //create an editable area and echo page to it ?>
-<div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto;"><?php echo $page;?></div>
+<div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div>
 </body>
 <script>
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
@@ -101,11 +101,14 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 		    el.wLPlugin = this;
 
 	        $el
-		        .on('mousedown', function() {
-		            return false;
+		        .on('mousedown', function(e) {
+			        e.preventDefault();
 		        })
 		        .on('mouseenter', function() {
-			        me.assistant = el.wLPluginAssistant = new WLPluginAssistant(el, this);
+			        if (!me.assistant) {
+			            me.assistant = el.wLPluginAssistant = new WLPluginAssistant(el, this);
+			        }
+			        me.assistant.show();
 		        });
 	    },
 	    WLPluginAssistant = function(el, plugin) {
@@ -113,23 +116,48 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 			    cl = el.getAttribute('id') + 'button',
 			    others = $('img.' + cl).remove(),
 			    //representation = this.representation = $('<div class="helper representation" data-helper="1" contenteditable="false"></div>'),
-		        button = this.button = $('<img data-helper="1" class="helper drag" src="editor/IcoMoon/PNG/location.png" />')
-			        .addClass(cl)
-			        .insertBefore(el);
+		        button = this.button = document.createElement('img'),
+			    $button = $(button);
 
-		    button[0].el = el;
-		    button[0].$el = $el;
+		    button.setAttribute('src', 'editor/arrow-move.png');
+		    button.setAttribute('contenteditable', 'false');
+		    button.el = el;
+		    button.$el = $el;
+		    button.className = cl + ' helper drag';
 
-		    button
-			    .on('mousedown', function() {
+
+
+		    $button
+		        .on('dragstart', function() {
 				    $el.detach();
 			    })
-			    .on('dragend', function() {
-			        button = $('img.' + cl).filter(':visible');
-
-			        $el.insertAfter(button);
-			        button.hide();
+			    .on('mouseover', function() {
+				    $el.addClass('draggable');
+			    })
+			    .on('mouseout', function() {
+				    $el.removeClass('draggable');
 			    });
+
+		    button.ondragend = document.body.ondragend = function(e) {
+			    setTimeout(function() {
+				    $el.removeClass('draggable');
+				    $button.detach();
+
+				    $('img.' + cl).filter(':visible')
+					    .first()
+					    .after(el)
+					    .remove();
+
+			    }, 1);
+	        };
+
+		    this.show = function() {
+			    var pos = $el.position();
+			    $button
+				    .insertBefore($el)
+				    .css('left', pos.left + 'px')
+				    .css('top', pos.top + 'px');
+		    };
 	    };
 </script>
 <?php
@@ -137,6 +165,14 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
     echo $scripts->renderScript();
 ?>
 <script>
+	rangy.rangePrototype.insertNodeAtEnd = function(node) {
+		var range = this.cloneRange();
+		range.collapse(false);
+		range.insertNode(node);
+		range.detach();
+		this.setEndAfter(node);
+	};
+
     var expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>,
 
         //bubble is the contenteditable toolbar, it is very simple and instantiated here

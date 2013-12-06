@@ -113,17 +113,35 @@
 .drag {
 	width: 20px;
 	height: 20px;
-	border-width: 2px;
-	border-radius: 5px;
-	background-color: rgba(0, 0, 0, 0.9);
 	position: absolute;
 	opacity: 0.7;
 	margin-top: -20px;
 	border: none;
 	cursor: move;
+	border: none;
+	background-color: #99CCFF;
+
+	/* Safari 3-4, iOS 1-3.2, Android 1.6- */
+	-webkit-border-top-left-radius: 12px;
+	-webkit-border-top-right-radius: 12px;
+
+	/* Firefox 1-3.6 */
+	-moz-border-top-left-radius: 12px;
+	-moz-border-top-right-radius: 12px;
+
+	/* Opera 10.5, IE 9, Safari 5, Chrome, Firefox 4, iOS 4, Android 2.1+ */
+	border-top-left-radius: 12px;
+	border-top-right-radius: 12px;
+}
+
+.draggable {
+	background-color: #99CCFF;
 }
 
 .representation {
 	border: rgba(0, 0, 0, 0.9) dashed 5px;
 	position: absolute;
 }
+
+img.drag::selection { background: transparent; }
+img.drag::-moz-selection { background: transparent; }
