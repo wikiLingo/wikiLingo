@@ -1,0 +1,3 @@
+[submodule "WikiLingo/Plugins"]
+	path = WikiLingo/Plugins
+	url = https://github.com/wikiLingo/php-plugins.git
