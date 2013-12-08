@@ -14,6 +14,7 @@ class ExpressionPluginType
     public $name;
     public $parameters;
     public $advancedParameters;
+	public $draggable;
 
     public function __construct($name)
     {
@@ -21,5 +22,6 @@ class ExpressionPluginType
         $className = 'WikiLingo\Plugin\\' . $name;
         $class = new $className();
         $this->parameters = $class->parameters;
+	    $this->draggable = $class->draggable;
     }
 } 

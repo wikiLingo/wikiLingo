@@ -97,76 +97,78 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
     var
 	    WLPlugin = function(el) {
-		    var me = this, $el = $(el),
-			    Assistant = function(plugin) {
-				    var cl = el.getAttribute('id') + 'button',
-					    others = $('img.' + cl).remove(),
-				    //representation = this.representation = $('<div class="helper representation" data-helper="1" contenteditable="false"></div>'),
-					    button = this.button = document.createElement('img'),
-					    $button = $(button);
+		    if (el.getAttribute('data-draggable') == '1') {
+			    var me = this, $el = $(el),
+				    Assistant = function(plugin) {
+					    var cl = el.getAttribute('id') + 'button',
+						    others = $('img.' + cl).remove(),
+					    //representation = this.representation = $('<div class="helper representation" data-helper="1" contenteditable="false"></div>'),
+						    button = this.button = document.createElement('img'),
+						    $button = $(button);
 
-				    button.setAttribute('src', 'editor/arrow-move.png');
-				    button.setAttribute('contenteditable', 'false');
-				    button.el = el;
-				    button.$el = $el;
-				    button.className = cl + ' helper drag';
+					    button.setAttribute('src', 'editor/img/arrow-move.png');
+					    button.setAttribute('contenteditable', 'false');
+					    button.el = el;
+					    button.$el = $el;
+					    button.className = cl + ' helper drag';
 
 
 
-				    $button
-					    .on('dragstart', function() {
-						    $el.detach();
-					    })
-					    .on('mouseover', function() {
-						    $el.addClass('draggable');
-					    })
-					    .on('mouseout', function() {
-						    $el.removeClass('draggable');
-					    });
-
-				    button.ondragend = document.body.ondragend = function(e) {
-					    setTimeout(function() {
-						    $el.removeClass('draggable');
-						    $button.detach();
-
-						    $('img.' + cl).filter(':visible')
-							    .first()
-							    .after(el)
-							    .remove();
-
-					    }, 1);
-				    };
-
-				    this.show = function() {
-					    for (var i = 0; i < WLPlugin.assistants.length; i++) {
-						    WLPlugin.assistants[i].hide();
-					    }
-					    var pos = $el.position();
 					    $button
-						    .insertBefore($el)
-						    .css('left', pos.left + 'px')
-						    .css('top', pos.top + 'px');
+						    .on('dragstart', function() {
+							    $el.detach();
+						    })
+						    .on('mouseover', function() {
+							    $el.addClass('draggable');
+						    })
+						    .on('mouseout', function() {
+							    $el.removeClass('draggable');
+						    });
+
+					    button.ondragend = document.body.ondragend = function(e) {
+						    setTimeout(function() {
+							    $el.removeClass('draggable');
+							    $button.detach();
+
+							    $('img.' + cl).filter(':visible')
+								    .first()
+								    .after(el)
+								    .remove();
+
+						    }, 1);
+					    };
+
+					    this.show = function() {
+						    for (var i = 0; i < WLPlugin.assistants.length; i++) {
+							    WLPlugin.assistants[i].hide();
+						    }
+						    var pos = $el.position();
+						    $button
+							    .insertBefore($el)
+							    .css('left', pos.left + 'px')
+							    .css('top', pos.top + 'px');
+					    };
+
+					    this.hide = function() {
+						    $button.detach();
+					    };
+
+					    WLPlugin.assistants.push(this);
 				    };
 
-				    this.hide = function() {
-					    $button.detach();
-				    };
+			    el.wLPlugin = this;
 
-				    WLPlugin.assistants.push(this);
-			    };
-
-		    el.wLPlugin = this;
-
-	        $el
-		        .on('mousedown', function(e) {
-			        e.preventDefault();
-		        })
-		        .on('mouseenter', function() {
-			        if (!me.assistant) {
-			            me.assistant = el.wLPluginAssistant = new Assistant(el, this);
-			        }
-			        me.assistant.show();
-		        });
+		        $el
+			        .on('mousedown', function(e) {
+				        e.preventDefault();
+			        })
+			        .on('mouseenter', function() {
+				        if (!me.assistant) {
+				            me.assistant = el.wLPluginAssistant = new Assistant(el, this);
+				        }
+				        me.assistant.show();
+			        });
+		    }
 	    };
     WLPlugin.assistants = [];
 </script>
@@ -186,7 +188,7 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
     var expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>,
 
         //bubble is the contenteditable toolbar, it is very simple and instantiated here
-	    bubble = new WikiLingoBubble(expressionSyntaxes),
+	    bubble = new WLBubble(expressionSyntaxes),
 
         //medium makes contenteditable behave
 	    medium = bubble.medium = new Medium({
