@@ -10,13 +10,13 @@ class Plugin extends Base
         $pluginType = null;
         $pluginParameters = null;
         $pluginHasParameters = false;
-        if (!empty($parameters['data-plugintype'])) {
-            $isInline = (empty($parameters['data-isinline']) ? false : true);
+        if (!empty($parameters['data-plugin-type'])) {
+            $inLine = (empty($parameters['data-in-line']) ? false : true);
 
-            $pluginType = ($isInline ? strtolower($parameters['data-plugintype']) : strtoupper($parameters['data-plugintype']));
+            $pluginType = ($inLine ? strtolower($parameters['data-plugin-type']) : strtoupper($parameters['data-plugin-type']));
 
-            if (!empty($parameters['data-pluginparameters'])) {
-                $pluginParameters = json_decode(urldecode($parameters['data-pluginparameters']));
+            if (!empty($parameters['data-plugin-parameters'])) {
+                $pluginParameters = json_decode(urldecode($parameters['data-plugin-parameters']));
                 if (!empty($pluginParameters)) {
                     $pluginHasParameters = true;
                 }
@@ -35,7 +35,7 @@ class Plugin extends Base
             }
             $pluginParametersString = implode($pluginParametersParsed, ' ');
         }
-        if ($isInline) {
+        if ($inLine) {
             if ($pluginHasParameters) {
                 $plugin .= ' ' . $pluginParametersString;
             }

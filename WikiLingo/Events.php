@@ -4,6 +4,8 @@ namespace WikiLingo;
 class Events
 {
 	//possible events, I hate to re-declare all of them, but it is strongly typed, what can you say
+	public $WikiLingoEventTranslate = array();
+
 	public $WikiLingoEventExpressionPluginExists = array();
     public $WikiLingoEventExpressionPluginPreRender = array();
     public $WikiLingoEventExpressionPluginPostRender = array();
@@ -29,6 +31,16 @@ class Events
 		$this->{$eventName}[] =& $event;
 
 		return $this;
+	}
+
+	public function triggerTranslate(&$value, $context)
+	{
+		foreach($this->WikiLingoEventTranslate as &$event)
+		{
+			return $event->trigger($value, $context);
+		}
+
+		return $value;
 	}
 
 	public function triggerExpressionPluginExists(Expression\Plugin &$plugin)

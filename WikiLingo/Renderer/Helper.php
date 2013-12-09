@@ -9,6 +9,7 @@ class Helper extends Element
     {
         $this->name = $name;
 
-	    $this->detailedAttributes['data-helper'] = true;
+	    $this->detailedAttributes['data-helper'] = 'true';
+	    $this->detailedAttributes['contenteditable'] = 'false';
     }
 }

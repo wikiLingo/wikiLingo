@@ -1,7 +1,7 @@
 wikiLingo.plugin = (function(wikiLingo, $, doc) {
 	var constructor = function($pluginElement) {
-		this.type = $pluginElement.attr('data-plugintype');
-		this.parametersRaw = $pluginElement.attr('data-pluginparameters');
+		this.type = $pluginElement.attr('data-plugin-type');
+		this.parametersRaw = $pluginElement.attr('data-plugin-parameters');
 		this.parameters = $.parseJSON(
 			wikiLingo.urldecode(
 				this.parametersRaw
@@ -14,8 +14,8 @@ wikiLingo.plugin = (function(wikiLingo, $, doc) {
 
 		update: function() {
 			$(this)
-				.attr('data-plugintype', this.type)
-				.attr('data-pluginparameters', wikiLingo.urlencode(JSON.stringify(this.parameters)));
+				.attr('data-plugin-type', this.type)
+				.attr('data-plugin-parameters', wikiLingo.urlencode(JSON.stringify(this.parameters)));
 		},
 
 		dialog: function() {

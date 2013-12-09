@@ -97,7 +97,7 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
     var
 	    WLPlugin = function(el) {
-		    if (el.getAttribute('data-draggable') == '1') {
+		    if (el.getAttribute('data-draggable') == 'true') {
 			    var me = this, $el = $(el),
 				    Assistant = function(plugin) {
 					    var cl = el.getAttribute('id') + 'button',
@@ -118,8 +118,9 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 						    .on('dragstart', function() {
 							    $el.detach();
 						    })
-						    .on('mouseover', function() {
+						    .on('mouseover', function(e) {
 							    $el.addClass('draggable');
+							    e.stopPropagation();
 						    })
 						    .on('mouseout', function() {
 							    $el.removeClass('draggable');
@@ -145,7 +146,7 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 						    var pos = $el.position();
 						    $button
 							    .insertBefore($el)
-							    .css('left', pos.left + 'px')
+							    .css('left', (pos.left + 10) + 'px')
 							    .css('top', pos.top + 'px');
 					    };
 
@@ -157,17 +158,16 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 				    };
 
 			    el.wLPlugin = this;
+			    el.onmousedown = function(e) {
 
-		        $el
-			        .on('mousedown', function(e) {
-				        e.preventDefault();
-			        })
-			        .on('mouseenter', function() {
-				        if (!me.assistant) {
-				            me.assistant = el.wLPluginAssistant = new Assistant(el, this);
-				        }
-				        me.assistant.show();
-			        });
+		        };
+			    el.onmouseover = function(e) {
+			        if (!me.assistant) {
+			            me.assistant = el.wLPluginAssistant = new Assistant(el, this);
+			        }
+			        me.assistant.show();
+				    e.stopPropagation();
+		        };
 		    }
 	    };
     WLPlugin.assistants = [];

@@ -19,7 +19,7 @@ class Plugin extends Base
     public $parsed;
     public $parent;
 	public $allowLines = false;
-    public $isInline = false;
+    public $inLine = false;
     public static $injected = array();
 
     public static $info;
@@ -54,7 +54,7 @@ class Plugin extends Base
         $this->key = '§' . md5('plugin:' . $type . '_' . $this->index) . '§';
 
         if ($parameters != '}') {
-            if ($this->isInline) {
+            if ($this->inLine) {
                 //{plugin}
                 $parameters = substr($parameters, 0, -1);
             } else {
@@ -71,7 +71,15 @@ class Plugin extends Base
 
         if ($this->exists == true) {
             if (empty($parsed->parser->pluginInstances[$this->classType])) {
-                $parsed->parser->pluginInstances[$this->classType] = new $this->classType;
+                $parsed->parser->pluginInstances[$this->classType] = $class = new $this->classType();
+
+	            if (isset($class->name)) {
+		            $class->name = Type::Events($parsed->parser->events)->triggerTranslate($class->name, 'plugin.name');
+	            }
+
+	            if (isset($class->description)) {
+		            $class->description = Type::Events($parsed->parser->events)->triggerTranslate($class->description, 'plugin.description');
+	            }
             }
             $this->class = $parsed->parser->pluginInstances[$this->classType];
 	        $this->parsed->expressionPermissible = $this->class->permissible;
