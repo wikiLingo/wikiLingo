@@ -37,12 +37,12 @@ class Element extends Base
 	            }
             }
 
-            if ($this->parameter('data-parent')) {
+            if (strtolower($this->parameter('data-parent')) == 'true') {
 	            $this->isParent = true;
             }
-            if ($this->parameter('data-element')) {
+            if (strtolower($this->parameter('data-element')) == 'true') {
                 $this->isElement = true;
-            } else if ($this->parameter('data-helper')) {
+            } else if (strtolower($this->parameter('data-helper')) == 'true') {
                 $this->isHelper = true;
             } else {
                 $this->isStatic = true;

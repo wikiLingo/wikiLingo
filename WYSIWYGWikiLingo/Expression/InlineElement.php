@@ -19,9 +19,9 @@ class InlineElement extends Base
             $parametersString = trim(substr($parsed->text, $pos, -2));
             $this->parameters = self::$parameterParser->parse($parametersString);
 
-            if ($this->parameter("data-element") == "true") {
+            if (strtolower($this->parameter("data-element")) == "true") {
                 $this->isElement = true;
-            } else if ($this->parameter('data-helper') == "true") {
+            } else if (strtolower($this->parameter('data-helper')) == "true") {
                 $this->isHelper = true;
             } else {
                 $this->isStatic = true;

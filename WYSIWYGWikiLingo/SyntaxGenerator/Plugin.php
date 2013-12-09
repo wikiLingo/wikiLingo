@@ -8,10 +8,13 @@ class Plugin extends Base
     {
         $parameters =& $this->expression->parameters;
         $pluginType = null;
+        $inLine = false;
         $pluginParameters = null;
         $pluginHasParameters = false;
         if (!empty($parameters['data-plugin-type'])) {
-            $inLine = (empty($parameters['data-in-line']) ? false : true);
+            if (isset($parameters['data-in-line']) && strtolower($parameters['data-in-line']) == 'true') {
+                $inLine = true;
+            }
 
             $pluginType = ($inLine ? strtolower($parameters['data-plugin-type']) : strtoupper($parameters['data-plugin-type']));
 
