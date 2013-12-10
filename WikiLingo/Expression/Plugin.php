@@ -145,6 +145,8 @@ class Plugin extends Base
 
 	public function parameter($type)
 	{
+		$type = strtolower($type);
+
 		if (isset($this->parameters[$type]))
 		{
 			return $this->parameters[$type];

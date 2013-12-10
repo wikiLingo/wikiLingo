@@ -132,21 +132,28 @@ var WLBubble = (function(d, w, m, rangy) {
                 b = this.bubble,
                 s = c.style;
 
-            if (high.range.startOffset === high.range.endOffset || !high.text) {
-                c.className = 'wikiLingo-container hide';
-            } else {
-                s.display = 'inline-block';
-                c.className = 'wikiLingo-container show';
-                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 40) + "px";
-                s.left = ((high.boundary.left + (high.boundary.width / 2))  - (c.clientWidth / 2)) + "px";
-            }
+	        if (high) {
+	            if (high.range.startOffset === high.range.endOffset || !high.text) {
+	                c.className = 'wikiLingo-container hide';
+	            } else {
+	                s.display = 'inline-block';
+	                c.className = 'wikiLingo-container show';
+	                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 40) + "px";
+	                s.left = ((high.boundary.left + (high.boundary.width / 2))  - (c.clientWidth / 2)) + "px";
+	            }
+	        }
         },
         getHighlighted: function() {
             var selection = w.getSelection(),
-                range = selection.getRangeAt(0);
+                range = (selection.anchorNode ? selection.getRangeAt(0) : false);
+
+	        if (!range) {
+		        return null;
+	        }
+
             return {
                 selection : selection,
-                range : selection.getRangeAt(0),
+                range : range,
                 text : range.toString().trim(),
                 boundary : range.getBoundingClientRect()
             };

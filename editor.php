@@ -20,7 +20,8 @@ $scripts = (new WikiLingo\Utilities\Scripts())
     ->addScriptLocation("editor/rangy/uncompressed/rangy-core.js")
     ->addScriptLocation("editor/rangy/uncompressed/rangy-cssclassapplier.js")
     ->addScriptLocation("editor/Medium.js/medium.js")
-    ->addScriptLocation("editor/bubble.js");
+    ->addScriptLocation("editor/bubble.js")
+	->addScriptLocation("editor/editor.js");
 
 
 
@@ -177,52 +178,6 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
     echo $scripts->renderScript();
 ?>
 <script>
-	rangy.rangePrototype.insertNodeAtEnd = function(node) {
-		var range = this.cloneRange();
-		range.collapse(false);
-		range.insertNode(node);
-		range.detach();
-		this.setEndAfter(node);
-	};
-
-    var expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>,
-
-        //bubble is the contenteditable toolbar, it is very simple and instantiated here
-	    bubble = new WLBubble(expressionSyntaxes),
-
-        //medium makes contenteditable behave
-	    medium = bubble.medium = new Medium({
-		    element: document.getElementById('editable'),
-		    mode: 'rich',
-		    placeholder: 'Your Article',
-		    cssClasses: [],
-		    attributes: {
-			    remove: []
-		    },
-		    tags: {
-			    paragraph: 'p',
-			    outerLevel: ['pre','blockquote', 'figure', 'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'ul', 'strong', 'code', 'br', 'b'],
-			    innerLevel: ['a', 'b', 'u', 'i', 'img', 'div', 'strong', 'li', 'span', 'code', 'br'] // Todo: Convert strong to b (IE)
-		    },
-		    modifiers: []
-	    }),
-	    color = function(element) {
-		    var newColor = prompt('What color?', element.style['color']);
-		    if (newColor) {
-			    element.style['color'] = newColor
-		    }
-	    },
-	    table = function(element) {
-		    
-	    };
-
-    document.body.appendChild(bubble.container);
-
-    document.onmouseup = function() {
-        bubble.goToSelection();
-    }
-
-    document.getElementById('header').preventSelection();
-    console.log(expressionSyntaxes);
+	window.expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>;
 </script>
 </html>
