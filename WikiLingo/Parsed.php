@@ -130,7 +130,7 @@ class Parsed extends ParserValue
 	}
     public function removeChildren()
     {
-        $this->children = [];
+        $this->children = array();
 	    $this->childrenLength = 0;
     }
 
