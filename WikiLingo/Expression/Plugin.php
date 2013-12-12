@@ -9,6 +9,7 @@ class Plugin extends Base
 {
     public $type;
     public $parameters = array(); //parameters are server side
+    public $parametersRaw = array(); //parameters are server side
     public $attributes = array(); //attributes are client/tag side
     public $privateAttributes = array(); //privateAttributes are server side, used between plugins
     public $index;
@@ -53,25 +54,11 @@ class Plugin extends Base
         $this->index = self::incrementPluginIndex($type);
         $this->key = '§' . md5('plugin:' . $type . '_' . $this->index) . '§';
 
-        if ($parameters != '}') {
-            if ($this->inLine) {
-                //{plugin}
-                $parameters = substr($parameters, 0, -1);
-            } else {
-                //{PLUGIN()}
-                $parameters = substr($parameters, 0, -2);
-            }
-
-            if (!empty($parameters)) {
-                $this->parameters = self::$parametersParser->parse($parameters);
-            }
-        }
-
         $this->ignored = false;
 
         if ($this->exists == true) {
             if (empty($parsed->parser->pluginInstances[$this->classType])) {
-                $parsed->parser->pluginInstances[$this->classType] = $class = new $this->classType();
+                $parsed->parser->pluginInstances[$this->classType] = $class = new $this->classType($parsed->parser);
 
 	            if (isset($class->name)) {
 		            $class->name = Type::Events($parsed->parser->events)->triggerTranslate($class->name, 'plugin.name');
@@ -84,6 +71,21 @@ class Plugin extends Base
             $this->class = $parsed->parser->pluginInstances[$this->classType];
 	        $this->parsed->expressionPermissible = $this->class->permissible;
             $this->allowLines = $this->class->allowLines;
+
+            if ($parameters != '}') {
+                if ($this->inLine) {
+                    //{plugin}
+                    $parameters = substr($parameters, 0, -1);
+                } else {
+                    //{PLUGIN()}
+                    $parameters = substr($parameters, 0, -2);
+                }
+
+                if (!empty($parameters)) {
+                    $this->parametersRaw = self::$parametersParser->parse($parameters);
+                    $this->parameters = $this->class->parameterValues($this->parametersRaw, $parsed->parser);
+                }
+            }
         }
     }
 
@@ -149,7 +151,7 @@ class Plugin extends Base
 
 		if (isset($this->parameters[$type]))
 		{
-			return $this->parameters[$type];
+			return $this->parameters[$type]->filter();
 		}
 		return '';
 	}

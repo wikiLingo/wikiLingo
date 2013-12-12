@@ -17,7 +17,7 @@ class Plugin extends Base
         $dir = dirname(dirname(__DIR__)) . '/WikiLingo/Plugin';
         $files = scandir($dir);
         foreach ($files as $file) {
-            if ($file === '.' || $file === '..' || $file == 'Base.php') {
+            if ($file === '.' || $file === '..' || $file == 'Base.php' || $file == 'Parameter.php') {
                 continue;
             }
 

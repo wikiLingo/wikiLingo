@@ -90,4 +90,9 @@ class Parser extends Definition
 
         $this->begin('BOF');
     }
+
+    public function filter()
+    {
+
+    }
 }

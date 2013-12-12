@@ -8,7 +8,8 @@ class Base
 
     public function add($name, $value)
     {
-        $this->parameters[strtolower($name)] = htmlspecialchars($value);
+
+        $this->parameters[strtolower($name)] = $value;
     }
 
     public function get()

@@ -96,8 +96,7 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 </body>
 <script>
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
-    var
-	    WLPlugin = function(el) {
+    var WLPlugin = function(el) {
 		    if (el.getAttribute('data-draggable') == 'true') {
 			    var me = this, $el = $(el),
 				    Assistant = function(plugin) {
