@@ -5,6 +5,7 @@ use WikiLingoWYSIWYG;
 
 class Bold extends Base
 {
+    public $label = 'Bold';
     public $icon = ' ';
     public $iconClass = 'icon-bold';
     public $group = 'common';

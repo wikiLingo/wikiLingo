@@ -15,16 +15,15 @@ var WLBubble = (function(d, w, m, rangy) {
 
     var construct = function(expressions) {
 	        var me = this,
-	            container = d.createElement('div'),
-	            bubble = d.createElement('ul'),
+	            bubble = this.bubble = d.createElement('nav'),
+	            ul = this.ul = d.createElement('ul'),
 	            i,
-	            j,
+                j,
 	            e,
 	            button,
+                typeContainer,
+                typePicker,
 	            point = d.createElement('div'),
-	            firewall = d.createElement('div'),
-	            highlightedHtml,
-	            tempStyleElement,
 		        factory = this.factory = d.createElement('div');
 
 		    factory.createElement = function(e) {
@@ -34,10 +33,9 @@ var WLBubble = (function(d, w, m, rangy) {
 			    }
 			    return this.children[0];
 		    };
-	        container.className = 'wikiLingo-container';
-	        container.appendChild(bubble);
 	        bubble.className = 'wikiLingo-bubble';
-	        this.bubble = bubble;
+            bubble.appendChild(ul);
+	        bubble.className = 'wikiLingo-bubble';
 	        this.expressions = expressions;
 	        this.buttons = [];
 	        this.groups = {};
@@ -73,11 +71,27 @@ var WLBubble = (function(d, w, m, rangy) {
 		            }
 
 	                return false;
-	            }
+	            };
 	            button.innerHTML = e.icon;
 	            button.className = e.iconClass;
-	            button.setAttribute('title', i);
+	            button.setAttribute('title', e.label);
 	            button.expression = e;
+
+                if (e.types.length > 0) {
+                    typeContainer = d.createElement('ul');
+                    for (j = 0; j < e.types.length; j++) {
+                        if (e.types[j].draggable === false) {
+                            continue;
+                        }
+                        typePicker = d.createElement('li');
+                        typePicker.innerHTML = e.types[j].label;
+                        console.log(typePicker);
+                        typeContainer.appendChild(typePicker);
+                    }
+                    button.appendChild(typeContainer);
+                    console.log(button);
+                }
+
 	            this.buttons.push(button);
 
 	            if (!this.groups[e.group]) {
@@ -95,31 +109,32 @@ var WLBubble = (function(d, w, m, rangy) {
 
 	        point.className = 'wikiLingo-bubble-point';
 	        point.innerHTML = '&#9662;';
-	        container.appendChild(point);
-
-	        this.container = container;
+	        bubble.insertBefore(point, bubble.firstChild);
 	    },
 		types = this.types = {};
 
     construct.prototype = {
         appendGroup : function(group, minimize) {
-            var j, parentContainer, parent, type;
+            var i,
+                parentContainer,
+                parent,
+                type;
+
             if (this.groups[group]) {
                 if (minimize) {
                     parentContainer = this.groups[group].shift();
-	                for (j in parentContainer.expression.types) {
-		                type = parentContainer.expression.types[j];
+	                for (i in parentContainer.expression.types) {
+		                type = parentContainer.expression.types[i];
 		                types[type.name] = type;
 	                }
-                    this.bubble.appendChild(parentContainer);
+                    this.ul.appendChild(parentContainer);
                     parent = d.createElement('ul');
-                    parent.className = 'wikiLingo-bubble-minimize';
                     parentContainer.appendChild(parent);
                 } else {
-                    parent = this.bubble;
+                    parent = this.ul;
                 }
-                for (j in this.groups[group]) {
-                    parent.appendChild(this.groups[group][j]);
+                for (i in this.groups[group]) {
+                    parent.appendChild(this.groups[group][i]);
                 }
 
                 this.groups[group] = null;
@@ -128,18 +143,17 @@ var WLBubble = (function(d, w, m, rangy) {
         goToSelection : function()
         {
             var high = this.getHighlighted(),
-                c = this.container,
                 b = this.bubble,
-                s = c.style;
+                s = b.style;
 
 	        if (high) {
 	            if (high.range.startOffset === high.range.endOffset || !high.text) {
-	                c.className = 'wikiLingo-container hide';
+	                b.className = 'wikiLingo-bubble hide';
 	            } else {
 	                s.display = 'inline-block';
-	                c.className = 'wikiLingo-container show';
-	                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 40) + "px";
-	                s.left = ((high.boundary.left + (high.boundary.width / 2))  - (c.clientWidth / 2)) + "px";
+	                b.className = 'wikiLingo-bubble show';
+	                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 80) + "px";
+	                s.left = ((high.boundary.left + (high.boundary.width / 2))  - (b.clientWidth / 2)) + "px";
 	            }
 	        }
         },

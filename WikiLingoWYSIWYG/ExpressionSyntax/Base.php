@@ -14,5 +14,14 @@ abstract class Base
 
     public $iconClass = '';
 
+    public $label = '';
+
+    public $labelTranslated = '';
+
+    public function __construct( $parser )
+    {
+        $this->labelTranslated = $parser->events->triggerTranslate($this->label, 'expression');
+    }
+
     abstract public function example(WikiLingoWYSIWYG\Parser &$parser);
 } 

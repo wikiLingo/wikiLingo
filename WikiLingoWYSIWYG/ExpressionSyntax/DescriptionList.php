@@ -5,6 +5,7 @@ use WikiLingoWYSIWYG;
 
 class DescriptionList extends Base
 {
+    public $label = 'Description List';
     public $icon = ' ';
     public $iconClass = 'icon-list2';
     public $group = 'misc';

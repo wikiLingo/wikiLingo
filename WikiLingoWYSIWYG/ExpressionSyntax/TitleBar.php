@@ -5,6 +5,7 @@ use WikiLingoWYSIWYG;
 
 class TitleBar extends Base
 {
+    public $label = 'Title Bar';
     public $icon = '';
     public $iconClass = 'icon-menu';
     public $group = 'misc';

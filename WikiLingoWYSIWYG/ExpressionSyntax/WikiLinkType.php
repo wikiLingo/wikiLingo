@@ -8,6 +8,7 @@ use WikiLingoWYSIWYG;
 
 class WikiLinkType extends Base
 {
+    public $label = 'Wiki Link Type';
     public $icon = ' ';
     public $iconClass = 'icon-link';
     public $group = 'link';

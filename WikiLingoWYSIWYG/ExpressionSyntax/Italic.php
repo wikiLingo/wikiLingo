@@ -5,6 +5,7 @@ use WikiLingoWYSIWYG;
 
 class Italic extends Base
 {
+    public $label = 'Italics';
     public $icon = '';
     public $iconClass = 'icon-italic';
     public $group = 'common';

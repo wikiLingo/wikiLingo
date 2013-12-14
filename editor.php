@@ -101,7 +101,6 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 			    var me = this, $el = $(el),
 				    Assistant = function(plugin) {
 					    var cl = el.getAttribute('id') + 'button',
-						    others = $('img.' + cl).remove(),
 					    //representation = this.representation = $('<div class="helper representation" data-helper="1" contenteditable="false"></div>'),
 						    button = this.button = document.createElement('img'),
 						    $button = $(button);
@@ -112,11 +111,10 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 					    button.$el = $el;
 					    button.className = cl + ' helper drag';
 
-
-
 					    $button
 						    .on('dragstart', function() {
 							    $el.detach();
+                                $button.fadeTo(0, 0);
 						    })
 						    .on('mouseover', function(e) {
 							    $el.addClass('draggable');
@@ -129,7 +127,9 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 					    button.ondragend = document.body.ondragend = function(e) {
 						    setTimeout(function() {
 							    $el.removeClass('draggable');
-							    $button.detach();
+							    $button
+                                    .detach()
+                                    .fadeTo(0, 1);
 
 							    $('img.' + cl).filter(':visible')
 								    .first()
@@ -151,23 +151,21 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 					    };
 
 					    this.hide = function() {
-						    $button.detach();
-					    };
+                            if (!el.unhidable) {
+                                $button.detach();
+                            }
+                        };
 
 					    WLPlugin.assistants.push(this);
 				    };
 
+                me.assistant = el.wLPluginAssistant = new Assistant(el, this);
 			    el.wLPlugin = this;
-			    el.onmousedown = function(e) {
+                el.onmouseover = function(e) {
+                    me.assistant.show();
+                    e.stopPropagation();
+                };
 
-		        };
-			    el.onmouseover = function(e) {
-			        if (!me.assistant) {
-			            me.assistant = el.wLPluginAssistant = new Assistant(el, this);
-			        }
-			        me.assistant.show();
-				    e.stopPropagation();
-		        };
 		    }
 	    };
     WLPlugin.assistants = [];

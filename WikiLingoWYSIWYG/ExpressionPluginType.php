@@ -12,15 +12,18 @@ namespace WikiLingoWYSIWYG;
 class ExpressionPluginType
 {
     public $name;
+    public $label;
+    public $description;
     public $parameters;
-    public $advancedParameters;
 	public $draggable;
 
-    public function __construct($name)
+    public function __construct($name, $parser)
     {
         $this->name = $name;
         $className = 'WikiLingo\Plugin\\' . $name;
         $class = new $className();
+        $this->label = $parser->events->triggerTranslate($class->label, 'plugin');
+        $this->description = $parser->events->triggerTranslate($class->description, 'plugin');
         $this->parameters = $class->parameters;
 	    $this->draggable = $class->draggable;
     }

@@ -6,6 +6,7 @@ use WikiLingoWYSIWYG;
 
 class Color extends Base
 {
+    public $label = 'Color';
     public $icon = ' ';
     public $iconClass = 'icon-droplet';
     public $group = 'common';

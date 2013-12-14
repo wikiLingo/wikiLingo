@@ -8,11 +8,12 @@ use WikiLingoWYSIWYG;
 
 class Plugin extends Base
 {
+    public $label = 'Plugin';
     public $group = 'plugins';
     public $icon = '';
     public $iconClass = 'icon-power-cord';
 
-    public function __construct()
+    public function __construct($parser)
     {
         $dir = dirname(dirname(__DIR__)) . '/WikiLingo/Plugin';
         $files = scandir($dir);
@@ -24,7 +25,7 @@ class Plugin extends Base
             if (strpos($file, '.php') > -1) {
                 $name = substr($file, 0, -4);
 
-                $this->types[] = new WikiLingoWYSIWYG\ExpressionPluginType($name);
+                $this->types[] = new WikiLingoWYSIWYG\ExpressionPluginType($name, $parser);
             }
         }
     }

@@ -7,6 +7,7 @@ use WikiLingoWYSIWYG;
 
 class Table extends Base
 {
+    public $label = 'Table';
     public $icon = '';
     public $iconClass = 'icon-table';
 

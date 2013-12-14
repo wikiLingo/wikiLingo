@@ -5,6 +5,7 @@ use WikiLingoWYSIWYG;
 
 class Code extends Base
 {
+    public $label = 'Code';
     public $icon = ' ';
     public $iconClass = 'icon-code';
     public $group = 'misc';

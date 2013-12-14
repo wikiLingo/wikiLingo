@@ -59,14 +59,6 @@ class Plugin extends Base
         if ($this->exists == true) {
             if (empty($parsed->parser->pluginInstances[$this->classType])) {
                 $parsed->parser->pluginInstances[$this->classType] = $class = new $this->classType($parsed->parser);
-
-	            if (isset($class->name)) {
-		            $class->name = Type::Events($parsed->parser->events)->triggerTranslate($class->name, 'plugin.name');
-	            }
-
-	            if (isset($class->description)) {
-		            $class->description = Type::Events($parsed->parser->events)->triggerTranslate($class->description, 'plugin.description');
-	            }
             }
             $this->class = $parsed->parser->pluginInstances[$this->classType];
 	        $this->parsed->expressionPermissible = $this->class->permissible;

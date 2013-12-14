@@ -6,6 +6,7 @@ use WikiLingoWYSIWYG;
 
 class Variable extends Base
 {
+    public $label = 'Variable';
     public $icon = '';
     public $iconClass = 'icon-lab';
     public $group = 'misc';

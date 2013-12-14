@@ -7,6 +7,7 @@ use WikiLingoWYSIWYG;
 
 class Link extends Base
 {
+    public $label = 'Link';
     public $icon = ' ';
     public $iconClass = 'icon-link';
     public $group = 'link';

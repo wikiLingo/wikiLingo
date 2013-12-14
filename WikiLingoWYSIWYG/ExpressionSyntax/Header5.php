@@ -7,9 +7,10 @@ use WikiLingoWYSIWYG;
 
 class Header5 extends Base
 {
+    public $label = 'Header 5';
     public $group = 'header';
     public $icon = '';
-    public $iconClass = 'icon-menu';
+    public $iconClass = 'icon-menu header5';
 
     public function example(WikiLingoWYSIWYG\Parser &$parser)
     {

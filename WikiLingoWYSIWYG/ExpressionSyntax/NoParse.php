@@ -5,6 +5,7 @@ use WikiLingoWYSIWYG;
 
 class NoParse extends Base
 {
+    public $label = 'No Parse';
     public $icon = '';
     public $iconClass = 'icon-blocked';
     public $group = 'misc';

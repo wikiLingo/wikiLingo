@@ -12,6 +12,7 @@ namespace WikiLingoWYSIWYG;
 class ExpressionType
 {
     public $name;
+    public $label;
     public $example;
     public $types;
     public $icon;
@@ -19,9 +20,10 @@ class ExpressionType
     public $group;
 	public $extraAttributes = array();
 
-    public function __construct($name, $example, $types, $icon, $iconClass, $group)
+    public function __construct($name, $label, $example, $types, $icon, $iconClass, $group)
     {
         $this->name = $name;
+        $this->label = $label;
         $this->example = urlencode($example);
         $this->types = $types;
         $this->icon = $icon;

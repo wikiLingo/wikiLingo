@@ -35,7 +35,7 @@ $(function() {
 
 		};
 
-	document.body.appendChild(bubble.container);
+	document.body.appendChild(bubble.bubble);
 
 	document.onmouseup = function() {
 		bubble.goToSelection();
