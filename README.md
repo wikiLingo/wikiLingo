@@ -3,7 +3,7 @@ wikiLingo
 
 The Wiki Programming Language
 
-<a href="http://visop-dev.com/repo/download/wikiLingo.zip">Download Pre Alpha</a>
+<a href="http://visop-dev.com/repo/download/wikiLingo.zip">Download Pre Alpha</a><br/>
 <a href="http://wikiLingoDoesThat.com/demo/editor.php">Pre Alpha Demo</a>
 
 wikiLingo is a fun and exciting new programming language that you DON'T HAVE TO LEARN!  It's fully wysiwyg (What You See Is What You Get) driven, for a complete visual web experience.  It has a powerful plugin architecture for implementing whatever functionality you want into your website.
