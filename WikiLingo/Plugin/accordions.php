@@ -15,7 +15,7 @@ class accordions extends Base
     {
         $this->htmlTagType = 'div';
 
-        $this->label = 'Accordions';
+        $this->label = 'Accordion';
     }
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)

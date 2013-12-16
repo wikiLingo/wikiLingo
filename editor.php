@@ -20,8 +20,11 @@ $scripts = (new WikiLingo\Utilities\Scripts())
     ->addScriptLocation("editor/rangy/uncompressed/rangy-core.js")
     ->addScriptLocation("editor/rangy/uncompressed/rangy-cssclassapplier.js")
     ->addScriptLocation("editor/Medium.js/medium.js")
-    ->addScriptLocation("editor/bubble.js")
+	->addScriptLocation("editor/WLPluginEditor.js")
+	->addScriptLocation("editor/WLPluginAssistant.js")
+	->addScriptLocation("editor/bubble.js")
 	->addScriptLocation("editor/editor.js");
+
 
 
 
@@ -34,7 +37,9 @@ $parser = new WikiLingoWYSIWYG\Parser($scripts);
 $parser->events->bind(new WikiLingo\Event\Expression\Plugin\PostRender(function(&$rendered, WikiLingo\Expression\Plugin &$plugin) use ($parser) {
     $id = $plugin->id();
     $parser->scripts->addScript(<<<JS
-     (new WLPlugin(document.getElementById('$id')));
+     $(function(){
+        (new WLPlugin(document.getElementById('$id')));
+     });
 JS
     );
 }));
@@ -97,84 +102,21 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 <script>
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
     var WLPlugin = function(el) {
-		    if (el.getAttribute('data-draggable') == 'true') {
-			    var me = this, $el = $(el),
-				    Assistant = function(plugin) {
-					    var cl = el.getAttribute('id') + 'button',
-					    //representation = this.representation = $('<div class="helper representation" data-helper="1" contenteditable="false"></div>'),
-						    button = this.button = document.createElement('img'),
-						    $button = $(button);
+	    if (el.getAttribute('data-draggable') == 'true') {
+		    var me = this;
+		    me.assistant = el.wLPluginAssistant = new WLPluginAssistant(el, this);
+		    el.wLPlugin = this;
 
-					    button.setAttribute('src', 'editor/img/arrow-move.png');
-					    button.setAttribute('contenteditable', 'false');
-					    button.el = el;
-					    button.$el = $el;
-					    button.className = cl + ' helper drag';
-
-					    $button
-						    .on('dragstart', function() {
-							    $el.detach();
-                                $button.fadeTo(0, 0);
-						    })
-						    .on('mouseover', function(e) {
-							    $el.addClass('draggable');
-							    e.stopPropagation();
-						    })
-						    .on('mouseout', function() {
-							    $el.removeClass('draggable');
-						    });
-
-					    button.ondragend = document.body.ondragend = function(e) {
-						    setTimeout(function() {
-							    $el.removeClass('draggable');
-							    $button
-                                    .detach()
-                                    .fadeTo(0, 1);
-
-							    $('img.' + cl).filter(':visible')
-								    .first()
-								    .after(el)
-								    .remove();
-
-						    }, 1);
-					    };
-
-					    this.show = function() {
-						    for (var i = 0; i < WLPlugin.assistants.length; i++) {
-							    WLPlugin.assistants[i].hide();
-						    }
-						    var pos = $el.position();
-						    $button
-							    .insertBefore($el)
-							    .css('left', (pos.left + 10) + 'px')
-							    .css('top', pos.top + 'px');
-					    };
-
-					    this.hide = function() {
-                            if (!el.unhidable) {
-                                $button.detach();
-                            }
-                        };
-
-					    WLPlugin.assistants.push(this);
-				    };
-
-                me.assistant = el.wLPluginAssistant = new Assistant(el, this);
-			    el.wLPlugin = this;
-                el.onmouseover = function(e) {
-                    me.assistant.show();
-                    e.stopPropagation();
-                };
-
-		    }
-	    };
-    WLPlugin.assistants = [];
+		    el.onmouseover = function(e) {
+			    me.assistant.show();
+			    e.stopPropagation();
+		    };
+	    }
+    };
+	window.expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>;
 </script>
 <?php
     //echo script from the scripts collector to page
     echo $scripts->renderScript();
 ?>
-<script>
-	window.expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>;
-</script>
 </html>

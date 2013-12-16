@@ -8,7 +8,7 @@ class Underscore extends Base
     public $label = 'Underline';
     public $icon = '';
     public $iconClass = 'icon-underline';
-    public $group = 'common';
+    public $group = 'font';
 
     public function example(WikiLingoWYSIWYG\Parser &$parser)
     {

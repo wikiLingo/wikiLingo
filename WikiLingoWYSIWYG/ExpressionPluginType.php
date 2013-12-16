@@ -24,7 +24,7 @@ class ExpressionPluginType
         $class = new $className();
         $this->label = $parser->events->triggerTranslate($class->label, 'plugin');
         $this->description = $parser->events->triggerTranslate($class->description, 'plugin');
-        $this->parameters = $class->parameters;
+        $this->parameters = (empty($class->parameters) ? null : $class->parameters);
 	    $this->draggable = $class->draggable;
     }
 } 

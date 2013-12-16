@@ -8,7 +8,7 @@ class Strike extends Base
     public $label = 'Strike';
     public $icon = '';
     public $iconClass = 'icon-strikethrough';
-    public $group = 'common';
+    public $group = 'font';
 
     public function example(WikiLingoWYSIWYG\Parser &$parser)
     {

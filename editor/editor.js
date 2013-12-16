@@ -41,9 +41,5 @@ $(function() {
 		bubble.goToSelection();
 	};
 
-	$('*.helper').on('dragstart', function(e) {
-		e.preventDefault();
-	});
-
 	console.log(window.expressionSyntaxes);
 });

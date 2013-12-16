@@ -17,7 +17,7 @@ class accordion extends Base
         $this->htmlTagType = 'div';
         $this->draggable = false;
 
-        $this->label = 'Accordion';
+        $this->label = 'Accordion Section';
         $this->parameters['title'] = new Parameter('Title', '');
     }
 

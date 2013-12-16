@@ -348,7 +348,7 @@ abstract class Base
 
         $element->detailedAttributes['data-plugin-type'] = $plugin->type;
         $element->detailedAttributes['data-draggable'] = ($this->draggable ? 'true' : 'false');
-        $element->detailedAttributes['data-plugin-parameters'] = urlencode(json_encode($plugin->parametersRaw));
+        $element->detailedAttributes['data-plugin-parameters'] = (empty($plugin->parametersRaw) ? null : urlencode(json_encode($plugin->parametersRaw)));
         $element->detailedAttributes['data-in-line'] = ($plugin->inLine ? 'true' : 'false');
 
         if ($plugin->inLine) {

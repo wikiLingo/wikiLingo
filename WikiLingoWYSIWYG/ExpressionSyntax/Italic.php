@@ -8,7 +8,7 @@ class Italic extends Base
     public $label = 'Italics';
     public $icon = '';
     public $iconClass = 'icon-italic';
-    public $group = 'common';
+    public $group = 'font';
 
     public function example(WikiLingoWYSIWYG\Parser &$parser)
     {

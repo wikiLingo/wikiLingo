@@ -25,7 +25,7 @@ class Plugin extends Base
             if (strpos($file, '.php') > -1) {
                 $name = substr($file, 0, -4);
 
-                $this->types[] = new WikiLingoWYSIWYG\ExpressionPluginType($name, $parser);
+                $this->types[$name] = new WikiLingoWYSIWYG\ExpressionPluginType($name, $parser);
             }
         }
     }

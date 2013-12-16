@@ -11,5 +11,6 @@ class Helper extends Element
 
 	    $this->detailedAttributes['data-helper'] = 'true';
 	    $this->detailedAttributes['contenteditable'] = 'false';
+	    $this->detailedAttributes['ondragstart'] = 'return false;';
     }
 }

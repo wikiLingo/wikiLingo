@@ -1,4 +1,12 @@
-var WLBubble = (function(d, w, m, rangy) {
+var WLBubble = (function(document, window, medium, rangy) {
+
+	var classNameHide = 'wikiLingo-bubble hide',
+		classNameShow = 'wikiLingo-bubble show',
+		stop = function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		};
+
     if (!String.prototype.trim) {
         String.prototype.trim = function(){
             return this.replace(/^\s+|\s+$/g, '');
@@ -15,16 +23,16 @@ var WLBubble = (function(d, w, m, rangy) {
 
     var construct = function(expressions) {
 	        var me = this,
-	            bubble = this.bubble = d.createElement('nav'),
-	            ul = this.ul = d.createElement('ul'),
+	            bubble = this.bubble = document.createElement('nav'),
+	            ul = this.ul = document.createElement('ul'),
 	            i,
                 j,
 	            e,
 	            button,
                 typeContainer,
                 typePicker,
-	            point = d.createElement('div'),
-		        factory = this.factory = d.createElement('div');
+	            point = document.createElement('div'),
+		        factory = this.factory = document.createElement('div');
 
 		    factory.createElement = function(e) {
 			    this.innerHTML = e.example;
@@ -33,9 +41,8 @@ var WLBubble = (function(d, w, m, rangy) {
 			    }
 			    return this.children[0];
 		    };
-	        bubble.className = 'wikiLingo-bubble';
             bubble.appendChild(ul);
-	        bubble.className = 'wikiLingo-bubble';
+	        bubble.className = classNameHide;
 	        this.expressions = expressions;
 	        this.buttons = [];
 	        this.groups = {};
@@ -44,8 +51,8 @@ var WLBubble = (function(d, w, m, rangy) {
 	        for (i in expressions) {
 	            e = expressions[i];
 	            e.example = decodeURIComponent(e.example).replace(/[+]/g, ' ');
-	            button = d.createElement('li');
-	            button.onmousedown = function() {
+	            button = document.createElement('li');
+	            button.onmousedown = function(e) {
 		            var element = factory.createElement(this.expression),
 			            attributes = {},
 			            i;
@@ -67,10 +74,10 @@ var WLBubble = (function(d, w, m, rangy) {
 
 			            applier.toggleSelection();
 		            } else {
-			            d.execCommand('insertHTML', false, this.expression.example);
+			            document.execCommand('insertHTML', false, this.expression.example);
 		            }
 
-	                return false;
+		            stop(e);
 	            };
 	            button.innerHTML = e.icon;
 	            button.className = e.iconClass;
@@ -78,14 +85,27 @@ var WLBubble = (function(d, w, m, rangy) {
 	            button.expression = e;
 
                 if (e.types.length > 0) {
-                    typeContainer = d.createElement('ul');
+                    typeContainer = document.createElement('ul');
                     for (j = 0; j < e.types.length; j++) {
                         if (e.types[j].draggable === false) {
                             continue;
                         }
-                        typePicker = d.createElement('li');
+                        typePicker = document.createElement('li');
                         typePicker.innerHTML = e.types[j].label;
-                        console.log(typePicker);
+	                    if (window['wL' + i]) {
+		                    typePicker.expressionType = e.types[j];
+		                    typePicker.ExpressionEditor = window['WL' + i];
+		                    typePicker.onmousedown = function(e) {
+			                    var editor = new this.ExpressionEditor(this.expressionType);
+			                    if (this.expressionType.parameters) {
+				                    editor.ui();
+			                    }
+
+			                    me.hide();
+			                    stop(e);
+		                    };
+		                    typePicker.onmouseup = stop;
+	                    }
                         typeContainer.appendChild(typePicker);
                     }
                     button.appendChild(typeContainer);
@@ -101,6 +121,7 @@ var WLBubble = (function(d, w, m, rangy) {
 	        }
 
 	        this.appendGroup('plugins', true);
+	        this.appendGroup('font');
 	        this.appendGroup('common');
 	        this.appendGroup('header', true);
 	        this.appendGroup('link', true);
@@ -128,7 +149,7 @@ var WLBubble = (function(d, w, m, rangy) {
 		                types[type.name] = type;
 	                }
                     this.ul.appendChild(parentContainer);
-                    parent = d.createElement('ul');
+                    parent = document.createElement('ul');
                     parentContainer.appendChild(parent);
                 } else {
                     parent = this.ul;
@@ -140,6 +161,9 @@ var WLBubble = (function(d, w, m, rangy) {
                 this.groups[group] = null;
             }
         },
+	    hide: function() {
+		    this.bubble.className = classNameHide;
+	    },
         goToSelection : function()
         {
             var high = this.getHighlighted(),
@@ -148,17 +172,17 @@ var WLBubble = (function(d, w, m, rangy) {
 
 	        if (high) {
 	            if (high.range.startOffset === high.range.endOffset || !high.text) {
-	                b.className = 'wikiLingo-bubble hide';
+	                b.className = classNameHide;
 	            } else {
 	                s.display = 'inline-block';
-	                b.className = 'wikiLingo-bubble show';
+	                b.className = classNameShow;
 	                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 80) + "px";
 	                s.left = ((high.boundary.left + (high.boundary.width / 2))  - (b.clientWidth / 2)) + "px";
 	            }
 	        }
         },
         getHighlighted: function() {
-            var selection = w.getSelection(),
+            var selection = window.getSelection(),
                 range = (selection.anchorNode ? selection.getRangeAt(0) : false);
 
 	        if (!range) {
