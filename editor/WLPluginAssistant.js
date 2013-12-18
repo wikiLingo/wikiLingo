@@ -5,46 +5,44 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 		construct = function(el) {
 			var me = this,
 				cl = el.getAttribute('id') + 'button',
-				$el = $(el),
 				buttonDrag = this.button = document.createElement('img'),
 				$buttonDrag = $(buttonDrag),
 				buttonEdit = this.button = document.createElement('img'),
 				$buttonEdit = $(buttonEdit);
 
-			this.el = el;
-			this.$el = $el;
-			el.assistant = this;
+			this.bindToEl(el);
+
+            this.buttonDrag = buttonDrag
+            this.buttonEdit = buttonEdit;
 
 			buttonDrag.setAttribute('src', 'editor/img/arrow-move.png');
 			buttonDrag.setAttribute('contenteditable', 'false');
-			buttonDrag.el = el;
-			buttonDrag.$el = $el;
 			buttonDrag.className = cl + ' helper drag';
 
 			$buttonDrag
 				.on('dragstart', function() {
-					$el.detach();
+					me.$el.detach();
 					$buttonDrag.fadeTo(0, 0);
 					$buttonEdit.detach();
 				})
 				.on('mouseover', function(e) {
-					$el.addClass('draggable');
+                    me.$el.addClass('draggable');
 					e.stopPropagation();
 				})
 				.on('mouseout', function() {
-					$el.removeClass('draggable');
+					me.$el.removeClass('draggable');
 				});
 
 			buttonDrag.ondragend = document.body.ondragend = function(e) {
 				setTimeout(function() {
-					$el.removeClass('draggable');
+					me.$el.removeClass('draggable');
 					$buttonDrag
 						.detach()
 						.fadeTo(0, 1);
 
 					$('img.' + cl).filter(':visible')
 						.first()
-						.after(el)
+						.after(me.el)
 						.remove();
 
 				}, 1);
@@ -52,10 +50,9 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 
 			buttonEdit.setAttribute('src', 'editor/img/cog.png');
 			buttonEdit.setAttribute('contenteditable', 'false');
-			buttonEdit.el = el;
-			buttonEdit.$el = $el;
 			buttonEdit.className = cl + ' helper edit';
 			buttonEdit.onclick = function() {
+                me.insert = me.replaceEl;
 				me.assembleParametersFromEl();
 			};
 			$buttonEdit
@@ -63,29 +60,29 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 					e.preventDefault();
 				})
 				.on('mouseover', function(e) {
-					$el.addClass('draggable');
+					me.$el.addClass('draggable');
 					e.stopPropagation();
 				})
 				.on('mouseout', function() {
-					$el.removeClass('draggable');
+					me.$el.removeClass('draggable');
 				});
 
 			this.show = function() {
 				this.hideAll();
-				var pos = $el.position();
+				var pos = me.$el.position();
 				$buttonDrag
-					.insertBefore($el)
+					.insertBefore(me.$el)
 					.css('left', (pos.left + 10) + 'px')
 					.css('top', pos.top + 'px');
 
 				$buttonEdit
-					.insertBefore($el)
+					.insertBefore(me.$el)
 					.css('left', (pos.left + 35) + 'px')
 					.css('top', pos.top + 'px');
 			};
 
 			this.hide = function() {
-				if (!el.unhidable) {
+				if (!me.el.unhidable) {
 					$buttonDrag.detach();
 					$buttonEdit.detach();
 				}
@@ -102,12 +99,13 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 			}
 		},
 		assembleParametersFromEl: function() {
-			var $el = this.$el,
-				parameters = decodeURIComponent($el.attr('data-plugin-parameters') + ''),
+			var me = this,
+                $el = this.$el,
+				parameters = decodeURIComponent($el.attr('data-plugin-parameters').replace(/[+]/g, ' ') + ''),
 				existingParameters = (parameters ? JSON.parse(parameters) : {}),
 				typeName = $el.attr('data-plugin-type'),
 				type = types[typeName],
-				wLPluginEditor = new WLPluginEditor(type),
+				wLPluginEditor = new WLPluginEditor(type, this.el.innerHTML),
 				defaultParameters = wLPluginEditor.parameters,
 				parametersOverride = {},
 				parameterValue,
@@ -122,8 +120,29 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 				};
 			}
 
-			wLPluginEditor.ui(parametersOverride);
-		}
+			wLPluginEditor.ui(parametersOverride, function(html) {
+                me.insert(html);
+            });
+		},
+        replaceEl: function(newEl) {
+            var firewall = document.createElement('div');
+            firewall.innerHTML = newEl;
+            var el = firewall.children[0];
+
+            this.$el.after(el).remove();
+
+            this.bindToEl(el);
+        },
+        bindToEl: function(el) {
+            this.el = el;
+            this.$el = $(el);
+            el.onmouseover = this.onmouseover;
+            el.assistant = this;
+        },
+        onmouseover: function(e) {
+            this.assistant.show();
+            e.stopPropagation();
+        }
 	};
 
 	document.onkeydown = function() {

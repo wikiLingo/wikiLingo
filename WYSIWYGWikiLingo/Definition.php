@@ -198,13 +198,13 @@ class Definition extends Base
 
 			$tableDefinition9 = array(
 				
-					1=>new ParserAction($this->reduce, $table14),
-					5=>new ParserAction($this->reduce, $table14),
-					6=>new ParserAction($this->reduce, $table14),
-					7=>new ParserAction($this->reduce, $table14),
-					9=>new ParserAction($this->reduce, $table14),
-					10=>new ParserAction($this->reduce, $table14),
-					11=>new ParserAction($this->reduce, $table14)
+					1=>new ParserAction($this->reduce, $table15),
+					5=>new ParserAction($this->reduce, $table15),
+					6=>new ParserAction($this->reduce, $table15),
+					7=>new ParserAction($this->reduce, $table15),
+					9=>new ParserAction($this->reduce, $table15),
+					10=>new ParserAction($this->reduce, $table15),
+					11=>new ParserAction($this->reduce, $table15)
 				);
 
 			$tableDefinition10 = array(
@@ -262,6 +262,8 @@ class Definition extends Base
 
 			$tableDefinition15 = array(
 				
+					1=>new ParserAction($this->reduce, $table14),
+					5=>new ParserAction($this->reduce, $table14),
 					6=>new ParserAction($this->shift, $table11),
 					7=>new ParserAction($this->shift, $table12),
 					8=>new ParserAction($this->none, $table13),
@@ -285,14 +287,14 @@ class Definition extends Base
 
 			$tableDefinition17 = array(
 				
-					1=>new ParserAction($this->reduce, $table15),
-					5=>new ParserAction($this->reduce, $table15),
-					6=>new ParserAction($this->reduce, $table15),
-					7=>new ParserAction($this->reduce, $table15),
-					9=>new ParserAction($this->reduce, $table15),
-					10=>new ParserAction($this->reduce, $table15),
-					11=>new ParserAction($this->reduce, $table15),
-					12=>new ParserAction($this->reduce, $table15)
+					1=>new ParserAction($this->reduce, $table16),
+					5=>new ParserAction($this->reduce, $table16),
+					6=>new ParserAction($this->reduce, $table16),
+					7=>new ParserAction($this->reduce, $table16),
+					9=>new ParserAction($this->reduce, $table16),
+					10=>new ParserAction($this->reduce, $table16),
+					11=>new ParserAction($this->reduce, $table16),
+					12=>new ParserAction($this->reduce, $table16)
 				);
 
 			$table0->setActions($tableDefinition0);
@@ -358,8 +360,9 @@ class Definition extends Base
 					11=>new ParserProduction($symbol8,1),
 					12=>new ParserProduction($symbol8,3),
 					13=>new ParserProduction($symbol8,1),
-					14=>new ParserProduction($symbol8,1),
-					15=>new ParserProduction($symbol8,3)
+					14=>new ParserProduction($symbol8,2),
+					15=>new ParserProduction($symbol8,1),
+					16=>new ParserProduction($symbol8,3)
 				);
 
 
@@ -370,7 +373,7 @@ class Definition extends Base
 			$this->rules = array(
 				
 					0=>"/^(?:(<(.|\n)[^>]*?\/>))/",
-					1=>"/^(?:$)/",
+					1=>"/^(?:(?=$))/",
 					2=>"/^(?:(?=(<\/(.|\n)[^>]*?>)))/",
 					3=>"/^(?:(<\/(.|\n)[^>]*?>))/",
 					4=>"/^(?:(<(.|\n)[^>]*?>))/",
@@ -395,6 +398,7 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -475,12 +479,21 @@ case 13:
 break;
 case 14:
         
+            $type =& $s[$o-1];
+            $typeChild =& $s[$o];
+            $type->addContent($typeChild);
+            $type->setType('Element', $this);
+        
+    
+break;
+case 15:
+        
             $type =& $s[$o];
             $type->setType('BrokenElement', $this);
         
     
 break;
-case 15:
+case 16:
         
             $type =& $s[$o-2];
             $typeChild =& $s[$o-1];
@@ -891,7 +904,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -913,9 +926,7 @@ break;
 case 1:
     
         //A tag that was left open, and needs to close
-        $name = end($this->htmlElementsStack);
-        $element = end($this->htmlElementStack);
-        return 6;
+        $this->popState();
     
 
 break;
@@ -949,11 +960,14 @@ case 3:
 break;
 case 4:
     
+        $isHtmlTag = WikiLingo\Utilities\Html::isHtmlTag($this->yy->text, true);
         //An tag open
-        if (WikiLingo\Utilities\Html::isHtmlTag($this->yy->text)) {
+        if ($isHtmlTag === true) {
            $this->stackHtmlElement(clone($this->yy));
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
+        } else if ($isHtmlTag === false) {
+            return "HTML_TAG_INLINE";
         }
 
         //A non-valid html tag, return the first character in the stack and put the rest back into the parser
@@ -983,7 +997,7 @@ case 8:
         if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
            return 7;
         }
-        return 'CONTENT';
+        return 6;
     
 
 break;

@@ -14,7 +14,8 @@ class flash extends Base
         $this->parameters = array(
             'movie' => new Parameter('Source', 'img/emblem-multimedia.png'),
             'height' => new Parameter('Height', '480px'),
-            'width' => new Parameter('Width', '640px')
+            'width' => new Parameter('Width', '640px'),
+            'title' => new Parameter('Title', '')
         );
     }
 
@@ -27,6 +28,7 @@ class flash extends Base
 	    }
         $plugin->attributes['width'] = $plugin->parameter('width');
         $plugin->attributes['height'] = $plugin->parameter('height');
+        $plugin->attributes['title'] = $plugin->parameter('title');
 
         $flash = parent::render($plugin, $body, $parser);
 	    return $flash;

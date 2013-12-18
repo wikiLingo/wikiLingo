@@ -3,7 +3,7 @@ namespace WikiLingo\Utilities;
 
 class Html
 {
-    public static function isHtmlTag(&$yytext)
+    public static function isHtmlTag(&$yytext, $acceptOnlyNonVoidElements = false)
     {
         $parts = explode(" ", substr($yytext, 1, -1));
         $parts = array_filter($parts, 'strlen');
@@ -15,7 +15,18 @@ class Html
         }
 
         switch (strtolower($parts[0])) {
+            //void elements
             case "!doctype":
+            case "br":
+            case "embed":
+            case "hr":
+            case "img":
+            case "input":
+                if ($acceptOnlyNonVoidElements) {
+                    return false;
+                }
+
+            //regular elements
             case "a":
             case "abbr":
             case "acronym":
@@ -33,7 +44,6 @@ class Html
             case "big":
             case "blockquote":
             case "body":
-            case "br":
             case "button":
             case "canvas":
             case "caption":
@@ -53,7 +63,6 @@ class Html
             case "dl":
             case "dt":
             case "em":
-            case "embed":
             case "fieldset":
             case "figcaption":
             case "figure":
@@ -70,12 +79,9 @@ class Html
             case "head":
             case "header":
             case "hgroup":
-            case "hr":
             case "html":
             case "i":
             case "iframe":
-            case "img":
-            case "input":
             case "ins":
             case "kbd":
             case "keygen":
@@ -139,6 +145,6 @@ class Html
                 return true;
         }
 
-        return false;
+        return null;
     }
 }

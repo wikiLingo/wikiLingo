@@ -25,7 +25,7 @@ class Parameter
     public function filter()
     {
         switch ($this->type) {
-            case "boolean":     return $this->value ? 'true' : 'false';
+            case "boolean":     return ($this->value ? 'true' : 'false');
 
 
             case "integer":     return $this->value * 1;

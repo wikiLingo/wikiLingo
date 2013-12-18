@@ -9,17 +9,18 @@ require_once("autoload.php");
 $scripts = (new WikiLingo\Utilities\Scripts())
 
     //add some css
-    ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+    ->addCssLocation("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css")
 	->addCssLocation("editor/Medium.js/medium.css")
 	->addCssLocation("editor/bubble.css")
     ->addCssLocation("editor/IcoMoon/sprites/sprites.css")
 
     //add some javascript
-    ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
-    ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
+    ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+    ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js")
     ->addScriptLocation("editor/rangy/uncompressed/rangy-core.js")
     ->addScriptLocation("editor/rangy/uncompressed/rangy-cssclassapplier.js")
     ->addScriptLocation("editor/Medium.js/medium.js")
+    ->addScriptLocation("editor/WLPluginSyntaxGenerator.js")
 	->addScriptLocation("editor/WLPluginEditor.js")
 	->addScriptLocation("editor/WLPluginAssistant.js")
 	->addScriptLocation("editor/bubble.js")
@@ -47,7 +48,7 @@ JS
 
 
 //open a file and parse it
-$page = $parser->parse(file_get_contents('examples/using_wikiLingo_as_a_platform/page.wl'));
+$page = $parser->parse(file_get_contents('editor/page.wl'));
 
 
 
@@ -95,7 +96,7 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 </head>
 <body>
 <div id="header" style="text-align: center;">
-    <h1>wikiLingo</h1>
+    <h1>wikiLingo</h1><a href="editor/page.wl" style="position: fixed; top: 0px; right: 0px;">view source</a>
 </div><?php //create an editable area and echo page to it ?>
 <div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div>
 </body>
@@ -103,14 +104,7 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
     var WLPlugin = function(el) {
 	    if (el.getAttribute('data-draggable') == 'true') {
-		    var me = this;
-		    me.assistant = el.wLPluginAssistant = new WLPluginAssistant(el, this);
-		    el.wLPlugin = this;
-
-		    el.onmouseover = function(e) {
-			    me.assistant.show();
-			    e.stopPropagation();
-		    };
+		    new WLPluginAssistant(el, this);
 	    }
     };
 	window.expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>;

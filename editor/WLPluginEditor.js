@@ -1,8 +1,10 @@
-var WLPluginEditor = (function(document, window, $) {
-	var construct = function(expressionType) {
+var WLPluginEditor = (function(document, window, $, WLPluginSyntaxGenerator) {
+	var head = $('head'),
+        construct = function(expressionType, body) {
 			this.expressionType = expressionType;
 			this.parameters = expressionType.parameters;
 			this.inputs = {};
+            this.body = body;
 		},
 		assistants = [];
 
@@ -37,35 +39,54 @@ var WLPluginEditor = (function(document, window, $) {
 
 			}
 		},
-		update: function() {
-			var pluginAsString = '{' + this.expressionType.name.toLowerCase() + ' ',
-				parametersAsStrings = [],
-				i,
-				input;
+        getBodyMarkup: function(fn) {
+            if (this.body) {
+                $.ajax({
+                    dataType: 'json',
+                    type: 'POST',
+                    url: 'reflect.php',
+                    data: {
+                        wikiLingo: true,
+                        w: this.body
+                    },
+                    success: function(result) {
+                        fn(result.output);
+                    },
+                    error: function(result) {
+                        console.log(result);
+                    }
+                });
+            } else {
+                fn();
+            }
+        },
+		update: function(insert, body) {
+            body = body || null;
+
+			var gen = new WLPluginSyntaxGenerator(this.expressionType.name, body),
+				i;
 
 			for (i in this.inputs) {
-				input = this.inputs[i];
-				parametersAsStrings.push(i + '=`' + input.value + '`');
+                gen.addParameter(i, this.inputs[i].value);
 			}
-
-			pluginAsString += parametersAsStrings.join(' ') + '}';
 
 			$.ajax({
 				dataType: 'json',
 				url: 'reflect.php',
 				data: {
 					wysiwyg: true,
-					w: pluginAsString
+					w: gen.generate()
 				},
 				success: function(result) {
-					var justInsertedAsString = '<span id="justInserted"></span>',
+					/*var justInsertedAsString = '<span id="justInserted"></span>',
 						justInserted;
 					document.execCommand('insertHTML', false, justInsertedAsString);
 					justInserted = document.getElementById('justInserted');
 
 					document.insertAfter(justInserted, result.output);
 
-					justInserted.parentNode.removeChild(justInserted);
+					justInserted.parentNode.removeChild(justInserted);*/
+                    insert(result.output);
 
 					if (result.script) {
 						head.append(result.script);
@@ -76,7 +97,7 @@ var WLPluginEditor = (function(document, window, $) {
 				}
 			});
 		},
-		ui: function(parametersOverride) {
+		ui: function(parametersOverride, insert) {
 			var me = this,
 				dialogTable = document.createElement('table'),
 				tr,
@@ -114,12 +135,15 @@ var WLPluginEditor = (function(document, window, $) {
 					title: this.expressionType.label + ' Parameters',
 					modal: true,
 					width: window.innerWidth * 0.5,
+                    draggable: false,
 					buttons: {
 						'CANCEL': function() {
 							dialog.dialog('close');
 						},
 						'OK': function() {
-							me.update();
+                            me.getBodyMarkup(function(body) {
+                                me.update(insert, body);
+                            });
 							dialog.dialog('close');
 						}
 					}
@@ -128,4 +152,4 @@ var WLPluginEditor = (function(document, window, $) {
 	};
 
 	return construct;
-})(document, window, jQuery);
+})(document, window, jQuery, WLPluginSyntaxGenerator);

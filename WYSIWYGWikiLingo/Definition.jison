@@ -34,12 +34,10 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 }
 
 
-<htmlElement><<EOF>> {
+<htmlElement>(?=<<EOF>>) {
     /*php
         //A tag that was left open, and needs to close
-        $name = end($this->htmlElementsStack);
-        $element = end($this->htmlElementStack);
-        return 'CONTENT';
+        $this->popState();
     */
 }
 <htmlElement>(?={HTML_TAG_CLOSE}) {
@@ -70,11 +68,14 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 }
 {HTML_TAG_OPEN} {
     /*php
+        $isHtmlTag = WikiLingo\Utilities\Html::isHtmlTag($yytext, true);
         //An tag open
-        if (WikiLingo\Utilities\Html::isHtmlTag($yytext)) {
+        if ($isHtmlTag === true) {
            $this->stackHtmlElement(clone($this->yy));
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
+        } else if ($isHtmlTag === false) {
+            return "HTML_TAG_INLINE";
         }
 
         //A non-valid html tag, return the first character in the stack and put the rest back into the parser
@@ -181,6 +182,14 @@ element
         /*php
             $$type =& $1;
             $$type->setType('BrokenElement', $$this);
+        */
+    }
+    | HTML_TAG_OPEN content {
+        /*php
+            $$type =& $1;
+            $$typeChild =& $2;
+            $$type->addContent($$typeChild);
+            $$type->setType('Element', $$this);
         */
     }
     | HTML_TAG_CLOSE {

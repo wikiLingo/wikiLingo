@@ -14,15 +14,15 @@ __Let us first identify what it is not__
 {TABS()}
     {TAB(title="More about wikiLingo")}
         Video coming soon...
-		{flash movie=""}
-	{TAB}
-	{TAB(title="For a laugh" text-align="center")}
-		{flash movie="http://www.youtube.com/v/OOr8ryJUOyQ"}
-	{TAB}
-	{TAB(title="Unsafe code")}
+        {flash movie=""}
+    {TAB}
+    {TAB(title="For a laugh" text-align="center")}
+        {flash movie="http://www.youtube.com/v/OOr8ryJUOyQ"}
+    {TAB}
+    {TAB(title="Unsafe code")}
         <script>alert('t');</script>
         <iframe></iframe>
-	{TAB}
+    {TAB}
 {TABS}
 
 
