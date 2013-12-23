@@ -93,7 +93,6 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 
 	construct.prototype = {
 		hideAll: hideAll = function() {
-			console.log(assistants);
 			for (var i = 0; i < assistants.length; i++) {
 				assistants[i].hide();
 			}

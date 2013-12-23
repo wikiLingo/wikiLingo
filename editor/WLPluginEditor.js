@@ -21,19 +21,21 @@ var WLPluginEditor = (function(document, window, $, WLPluginSyntaxGenerator) {
 				return this.string(parameter);
 			},
 			boolean: function(parameter) {
-				var select = document.createElement('switch'),
+				var select = document.createElement('select'),
 					optionTrue = document.createElement('option'),
 					optionFalse = document.createElement('option');
 
 
-				optionTrue.innerText = 'Yes';
+				optionTrue.innerHTML = 'Yes';
 				optionTrue.setAttribute('value', 'true');
 
-				optionFalse.innerText = 'No';
-				optionTrue.setAttribute('value', 'false');
+				optionFalse.innerHTML = 'No';
+				optionFalse.setAttribute('value', 'false');
 
 				select.appendChild(optionTrue);
 				select.appendChild(optionFalse);
+
+                select.value = parameter.value.toString();
 
 				return select;
 
@@ -134,7 +136,6 @@ var WLPluginEditor = (function(document, window, $, WLPluginSyntaxGenerator) {
 				.dialog({
 					title: this.expressionType.label + ' Parameters',
 					modal: true,
-					width: window.innerWidth * 0.5,
                     draggable: false,
 					buttons: {
 						'CANCEL': function() {

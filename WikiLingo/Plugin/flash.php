@@ -22,6 +22,7 @@ class flash extends Base
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 	    if ($parser->wysiwyg) {
+            $this->htmlTagType = 'img';
 		    $plugin->attributes['src'] = 'img/emblem-multimedia.png';
 	    } else {
             $plugin->attributes['src'] = $plugin->parameter('movie');

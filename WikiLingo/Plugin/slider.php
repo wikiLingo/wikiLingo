@@ -19,7 +19,7 @@ class slider extends Base
 
 	public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
-		$plugin->attributes['title'] = htmlspecialchars($plugin->parameters('title'));
+		$plugin->attributes['title'] = htmlspecialchars($plugin->parameter('title'));
 
 		$slider = parent::render($plugin, $body, $parser);
 

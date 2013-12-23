@@ -14,9 +14,7 @@ class sliders extends Base
     }
 	public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
-		$this->parameterDefaults($plugin->parameters);
 		$id = $plugin->id();
-
 		$ul = Type::Helper($parser->helper('ul'));
 		$ul->classes[] = 'bjqs';
 		$ul->staticChildren[] = $body;
