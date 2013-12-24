@@ -66,18 +66,19 @@ class Plugin extends Base
 
             if ($parameters != '}') {
                 if ($this->inLine) {
-                    //{plugin}
+                    //{plugin ...}
                     $parameters = substr($parameters, 0, -1);
                 } else {
-                    //{PLUGIN()}
+                    //{PLUGIN(...)}
                     $parameters = substr($parameters, 0, -2);
                 }
 
                 if (!empty($parameters)) {
-                    $this->parametersRaw = self::$parametersParser->parse($parameters);
-                    $this->parameters = $this->class->parameterValues($this->parametersRaw, $parsed->parser);
+	                $this->parametersRaw = self::$parametersParser->parse($parameters);
                 }
             }
+
+	        $this->parameters = $this->class->parameterValues($this->parametersRaw, $parsed->parser);
         }
     }
 

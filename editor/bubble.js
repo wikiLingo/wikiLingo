@@ -84,9 +84,9 @@ var WLBubble = (function(document, window, medium, rangy) {
 	            button.setAttribute('title', e.label);
 	            button.expression = e;
 
-                if (e.types.length > 0) {
+                if (e.types) {
                     typeContainer = document.createElement('ul');
-                    for (j = 0; j < e.types.length; j++) {
+                    for (j in e.types) {
                         if (e.types[j].draggable === false) {
                             continue;
                         }

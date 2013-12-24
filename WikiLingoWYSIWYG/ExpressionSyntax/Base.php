@@ -8,7 +8,7 @@ abstract class Base
 {
     public $group = 'main';
 
-    public $types = array();
+    public $types;
 
     public $icon = '';
 

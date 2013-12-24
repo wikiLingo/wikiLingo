@@ -17,7 +17,7 @@ abstract class Base extends WikiLingo\Expression\Content
 
         if ($this->isElement) {
             $longTypeName = $this->parameter('data-type');
-            if (isset($longTypeName)) {
+            if (!empty($longTypeName)) {
                 $typeName = Type::classNameSimple($longTypeName);
                 $typeClass = 'WYSIWYGWikiLingo\SyntaxGenerator\\' . $typeName;
                 if (class_exists($typeClass))
