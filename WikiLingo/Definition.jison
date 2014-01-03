@@ -11,7 +11,7 @@
 PLUGIN_ID   					[A-Z0-9_]+
 INLINE_PLUGIN_ID				[a-z0-9_]+
 VARIABLE_NAME                   ([0-9A-Za-z ]{3,})
-SYNTAX_CHARS                    [{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
+SYNTAX_CHARS                    [@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
@@ -21,10 +21,16 @@ CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 WHITE_SPACE                     ([ ])+
 CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
-%s BOF np pp tc pluginStart plugin inlinePlugin line preBlock block bold box center code color italic link skip strike table titleBar underscore wikiLink wikiLinkType wikiUnlink
+//Lexical states
+%s BOF np pp tc
+%s pluginStart plugin inlinePlugin
+%s line preBlock block bold box center code color italic link skip strike table titleBar underscore
+%s flp wikiLink wikiLinkType wikiUnlink
 
+//Create tokens from lexical analysis
 %%
 
+"≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};
 
 //html comment
 [<][!][-][-](.*?)[-][-][>] {
@@ -258,6 +264,31 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     */
 
     return 'CONTENT';
+}
+
+<flp><<EOF>> {
+    /*php
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    */
+
+    return 'EOF';
+}
+<flp>[@][)] {
+	/*php
+		$this->popState();
+	*/
+
+	return 'FLP_END';
+}
+
+"@FLP(".+?")" {
+	/*php
+		if ($this->isContent()) return 'CONTENT';
+		$this->begin('flp');
+	*/
+
+	return 'FLP_START';
 }
 
 
@@ -1043,6 +1074,24 @@ content
             $$type->setType('Underscore', $$this);
         */
 	}
+	| FLP_START
+    | FLP_START contents
+    {
+        /*php
+            $1->setType('Content', $$this);
+            $1->addContent($2);
+        */
+    }
+    | FLP_START FLP_END
+    | FLP_START contents FLP_END
+    {
+        /*php
+            //Type already set
+            $$type =& $1;
+            $2->setParent($$type);
+            $$type->setType('FLP', $$this);
+        */
+    }
     | WIKI_LINK_START
     | WIKI_LINK_START contents
     {
