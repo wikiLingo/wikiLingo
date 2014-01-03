@@ -8,6 +8,7 @@ abstract class Base
 {
 	public $parsed;
 	public $allowLines = true;
+    public $allowWhiteSpace = true;
 	public $allowLineAfter = true;
 
 	function __construct(WikiLingo\Parsed &$parsed)

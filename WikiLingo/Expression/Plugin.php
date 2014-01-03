@@ -20,6 +20,7 @@ class Plugin extends Base
     public $parsed;
     public $parent;
 	public $allowLines = false;
+    public $allowWhiteSpace = false;
     public $inLine = false;
     public static $injected = array();
 
@@ -63,6 +64,7 @@ class Plugin extends Base
             $this->class = $parsed->parser->pluginInstances[$this->classType];
 	        $this->parsed->expressionPermissible = $this->class->permissible;
             $this->allowLines = $this->class->allowLines;
+            $this->allowWhiteSpace = $this->class->allowWhiteSpace;
 
             if ($parameters != '}') {
                 if ($this->inLine) {

@@ -92,7 +92,7 @@
 	position: absolute;
 	border: none;
 	border: none;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(200, 200, 200, .75);
 
 	margin-top: -25px;
 }

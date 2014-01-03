@@ -13,6 +13,9 @@ class tab extends Base
         $this->allowLines = true;
         $this->draggable = false;
         $this->parameters['title'] = new Parameter('Title', '');
+        $this->detailedAttributes['contenteditable'] = 'true';
+        $this->allowWhiteSpace = true;
+        $this->allowLines = true;
     }
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)

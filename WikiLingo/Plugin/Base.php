@@ -13,6 +13,9 @@ abstract class Base
     public $expressionType = 'WikiLingo\\Expression\\Plugin';
 	public $parameters = array();
 	public $attributes = array();
+    public $detailedAttributes = array(
+        'contenteditable' => 'false'
+    );
     public $htmlTagType = 'span';
     public $wysiwygTagType = '';
     public $permissibleParents = array();
@@ -25,6 +28,7 @@ abstract class Base
 	public $inLineOnly = false;
 	public $draggable = true;
 	public $allowLines = false;
+    public $allowWhiteSpace = false;
 
     public $style = array(
         '@keyframes' => true,
@@ -346,6 +350,7 @@ abstract class Base
             $element->attributes[$attribute] = $value;
         }
 
+        $element->detailedAttributes += $this->detailedAttributes;
         $element->detailedAttributes['data-plugin-type'] = $plugin->type;
         $element->detailedAttributes['data-draggable'] = ($this->draggable ? 'true' : 'false');
         $element->detailedAttributes['data-plugin-parameters'] = (empty($plugin->parametersRaw) ? null : urlencode(json_encode($plugin->parametersRaw)));

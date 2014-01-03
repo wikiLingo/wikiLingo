@@ -19,6 +19,9 @@ class accordion extends Base
 
         $this->label = 'Accordion Section';
         $this->parameters['title'] = new Parameter('Title', '');
+        $this->detailedAttributes['contenteditable'] = 'true';
+        $this->allowWhiteSpace = true;
+        $this->allowLines = true;
     }
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
