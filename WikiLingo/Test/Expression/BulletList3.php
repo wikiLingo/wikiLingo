@@ -17,8 +17,8 @@ class BulletList3 extends Base
             "<ul>" .
                 "<li><span class='whitespace'> </span>foo" .
                     "<div class='div' id='div1'>" .
-                        "<br class='hidden'/>" .
-                        "<span class='whitespace'> </span>Continuation1<br class='hidden'/>" .
+                        "<br/>" .
+                        "<span class='whitespace'> </span>Continuation1<br/>" .
                         "Continuation2" .
                     "</div>" .
                 "</li>" .

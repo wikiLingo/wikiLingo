@@ -21,8 +21,8 @@ class NumberedList3 extends Base
             '<ol>' .
                 "<li><span class='whitespace'> </span>foo" .
                     "<div class='div' id='div1'>" .
-                        "<br class='hidden'/>" . "<span class='whitespace'> </span>Continuation1" .
-                        "<br class='hidden'/>" . 'Continuation2' .
+                        "<br/>" . "<span class='whitespace'> </span>Continuation1" .
+                        "<br/>" . 'Continuation2' .
                     '</div>' .
                 '</li>' .
                 "<li><span class='whitespace'> </span>bar</li>" .

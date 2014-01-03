@@ -110,7 +110,7 @@ end.
 				"<br class='hidden'/>" .
 				"<br class='hidden'/>" .
 				"<strong>HAL, in 2001:</strong>" .
-				"<span class='whitespace'> </span>A Space Odyssey (1968)" .
+				"<span class='hidden whitespace'> </span>A Space Odyssey (1968)" .
 				"<br class='hidden'/>" .
 			"</span><br/>" .
 			"<h3 id='+Code+plugin%3A'><span class='whitespace'> </span>Code plugin:</h3>" .
@@ -119,7 +119,7 @@ end.
 				'program HelloWorld(output);' .
 				"<br class='hidden'/>" .
 				"begin<br class='hidden'/>" .
-				"<span class='whitespace'>  </span>WriteLn('Hello World!');" .
+				"<span class='hidden whitespace'>  </span>WriteLn('Hello World!');" .
 				"<br class='hidden'/>" .
 				'end.' .
 				"<br class='hidden'/>" .

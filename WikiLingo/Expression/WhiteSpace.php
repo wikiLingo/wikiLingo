@@ -6,7 +6,7 @@ class WhiteSpace extends Base
     public function render(&$parser)
     {
 	    $scripts = Type::Scripts($parser->scripts);
-        $allowWhiteSpace = false;
+        $allowWhiteSpace = true;
         if ($parent = $this->parent()) {
             $parentExpression = $parent->expression;
             $allowWhiteSpace = $parentExpression->allowWhiteSpace;
