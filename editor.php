@@ -46,7 +46,8 @@ JS
 
 
 //open a file and parse it
-$page = $parser->parse(file_get_contents('editor/page.wl'));
+$source = file_get_contents('editor/page.wl');
+$page = $parser->parse($source);
 
 
 
@@ -96,15 +97,37 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 <div id="header" style="text-align: center;">
     <h1>wikiLingo</h1><a href="editor/page.wl" style="position: fixed; top: 0px; right: 0px;">view source</a>
 </div><?php //create an editable area and echo page to it ?>
-<div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div>
+<table style="width: 100%">
+	<tr>
+		<td style="width: 50%; vertical-align: top;"><div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div></td>
+		<td style="width: 50%; vertical-align: top;">
+			<button id="updateSource" onclick="updateSource(); return false;">Update Source</button><br />
+			<textarea id="editableSource" style="width: 100%; height: 1000px;"><?php echo $source; ?></textarea>
+		</td>
+	</tr>
+</table>
 </body>
 <script>
     <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
-    var WLPlugin = function(el) {
-	    if (el.getAttribute('data-draggable') == 'true') {
-		    new WLPluginAssistant(el, this);
-	    }
-    };
+    var
+	    WLPlugin = function(el) {
+	        if (el.getAttribute('data-draggable') == 'true') {
+		        new WLPluginAssistant(el, this);
+	        }
+	    },
+	    updateSource = function() {
+		    var source = document.getElementById('editable').innerHTML;
+		    $.ajax({
+			    type: 'POST',
+			    dataType: 'json',
+			    url: 'reflect.php',
+			    data: {wikiLingo:true, w: source},
+			    success: function(result) {
+				    document.getElementById('editableSource').value = result.output;
+			    }
+		    });
+	    };
+
 	window.expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>;
 </script>
 <?php
