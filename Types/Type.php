@@ -84,7 +84,8 @@ namespace Types
 
 		public static function classNameSimple($type)
 		{
-			$type = array_pop(explode('\\', $type));
+			$parts = explode('\\', $type);
+			$type = array_pop($parts);
 			return $type;
 		}
 	}
