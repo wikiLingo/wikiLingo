@@ -65,6 +65,7 @@ $parser = new WikiLingo\Parser($scripts);
 	        }
 
             $.ajax({
+	            type: 'POST',
                 dataType: 'json',
                 url: 'reflect.php',
                 data: data,
