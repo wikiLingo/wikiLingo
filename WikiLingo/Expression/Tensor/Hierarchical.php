@@ -16,7 +16,7 @@ class Hierarchical
 	public $block = null;
 	public $index;
 
-	function __construct(Expression\Block &$block = null)
+	function __construct(Expression\Block $block = null)
 	{
 		if ($block != null) {
 			$this->block =& $block;

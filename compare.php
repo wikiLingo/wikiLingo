@@ -142,7 +142,7 @@ item3|item4||
 		<tr>
 			<th>Source</th>
 			<th>Parsed</th>
-			<th>WYSIWYG (CKEditor 4, HTML ContentEditable) <input type="button" value="Edit" onclick="
+			<th>WYSIWYG (HTML ContentEditable) <input type="button" value="Edit" onclick="
 			    $('#wysiwyg').attr('contenteditable', true);
 			    Mercury.init();
 			    return false;" /></th>
