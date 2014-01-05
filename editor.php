@@ -38,9 +38,7 @@ $parser = new WikiLingoWYSIWYG\Parser($scripts);
 $parser->events->bind(new WikiLingo\Event\Expression\Plugin\PostRender(function(&$rendered, WikiLingo\Expression\Plugin &$plugin) use ($parser) {
     $id = $plugin->id();
     $parser->scripts->addScript(<<<JS
-     $(function(){
-        (new WLPlugin(document.getElementById('$id')));
-     });
+    (new WLPlugin(document.getElementById('$id')));
 JS
     );
 }));

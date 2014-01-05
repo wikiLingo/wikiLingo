@@ -5,6 +5,18 @@ rangy.rangePrototype.insertNodeAtEnd = function(node) {
 	range.detach();
 	this.setEndAfter(node);
 };
+
+var
+	color = function(element) {
+		var newColor = prompt('What color?', element.style['color']);
+		if (newColor) {
+			element.style['color'] = newColor
+		}
+	},
+	table = function(element) {
+
+	};
+
 $(function() {
 	//bubble is the contenteditable toolbar, it is very simple and instantiated here
 	var bubble = new WLBubble(window.expressionSyntaxes),
@@ -24,16 +36,7 @@ $(function() {
 				innerLevel: ['a', 'b', 'u', 'i', 'img', 'div', 'strong', 'li', 'span', 'code', 'br']
 			},
 			modifiers: []
-		}),
-		color = function(element) {
-			var newColor = prompt('What color?', element.style['color']);
-			if (newColor) {
-				element.style['color'] = newColor
-			}
-		},
-		table = function(element) {
-
-		};
+		});
 
 	document.body.appendChild(bubble.bubble);
 
