@@ -160,7 +160,7 @@ class Block extends Base
 
     public function newBlank()
     {
-	    Utilities\Scripts::addCss(
+	    Type::Scripts($this->parser->scripts)->addCss(
 "li.empty {
 	list-style-type: none ! important;
 }");
