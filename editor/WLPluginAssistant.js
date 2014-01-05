@@ -18,6 +18,7 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 			buttonDrag.setAttribute('src', 'editor/img/arrow-move.png');
 			buttonDrag.setAttribute('contenteditable', 'false');
 			buttonDrag.className = cl + ' helper drag';
+			buttonDrag.setAttribute('data-helper', 'true');
 
 			$buttonDrag
 				.on('dragstart', function() {
@@ -51,6 +52,8 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 			buttonEdit.setAttribute('src', 'editor/img/cog.png');
 			buttonEdit.setAttribute('contenteditable', 'false');
 			buttonEdit.className = cl + ' helper edit';
+			buttonEdit.setAttribute('data-helper', 'true');
+
 			buttonEdit.onclick = function() {
                 me.insert = me.replaceEl;
 				me.assembleParametersFromEl();
