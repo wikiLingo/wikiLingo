@@ -325,19 +325,20 @@ abstract class Base
 
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
-
-        $elementName = (
-        isset($parser->wysiwyg)
-        && !empty($this->wysiwygTagType)
+	    $elementName = (
+            $parser->wysiwyg
+            && !empty($this->wysiwygTagType)
             ?
-            $this->wysiwygTagType
+                $this->wysiwygTagType
             :
-            $this->htmlTagType
+                $this->htmlTagType
         );
 
         $element = Type::Element($parser->element($this->expressionType, $elementName));
         $element->classes[] = $plugin->type;
         $element->attributes['id'] = $id = $plugin->id();
+
+	    $parser->plugins[] = $id;
 
         $style = $this->stylize($plugin->parameters);
         if (!empty($style)) {
@@ -350,6 +351,9 @@ abstract class Base
             $element->attributes[$attribute] = $value;
         }
 
+	    if ($parser->wysiwyg) {
+		    Type::Scripts($parser->scripts)->addScript("");
+	    }
         $element->detailedAttributes += $this->detailedAttributes;
         $element->detailedAttributes['data-plugin-type'] = $plugin->type;
         $element->detailedAttributes['data-draggable'] = ($this->draggable ? 'true' : 'false');

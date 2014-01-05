@@ -33,22 +33,9 @@ $scripts = (new WikiLingo\Utilities\Scripts())
 $parser = new WikiLingoWYSIWYG\Parser($scripts);
 
 
-
-//bind to event "WikiLingo\Event\Expression\Plugin\PostRender" and add a script that manages how plugins behave
-$parser->events->bind(new WikiLingo\Event\Expression\Plugin\PostRender(function(&$rendered, WikiLingo\Expression\Plugin &$plugin) use ($parser) {
-    $id = $plugin->id();
-    $parser->scripts->addScript(<<<JS
-    (new WLPlugin(document.getElementById('$id')));
-JS
-    );
-}));
-
-
-
 //open a file and parse it
 $source = file_get_contents('editor/page.wl');
 $page = $parser->parse($source);
-
 
 
 //create a new group of possible syntaxes possible in the WikiLingo to WYSIWYG parser
@@ -107,15 +94,8 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 </table>
 </body>
 <script>
-    <?php //Create the WikiLingo object used above in the event "WikiLingo\Event\Expression\Plugin\PostRender"?>
-    var
-	    WLPlugin = function(el) {
-	        if (el.getAttribute('data-draggable') == 'true') {
-		        new WLPluginAssistant(el, this);
-	        }
-	    };
-
 	window.expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>;
+	window.wLPlugins = <?php echo json_encode($parser->plugins); ?>;
 </script>
 <?php
     //echo script from the scripts collector to page

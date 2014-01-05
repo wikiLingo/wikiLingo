@@ -7,6 +7,11 @@ rangy.rangePrototype.insertNodeAtEnd = function(node) {
 };
 
 var
+	WLPlugin = function(el) {
+		if (el.getAttribute('data-draggable') == 'true') {
+			new WLPluginAssistant(el, this);
+		}
+	},
 	color = function(element) {
 		var newColor = prompt('What color?', element.style['color']);
 		if (newColor) {
@@ -48,6 +53,24 @@ $(function() {
 					document.getElementById('editableSource').value = result.output;
 				}
 			});
+		},
+		updateWYSIWYG = function() {
+			var source = document.getElementById('editableSource').value;
+			$.ajax({
+				type: 'POST',
+				dataType: 'json',
+				url: 'reflect.php',
+				data: {w: source},
+				success: function(result) {
+					document.getElementById('editable').innerHTML = result.output;
+					window.wLPlugins = result.plugins;
+
+					$('body')
+						.append(result.css)
+						.append(result.script)
+						.trigger('resetWLPlugins');
+				}
+			});
 		};
 
 	document.body.appendChild(bubble.bubble);
@@ -72,6 +95,19 @@ $(function() {
 			return this;
 		})
 		.on('change', updateSource);
+
+	$('#editableSource')
+		.on('change', updateWYSIWYG);
+
+
+	$('body')
+		.on('resetWLPlugins', function() {
+			for(var i = 0; i < wLPlugins.length; i++) {
+				new WLPlugin(document.getElementById(wLPlugins[i]));
+			}
+		})
+		.trigger('resetWLPlugins');
+
 
 	console.log(window.expressionSyntaxes);
 });

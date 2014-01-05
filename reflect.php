@@ -2,7 +2,7 @@
 
 require_once('autoload.php');
 
-
+$plugins = null;
 //trap any warnings
 ob_start();
 
@@ -16,6 +16,7 @@ if (isset($_REQUEST['wysiwyg']))
 {
     $parser = new WikiLingoWYSIWYG\Parser($scripts);
     $output = $parser->parse($_REQUEST['w']);
+	$plugins = $parser->plugins;
 }
 
 
@@ -33,6 +34,7 @@ else
 {
     $parser = new WikiLingo\Parser($scripts);
     $output = $parser->parse($_REQUEST['w']);
+	$plugins = $parser->plugins;
 }
 
 
@@ -45,5 +47,6 @@ echo json_encode((object)array(
     'output' => $output,
     'script' => $scripts->renderScript(),
     'css' => $scripts->renderCss(),
-    'msg' => $msg
+    'msg' => $msg,
+	'plugins' => $plugins
 ));
