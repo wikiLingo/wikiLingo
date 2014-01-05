@@ -101,7 +101,6 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 	<tr>
 		<td style="width: 50%; vertical-align: top;"><div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div></td>
 		<td style="width: 50%; vertical-align: top;">
-			<button id="updateSource" onclick="updateSource(); return false;">Update Source</button><br />
 			<textarea id="editableSource" style="width: 100%; height: 1000px;"><?php echo $source; ?></textarea>
 		</td>
 	</tr>
@@ -114,18 +113,6 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 	        if (el.getAttribute('data-draggable') == 'true') {
 		        new WLPluginAssistant(el, this);
 	        }
-	    },
-	    updateSource = function() {
-		    var source = document.getElementById('editable').innerHTML;
-		    $.ajax({
-			    type: 'POST',
-			    dataType: 'json',
-			    url: 'reflect.php',
-			    data: {wikiLingo:true, w: source},
-			    success: function(result) {
-				    document.getElementById('editableSource').value = result.output;
-			    }
-		    });
 	    };
 
 	window.expressionSyntaxes = <?php echo $expressionSyntaxesJson; ?>;
