@@ -1,9 +1,7 @@
 <?php
 require_once("index.php");
 
-use Types\Type;
 use WikiLingo\Event;
-use WikiLingo\Parsed;
 use WikiLingo\Expression;
 
     $original = "{TABS()}{TAB(title=`Misc.`)}
