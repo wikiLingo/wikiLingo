@@ -4,8 +4,15 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class tabs
+ * @package WikiLingo\Plugin
+ */
 class tabs extends Base
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->label = 'Tabs';
@@ -13,6 +20,12 @@ class tabs extends Base
         $this->permissibleChildren = array('tab');
     }
 
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
 	    $plugin->allowLineAfter = false;

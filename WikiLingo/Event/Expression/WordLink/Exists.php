@@ -10,10 +10,22 @@ namespace WikiLingo\Event\Expression\WordLink;
 
 use WikiLingo\Event;
 
+/**
+ * Class Exists
+ * @package WikiLingo\Event\Expression\WordLink
+ */
 class Exists extends Event\Base
 {
-	public $exists = false;
-	public function trigger($word, &$exists)
+    /**
+     * @var bool
+     */
+    public $exists = false;
+
+    /**
+     * @param String $word
+     * @param Boolean $exists
+     */
+    public function trigger($word, &$exists)
 	{
 		foreach($this->delegates as &$delegate)
 		{

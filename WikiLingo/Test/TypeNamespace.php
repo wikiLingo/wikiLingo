@@ -4,6 +4,10 @@ namespace WikiLingo\Test;
 use WikiLingo;
 use Testify\Testify;
 
+/**
+ * Class TypeNamespace
+ * @package WikiLingo\Test
+ */
 class TypeNamespace
 {
 	public $typeNamespace;
@@ -11,6 +15,9 @@ class TypeNamespace
 	public $files;
 	public $parser;
 
+    /**
+     * @param $typeNamespace
+     */
     public function __construct($typeNamespace)
     {
 	    $this->typeNamespace = $typeNamespace;
@@ -19,12 +26,18 @@ class TypeNamespace
 	    $this->setParser();
     }
 
-	public function setParser()
+    /**
+     *
+     */
+    public function setParser()
 	{
 		$this->parser = new WikiLingo\Parser();
 	}
 
-	public function run(Testify &$testify)
+    /**
+     * @param Testify $testify
+     */
+    public function run(Testify &$testify)
 	{
 		foreach($this->files as $file) {
 			if($file === '.' || $file === '..') {continue;}

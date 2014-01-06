@@ -3,10 +3,19 @@ namespace WikiLingo\Plugin;
 
 use WikiLingo;
 
-
+/**
+ * Class expandingoutline
+ * @package WikiLingo\Plugin
+ */
 class expandingoutline extends Base
 {
-	public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
 		global $headerlib;
 

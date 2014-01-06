@@ -3,9 +3,17 @@ namespace WikiLingo\Expression;
 
 use Types\Type;
 
+/**
+ * Class Variable
+ * @package WikiLingo\Expression
+ */
 class Variable extends Base
 {
-	public function render(&$parser)
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
+    public function render(&$parser)
 	{
 		$element = Type::Element($parser->element(__CLASS__, 'span'));
 		$key = $element->detailedAttributes["key"] = substr($this->parsed->text, 2, -2);

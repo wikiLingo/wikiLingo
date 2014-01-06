@@ -1,6 +1,10 @@
 <?php
 namespace WikiLingo;
 
+/**
+ * Class Events
+ * @package WikiLingo
+ */
 class Events
 {
 	//possible events, I hate to re-declare all of them, but it is strongly typed, what can you say
@@ -24,7 +28,11 @@ class Events
     public $WikiLingoEventParsedRenderPermission = array();
     public $WikiLingoEventParsedRenderBlocked = array();
 
-	public function bind(&$event)
+    /**
+     * @param $event
+     * @return $this
+     */
+    public function bind(&$event)
 	{
 		//reduce to fully qualified class name, then remove WikiLingoEvent from front
         $eventName = str_replace("\\", "", get_class($event));
@@ -33,7 +41,12 @@ class Events
 		return $this;
 	}
 
-	public function triggerTranslate(&$value, $context)
+    /**
+     * @param $value
+     * @param $context
+     * @return mixed
+     */
+    public function triggerTranslate(&$value, $context)
 	{
 		foreach($this->WikiLingoEventTranslate as &$event)
 		{
@@ -43,21 +56,33 @@ class Events
 		return $value;
 	}
 
-	public function triggerExpressionPluginExists(Expression\Plugin &$plugin)
+    /**
+     * @param Expression\Plugin $plugin
+     */
+    public function triggerExpressionPluginExists(Expression\Plugin &$plugin)
 	{
 		foreach($this->WikiLingoEventExpressionPluginExists as &$event)
 		{
 			$event->trigger($plugin);
 		}
 	}
-	public function triggerExpressionPluginPreRender(Expression\Plugin &$plugin)
+
+    /**
+     * @param Expression\Plugin $plugin
+     */
+    public function triggerExpressionPluginPreRender(Expression\Plugin &$plugin)
 	{
 		foreach($this->WikiLingoEventExpressionPluginPreRender as &$event)
 		{
 			$event->trigger($plugin);
 		}
 	}
-	public function triggerExpressionPluginPostRender(&$rendered, Expression\Plugin &$plugin)
+
+    /**
+     * @param $rendered
+     * @param Expression\Plugin $plugin
+     */
+    public function triggerExpressionPluginPostRender(&$rendered, Expression\Plugin &$plugin)
 	{
 		foreach($this->WikiLingoEventExpressionPluginPostRender as &$event)
 		{
@@ -66,7 +91,10 @@ class Events
 	}
 
 
-	public function triggerExpressionTagAllowed(Expression\Tag &$tag)
+    /**
+     * @param Expression\Tag $tag
+     */
+    public function triggerExpressionTagAllowed(Expression\Tag &$tag)
 	{
 		foreach($this->WikiLingoEventExpressionTagAllowed as &$event)
 		{
@@ -74,6 +102,10 @@ class Events
 		}
 	}
 
+    /**
+     * @param Renderer\Element $element
+     * @param Expression\Tag $tag
+     */
     public function triggerExpressionTagRender(Renderer\Element &$element, Expression\Tag &$tag)
     {
         foreach($this->WikiLingoEventExpressionTagRender as &$event)
@@ -82,7 +114,12 @@ class Events
         }
     }
 
-	public function triggerExpressionVariableLookup(&$key, Renderer\Element &$element, Expression\Variable &$variable)
+    /**
+     * @param $key
+     * @param Renderer\Element $element
+     * @param Expression\Variable $variable
+     */
+    public function triggerExpressionVariableLookup(&$key, Renderer\Element &$element, Expression\Variable &$variable)
 	{
 		foreach($this->WikiLingoEventExpressionVariableLookup as &$event)
 		{
@@ -90,7 +127,11 @@ class Events
 		}
 	}
 
-	public function triggerExpressionWikiLinkRender(Renderer\Element &$element, Expression\WikiLink &$wikiLink)
+    /**
+     * @param Renderer\Element $element
+     * @param Expression\WikiLink $wikiLink
+     */
+    public function triggerExpressionWikiLinkRender(Renderer\Element &$element, Expression\WikiLink &$wikiLink)
 	{
 		foreach($this->WikiLingoEventExpressionWikiLinkRender as &$event)
 		{
@@ -98,7 +139,11 @@ class Events
 		}
 	}
 
-	public function triggerExpressionWikiLinkTypeRender(Renderer\Element &$element, Expression\WikiLinkType &$wikiLinkType)
+    /**
+     * @param Renderer\Element $element
+     * @param Expression\WikiLinkType $wikiLinkType
+     */
+    public function triggerExpressionWikiLinkTypeRender(Renderer\Element &$element, Expression\WikiLinkType &$wikiLinkType)
 	{
 		foreach($this->WikiLingoEventExpressionWikiLinkTypeRender as &$event)
 		{
@@ -106,14 +151,24 @@ class Events
 		}
 	}
 
-	public function triggerExpressionWordLinkExists($word, &$exists)
+    /**
+     * @param $word
+     * @param $exists
+     * @param $exists
+     */
+    public function triggerExpressionWordLinkExists($word, &$exists)
 	{
 		foreach($this->WikiLingoEventExpressionWordLinkExists as &$event)
 		{
 			$event->trigger($word, $exists);
 		}
 	}
-	public function triggerExpressionWordLinkRender(Renderer\Element &$element, Expression\WordLink &$wordLink)
+
+    /**
+     * @param Renderer\Element $element
+     * @param Expression\WordLink $wordLink
+     */
+    public function triggerExpressionWordLinkRender(Renderer\Element &$element, Expression\WordLink &$wordLink)
 	{
 		foreach($this->WikiLingoEventExpressionWordLinkRender as &$event)
 		{
@@ -121,6 +176,9 @@ class Events
 		}
 	}
 
+    /**
+     * @param Parsed $parsed
+     */
     public function triggerParsedRenderPermission(Parsed &$parsed)
     {
         foreach($this->WikiLingoEventParsedRenderPermission as &$event)
@@ -128,6 +186,11 @@ class Events
             $event->trigger($parsed);
         }
     }
+
+    /**
+     * @param Parsed $parsed
+     * @param $return
+     */
     public function triggerParsedRenderBlocked(Parsed &$parsed, &$return)
     {
         foreach($this->WikiLingoEventParsedRenderBlocked as &$event)

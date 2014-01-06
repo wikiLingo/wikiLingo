@@ -5,6 +5,10 @@ use WikiLingo;
 use Types\Type;
 Use Exception;
 
+/**
+ * Class Plugin
+ * @package WikiLingo\Expression
+ */
 class Plugin extends Base
 {
     public $type;
@@ -28,6 +32,9 @@ class Plugin extends Base
     public static $parametersParser;
     public static $indexes = array();
 
+    /**
+     * @param WikiLingo\Parsed $parsed
+     */
     function __construct(WikiLingo\Parsed &$parsed)
     {
         $this->parsed =& $parsed;
@@ -84,6 +91,11 @@ class Plugin extends Base
         }
     }
 
+    /**
+     * @param $parser
+     * @return mixed
+     * @throws \Exception
+     */
     public function render(&$parser)
     {
         if (isset($this->class)) {
@@ -98,6 +110,9 @@ class Plugin extends Base
         return $rendered;
     }
 
+    /**
+     * @return bool
+     */
     public function info()
     {
         if ( isset( self::$info[$this->type] ) ) {
@@ -118,10 +133,8 @@ class Plugin extends Base
     /**
      * Increments the plugin index, but on a plugin type by type basis, for example, html1, html2, div1, div2.  indexes
      * are static, so that all index are unique
-     *
-     * @access  private
-     * @param   string  $type plugin type
-     * @return  string  $index
+     * @param $type
+     * @return Number
      */
     private function incrementPluginIndex($type)
     {
@@ -136,11 +149,19 @@ class Plugin extends Base
         return self::$indexes[$type];
     }
 
+    /**
+     * @param $type
+     * @param $value
+     */
     public function addAttribute($type, $value) {
         $this->attributes[$type] = $value;
     }
 
-	public function parameter($type)
+    /**
+     * @param $type
+     * @return string
+     */
+    public function parameter($type)
 	{
 		$type = strtolower($type);
 
@@ -151,7 +172,10 @@ class Plugin extends Base
 		return '';
 	}
 
-	public function id()
+    /**
+     * @return string
+     */
+    public function id()
 	{
 		return $this->type . $this->index;
 	}

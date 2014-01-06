@@ -11,9 +11,17 @@ namespace WikiLingo\Event\Parsed;
 use WikiLingo\Event\Base;
 use WikiLingo\Parsed;
 
+/**
+ * Class RenderPermission
+ * @package WikiLingo\Event\Parsed
+ */
 class RenderPermission extends Base
 {
-	public function trigger(Parsed &$parsed)
+    /**
+     * @param Parsed $parsed
+     * @param Parsed $parsed
+     */
+    public function trigger(Parsed &$parsed)
 	{
 		foreach($this->delegates as &$delegate)
 		{

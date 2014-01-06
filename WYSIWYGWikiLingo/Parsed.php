@@ -3,10 +3,17 @@ namespace WYSIWYGWikiLingo;
 
 use WikiLingo;
 
+/**
+ * Class Parsed
+ * @package WYSIWYGWikiLingo
+ */
 class Parsed extends WikiLingo\Parsed
 {
 	public $isBlock = false;
 
+    /**
+     *
+     */
     public function setExpression()
     {
         $class = "WYSIWYGWikiLingo\\Expression\\$this->type";

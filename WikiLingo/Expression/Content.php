@@ -2,9 +2,17 @@
 namespace WikiLingo\Expression;
 use WikiLingo;
 
+/**
+ * Class Content
+ * @package WikiLingo\Expression
+ */
 class Content extends Base
 {
-	public function render(&$parser)
+    /**
+     * @param $parser
+     * @return mixed
+     */
+    public function render(&$parser)
 	{
 		return $this->parsed->text;
 	}

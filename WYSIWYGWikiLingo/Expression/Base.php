@@ -4,6 +4,10 @@ namespace WYSIWYGWikiLingo\Expression;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class Base
+ * @package WYSIWYGWikiLingo\Expression
+ */
 abstract class Base extends WikiLingo\Expression\Content
 {
     public $parameters = array();
@@ -12,6 +16,11 @@ abstract class Base extends WikiLingo\Expression\Content
     public $isStatic = false;
 	public $children = array();
 
+    /**
+     * @param $parser
+     * @return mixed|string
+     * @throws \Exception
+     */
     public function render(&$parser)
     {
 
@@ -38,7 +47,11 @@ abstract class Base extends WikiLingo\Expression\Content
         return $this->parsed->text;
     }
 
-	public function parameter($parameter)
+    /**
+     * @param $parameter
+     * @return string
+     */
+    public function parameter($parameter)
 	{
 		if(isset($this->parameters[$parameter])) {
 			return $this->parameters[$parameter];

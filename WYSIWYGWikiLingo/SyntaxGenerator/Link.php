@@ -3,9 +3,16 @@ namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
 use Types\Type;
 
+/**
+ * Class Link
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 class Link extends Base
 {
-	public function generate()
+    /**
+     * @return string
+     */
+    public function generate()
 	{
 		$element = Type::WYSIWYGElement($this->expression);
 		$href = $element->parameter("data-href");

@@ -8,7 +8,8 @@ use Exception;
 use Types\Type;
 
 /**
- * @constructor
+ * Class Parsed
+ * @package WikiLingo
  */
 class Parsed extends ParserValue
 {
@@ -24,8 +25,15 @@ class Parsed extends ParserValue
 	public $depth = 0;
 	public static $throwExceptions = true;
 
+
+
+
 	public $lines = array();
-	public function addLine(Parsed &$line)
+
+    /**
+     * @param Parsed $line
+     */
+    public function addLine(Parsed &$line)
 	{
         $this->lineLength++;
         $line->lineIndex = $this->lineLength;
@@ -33,6 +41,10 @@ class Parsed extends ParserValue
         $line->parent =& $this;
 		$this->lines[$this->lineLength] =& $line;
 	}
+
+    /**
+     * @return null|Parsed
+     */
     public function previousLine()
     {
         $lineIndex = $this->lineIndex - 1;
@@ -42,6 +54,10 @@ class Parsed extends ParserValue
         $line = $this->parent->lines[$lineIndex];
         return $line;
     }
+
+    /**
+     * @return null|Parsed
+     */
     public function nextLine()
     {
         $lineIndex = $this->lineIndex + 1;
@@ -51,8 +67,15 @@ class Parsed extends ParserValue
         return $this->parent->lines[$this->lineIndex + 1];
     }
 
+
+
+
 	public $siblings = array();
-	public function addContent(Parsed &$sibling)
+
+    /**
+     * @param Parsed $sibling
+     */
+    public function addContent(Parsed &$sibling)
 	{
         $this->siblingsLength++;
         $sibling->siblingIndex = $this->siblingsLength;
@@ -60,6 +83,10 @@ class Parsed extends ParserValue
         $this->siblings[] =& $sibling;
 		$sibling->firstSibling =& $this;
 	}
+
+    /**
+     * @return null|Parsed
+     */
     public function previousSibling()
     {
         $siblingIndex = $this->siblingIndex - 1;
@@ -81,6 +108,10 @@ class Parsed extends ParserValue
 
 	    return null;
     }
+
+    /**
+     * @return null|Parsed
+     */
     public function nextSibling()
     {
         $siblingIndex = $this->siblingIndex + 1;
@@ -90,27 +121,51 @@ class Parsed extends ParserValue
         return Type::Parsed($this->siblings[$siblingIndex]);
     }
 
+
+
+
 	public $arguments = array();
-	public function addArgument(Parsed &$argument)
+
+    /**
+     * @param Parsed $argument
+     */
+    public function addArgument(Parsed &$argument)
 	{
 		$this->arguments[] =& $argument;
 	}
 
-	public function setType($type, &$parser)
+    /**
+     * @param String $type
+     * @param $parser
+     */
+    public function setType($type, &$parser)
 	{
 		$this->type = $type;
         $this->parser =& $parser;
         $this->setExpression();
 	}
 
+
+
 	public $options = array();
-	public function setOption($key, $value)
+
+    /**
+     * @param $key
+     * @param $value
+     */
+    public function setOption($key, $value)
 	{
 		$this->options[$key] = $value;
 	}
 
+
+
 	public $parent;
-	public function setParent(Parsed &$parent)
+
+    /**
+     * @param Parsed $parent
+     */
+    public function setParent(Parsed &$parent)
 	{
 		$parent->addChild($this);
 
@@ -120,14 +175,23 @@ class Parsed extends ParserValue
         }
 	}
 
+
 	public $children = array();
 	public $childrenLength = 0;
-	public function addChild(Parsed &$child)
+
+    /**
+     * @param Parsed $child
+     */
+    public function addChild(Parsed &$child)
 	{
 		$child->parent =& $this;
 		$this->children[] =& $child;
 		$this->childrenLength++;
 	}
+
+    /**
+     *
+     */
     public function removeChildren()
     {
         $this->children = array();
@@ -136,6 +200,10 @@ class Parsed extends ParserValue
 
     public $expression;
     public $expressionPermissible = true;
+
+    /**
+     *
+     */
     public function setExpression()
     {
         $class = "WikiLingo\\Expression\\$this->type";
@@ -151,13 +219,21 @@ class Parsed extends ParserValue
 
 	public $cousins = array();
 	public $cousinsCount = 0;
-	public function addCousin(Parsed &$cousin)
+
+    /**
+     * @param Parsed $cousin
+     */
+    public function addCousin(Parsed &$cousin)
 	{
 		$this->cousins[] =& $cousin;
 		$this->cousinsCount++;
 	}
 
-	public function render()
+
+    /**
+     * @return string
+     */
+    public function render()
 	{
         if (isset($this->parser->events))
         {

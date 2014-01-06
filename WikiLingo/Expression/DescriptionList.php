@@ -1,6 +1,10 @@
 <?php
 namespace WikiLingo\Expression;
 
+/**
+ * Class DescriptionList
+ * @package WikiLingo\Expression
+ */
 class DescriptionList
 {
 	public $parsed;
@@ -8,7 +12,10 @@ class DescriptionList
 	public $block;
 	public $items = array();
 
-	public function __construct(Block &$block)
+    /**
+     * @param Block $block
+     */
+    public function __construct(Block &$block)
 	{
 		$this->parsed =& $block->parsed;
 		$this->block =& $block;
@@ -31,7 +38,10 @@ class DescriptionList
 		$this->parser->addType(__CLASS__, $this);
 	}
 
-	public function add(Block &$block)
+    /**
+     * @param Block $block
+     */
+    public function add(Block &$block)
 	{
 		$termSet = false;
 		$term = '';
@@ -50,7 +60,10 @@ class DescriptionList
 		$this->items[] = new DescriptionListItem($term, $description);
 	}
 
-	public function render()
+    /**
+     * @return mixed
+     */
+    public function render()
 	{
 		$element = $this->parser->element(__CLASS__, 'dl');
 

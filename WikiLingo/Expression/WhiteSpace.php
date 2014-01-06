@@ -1,8 +1,17 @@
 <?php
 namespace WikiLingo\Expression;
 use Types\Type;
+
+/**
+ * Class WhiteSpace
+ * @package WikiLingo\Expression
+ */
 class WhiteSpace extends Base
 {
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
     public function render(&$parser)
     {
 	    $scripts = Type::Scripts($parser->scripts);

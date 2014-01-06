@@ -1,15 +1,14 @@
 <?php
-/**
- * @namespace
- */
 namespace WikiLingo\Expression\Tensor;
 
 use Types\Type;
 use WikiLingo;
 use WikiLingo\Expression\Block;
+
 /**
  * A flat manages the creation of the Hierarchical items.  There is only one flat for a Hierarchical group.
- * @constructor
+ * Class Flat
+ * @package WikiLingo\Expression\Tensor
  */
 class Flat
 {
@@ -131,7 +130,11 @@ class Flat
 		$this->endingLineNo = $item->block->parsed->lineNo;
 	}
 
-	public function makeParent(Hierarchical &$parent)
+    /**
+     * @param Hierarchical $parent
+     * @return bool
+     */
+    public function makeParent(Hierarchical &$parent)
 	{
 
 		if ($parent->depth == 0) {
@@ -162,7 +165,11 @@ class Flat
 		return false;
 	}
 
-	public function &parentAtDepth($depth = -1)
+    /**
+     * @param Number $depth
+     * @return Hierarchical
+     */
+    public function &parentAtDepth($depth = -1)
 	{
 		if ($depth == -1)
 		{
@@ -199,14 +206,20 @@ class Flat
 		}
 	}
 
-	public function setActiveParent(Hierarchical &$item)
+    /**
+     * @param Hierarchical $item
+     */
+    public function setActiveParent(Hierarchical &$item)
 	{
 		$this->parentAtDepth($item->depth)->addSibling($item);
 		$this->parentActive[$item->depth]++;
 		$this->makeParent($item);
 	}
 
-	public function closeParents($depth)
+    /**
+     * @param Number $depth
+     */
+    public function closeParents($depth)
 	{
 		while ($depth < $this->activeDepth)
 		{
@@ -215,7 +228,10 @@ class Flat
 		}
 	}
 
-	public function render()
+    /**
+     * @return string
+     */
+    public function render()
 	{
 		return $this->leaders->render();
 	}

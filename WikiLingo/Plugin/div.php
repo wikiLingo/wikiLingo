@@ -1,6 +1,10 @@
 <?php
 namespace WikiLingo\Plugin;
 
+/**
+ * Class div
+ * @package WikiLingo\Plugin
+ */
 class div extends Base
 {
 	public function __construct()

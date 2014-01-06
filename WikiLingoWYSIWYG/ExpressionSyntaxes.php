@@ -1,27 +1,30 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: robert
- * Date: 11/27/13
- * Time: 10:12 AM
- */
-
 namespace WikiLingoWYSIWYG;
 
 use WikiLingoWYSIWYG\ExpressionSyntax;
 use WikiLingo\Utilities\Scripts;
 
+/**
+ * Class ExpressionSyntaxes
+ * @package WikiLingoWYSIWYG
+ */
 class ExpressionSyntaxes
 {
     public $parsedExpressionSyntaxes = array();
 	public $parser;
 
+    /**
+     * @param Scripts $scripts
+     */
     public function __construct(Scripts &$scripts)
     {
         $this->parser = new Parser($scripts);
     }
 
-	public function registerExpressionTypes()
+    /**
+     *
+     */
+    public function registerExpressionTypes()
 	{
 		$files = scandir(__DIR__ . '/ExpressionSyntax');
 		foreach ($files as $file) {

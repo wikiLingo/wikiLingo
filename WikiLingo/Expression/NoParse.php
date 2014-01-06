@@ -1,9 +1,17 @@
 <?php
 namespace WikiLingo\Expression;
 
+/**
+ * Class NoParse
+ * @package WikiLingo\Expression
+ */
 class NoParse extends Base
 {
-	public function render(&$parser)
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
+    public function render(&$parser)
 	{
 		if ($parser->wysiwyg) {
 			$element = $parser->element(__CLASS__, 'span');

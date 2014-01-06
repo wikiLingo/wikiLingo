@@ -4,9 +4,15 @@ namespace WikiLingo\Expression;
 use Types\Type;
 use WikiLingo;
 
+/**
+ * Class Line
+ * @package WikiLingo\Expression
+ */
 class Line extends Base
 {
-    //Type::Block($this->parser->blocks[$this->parser->blocksLength - 1])
+    /**
+     * @param WikiLingo\Parsed $parsed
+     */
     function __construct(WikiLingo\Parsed &$parsed)
     {
         $this->parsed =& $parsed;
@@ -19,6 +25,10 @@ class Line extends Base
         }
     }
 
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
     function render(&$parser)
     {
 

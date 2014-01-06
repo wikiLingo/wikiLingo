@@ -1,6 +1,10 @@
 <?php
 namespace WikiLingo\Utilities;
 
+/**
+ * Class Scripts
+ * @package WikiLingo\Utilities
+ */
 class Scripts
 {
     public $cssLocations = array();
@@ -11,7 +15,12 @@ class Scripts
 
     public $existingScriptsAndLocations = array();
 
-	public function addCss( $css, $i = -1 )
+    /**
+     * @param String $css
+     * @param Number [$i]
+     * @return $this
+     */
+    public function addCss( $css, $i = -1 )
 	{
 		if (isset($this->existingScriptsAndLocations[$css])) {
 			return $this;
@@ -28,6 +37,11 @@ class Scripts
 		return $this;
 	}
 
+    /**
+     * @param String $href
+     * @param Number [$i]
+     * @return $this
+     */
     public function addCssLocation( $href, $i = -1 )
     {
         if (isset($this->existingScriptsAndLocations[$href])) {
@@ -45,6 +59,11 @@ class Scripts
         return $this;
     }
 
+    /**
+     * @param String $src
+     * @param Number [$i]
+     * @return $this
+     */
     public function addScriptLocation( $src, $i = -1 )
     {
         if (isset($this->existingScriptsAndLocations[$src])) {
@@ -62,6 +81,11 @@ class Scripts
         return $this;
     }
 
+    /**
+     * @param String $script
+     * @param Number [$i]
+     * @return $this
+     */
     public function addScript( $script, $i = -1 )
     {
         if (isset($this->existingScriptsAndLocations[$script])) {
@@ -79,6 +103,9 @@ class Scripts
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function renderCss()
     {
         $css = '';
@@ -90,6 +117,9 @@ class Scripts
         return $css . (empty($this->css) ? "" : "<style>" . implode($this->css) . "</style>");
     }
 
+    /**
+     * @return string
+     */
     public function renderScript()
     {
         $scriptLocations = '';

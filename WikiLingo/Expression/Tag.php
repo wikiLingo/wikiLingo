@@ -4,6 +4,10 @@ namespace WikiLingo\Expression;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class Tag
+ * @package WikiLingo\Expression
+ */
 class Tag extends Base
 {
     public $name;
@@ -18,7 +22,10 @@ class Tag extends Base
         'style' => true
 	);
 
-	function __construct(WikiLingo\Parsed &$parsed)
+    /**
+     * @param WikiLingo\Parsed $parsed
+     */
+    function __construct(WikiLingo\Parsed &$parsed)
 	{
         $this->parsed =& $parsed;
         $parts = preg_split("/[ >]/", substr($parsed->text, 1)); //<tag> || <tag name="">
@@ -39,7 +46,11 @@ class Tag extends Base
 		parent::__construct($parsed);
 	}
 
-	function render(&$parser)
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
+    function render(&$parser)
 	{
         if ($this->allowed) {
 		    return $this->parsed->text;

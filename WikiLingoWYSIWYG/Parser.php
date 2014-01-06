@@ -6,16 +6,18 @@ use WikiLingo\Renderer;
 use WikiLingo\Utilities;
 use WikiLingo\Parsed;
 
+/**
+ * Class Parser
+ * @package WikiLingoWYSIWYG
+ */
 class Parser extends WikiLingo\Parser
 {
     public $wysiwyg = true;
 
-	/**
-	 * construct
-	 *
-	 * @access  public
-	 */
-	public function __construct(Utilities\Scripts &$scripts = null)
+    /**
+     * @param Utilities\Scripts $scripts
+     */
+    public function __construct(Utilities\Scripts &$scripts = null)
 	{
 		if ($scripts != null) {
 			$this->scripts =& $scripts;
@@ -30,6 +32,11 @@ class Parser extends WikiLingo\Parser
 		parent::__construct();
 	}
 
+    /**
+     * @param $type
+     * @param $name
+     * @return Renderer\Element
+     */
     function element($type, $name)
     {
         $element = new Renderer\Element($type, $name);
@@ -37,6 +44,10 @@ class Parser extends WikiLingo\Parser
         return $element;
     }
 
+    /**
+     * @param $name
+     * @return Renderer\Helper
+     */
     function helper($name)
     {
         $helper = new Renderer\Helper($name);

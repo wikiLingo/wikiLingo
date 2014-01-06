@@ -1,14 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: robert
- * Date: 11/27/13
- * Time: 11:46 AM
- */
 
 namespace WikiLingoWYSIWYG;
 
-
+/**
+ * Class ExpressionPluginType
+ * @package WikiLingoWYSIWYG
+ */
 class ExpressionPluginType
 {
     public $name;
@@ -17,6 +14,10 @@ class ExpressionPluginType
     public $parameters;
 	public $draggable;
 
+    /**
+     * @param $name
+     * @param $parser
+     */
     public function __construct($name, $parser)
     {
         $this->name = $name;

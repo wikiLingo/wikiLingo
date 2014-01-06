@@ -1,9 +1,15 @@
 <?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
+/**
+ * Class Plugin
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 class Plugin extends Base
 {
-
+    /**
+     * @return string
+     */
     public function generate()
     {
         $parameters =& $this->expression->parameters;

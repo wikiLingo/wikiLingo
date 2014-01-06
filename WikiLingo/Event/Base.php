@@ -1,19 +1,32 @@
 <?php
 namespace WikiLingo\Event;
 
-
+/**
+ * Class Base
+ * @package WikiLingo\Event
+ */
 class Base
 {
-	public $delegates = array();
+    /**
+     * @var array
+     */
+    public $delegates = array();
 
-	public function __construct($delegate = null)
+    /**
+     * @param function [$delegate]
+     */
+    public function __construct($delegate = null)
 	{
 		if ($delegate != null)
 		{
 			$this->delegates[] =& $delegate;
 		}
 	}
-	public function bind($delegate)
+
+    /**
+     * @param function $delegate
+     */
+    public function bind($delegate)
 	{
 		$this->delegates[] =& $delegate;
 	}

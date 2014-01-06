@@ -1,16 +1,17 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: GavinC
- * Date: 8/6/13
- * Time: 11:15 AM
- */
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
 
+/**
+ * Class accordions
+ * @package WikiLingo\Plugin
+ */
 class accordions extends Base
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->htmlTagType = 'div';
@@ -18,6 +19,12 @@ class accordions extends Base
         $this->label = 'Accordion';
     }
 
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
         $id = $plugin->id();

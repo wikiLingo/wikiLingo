@@ -1,12 +1,23 @@
 <?
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
+/**
+ * Class Header
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 class Header extends Base
 {
-	public static $modifiers = array(
+    /**
+     * @var array
+     */
+    public static $modifiers = array(
 		'hidden' => '-',
 		'toggle' => '+'
 	);
+
+    /**
+     * @return string
+     */
     public function generate()
     {
 	    $this->parsed->isBlock = true;

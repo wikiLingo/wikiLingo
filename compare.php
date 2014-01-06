@@ -1,5 +1,5 @@
 <?php
-require_once("index.php");
+require_once("autoload.php");
 
 use WikiLingo\Event;
 use WikiLingo\Expression;

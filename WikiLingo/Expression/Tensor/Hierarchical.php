@@ -6,6 +6,10 @@ use WikiLingo;
 use WikiLingo\Expression;
 use WikiLingo\Renderer;
 
+/**
+ * Class Hierarchical
+ * @package WikiLingo\Expression\Tensor
+ */
 class Hierarchical
 {
 	public $depth;
@@ -16,7 +20,10 @@ class Hierarchical
 	public $block = null;
 	public $index;
 
-	function __construct(Expression\Block $block = null)
+    /**
+     * @param Expression\Block $block
+     */
+    function __construct(Expression\Block &$block = null)
 	{
 		if ($block != null) {
 			$this->block =& $block;
@@ -29,7 +36,11 @@ class Hierarchical
 		}
 	}
 
-	function &setParent(Hierarchical &$parent)
+    /**
+     * @param Hierarchical $parent
+     * @return $this
+     */
+    function &setParent(Hierarchical &$parent)
 	{
 		if (empty($this->parent))
 		{
@@ -39,7 +50,11 @@ class Hierarchical
 		return $this;
 	}
 
-	function &addChild(Hierarchical &$child)
+    /**
+     * @param Hierarchical $child
+     * @return $this
+     */
+    function &addChild(Hierarchical &$child)
 	{
 		if (!isset($this->children))
 		{
@@ -55,7 +70,11 @@ class Hierarchical
 		return $this;
 	}
 
-	function &addSibling(Hierarchical &$sibling)
+    /**
+     * @param Hierarchical $sibling
+     * @return $this
+     */
+    function &addSibling(Hierarchical &$sibling)
 	{
 		if (isset($this->parent))
 		{
@@ -67,7 +86,10 @@ class Hierarchical
 		return $this;
 	}
 
-	function render()
+    /**
+     * @return string
+     */
+    function render()
 	{
         $element = $this->block->element();
 

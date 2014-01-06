@@ -1,11 +1,18 @@
 <?php
 namespace WikiLingo\Renderer;
 
+/**
+ * Class Base
+ * @package WikiLingo\Renderer
+ */
 class Base
 {
     public $children = array();
     public $staticChildren = array();
 
+    /**
+     * @return string
+     */
     public function renderChildren()
     {
         $children = '';

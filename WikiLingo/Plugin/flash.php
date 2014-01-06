@@ -3,8 +3,15 @@ namespace WikiLingo\Plugin;
 
 use WikiLingo;
 
+/**
+ * Class flash
+ * @package WikiLingo\Plugin
+ */
 class flash extends Base
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->label = 'Flash';
@@ -19,6 +26,12 @@ class flash extends Base
         );
     }
 
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 	    $plugin->attributes['title'] = $plugin->parameter('title');

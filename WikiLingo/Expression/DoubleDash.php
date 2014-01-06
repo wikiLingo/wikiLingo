@@ -1,9 +1,17 @@
 <?php
 namespace WikiLingo\Expression;
 
+/**
+ * Class DoubleDash
+ * @package WikiLingo\Expression
+ */
 class DoubleDash extends Base
 {
-	public function render(&$parser)
+    /**
+     * @param $parser
+     * @return mixed
+     */
+    public function render(&$parser)
 	{
 		return $this->parsed->text;
 	}

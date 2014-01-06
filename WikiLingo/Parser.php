@@ -3,6 +3,10 @@ namespace WikiLingo;
 use WikiLingo\Plugin;
 use WikiLingo\Utilities;
 
+/**
+ * Class Parser
+ * @package WikiLingo
+ */
 class Parser extends Definition
 {
 
@@ -11,12 +15,10 @@ class Parser extends Definition
 	private $pcreRecursionLimit;
     public $wysiwyg = false;
 
-	/**
-	 * construct
-	 *
-	 * @access  public
-	 */
-	public function __construct(Utilities\Scripts &$scripts = null)
+    /**
+     * @param Utilities\Scripts $scripts
+     */
+    public function __construct(Utilities\Scripts &$scripts = null)
 	{
 		if (empty($this->scripts)) {
 			if ($scripts != null ) {
@@ -36,11 +38,9 @@ class Parser extends Definition
     }
 
     /**
-     *
-     * @param   string  $input Wiki syntax to be parsed
-     * @return  string  $output Parsed wiki syntax
+     * @param String $input
+     * @return String
      */
-
     function parse($input)
     {
         if (empty($input)) {
@@ -56,14 +56,14 @@ class Parser extends Definition
     }
 
     /**
-     * Event just before JisonParser_Wiki->parse(), used to ready parser, ensuring defaults needed for parsing are set.
+     * Event just before $this->parse($input), used to ready parser, ensuring defaults needed for parsing are set.
      *
      * pcre.recursion_limit is temporarily changed here. php default is 100,000 which is just too much for this type of
      * parser. The reason for this code is the use of preg_* functions using pcre library.  Some of the regex needed is
      * just too much for php to handle, so by limiting this for regex we speed up the parser and allow it to safely
      * lex/parse a string more here: http://stackoverflow.com/questions/7620910/regexp-in-preg-match-function-returning-browser-error
      *
-     * @param   string  &$input input that will be parsed
+     * @param $input
      */
     public function preParse(&$input)
     {
@@ -79,20 +79,23 @@ class Parser extends Definition
         //$this->originalInput = preg_split('/\n/', $input);
     }
 
+    /**
+     * Where what has been parsed is then rendered
+     * @param Parsed $parsed
+     * @return string
+     */
     public function postParse(Parsed &$parsed)
     {
         return $parsed->render();
     }
 
+    /**
+     * @param $input
+     */
     public function setInput($input)
     {
         parent::setInput($input);
 
         $this->begin('BOF');
-    }
-
-    public function filter()
-    {
-
     }
 }

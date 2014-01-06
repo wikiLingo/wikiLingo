@@ -1,6 +1,6 @@
 <?php
 require_once "Testify/lib/Testify/Testify.php";
-include "autoload.php";
+include("autoload.php");
 
 $tf = new \Testify\Testify("wikiLingo test suite");
 

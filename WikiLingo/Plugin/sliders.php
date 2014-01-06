@@ -5,14 +5,28 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class sliders
+ * @package WikiLingo\Plugin
+ */
 class sliders extends Base
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->label = 'Slider';
         $this->htmlTagType = 'div';
     }
-	public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
 		$id = $plugin->id();
 		$ul = Type::Helper($parser->helper('ul'));

@@ -3,6 +3,10 @@ namespace WikiLingo\Test;
 
 use WikiLingo;
 
+/**
+ * Class VisualFeedbackTable
+ * @package WikiLingo\Test
+ */
 class VisualFeedbackTable
 {
 	public static $styled = false;
@@ -11,30 +15,48 @@ class VisualFeedbackTable
 	public $expected;
 	public $actual;
 
-	public function __construct($name)
+    /**
+     * @param $name
+     */
+    public function __construct($name)
 	{
 		$this->name = $name;
 	}
 
-	public function setSource($source)
+    /**
+     * @param $source
+     * @return $this
+     */
+    public function setSource($source)
 	{
 		$this->source = $source;
 		return $this;
 	}
 
-	public function setExpected($expected)
+    /**
+     * @param $expected
+     * @return $this
+     */
+    public function setExpected($expected)
 	{
 		$this->expected = $expected;
 		return $this;
 	}
 
-	public function setActual($actual)
+    /**
+     * @param $actual
+     * @return $this
+     */
+    public function setActual($actual)
 	{
 		$this->actual = $actual;
 		return $this;
 	}
 
-	public function render()
+    /**
+     * @return string
+     */
+    public function render()
 	{
 		$name = $this->name;
 		$source = htmlentities($this->source);

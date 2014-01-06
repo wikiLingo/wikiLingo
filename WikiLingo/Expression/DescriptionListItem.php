@@ -1,18 +1,30 @@
 <?php
 namespace WikiLingo\Expression;
 
+/**
+ * Class DescriptionListItem
+ * @package WikiLingo\Expression
+ */
 class DescriptionListItem
 {
 	public $term;
 	public $description;
 
-	public function __construct(&$term, &$description)
+    /**
+     * @param $term
+     * @param $description
+     */
+    public function __construct(&$term, &$description)
 	{
 		$this->term =& $term;
 		$this->description =& $description;
 	}
 
-	public function render(&$parser)
+    /**
+     * @param $parser
+     * @return string
+     */
+    public function render(&$parser)
 	{
 		$elementTerm = $parser->element(__CLASS__, 'dt');
 		$elementTerm->staticChildren[] = $this->term;

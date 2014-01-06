@@ -3,8 +3,15 @@ namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
 use Types\Type;
 
+/**
+ * Class DescriptionList
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 class DescriptionList extends Base
 {
+    /**
+     * @return string
+     */
     public function generate()
     {
 	    $this->parsed->isBlock = true;

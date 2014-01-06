@@ -1,17 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: robert
- * Date: 12/8/13
- * Time: 4:56 PM
- */
 
 namespace WikiLingo\Event;
 
-
+/**
+ * Class Translate
+ * @package WikiLingo\Event
+ */
 class Translate extends Base
 {
-	public function trigger(&$value, $context)
+    /**
+     * @param String $value
+     * @param String $context
+     * @return String
+     */
+    public function trigger(&$value, $context)
 	{
 		foreach($this->delegates as &$delegate)
 		{

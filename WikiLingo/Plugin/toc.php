@@ -5,8 +5,15 @@ use WikiLingo;
 use Types\Type;
 use WikiLingo\Expression\Tensor;
 
+/**
+ * Class toc
+ * @package WikiLingo\Plugin
+ */
 class toc extends Base
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->label = 'Table of Contents';
@@ -15,6 +22,12 @@ class toc extends Base
         $this->parameters['ordered'] = new Parameter('Ordered', true);
     }
 
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 	    $result = '';

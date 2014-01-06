@@ -1,8 +1,15 @@
 <?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
+/**
+ * Class Table
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 class Table extends Base
 {
+    /**
+     * @return string
+     */
     public function generate()
     {
 	    $rows = array();

@@ -3,8 +3,15 @@ namespace WikiLingo\Plugin;
 
 use WikiLingo;
 
+/**
+ * Class tab
+ * @package WikiLingo\Plugin
+ */
 class tab extends Base
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->label = 'Tab';
@@ -18,6 +25,12 @@ class tab extends Base
         $this->allowLines = true;
     }
 
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 	    if (!isset($plugin->parent->privateAttributes['titles'])) {

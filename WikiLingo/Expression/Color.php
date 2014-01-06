@@ -3,11 +3,18 @@ namespace WikiLingo\Expression;
 
 use WikiLingo;
 
+/**
+ * Class Color
+ * @package WikiLingo\Expression
+ */
 class Color extends Base
 {
 	public $color;
 
-	function __construct(WikiLingo\Parsed &$parsed)
+    /**
+     * @param WikiLingo\Parsed $parsed
+     */
+    function __construct(WikiLingo\Parsed &$parsed)
 	{
 		$this->parsed =& $parsed;
         $char = array_shift($this->parsed->children)->text;
@@ -22,6 +29,10 @@ class Color extends Base
         $this->color = preg_replace('/[^#A-Za-z0-9]/', '', $this->color);
 	}
 
+    /**
+     * @param $parser
+     * @return mixed
+     */
     public function render(&$parser)
     {
         $element = $parser->element(__CLASS__, 'span');

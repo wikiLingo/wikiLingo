@@ -5,8 +5,15 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class slider
+ * @package WikiLingo\Plugin
+ */
 class slider extends Base
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->label = 'Slider';
@@ -17,7 +24,13 @@ class slider extends Base
         $this->parameters['title'] = new Parameter('Title', '');
     }
 
-	public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
 		$plugin->attributes['title'] = htmlspecialchars($plugin->parameter('title'));
 

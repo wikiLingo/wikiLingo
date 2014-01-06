@@ -12,6 +12,10 @@ class Element extends Base
 	public $classes = array();
 	public $detailedAttributesClass = 'element';
 
+    /**
+     * @param $type
+     * @param $name
+     */
     function __construct($type, $name)
     {
         $this->type = $type;
@@ -21,30 +25,41 @@ class Element extends Base
 	    $this->detailedAttributes['data-element'] = 'true';
     }
 
+    /**
+     *
+     */
     function setInline()
     {
         $this->state = "inline";
     }
 
+    /**
+     *
+     */
     function setStandard()
     {
         $this->state = "standard";
     }
 
+    /**
+     *
+     */
     function setOpen()
     {
         $this->state = "open";
     }
 
+    /**
+     *
+     */
     function setClose()
     {
         $this->state = "closed";
     }
 
     /**
-     * tag creation, should only be used with items that are directly related to wiki syntax, buttons etc, should use createWikiHelper
+     * tag creation, should only be used with items that are directly related to wiki syntax, buttons etc, should use Helper
      *
-     * @access  public
      * @return  string  $tag desired output from syntax
      */
     public function render()
@@ -95,7 +110,12 @@ class Element extends Base
         }
     }
 
-	public function setAttribute($attr, $value)
+    /**
+     * @param String $attr
+     * @param String $value
+     * @return $this
+     */
+    public function setAttribute($attr, $value)
 	{
 		$this->attributes[$attr] = $value;
 		return $this;

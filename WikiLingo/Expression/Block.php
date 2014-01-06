@@ -9,7 +9,8 @@ use WikiLingo;
 use WikiLingo\Utilities;
 
 /**
- * @constructor
+ * Class Block
+ * @package WikiLingo\Expression
  */
 class Block extends Base
 {
@@ -30,7 +31,10 @@ class Block extends Base
 	public $isFirst = false;
 	public $allowLineAfter = false;
 
-	public static $blocksTypes = array(
+    /**
+     * @var array
+     */
+    public static $blocksTypes = array(
 		'!' => 'header',
 
 		'*' => 'unorderedListItem',
@@ -38,12 +42,18 @@ class Block extends Base
 		';' => 'descriptionList',
 	);
 
-	public static $blockModifiers = array(
+    /**
+     * @var array
+     */
+    public static $blockModifiers = array(
 		'+' => 'toggle',
 		'-' => 'hidden'
 	);
 
-	public function __construct(WikiLingo\Parsed &$parsed = null)
+    /**
+     * @param WikiLingo\Parsed $parsed
+     */
+    public function __construct(WikiLingo\Parsed &$parsed = null)
 	{
         if ($parsed == null)
         {
@@ -114,6 +124,9 @@ class Block extends Base
 		return true;
 	}
 
+    /**
+     * @return null|Block
+     */
     public function getPreviousBlockIfCompatible()
     {
         if ($this->parser->blocksLength > 0) {
@@ -125,7 +138,11 @@ class Block extends Base
         return null;
     }
 
-	public function render(&$parser)
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
+    public function render(&$parser)
 	{
 
 		if (isset($this->expression)) {
@@ -134,6 +151,9 @@ class Block extends Base
 		return '';
 	}
 
+    /**
+     * @return WikiLingo\Renderer\Element
+     */
     public function collectionElement()
     {
         $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->collectionElementName));
@@ -141,6 +161,9 @@ class Block extends Base
         return $element;
     }
 
+    /**
+     * @return WikiLingo\Renderer\Element
+     */
     public function element()
     {
         $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->elementName));
@@ -158,6 +181,9 @@ class Block extends Base
         return $element;
     }
 
+    /**
+     * @return Block
+     */
     public function newBlank()
     {
 	    Type::Scripts($this->parser->scripts)->addCss(

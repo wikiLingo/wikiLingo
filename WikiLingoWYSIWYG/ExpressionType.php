@@ -1,14 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: robert
- * Date: 11/27/13
- * Time: 10:29 AM
- */
-
 namespace WikiLingoWYSIWYG;
 
-
+/**
+ * Class ExpressionType
+ * @package WikiLingoWYSIWYG
+ */
 class ExpressionType
 {
     public $name;
@@ -20,6 +16,15 @@ class ExpressionType
     public $group;
 	public $extraAttributes = array();
 
+    /**
+     * @param $name
+     * @param $label
+     * @param $example
+     * @param $types
+     * @param $icon
+     * @param $iconClass
+     * @param $group
+     */
     public function __construct($name, $label, $example, $types, $icon, $iconClass, $group)
     {
         $this->name = $name;

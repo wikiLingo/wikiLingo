@@ -3,11 +3,19 @@ namespace WYSIWYGWikiLingo\Expression;
 
 use WikiLingo;
 
+/**
+ * Class Content
+ * @package WYSIWYGWikiLingo\Expression
+ */
 class Content extends Base
 {
     public $isStatic = true;
 
-	public function render(&$parser)
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
+    public function render(&$parser)
 	{
 		if ($this->isHelper) {
 			return '';

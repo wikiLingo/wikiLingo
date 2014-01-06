@@ -3,6 +3,10 @@ namespace WYSIWYGWikiLingo;
 
 use WYSIWYGWikiLingo\Expression;
 
+/**
+ * Class Base
+ * @package WYSIWYGWikiLingo
+ */
 class Base
 {
 	public $parsing = false;
@@ -50,13 +54,21 @@ class Base
 		die;
 	}
 */
-	public function stackHtmlElement($tag)
+    /**
+     * @param $tag
+     */
+    public function stackHtmlElement($tag)
 	{
 		$this->htmlElementStack[] = $tag;
 		$this->htmlElementStackCount++;
 	}
 
-	public function unStackHtmlElement($ending = null, $isLookAhead = false)
+    /**
+     * @param String [$ending]
+     * @param bool [$isLookAhead]
+     * @return String|null
+     */
+    public function unStackHtmlElement($ending = null, $isLookAhead = false)
 	{
 		$name = strtolower(substr(str_replace(" ", "", $ending), 2, -1));
 
@@ -79,6 +91,9 @@ class Base
 		return $beginning;
 	}
 
+    /**
+     *
+     */
     public function killStackedHtmlElement()
     {
         $this->htmlElementStackCount--;
@@ -86,7 +101,10 @@ class Base
         array_pop($this->htmlElementStack);
     }
 
-	function getMissingClosingKeys()
+    /**
+     * @return array
+     */
+    function getMissingClosingKeys()
 	{
 		end($this->htmlElementStack);
 		$element = key($this->htmlElementStack);

@@ -8,13 +8,21 @@
 
 namespace WikiLingo\Plugin;
 
-
+/**
+ * Class Parameter
+ * @package WikiLingo\Plugin
+ */
 class Parameter
 {
     public $label;
     public $value;
     public $type;
 
+    /**
+     * @param $label
+     * @param $value
+     * @param null $type
+     */
     public function __construct($label, $value, $type = null)
     {
         $this->label = $label;
@@ -22,6 +30,9 @@ class Parameter
         $this->type = (isset($type) ? $type : gettype($value));
     }
 
+    /**
+     * @return string
+     */
     public function filter()
     {
         switch ($this->type) {

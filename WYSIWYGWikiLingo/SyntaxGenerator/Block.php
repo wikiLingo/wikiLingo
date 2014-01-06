@@ -1,9 +1,16 @@
 <?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
+/**
+ * Class Block
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 class Block extends Base
 {
-	public function generate()
+    /**
+     * @return string
+     */
+    public function generate()
 	{
 
 		$newLineChar = "\n";

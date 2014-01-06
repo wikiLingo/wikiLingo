@@ -11,9 +11,16 @@ namespace WikiLingo\Event\Expression\Plugin;
 use WikiLingo\Event;
 use WikiLingo\Expression\Plugin;
 
+/**
+ * Class Exists
+ * @package WikiLingo\Event\Expression\Plugin
+ */
 class Exists extends Event\Base
 {
-	public function trigger(Plugin &$plugin)
+    /**
+     * @param Plugin $plugin
+     */
+    public function trigger(Plugin &$plugin)
 	{
 		foreach($this->delegates as &$delegate)
 		{

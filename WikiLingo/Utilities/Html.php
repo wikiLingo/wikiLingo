@@ -1,8 +1,17 @@
 <?php
 namespace WikiLingo\Utilities;
 
+/**
+ * Class Html
+ * @package WikiLingo\Utilities
+ */
 class Html
 {
+    /**
+     * @param $yytext
+     * @param bool $acceptOnlyNonVoidElements
+     * @return bool|null
+     */
     public static function isHtmlTag(&$yytext, $acceptOnlyNonVoidElements = false)
     {
         $parts = explode(" ", substr($yytext, 1, -1));

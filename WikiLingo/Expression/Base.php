@@ -4,6 +4,10 @@ namespace WikiLingo\Expression;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class Base
+ * @package WikiLingo\Expression
+ */
 abstract class Base
 {
 	public $parsed;
@@ -11,12 +15,18 @@ abstract class Base
     public $allowWhiteSpace = true;
 	public $allowLineAfter = true;
 
-	function __construct(WikiLingo\Parsed &$parsed)
+    /**
+     * @param WikiLingo\Parsed $parsed
+     */
+    function __construct(WikiLingo\Parsed &$parsed)
 	{
 		$this->parsed =& $parsed;
 	}
 
-	function parent()
+    /**
+     * @return null|WikiLingo\Parsed
+     */
+    function parent()
 	{
 		if (isset($this->parsed->parent)) {
 			return Type::Parsed($this->parsed->parent);
@@ -24,10 +34,20 @@ abstract class Base
 		return null;
 	}
 
+    /**
+     * @var string
+     */
     public $renderedChildren = '';
 
-	abstract function render(&$parser);
+    /**
+     * @param $parser
+     * @return mixed
+     */
+    abstract function render(&$parser);
 
+    /**
+     * @param $parser
+     */
     public function preRender(&$parser)
     {
     }

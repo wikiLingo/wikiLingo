@@ -5,17 +5,28 @@ namespace WikiLingo\Expression;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class WikiLinkType
+ * @package WikiLingo\Expression
+ */
 class WikiLinkType extends Base
 {
     public $type;
     public $link;
 
+    /**
+     * @param WikiLingo\Parsed $parsed
+     */
     function __construct(WikiLingo\Parsed &$parsed)
     {
         $this->parsed =& $parsed;
         $this->type = $parsed->text;
     }
 
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
     public function render(&$parser)
     {
         $element = Type::Element($parser->element(__CLASS__, 'a'));

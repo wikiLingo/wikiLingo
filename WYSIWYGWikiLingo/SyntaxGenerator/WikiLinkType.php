@@ -3,9 +3,16 @@ namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
 use Types\Type;
 
+/**
+ * Class WikiLinkType
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 class WikiLinkType extends Base
 {
-	public function generate()
+    /**
+     * @return string
+     */
+    public function generate()
 	{
 		$element = Type::WYSIWYGElement($this->expression);
 		$type = $element->parameter("data-wiki-link-type");

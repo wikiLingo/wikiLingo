@@ -11,9 +11,16 @@ namespace WikiLingo\Event\Expression\Plugin;
 use WikiLingo\Event;
 use WikiLingo\Expression\Plugin;
 
+/**
+ * Class PreRender
+ * @package WikiLingo\Event\Expression\Plugin
+ */
 class PreRender extends Event\Base
 {
-	public function trigger(Plugin &$plugin)
+    /**
+     * @param Plugin $plugin
+     */
+    public function trigger(Plugin &$plugin)
 	{
 		foreach($this->delegates as &$delegate)
 		{

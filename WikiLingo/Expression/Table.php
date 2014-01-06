@@ -4,9 +4,21 @@ namespace WikiLingo\Expression;
 use WikiLingo;
 use WikiLingo\ExpressionParser;
 
+/**
+ * Class Table
+ * @package WikiLingo\Expression
+ */
 class Table extends Base
 {
-	public $allowLineAfter = false;
+    /**
+     * @var bool
+     */
+    public $allowLineAfter = false;
+
+    /**
+     * @param $parser
+     * @return mixed
+     */
     public function render(&$parser)
     {
         $tableParser = new ExpressionParser\Table();

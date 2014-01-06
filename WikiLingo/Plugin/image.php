@@ -4,8 +4,15 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class image
+ * @package WikiLingo\Plugin
+ */
 class image extends Base
 {
+    /**
+     *
+     */
     public function __construct()
     {
         $this->hasHtmlBody = false;
@@ -18,6 +25,12 @@ class image extends Base
         );
     }
 
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 

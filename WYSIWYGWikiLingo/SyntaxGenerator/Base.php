@@ -1,6 +1,10 @@
 <?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
+/**
+ * Class Base
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 abstract class Base
 {
     public $parser;
@@ -9,6 +13,10 @@ abstract class Base
 	public $children;
 	public $index;
 
+    /**
+     * @param $parser
+     * @param $expression
+     */
     public function __construct(&$parser, &$expression)
     {
         $this->parser =& $parser;
@@ -25,5 +33,8 @@ abstract class Base
 	    $this->index = $parser->typeIndex[__CLASS__];
     }
 
+    /**
+     * @return string
+     */
     public abstract function generate();
 }

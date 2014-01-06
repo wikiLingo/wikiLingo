@@ -4,6 +4,10 @@ namespace WYSIWYGWikiLingo\Expression;
 use WikiLingo;
 use WYSIWYGWikiLingo;
 
+/**
+ * Class Element
+ * @package WYSIWYGWikiLingo\Expression
+ */
 class Element extends Base
 {
 	public $name = '';
@@ -18,6 +22,9 @@ class Element extends Base
 
     public static $parameterParser;
 
+    /**
+     * @param WYSIWYGWikiLingo\Parsed $parsed
+     */
     function __construct(WYSIWYGWikiLingo\Parsed &$parsed)
     {
         parent::__construct($parsed);
@@ -60,13 +67,20 @@ class Element extends Base
         }
     }
 
+    /**
+     * @param WikiLingo\Parsed $parsed
+     */
     public function setClosing(WikiLingo\Parsed &$parsed)
     {
         $this->isClosed = true;
         $this->closing =& $parsed;
     }
 
-	public function parameter($parameter)
+    /**
+     * @param $parameter
+     * @return string
+     */
+    public function parameter($parameter)
 	{
 		if (isset($this->parameters[$parameter])) {
 			return $this->parameters[$parameter];
@@ -75,7 +89,11 @@ class Element extends Base
 		return '';
 	}
 
-	public function hasClass($class)
+    /**
+     * @param $class
+     * @return bool
+     */
+    public function hasClass($class)
 	{
 		if (isset($this->_classes[$class])) {
 			return true;
@@ -84,7 +102,11 @@ class Element extends Base
 		return false;
 	}
 
-	public function style($style)
+    /**
+     * @param $style
+     * @return string
+     */
+    public function style($style)
 	{
 		if (isset($this->styles[$style])) {
 			return $this->styles[$style];
@@ -93,6 +115,10 @@ class Element extends Base
 		return '';
 	}
 
+    /**
+     * @param $parser
+     * @return mixed|string
+     */
     public function render(&$parser)
     {
         if ($this->isHelper) {

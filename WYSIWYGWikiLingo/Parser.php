@@ -1,14 +1,16 @@
 <?php
 namespace WYSIWYGWikiLingo;
 
+/**
+ * Class Parser
+ * @package WYSIWYGWikiLingo
+ */
 class Parser extends Definition
 {
-	/**
-	 * construct
-	 *
-	 * @access  public
-	 */
-	public function __construct()
+    /**
+     *
+     */
+    public function __construct()
 	{
 		$this->emptyParserValue = new Parsed();
 
@@ -17,6 +19,9 @@ class Parser extends Definition
 		parent::__construct();
 	}
 
+    /**
+     *
+     */
     public function preParse()
     {
         $this->typeIndex = [];
@@ -31,6 +36,10 @@ class Parser extends Definition
 	    $this->inputAdjustedForLineAtBeginning = false;
     }
 
+    /**
+     * @param String $input
+     * @return string
+     */
     public function parse($input)
     {
         if (empty($input)) {
@@ -46,6 +55,10 @@ class Parser extends Definition
         return $output;
     }
 
+    /**
+     * @param Parsed $parsed
+     * @return string
+     */
     public function postParse(Parsed &$parsed)
     {
         /* While parsing we add a "\n" to the beginning of all block types, but if the input started with a block char,

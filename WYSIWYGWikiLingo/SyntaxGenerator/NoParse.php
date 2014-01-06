@@ -1,9 +1,16 @@
 <?php
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
+/**
+ * Class NoParse
+ * @package WYSIWYGWikiLingo\SyntaxGenerator
+ */
 class NoParse extends Base
 {
-	public function generate()
+    /**
+     * @return string
+     */
+    public function generate()
 	{
 		return '~np~' . $this->expression->renderedChildren . '~/np~';
 	}

@@ -4,12 +4,19 @@ namespace WYSIWYGWikiLingo\Expression;
 use WYSIWYGWikiLingo;
 use WikiLingo;
 
+/**
+ * Class InlineElement
+ * @package WYSIWYGWikiLingo\Expression
+ */
 class InlineElement extends Base
 {
     public $isElement = true;
 
     public static $parameterParser;
 
+    /**
+     * @param WYSIWYGWikiLingo\Parsed $parsed
+     */
     function __construct(WYSIWYGWikiLingo\Parsed &$parsed)
     {
         parent::__construct($parsed);

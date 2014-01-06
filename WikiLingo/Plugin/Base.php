@@ -4,6 +4,10 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class Base
+ * @package WikiLingo\Plugin
+ */
 abstract class Base
 {
 
@@ -278,6 +282,10 @@ abstract class Base
         'resize' => true,
     );
 
+    /**
+     * @param $plugin
+     * @return null
+     */
     public function getParent( &$plugin )
     {
         if (isset($plugin->parent)) {
@@ -287,7 +295,10 @@ abstract class Base
         }
     }
 
-	protected function attributeDefaults(&$attributes)
+    /**
+     * @param $attributes
+     */
+    protected function attributeDefaults(&$attributes)
 	{
 		$defaults = array();
 		foreach ($this->attributes as $param => $setting) {
@@ -299,6 +310,11 @@ abstract class Base
         $attributes = array_merge($defaults, $attributes);
 	}
 
+    /**
+     * @param $parameters
+     * @param $parser
+     * @return array
+     */
     public function parameterValues($parameters, $parser)
     {
         $result = array();
@@ -312,6 +328,10 @@ abstract class Base
 	    return $result;
     }
 
+    /**
+     * @param $cssStyles
+     * @return string
+     */
     protected function stylize(&$cssStyles)
     {
         $style = '';
@@ -323,6 +343,12 @@ abstract class Base
         return $style;
     }
 
+    /**
+     * @param WikiLingo\Expression\Plugin $plugin
+     * @param string $body
+     * @param $parser
+     * @return string
+     */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
     {
 	    $elementName = (

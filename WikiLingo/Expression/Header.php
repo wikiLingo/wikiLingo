@@ -4,6 +4,10 @@ namespace WikiLingo\Expression;
 use WikiLingo;
 use Types\Type;
 
+/**
+ * Class Header
+ * @package WikiLingo\Expression
+ */
 class Header
 {
     public $parsed;
@@ -17,6 +21,10 @@ class Header
 	public $pointer = false;
     public static $ids = array();
 
+    /**
+     * @param Block $block
+     * @param $len
+     */
     public function __construct(Block &$block, $len)
     {
 	    $this->parsed =& $block->parsed;
@@ -27,6 +35,9 @@ class Header
         $this->parser->addType(__CLASS__, $this);
     }
 
+    /**
+     * @return string
+     */
     public function render()
     {
 	    $tagType = 'h' . $this->count;
