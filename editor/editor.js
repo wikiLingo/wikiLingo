@@ -37,40 +37,42 @@ $(function() {
 			},
 			tags: {
 				paragraph: 'p',
-				outerLevel: ['pre','blockquote', 'figure', 'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'ul', 'strong', 'code', 'br', 'b'],
+				outerLevel: ['pre','blockquote', 'figure', 'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'ul', 'strong', 'code', 'br', 'b', 'span'],
 				innerLevel: ['a', 'b', 'u', 'i', 'img', 'div', 'strong', 'li', 'span', 'code', 'br']
 			},
 			modifiers: []
 		}),
 		updateSource = function() {
-			var source = document.getElementById('editable').innerHTML;
-			$.ajax({
-				type: 'POST',
-				dataType: 'json',
-				url: 'reflect.php',
-				data: {wikiLingo:true, w: source},
-				success: function(result) {
-					document.getElementById('editableSource').value = result.output;
-				}
-			});
+            var source = document.getElementById('editable').innerHTML,
+                editableSource = document.getElementById('editableSource');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: 'reflect.php',
+                data: {wikiLingo:true, w: source},
+                success: function(result) {
+                    editableSource.value = result.output;
+                }
+            });
 		},
 		updateWYSIWYG = function() {
-			var source = document.getElementById('editableSource').value;
-			$.ajax({
-				type: 'POST',
-				dataType: 'json',
-				url: 'reflect.php',
-				data: {w: source, wysiwyg:true},
-				success: function(result) {
-					document.getElementById('editable').innerHTML = result.output;
-					window.wLPlugins = result.plugins;
+            var source = document.getElementById('editableSource').value,
+                editable = document.getElementById('editable');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: 'reflect.php',
+                data: {w: source, wysiwyg:true},
+                success: function(result) {
+                    editable.innerHTML = result.output;
+                    window.wLPlugins = result.plugins;
 
-					$('body')
-						.append(result.css)
-						.append(result.script)
-						.trigger('resetWLPlugins');
-				}
-			});
+                    $('body')
+                        .append(result.css)
+                        .append(result.script)
+                        .trigger('resetWLPlugins');
+                }
+            });
 		};
 
 	document.body.appendChild(bubble.bubble);
