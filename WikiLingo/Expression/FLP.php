@@ -20,7 +20,6 @@ use WikiLingo\Utilities\AutoLoader;
 class FLP extends Base
 {
     public static $loaded = false;
-    public static $firstRender = false;
     public static $ui;
     public static $existingCount = 0;
     public static $renderedCount = 0;
@@ -45,23 +44,42 @@ class FLP extends Base
      */
     public function render(&$parser)
 	{
-        if ( !self::$firstRender ) {
-            self::$firstRender = true;
-            $parser->events->bind(new Event\PostRender(function(&$rendered) {
-                FLP::$ui =& new \FLP\UI($rendered);
-            }));
-        }
+        if ( !$parser->wysiwyg ) {
+            self::$renderedCount++;
 
-        $children = $this->renderedChildren;
-        $parser->events->bind(new Event\PostRender(function(&$rendered) use ($children) {
-            FLP::$ui->addPhrase(new \Phraser\Phrase($children));
-        }));
+            //FIRST
+            //Bind initial render so that FLP::$ui is set, this is only done once per parser render
+            if ( self::$renderedCount == 1 ) {
+                $parser->events->bind(new Event\PostRender(function(&$rendered) {
 
-        self::$renderedCount++;
-        if (self::$existingCount == self::$renderedCount) {
-            $parser->events->bind(new Event\PostRender(function(&$rendered) {
-                $rendered = FLP::$ui->render();
+                    //here we ensure that the FLP & Phraser namespaces can be obtained from the
+                    if ( !self::$loaded ) {
+                        self::$loaded = true;
+                        $dir = dirname(__FILE__) . "/FLP/";
+                        AutoLoader::$Directories[] = $dir . "FLP";
+                        AutoLoader::$Directories[] = $dir . "Phraser";
+                    }
+
+                    FLP::$ui = new \FLP\UI($rendered);
+                }));
+            }
+
+            //EVERY
+            //each child needs to be sent as a phrase to the ui
+            $children = $this->renderedChildren;
+            $parser->events->bind(new Event\PostRender(function(&$rendered) use ($children) {
+                FLP::$ui->addPhrase(new \Phraser\Phrase($children));
             }));
+
+
+            //LAST
+            //if this is the last item in the count, then setup the post-render, reset the counters
+            if (self::$existingCount == self::$renderedCount) {
+                self::$existingCount = self::$renderedCount = 0;
+                $parser->events->bind(new Event\PostRender(function(&$rendered) {
+                    $rendered = FLP::$ui->render();
+                }));
+            }
         }
 
         $element = $parser->element(__CLASS__, 'span');
@@ -69,12 +87,4 @@ class FLP extends Base
         $element->detailedAttributes['data-past'] = $this->past;
         return $element->render();
     }
-}
-
-
-if ( !WikiLingo\Expression\FLP::$loaded ) {
-    WikiLingo\Expression\FLP::$loaded = true;
-    $dir = dirname(__FILE__) . "/FLP/";
-    AutoLoader::$Directories[] = $dir . "FLP";
-    AutoLoader::$Directories[] = $dir . "Phraser";
 }
