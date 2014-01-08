@@ -28,6 +28,8 @@ class Events
     public $WikiLingoEventParsedRenderPermission = array();
     public $WikiLingoEventParsedRenderBlocked = array();
 
+    public $WikiLingoEventPostRender = array();
+
     /**
      * @param $event
      * @return $this
@@ -197,5 +199,18 @@ class Events
         {
             $event->trigger($parsed, $return);
         }
+    }
+
+    /**
+     * @param $rendered
+     */
+    public function triggerPostRender(&$rendered)
+    {
+        foreach($this->WikiLingoEventPostRender as &$event)
+        {
+            $event->trigger($rendered);
+        }
+
+        return $rendered;
     }
 }

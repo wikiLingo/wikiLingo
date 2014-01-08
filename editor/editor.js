@@ -60,7 +60,7 @@ $(function() {
 				type: 'POST',
 				dataType: 'json',
 				url: 'reflect.php',
-				data: {w: source},
+				data: {w: source, wysiwyg:true},
 				success: function(result) {
 					document.getElementById('editable').innerHTML = result.output;
 					window.wLPlugins = result.plugins;

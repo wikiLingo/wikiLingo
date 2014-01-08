@@ -1,7 +1,9 @@
 <?php
 namespace WikiLingo;
+
 use WikiLingo\Plugin;
 use WikiLingo\Utilities;
+use WikiLingo\Event;
 
 /**
  * Class Parser
@@ -86,7 +88,9 @@ class Parser extends Definition
      */
     public function postParse(Parsed &$parsed)
     {
-        return $parsed->render();
+        $rendered = $parsed->render();
+        $rendered = $this->events->triggerPostRender($rendered);
+        return $rendered;
     }
 
     /**
