@@ -95,27 +95,19 @@ __Text__
 ```
 * Lists (Unordered) -
 ```
-*Item
-
-*Item
-
-**Item at 1 indent
-
-******************** Item at whatever indent I want ;)
-
-**Item
+*Item<br>
+*Item<br>
+**Item at 1 indent<br>
+******************** Item at whatever indent I want ;)<br>
+**Item<br>
 ```
 * Lists (Ordered) -
 ```
-#Item 1.1
-
-#Item 1.2
-
-##Item 2.1
-
-####################Item N.1
-
-##Item 2.2
+#Item 1.1<br>
+#Item 1.2<br>
+##Item 2.1<br>
+####################Item N.1<br>
+##Item 2.2<br>
 ```
 * Pre-Formatted Text -
 ```
@@ -127,8 +119,7 @@ __Text__
 ```
 * Table -
 ```
-||Row 1, Column 1|Row 1, Column 2
-
+||Row 1, Column 1|Row 1, Column 2<br>
 Row 2, Column 1| Row 2, Column 2||
 ```
 * Title Bar -
