@@ -25,7 +25,7 @@ The above creates 2 tabs, it injects the CSS and JavaScript that is needed to ge
 ##Syntax types
 ###Plugins
 * Plugin with content body
-```
+```b
 {PLUGIN(parameter1="value" parameter2="value")}
 ...plugin body
 {PLUGIN}
@@ -132,7 +132,7 @@ Row 2, Column 1| Row 2, Column 2||
 ```
 * Variable
 ```
-{{VarName}}
+%VarName%
 ```
 
 More to come!
