@@ -24,7 +24,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 //Lexical states
 %s BOF np pp tc
 %s pluginStart plugin inlinePlugin
-%s line preBlock block bold box center code color italic link skip strike table titleBar underscore
+%s line preBlock block bold center code color italic link skip strike table titleBar underscore
 %s flp wikiLink wikiLinkType wikiUnlink
 
 //Create tokens from lexical analysis
@@ -123,29 +123,13 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 
 
-//Wiki Variables
-[%][%]{VARIABLE_NAME}[%][%] {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-    */
-
-    return 'DOUBLE_DYNAMIC_VAR';
-}
+//Variables
 [%]{VARIABLE_NAME}[%] {
     /*php
         if ($this->isContent()) return 'CONTENT';
     */
 
-    return 'SINGLE_DYNAMIC_VAR';
-}
-
-//Variables
-"{{"{VARIABLE_NAME}([|]{VARIABLE_NAME})?"}}" {
-    /*php
-        if ($this->isContent(array('linkStack'))) return 'CONTENT';
-    */
-
-    return 'VAR';
+    return 'VARIABLE';
 }
 
 
@@ -344,32 +328,6 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'BOLD_START';
 }
 
-
-//Box
-<box><<EOF>> {
-    /*php
-        $this->conditionStackCount = 0;
-        $this->conditionStack = array();
-    */
-
-    return 'EOF';
-}
-<box>[\^] {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->popState();
-    */
-
-    return 'BOX_END';
-}
-[\^] {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('box');
-    */
-
-    return 'BOX_START';
-}
 
 
 //Center
@@ -837,21 +795,7 @@ content
             $$type->setType('PreFormattedText', $$this);
         */
     }
-    | DOUBLE_DYNAMIC_VAR
-    {
-         /*php
-            $$type =& $1;
-            $$type->setOption('Double', true);
-            $$type->setType('DynamicVariable', $$this);
-        */
-    }
-    | SINGLE_DYNAMIC_VAR
-    {
-        /*php
-            $1->setType('DynamicVariable', $$this);
-        */
-    }
-    | VAR
+    | VARIABLE
     {
         /*php
             $1->setType('Variable', $$this);
@@ -889,23 +833,6 @@ content
 		    $$type =& $1;
             $2->setParent($$type);
             $$type->setType('Bold', $$this);
-        */
-	}
-    | BOX_START
-    | BOX_START contents
-    {
-        /*php
-            $1->setType('Content', $$this);
-            $1->addContent($2);
-        */
-    }
-    | BOX_START BOX_END
-    | BOX_START contents BOX_END
-	{
-		/*php
-		    $$type =& $1;
-            $2->setParent($$type);
-            $$type->setType('Box', $$this);
         */
 	}
     | CENTER_START

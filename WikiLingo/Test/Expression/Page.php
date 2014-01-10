@@ -29,8 +29,6 @@ A table:
 ||Row One,  Column One|Row One,  Column Two
 Row Two,  Column One|Row Two,  Column Two||
 
-^A box^
-
 A [http://tiki.org|link|nocache]
 
 __And these are produced by wiki plugins:__
@@ -93,9 +91,6 @@ end.
 					"<td class='table-cell'>Row Two, <span class='whitespace'> </span>Column Two</td>" .
 				"</tr>" .
 			"</table>" .
-			"<br/>" .
-			"<div class='box'>A box</div>" .
-			"<br/>" .
 			"<br/>" .
 			"A <a href='http://tiki.org'>link|nocache</a>" .
 			"<br/>" .

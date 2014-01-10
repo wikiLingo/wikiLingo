@@ -26,5 +26,3 @@ $tf->test("WYSIWYGWikiLingo Syntax Generator", function($tf) {
 
 ob_start();
 $tf();
-$testOutput = ob_get_contents();
-file_put_contents("test.html", $testOutput);
