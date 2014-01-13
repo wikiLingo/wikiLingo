@@ -12,6 +12,6 @@ class Variable extends Base
      */
     public function generate()
     {
-        return '{{' . $this->expression->parameters["key"] . '}}';
+        return '%' . $this->expression->parameters["key"] . '%';
     }
 }

@@ -8,10 +8,16 @@
 
 namespace WikiLingo\Expression;
 
+$dir = dirname(__FILE__) . "/FLP/";
+AutoLoader::$Directories[] = $dir . "FLP";
+AutoLoader::$Directories[] = $dir . "Phraser";
+
 use Types\Type;
 use WikiLingo;
 use WikiLingo\Event;
 use WikiLingo\Utilities\AutoLoader;
+use FLP as FutureLinkProtocol;
+use Phraser;
 
 /**
  * Class FLP
@@ -55,12 +61,10 @@ class FLP extends Base
                     //here we ensure that the FLP & Phraser namespaces can be obtained from the
                     if ( !self::$loaded ) {
                         self::$loaded = true;
-                        $dir = dirname(__FILE__) . "/FLP/";
-                        AutoLoader::$Directories[] = $dir . "FLP";
-                        AutoLoader::$Directories[] = $dir . "Phraser";
+
                     }
 
-                    FLP::$ui = new \FLP\UI($rendered);
+                    FLP::$ui = new FutureLinkProtocol\UI($rendered);
                 }));
             }
 
@@ -68,7 +72,7 @@ class FLP extends Base
             //each child needs to be sent as a phrase to the ui
             $children = $this->renderedChildren;
             $parser->events->bind(new Event\PostRender(function(&$rendered) use ($children) {
-                FLP::$ui->addPhrase(new \Phraser\Phrase($children));
+                FLP::$ui->addPhrase(new Phraser\Phrase($children));
             }));
 
 

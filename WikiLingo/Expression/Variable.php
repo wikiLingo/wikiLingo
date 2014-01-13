@@ -16,7 +16,7 @@ class Variable extends Base
     public function render(&$parser)
 	{
 		$element = Type::Element($parser->element(__CLASS__, 'span'));
-		$key = $element->detailedAttributes["key"] = substr($this->parsed->text, 2, -2);
+		$key = $element->detailedAttributes["key"] = substr($this->parsed->text, 1, -1);
 
 		Type::Events($parser->events)->triggerExpressionVariableLookup($key, $element, $this);
 

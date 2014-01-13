@@ -8,7 +8,7 @@ use WikiLingo\Expression;
 ||item1|item2
 item3|item4||
  # <> &
-''Test'' {{argument}}
+''Test'' %argument%
 !!!Test
 ~tc~Comments ''Parsed?''~/tc~
 ~~blue:hello world~~

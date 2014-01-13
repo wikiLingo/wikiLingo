@@ -13,6 +13,6 @@ class Variable extends Base
 
 	public function example(WikiLingoWYSIWYG\Parser &$parser)
 	{
-		return '{{expression}}';
+		return '%expression%';
 	}
 }
