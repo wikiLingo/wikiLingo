@@ -88,6 +88,7 @@ class Parser extends Definition
      */
     public function postParse(Parsed &$parsed)
     {
+	    $parsed = $this->events->triggerPreRender($parsed);
         $rendered = $parsed->render();
         $rendered = $this->events->triggerPostRender($rendered);
         return $rendered;

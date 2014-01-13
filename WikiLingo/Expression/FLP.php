@@ -33,7 +33,7 @@ class FLP extends Base
 	{
 		$this->parsed =& $parsed;
 
-		//@FLP(past) to past
+		//"@FLP(past)" to "past"
 		$this->past = substr($parsed->text, 5, -1);
         self::$existingCount++;
 	}
