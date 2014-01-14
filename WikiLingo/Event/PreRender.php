@@ -2,6 +2,7 @@
 
 namespace WikiLingo\Event;
 
+use WikiLingo\Parsed;
 /**
  * Class PreParse
  * @package WikiLingo\Event
@@ -9,10 +10,10 @@ namespace WikiLingo\Event;
 class PreRender extends Base
 {
     /**
-     * @param String $input
-     * @return String
+     * @param Parsed $input
+     * @return Parsed
      */
-    public function trigger(&$input)
+    public function trigger(Parsed &$input)
     {
         foreach($this->delegates as &$delegate)
         {
