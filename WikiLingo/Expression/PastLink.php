@@ -13,7 +13,7 @@ use WikiLingo;
 use WikiLingo\Event;
 use FLP;
 use Phraser;
-use WikiLingo\Expression\FLP\Sender;
+use WikiLingo\Expression\PastLink\Sender;
 
 /**
  * Class PastLink
@@ -35,8 +35,8 @@ class PastLink extends Base
 	{
 		$this->parsed =& $parsed;
 
-		//"@PastLink(past)" to "past"
-		$this->past = substr($parsed->text, 5, -1);
+		//"@FLP(past)" to "past"
+		$this->past = json_decode(urldecode(substr($parsed->text, 5, -1)));
         self::$existingCount++;
 	}
 
@@ -66,8 +66,7 @@ class PastLink extends Base
             }));
 
             FLP\Events::triggerMetadataLookup('', $value);
-            $clipboarddata = json_decode($this->past);
-            $pair = new FLP\Pair($clipboarddata, $value);
+            $pair = new FLP\Pair($this->past, $value);
             FLP\SendToPast::send($pair->past->href);
 
             //LAST

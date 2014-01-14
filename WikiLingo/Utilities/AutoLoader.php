@@ -41,4 +41,5 @@ class AutoLoader
 
 $dir = dirname(dirname(__FILE__)) . "/Expression/PastLink/";
 AutoLoader::$Directories[] = $dir . "FLP";
+AutoLoader::$Directories[] = $dir . "FLP/Event";
 AutoLoader::$Directories[] = $dir . "Phraser";

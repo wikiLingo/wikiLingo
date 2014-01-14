@@ -6,8 +6,6 @@
 <body><?php
 require_once "autoload.php";
 
-use FLP;
-
 $title = 'The FutureLink-Protocol, An explanation';
 $source = <<<Source
 <p>One of my neatest projects is working with Abratech, creating the FutureLink-Protocol.
@@ -26,7 +24,7 @@ $parser = new WikiLingo\Parser($scripts);
 $msg = '';
 
 FLP\Events::bind(new FLP\Event\MetadataLookup(function($linkType, &$value) {
-    $value = new FLP\MetaData();
+    $value = new FLP\Metadata();
     $value->author = "Robert Plummer";
     $value->authorInstitution = "Visual Interop Development llc";
     $value->authorProfession = "Software Engineer";

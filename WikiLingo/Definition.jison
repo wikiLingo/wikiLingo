@@ -11,7 +11,7 @@
 PLUGIN_ID   					[A-Z0-9_]+
 INLINE_PLUGIN_ID				[a-z0-9_]+
 VARIABLE_NAME                   ([0-9A-Za-z ]{3,})
-SYNTAX_CHARS                    [@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
+SYNTAX_CHARS                    [\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)

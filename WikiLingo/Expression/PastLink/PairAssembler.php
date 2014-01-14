@@ -6,7 +6,7 @@
  * Time: 10:28 PM
  */
 
-namespace WikiLingo\Expression\FLP;
+namespace WikiLingo\Expression\PastLink;
 
 
 class PairAssembler
