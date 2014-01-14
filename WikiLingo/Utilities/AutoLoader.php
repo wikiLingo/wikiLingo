@@ -37,4 +37,8 @@ class AutoLoader
 
         return true;
     }
-} 
+}
+
+$dir = dirname(dirname(__FILE__)) . "/Expression/PastLink/";
+AutoLoader::$Directories[] = $dir . "FLP";
+AutoLoader::$Directories[] = $dir . "Phraser";

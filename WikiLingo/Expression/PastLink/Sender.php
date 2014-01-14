@@ -14,11 +14,11 @@ class Sender
 {
 	public static $debug = false;
 
-	public static function Send()
+	public static function Setup()
 	{
 		$debug = self::$debug;
 
-		FutureLinkProtocol\Events::bind(new FutureLinkProtocol\Event\Send(function($url, $params, &$result, &$item, &$items) use ($debug) {
+		FutureLinkProtocol\Events::bind(new FutureLinkProtocol\Event\Send(function($url, $params, &$result) use ($debug) {
 			if ($_POST['continue']) {
 				foreach($params as $key => $param) {
 					$_POST[$key] = $param;
