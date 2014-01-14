@@ -8,6 +8,7 @@
 
 namespace WikiLingo\Expression\FLP;
 
+use FLP as FutureLinkProtocol;
 
 class Receiver
 {
@@ -23,11 +24,11 @@ class Receiver
 			$metadata = json_decode($_POST['metadata']);
 
 			foreach($metadata->feed->items as $item) {
-				$pair = new \FLP\Pair($item->past, $item->future);
+				$pair = new FutureLinkProtocol\Pair($item->past, $item->future);
 
 				$pair->origin = (isset($_POST['REMOTE_ADDR']) ? $_POST['REMOTE_ADDR'] : '');
-				$response = new \FLP\Response();
-				$pairReceived = new \FLP\PairReceived();
+				$response = new FutureLinkProtocol\Response();
+				$pairReceived = new FutureLinkProtocol\PairReceived();
 
 				if ($pairReceived->addItem($pair) == true) {
 					if ($foundPair = R::findOne('pair',' title = ? ', array($pairReceived->revision->name))) {

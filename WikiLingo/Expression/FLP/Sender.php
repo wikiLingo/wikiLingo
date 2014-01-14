@@ -8,6 +8,7 @@
 
 namespace WikiLingo\Expression\FLP;
 
+use FLP as FutureLinkProtocol;
 
 class Sender
 {
@@ -17,7 +18,7 @@ class Sender
 	{
 		$debug = self::$debug;
 
-		\FLP\Events::bind(new \FLP\Event\Send(function($url, $params, &$result, &$item, &$items) use ($debug) {
+		FutureLinkProtocol\Events::bind(new FutureLinkProtocol\Event\Send(function($url, $params, &$result, &$item, &$items) use ($debug) {
 			if ($_POST['continue']) {
 				foreach($params as $key => $param) {
 					$_POST[$key] = $param;
@@ -27,7 +28,7 @@ class Sender
 				$result = ob_get_clean();
 				print_r($result);
 			} else {
-				$communicator = new \FLP\Communicator($url, $params);
+				$communicator = new FutureLinkProtocol\Communicator($url, $params);
 				$result = $communicator->result;
 				$json = json_decode($result);
 				if ($json != null) {
