@@ -52,9 +52,9 @@ class PastLink extends Base
             //FIRST
             //Bind initial render so that PastLink::$ui is set, this is only done once per parser render
             if ( self::$renderedCount == 1 ) {
+                Sender::Setup();
                 $parser->events->bind(new Event\PostRender(function(&$rendered) {
-                    Sender::Setup();
-                        PastLink::$ui = new FLP\UI($rendered);
+                    PastLink::$ui = new FLP\UI($rendered);
                 }));
             }
 
@@ -67,7 +67,7 @@ class PastLink extends Base
 
             FLP\Events::triggerMetadataLookup('', $value);
             $pair = new FLP\Pair($this->past, $value);
-            FLP\SendToPast::send($pair->past->href);
+            FLP\Pairs::add($pair);
 
             //LAST
             //if this is the last item in the count, then setup the post-render, reset the counters
@@ -76,6 +76,8 @@ class PastLink extends Base
                 $parser->events->bind(new Event\PostRender(function(&$rendered) {
                     $rendered = PastLink::$ui->render();
                 }));
+
+                FLP\SendToPast::send();
             }
         }
 
