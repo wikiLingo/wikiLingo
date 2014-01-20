@@ -5,7 +5,7 @@ namespace WYSIWYGWikiLingo\SyntaxGenerator;
 use Types\Type;
 
 /**
- * Class FLP
+ * Class PastLink
  * @package WYSIWYGWikiLingo\SyntaxGenerator
  */
 class FLP extends Base
@@ -17,6 +17,6 @@ class FLP extends Base
     {
         $element = Type::WYSIWYGElement($this->expression);
 
-        return '@FLP(' . $element->parameter('data-past')  . ')' . $this->expression->renderedChildren . '@)';
+        return '@PastLink(' . $element->parameter('data-past')  . ')' . $this->expression->renderedChildren . '@)';
     }
 }

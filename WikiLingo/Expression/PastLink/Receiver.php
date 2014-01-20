@@ -6,7 +6,7 @@
  * Time: 10:27 PM
  */
 
-namespace WikiLingo\Expression\FLP;
+namespace WikiLingo\Expression\PastLink;
 
 use FLP as FutureLinkProtocol;
 

@@ -67,8 +67,8 @@ class Definition extends Base
 			$symbol35 = new ParserSymbol("TITLE_BAR_END", 35);
 			$symbol36 = new ParserSymbol("UNDERSCORE_START", 36);
 			$symbol37 = new ParserSymbol("UNDERSCORE_END", 37);
-			$symbol38 = new ParserSymbol("FLP_START", 38);
-			$symbol39 = new ParserSymbol("FLP_END", 39);
+			$symbol38 = new ParserSymbol("PAST_LINK_START", 38);
+			$symbol39 = new ParserSymbol("PAST_LINK_END", 39);
 			$symbol40 = new ParserSymbol("WIKI_LINK_START", 40);
 			$symbol41 = new ParserSymbol("WIKI_LINK_END", 41);
 			$symbol42 = new ParserSymbol("WIKI_LINK_TYPE_START", 42);
@@ -166,9 +166,9 @@ class Definition extends Base
 			$this->symbols[37] = $symbol37;
 			$this->symbols["UNDERSCORE_END"] = $symbol37;
 			$this->symbols[38] = $symbol38;
-			$this->symbols["FLP_START"] = $symbol38;
+			$this->symbols["PAST_LINK_START"] = $symbol38;
 			$this->symbols[39] = $symbol39;
-			$this->symbols["FLP_END"] = $symbol39;
+			$this->symbols["PAST_LINK_END"] = $symbol39;
 			$this->symbols[40] = $symbol40;
 			$this->symbols["WIKI_LINK_START"] = $symbol40;
 			$this->symbols[41] = $symbol41;
@@ -6099,7 +6099,7 @@ class Definition extends Base
 					75=>"/^(?:[<](.|\n)*?[>])/",
 					76=>"/^(?:≤REAL_EOF≥)/",
 					77=>"/^(?:(([A-Za-z0-9.,?;]+[ ]?|[&][ ])+))/",
-					78=>"/^(?:(?!([@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]))(((.?)))?(?=([@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ])))/",
+					78=>"/^(?:(?!([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]))(((.?)))?(?=([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ])))/",
 					79=>"/^(?:(([ ])+))/",
 					80=>"/^(?:(.))/",
 					81=>"/^(?:$)/"
@@ -6107,7 +6107,7 @@ class Definition extends Base
 
 			$this->conditions = array(
 				
-					"flp"=>new LexerConditions(array( 0,1,4,7,10,11,16,19,21,23,26,27,28,29,30,31,34,37,40,43,46,49,52,55,58,61,65,68,70,72,73,74,75,76,77,78,79,80,81), true),
+					"pastLink"=>new LexerConditions(array( 0,1,4,7,10,11,16,19,21,23,26,27,28,29,30,31,34,37,40,43,46,49,52,55,58,61,65,68,70,72,73,74,75,76,77,78,79,80,81), true),
 					"wikiLink"=>new LexerConditions(array( 0,1,4,7,10,11,16,19,21,23,28,29,30,31,34,37,40,43,46,49,52,55,58,61,62,63,65,68,70,72,73,74,75,76,77,78,79,80,81), true),
 					"wikiLinkType"=>new LexerConditions(array( 0,1,4,7,10,11,16,19,21,23,28,29,30,31,34,37,40,43,46,49,52,55,58,61,65,66,67,68,70,72,73,74,75,76,77,78,79,80,81), true),
 					"wikiUnlink"=>new LexerConditions(array( 0,1,4,7,10,11,16,19,21,23,28,29,30,31,34,37,40,43,46,49,52,55,58,61,64,65,68,69,70,72,73,74,75,76,77,78,79,80,81), true),
@@ -6397,7 +6397,7 @@ case 63:
             //Type already set
             $type =& $s[$o-2];
             $s[$o-1]->setParent($type);
-            $type->setType('FLP', $this);
+            $type->setType('PastLink', $this);
         
     
 break;
@@ -7196,7 +7196,7 @@ break;
 case 28:
 	
 		if ($this->isContent()) return 7;
-		$this->begin('flp');
+		$this->begin('pastLink');
 	
 
 	return 38;

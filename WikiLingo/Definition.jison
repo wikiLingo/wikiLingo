@@ -11,7 +11,7 @@
 PLUGIN_ID   					[A-Z0-9_]+
 INLINE_PLUGIN_ID				[a-z0-9_]+
 VARIABLE_NAME                   ([0-9A-Za-z ]{3,})
-SYNTAX_CHARS                    [@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
+SYNTAX_CHARS                    [\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
@@ -25,7 +25,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 %s BOF np pp tc
 %s pluginStart plugin inlinePlugin
 %s line preBlock block bold center code color italic link skip strike table titleBar underscore
-%s flp wikiLink wikiLinkType wikiUnlink
+%s pastLink wikiLink wikiLinkType wikiUnlink
 
 //Create tokens from lexical analysis
 %%
@@ -250,7 +250,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'CONTENT';
 }
 
-<flp><<EOF>> {
+<pastLink><<EOF>> {
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -258,21 +258,21 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
     return 'EOF';
 }
-<flp>[@][)] {
+<pastLink>[@][)] {
 	/*php
 		$this->popState();
 	*/
 
-	return 'FLP_END';
+	return 'PAST_LINK_END';
 }
 
 "@FLP(".+?")" {
 	/*php
 		if ($this->isContent()) return 'CONTENT';
-		$this->begin('flp');
+		$this->begin('pastLink');
 	*/
 
-	return 'FLP_START';
+	return 'PAST_LINK_START';
 }
 
 
@@ -1001,22 +1001,22 @@ content
             $$type->setType('Underscore', $$this);
         */
 	}
-	| FLP_START
-    | FLP_START contents
+	| PAST_LINK_START
+    | PAST_LINK_START contents
     {
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
         */
     }
-    | FLP_START FLP_END
-    | FLP_START contents FLP_END
+    | PAST_LINK_START PAST_LINK_END
+    | PAST_LINK_START contents PAST_LINK_END
     {
         /*php
             //Type already set
             $$type =& $1;
             $2->setParent($$type);
-            $$type->setType('FLP', $$this);
+            $$type->setType('PastLink', $$this);
         */
     }
     | WIKI_LINK_START

@@ -8,22 +8,18 @@
 
 namespace WikiLingo\Expression;
 
-$dir = dirname(__FILE__) . "/FLP/";
-AutoLoader::$Directories[] = $dir . "FLP";
-AutoLoader::$Directories[] = $dir . "Phraser";
-
-use Types\Type;
+use FLP\Events as FutureLinkProtocolEvents;
 use WikiLingo;
 use WikiLingo\Event;
-use WikiLingo\Utilities\AutoLoader;
-use FLP as FutureLinkProtocol;
+use FLP;
 use Phraser;
+use WikiLingo\Expression\PastLink\Sender;
 
 /**
- * Class FLP
+ * Class PastLink
  * @package WikiLingo\Expression
  */
-class FLP extends Base
+class PastLink extends Base
 {
     public static $loaded = false;
     public static $ui;
@@ -40,7 +36,7 @@ class FLP extends Base
 		$this->parsed =& $parsed;
 
 		//"@FLP(past)" to "past"
-		$this->past = substr($parsed->text, 5, -1);
+		$this->past = json_decode(urldecode(substr($parsed->text, 5, -1)));
         self::$existingCount++;
 	}
 
@@ -54,17 +50,11 @@ class FLP extends Base
             self::$renderedCount++;
 
             //FIRST
-            //Bind initial render so that FLP::$ui is set, this is only done once per parser render
+            //Bind initial render so that PastLink::$ui is set, this is only done once per parser render
             if ( self::$renderedCount == 1 ) {
+                Sender::Setup();
                 $parser->events->bind(new Event\PostRender(function(&$rendered) {
-
-                    //here we ensure that the FLP & Phraser namespaces can be obtained from the
-                    if ( !self::$loaded ) {
-                        self::$loaded = true;
-
-                    }
-
-                    FLP::$ui = new FutureLinkProtocol\UI($rendered);
+                    PastLink::$ui = new FLP\UI($rendered);
                 }));
             }
 
@@ -72,23 +62,29 @@ class FLP extends Base
             //each child needs to be sent as a phrase to the ui
             $children = $this->renderedChildren;
             $parser->events->bind(new Event\PostRender(function(&$rendered) use ($children) {
-                FLP::$ui->addPhrase(new Phraser\Phrase($children));
+                PastLink::$ui->addPhrase(new Phraser\Phrase($children));
             }));
 
+            FLP\Events::triggerMetadataLookup('', $value);
+            $pair = new FLP\Pair($this->past, $value);
+            FLP\Pairs::add($pair);
 
             //LAST
             //if this is the last item in the count, then setup the post-render, reset the counters
             if (self::$existingCount == self::$renderedCount) {
                 self::$existingCount = self::$renderedCount = 0;
                 $parser->events->bind(new Event\PostRender(function(&$rendered) {
-                    $rendered = FLP::$ui->render();
+                    $rendered = PastLink::$ui->render();
                 }));
+
+                FLP\SendToPast::send();
             }
         }
 
         $element = $parser->element(__CLASS__, 'span');
         $element->staticChildren[] = $this->renderedChildren;
         $element->detailedAttributes['data-past'] = $this->past;
-        return $element->render();
+        $rendered = $element->render();
+        return $rendered;
     }
 }
