@@ -10,16 +10,21 @@ $scripts = (new WikiLingo\Utilities\Scripts())
 
     //add some css
     ->addCssLocation("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css")
-	->addCssLocation("editor/Medium.js/medium.css")
+
+	->addCssLocation("bower_components/Medium.js/medium.css")
+
 	->addCssLocation("editor/bubble.css")
     ->addCssLocation("editor/IcoMoon/sprites/sprites.css")
 
     //add some javascript
     ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
     ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js")
-    ->addScriptLocation("editor/rangy/uncompressed/rangy-core.js")
-    ->addScriptLocation("editor/rangy/uncompressed/rangy-cssclassapplier.js")
-    ->addScriptLocation("editor/Medium.js/medium.js")
+
+    ->addScriptLocation("bower_components/undo/undo.js")
+    ->addScriptLocation("bower_components/rangy/uncompressed/rangy-core.js")
+    ->addScriptLocation("bower_components/rangy/uncompressed/rangy-cssclassapplier.js")
+    ->addScriptLocation("bower_components/Medium.js/medium.js")
+
     ->addScriptLocation("editor/WLPluginSyntaxGenerator.js")
 	->addScriptLocation("editor/WLPluginEditor.js")
 	->addScriptLocation("editor/WLPluginAssistant.js")

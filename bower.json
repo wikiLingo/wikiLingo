@@ -1,0 +1,11 @@
+{
+	"name": "wikiLingo",
+	"version": "1.0.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/wikiLingo/wikiLingo"
+	},
+	"dependencies": {
+		"Medium.js": "https://github.com/robertleeplummerjr/Medium.js/archive/master.zip"
+	}
+}
