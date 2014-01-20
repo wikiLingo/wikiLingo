@@ -1,11 +1,3 @@
-rangy.rangePrototype.insertNodeAtEnd = function(node) {
-	var range = this.cloneRange();
-	range.collapse(false);
-	range.insertNode(node);
-	range.detach();
-	this.setEndAfter(node);
-};
-
 var
 	WLPlugin = function(el) {
 		if (el.getAttribute('data-draggable') == 'true') {
@@ -24,11 +16,12 @@ var
 
 $(function() {
 	//bubble is the contenteditable toolbar, it is very simple and instantiated here
-	var bubble = new WLBubble(window.expressionSyntaxes),
-
+	var
+        editable = document.getElementById('editable'),
+        bubble = new WLBubble(window.expressionSyntaxes, editable),
 		//medium makes contenteditable behave
 		medium = bubble.medium = new Medium({
-			element: document.getElementById('editable'),
+			element: editable,
 			mode: 'rich',
 			placeholder: 'Your Article',
 			cssClasses: [],
@@ -75,8 +68,6 @@ $(function() {
             });
 		};
 
-	document.body.appendChild(bubble.bubble);
-
 	document.onmouseup = function() {
 		bubble.goToSelection();
 	};
@@ -110,6 +101,8 @@ $(function() {
 		})
 		.trigger('resetWLPlugins');
 
+
+    bubble.staticToTop();
 
 	console.log(window.expressionSyntaxes);
 });

@@ -91,8 +91,8 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 </div><?php //create an editable area and echo page to it ?>
 <table style="width: 100%">
 	<tr>
-		<td style="width: 50%; vertical-align: top;"><div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div></td>
-		<td style="width: 50%; vertical-align: top;">
+		<td style="width: 70%; vertical-align: top;"><div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div></td>
+		<td style="width: 30%; vertical-align: top;">
 			<textarea id="editableSource" style="width: 100%; height: 1000px;"><?php echo $source; ?></textarea>
 		</td>
 	</tr>

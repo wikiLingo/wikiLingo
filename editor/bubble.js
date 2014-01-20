@@ -1,7 +1,9 @@
 var WLBubble = (function(document, window, medium, rangy) {
 
-	var classNameHide = 'wikiLingo-bubble hide',
-		classNameShow = 'wikiLingo-bubble show',
+	var floatingClassNameHide = 'wikiLingo-bubble hide',
+        floatingClassNameShow = 'wikiLingo-bubble show',
+        staticClassName = 'wikiLingo-bubble wikiLingo-bubble-static',
+
 		stop = function(e) {
 			e.preventDefault();
 			e.stopPropagation();
@@ -21,10 +23,14 @@ var WLBubble = (function(document, window, medium, rangy) {
         };
     }
 
-    var construct = function(expressions) {
+    var construct = function(expressions, element) {
 	        var me = this,
-	            bubble = this.bubble = document.createElement('nav'),
-	            ul = this.ul = document.createElement('ul'),
+                element = this.element = element,
+                $element = $(element),
+                floatingBubble = this.floatingBubble = document.createElement('nav'),
+                floatingBubbleInner = this.floatingBubbleInner = document.createElement('ul'),
+                staticBubble = this.staticBubble = document.createElement('nav'),
+                staticBubbleInner = this.staticBubbleInner = document.createElement('ul'),
 	            i,
                 j,
 	            e,
@@ -41,8 +47,18 @@ var WLBubble = (function(document, window, medium, rangy) {
 			    }
 			    return this.children[0];
 		    };
-            bubble.appendChild(ul);
-	        bubble.className = classNameHide;
+            floatingBubble.appendChild(floatingBubbleInner);
+            floatingBubble.className = floatingClassNameHide;
+
+            staticBubble.className = staticClassName;
+            staticBubble.appendChild(staticBubbleInner);
+            staticBubble.onmouseenter = function() {
+                $element.addClass('focused');
+            };
+            staticBubble.onmouseleave = function() {
+                $element.removeClass('focused');
+            };
+
 	        this.expressions = expressions;
 	        this.buttons = [];
 	        this.groups = {};
@@ -120,22 +136,25 @@ var WLBubble = (function(document, window, medium, rangy) {
 	            this.groups[e.group].push(button);
 	        }
 
-	        this.appendGroup('plugins', true);
-	        this.appendGroup('font');
-	        this.appendGroup('common');
-	        this.appendGroup('header', true);
-	        this.appendGroup('link', true);
-	        this.appendGroup('main');
-	        this.appendGroup('misc', true);
+	        this.appendGroup(staticBubbleInner, 'plugins', true);
+	        this.appendGroup(floatingBubbleInner, 'font');
+	        this.appendGroup(floatingBubbleInner, 'common');
+	        this.appendGroup(floatingBubbleInner, 'header', true);
+	        this.appendGroup(floatingBubbleInner, 'link', true);
+	        this.appendGroup(floatingBubbleInner, 'main');
+	        this.appendGroup(floatingBubbleInner, 'misc', true);
 
 	        point.className = 'wikiLingo-bubble-point';
 	        point.innerHTML = '&#9662;';
-	        bubble.insertBefore(point, bubble.firstChild);
+            floatingBubble.insertBefore(point, floatingBubble.firstChild);
+
+            document.body.appendChild(floatingBubble);
+            element.parentNode.insertBefore(staticBubble, element.nextSibling);
 	    },
 		types = this.types = {};
 
     construct.prototype = {
-        appendGroup : function(group, minimize) {
+        appendGroup : function(defaultParent, group, minimize) {
             var i,
                 parentContainer,
                 parent,
@@ -144,16 +163,18 @@ var WLBubble = (function(document, window, medium, rangy) {
             if (this.groups[group]) {
                 if (minimize) {
                     parentContainer = this.groups[group].shift();
-	                for (i in parentContainer.expression.types) {
-		                type = parentContainer.expression.types[i];
-		                types[type.name] = type;
-	                }
-                    this.ul.appendChild(parentContainer);
-                    parent = document.createElement('ul');
-                    parentContainer.appendChild(parent);
+                    for (i in parentContainer.expression.types) {
+                        type = parentContainer.expression.types[i];
+                        types[type.name] = type;
+                    }
+                    defaultParent.appendChild(parentContainer);
+                    parentContainer.appendChild(
+                        parent = document.createElement('ul')
+                    );
                 } else {
-                    parent = this.ul;
+                    parent = defaultParent;
                 }
+
                 for (i in this.groups[group]) {
                     parent.appendChild(this.groups[group][i]);
                 }
@@ -162,20 +183,20 @@ var WLBubble = (function(document, window, medium, rangy) {
             }
         },
 	    hide: function() {
-		    this.bubble.className = classNameHide;
+		    this.floatingBubble.className = floatingClassNameHide;
 	    },
         goToSelection : function()
         {
             var high = this.getHighlighted(),
-                b = this.bubble,
+                b = this.floatingBubble,
                 s = b.style;
 
 	        if (high) {
 	            if (high.range.startOffset === high.range.endOffset || !high.text) {
-	                b.className = classNameHide;
+	                b.className = floatingClassNameHide;
 	            } else {
 	                s.display = 'inline-block';
-	                b.className = classNameShow;
+	                b.className = floatingClassNameShow;
 	                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 80) + "px";
 	                s.left = ((high.boundary.left + (high.boundary.width / 2))  - (b.clientWidth / 2)) + "px";
 	            }
@@ -195,6 +216,16 @@ var WLBubble = (function(document, window, medium, rangy) {
                 text : range.toString().trim(),
                 boundary : range.getBoundingClientRect()
             };
+        },
+        staticToTop: function() {
+            var pos = this.element.getBoundingClientRect(),
+                style = this.staticBubble.style,
+                height = this.staticBubble.clientHeight,
+                width = this.staticBubble.clientWidth;
+
+            style.position = 'absolute';
+            style.top = pos.top + 'px';
+            style.left = (pos.left - width) + 'px';
         }
     };
 

@@ -27,16 +27,16 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 					$buttonEdit.detach();
 				})
 				.on('mouseover', function(e) {
-                    me.$el.addClass('draggable');
+                    me.$el.addClass('focused');
 					e.stopPropagation();
 				})
 				.on('mouseout', function() {
-					me.$el.removeClass('draggable');
+					me.$el.removeClass('focused');
 				});
 
 			buttonDrag.ondragend = document.body.ondragend = function(e) {
 				setTimeout(function() {
-					me.$el.removeClass('draggable');
+					me.$el.removeClass('focused');
 					$buttonDrag
 						.detach()
 						.fadeTo(0, 1);
@@ -63,11 +63,11 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 					e.preventDefault();
 				})
 				.on('mouseover', function(e) {
-					me.$el.addClass('draggable');
+					me.$el.addClass('focused');
 					e.stopPropagation();
 				})
 				.on('mouseout', function() {
-					me.$el.removeClass('draggable');
+					me.$el.removeClass('focused');
 				});
 
 			this.show = function() {
