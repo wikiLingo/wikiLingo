@@ -4,6 +4,7 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 		types = expressionSyntaxes['Plugin'].types,
 		construct = function(el) {
 			var me = this,
+                $el = $(el),
 				cl = el.getAttribute('id') + 'button',
 				buttonDrag = this.button = document.createElement('img'),
 				$buttonDrag = $(buttonDrag),
@@ -46,6 +47,7 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 						.after(me.el)
 						.remove();
 
+                    $el.change();
 				}, 1);
 			};
 

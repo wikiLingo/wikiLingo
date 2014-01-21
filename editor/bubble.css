@@ -18,6 +18,9 @@
     border-width: 5px;
 }
 
+.wikiLingo-bubble-static {
+    opacity: 0.5;
+}
 .wikiLingo-bubble-static > ul {
     border-width: 0px ! important;
     border-bottom-right-radius: 0px ! important;

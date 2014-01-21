@@ -225,7 +225,7 @@ var WLBubble = (function(document, window, medium, rangy) {
 
             style.position = 'absolute';
             style.top = pos.top + 'px';
-            style.left = (pos.left - width) + 'px';
+            style.left = (pos.left - width - 1) + 'px';
         }
     };
 
