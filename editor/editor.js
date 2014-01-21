@@ -42,7 +42,7 @@ $(function() {
                 type: 'POST',
                 dataType: 'json',
                 url: 'reflect.php',
-                data: {wikiLingo:true, w: source},
+                data: {w: source, reflect:'WYSIWYGWikiLingo'},
                 success: function(result) {
                     editableSource.value = result.output;
                 }
@@ -55,7 +55,7 @@ $(function() {
                 type: 'POST',
                 dataType: 'json',
                 url: 'reflect.php',
-                data: {w: source, wysiwyg:true},
+                data: {w: source, reflect:'wikiLingoWYSIWYG'},
                 success: function(result) {
                     editable.innerHTML = result.output;
                     window.wLPlugins = result.plugins;

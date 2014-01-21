@@ -6,6 +6,7 @@
 		"url": "https://github.com/wikiLingo/wikiLingo"
 	},
 	"dependencies": {
-		"Medium.js": "https://github.com/robertleeplummerjr/Medium.js/archive/master.zip"
+		"Medium.js": "https://github.com/robertleeplummerjr/Medium.js/archive/master.zip",
+		"vkbeautify": "http://vkbeautify.googlecode.com/files/vkbeautify.0.99.00.beta.js"
 	}
 }

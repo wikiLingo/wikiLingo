@@ -48,7 +48,7 @@ var WLPluginEditor = (function(document, window, $, WLPluginSyntaxGenerator) {
                     type: 'POST',
                     url: 'reflect.php',
                     data: {
-                        wikiLingo: true,
+	                    reflect: 'WYSIWYGWikiLingo',
                         w: this.body
                     },
                     success: function(result) {
@@ -76,7 +76,7 @@ var WLPluginEditor = (function(document, window, $, WLPluginSyntaxGenerator) {
 				dataType: 'json',
 				url: 'reflect.php',
 				data: {
-					wysiwyg: true,
+					reflect: 'wikiLingoWYSIWYG',
 					w: gen.generate()
 				},
 				success: function(result) {
