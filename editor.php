@@ -87,11 +87,17 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 </head>
 <body>
 <div id="header" style="text-align: center;">
-    <h1>wikiLingo</h1><a href="editor/page.wl" style="position: fixed; top: 0px; right: 0px;">view source</a>
+    <h1>wikiLingo</h1>
 </div><?php //create an editable area and echo page to it ?>
-<table style="width: 100%">
+<table style="width: 95%">
+    <tr>
+        <th>Design in WYSIWYG</th>
+        <th>or</th>
+        <th>Develop using Source</th>
+    </tr>
 	<tr>
-		<td style="width: 70%; vertical-align: top;"><div id="editable" contenteditable="true" style="width: 70%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div></td>
+		<td style="width: 65%; vertical-align: top;"><div id="editable" contenteditable="true" style="width: 85%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div></td>
+        <td style="width: 5%;"></td>
 		<td style="width: 30%; vertical-align: top;">
 			<textarea id="editableSource" style="width: 100%; height: 1000px;"><?php echo $source; ?></textarea>
 		</td>
