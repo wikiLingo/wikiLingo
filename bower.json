@@ -7,6 +7,7 @@
 	},
 	"dependencies": {
 		"Medium.js": "https://github.com/robertleeplummerjr/Medium.js/archive/master.zip",
-		"vkbeautify": "http://vkbeautify.googlecode.com/files/vkbeautify.0.99.00.beta.js"
+		"vkbeautify": "http://vkbeautify.googlecode.com/files/vkbeautify.0.99.00.beta.js",
+        "wikiLingoCodeMirror": "https://github.com/wikiLingo/CodeMirror/archive/master.zip"
 	}
 }
