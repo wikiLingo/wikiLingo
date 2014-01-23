@@ -15,9 +15,9 @@ class NoParse extends Base
 	{
 		if ($parser->wysiwyg) {
 			$element = $parser->element(__CLASS__, 'span');
-			$element->staticChildren[] = $this->renderedChildren;
+			$element->staticChildren[] = $this->parsed->text;
 			return $element->render();
 		}
-		return $this->renderedChildren;
+		return $this->parsed->text;
 	}
 }

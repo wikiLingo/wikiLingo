@@ -22,9 +22,9 @@ WHITE_SPACE                     ([ ])+
 CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Lexical states
-%s BOF np pp tc
+%s BOF
 %s pluginStart plugin inlinePlugin
-%s line preBlock block bold center code color italic link skip strike table titleBar underscore
+%s line preBlock block bold center color italic link skip strike table titleBar underscore
 %s pastLink wikiLink wikiLinkType wikiUnlink
 
 //Create tokens from lexical analysis
@@ -38,87 +38,33 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 }
 
 //no parse
-<np><<EOF>> {
-    /*php
-        $this->conditionStackCount = 0;
-        $this->conditionStack = array();
-    */
-
-    return 'EOF';
+"~np~"(.|\n)+?"~/np~" {
+	/*php
+		$yytext = substr($yytext, 4, -5);
+	*/
+    return 'NO_PARSE';
 }
-<np>"~/np~" {
-    /*php
-        if ($this->npStack != true) return 'CONTENT';
-        $this->popState();
-        $this->npStack = false;
-    */
-
-    return 'NO_PARSE_END';
-}
-"~np~" {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('np');
-        $this->npStack = true;
-    */
-
-    return 'NO_PARSE_START';
-}
-
 
 //Pre-Formatted Text
-<pp><<EOF>> {
-    /*php
-        $this->conditionStackCount = 0;
-        $this->conditionStack = array();
+"~pp~"(.|\n)*?"~/pp~" {
+	/*php
+        $yytext = substr($yytext, 4, -5);
     */
-
-    return 'EOF';
-}
-<pp>"~/pp~" {
-    /*php
-        if ($this->ppStack != true) return 'CONTENT';
-        $this->popState();
-        $this->ppStack = false;
-    */
-
-    return 'PREFORMATTED_TEXT_END';
-}
-"~pp~" {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('pp');
-        $this->ppStack = true;
-    */
-
-    return 'PREFORMATTED_TEXT_START';
+    return 'PREFORMATTED_TEXT';
 }
 //Comment
-<tc><<EOF>> {
-    /*php
-        $this->conditionStackCount = 0;
-        $this->conditionStack = array();
-    */
-
-    return 'EOF';
+"~tc~"(.|\n)*?"~/tc~" {
+	/*php
+		$yytext = substr($yytext, 4, -5);
+	*/
+    return 'COMMENT';
 }
-<tc>"~/tc~" {
-    /*php
-        if ($this->tcStack != true) return 'CONTENT';
-        $this->popState();
-        $this->tcStack = false;
-    */
-
-    return 'COMMENT_END';
-}
-"~tc~" {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('tc');
-        $this->tcStack = true;
-    */
-
-    return 'COMMENT_START';
+//Code
+"-+"(.|\n)*?"+-" {
+	/*php
+		$yytext = substr($yytext, 2, -2);
+	*/
+    return 'CODE';
 }
 
 
@@ -357,32 +303,6 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'CENTER_START';
 }
 
-
-//Code
-<code><<EOF>> {
-    /*php
-        $this->conditionStackCount = 0;
-        $this->conditionStack = array();
-    */
-
-    return 'EOF';
-}
-<code>"+-" {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->popState();
-    */
-
-    return 'CODE_END';
-}
-"-+" {
-    /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('code');
-    */
-
-    return 'CODE_START';
-}
 
 
 //Color text
@@ -765,34 +685,22 @@ content
 	        $1->setType('Content', $$this);
 	    */
 	}
-    | COMMENT_START
-    | COMMENT_START COMMENT_END
-    | COMMENT_START contents COMMENT_END
+    | COMMENT
 	{
         /*php
-			$$type =& $1;
-			$2->setParent($$type);
-            $$type->setType('Comment', $$this);
+			$1->setType('Comment', $$this);
         */
     }
-    | NO_PARSE_START
-    | NO_PARSE_START NO_PARSE_END
-    | NO_PARSE_START contents NO_PARSE_END
+    | NO_PARSE
     {
         /*php
-            $$type =& $1;
-            $2->setParent($$type);
-            $$type->setType('NoParse', $$this);
+            $1->setType('NoParse', $$this);
         */
     }
-    | PREFORMATTED_TEXT_START
-    | PREFORMATTED_TEXT_START PREFORMATTED_TEXT_END
-    | PREFORMATTED_TEXT_START contents PREFORMATTED_TEXT_END
+    | PREFORMATTED_TEXT
     {
         /*php
-            $$type =& $1;
-            $2->setParent($$type);
-            $$type->setType('PreFormattedText', $$this);
+            $1->setType('PreFormattedText', $$this);
         */
     }
     | VARIABLE
@@ -852,21 +760,10 @@ content
             $$type->setType('Center', $$this);
         */
 	}
-    | CODE_START
-    | CODE_START contents
-    {
-        /*php
-            $1->setType('Content', $$this);
-            $1->addContent($2);
-        */
-    }
-    | CODE_START CODE_END
-    | CODE_START contents CODE_END
+    | CODE
 	{
 		/*php
-		    $$type =& $1;
-            $2->setParent($$type);
-            $$type->setType('Code', $$this);
+		    $1->setType('Code', $$this);
         */
 	}
     | COLOR_START

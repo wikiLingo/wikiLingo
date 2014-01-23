@@ -14,7 +14,7 @@ class PreFormattedText extends Base
     public function render(&$parser)
     {
         $element = $parser->element(__CLASS__, 'pre');
-        $element->staticChildren[] = $this->renderedChildren;
+        $element->staticChildren[] = $this->parsed->text;
         return $element->render();
     }
 }

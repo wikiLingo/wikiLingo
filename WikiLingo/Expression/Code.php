@@ -14,7 +14,8 @@ class Code extends Base
     public function render(&$parser)
     {
         $element = $parser->element(__CLASS__, 'pre');
-        $element->staticChildren[] = $this->renderedChildren;
+	    $element->detailedAttributes['contenteditable'] = 'false';
+        $element->staticChildren[] = $this->parsed->text;
         return $element->render();
     }
 }

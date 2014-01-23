@@ -35,6 +35,9 @@ abstract class Base
 	/* tc tracking */
 	public $tcStack = false; //There can only be 1 active tc stack
 
+	/* code tracking */
+	public $codeStack = false; //There can only be 1 active code stack
+
     /* link tracking*/
     public $linkStack = false; //There can only be 1 active link stack
 
@@ -81,10 +84,7 @@ abstract class Base
     {
         //These types will be found in $this.  If any of these states are active, we should NOT parse wiki syntax
         $types = array(
-            'npStack' => true,
-            'ppStack' => true,
-            'linkStack' => true,
-	        'tcStack' => true
+            'linkStack' => true
         );
 
         foreach ($skipTypes as $skipType) {
