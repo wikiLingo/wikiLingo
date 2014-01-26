@@ -35,7 +35,7 @@ class DescriptionList
 
 		$this->items[] = new DescriptionListItem($term, $description);
 		$this->parser =& $this->parsed->parser;
-		$this->parser->addType(__CLASS__, $this);
+		$this->parser->addType($this);
 	}
 
     /**

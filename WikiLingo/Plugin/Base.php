@@ -337,7 +337,7 @@ abstract class Base
         $style = '';
         foreach ($cssStyles as $cssStyle => $setting) {
             if (!empty($cssStyle) && isset($this->style[$cssStyle])) {
-                $style .= $cssStyle . ':' . trim($setting->value . '', "'") . ';';
+                $style .= $cssStyle . ':' . trim($setting . '', "'") . ';';
             }
         }
         return $style;
@@ -361,12 +361,12 @@ abstract class Base
         );
 
         $element = Type::Element($parser->element($this->expressionType, $elementName));
-        $element->classes[] = $plugin->type;
+        $element->classes[] = (!empty($this->attributes['class']) ? $this->attributes['class'] . ' ' : '') . $plugin->type;
         $element->attributes['id'] = $id = $plugin->id();
 
 	    $parser->plugins[] = $id;
 
-        $style = $this->stylize($plugin->parameters);
+        $style = $this->stylize($plugin->parametersRaw);
         if (!empty($style)) {
             $element->attributes['style'] = $style;
         }

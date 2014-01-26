@@ -113,4 +113,23 @@ class Base
 			return ['element' => $element];
 		}
 	}
+
+    public $types = array();
+    public $typesCount = array();
+    /**
+     * @param WikiLingo\Expression\* &$type
+     * @return Number
+     */
+    public function addType(&$type)
+    {
+        $class = get_class($type);
+        if (empty($this->types[$class])) {
+            $this->types[$class] = array();
+            $this->typesCount[$class] = -1;
+        }
+        $this->types[$class][] =& $type;
+        $this->typesCount[$class]++;
+        $type->type = array_pop(explode('\\', $class));
+        return $type->index = $this->typesCount[$class];
+    }
 }

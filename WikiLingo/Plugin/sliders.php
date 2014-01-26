@@ -34,8 +34,8 @@ class sliders extends Base
 		$ul->staticChildren[] = $body;
 
 		Type::Scripts($parser->scripts)
-			->addScriptLocation('WikiLingo/Plugin/slider/js/bjqs-1.3.js')
-			->addCssLocation('WikiLingo/Plugin/slider/bjqs.css')
+			->addScriptLocation('~/bower_components/basic-jquery-slider/js/bjqs-1.3.js')
+			->addCssLocation('~/bower_components/basic-jquery-slider/bjqs.css')
 
 			->addScript(<<<JS
 $(function() {

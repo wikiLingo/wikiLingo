@@ -39,7 +39,7 @@ $parser = new WikiLingoWYSIWYG\Parser($scripts);
 
 
 //open a file and parse it
-$source = file_get_contents('demo.wl');
+$source = file_get_contents('editor/page.wl');
 $page = $parser->parse($source);
 
 

@@ -26,18 +26,6 @@ abstract class Base
     public $plugins = array();
     public $originalInput = '';
 
-    /* np tracking */
-    public $npStack = false; //There can only be 1 active np stack
-
-    /* pp tracking */
-    public $ppStack = false; //There can only be 1 active np stack
-
-	/* tc tracking */
-	public $tcStack = false; //There can only be 1 active tc stack
-
-	/* code tracking */
-	public $codeStack = false; //There can only be 1 active code stack
-
     /* link tracking*/
     public $linkStack = false; //There can only be 1 active link stack
 
@@ -47,18 +35,19 @@ abstract class Base
     public $tableStack = array();
 
     /**
-     * @param String $class
-     * @param $type
-     * @return mixed
+     * @param WikiLingo\Expression\* &$type
+     * @return Number
      */
-    public function addType($class, &$type)
+    public function addType(&$type)
     {
+        $class = get_class($type);
         if (empty($this->types[$class])) {
             $this->types[$class] = array();
             $this->typesCount[$class] = -1;
         }
         $this->types[$class][] =& $type;
         $this->typesCount[$class]++;
+        $type->type = array_pop(explode('\\', $class));
         return $type->index = $this->typesCount[$class];
     }
 
@@ -77,7 +66,7 @@ abstract class Base
      * the parser is inside-out, this helps us reverse the execution from outside-in in some cases.
      *
      * @access  public
-     * @param   array  $skipTypes List of different ignorable stack types found on $this, like npStack, ppStack, or lineStack
+     * @param   array  $skipTypes
      * @return  string  true if content is current not parse-able
      */
     public function isContent($skipTypes = array())

@@ -37,7 +37,13 @@ class fullpage_section extends Base
 		    $plugin->parent->privateAttributes['titles'] = array();
 	    }
 
-	    $plugin->parent->privateAttributes['titles'][$plugin->id()] = $plugin->parameter('title');
+        $parser->scripts->addScript(<<<JS
+$(".section:first").addClass("active");
+JS
+        );
+        $id = $plugin->id();
+        //$plugin->attributes['data-anchor'] = $id;
+	    $plugin->parent->privateAttributes['titles'][$id] = $plugin->parameter('title');
 
         return parent::render($plugin, $body, $parser);
     }

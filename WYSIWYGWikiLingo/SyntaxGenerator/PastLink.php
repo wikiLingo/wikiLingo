@@ -8,7 +8,7 @@ use Types\Type;
  * Class PastLink
  * @package WYSIWYGWikiLingo\SyntaxGenerator
  */
-class FLP extends Base
+class PastLink extends Base
 {
     /**
      * @return string
@@ -17,6 +17,6 @@ class FLP extends Base
     {
         $element = Type::WYSIWYGElement($this->expression);
 
-        return '@PastLink(' . $element->parameter('data-past')  . ')' . $this->expression->renderedChildren . '@)';
+        return '@FLP(' . $element->parameter('data-past')  . ')' . $this->expression->renderedChildren . '@)';
     }
 }
