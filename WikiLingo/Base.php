@@ -47,7 +47,8 @@ abstract class Base
         }
         $this->types[$class][] =& $type;
         $this->typesCount[$class]++;
-        $type->type = array_pop(explode('\\', $class));
+        $classNameShort = explode('\\', $class);
+        $type->type = array_pop($classNameShort);
         return $type->index = $this->typesCount[$class];
     }
 
