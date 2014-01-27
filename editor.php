@@ -11,25 +11,55 @@ $scripts = (new WikiLingo\Utilities\Scripts())
     //add some css
     ->addCssLocation("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css")
 
-	->addCssLocation("bower_components/Medium.js/medium.css")
+	->addCssLocation("~/bower_components/Medium.js/medium.css")
 
-	->addCssLocation("editor/bubble.css")
-    ->addCssLocation("editor/IcoMoon/sprites/sprites.css")
+	->addCssLocation("~/editor/bubble.css")
+    ->addCssLocation("~/editor/IcoMoon/sprites/sprites.css")
 
     //add some javascript
     ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
     ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js")
 
-    ->addScriptLocation("bower_components/undo/undo.js")
-    ->addScriptLocation("bower_components/rangy/uncompressed/rangy-core.js")
-    ->addScriptLocation("bower_components/rangy/uncompressed/rangy-cssclassapplier.js")
-    ->addScriptLocation("bower_components/Medium.js/medium.js")
+    ->addScriptLocation("~/bower_components/undo/undo.js")
+    ->addScriptLocation("~/bower_components/rangy/uncompressed/rangy-core.js")
+    ->addScriptLocation("~/bower_components/rangy/uncompressed/rangy-cssclassapplier.js")
+    ->addScriptLocation("~/bower_components/Medium.js/medium.js")
 
-    ->addScriptLocation("editor/WLPluginSyntaxGenerator.js")
-	->addScriptLocation("editor/WLPluginEditor.js")
-	->addScriptLocation("editor/WLPluginAssistant.js")
-	->addScriptLocation("editor/bubble.js")
-	->addScriptLocation("editor/editor.js");
+    ->addCssLocation("~/bower_components/CodeMirror/lib/codemirror.css")
+    ->addScriptLocation("~/bower_components/CodeMirror/lib/codemirror.js")
+    ->addCssLocation("~/bower_components/wikiLingoCodeMirror/wikiLingo.css")
+    ->addScriptLocation("~/bower_components/wikiLingoCodeMirror/wikiLingo.js")
+
+    ->addScriptLocation("~/editor/WLPluginSyntaxGenerator.js")
+	->addScriptLocation("~/editor/WLPluginEditor.js")
+	->addScriptLocation("~/editor/WLPluginAssistant.js")
+	->addScriptLocation("~/editor/bubble.js")
+	->addScriptLocation("~/editor/editor.js")
+    ->addCss(<<<CSS
+@font-face {
+    font-family: "dayRoman";
+}
+
+body {
+    background-image: url(img/canvas.jpg);
+    font-family: "dayRoman" serif;
+}
+
+.canvas {
+    background-color: rgba(255,255,255, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+div.CodeMirror {
+    height: inherit;
+}
+
+.canvas-header {
+    text-align: center;
+}
+CSS
+);
 
 
 
@@ -81,25 +111,30 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
         //render css from scripts collector and bring it to the page
         echo $scripts->renderCss();
     ?>
-    <style>
-        font-family: 'Lora',serif;
-    </style>
 </head>
 <body>
 <div id="header" style="text-align: center;">
-    <h1>wikiLingo</h1>
+    <h1><img src="editor/img/wLogo.png" style="width: 40px;"/> wikiLingo</h1>
 </div><?php //create an editable area and echo page to it ?>
-<table style="width: 95%">
-    <tr>
-        <th>Design in WYSIWYG</th>
-        <th>or</th>
-        <th>Develop using Source</th>
-    </tr>
+<table style="width: 75%; margin-left: auto; margin-right: auto;">
 	<tr>
-		<td style="width: 65%; vertical-align: top;"><div id="editable" contenteditable="true" style="width: 85%; margin-left: auto; margin-right: auto; border: none;"><?php echo $page;?></div></td>
-        <td style="width: 5%;"></td>
-		<td style="width: 30%; vertical-align: top;">
-			<textarea id="editableSource" style="width: 100%; height: 1000px;"><?php echo $source; ?></textarea>
+		<td style="width: 60%; vertical-align: top;">
+            <h2 class="canvas-header">Design in WYSIWYG</h2>
+            <div class="canvas">
+                <div id="editable" class="canvas" contenteditable="true" style="border: none;"><?php echo $page;?></div>
+            </div>
+        </td>
+        <td style="width: 3%; vertical-align: top; text-align: center;">
+            <h2 class="canvas-header">
+                or
+            </h2>
+            <span style="font-size: 30px; position:relative; top: 250px;">=</span>
+        </td>
+		<td style="width: 37%; vertical-align: top;">
+            <h2 class="canvas-header">Develop using Source</h2>
+            <div class="canvas">
+			    <textarea id="editableSource" style="width: 100%; height: 1000px;"><?php echo $source; ?></textarea>
+            </div>
 		</td>
 	</tr>
 </table>

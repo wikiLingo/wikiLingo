@@ -18,12 +18,14 @@ $(function() {
 	//bubble is the contenteditable toolbar, it is very simple and instantiated here
 	var
         editable = document.getElementById('editable'),
+        editableSource = document.getElementById('editableSource'),
         bubble = new WLBubble(window.expressionSyntaxes, editable),
 		//medium makes contenteditable behave
-		medium = bubble.medium = new Medium({
+		medium = editable.medium = bubble.medium = new Medium({
 			element: editable,
 			mode: 'rich',
 			placeholder: 'Your Article',
+            autoHR: false,
 			cssClasses: [],
 			attributes: {
 				remove: []
@@ -33,29 +35,58 @@ $(function() {
 				outerLevel: ['pre','blockquote', 'figure', 'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'ul', 'strong', 'code', 'br', 'b', 'span'],
 				innerLevel: ['a', 'b', 'u', 'i', 'img', 'div', 'strong', 'li', 'span', 'code', 'br']
 			},
-			modifiers: []
+			modifiers: [],
+            beforeInvokeElement: function() {
+                console.log(this);
+            },
+            beforeInsertHtml: function() {
+                console.log(this);
+            },
+            beforeAddTag: function(tag, shouldFocus, isEditable, afterElement) {
+                var newEl;
+                switch (tag) {
+                    case 'br':
+                    case 'p':
+                        newEl = document.createElement('br');
+                        newEl.setAttribute('class', 'element');
+                        newEl.setAttribute('data-element', 'true');
+                        newEl.setAttribute('data-type', 'WikiLingo\\\\Expression\\\\Line');
+
+                        medium.insertHtml(newEl)
+                        return true;
+                }
+
+                return newEl;
+            }
 		}),
+        codemirror = CodeMirror.fromTextArea(editableSource, {
+            mode: 'wikiLingo',
+            lineNumbers: false,
+            readOnly: false,
+            lineWrapping: true,
+            scroll: false
+        }),
+        settingSource = false,
 		updateSource = function() {
-            var source = document.getElementById('editable').innerHTML,
-                editableSource = document.getElementById('editableSource');
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 url: 'reflect.php',
-                data: {w: source, reflect:'WYSIWYGWikiLingo'},
+                data: {w: editable.innerHTML, reflect:'WYSIWYGWikiLingo'},
                 success: function(result) {
+                    settingSource = true;
+                    codemirror.setValue(result.output);
                     editableSource.value = result.output;
+                    settingSource = false;
                 }
             });
 		},
 		updateWYSIWYG = function() {
-            var source = document.getElementById('editableSource').value,
-                editable = document.getElementById('editable');
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
                 url: 'reflect.php',
-                data: {w: source, reflect:'wikiLingoWYSIWYG'},
+                data: {w: codemirror.getValue(), reflect:'wikiLingoWYSIWYG'},
                 success: function(result) {
                     editable.innerHTML = result.output;
                     window.wLPlugins = result.plugins;
@@ -68,11 +99,18 @@ $(function() {
             });
 		};
 
-	document.onmouseup = function() {
-		bubble.goToSelection();
-	};
+    codemirror.on('change', function() {
+        if (!settingSource) {
+            updateWYSIWYG();
+        }
+    });
 
 	$('#editable')
+        .on('mouseup', function(event) {
+            if (document.activeElement === this) {
+                bubble.goToSelection();
+            }
+        })
 		.on('focus', function() {
 			this.before = this.innerHTML;
 			return this;

@@ -55,7 +55,7 @@ class Scripts
         }
 
         if ($href{0} === '~' && $href{1} === '/') {
-            $href = $this->relativeLocation . substr($href, 1);
+            $href = $this->relativeLocation . substr($href, 2);
         }
 
         if ($i > -1) {
@@ -81,7 +81,7 @@ class Scripts
         }
 
         if ($src{0} === '~' && $src{1} === '/') {
-            $src = $this->relativeLocation . substr($src, 1);
+            $src = $this->relativeLocation . substr($src, 2);
         }
 
         if ($i > -1) {

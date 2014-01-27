@@ -23,32 +23,32 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 
 			$buttonDrag
 				.on('dragstart', function() {
-					me.$el.detach();
-					$buttonDrag.fadeTo(0, 0);
-					$buttonEdit.detach();
+                    me.$el.detach();
+                    $buttonDrag.fadeTo(0, 0);
+                    $buttonEdit.detach();
 				})
 				.on('mouseover', function(e) {
                     me.$el.addClass('focused');
-					e.stopPropagation();
+                    e.stopPropagation();
 				})
 				.on('mouseout', function() {
-					me.$el.removeClass('focused');
+                    me.$el.removeClass('focused');
 				});
 
 			buttonDrag.ondragend = document.body.ondragend = function(e) {
-				setTimeout(function() {
-					me.$el.removeClass('focused');
-					$buttonDrag
-						.detach()
-						.fadeTo(0, 1);
+                setTimeout(function() {
+                    me.$el.removeClass('focused');
+                    $buttonDrag
+                        .detach()
+                        .fadeTo(0, 1);
 
-					$('img.' + cl).filter(':visible')
-						.first()
-						.after(me.el)
-						.remove();
+                    $('img.' + cl).filter(':visible')
+                        .first()
+                        .after(me.el)
+                        .remove();
 
                     $el.change();
-				}, 1);
+                }, 1);
 			};
 
 			buttonEdit.setAttribute('src', 'editor/img/cog.png');

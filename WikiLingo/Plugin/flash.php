@@ -22,7 +22,8 @@ class flash extends Base
             'movie' => new Parameter('Source', 'img/emblem-multimedia.png'),
             'height' => new Parameter('Height', '480px'),
             'width' => new Parameter('Width', '640px'),
-            'title' => new Parameter('Title', '')
+            'title' => new Parameter('Title', ''),
+            'allow' => new Parameter('Allow to watch in edit mode', '')
         );
     }
 
@@ -35,8 +36,9 @@ class flash extends Base
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 	    $plugin->attributes['title'] = $plugin->parameter('title');
+        $allow = $plugin->parameter('allow');
 
-	    if ($parser->wysiwyg) {
+	    if ($parser->wysiwyg && empty($allow)) {
             $this->htmlTagType = 'img';
 		    $plugin->attributes['src'] = 'img/emblem-multimedia.png';
 		    $flash = parent::render($plugin, $body, $parser);
