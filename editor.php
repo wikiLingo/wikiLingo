@@ -41,7 +41,7 @@ $scripts = (new WikiLingo\Utilities\Scripts())
 }
 
 body {
-    background-image: url(img/canvas.jpg);
+    background-image: url(editor/img/canvas.jpg);
     font-family: "dayRoman" serif;
 }
 
