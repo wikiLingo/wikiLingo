@@ -19,9 +19,8 @@ $(function() {
 	var
         editable = document.getElementById('editable'),
         editableSource = document.getElementById('editableSource'),
-        bubble = new WLBubble(window.expressionSyntaxes, editable),
 		//medium makes contenteditable behave
-		medium = editable.medium = bubble.medium = new Medium({
+		medium = editable.medium = new Medium({
 			element: editable,
 			mode: 'rich',
 			placeholder: 'Your Article',
@@ -59,6 +58,7 @@ $(function() {
                 return newEl;
             }
 		}),
+        bubble = new WLBubble(window.expressionSyntaxes, editable),
         codemirror = CodeMirror.fromTextArea(editableSource, {
             mode: 'wikiLingo',
             lineNumbers: false,
@@ -139,8 +139,9 @@ $(function() {
 		})
 		.trigger('resetWLPlugins');
 
-
-    bubble.staticToTop();
+    $(function(){
+        bubble.staticToTop();
+    });
 
 	console.log(window.expressionSyntaxes);
 });

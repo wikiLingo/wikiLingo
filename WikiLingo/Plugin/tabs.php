@@ -18,6 +18,7 @@ class tabs extends Base
         $this->label = 'Tabs';
         $this->htmlTagType = 'div';
         $this->permissibleChildren = array('tab');
+        $this->minChildCount = 1;
     }
 
     /**

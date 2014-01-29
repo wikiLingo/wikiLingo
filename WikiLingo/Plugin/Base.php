@@ -24,6 +24,7 @@ abstract class Base
     public $wysiwygTagType = '';
     public $permissibleParents = array();
     public $permissibleChildren = array();
+    public $minChildCount = 0;
     public $events;
 
 	public $permissible = true;

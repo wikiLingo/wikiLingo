@@ -157,9 +157,7 @@ WikiLingo.Parsed = (function() {
         {
             parent.addChild(this);
 
-            while (this.siblings.length > 0) {
-                this.siblings.shift().setParent(parent);
-            }
+
 
             return this;
         },
@@ -174,6 +172,10 @@ WikiLingo.Parsed = (function() {
         {
             child.parent = this;
             this.children.push(child);
+
+            while (child.siblings.length > 0) {
+                this.children.push(child.siblings.shift()).parent = this;
+            }
 
             return this;
         },

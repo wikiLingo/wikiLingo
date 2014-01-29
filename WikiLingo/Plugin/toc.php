@@ -48,7 +48,7 @@ class toc extends Base
 		    $block->collectionElementName = $tagType;
 		    $block->elementName = "li";
 
-		    if ($tensor == null) {
+		    if ($tensor === null) {
 			    $tensor = new Tensor\Flat($block);
 		    } else {
 			    $tensor->add(new Tensor\Hierarchical($block));

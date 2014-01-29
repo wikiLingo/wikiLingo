@@ -1350,7 +1350,7 @@ content
 	        $$ = yy.setType('InlinePlugin', $1)
                 .setOption('NoBody', true)
                 .setOption('Inline', true)
-                .addChild($2);
+                .addArgument($2);
 
  		/*php
  		    $$type =& $1;

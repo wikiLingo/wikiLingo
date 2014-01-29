@@ -35,18 +35,37 @@ $scripts = (new WikiLingo\Utilities\Scripts())
 	->addScriptLocation("~/editor/WLPluginAssistant.js")
 	->addScriptLocation("~/editor/bubble.js")
 	->addScriptLocation("~/editor/editor.js")
+
+->addScriptLocation("~/WikiLingo/Definition.js")
+->addScriptLocation("~/WikiLingo/Parsed.js")
+->addScriptLocation("~/WikiLingo/Parser.js")
+/*->addScript(<<<JS
+    var parser = new WikiLingo.Parser();
+    console.log(parser.parse(document.getElementById('editableSource').value));
+    CodeMirror.StringStream.prototype.eatM = CodeMirror.StringStream.prototype.eat;
+    CodeMirror.StringStream.prototype.eat = function(match) {
+        console.log(this);
+        return this.eatM(match);
+    };
+JS
+)*/
     ->addCss(<<<CSS
 @font-face {
     font-family: "dayRoman";
+    src: url(editor/font/dayRoman.woff);
 }
 
 body {
     background-image: url(editor/img/canvas.jpg);
-    font-family: "dayRoman" serif;
+    font-family: "dayRoman";
+    color: white;
 }
 
 .canvas {
-    background-color: rgba(255,255,255, 0.5);
+    background-color: rgba(255,255,255, 1);
+    -moz-box-shadow:    0px 0px 3px 4px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow: 0px 0px 3px 4px rgba(0, 0, 0, 0.5);
+	box-shadow:         0px 0px 3px 4px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     padding: 10px;
 }
@@ -57,6 +76,19 @@ div.CodeMirror {
 
 .canvas-header {
     text-align: center;
+}
+.canvas-header {
+    text-shadow: 2px 2px #000000;
+}
+
+.canvas > div {
+    color: rgba(0, 0, 0, 0.75);
+    background-color: transparent;
+}
+
+.canvas a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 1);
 }
 CSS
 );
@@ -119,9 +151,9 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
 <table style="width: 75%; margin-left: auto; margin-right: auto;">
 	<tr>
 		<td style="width: 60%; vertical-align: top;">
-            <h2 class="canvas-header">Design in WYSIWYG</h2>
+            <h2 class="canvas-header">edit visually</h2>
             <div class="canvas">
-                <div id="editable" class="canvas" contenteditable="true" style="border: none;"><?php echo $page;?></div>
+                <div id="editable" contenteditable="true" style="border: none;"><?php echo $page;?></div>
             </div>
         </td>
         <td style="width: 3%; vertical-align: top; text-align: center;">
@@ -131,9 +163,9 @@ $expressionSyntaxesJson = json_encode($expressionSyntaxes->parsedExpressionSynta
             <span style="font-size: 30px; position:relative; top: 250px;">=</span>
         </td>
 		<td style="width: 37%; vertical-align: top;">
-            <h2 class="canvas-header">Develop using Source</h2>
+            <h2 class="canvas-header">edit wiki markup</h2>
             <div class="canvas">
-			    <textarea id="editableSource" style="width: 100%; height: 1000px;"><?php echo $source; ?></textarea>
+			    <textarea id="editableSource" style="width: 100%; height: 400px;"><?php echo $source; ?></textarea>
             </div>
 		</td>
 	</tr>

@@ -536,7 +536,7 @@ case 70:
 	        this.$ = yy.setType('InlinePlugin', $$[$0-1])
                 .setOption('NoBody', true)
                 .setOption('Inline', true)
-                .addChild($$[$0]);
+                .addArgument($$[$0]);
 
  		/*php
  		    $type =& $$[$0-1];
