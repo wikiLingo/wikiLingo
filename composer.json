@@ -2,5 +2,12 @@
     "name": "wiki-lingo/wiki-lingo",
     "require": {
         "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "WikiLingo\\": "WikiLingo/",
+            "WikiLingoWYSIWYG\\": "WikiLingoWYSIWYG/",
+            "WYSIWYGWikiLingo\\": "WYSIWYGWikiLingo/"
+        }
     }
 }
