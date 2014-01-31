@@ -5,9 +5,10 @@
     },
     "autoload": {
         "psr-0": {
-            "WikiLingo\\": "WikiLingo/",
-            "WikiLingoWYSIWYG\\": "WikiLingoWYSIWYG/",
-            "WYSIWYGWikiLingo\\": "WYSIWYGWikiLingo/"
+            "Types\\": "./",
+            "WikiLingo\\": "./",
+            "WikiLingoWYSIWYG\\": "./",
+            "WYSIWYGWikiLingo\\": "./"
         }
     }
 }
