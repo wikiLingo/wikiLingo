@@ -1,5 +1,5 @@
 {
-    "name": "wiki-lingo/wiki-lingo",
+    "name": "wikilingo/wikilingo",
     "require": {
         "php": ">=5.4.0"
     },
