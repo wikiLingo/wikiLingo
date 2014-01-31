@@ -2,7 +2,8 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 	var assistants = [],
 		hideAll,
 		types = expressionSyntaxes['Plugin'].types,
-		construct = function(el) {
+		construct = function(el, baseDirectoryForImages) {
+            baseDirectoryForImages = baseDirectoryForImages || '';
 			var me = this,
                 $el = $(el),
 				cl = el.getAttribute('id') + 'button',
@@ -16,7 +17,7 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
             this.buttonDrag = buttonDrag
             this.buttonEdit = buttonEdit;
 
-			buttonDrag.setAttribute('src', 'editor/img/arrow-move.png');
+			buttonDrag.setAttribute('src', baseDirectoryForImages + 'editor/img/arrow-move.png');
 			buttonDrag.setAttribute('contenteditable', 'false');
 			buttonDrag.className = cl + ' helper drag';
 			buttonDrag.setAttribute('data-helper', 'true');
@@ -51,7 +52,7 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
                 }, 1);
 			};
 
-			buttonEdit.setAttribute('src', 'editor/img/cog.png');
+			buttonEdit.setAttribute('src', baseDirectoryForImages + 'editor/img/cog.png');
 			buttonEdit.setAttribute('contenteditable', 'false');
 			buttonEdit.className = cl + ' helper edit';
 			buttonEdit.setAttribute('data-helper', 'true');

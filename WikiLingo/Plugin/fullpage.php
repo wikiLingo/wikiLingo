@@ -32,39 +32,40 @@ class fullpage extends Base
 	    $id = $plugin->id();
         $anchors = array();
 
-        if (!empty($plugin->privateAttributes['titles'])) {
-	        //menu
-            $ul = Type::Helper($parser->helper('ul'));
-	        $ul->attributes['id'] = $id . '-menu';
-            $i = 1;
-            //anchors for sections
-	        foreach($plugin->privateAttributes['titles'] as $sectionId => $title) {
-		        $link = Type::Helper($parser->helper('span'));
-                $link->attributes['href'] = $sectionId;
-                $link->attributes['onclick'] = <<<JS
+        if (!$parser->wysiwyg) {
+            if (!empty($plugin->privateAttributes['titles'])) {
+                //menu
+                $ul = Type::Helper($parser->helper('ul'));
+                $ul->attributes['id'] = $id . '-menu';
+                $i = 1;
+                //anchors for sections
+                foreach($plugin->privateAttributes['titles'] as $sectionId => $title) {
+                    $link = Type::Helper($parser->helper('span'));
+                    $link->attributes['href'] = $sectionId;
+                    $link->attributes['onclick'] = <<<JS
 $.fn.fullpage.moveTo($i);
 return false;
 JS;
 ;
-                $i++;
-                //$anchors[] = $a->attributes['data-index'] = $i++;
-                //$a->attributes['id'] = $sectionId . '-anchor';
-                $link->staticChildren[] = $title;
-		        $li = Type::Helper($parser->helper('li'));
-		        $li->children[] = $link;
-		        $ul->children[] = $li;
-	        }
+                    $i++;
+                    //$anchors[] = $a->attributes['data-index'] = $i++;
+                    //$a->attributes['id'] = $sectionId . '-anchor';
+                    $link->staticChildren[] = $title;
+                    $li = Type::Helper($parser->helper('li'));
+                    $li->children[] = $link;
+                    $ul->children[] = $li;
+                }
 
-	        $body .= $ul->render();
-
-
-            $anchorsJson = json_encode($anchors);
+                $body .= $ul->render();
 
 
-            Type::Scripts($parser->scripts)
-                ->addScriptLocation('~/bower_components/fullPage.js/jquery.fullPage.js')
-                ->addCssLocation('~/bower_components/fullPage.js/jquery.fullPage.css')
-                ->addScript(<<<JS
+                $anchorsJson = json_encode($anchors);
+
+
+                Type::Scripts($parser->scripts)
+                    ->addScriptLocation('~/bower_components/fullPage.js/jquery.fullPage.js')
+                    ->addCssLocation('~/bower_components/fullPage.js/jquery.fullPage.css')
+                    ->addScript(<<<JS
     $(function() {
         $.fn.fullpage({
             anchors: {$anchorsJson},
@@ -74,8 +75,8 @@ JS;
         });
     });
 JS
-                )
-                ->addCss(<<<CSS
+                    )
+                    ->addCss(<<<CSS
 #{$id}-menu {
     height: 40px;
     left: 0;
@@ -109,7 +110,8 @@ JS
 }
 
 CSS
-                );
+                    );
+            }
         }
         $tabs = parent::render($plugin, $body, $parser);
 
