@@ -7,10 +7,11 @@
 %lex
 
 //Named Regex Patterns
-singleQuote                     "'"
-doubleQuote                     '"'
+singleQuote                     [']
+doubleQuote                     ["]
 angleQuote                      [`]
 simpleString                    [a-zA-Z0-9_-]+
+parameterValue                  (.|[\n\r\s])*?
 equals                          [=]
 
 %s singleQuoteParameter doubleQuoteParameter angleQuoteParameter equals
@@ -34,13 +35,13 @@ equals                          [=]
     */
 }
 
-<singleQuoteParameter>.*?(?={singleQuote}) {
+<singleQuoteParameter>{parameterValue}(?={singleQuote}) {
     return 'PARAMETER_VALUE';
 }
-<doubleQuoteParameter>.*?(?={doubleQuote}) {
+<doubleQuoteParameter>{parameterValue}(?={doubleQuote}) {
     return 'PARAMETER_VALUE';
 }
-<angleQuoteParameter>.*?(?={angleQuote}) {
+<angleQuoteParameter>{parameterValue}(?={angleQuote}) {
     return 'PARAMETER_VALUE';
 }
 <equals>{simpleString} {
@@ -81,6 +82,7 @@ equals                          [=]
 <equals>\s+                                 {/*skip whitespace*/}
 \s+                                         {/*skip whitespace*/}
 <<EOF>>										return 'EOF';
+.                                           {/*skip whitespace*/}
 /lex
 
 

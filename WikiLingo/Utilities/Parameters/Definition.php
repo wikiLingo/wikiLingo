@@ -177,30 +177,31 @@ class Definition extends Base
         
 			$this->rules = array(
 				
-					0=>"/^(?:('))/",
-					1=>"/^(?:(\"))/",
+					0=>"/^(?:([']))/",
+					1=>"/^(?:([\"]))/",
 					2=>"/^(?:([`]))/",
-					3=>"/^(?:.*?(?=(')))/",
-					4=>"/^(?:.*?(?=(\")))/",
-					5=>"/^(?:.*?(?=([`])))/",
+					3=>"/^(?:((.|[\n\r\s])*?)(?=(['])))/",
+					4=>"/^(?:((.|[\n\r\s])*?)(?=([\"])))/",
+					5=>"/^(?:((.|[\n\r\s])*?)(?=([`])))/",
 					6=>"/^(?:([a-zA-Z0-9_-]+))/",
-					7=>"/^(?:('))/",
-					8=>"/^(?:(\"))/",
+					7=>"/^(?:([']))/",
+					8=>"/^(?:([\"]))/",
 					9=>"/^(?:([`]))/",
 					10=>"/^(?:([a-zA-Z0-9_-]+))/",
 					11=>"/^(?:([=]))/",
 					12=>"/^(?:\s+)/",
 					13=>"/^(?:\s+)/",
-					14=>"/^(?:$)/"
+					14=>"/^(?:$)/",
+					15=>"/^(?:.)/"
 				);
 
 			$this->conditions = array(
 				
-					"singleQuoteParameter"=>new LexerConditions(array( 0,3,10,11,13,14), true),
-					"doubleQuoteParameter"=>new LexerConditions(array( 1,4,10,11,13,14), true),
-					"angleQuoteParameter"=>new LexerConditions(array( 2,5,10,11,13,14), true),
-					"equals"=>new LexerConditions(array( 6,7,8,9,10,11,12,13,14), true),
-					"INITIAL"=>new LexerConditions(array( 10,11,13,14), true)
+					"singleQuoteParameter"=>new LexerConditions(array( 0,3,10,11,13,14,15), true),
+					"doubleQuoteParameter"=>new LexerConditions(array( 1,4,10,11,13,14,15), true),
+					"angleQuoteParameter"=>new LexerConditions(array( 2,5,10,11,13,14,15), true),
+					"equals"=>new LexerConditions(array( 6,7,8,9,10,11,12,13,14,15), true),
+					"INITIAL"=>new LexerConditions(array( 10,11,13,14,15), true)
 				);
 
 
@@ -209,6 +210,7 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -632,7 +634,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -707,6 +709,8 @@ break;
 case 13:
 break;
 case 14:return 4;
+break;
+case 15:
 break;
 }
 
