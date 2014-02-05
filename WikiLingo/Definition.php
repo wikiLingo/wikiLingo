@@ -5180,7 +5180,7 @@ case 11:
 break;
 case 12:
         
-		    $s[$o]->setType('Row', $this);
+		    $s[$o]->setType('HorizontalBar', $this);
         
 	
 break;

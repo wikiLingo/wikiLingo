@@ -17,13 +17,15 @@ class Html
         $parts = explode(" ", substr($yytext, 1, -1));
         $parts = array_filter($parts, 'strlen');
 
-        if ($parts[0]{0} == "/") {
-            $parts[0] = substr($parts[0], 1);
-        } else if ($parts[0]{strlen($parts[0]) - 1} == "/") {
-            $parts[0] = substr($parts[0], 0, -1);
+        $elementName = strtolower($parts[0]);
+
+        if ($elementName{0} == "/") {
+            $elementName = substr($elementName, 1);
+        } else if ($elementName{strlen($parts[0]) - 1} == "/") {
+            $elementName = substr($elementName, 0, -1);
         }
 
-        switch (strtolower($parts[0])) {
+        switch ($elementName) {
             //void elements
             case "!doctype":
             case "br":
@@ -115,7 +117,6 @@ class Html
             case "param":
             case "pre":
             case "progress":
-            case "q":
             case "q":
             case "rp":
             case "rt":

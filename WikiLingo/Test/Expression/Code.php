@@ -10,7 +10,7 @@ class Code extends Base
 
 		$this->source = "-+foo+-";
 
-		$this->expected = "<textarea id='Code0' disabled='true'>foo</textarea>";
+		$this->expected = "<textarea class='Code' id='Code0' disabled='true'>foo</textarea>";
 
 	}
 }

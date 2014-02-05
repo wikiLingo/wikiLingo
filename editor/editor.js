@@ -1,7 +1,7 @@
 var
 	WLPlugin = function(el) {
 		if (el.getAttribute('data-draggable') == 'true') {
-			new WLPluginAssistant(el, this);
+			new WLPluginAssistant(el);
 		}
 	},
 	color = function(element) {

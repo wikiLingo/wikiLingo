@@ -159,10 +159,10 @@ case 11:
 break;
 case 12:
         //js
-            this.$ = yy.setType('Row', $$[$0]);
+            this.$ = yy.setType('HorizontalBar', $$[$0]);
 
 		/*php
-		    $$[$0]->setType('Row', $this);
+		    $$[$0]->setType('HorizontalBar', $this);
         */
 	
 break;

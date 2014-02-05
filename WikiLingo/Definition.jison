@@ -948,10 +948,10 @@ content
     | HORIZONTAL_BAR
 	{
         //js
-            $$ = yy.setType('Row', $1);
+            $$ = yy.setType('HorizontalBar', $1);
 
 		/*php
-		    $1->setType('Row', $$this);
+		    $1->setType('HorizontalBar', $$this);
         */
 	}
     | BOLD_START
