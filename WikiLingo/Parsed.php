@@ -64,7 +64,8 @@ class Parsed extends ParserValue
         if ($lineIndex > $this->parent->lineLength) {
             return null;
         }
-        return $this->parent->lines[$this->lineIndex + 1];
+        $line = $this->parent->lines[$lineIndex];
+        return $line;
     }
 
 
