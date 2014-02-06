@@ -4,10 +4,10 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 
 /**
- * Class tab
+ * Class Tab
  * @package WikiLingo\Plugin
  */
-class tab extends Base
+class Tab extends Base
 {
     /**
      *

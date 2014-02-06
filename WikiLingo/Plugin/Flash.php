@@ -4,10 +4,10 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 
 /**
- * Class flash
+ * Class Flash
  * @package WikiLingo\Plugin
  */
-class flash extends Base
+class Flash extends Base
 {
     /**
      *

@@ -5,10 +5,10 @@ use WikiLingo;
 use WikiLingo\Events;
 
 /**
- * Class accordion
+ * Class Accordion
  * @package WikiLingo\Plugin
  */
-class accordion extends Base
+class Accordion extends Base
 {
     /**
      *

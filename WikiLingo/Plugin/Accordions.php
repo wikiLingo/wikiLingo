@@ -4,10 +4,10 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 
 /**
- * Class accordions
+ * Class Accordions
  * @package WikiLingo\Plugin
  */
-class accordions extends Base
+class Accordions extends Base
 {
     /**
      *

@@ -5,10 +5,10 @@ use WikiLingo;
 use Types\Type;
 
 /**
- * Class tabs
+ * Class Tabs
  * @package WikiLingo\Plugin
  */
-class tabs extends Base
+class Tabs extends Base
 {
     /**
      *

@@ -2,10 +2,10 @@
 namespace WikiLingo\Plugin;
 
 /**
- * Class div
+ * Class Div
  * @package WikiLingo\Plugin
  */
-class div extends Base
+class Div extends Base
 {
 	public function __construct()
 	{

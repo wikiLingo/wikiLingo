@@ -6,10 +6,10 @@ use WikiLingo;
 use Types\Type;
 
 /**
- * Class sliders
+ * Class Sliders
  * @package WikiLingo\Plugin
  */
-class sliders extends Base
+class Sliders extends Base
 {
     /**
      *

@@ -5,10 +5,10 @@ use WikiLingo;
 use Types\Type;
 
 /**
- * Class panes
+ * Class Fullpage
  * @package WikiLingo\Plugin
  */
-class fullpage extends Base
+class Fullpage extends Base
 {
     /**
      *

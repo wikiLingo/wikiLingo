@@ -6,10 +6,10 @@ use Types\Type;
 use WikiLingo\Expression\Tensor;
 
 /**
- * Class toc
+ * Class Toc
  * @package WikiLingo\Plugin
  */
-class toc extends Base
+class Toc extends Base
 {
     /**
      *

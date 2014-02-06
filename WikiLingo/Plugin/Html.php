@@ -2,10 +2,10 @@
 namespace WikiLingo\Plugin;
 
 /**
- * Class html
+ * Class Html
  * @package WikiLingo\Plugin
  */
-class html extends Base
+class Html extends Base
 {
 	public function __construct()
 	{

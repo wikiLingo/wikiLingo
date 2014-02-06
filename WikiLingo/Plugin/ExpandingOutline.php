@@ -4,10 +4,10 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 
 /**
- * Class expandingoutline
+ * Class ExpandingOutline
  * @package WikiLingo\Plugin
  */
-class expandingoutline extends Base
+class ExpandingOutline extends Base
 {
     /**
      * @param WikiLingo\Expression\Plugin $plugin

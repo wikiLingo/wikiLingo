@@ -4,10 +4,10 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 
 /**
- * Class offspring
+ * Class Ancestor
  * @package WikiLingo\Plugin
  */
-class offspring extends Base
+class Ancestor extends Base
 {
     /**
      * @param WikiLingo\Expression\Plugin $plugin
@@ -17,8 +17,6 @@ class offspring extends Base
      */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
-        $parent = $plugin->parent();
-
         return parent::render($plugin, $body, $parser);
     }
 }

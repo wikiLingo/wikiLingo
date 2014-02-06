@@ -5,10 +5,10 @@ use WikiLingo;
 use Types\Type;
 
 /**
- * Class image
+ * Class Image
  * @package WikiLingo\Plugin
  */
-class image extends Base
+class Image extends Base
 {
     /**
      *

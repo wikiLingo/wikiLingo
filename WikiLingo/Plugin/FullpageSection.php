@@ -4,10 +4,10 @@ namespace WikiLingo\Plugin;
 use WikiLingo;
 
 /**
- * Class fullpage_section
+ * Class FullpageSection
  * @package WikiLingo\Plugin
  */
-class fullpage_section extends Base
+class FullpageSection extends Base
 {
     /**
      *

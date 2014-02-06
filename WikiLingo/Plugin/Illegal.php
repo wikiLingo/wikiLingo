@@ -2,9 +2,9 @@
 namespace WikiLingo\Plugin;
 
 /**
- * Class illegal
+ * Class Illegal
  * @package WikiLingo\Plugin
  */
-class illegal extends Base
+class Illegal extends Base
 {
 }
