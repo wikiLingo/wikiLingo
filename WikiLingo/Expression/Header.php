@@ -32,7 +32,7 @@ class Header
         $this->count = min(max($len, 0), 6);
 	    $this->modifier = $block->modifier;
 	    $this->parser =& $this->parsed->parser;
-        $this->parser->addType(__CLASS__, $this);
+        $this->parser->addType($this);
     }
 
     /**

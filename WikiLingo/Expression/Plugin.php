@@ -45,10 +45,10 @@ class Plugin extends Base
             self::$parametersParser = new WikiLingo\Utilities\Parameters\Definition();
         }
 
-        $this->type = $type = strtolower(substr($type, 1));
+        $this->type = $type = self::typeShort(substr($type, 1));
 
         if ($type{strlen($type) - 1} == "(") {
-            $this->type = $type = strtolower(substr($type, 0, -1));
+            $this->type = $type = self::typeShort(substr($type, 0, -1));
         }
 
         $this->classType = "WikiLingo\\Plugin\\$type";
@@ -89,6 +89,24 @@ class Plugin extends Base
 
 	        $this->parameters = $this->class->parameterValues($this->parametersRaw, $parsed->parser);
         }
+    }
+
+    /**
+     * Gets short class name from string. A_PLUGIN_NAME or a_plugin_name will be converted to APluginName
+     * @param $name
+     * @return string
+     */
+    public static function typeShort($name)
+    {
+        // Split string in words.
+        $words = explode('_', strtolower($name));
+
+        $typeShort = '';
+        foreach ($words as $word) {
+            $typeShort .= ucfirst(trim($word));
+        }
+
+        return $typeShort;
     }
 
     /**

@@ -8,6 +8,8 @@
 	"dependencies": {
 		"Medium.js": "https://github.com/robertleeplummerjr/Medium.js/archive/master.zip",
 		"vkbeautify": "http://vkbeautify.googlecode.com/files/vkbeautify.0.99.00.beta.js",
-        "wikiLingoCodeMirror": "https://github.com/wikiLingo/CodeMirror/archive/master.zip"
+        "wikiLingoCodeMirror": "https://github.com/wikiLingo/CodeMirror/archive/master.zip",
+        "fullPage.js": "https://github.com/alvarotrigo/fullPage.js/archive/master.zip",
+        "basic-jquery-slider": "https://github.com/jcobb/basic-jquery-slider/archive/master.zip"
 	}
 }

@@ -27,7 +27,7 @@ var WLPluginSyntaxGenerator = (function(document, window, $) {
 
                 name = name.toUpperCase();
                 return '{' + name + '(' + this.parameters.join(' ') + ')}'
-                    + this.body
+                    + (this.body == 'true' ? '' : this.body)
                     + '{' + name + '}';
 
             }

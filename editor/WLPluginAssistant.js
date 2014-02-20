@@ -2,7 +2,8 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
 	var assistants = [],
 		hideAll,
 		types = expressionSyntaxes['Plugin'].types,
-		construct = function(el) {
+		construct = function(el, baseDirectoryForImages) {
+            baseDirectoryForImages = baseDirectoryForImages || '';
 			var me = this,
                 $el = $(el),
 				cl = el.getAttribute('id') + 'button',
@@ -16,42 +17,42 @@ var WLPluginAssistant = (function(document, $, expressionSyntaxes, WLPluginEdito
             this.buttonDrag = buttonDrag
             this.buttonEdit = buttonEdit;
 
-			buttonDrag.setAttribute('src', 'editor/img/arrow-move.png');
+			buttonDrag.setAttribute('src', baseDirectoryForImages + 'editor/img/arrow-move.png');
 			buttonDrag.setAttribute('contenteditable', 'false');
 			buttonDrag.className = cl + ' helper drag';
 			buttonDrag.setAttribute('data-helper', 'true');
 
 			$buttonDrag
 				.on('dragstart', function() {
-					me.$el.detach();
-					$buttonDrag.fadeTo(0, 0);
-					$buttonEdit.detach();
+                    me.$el.detach();
+                    $buttonDrag.fadeTo(0, 0);
+                    $buttonEdit.detach();
 				})
 				.on('mouseover', function(e) {
                     me.$el.addClass('focused');
-					e.stopPropagation();
+                    e.stopPropagation();
 				})
 				.on('mouseout', function() {
-					me.$el.removeClass('focused');
+                    me.$el.removeClass('focused');
 				});
 
 			buttonDrag.ondragend = document.body.ondragend = function(e) {
-				setTimeout(function() {
-					me.$el.removeClass('focused');
-					$buttonDrag
-						.detach()
-						.fadeTo(0, 1);
+                setTimeout(function() {
+                    me.$el.removeClass('focused');
+                    $buttonDrag
+                        .detach()
+                        .fadeTo(0, 1);
 
-					$('img.' + cl).filter(':visible')
-						.first()
-						.after(me.el)
-						.remove();
+                    $('img.' + cl).filter(':visible')
+                        .first()
+                        .after(me.el)
+                        .remove();
 
                     $el.change();
-				}, 1);
+                }, 1);
 			};
 
-			buttonEdit.setAttribute('src', 'editor/img/cog.png');
+			buttonEdit.setAttribute('src', baseDirectoryForImages + 'editor/img/cog.png');
 			buttonEdit.setAttribute('contenteditable', 'false');
 			buttonEdit.className = cl + ' helper edit';
 			buttonEdit.setAttribute('data-helper', 'true');

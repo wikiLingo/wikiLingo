@@ -10,9 +10,6 @@ use WYSIWYGWikiLingo\Expression;
 class Base
 {
 	public $parsing = false;
-	private $parserDebug = true;
-	private $lexerDebug = true;
-
 	public $events;
 
 	/* html tag tracking */
@@ -29,31 +26,6 @@ class Base
     public $closingTagRegex = "/\G(?:(<\/(.|\n)[^>]*?>))/";
 	public $inputAdjustedForLineAtBeginning = false;
 
-/*
-	function parser_performAction(&$thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O)
-	{
-		$result = parent::parser_performAction($thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O);
-		if ($this->parserDebug == true) {
-			$thisS = "{" . $thisS . ":" . $yystate ."}";
-		}
-		return $result;
-	}
-
-	function lexer_performAction(&$yy, $yy_, $avoiding_name_collisions, $YY_START = null) {
-		$result = parent::lexer_performAction($yy, $yy_, $avoiding_name_collisions, $YY_START);
-		if ($this->lexerDebug == true) {
-			echo "{" . $result . ":" .$avoiding_name_collisions . "}" . $yy_->yytext . "\n";
-		}
-		return $result;
-	}
-
-	function parseError($error, $info)
-	{
-		echo $error;
-		print_r($info);
-		die;
-	}
-*/
     /**
      * @param $tag
      */
@@ -113,4 +85,23 @@ class Base
 			return ['element' => $element];
 		}
 	}
+
+    public $types = array();
+    public $typesCount = array();
+    /**
+     * @param WikiLingo\Expression\* &$type
+     * @return Number
+     */
+    public function addType(&$type)
+    {
+        $class = get_class($type);
+        if (empty($this->types[$class])) {
+            $this->types[$class] = array();
+            $this->typesCount[$class] = -1;
+        }
+        $this->types[$class][] =& $type;
+        $this->typesCount[$class]++;
+        $type->type = array_pop(explode('\\', $class));
+        return $type->index = $this->typesCount[$class];
+    }
 }

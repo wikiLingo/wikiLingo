@@ -1,4 +1,4 @@
-var WLBubble = (function(document, window, medium, rangy) {
+var WLBubble = (function(document, window, rangy, Math) {
 
 	var floatingClassNameHide = 'wikiLingo-bubble hide',
         floatingClassNameShow = 'wikiLingo-bubble show',
@@ -25,8 +25,7 @@ var WLBubble = (function(document, window, medium, rangy) {
 
     var construct = function(expressions, element) {
 	        var me = this,
-                element = this.element = element,
-                $element = $(element),
+                $element = $(this.element = element),
                 floatingBubble = this.floatingBubble = document.createElement('nav'),
                 floatingBubbleInner = this.floatingBubbleInner = document.createElement('ul'),
                 staticBubble = this.staticBubble = document.createElement('nav'),
@@ -38,7 +37,21 @@ var WLBubble = (function(document, window, medium, rangy) {
                 typeContainer,
                 typePicker,
 	            point = document.createElement('div'),
-		        factory = this.factory = document.createElement('div');
+		        factory = this.factory = document.createElement('div'),
+                selection;
+
+            // Listen for the event.
+            $element
+                .on('blur', function (e) {
+                    if (e.target.isPartOfBubble) {
+                        selection = rangy.saveSelection();
+                    } else {
+                        selection = null;
+                    }
+                })
+                .on('mousedown', function(e) {
+                    staticBubble.style.top = Math.max(e.pageY - staticBubble.clientHeight, staticBubble.origTop) + 'px';
+            }   );
 
 		    factory.createElement = function(e) {
 			    this.innerHTML = e.example;
@@ -68,33 +81,42 @@ var WLBubble = (function(document, window, medium, rangy) {
 	            e = expressions[i];
 	            e.example = decodeURIComponent(e.example).replace(/[+]/g, ' ');
 	            button = document.createElement('li');
-	            button.onmousedown = function(e) {
-		            var element = factory.createElement(this.expression),
-			            attributes = {},
-			            i;
+                button.isPartOfBubble = true;
+                if (e.example) {
+                    button.onmousedown = function(e) {
+                        var element = factory.createElement(this.expression),
+                            attributes = {},
+                            i;
+                        if (selection) {
+                            rangy.restoreSelection(selection);
+                            selection = null;
+                        }
+                        element.isPartOfBubble = true;
 
-		            if (element.children.length == 0) {
-			            for (i = 0; i < element.attributes.length; i++) {
-				            attributes[element.attributes[i].name] = element.attributes[i].value;
-			            }
+                        if (element.children.length == 0) {
+                            for (i = 0; i < element.attributes.length; i++) {
+                                attributes[element.attributes[i].name] = element.attributes[i].value;
+                            }
 
-			            for (i in this.expression.extraAttributes) {
-				            attributes[i] = this.expression.extraAttributes[i];
-			            }
+                            for (i in this.expression.extraAttributes) {
+                                attributes[i] = this.expression.extraAttributes[i];
+                            }
 
-			            var applier = (rangy.createCssClassApplier(element.className, {
-				            wikiLingoTypeName: e.name,
-				            elementTagName: element.tagName.toLowerCase(),
-				            elementAttributes: attributes
-			            }));
+                            var applier = (rangy.createCssClassApplier(element.className, {
+                                wikiLingoTypeName: e.name,
+                                elementTagName: element.tagName.toLowerCase(),
+                                elementAttributes: attributes
+                            }));
 
-			            applier.toggleSelection();
-		            } else {
-			            document.execCommand('insertHTML', false, this.expression.example);
-		            }
+                            applier.toggleSelection();
+                        } else {
+                            document.execCommand('insertHTML', false, this.expression.example);
+                        }
 
-		            stop(e);
-	            };
+                        stop(e);
+                    };
+                }
+
 	            button.innerHTML = e.icon;
 	            button.className = e.iconClass;
 	            button.setAttribute('title', e.label);
@@ -102,20 +124,35 @@ var WLBubble = (function(document, window, medium, rangy) {
 
                 if (e.types) {
                     typeContainer = document.createElement('ul');
+                    typeContainer.isPartOfBubble = true;
+                    typeContainer.className = 'wikiLingo-bubble-static';
                     for (j in e.types) {
                         if (e.types[j].draggable === false) {
                             continue;
                         }
                         typePicker = document.createElement('li');
+                        typePicker.isPartOfBubble = true;
                         typePicker.innerHTML = e.types[j].label;
-	                    if (window['wL' + i]) {
-		                    typePicker.expressionType = e.types[j];
-		                    typePicker.ExpressionEditor = window['WL' + i];
+	                    if (window['WL' + i + 'SyntaxGenerator']) {
+                            typePicker.expressionType = e.types[j];
+		                    typePicker.expressionTypeName = j;
+		                    typePicker.SyntaxGenerator = window['WL' + i + 'SyntaxGenerator'];
 		                    typePicker.onmousedown = function(e) {
-			                    var editor = new this.ExpressionEditor(this.expressionType);
-			                    if (this.expressionType.parameters) {
-				                    editor.ui();
+			                    var target = e.target,
+                                    syntaxGenerator = new target.SyntaxGenerator(target.expressionTypeName, 'true'),
+                                    parameters = target.expressionType.parameters,
+                                    k = (parameters ? parameters.length : 0);
+
+                                while (k-- > 0) {
+                                    syntaxGenerator.addParameter(parameters[k].name, parameters[k].value);
 			                    }
+
+                                $.getJSON('reflect.php', {
+                                    reflect: 'wikiLingoWYSIWYG',
+                                    w: syntaxGenerator.generate()
+                                }, function(r) {
+                                    element.medium.insertHtml(r.output);
+                                });
 
 			                    me.hide();
 			                    stop(e);
@@ -125,7 +162,6 @@ var WLBubble = (function(document, window, medium, rangy) {
                         typeContainer.appendChild(typePicker);
                     }
                     button.appendChild(typeContainer);
-                    console.log(button);
                 }
 
 	            this.buttons.push(button);
@@ -218,10 +254,12 @@ var WLBubble = (function(document, window, medium, rangy) {
             };
         },
         staticToTop: function() {
-            var pos = this.element.getBoundingClientRect(),
+            var pos = $(this.element).offset(),
                 style = this.staticBubble.style,
                 height = this.staticBubble.clientHeight,
                 width = this.staticBubble.clientWidth;
+
+            this.staticBubble.origTop = pos.top;
 
             style.position = 'absolute';
             style.top = pos.top + 'px';
@@ -230,4 +268,4 @@ var WLBubble = (function(document, window, medium, rangy) {
     };
 
     return construct;
-})(document, window, Math, rangy);
+})(document, window, rangy, Math);

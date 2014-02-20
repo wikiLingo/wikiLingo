@@ -7,22 +7,19 @@ __Let us first identify what it is not__
 * yet another wiki markup (''although that is supported'')
 * just another programming language (''although it contains __them__'')
 
-!!((wikiLingo)) does that!
-* ((wikiLingo)) is fun, exciting, intuitive, yet pure, and simple. ((wikiLingo)) is a pluggable and event driven architecture based around content.  Yet it is more...
-* ((wikiLingo)) is visual first (wysiwyg), giving you the ability to touch what you are programming, not just type it.  In that way, it is a programming language that you DON'T HAVE TO LEARN!
+!!((wikiLingo)) is:
+* fun, exciting, intuitive, yet pure, and simple
+* a visual first (wysiwyg) content editing environment
+* drag and drop friendly
+* an html5 compliant ===wiki markup language + editor + architecture===
+* scalable and event driven
+* a human first, living whiteboard for the web
+* Don't believe me?  ~~red:Highlight this~~
 
 {TABS()}
-    {TAB(title="More about wikiLingo")}
-        Video coming soon...
-        {flash movie=""}
-    {TAB}
-    {TAB(title="For a laugh" text-align="center")}
-        {flash movie="http://www.youtube.com/v/OOr8ryJUOyQ"}
-    {TAB}
-    {TAB(title="Unsafe code")}
-        <script>alert('t');</script>
-        <iframe></iframe>
-    {TAB}
+    {TAB(title="wikiLingo")}{flash movie="" allow="true"}{TAB}
+    {TAB(title="For a laugh" text-align="center")}{flash movie="http://www.youtube.com/v/OOr8ryJUOyQ" allow="true" width="100%" height="400px"}    {TAB}
+    {TAB(title="Why?")}{flash movie="http://www.youtube.com/v/-dnL00TdmLY" allow="true" width="100%" height="400px"}{TAB}
 {TABS}
 
 

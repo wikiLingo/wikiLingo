@@ -16,12 +16,28 @@ abstract class Base
 	public $allowLineAfter = true;
 
     /**
+     * @var int
+     */
+    public $index = -1;
+
+    /**
+     * @var string
+     */
+    public $type = '';
+
+    /**
      * @param WikiLingo\Parsed $parsed
      */
     function __construct(WikiLingo\Parsed &$parsed)
 	{
 		$this->parsed =& $parsed;
-	}
+        $parsed->parser->addType($this);
+    }
+
+    function id()
+    {
+        return $this->type . $this->index;
+    }
 
     /**
      * @return null|WikiLingo\Parsed

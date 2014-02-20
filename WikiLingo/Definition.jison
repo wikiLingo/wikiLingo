@@ -39,14 +39,21 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //no parse
 "~np~"(.|\n)+?"~/np~" {
+    //js
+        yytext = yytext.substring(4, yytext.length - 5);
+
 	/*php
 		$yytext = substr($yytext, 4, -5);
 	*/
+
     return 'NO_PARSE';
 }
 
 //Pre-Formatted Text
 "~pp~"(.|\n)*?"~/pp~" {
+    //js
+        yytext = yytext.substring(4, yytext.length - 5);
+
 	/*php
         $yytext = substr($yytext, 4, -5);
     */
@@ -54,6 +61,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 }
 //Comment
 "~tc~"(.|\n)*?"~/tc~" {
+    //js
+        yytext = yytext.substring(4, yytext.length - 5);
+
 	/*php
 		$yytext = substr($yytext, 4, -5);
 	*/
@@ -61,6 +71,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 }
 //Code
 "-+"(.|\n)*?"+-" {
+    //js
+        yytext = yytext.substring(2, yytext.length - 2);
+
 	/*php
 		$yytext = substr($yytext, 2, -2);
 	*/
@@ -71,6 +84,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Variables
 [%]{VARIABLE_NAME}[%] {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+
     /*php
         if ($this->isContent()) return 'CONTENT';
     */
@@ -82,6 +98,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Block handling
 <block><<EOF>> {
+    //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -90,49 +109,77 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <preBlock>{BLOCK_START} {
+    //js
+        this.yy.lexer.popState();
+        this.yy.lexer.begin('block');
+
 	/*php
 		$this->popState();
 		$this->begin('block');
-		return 'BLOCK_START';
 	*/
+
+	return 'BLOCK_START';
 }
 <block>(?={LINE_END}) {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.popState();
+
     /*php
         //returns block end
         if ($this->isContent()) return 'CONTENT';
         $this->popState();
-        return 'BLOCK_END';
     */
+
+    return 'BLOCK_END';
 }
 <block><<EOF>> {
+    //js
+        this.yy.lexer.popState();
+
     /*php
         $this->popState();
-        return 'EOF';
     */
+
+    return 'EOF';
 }
 
 {LINE_END}(?={BLOCK_START}) {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('preBlock');
+
     /*php
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('preBlock');
-        return 'PRE_BLOCK_START';
-    */
-}
-<BOF>(?!{BLOCK_START}) {
-    /*php
-        $this->popState();
-    */
-}
-<BOF>(?={BLOCK_START}) {
-    /*php
-        $this->popState();
         if ($this->isContent()) return 'CONTENT';
         $this->begin('preBlock');
     */
 
     return 'PRE_BLOCK_START';
 }
+<BOF>(?!{BLOCK_START}) {
+    //js
+        this.yy.lexer.popState();
+
+    /*php
+        $this->popState();
+    */
+}
+<BOF>(?={BLOCK_START}) {
+    //js
+        this.yy.lexer.popState();
+        this.yy.lexer.begin('preBlock');
+
+    /*php
+        $this->popState();
+        $this->begin('preBlock');
+    */
+
+    return 'PRE_BLOCK_START';
+}
 {LINE_END} {
+    //js
+        if (yy.isContent() || yy.tableStack.length) return 'CONTENT';
+
     /*php
         if ($this->isContent() || !empty($this->tableStack)) return 'CONTENT';
     */
@@ -144,12 +191,19 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Inline Plugin
 <inlinePlugin>(.+?"}")|("}") {
+    //js
+        this.yy.lexer.popState();
+
     /*php
         $this->popState();
-        return 'INLINE_PLUGIN_PARAMETERS';
     */
+
+    return 'INLINE_PLUGIN_PARAMETERS';
 }
 "{"{INLINE_PLUGIN_ID} {
+    //js
+        this.yy.lexer.begin('inlinePlugin');
+
     /*php
         $this->begin('inlinePlugin');
     */
@@ -160,21 +214,34 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Plugins with possible body
 <pluginStart>.*?")}" {
+    //js
+        this.yy.lexer.popState();
+        this.yy.lexer.begin('plugin');
+
     /*php
         $this->popState();
         $this->begin('plugin');
-        return 'PLUGIN_PARAMETERS';
     */
+
+    return 'PLUGIN_PARAMETERS';
 }
 
 "{"{PLUGIN_ID}"(" {
+    //js
+        this.yy.lexer.begin('pluginStart');
+        yy.stackPlugin(yytext);
+
     /*php
         $this->begin('pluginStart');
         $this->stackPlugin($yytext);
-        return 'PLUGIN_START';
     */
+
+    return 'PLUGIN_START';
 }
 <plugin><<EOF>> {
+    //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -183,6 +250,13 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <plugin>"{"{PLUGIN_ID}"}" {
+    //js
+        if (yy.pluginMatch(yytext)) {
+            this.yy.lexer.popState();
+            yy.pluginStackPop();
+            return 'PLUGIN_END';
+        }
+
     /*php
         $name = end($this->pluginStack);
         if (substr($yytext, 1, -1) == $name && $this->pluginStackCount > 0) {
@@ -197,6 +271,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 }
 
 <pastLink><<EOF>> {
+    //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -205,6 +282,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <pastLink>[@][)] {
+    //js
+        this.yy.lexer.popState();
+
 	/*php
 		$this->popState();
 	*/
@@ -213,6 +293,10 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 }
 
 "@FLP(".+?")" {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('pastLink');
+
 	/*php
 		if ($this->isContent()) return 'CONTENT';
 		$this->begin('pastLink');
@@ -225,6 +309,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Horizontal bar
 "---" {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+
     /*php
         if ($this->isContent()) return 'CONTENT';
     */
@@ -235,6 +322,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Forced line end
 "%%%" {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+
     /*php
         if ($this->isContent()) return 'CONTENT';
     */
@@ -250,6 +340,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Bold
 <bold><<EOF>> {
+    //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -258,14 +351,20 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <bold>[_][_] {
+    //js
+        this.yy.lexer.popState();
+
     /*php
-        if ($this->isContent()) return 'CONTENT';
         $this->popState();
     */
 
     return 'BOLD_END';
 }
 [_][_] {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('bold');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('bold');
@@ -278,6 +377,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Center
 <center><<EOF>> {
+    //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -286,15 +388,20 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <center>[:][:] {
+    //js
+        this.yy.lexer.popState();
+
     /*php
-        if ($this->isContent()) return 'CONTENT';
         $this->popState();
     */
-
 
     return 'CENTER_END';
 }
 [:][:] {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('center');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('center');
@@ -307,6 +414,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Color text
 <color><<EOF>> {
+    //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -315,14 +425,20 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <color>"~~" {
+    //js
+        this.yy.lexer.popState();
+
     /*php
-        if ($this->isContent()) return 'CONTENT';
         $this->popState();
     */
 
     return 'COLOR_END';
 }
 "~~" {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('color');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('color');
@@ -334,6 +450,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Italics
 <italic><<EOF>> {
+    //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -342,14 +461,20 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <italic>[']['] {
+    //js
+        this.yy.lexer.popState();
+
     /*php
-        if ($this->isContent()) return 'CONTENT';
         $this->popState();
     */
 
     return 'ITALIC_END';
 }
 [']['] {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('italic');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('italic');
@@ -362,6 +487,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Link
 <link><<EOF>> {
+    //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -370,8 +498,11 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <link>"]" {
+    //js
+        this.linkStack = false;
+        this.yy.lexer.popState();
+
     /*php
-        if ($this->isContent(array('linkStack'))) return 'CONTENT';
         $this->linkStack = false;
         $this->popState();
     */
@@ -379,6 +510,11 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'LINK_END';
 }
 "["(?![ ]) {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.linkStack = true;
+        this.yy.lexer.begin('link');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->linkStack = true;
@@ -391,6 +527,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Strike
 <strike><<EOF>> {
+   //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -399,14 +538,20 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <strike>"--" {
+    //js
+        this.yy.lexer.popState();
+
     /*php
-        if ($this->isContent()) return 'CONTENT';
         $this->popState();
     */
 
     return 'STRIKE_END';
 }
 "--" {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('strike');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('strike');
@@ -419,6 +564,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Table
 <table><<EOF>> {
+   //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -427,6 +575,11 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <table>[|][|] {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.popState();
+        this.yy.tableStack.pop();
+
    /*php
         if ($this->isContent()) return 'CONTENT';
         $this->popState();
@@ -436,6 +589,11 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'TABLE_END';
 }
 [|][|] {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('table');
+        this.yy.tableStack.push(true);
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('table');
@@ -448,6 +606,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Title bar
 <titleBar><<EOF>> {
+   //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -456,14 +617,20 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 <titleBar>[=][-] {
+    //js
+        this.yy.lexer.popState();
+
     /*php
-        if ($this->isContent()) return 'CONTENT';
         $this->popState();
     */
 
     return 'TITLE_BAR_END';
 }
 [-][=] {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('titleBar');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('titleBar');
@@ -475,6 +642,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //Underscore
 <underscore><<EOF>> {
+   //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -491,6 +661,10 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'UNDERSCORE_END';
 }
 [=][=][=] {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('underscore');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->begin('underscore');
@@ -502,6 +676,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //WikiLink
 <wikiLink><<EOF>> {
+   //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -529,6 +706,10 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'WIKI_UNLINK_END';
 }
 "((" {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.lexer.begin('wikiLink');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->linkStack = true;
@@ -542,6 +723,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //WikiLinkType
 <wikiLinkType><<EOF>> {
+   //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -559,6 +743,12 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'WIKI_LINK_TYPE_END';
 }
 "("{WIKI_LINK_TYPE}"(" {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this.yy.linkStack = true;
+        this.yy.lexer.begin('wikiLinkType');
+        yytext = yytext.substring(1, yytext.length - 1);
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->linkStack = true;
@@ -571,6 +761,9 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //WikiUnlink
 <wikiUnlink><<EOF>> {
+   //js
+        this.yy.lexer.conditionStack = [];
+
     /*php
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -579,6 +772,11 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'EOF';
 }
 "))" {
+    //js
+        if (yy.isContent()) return 'CONTENT';
+        this,yy.linkStack = true;
+        this.yy.lexer.begin('wikiUnlink');
+
     /*php
         if ($this->isContent()) return 'CONTENT';
         $this->linkStack = true;
@@ -591,12 +789,19 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 //WordLink
 <skip>. {
+    //js
+        this.yy.lexer.popState();
+
 	/*php
 		$this->popState();
-		return 'CONTENT';
 	*/
+
+	return 'CONTENT';
 }
 {CAPITOL_WORD}(?=$|[ \n\t\r\,\;\.]) {
+    //js
+        return 'CONTENT';
+
     /*php
         if ($this->isContent()) return 'CONTENT';
 
@@ -620,10 +825,14 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 //Look for "<" or ">" that ARE NOT the start and end of a tag
 "<"(?![a-zA-Z\/])|">" {
 	//special character
+	//js
+	    if (yy.isContent()) return 'CONTENT';
+
 	/*php
 		if ($this->isContent()) return 'CONTENT';
-		return 'SPECIAL_CHAR';
 	*/
+
+	return 'SPECIAL_CHAR';
 }
 
 //Look for "<" or ">" that ARE the start and end of a tag
@@ -638,6 +847,10 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 (?!{SYNTAX_CHARS})({LINE_CONTENT})?(?={SYNTAX_CHARS})
 											return 'CONTENT';
 {WHITE_SPACE} {
+    //js
+		if (yy.isContent()) return 'CONTENT';
+		return 'WHITE_SPACE';
+
 	/*php
 		if ($this->isContent()) return 'CONTENT';
 		return 'WHITE_SPACE';
@@ -656,15 +869,11 @@ wiki
  	}
  | contents EOF
 	{
-    	/*php
-		    return $1;
-        */
+        return $1;
 	}
  | EOF
     {
-        /*php
-            return $1;
-        */
+        return $1;
     }
  ;
 
@@ -672,6 +881,9 @@ contents
  : content
  | contents content
 	{
+	    //js
+            $$.addContent($2);
+
 		/*php
 			$1->addContent($2);
         */
@@ -681,54 +893,82 @@ contents
 content
     : CONTENT
 	{
+	    //js
+            $$ = yy.setType('Content', $1);
+
 	    /*php
 	        $1->setType('Content', $$this);
 	    */
 	}
     | COMMENT
 	{
+	    //js
+            $$ = yy.setType('Comment', $1);
+
         /*php
 			$1->setType('Comment', $$this);
         */
     }
     | NO_PARSE
     {
+        //js
+            $$ = yy.setType('NoParse', $1);
+
         /*php
             $1->setType('NoParse', $$this);
         */
     }
     | PREFORMATTED_TEXT
     {
+        //js
+            $$ = yy.setType('PreFormattedText', $1);
+
         /*php
             $1->setType('PreFormattedText', $$this);
         */
     }
     | VARIABLE
     {
+        //js
+            $$ = yy.setType('Variable', $1);
+
         /*php
             $1->setType('Variable', $$this);
         */
     }
     | HTML_TAG
     {
+        //js
+            $$ = yy.setType('Tag', $1);
+
         /*php
             $1->setType('Tag', $$this);
         */
     }
     | HORIZONTAL_BAR
 	{
+        //js
+            $$ = yy.setType('HorizontalBar', $1);
+
 		/*php
-		    $1->setType('Row', $$this);
+		    $1->setType('HorizontalBar', $$this);
         */
 	}
     | BOLD_START
     {
+        //js
+            $$ = yy.setType('Content', $1);
+
         /*php
             $1->setType('Content');
         */
     }
     | BOLD_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -737,6 +977,10 @@ content
     | BOLD_START BOLD_END
     | BOLD_START contents BOLD_END
 	{
+        //js
+            $$ = yy.setType('Bold', $1)
+                .addChild($2);
+
 		/*php
 		    $$type =& $1;
             $2->setParent($$type);
@@ -746,6 +990,10 @@ content
     | CENTER_START
     | CENTER_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -754,6 +1002,10 @@ content
     | CENTER_START CENTER_END
     | CENTER_START contents CENTER_END
 	{
+        //js
+            $$ = yy.setType('Center', $1)
+                .addChild($2);
+
 		/*php
 		    $$type =& $1;
             $2->setParent($$type);
@@ -762,6 +1014,9 @@ content
 	}
     | CODE
 	{
+        //js
+            $$ = yy.setType('Code', $1);
+
 		/*php
 		    $1->setType('Code', $$this);
         */
@@ -769,6 +1024,10 @@ content
     | COLOR_START
     | COLOR_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -777,6 +1036,10 @@ content
     | COLOR_START COLOR_END
     | COLOR_START contents COLOR_END
 	{
+	    //js
+            $$ = yy.setType('Color', $1)
+                .addChild($2);
+
 		/*php
 		    $$type =& $1;
             $2->setParent($$type);
@@ -786,6 +1049,10 @@ content
     | ITALIC_START
     | ITALIC_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -794,6 +1061,10 @@ content
     | ITALIC_START ITALIC_END
     | ITALIC_START contents ITALIC_END
 	{
+	    //js
+            $$ = yy.setType('Italic', $1)
+                .addChild($2);
+
 		/*php
 		    $$type =& $1;
             $2->setParent($$type);
@@ -802,12 +1073,19 @@ content
 	}
     | LINK_START
     {
+        //js
+            $$ = yy.setType('Content', $1);
+
         /*php
             $1->setType('Content', $$this);
         */
     }
     | LINK_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -816,6 +1094,10 @@ content
     | LINK_START LINK_END
     | LINK_START contents LINK_END
 	{
+	    //js
+            $$ = yy.setType('Link', $1)
+                .addChild($2);
+
 		/*php
 		    //type already set
 
@@ -827,6 +1109,10 @@ content
     | STRIKE_START
     | STRIKE_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -835,6 +1121,10 @@ content
     | STRIKE_START STRIKE_END
     | STRIKE_START contents STRIKE_END
 	{
+	    //js
+	        $$ = yy.setType('Strike', $1)
+	            .addChild($2);
+
 		/*php
 		    $$type =& $1;
             $2->setParent($$type);
@@ -843,6 +1133,9 @@ content
 	}
     | DOUBLE_DASH
     {
+        //js
+            $$ = yy.setType('DoubleDash', $1);
+
         /*php
             $1->setType('DoubleDash', $$this);
         */
@@ -850,6 +1143,10 @@ content
     | TABLE_START
     | TABLE_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -858,6 +1155,10 @@ content
     | TABLE_START TABLE_END
     | TABLE_START contents TABLE_END
 	{
+	    //js
+	        $$ = yy.setType('Table', $1)
+	            .addChild($2);
+
 		/*php
 		    $$type =& $1;
             $2->setParent($$type);
@@ -867,6 +1168,10 @@ content
     | TITLE_BAR_START
     | TITLE_BAR_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -875,6 +1180,10 @@ content
     | TITLE_BAR_START TITLE_BAR_END
     | TITLE_BAR_START contents TITLE_BAR_END
 	{
+	    //js
+	        $$ = yy.setType('TitleBar', $1)
+	            .addChild($2);
+
 		/*php
 			$$type =& $1;
             $2->setParent($$type);
@@ -884,6 +1193,10 @@ content
     | UNDERSCORE_START
     | UNDERSCORE_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -892,6 +1205,10 @@ content
     | UNDERSCORE_START UNDERSCORE_END
     | UNDERSCORE_START contents UNDERSCORE_END
 	{
+	    //js
+	        $$ = yy.setType('Underscore', $1)
+	            .addChild($2);
+
 		/*php
 		    $$type =& $1;
             $2->setParent($$type);
@@ -901,6 +1218,10 @@ content
 	| PAST_LINK_START
     | PAST_LINK_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -909,6 +1230,10 @@ content
     | PAST_LINK_START PAST_LINK_END
     | PAST_LINK_START contents PAST_LINK_END
     {
+	    //js
+	        $$ = yy.setType('PastLink', $1)
+	            .addChild($2);
+
         /*php
             //Type already set
             $$type =& $1;
@@ -919,6 +1244,10 @@ content
     | WIKI_LINK_START
     | WIKI_LINK_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -927,6 +1256,10 @@ content
     | WIKI_LINK_START WIKI_LINK_END
     | WIKI_LINK_START contents WIKI_LINK_END
 	{
+	    //js
+	        $$ = yy.setType('WikiLink', $1)
+	            .addChild($2);
+
 		/*php
 			//Type already set
 			$$type =& $1;
@@ -937,6 +1270,10 @@ content
 	| WIKI_LINK_TYPE_START
     | WIKI_LINK_TYPE_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -945,6 +1282,10 @@ content
     | WIKI_LINK_TYPE_START WIKI_LINK_TYPE_END
     | WIKI_LINK_TYPE_START contents WIKI_LINK_TYPE_END
     {
+	    //js
+	        $$ = yy.setType('WikiLinkType', $1)
+	            .addChild($2);
+
         /*php
             //Type already set
             $$type =& $1;
@@ -955,6 +1296,10 @@ content
     | WIKI_UNLINK_START
     | WIKI_UNLINK_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -963,6 +1308,10 @@ content
     | WIKI_UNLINK_START WIKI_UNLINK_END
     | WIKI_UNLINK_START contents WIKI_UNLINK_END
     {
+	    //js
+	        $$ = yy.setType('WikiUnlink', $1)
+	            .addChild($2);
+
         /*php
             //Type already set
             $$type =& $1;
@@ -972,6 +1321,10 @@ content
     }
     | WORD_LINK
     {
+	    //js
+	        $$ = yy.setType('WordLink', $1)
+                .addArgument($1);
+
         /*php
             $$type =& $1;
             $$type->addArgument($1);
@@ -982,6 +1335,10 @@ content
     | INLINE_PLUGIN_START
     | INLINE_PLUGIN_START contents
     {
+        //js
+            $$ = yy.setType('Content', $1)
+                .addContent($2);
+
         /*php
             $1->setType('Content', $$this);
             $1->addContent($2);
@@ -989,6 +1346,12 @@ content
     }
     | INLINE_PLUGIN_START INLINE_PLUGIN_PARAMETERS
  	{
+	    //js
+	        $$ = yy.setType('InlinePlugin', $1)
+                .setOption('NoBody', true)
+                .setOption('Inline', true)
+                .addArgument($2);
+
  		/*php
  		    $$type =& $1;
             $$type->setOption('NoBody', true);
@@ -999,6 +1362,11 @@ content
  	}
     | PLUGIN_START PLUGIN_PARAMETERS contents PLUGIN_END
  	{
+	    //js
+	        $$ = yy.setType('Plugin', $1, $4)
+                .addArgument($2)
+	            .addChild($3);
+
  	    /*php
  		    $$type =& $1;
  		    $$type->addArgument($2);
@@ -1009,6 +1377,11 @@ content
  	}
     | PLUGIN_START PLUGIN_PARAMETERS PLUGIN_END
   	{
+	    //js
+	        $$ = yy.setType('Plugin', $1, $3)
+	            .addArgument($2)
+	            .addArgument($3);
+
   	    /*php
             $$type =& $1;
             $$type->addArgument($2);
@@ -1021,36 +1394,55 @@ content
     | PLUGIN_START
     | LINE_END
     {
+        //js
+            $$ = yy.setType('Line', $1);
+
         /*php
             $1->setType('Line', $$this);
         */
     }
     | FORCED_LINE_END
     {
+        //js
+            $$ = yy.setType('ForcedLine', $1);
+
         /*php
             $1->setType('ForcedLine', $$this);
         */
     }
     | CHAR
     {
+        //js
+            $$ = yy.setType('Char', $1);
+
         /*php
             $1->setType('Char', $$this);
         */
     }
     | SPECIAL_CHAR
     {
+        //js
+            $$ = yy.setType('SpecialChar', $1);
+
         /*php
             $1->setType('SpecialChar', $$this);
         */
     }
     | WHITE_SPACE
     {
+        //js
+            $$ = yy.setType('WhiteSpace', $1);
+
         /*php
             $1->setType('WhiteSpace', $$this);
         */
     }
     | PRE_BLOCK_START BLOCK_START BLOCK_END
     {
+        //js
+            $$ = yy.setType('Block', $1)
+                .setOption('Empty', 'true');
+
         /*php
 	        $1->setOption('Empty', 'true');
 	        $1->setType('Block', $$this);
@@ -1058,6 +1450,12 @@ content
 	}
     | PRE_BLOCK_START BLOCK_START contents BLOCK_END
 	{
+	    //js
+	        $$ = yy.setType('Block', $1)
+                .addArgument($2)
+                .addArgument($3)
+                .addChild($3);
+
         /*php
 			$$type = $1;
 			$$type->addArgument($2);
@@ -1068,6 +1466,12 @@ content
     }
     | PRE_BLOCK_START BLOCK_START contents
     {
+        //js
+            $$ = yy.setType('Block', $1)
+                .addArgument($2)
+                .addArgument($3)
+                .addChild($3);
+
         /*php
             $$type = $1;
             $$type->addArgument($2);
@@ -1079,3 +1483,10 @@ content
     | PRE_BLOCK_START BLOCK_START
     | PRE_BLOCK_START
     ;
+
+%%
+
+(function() {
+    this.WikiLingo = (this.WikiLingo || {});
+    var me = this.WikiLingo.Definition = Parser;
+}).call((typeof window !== 'undefined' ? window : {}));

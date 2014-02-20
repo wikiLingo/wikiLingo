@@ -51,19 +51,10 @@ item3|item4||
 {ACCORDIONS}
 
 ";
-    $scripts = new WikiLingo\Utilities\Scripts();
-
-    $scripts
+    $scripts = (new WikiLingo\Utilities\Scripts())
         ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
-        ->addCssLocation("mercury2/distro/mercury.bundle.css")
-        ->addCssLocation("mercury2/distro/mercury_regions.bundle.css")
-
         ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
-        ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
-        ->addScriptLocation("mercury2/dependencies/liguidmetal-1.2.1.js")
-        ->addScriptLocation("mercury2/distro/mercury.js")
-        ->addScriptLocation("mercury2/distro/locales/nl.js")
-        ->addScriptLocation("mercury2/regions/html.js");
+        ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js");
 
 
     $wikiLingo = new WikiLingo\Parser($scripts);

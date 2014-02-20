@@ -5,7 +5,7 @@ $scripts = (new WikiLingo\Utilities\Scripts())
 	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
 	->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
 	->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js")
-	->addScriptLocation('bower_components/vkbeautify/index.js');
+	->addScriptLocation('~/bower_components/vkbeautify/index.js');
 
 $parser = new WikiLingo\Parser($scripts);
 

@@ -1,0 +1,23 @@
+{
+    "name": "wikilingo/wikilingo",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robert Plummer",
+            "email": "rplummer@visop-dev.com",
+            "homepage": "http://visop-dev.com",
+            "role": "Lead Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Types\\": "./",
+            "WikiLingo\\": "./",
+            "WikiLingoWYSIWYG\\": "./",
+            "WYSIWYGWikiLingo\\": "./"
+        }
+    }
+}

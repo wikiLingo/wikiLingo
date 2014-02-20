@@ -14,6 +14,12 @@ class Scripts
     public $scripts = array();
 
     public $existingScriptsAndLocations = array();
+    public $relativeLocation = '';
+
+    public function __construct($relativeLocation = '')
+    {
+        $this->relativeLocation = $relativeLocation;
+    }
 
     /**
      * @param String $css
@@ -48,6 +54,10 @@ class Scripts
             return $this;
         }
 
+        if ($href{0} === '~' && $href{1} === '/') {
+            $href = $this->relativeLocation . substr($href, 2);
+        }
+
         if ($i > -1) {
             $this->cssLocations[$i] = $href;
         } else {
@@ -68,6 +78,10 @@ class Scripts
     {
         if (isset($this->existingScriptsAndLocations[$src])) {
             return $this;
+        }
+
+        if ($src{0} === '~' && $src{1} === '/') {
+            $src = $this->relativeLocation . substr($src, 2);
         }
 
         if ($i > -1) {
