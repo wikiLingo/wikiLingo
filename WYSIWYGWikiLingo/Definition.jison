@@ -43,7 +43,8 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 <htmlElement>(?={HTML_TAG_CLOSE}) {
     /*php
         //A look ahead for closing tag
-        if ($closingTag = preg_match($this->closingTagRegex, $this->input, $match)) {
+        $match = $this->input->match($this->closingTagRegex);
+        if (!empty($match)) {
             if (!$this->unStackHtmlElement($match[0], true)) {
                 $this->killStackedHtmlElement();
                 $this->popState();

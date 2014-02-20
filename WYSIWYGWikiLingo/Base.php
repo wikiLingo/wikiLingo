@@ -26,7 +26,7 @@ class Base
 
 	public $isStaticTag = false;
 	public $processedTypeStack = '';
-    public $closingTagRegex = "/^(?:(<\/(.|\n)[^>]*?>))/";
+    public $closingTagRegex = "/\G(?:(<\/(.|\n)[^>]*?>))/";
 	public $inputAdjustedForLineAtBeginning = false;
 
 /*
