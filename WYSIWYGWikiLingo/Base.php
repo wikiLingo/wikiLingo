@@ -101,7 +101,8 @@ class Base
         }
         $this->types[$class][] =& $type;
         $this->typesCount[$class]++;
-        $type->type = array_pop(explode('\\', $class));
+        $classParts = explode('\\', $class);
+        $type->type = array_pop($classParts);
         return $type->index = $this->typesCount[$class];
     }
 }
