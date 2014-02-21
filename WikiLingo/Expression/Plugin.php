@@ -156,8 +156,6 @@ class Plugin extends Base
      */
     private function incrementPluginIndex($type)
     {
-	    $type = strtolower($type);
-
         if (isset(self::$indexes[$type]) == false) {
             self::$indexes[$type] = 0;
         }

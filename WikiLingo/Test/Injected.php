@@ -7,7 +7,7 @@ use WikiLingo;
  * Class injected
  * @package WikiLingo\Test
  */
-class injected extends WikiLingo\Plugin\html
+class Injected extends WikiLingo\Plugin\Html
 {
-    public $type = 'injected';
+    public $type = 'Injected';
 }

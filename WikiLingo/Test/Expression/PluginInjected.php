@@ -12,9 +12,9 @@ class PluginInjected extends Base
 	{
 		$fn = function(WikiLingo\Expression\Plugin &$plugin) use (&$parser) {
 			switch ($plugin->type) {
-				case "injected":
-					$plugin->className = "\\Tests\\injected";
-					$plugin->class = $parser->pluginInstances['injected'] =& new Test\injected();
+				case "Injected":
+					$plugin->className = "\\Test\\Injected";
+					$plugin->class = $parser->pluginInstances['Injected'] =& new Test\Injected();
 					break;
 			}
 		};
@@ -23,7 +23,7 @@ class PluginInjected extends Base
 
 		$this->source = "{INJECTED()}__I've been injected!__{INJECTED}";
 
-		$this->expected = "<span class='injected' id='injected1'><strong>I've been injected!</strong></span>";
+		$this->expected = "<span class='Injected' id='Injected1'><strong>I've been injected!</strong></span>";
 
 	}
 }

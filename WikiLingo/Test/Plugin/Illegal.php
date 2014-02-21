@@ -7,7 +7,7 @@ use WikiLingo\Test\Base;
 use WikiLingo\Event;
 use WikiLingo\Parsed;
 
-class illegal extends Base
+class Illegal extends Base
 {
 	public function __construct(WikiLingo\Parser &$parser = null)
 	{
@@ -19,7 +19,7 @@ class illegal extends Base
                 ->bind(new Event\Parsed\RenderPermission(function(Parsed &$parsed) {
                     if (
                         $parsed->type == "Plugin"
-                        && $parsed->expression->type == "illegal"
+                        && $parsed->expression->type == "Illegal"
                     ) {
                         $parsed->expressionPermissible = false;
                     }

@@ -52,7 +52,7 @@ end.
 		$this->expected =
 			"<h1 id='+WYSIWYG+Sample+Page'><span class='whitespace'> </span>WYSIWYG Sample Page</h1>" .
 			"Start off by clicking \"edit\"<span class='whitespace'> </span>then switching the editor to use the wysiwyg editor using the " .
-			"<span class='html' id='html1'></span><span class='whitespace'> </span>button on the toolbar." .
+			"<span class='Html' id='Html1'></span><span class='whitespace'> </span>button on the toolbar." .
 			"<h2 id='+Text+formatting'><span class='whitespace'> </span>Text formatting</h2>" .
 			'<strong>bold</strong><br/>' .
 			"<i>italic</i><br/>" .
@@ -99,7 +99,7 @@ end.
 			"<br/>" .
 			"<h2 id='+Plugins'><span class='whitespace'> </span>Plugins</h2>" .
 			"<h3 id='+Quote+plugin%3A'><span class='whitespace'> </span>Quote plugin:</h3>" .
-			"<span class='html' id='html2'>" .
+			"<span class='Html' id='Html2'>" .
 				"<br class='hidden'/>" .
 				"Just what do you think you're doing, Dave?" .
 				"<br class='hidden'/>" .
@@ -109,7 +109,7 @@ end.
 				"<br class='hidden'/>" .
 			"</span><br/>" .
 			"<h3 id='+Code+plugin%3A'><span class='whitespace'> </span>Code plugin:</h3>" .
-			"<span class='html' id='html3'>" .
+			"<span class='Html' id='Html3'>" .
 				"<br class='hidden'/>" .
 				'program HelloWorld(output);' .
 				"<br class='hidden'/>" .
