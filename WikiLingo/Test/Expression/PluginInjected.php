@@ -14,7 +14,7 @@ class PluginInjected extends Base
 			switch ($plugin->type) {
 				case "Injected":
 					$plugin->className = "\\Test\\Injected";
-					$plugin->class = $parser->pluginInstances['Injected'] =& new Test\Injected();
+					$plugin->class = $parser->pluginInstances['Injected'] = new Test\Injected();
 					break;
 			}
 		};
