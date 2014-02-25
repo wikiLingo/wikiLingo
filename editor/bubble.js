@@ -185,7 +185,7 @@ var WLBubble = (function(document, window, rangy, Math) {
             floatingBubble.insertBefore(point, floatingBubble.firstChild);
 
             document.body.appendChild(floatingBubble);
-            element.parentNode.insertBefore(staticBubble, element.nextSibling);
+            document.body.appendChild(staticBubble);
 	    },
 		types = this.types = {};
 
