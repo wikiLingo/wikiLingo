@@ -233,7 +233,7 @@ var WLBubble = (function(document, window, rangy, Math) {
 	            } else {
 	                s.display = 'inline-block';
 	                b.className = floatingClassNameShow;
-	                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 80) + "px";
+	                s.top = ((high.boundary.top - 5 + window.pageYOffset) - 65) + "px";
 	                s.left = ((high.boundary.left + (high.boundary.width / 2))  - (b.clientWidth / 2)) + "px";
 	            }
 	        }

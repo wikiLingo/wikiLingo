@@ -16,6 +16,7 @@
     border-color: rgba(0, 0, 0, 0.9) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     border-style: solid;
     border-width: 5px;
+	margin: 0px;
 }
 
 
@@ -24,6 +25,7 @@
     border-bottom-right-radius: 0px ! important;
     border-top-right-radius: 0px ! important;
     padding: 0px ! important;
+
 }
 
 .wikiLingo-bubble > ul > li {
@@ -62,7 +64,7 @@
     width: 100%;
 	font-size: 15px;
     cursor: pointer;
-    top: 61px;
+    top: 45px;
 }
 
 .hide {
