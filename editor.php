@@ -1,7 +1,7 @@
 <?php
 
 //setup auto load
-require_once("autoload.php");
+require_once("vendor/autoload.php");
 
 
 

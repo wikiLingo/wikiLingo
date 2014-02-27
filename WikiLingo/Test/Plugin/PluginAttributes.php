@@ -19,10 +19,10 @@ class PluginAttributes extends Base
 	public function __construct(WikiLingo\Parser &$parser = null)
 	{
 		$this->source =
-			"{HTML(attr1 = something attr2 = 'something else')}
-{HTML}";
+			"{DIV(attr1 = something attr2 = 'something else')}
+{DIV}";
 
-		$this->expected = "<span class='Html' id='Html5'><br class='hidden'/></span>";
+		$this->expected = "<div class='Div' id='Div5'><br/></div>";
 
 	}
 } 

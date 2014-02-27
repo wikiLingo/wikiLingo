@@ -2,7 +2,6 @@
 namespace WikiLingo\Test\Expression;
 
 use WikiLingo\Test\Base;
-use WikiLingo\Utilities\Html;
 
 class Bold extends Base
 {

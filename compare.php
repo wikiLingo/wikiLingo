@@ -1,5 +1,5 @@
 <?php
-require_once("autoload.php");
+require_once("vendor/autoload.php");
 
 use WikiLingo\Event;
 use WikiLingo\Expression;
@@ -39,9 +39,7 @@ item3|item4||
 
 !+Header
 {ILLEGAL()}
-    {HTML()}
-        <script>alert('t');</script>
-    {HTML}
+    <script>alert('t');</script>
 {ILLEGAL}
 
 {ACCORDIONS()}

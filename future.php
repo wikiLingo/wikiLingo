@@ -4,7 +4,7 @@
     <title>FutureLink-Protocol, Demo of Future Article linking to a PastLink</title>
 </head>
 <body><?php
-require_once "autoload.php";
+require_once "vendor/autoload.php";
 
 $title = 'The FutureLink-Protocol, An explanation';
 $source = <<<Source

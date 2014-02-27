@@ -1,0 +1,68 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "f0db3dcc01a40be5b8eeb2fe158c76f3",
+    "packages": [
+        {
+            "name": "flp/flp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FutureLink-Protocol/php.git",
+                "reference": "e3a67157526d4eb0a36627d4335648f47ba75106"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/e3a67157526d4eb0a36627d4335648f47ba75106",
+                "reference": "e3a67157526d4eb0a36627d4335648f47ba75106",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "FLP": "",
+                    "Phraser": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Robert Plummer",
+                    "email": "rplummer@visop-dev.com",
+                    "homepage": "http://visop-dev.com",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Luke Gerhardt",
+                    "email": "luke@totaldigitalconsulting.com",
+                    "homepage": "http://totaldigitalconsulting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "FutureLink-Protocol implementation in PHP",
+            "homepage": "https://github.com/FutureLink-Protocol",
+            "time": "2014-02-27 18:03:19"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "flp/flp": 20
+    },
+    "platform": {
+        "php": ">=5.4.0"
+    },
+    "platform-dev": [
+
+    ]
+}
