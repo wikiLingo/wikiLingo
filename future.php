@@ -15,7 +15,11 @@ But there are many other projects that I enjoy as well.
 Source
 ;
 
-$scripts = new WikiLingo\Utilities\Scripts();
+$scripts = (new WikiLingo\Utilities\Scripts())
+    ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
+    ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js")
+    ->addScriptLocation("http://code.jquery.com/ui/1.10.3/jquery-ui.js");
+
 $parser = new WikiLingo\Parser($scripts);
 
 
@@ -50,7 +54,6 @@ FLP\Events::bind(new FLP\Event\MetadataLookup(function($linkType, &$value) {
 
 $page = $parser->parse($source);
 
-echo $page; ?>
+echo $page . $scripts->renderScript();?>
 </body>
-
 </html>
