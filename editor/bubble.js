@@ -49,9 +49,9 @@ var WLBubble = (function(document, window, rangy, Math) {
                         selection = null;
                     }
                 })
-                .on('mousedown', function(e) {
+                .on('mousedown', function (e) {
                     staticBubble.style.top = Math.max(e.pageY - staticBubble.clientHeight, staticBubble.origTop) + 'px';
-            }   );
+            });
 
 		    factory.createElement = function(e) {
 			    this.innerHTML = e.example;
