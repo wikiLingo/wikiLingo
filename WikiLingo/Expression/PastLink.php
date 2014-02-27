@@ -9,6 +9,7 @@
 namespace WikiLingo\Expression;
 
 use FLP\Events as FutureLinkProtocolEvents;
+use Types\Type;
 use WikiLingo;
 use WikiLingo\Event;
 use FLP;
@@ -72,9 +73,23 @@ class PastLink extends Base
             //LAST
             //if this is the last item in the count, then setup the post-render, reset the counters
             if (self::$existingCount == self::$renderedCount) {
-                self::$existingCount = self::$renderedCount = 0;
-                $parser->events->bind(new Event\PostRender(function(&$rendered) {
+                $i = self::$existingCount;
+                $parser->events->bind(new Event\PostRender(function(&$rendered) use ($i, &$parser) {
                     $rendered = PastLink::$ui->render();
+
+                    Type::Scripts($parser->scripts)
+                        ->addScriptLocation("~/vendor/flp/flp/scripts/FutureLink.js")
+                        ->addScript(<<<JS
+var phrases = $('span.phrases');
+for (var i = 0; i < $i; i++) {
+    (new FutureLink(
+        phrases.filter('span.phraseBeginning' + i),
+        phrases.filter('span.phrase' + i),
+        phrases.filter('span.phraseEnd' + i)
+    ));
+}
+JS
+);
                 }));
 
                 FLP\SendToPast::send();

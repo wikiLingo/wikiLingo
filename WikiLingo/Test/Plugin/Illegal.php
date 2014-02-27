@@ -31,10 +31,10 @@ class Illegal extends Base
 
 		$this->source =
             "{ILLEGAL()}
-                {HTML()}
+                {DIV()}
 !Header 1
 !Header 2
-                {HTML}
+                {DIV}
 {ILLEGAL}";
 
 		$this->expected = "";

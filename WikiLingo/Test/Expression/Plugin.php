@@ -9,12 +9,14 @@ class Plugin extends Base
 	public function __construct()
 	{
 
-		WikiLingo\Expression\Plugin::$indexes['Html'] = null;
-		//$parser->typesCount['html'] = 0;
+		WikiLingo\Expression\Plugin::$indexes['Div'] = null;
 
-		$this->source = "{html test=`test`}{HTML()}{HTML} {HTML()}Test{HTML}";
+		$this->source = "{div test=`test`}{DIV()}{DIV} {DIV()}Test{DIV}";
 
-		$this->expected = "<span class='Html' id='Html1'></span><span class='Html' id='Html2'></span><span class='whitespace'> </span><span class='Html' id='Html3'>Test</span>";
+		$this->expected = "<div class='Div' id='Div1'></div>" .
+            "<div class='Div' id='Div2'></div>" .
+            "<span class='whitespace'> </span>" .
+            "<div class='Div' id='Div3'>Test</div>";
 
 	}
 }

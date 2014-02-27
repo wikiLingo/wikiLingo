@@ -1,7 +1,7 @@
 <?php
 
 
-require_once('autoload.php');
+require_once('vendor/autoload.php');
 
 $plugins = null;
 //trap any warnings

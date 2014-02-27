@@ -1,5 +1,5 @@
 <?php
-require_once('autoload.php');
+require_once('vendor/autoload.php');
 
 $scripts = (new WikiLingo\Utilities\Scripts())
 	->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")
