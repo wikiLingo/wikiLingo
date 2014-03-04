@@ -11,22 +11,24 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FutureLink-Protocol/php.git",
-                "reference": "138eb1fb2ad7895972cbb282ece5aa6ea8bd2198"
+                "reference": "8e1171bd40d7098ffcd89b112ba3cc3ee445e6ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/138eb1fb2ad7895972cbb282ece5aa6ea8bd2198",
-                "reference": "138eb1fb2ad7895972cbb282ece5aa6ea8bd2198",
+                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/8e1171bd40d7098ffcd89b112ba3cc3ee445e6ec",
+                "reference": "8e1171bd40d7098ffcd89b112ba3cc3ee445e6ec",
                 "shasum": ""
             },
             "require": {
+                "gabordemooij/redbean": ">=3.5.1",
                 "php": ">=5.4.0"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "FLP": "",
-                    "Phraser": ""
+                    "Phraser": "",
+                    "RedBean_": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -46,7 +48,50 @@
             ],
             "description": "FutureLink-Protocol implementation in PHP",
             "homepage": "https://github.com/FutureLink-Protocol",
-            "time": "2014-02-27 19:19:46"
+            "time": "2014-03-04 03:20:27"
+        },
+        {
+            "name": "gabordemooij/redbean",
+            "version": "v3.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gabordemooij/redbean.git",
+                "reference": "41bb293e2bc744c150e4ae30e30fb5083e047f53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/41bb293e2bc744c150e4ae30e30fb5083e047f53",
+                "reference": "41bb293e2bc744c150e4ae30e30fb5083e047f53",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "RedBean_": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Gabor de Mooij",
+                    "email": "gabordemooij@gmail.com",
+                    "homepage": "http://www.redbeanphp.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easy ORM for PHP",
+            "homepage": "http://github.com/gabordemooij/redbean",
+            "keywords": [
+                "Object Relational Mapping",
+                "orm"
+            ],
+            "time": "2013-10-30 22:13:02"
         }
     ],
     "packages-dev": [

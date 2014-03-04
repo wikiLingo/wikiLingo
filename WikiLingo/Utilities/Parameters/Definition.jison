@@ -13,6 +13,7 @@ angleQuote                      [`]
 simpleString                    [a-zA-Z0-9_-]+
 parameterValue                  (.|[\n\r\s])*?
 equals                          [=]
+close                           [//]
 
 %s singleQuoteParameter doubleQuoteParameter angleQuoteParameter equals
 
@@ -79,10 +80,11 @@ equals                          [=]
 		$this->begin('equals');
 	*/
 }
-<equals>\s+                                 {/*skip whitespace*/}
-\s+                                         {/*skip whitespace*/}
-<<EOF>>										return 'EOF';
-.                                           {/*skip whitespace*/}
+<equals>\s+                                 {/**/}
+\s+                                         {/**/}
+<<EOF>>										{return 'EOF';}
+.                                           {/**/}
+{close}                                     {/**/}
 /lex
 
 

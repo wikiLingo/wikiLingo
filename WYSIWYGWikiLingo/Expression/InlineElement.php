@@ -23,15 +23,7 @@ class InlineElement extends Base
 
         $pos = strpos($parsed->text, ' ');
         if ($pos !== false) {
-            $parametersString = $parsed->text;
-            $len = strlen($parametersString);
-
-            //handle <tag/> or <tag>, which is fine on some tags (img, input, br, etc)
-            if ($parametersString{$len - 2} == "/") {
-                $parametersString = trim(substr($parsed->text, $pos, -2));
-            } else {
-                $parametersString = trim(substr($parsed->text, $pos, -1));
-            }
+            $parametersString = trim(substr($parsed->text, $pos, -1));
             $this->parameters = self::$parameterParser->parse($parametersString);
 
             if (strtolower($this->parameter("data-element")) == "true") {
