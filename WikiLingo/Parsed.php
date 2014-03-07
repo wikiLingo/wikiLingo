@@ -207,14 +207,16 @@ class Parsed extends ParserValue
      */
     public function setExpression()
     {
-        $class = "WikiLingo\\Expression\\$this->type";
-        if (class_exists($class)) {
-            $expression = new $class($this);
-            if ($expression) {
-                $this->expression =& $expression;
+        if ($this->parser->skipExpressions == false) {
+            $class = "WikiLingo\\Expression\\$this->type";
+            if (class_exists($class)) {
+                $expression = new $class($this);
+                if ($expression) {
+                    $this->expression =& $expression;
+                }
+            } else if (self::$throwExceptions) {
+                throw new Exception("Type '" . $this->type . "' does not exist in WikiLingo\\Expression namespace.");
             }
-        } else if (self::$throwExceptions) {
-	        throw new Exception("Type '" . $this->type . "' does not exist in WikiLingo\\Expression namespace.");
         }
     }
 
