@@ -76,12 +76,15 @@ class PastLink extends Base
             $assembled->futureText = new Phraser\Phrase($children);
             $assembled->pastText = new Phraser\Phrase($pair->past->text);
             $assembled->pair = $pair;
-            self::$assembledPairs[] = $assembled;
+            $i = self::$existingCount;
+            if (!isset(self::$assembledPairs[$i - 1])) {
+                self::$assembledPairs[$i - 1] = array();
+            }
+            self::$assembledPairs[$i - 1][] = $assembled;
 
             //LAST
             //if this is the last item in the count, then setup the post-render, reset the counters
             if (self::$existingCount == self::$renderedCount) {
-                $i = self::$existingCount;
                 $parser->events->bind(new Event\PostRender(function(&$rendered) use ($i, &$parser) {
                     $rendered = PastLink::$ui->render();
 
@@ -95,13 +98,13 @@ class PastLink extends Base
                         ->addScript(<<<JS
 var phrases = $('span.phrases'),
     assembledPairs = $assembledPairs;
-for (var i = 0; i < $i; i++) {
+for (var i = 0; i < assembledPairs.length; i++) {
     (new flp.Link({
         beginning: phrases.filter('span.phraseBeginning' + i),
         middle: phrases.filter('span.phrase' + i),
         end: phrases.filter('span.phraseEnd' + i),
         to: 'past',
-        pair: assembledPairs[i].pair
+        pairs: assembledPairs[i]
     }));
 }
 JS
