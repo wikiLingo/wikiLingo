@@ -1,5 +1,4 @@
 <?php
-require_once "Testify/lib/Testify/Testify.php";
 include("vendor/autoload.php");
 
 $tf = new \Testify\Testify("wikiLingo test suite");

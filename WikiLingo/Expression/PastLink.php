@@ -26,6 +26,8 @@ class PastLink extends Base
     public static $ui;
     public static $existingCount = 0;
     public static $renderedCount = 0;
+    public static $pairs = array();
+    public static $assembledPairs = array();
 	public $past;
     public $phrase;
 
@@ -67,8 +69,14 @@ class PastLink extends Base
             }));
 
             FLP\Events::triggerMetadataLookup('', $value);
-            $pair = new FLP\Pair($this->past, $value);
+            self::$pairs[] = $pair = new FLP\Pair($this->past, $value);
             FLP\Pairs::add($pair);
+
+            $assembled = new FLP\PairAssembler();
+            $assembled->futureText = new Phraser\Phrase($children);
+            $assembled->pastText = new Phraser\Phrase($pair->past->text);
+            $assembled->pair = $pair;
+            self::$assembledPairs[] = $assembled;
 
             //LAST
             //if this is the last item in the count, then setup the post-render, reset the counters
@@ -77,16 +85,24 @@ class PastLink extends Base
                 $parser->events->bind(new Event\PostRender(function(&$rendered) use ($i, &$parser) {
                     $rendered = PastLink::$ui->render();
 
+
+
+                    $assembledPairs = json_encode(self::$assembledPairs);
+
                     Type::Scripts($parser->scripts)
-                        ->addScriptLocation("~/vendor/flp/flp/scripts/FutureLink.js")
+                        ->addScriptLocation("~/vendor/flp/flp/scripts/flp.js")
+                        ->addScriptLocation("~/vendor/flp/flp/scripts/flp.Link.js")
                         ->addScript(<<<JS
-var phrases = $('span.phrases');
+var phrases = $('span.phrases'),
+    assembledPairs = $assembledPairs;
 for (var i = 0; i < $i; i++) {
-    (new FutureLink(
-        phrases.filter('span.phraseBeginning' + i),
-        phrases.filter('span.phrase' + i),
-        phrases.filter('span.phraseEnd' + i)
-    ));
+    (new flp.Link({
+        beginning: phrases.filter('span.phraseBeginning' + i),
+        middle: phrases.filter('span.phrase' + i),
+        end: phrases.filter('span.phraseEnd' + i),
+        to: 'past',
+        pair: assembledPairs[i].pair
+    }));
 }
 JS
 );
