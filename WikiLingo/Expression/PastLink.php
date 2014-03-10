@@ -90,8 +90,8 @@ class PastLink extends Base
                     $assembledPairs = json_encode(self::$assembledPairs);
 
                     Type::Scripts($parser->scripts)
-                        ->addScriptLocation("~/vendor/flp/flp/scripts/flp.js")
-                        ->addScriptLocation("~/vendor/flp/flp/scripts/flp.Link.js")
+                        ->addScriptLocation("~flp/flp/scripts/flp.js")
+                        ->addScriptLocation("~flp/flp/scripts/flp.Link.js")
                         ->addScript(<<<JS
 var phrases = $('span.phrases'),
     assembledPairs = $assembledPairs;

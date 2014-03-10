@@ -15,10 +15,12 @@ class Scripts
 
     public $existingScriptsAndLocations = array();
     public $relativeLocation = '';
+    public $vendorLocation = 'vendor/';
 
-    public function __construct($relativeLocation = '')
+    public function __construct($relativeLocation = '', $vendorLocation = 'vendor/')
     {
         $this->relativeLocation = $relativeLocation;
+        $this->vendorLocation = $vendorLocation;
     }
 
     /**
@@ -43,6 +45,21 @@ class Scripts
 		return $this;
 	}
 
+    public function path($href)
+    {
+        //If the path starts with '~' it is either relative to wikiLingo, or relative to the vendor dir
+        if ($href{0} === '~') {
+            //If the path's next char is '/' it is relative to wikiLingo
+            $href = ($href{1} === '/'
+                ? $this->relativeLocation . substr($href, 2)
+            //if the path isn't relative to wikiLingo, it is relative to vendor dir
+                : $this->vendorLocation . substr($href, 1)
+            );
+        }
+
+        return $href;
+    }
+
     /**
      * @param String $href
      * @param Number [$i]
@@ -54,9 +71,7 @@ class Scripts
             return $this;
         }
 
-        if ($href{0} === '~' && $href{1} === '/') {
-            $href = $this->relativeLocation . substr($href, 2);
-        }
+        $href = $this->path($href);
 
         if ($i > -1) {
             $this->cssLocations[$i] = $href;
@@ -80,9 +95,7 @@ class Scripts
             return $this;
         }
 
-        if ($src{0} === '~' && $src{1} === '/') {
-            $src = $this->relativeLocation . substr($src, 2);
-        }
+        $src = $this->path($src);
 
         if ($i > -1) {
             $this->scriptLocations[$i] = $src;
