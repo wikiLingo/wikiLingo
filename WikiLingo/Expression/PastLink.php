@@ -68,6 +68,8 @@ class PastLink extends Base
                 PastLink::$ui->addPhrase(new Phraser\Phrase($children));
             }));
 
+            $value = new FLP\Metadata();
+            $value->text = $children;
             FLP\Events::triggerMetadataLookup('', $value);
             self::$pairs[] = $pair = new FLP\Pair($this->past, $value);
             FLP\Pairs::add($pair);
