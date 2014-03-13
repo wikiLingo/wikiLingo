@@ -15,6 +15,7 @@ $scripts = (new WikiLingo\Utilities\Scripts())
 
 	->addCssLocation("~/editor/bubble.css")
     ->addCssLocation("~/editor/IcoMoon/sprites/sprites.css")
+    ->addCssLocation("~/editor/IcoMoon/sprites/pastLink.css")
 
     //add some javascript
     ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")

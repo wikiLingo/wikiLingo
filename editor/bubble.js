@@ -83,10 +83,15 @@ var WLBubble = (function(document, window, rangy, Math) {
 	            button = document.createElement('li');
                 button.isPartOfBubble = true;
                 if (e.example) {
+
+                    if (window['WL' + i + 'SyntaxGenerator']) {
+                        button.SyntaxGenerator = window['WL' + i + 'SyntaxGenerator'];
+                    }
+
                     button.onmousedown = function(e) {
                         var element = factory.createElement(this.expression),
                             attributes = {},
-                            i;
+                            j;
                         if (selection) {
                             rangy.restoreSelection(selection);
                             selection = null;
@@ -94,12 +99,18 @@ var WLBubble = (function(document, window, rangy, Math) {
                         element.isPartOfBubble = true;
 
                         if (element.children.length == 0) {
-                            for (i = 0; i < element.attributes.length; i++) {
-                                attributes[element.attributes[i].name] = element.attributes[i].value;
+                            for (j = 0; j < element.attributes.length; j++) {
+                                attributes[element.attributes[j].name] = element.attributes[j].value;
                             }
 
-                            for (i in this.expression.extraAttributes) {
-                                attributes[i] = this.expression.extraAttributes[i];
+                            for (j in this.expression.extraAttributes) {
+                                attributes[j] = this.expression.extraAttributes[j];
+                            }
+
+                            if (this.SyntaxGenerator) {
+                                var syntaxGenerator = new this.SyntaxGenerator(element, attributes);
+                                element = syntaxGenerator.element();
+                                attributes = syntaxGenerator.attributes();
                             }
 
                             var applier = (rangy.createCssClassApplier(element.className, {

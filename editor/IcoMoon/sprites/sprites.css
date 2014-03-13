@@ -5,12 +5,6 @@
 	background-image: url(sprites.svg);
 	background-repeat: no-repeat;
 }
-[class*="icon2-"] {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-image: url(FutureLink.svg);
-    background-repeat: no-repeat;}
 .icon-list {
 	background-position: 0 0;
 	width: 23px;
@@ -2597,7 +2591,4 @@
 }
 .icon-paypal4 {
 	background-position: -301px -1908px;
-}
-.icon2-FutureLink {
-    background-position: 0px 0px;
 }
