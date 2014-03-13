@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "f0db3dcc01a40be5b8eeb2fe158c76f3",
+    "hash": "d94d161a92ee3c3c3186633ebeb40101",
     "packages": [
         {
             "name": "flp/flp",
@@ -11,22 +11,31 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FutureLink-Protocol/php.git",
-                "reference": "138eb1fb2ad7895972cbb282ece5aa6ea8bd2198"
+                "reference": "9f49fe72208e36ea967975411e8c5d8ac6326287"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/138eb1fb2ad7895972cbb282ece5aa6ea8bd2198",
-                "reference": "138eb1fb2ad7895972cbb282ece5aa6ea8bd2198",
+                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/9f49fe72208e36ea967975411e8c5d8ac6326287",
+                "reference": "9f49fe72208e36ea967975411e8c5d8ac6326287",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0"
+                "gabordemooij/redbean": ">=3.5.1",
+                "jquery/jquery": ">=1.10.2",
+                "jquery/jquery-ui": ">=1.10.3",
+                "md5/md5": ">=1.1.0",
+                "php": ">=5.4.0",
+                "rangy/rangy": ">=1.3"
+            },
+            "require-dev": {
+                "bafs/testify": "dev-master"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
                     "FLP": "",
-                    "Phraser": ""
+                    "Phraser": "",
+                    "RedBean_": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -46,18 +55,143 @@
             ],
             "description": "FutureLink-Protocol implementation in PHP",
             "homepage": "https://github.com/FutureLink-Protocol",
-            "time": "2014-02-27 19:19:46"
+            "time": "2014-03-10 17:59:33"
+        },
+        {
+            "name": "gabordemooij/redbean",
+            "version": "v3.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gabordemooij/redbean.git",
+                "reference": "41bb293e2bc744c150e4ae30e30fb5083e047f53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gabordemooij/redbean/zipball/41bb293e2bc744c150e4ae30e30fb5083e047f53",
+                "reference": "41bb293e2bc744c150e4ae30e30fb5083e047f53",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "RedBean_": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "Gabor de Mooij",
+                    "email": "gabordemooij@gmail.com",
+                    "homepage": "http://www.redbeanphp.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easy ORM for PHP",
+            "homepage": "http://github.com/gabordemooij/redbean",
+            "keywords": [
+                "Object Relational Mapping",
+                "orm"
+            ],
+            "time": "2013-10-30 22:13:02"
+        },
+        {
+            "name": "jquery/jquery",
+            "version": "1.10.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/jquery-jquery-1.10.2.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
+            "name": "jquery/jquery-ui",
+            "version": "1.10.4",
+            "dist": {
+                "type": "zip",
+                "url": "https://jqueryui.com/resources/download/jquery-ui-1.10.4.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
+            "name": "md5/md5",
+            "version": "1.1.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/blueimp/JavaScript-MD5/archive/1.1.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
+            "name": "rangy/rangy",
+            "version": "1.3",
+            "dist": {
+                "type": "zip",
+                "url": "https://rangy.googlecode.com/files/rangy-1.3alpha.804.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
         }
     ],
     "packages-dev": [
-
+        {
+            "name": "bafs/testify",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marco-fiset/Testify.php.git",
+                "reference": "6ae9dca4f465a2994b66b5e57e2c2116ebc42420"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marco-fiset/Testify.php/zipball/6ae9dca4f465a2994b66b5e57e2c2116ebc42420",
+                "reference": "6ae9dca4f465a2994b66b5e57e2c2116ebc42420",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Testify": "lib/"
+                }
+            },
+            "license": [
+                "GPL"
+            ],
+            "description": "Testify makes writing unit tests fun again. It has an elegant syntax and keeps things simple",
+            "keywords": [
+                "framework",
+                "testing",
+                "unit"
+            ],
+            "support": {
+                "source": "https://github.com/marco-fiset/Testify.php/tree/master",
+                "issues": "https://github.com/marco-fiset/Testify.php/issues"
+            },
+            "time": "2013-09-08 19:54:12"
+        }
     ],
     "aliases": [
 
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "flp/flp": 20
+        "flp/flp": 20,
+        "bafs/testify": 20
     },
     "platform": {
         "php": ">=5.4.0"

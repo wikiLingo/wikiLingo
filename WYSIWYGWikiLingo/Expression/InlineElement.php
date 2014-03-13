@@ -23,7 +23,7 @@ class InlineElement extends Base
 
         $pos = strpos($parsed->text, ' ');
         if ($pos !== false) {
-            $parametersString = trim(substr($parsed->text, $pos, -2));
+            $parametersString = trim(substr($parsed->text, $pos, -1));
             $this->parameters = self::$parameterParser->parse($parametersString);
 
             if (strtolower($this->parameter("data-element")) == "true") {

@@ -177,30 +177,32 @@ class Definition extends Base
         
 			$this->rules = array(
 				
-					0=>"/\G(?:('))/",
-					1=>"/\G(?:(\"))/",
+					0=>"/\G(?:([']))/",
+					1=>"/\G(?:([\"]))/",
 					2=>"/\G(?:([`]))/",
-					3=>"/\G(?:.*?(?=(')))/",
-					4=>"/\G(?:.*?(?=(\")))/",
-					5=>"/\G(?:.*?(?=([`])))/",
+					3=>"/\G(?:((.|[\n\r\s])*?)(?=(['])))/",
+					4=>"/\G(?:((.|[\n\r\s])*?)(?=([\"])))/",
+					5=>"/\G(?:((.|[\n\r\s])*?)(?=([`])))/",
 					6=>"/\G(?:([a-zA-Z0-9_-]+))/",
-					7=>"/\G(?:('))/",
-					8=>"/\G(?:(\"))/",
+					7=>"/\G(?:([']))/",
+					8=>"/\G(?:([\"]))/",
 					9=>"/\G(?:([`]))/",
 					10=>"/\G(?:([a-zA-Z0-9_-]+))/",
 					11=>"/\G(?:([=]))/",
 					12=>"/\G(?:\s+)/",
 					13=>"/\G(?:\s+)/",
-					14=>"/\G(?:$)/"
+					14=>"/\G(?:$)/",
+					15=>"/\G(?:.)/",
+					16=>"/\G(?:([//]))/"
 				);
 
 			$this->conditions = array(
 				
-					"singleQuoteParameter"=>new LexerConditions(array( 0,3,10,11,13,14), true),
-					"doubleQuoteParameter"=>new LexerConditions(array( 1,4,10,11,13,14), true),
-					"angleQuoteParameter"=>new LexerConditions(array( 2,5,10,11,13,14), true),
-					"equals"=>new LexerConditions(array( 6,7,8,9,10,11,12,13,14), true),
-					"INITIAL"=>new LexerConditions(array( 10,11,13,14), true)
+					"singleQuoteParameter"=>new LexerConditions(array( 0,3,10,11,13,14,15,16), true),
+					"doubleQuoteParameter"=>new LexerConditions(array( 1,4,10,11,13,14,15,16), true),
+					"angleQuoteParameter"=>new LexerConditions(array( 2,5,10,11,13,14,15,16), true),
+					"equals"=>new LexerConditions(array( 6,7,8,9,10,11,12,13,14,15,16), true),
+					"INITIAL"=>new LexerConditions(array( 10,11,13,14,15,16), true)
 				);
 
 
@@ -698,11 +700,15 @@ case 11:
 	
 
 break;
-case 12:
+case 12:/**/
 break;
-case 13:
+case 13:/**/
 break;
 case 14:return 4;
+break;
+case 15:/**/
+break;
+case 16:/**/
 break;
 }
 

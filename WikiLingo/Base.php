@@ -10,9 +10,20 @@ use WikiLingo\Renderer;
  */
 abstract class Base
 {
-    /* parser tracking */
+    /* type tracking */
+    /**
+     * @var array
+     */
     public $types = array();
+    /**
+     * @var array
+     */
     public $typesCount = array();
+
+    /**
+     * @var bool
+     */
+    public $skipExpressions = false;
 
     /**
      * @var
