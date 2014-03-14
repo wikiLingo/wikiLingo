@@ -31,6 +31,7 @@ $scripts = (new WikiLingo\Utilities\Scripts())
     ->addCssLocation("~/bower_components/wikiLingoCodeMirror/wikiLingo.css")
     ->addScriptLocation("~/bower_components/wikiLingoCodeMirror/wikiLingo.js")
 
+    ->addScriptLocation("~/editor/WLPastLinkSyntaxGenerator.js")
     ->addScriptLocation("~/editor/WLPluginSyntaxGenerator.js")
 	->addScriptLocation("~/editor/WLPluginEditor.js")
 	->addScriptLocation("~/editor/WLPluginAssistant.js")
