@@ -58,6 +58,7 @@ class PastLink extends Base
                 Sender::Setup();
                 $parser->events->bind(new Event\PostRender(function(&$rendered) {
                     PastLink::$ui = new FLP\UI($rendered);
+                    PastLink::$ui->setContextAsFuture();
                 }));
             }
 
@@ -102,9 +103,9 @@ var phrases = $('span.phrases'),
     assembledPairs = $assembledPairs;
 for (var i = 0; i < assembledPairs.length; i++) {
     (new flp.Link({
-        beginning: phrases.filter('span.phraseBeginning' + i),
-        middle: phrases.filter('span.phrase' + i),
-        end: phrases.filter('span.phraseEnd' + i),
+        beginning: phrases.filter('span.pastlink-beginning' + i),
+        middle: phrases.filter('span.pastlink' + i),
+        end: phrases.filter('span.pastlink-end' + i),
         to: 'past',
         pairs: assembledPairs[i]
     }));

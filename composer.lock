@@ -11,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FutureLink-Protocol/php.git",
-                "reference": "9f49fe72208e36ea967975411e8c5d8ac6326287"
+                "reference": "a937955bc7a9915a4e4ec3e5d38065a88e8c3792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/9f49fe72208e36ea967975411e8c5d8ac6326287",
-                "reference": "9f49fe72208e36ea967975411e8c5d8ac6326287",
+                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/a937955bc7a9915a4e4ec3e5d38065a88e8c3792",
+                "reference": "a937955bc7a9915a4e4ec3e5d38065a88e8c3792",
                 "shasum": ""
             },
             "require": {
@@ -28,7 +28,8 @@
                 "rangy/rangy": ">=1.3"
             },
             "require-dev": {
-                "bafs/testify": "dev-master"
+                "bafs/testify": "dev-master",
+                "tablesorter/tablesorter": "dev-master"
             },
             "type": "library",
             "autoload": {
@@ -55,7 +56,7 @@
             ],
             "description": "FutureLink-Protocol implementation in PHP",
             "homepage": "https://github.com/FutureLink-Protocol",
-            "time": "2014-03-10 17:59:33"
+            "time": "2014-03-14 14:33:17"
         },
         {
             "name": "gabordemooij/redbean",
