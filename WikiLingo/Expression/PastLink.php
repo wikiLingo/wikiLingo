@@ -102,7 +102,7 @@ class PastLink extends Base
 var phrases = $('span.phrases'),
     assembledPairs = $assembledPairs;
 for (var i = 0; i < assembledPairs.length; i++) {
-    (new flp.Link({
+    flp.addPastLink(new flp.Link({
         beginning: phrases.filter('span.pastlink-beginning' + i),
         middle: phrases.filter('span.pastlink' + i),
         end: phrases.filter('span.pastlink-end' + i),
