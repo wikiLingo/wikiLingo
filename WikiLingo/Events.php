@@ -1,6 +1,9 @@
 <?php
 namespace WikiLingo;
 
+
+use WikiLingo\Plugin\Parameter;
+
 /**
  * Class Events
  * @package WikiLingo
@@ -17,6 +20,7 @@ class Events
     public $WikiLingoEventExpressionTagAllowed = array();
     public $WikiLingoEventExpressionTagRender = array();
 
+    public $WikiLingoEventExpressionVariableContext = array();
     public $WikiLingoEventExpressionVariableLookup = array();
 
     public $WikiLingoEventExpressionWikiLinkRender = array();
@@ -115,6 +119,21 @@ class Events
         {
             $event->trigger($element, $tag);
         }
+    }
+
+    /**
+     * @param $parser
+     * @return array
+     */
+    public function triggerVariableContext(&$parser)
+    {
+        $result = array();
+        foreach($this->WikiLingoEventExpressionVariableContext as &$event)
+        {
+            return $event->trigger($parser);
+        }
+
+        return $result;
     }
 
     /**

@@ -22,5 +22,7 @@ __Let us first identify what it is not__
     {TAB(title="Why?")}{flash movie="http://www.youtube.com/v/-dnL00TdmLY" allow="true" width="100%" height="400px"}{TAB}
 {TABS}
 
-
+{TEMPLATE()}
+%VAR%
+{TEMPLATE}
 

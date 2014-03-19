@@ -37,6 +37,9 @@ abstract class Base
     public $plugins = array();
     public $originalInput = '';
 
+    /* variable context stack */
+    public $variableContextStack = array();
+
     /* link tracking*/
     public $linkStack = false; //There can only be 1 active link stack
 

@@ -34,6 +34,7 @@ abstract class Base
 	public $draggable = true;
 	public $allowLines = false;
     public $allowWhiteSpace = false;
+    public $isVariableContext = false;
 
     public $style = array(
         '@keyframes' => true,
@@ -294,6 +295,12 @@ abstract class Base
         } else {
             return null;
         }
+    }
+
+
+    public function variables( &$plugin )
+    {
+        return array(array());
     }
 
     /**

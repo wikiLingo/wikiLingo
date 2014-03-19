@@ -69,6 +69,7 @@ class Plugin extends Base
                 $parsed->parser->pluginInstances[$this->classType] = $class = new $this->classType($parsed->parser);
             }
             $this->class = $parsed->parser->pluginInstances[$this->classType];
+            $this->isVariableContext = $this->class->isVariableContext;
 	        $this->parsed->expressionPermissible = $this->class->permissible;
             $this->allowLines = $this->class->allowLines;
             $this->allowWhiteSpace = $this->class->allowWhiteSpace;
@@ -189,10 +190,10 @@ class Plugin extends Base
 	}
 
     /**
-     * @return string
+     *
      */
-    public function id()
-	{
-		return $this->type . $this->index;
-	}
+    public function variables()
+    {
+        return $this->class->variables($this);
+    }
 }

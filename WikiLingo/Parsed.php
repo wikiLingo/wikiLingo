@@ -255,50 +255,72 @@ class Parsed extends ParserValue
 			return $syntax;
 		}
 
-		//children are directly part of the family as a visible child
-		$renderedChildren = '';
-		if ($this->childrenLength > 0) {
+        if ($this->expression->isVariableContext) {
+            $this->parser->variableContextStack[] = $this->expression->variables();
+        }
 
-			//detect if it is a syntax parent
-			$addedDepth = 0;
-			if (
-				isset($this->expression->isParent)
-				&& ($isParent = $this->expression->isParent) == true) {
-				$addedDepth = 1;
-			}
+        //iterations are allowed, but not in edit mode
+        $iterations = (!isset($this->parser->wysiwyg) || $this->parser->wysiwyg == true ? 0 : $this->expression->iterations);
+        $result = '';
+        $variableContext = (isset($this->parser->variableContextStack) ? end($this->parser->variableContextStack) : false);
+        if ($variableContext) {
+            $this->expression->setVariableContext($variableContext);
+        }
 
-			foreach ($this->children as &$child) {
-				$child->depth += $this->depth + $addedDepth;
-				$renderedChildren .= $child->render();
-			}
-		}
 
-		$renderedCousins = '';
-		foreach ($this->cousins as &$cousin) {
-			$renderedCousins .= $cousin->render();
-		}
+        //children are directly part of the family as a visible child
+        $renderedChildren = '';
+        if ($this->childrenLength > 0) {
+            //Expressions can repeat if they are needed
+            for($i = 0; $i <= $iterations; $i++)
+            {
+                //detect if it is a syntax parent
+                $addedDepth = 0;
+                if (
+                    isset($this->expression->isParent)
+                    && ($isParent = $this->expression->isParent) == true) {
+                    $addedDepth = 1;
+                }
 
-		$this->expression->renderedChildren =& $renderedChildren;
-		if (isset($this->expression) && method_exists($this->expression, 'render')) {
-			$rendered = $this->expression->render($this->parser, $this);
-		} else {
-			$rendered = '';
-		}
+                foreach ($this->children as &$child) {
+                    $child->depth += $this->depth + $addedDepth;
+                    $renderedChildren .= $child->render();
+                }
+            }
+        }
 
-		//siblings are directly part of the family as a visible sibling
-		$renderedSiblings = '';
-		foreach ($this->siblings as &$sibling) {
-			$renderedSiblings .= $sibling->render();
-			if ($this->parent != null) {
-				$this->parent->children[] =& $sibling;
-			}
-		}
+        $renderedCousins = '';
+        foreach ($this->cousins as &$cousin) {
+            $renderedCousins .= $cousin->render();
+        }
 
-		$renderedLines = '';
-		foreach ($this->lines as &$line) {
-			$renderedLines .= $this->render($line);
-		}
+        $this->expression->renderedChildren =& $renderedChildren;
+        if (isset($this->expression) && method_exists($this->expression, 'render')) {
+            $rendered = $this->expression->render($this->parser);
+        } else {
+            $rendered = '';
+        }
 
-		return $rendered . $renderedSiblings . $renderedLines . $renderedCousins;
+        //siblings are directly part of the family as a visible sibling
+        $renderedSiblings = '';
+        foreach ($this->siblings as &$sibling) {
+            $renderedSiblings .= $sibling->render();
+            if ($this->parent != null) {
+                $this->parent->children[] =& $sibling;
+            }
+        }
+
+        $renderedLines = '';
+        foreach ($this->lines as &$line) {
+            $renderedLines .= $this->render($line);
+        }
+
+        $result .= $rendered . $renderedSiblings . $renderedLines . $renderedCousins;
+
+        if ($this->expression->isVariableContext) {
+            array_pop($this->parser->variableContextStack);
+        }
+
+        return $result;
 	}
 }

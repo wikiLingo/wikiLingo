@@ -14,6 +14,10 @@ abstract class Base
 	public $allowLines = true;
     public $allowWhiteSpace = true;
 	public $allowLineAfter = true;
+    public $isVariableContext = false;
+    public $iterations = 0;
+    public $i = 0;
+    public $variableContext;
 
     /**
      * @var int
@@ -66,5 +70,26 @@ abstract class Base
      */
     public function preRender(&$parser)
     {
+    }
+
+    /**
+     * @param int $iterations
+     */
+    public function setIterations($iterations = 0)
+    {
+        $this->iterations = $iterations;
+    }
+
+    /**
+     *
+     */
+    public function variables()
+    {
+        return array(array());
+    }
+
+    public function setVariableContext($variableContext)
+    {
+        $this->variableContext = $variableContext;
     }
 }

@@ -18,7 +18,14 @@ class Variable extends Base
 		$element = Type::Element($parser->element(__CLASS__, 'span'));
 		$key = $element->detailedAttributes["key"] = substr($this->parsed->text, 1, -1);
 
-		Type::Events($parser->events)->triggerExpressionVariableLookup($key, $element, $this);
+		if (empty($this->variableContext)) {
+            Type::Events($parser->events)->triggerExpressionVariableLookup($key, $element, $this);
+        }
+
+        else {
+            $element->staticChildren[] = $this->variableContext[$this->i][$key];
+            $this->i++;
+        }
 
 		return $element->render();
 	}
