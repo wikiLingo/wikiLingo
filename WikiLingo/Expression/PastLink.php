@@ -94,6 +94,8 @@ class PastLink extends Base
 
 
                     $assembledPairs = json_encode(self::$assembledPairs);
+                    //use an actual length, when more than 1, php turns from array to associative array, so there is no length
+                    $length = self::$existingCount;
 
                     Type::Scripts($parser->scripts)
                         ->addScriptLocation("~flp/flp/scripts/flp.js")
@@ -101,7 +103,7 @@ class PastLink extends Base
                         ->addScript(<<<JS
 var phrases = $('span.phrases'),
     assembledPairs = $assembledPairs;
-for (var i = 0; i < assembledPairs.length; i++) {
+for (var i = 0; i < $length; i++) {
     flp.addPastLink(new flp.Link({
         beginning: phrases.filter('span.pastlink-beginning' + i),
         middle: phrases.filter('span.pastlink' + i),
