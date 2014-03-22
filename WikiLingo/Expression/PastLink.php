@@ -71,7 +71,7 @@ class PastLink extends Base
             $value = new FLP\Metadata();
             $value->text = $children;
             FLP\Events::triggerMetadataLookup('', $value);
-            self::$pairs[] = $pair = new FLP\Pair($this->past, $value);
+            $pair = new FLP\Pair($this->past, $value);
             FLP\Pairs::add($pair);
 
             $assembled = new FLP\PairAssembler();
@@ -79,11 +79,12 @@ class PastLink extends Base
             $assembled->pastText = new Phraser\Phrase($pair->past->text);
             $assembled->pair = $pair;
             $assembled->increment();
-
+            self::$pairs[] = $assembled;
+            
             //LAST
             //if this is the last item in the count, then setup the post-render, reset the counters
             if (self::$existingCount == self::$renderedCount) {
-                $parser->events->bind(new Event\PostRender(function(&$rendered) use ($i, &$parser) {
+                $parser->events->bind(new Event\PostRender(function(&$rendered) use (&$parser) {
                     $rendered = PastLink::$ui->render();
                     $pairs = self::$pairs;
                     $pairsJson = json_encode($pairs);
