@@ -27,7 +27,6 @@ class PastLink extends Base
     public static $existingCount = 0;
     public static $renderedCount = 0;
     public static $pairs = array();
-    public static $assembledPairs = array();
 	public $past;
     public $phrase;
 
@@ -79,21 +78,16 @@ class PastLink extends Base
             $assembled->futureText = new Phraser\Phrase($children);
             $assembled->pastText = new Phraser\Phrase($pair->past->text);
             $assembled->pair = $pair;
-            $i = self::$existingCount;
-            if (!isset(self::$assembledPairs[$i - 1])) {
-                self::$assembledPairs[$i - 1] = array();
-            }
-            self::$assembledPairs[$i - 1][] = $assembled;
+            $assembled->increment();
 
             //LAST
             //if this is the last item in the count, then setup the post-render, reset the counters
             if (self::$existingCount == self::$renderedCount) {
                 $parser->events->bind(new Event\PostRender(function(&$rendered) use ($i, &$parser) {
                     $rendered = PastLink::$ui->render();
-
-
-
-                    $assembledPairs = json_encode(self::$assembledPairs);
+                    $pairs = self::$pairs;
+                    $pairsJson = json_encode($pairs);
+                    $counts = json_encode(FLP\PairAssembler::$counts);
                     //use an actual length, when more than 1, php turns from array to associative array, so there is no length
                     $length = self::$existingCount;
 
@@ -101,17 +95,33 @@ class PastLink extends Base
                         ->addScriptLocation("~flp/flp/scripts/flp.js")
                         ->addScriptLocation("~flp/flp/scripts/flp.Link.js")
                         ->addScript(<<<JS
-var phrases = $('span.phrases'),
-    assembledPairs = $assembledPairs;
-for (var i = 0; i < $length; i++) {
-    flp.addPastLink(new flp.Link({
-        beginning: phrases.filter('span.pastlink-beginning' + i),
-        middle: phrases.filter('span.pastlink' + i),
-        end: phrases.filter('span.pastlink-end' + i),
-        to: 'past',
-        pairs: assembledPairs[i]
-    }));
-}
+(function() {
+    var counts = $counts,
+        length = $length,
+        flpData = $pairsJson,
+        phrases = $('span.phrases'),
+        phrasesLookupTable = {};
+
+        for(var x = 0; x < length; x++){
+            if(!phrasesLookupTable[flpData[x].futureText.sanitized]){
+                phrasesLookupTable[flpData[x].futureText.sanitized] = [];
+            }
+            phrasesLookupTable[flpData[x].futureText.sanitized].push(flpData[x]);
+        }
+
+
+    for (var i = 0; i < $length; i++) {
+        var pastLink = new flp.Link({
+            beginning: phrases.filter('span.pastlink-beginning' + i),
+            middle: phrases.filter('span.pastlink' + i),
+            end: phrases.filter('span.pastlink-end' + i),
+            to: 'past',
+            count: counts[flpData[i].futureText.sanitized],
+            pairs: phrasesLookupTable[flpData[i].futureText.sanitized]
+        });
+        flp.addPastLink(pastLink);
+    }
+})();
 JS
 );
                 }));
