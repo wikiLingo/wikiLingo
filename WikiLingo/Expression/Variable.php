@@ -23,7 +23,9 @@ class Variable extends Base
         }
 
         else {
-            $element->staticChildren[] = $this->variableContext[$this->i][$key];
+            if (isset($this->variableContext[$this->i]) && isset($this->variableContext[$this->i][$key])) {
+                $element->staticChildren[] = $this->variableContext[$this->i][$key];
+            }
             $this->i++;
         }
 
