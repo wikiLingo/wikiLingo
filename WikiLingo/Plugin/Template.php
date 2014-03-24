@@ -20,6 +20,8 @@ class Template extends Base
         $this->parameters['type'] = new Parameter('Type', '');
         $this->parameters['context'] = new Parameter('Context', '');
         $this->isVariableContext = true;
+        $this->allowWhiteSpace = true;
+        $this->allowLines = true;
     }
 
     /**
