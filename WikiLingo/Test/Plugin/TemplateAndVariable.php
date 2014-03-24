@@ -11,7 +11,7 @@ class TemplateAndVariable extends Base
 {
 	public function __construct(WikiLingo\Parser &$parser = null)
 	{
-
+        WikiLingo\Expression\Plugin::$indexes['Template'] = 0;
 		if ($parser != null) {
             Type::Events($parser->events)
                 ->bind(new Event\Expression\Variable\Context(function($plugin) {

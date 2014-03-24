@@ -5012,80 +5012,80 @@ class Definition extends Base
         
 			$this->rules = array(
 				
-					0=>"/\G(?:≤REAL_EOF≥)/",
-					1=>"/\G(?:[<][!][-][-](.*?)[-][-][>])/",
-					2=>"/\G(?:~np~(.|\n)+?~\/np~)/",
-					3=>"/\G(?:~pp~(.|\n)*?~\/pp~)/",
-					4=>"/\G(?:~tc~(.|\n)*?~\/tc~)/",
-					5=>"/\G(?:-\+(.|\n)*?\+-)/",
-					6=>"/\G(?:[%](([0-9A-Za-z ]{3,}))[%])/",
-					7=>"/\G(?:$)/",
-					8=>"/\G(?:(([\!*#;]+)([-+])?))/",
-					9=>"/\G(?:(?=((\n))))/",
-					10=>"/\G(?:$)/",
-					11=>"/\G(?:((\n))(?=(([\!*#;]+)([-+])?)))/",
-					12=>"/\G(?:(?!(([\!*#;]+)([-+])?)))/",
-					13=>"/\G(?:(?=(([\!*#;]+)([-+])?)))/",
-					14=>"/\G(?:((\n)))/",
-					15=>"/\G(?:(.+?\})|(\}))/",
-					16=>"/\G(?:\{([a-z0-9_]+))/",
-					17=>"/\G(?:.*?\)\})/",
-					18=>"/\G(?:\{([A-Z0-9_]+)\()/",
-					19=>"/\G(?:$)/",
-					20=>"/\G(?:\{([A-Z0-9_]+)\})/",
-					21=>"/\G(?:$)/",
-					22=>"/\G(?:[@][)])/",
-					23=>"/\G(?:@FLP\(.+?\))/",
-					24=>"/\G(?:---)/",
-					25=>"/\G(?:%%%)/",
-					26=>"/\G(?:[ ][-][-][ ])/",
-					27=>"/\G(?:$)/",
-					28=>"/\G(?:[_][_])/",
-					29=>"/\G(?:[_][_])/",
-					30=>"/\G(?:$)/",
-					31=>"/\G(?:[:][:])/",
-					32=>"/\G(?:[:][:])/",
-					33=>"/\G(?:$)/",
-					34=>"/\G(?:~~)/",
-					35=>"/\G(?:~~)/",
-					36=>"/\G(?:$)/",
-					37=>"/\G(?:[']['])/",
-					38=>"/\G(?:[']['])/",
-					39=>"/\G(?:$)/",
-					40=>"/\G(?:\])/",
-					41=>"/\G(?:\[(?![ ]))/",
-					42=>"/\G(?:$)/",
-					43=>"/\G(?:--)/",
-					44=>"/\G(?:--)/",
-					45=>"/\G(?:$)/",
-					46=>"/\G(?:[|][|])/",
-					47=>"/\G(?:[|][|])/",
-					48=>"/\G(?:$)/",
-					49=>"/\G(?:[=][-])/",
-					50=>"/\G(?:[-][=])/",
-					51=>"/\G(?:$)/",
-					52=>"/\G(?:[=][=][=])/",
-					53=>"/\G(?:[=][=][=])/",
-					54=>"/\G(?:$)/",
-					55=>"/\G(?:\)\))/",
-					56=>"/\G(?:\(\()/",
-					57=>"/\G(?:\(\()/",
-					58=>"/\G(?:$)/",
-					59=>"/\G(?:\)\))/",
-					60=>"/\G(?:\(((([a-z0-9-]+)))\()/",
-					61=>"/\G(?:$)/",
-					62=>"/\G(?:\)\))/",
-					63=>"/\G(?:.)/",
-					64=>"/\G(?:(([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,}))(?=$|[ \n\t\r\,\;\.]))/",
-					65=>"/\G(?:&(?![ ]))/",
-					66=>"/\G(?:<(?![a-zA-Z\/])|>)/",
-					67=>"/\G(?:[<](.|\n)*?[>])/",
-					68=>"/\G(?:≤REAL_EOF≥)/",
-					69=>"/\G(?:(([A-Za-z0-9.,?;]+[ ]?|[&][ ])+))/",
-					70=>"/\G(?:(?!([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]))(((.?)))?(?=([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ])))/",
-					71=>"/\G(?:(([ ])+))/",
-					72=>"/\G(?:(.))/",
-					73=>"/\G(?:$)/"
+					0=>"/^(?:≤REAL_EOF≥)/",
+					1=>"/^(?:[<][!][-][-](.*?)[-][-][>])/",
+					2=>"/^(?:~np~(.|\n)+?~\/np~)/",
+					3=>"/^(?:~pp~(.|\n)*?~\/pp~)/",
+					4=>"/^(?:~tc~(.|\n)*?~\/tc~)/",
+					5=>"/^(?:-\+(.|\n)*?\+-)/",
+					6=>"/^(?:[%](([0-9A-Za-z_-]{3,}))[%])/",
+					7=>"/^(?:$)/",
+					8=>"/^(?:(([\!*#;]+)([-+])?))/",
+					9=>"/^(?:(?=((\n))))/",
+					10=>"/^(?:$)/",
+					11=>"/^(?:((\n))(?=(([\!*#;]+)([-+])?)))/",
+					12=>"/^(?:(?!(([\!*#;]+)([-+])?)))/",
+					13=>"/^(?:(?=(([\!*#;]+)([-+])?)))/",
+					14=>"/^(?:((\n)))/",
+					15=>"/^(?:(.+?\})|(\}))/",
+					16=>"/^(?:\{([a-z0-9_]+))/",
+					17=>"/^(?:.*?\)\})/",
+					18=>"/^(?:\{([A-Z0-9_]+)\()/",
+					19=>"/^(?:$)/",
+					20=>"/^(?:\{([A-Z0-9_]+)\})/",
+					21=>"/^(?:$)/",
+					22=>"/^(?:[@][)])/",
+					23=>"/^(?:@FLP\(.+?\))/",
+					24=>"/^(?:---)/",
+					25=>"/^(?:%%%)/",
+					26=>"/^(?:[ ][-][-][ ])/",
+					27=>"/^(?:$)/",
+					28=>"/^(?:[_][_])/",
+					29=>"/^(?:[_][_])/",
+					30=>"/^(?:$)/",
+					31=>"/^(?:[:][:])/",
+					32=>"/^(?:[:][:])/",
+					33=>"/^(?:$)/",
+					34=>"/^(?:~~)/",
+					35=>"/^(?:~~)/",
+					36=>"/^(?:$)/",
+					37=>"/^(?:[']['])/",
+					38=>"/^(?:[']['])/",
+					39=>"/^(?:$)/",
+					40=>"/^(?:\])/",
+					41=>"/^(?:\[(?![ ]))/",
+					42=>"/^(?:$)/",
+					43=>"/^(?:--)/",
+					44=>"/^(?:--)/",
+					45=>"/^(?:$)/",
+					46=>"/^(?:[|][|])/",
+					47=>"/^(?:[|][|])/",
+					48=>"/^(?:$)/",
+					49=>"/^(?:[=][-])/",
+					50=>"/^(?:[-][=])/",
+					51=>"/^(?:$)/",
+					52=>"/^(?:[=][=][=])/",
+					53=>"/^(?:[=][=][=])/",
+					54=>"/^(?:$)/",
+					55=>"/^(?:\)\))/",
+					56=>"/^(?:\(\()/",
+					57=>"/^(?:\(\()/",
+					58=>"/^(?:$)/",
+					59=>"/^(?:\)\))/",
+					60=>"/^(?:\(((([a-z0-9-]+)))\()/",
+					61=>"/^(?:$)/",
+					62=>"/^(?:\)\))/",
+					63=>"/^(?:.)/",
+					64=>"/^(?:(([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,}))(?=$|[ \n\t\r\,\;\.]))/",
+					65=>"/^(?:&(?![ ]))/",
+					66=>"/^(?:<(?![a-zA-Z\/])|>)/",
+					67=>"/^(?:[<](.|\n)*?[>])/",
+					68=>"/^(?:≤REAL_EOF≥)/",
+					69=>"/^(?:(([A-Za-z0-9.,?;]+[ ]?|[&][ ])+))/",
+					70=>"/^(?:(?!([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]))(((.?)))?(?=([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ])))/",
+					71=>"/^(?:(([ ])+))/",
+					72=>"/^(?:(.))/",
+					73=>"/^(?:$)/"
 				);
 
 			$this->conditions = array(
@@ -5682,6 +5682,7 @@ break;
     public $eof;
     public $yy = null;
     public $match = "";
+    public $matched = "";
     public $conditionStack = array();
     public $conditionStackCount = 0;
     public $rules = array();
@@ -5689,14 +5690,14 @@ break;
     public $done = false;
     public $less;
     public $more;
-	public $input;
+    public $input;
     public $offset;
     public $ranges;
     public $flex = false;
 
     function setInput($input)
     {
-        $this->input = new InputReader($input);
+        $this->input = $input;
         $this->more = $this->less = $this->done = false;
         $this->yy = new Parsed();
         $this->conditionStack = array('INITIAL');
@@ -5713,11 +5714,12 @@ break;
 
     function input()
     {
-        $ch = $this->input->ch();
+        $ch = $this->input[0];
         $this->yy->text .= $ch;
         $this->yy->leng++;
         $this->offset++;
         $this->match .= $ch;
+        $this->matched .= $ch;
         $lines = preg_match("/(?:\r\n?|\n).*/", $ch);
         if (count($lines) > 0) {
             $this->yy->lineNo++;
@@ -5729,6 +5731,7 @@ break;
             $this->yy->loc->range->y++;
         }
 
+        $this->input = array_slice($this->input, 1);
         return $ch;
     }
 
@@ -5738,13 +5741,14 @@ break;
         $lines = explode("/(?:\r\n?|\n)/", $ch);
         $linesCount = count($lines);
 
-        $this->input->unCh($len);
+        $this->input = $ch . $this->input;
         $this->yy->text = substr($this->yy->text, 0, $len - 1);
         //$this->yylen -= $len;
         $this->offset -= $len;
         $oldLines = explode("/(?:\r\n?|\n)/", $this->match);
         $oldLinesCount = count($oldLines);
         $this->match = substr($this->match, 0, strlen($this->match) - 1);
+        $this->matched = substr($this->matched, 0, strlen($this->matched) - 1);
 
         if (($linesCount - 1) > 0) $this->yy->lineNo -= $linesCount - 1;
         $r = $this->yy->loc->range;
@@ -5772,8 +5776,7 @@ break;
 
     function pastInput()
     {
-	    $matched = $this->input->toString();
-        $past = substr($matched, 0, strlen($matched) - strlen($this->match));
+        $past = substr($this->matched, 0, strlen($this->matched) - strlen($this->match));
         return (strlen($past) > 20 ? '...' : '') . preg_replace("/\n/", "", substr($past, -20));
     }
 
@@ -5781,7 +5784,7 @@ break;
     {
         $next = $this->match;
         if (strlen($next) < 20) {
-            $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+            $next .= substr($this->input, 0, 20 - strlen($next));
         }
         return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
     }
@@ -5804,7 +5807,7 @@ break;
             return $this->eof;
         }
 
-        if ($this->input->done) {
+        if (empty($this->input)) {
             $this->done = true;
         }
 
@@ -5815,7 +5818,7 @@ break;
 
         $rules = $this->currentRules();
         for ($i = 0, $j = count($rules); $i < $j; $i++) {
-	        $tempMatch = $this->input->match($this->rules[$rules[$i]]);
+            preg_match($this->rules[$rules[$i]], $this->input, $tempMatch);
             if ($tempMatch && (empty($match) || count($tempMatch[0]) > count($match[0]))) {
                 $match = $tempMatch;
                 $index = $i;
@@ -5844,32 +5847,33 @@ break;
             $this->yy->text .= $match[0];
             $this->match .= $match[0];
             $this->matches = $match;
+            $this->matched .= $match[0];
 
             $this->yy->leng = strlen($this->yy->text);
             if (isset($this->ranges)) {
                 $this->yy->loc->range = new ParserRange($this->offset, $this->offset += $this->yy->leng);
             }
             $this->more = false;
-	        $this->input->addMatch($match[0]);
+            $this->input = substr($this->input, $matchCount, strlen($this->input));
             $ruleIndex = $rules[$index];
             $nextCondition = $this->conditionStack[$this->conditionStackCount - 1];
 
             $token = $this->lexerPerformAction($ruleIndex, $nextCondition);
 
-            if ($this->done == true && !$this->input->done) {
+            if ($this->done == true && empty($this->input) == false) {
                 $this->done = false;
             }
 
             if (empty($token) == false) {
                 return $this->symbols[
-                    $token
+                $token
                 ];
             } else {
                 return null;
             }
         }
 
-        if ($this->input->done) {
+        if (empty($this->input)) {
             return $this->eof;
         } else {
             $this->lexerError("Lexical error on line " . ($this->yy->lineNo + 1) . ". Unrecognized text.\n" . $this->showPosition(), new LexerError("", -1, $this->yy->lineNo));
@@ -6694,58 +6698,5 @@ class ParserRange
     {
         $this->x = $x;
         $this->y = $y;
-    }
-}
-
-class InputReader
-{
-	public $done = false;
-	public $input;
-	public $length;
-	public $matches = array();
-	public $position = 0;
-
-	public function __construct($input)
-	{
-		$this->input = $input;
-		$this->length = strlen($input);
-	}
-
-	public function addMatch($match) {
-		$this->matches[] = $match;
-		$this->position += strlen($match);
-		$this->done = ($this->position >= $this->length);
-	}
-
-    public function ch()
-	{
-		$ch = $this->input{$this->position};
-		$this->addMatch($ch);
-		return $ch;
-	}
-
-	public function unCh($chLength)
-	{
-		$this->position -= $chLength;
-		$this->position = max(0, $this->position);
-		$this->done = ($this->position >= $this->length);
-	}
-
-	public function substring($start, $end) {
-		$start = ($start != 0 ? $this->position + $start : $this->position);
-		$end = ($end != 0 ? $start + $end : $this->length);
-		return substr($this->input, $start, $end);
-	}
-
-	public function match($rule) {
-		if (preg_match($rule, $this->input, $match, null, $this->position)) {
-			return $match;
-		}
-		return null;
-	}
-
-    public function toString()
-	{
-        return implode('', $this->matches);
     }
 }
