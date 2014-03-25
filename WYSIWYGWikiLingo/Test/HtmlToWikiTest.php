@@ -1,5 +1,5 @@
 <?php
-namespace Tests;
+namespace WYSIWYGWikiLingo\Test;
 
 use WikiLingoWYSIWYG;
 use WYSIWYGWikiLingo;
