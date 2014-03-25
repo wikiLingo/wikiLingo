@@ -8,7 +8,7 @@ use WikiLingo\Expression\WikiLinkType;
 
 /**
  * Class Render
- * @package WikiLink\Event\Expression\WikiLinkType
+ * @package WikiLingo\Event\Expression\WikiLinkType
  */
 class Render extends Event\Base
 {
