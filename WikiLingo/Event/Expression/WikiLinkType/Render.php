@@ -1,6 +1,6 @@
 <?php
 
-namespace WikiLink\Event\Expression\WikiLinkType;
+namespace WikiLingo\Event\Expression\WikiLinkType;
 
 use WikiLingo\Renderer;
 use WikiLingo\Event;
