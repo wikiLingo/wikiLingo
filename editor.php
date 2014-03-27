@@ -27,10 +27,10 @@ $scripts = (new WikiLingo\Utilities\Scripts())
     ->addScriptLocation("~mediumjs/mediumjs/medium.js")
 
     //this doesn't work now with composer
-    ->addCssLocation("~codemirror/lib/codemirror.css")
-    ->addScriptLocation("~codeMirror/lib/codemirror.js")
-    ->addCssLocation("~wikiLingoCodeMirror/wikiLingo.css")
-    ->addScriptLocation("~wikiLingoCodeMirror/wikiLingo.js")
+    ->addCssLocation("~codemirror/codemirror/lib/codemirror.css")
+    ->addScriptLocation("~codemirror/codemirror/lib/codemirror.js")
+    ->addCssLocation("~wikilingo/codemirror/wikiLingo.css")
+    ->addScriptLocation("~wikilingo/codemirror/wikiLingo.js")
 
     ->addScriptLocation("~/editor/WLPastLinkSyntaxGenerator.js")
     ->addScriptLocation("~/editor/WLPluginSyntaxGenerator.js")

@@ -3,8 +3,19 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ad583174b1687127b7bcb03e1592049f",
+    "hash": "fd0256c0b09c548815981d99d20f9377",
     "packages": [
+        {
+            "name": "codemirror/codemirror",
+            "version": "3.19.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/codemirror-codemirror-3.19.0.zip",
+                "reference": "3.19.0",
+                "shasum": "295a61adc7c494e6f963355b250941265d8d2965"
+            },
+            "type": "library"
+        },
         {
             "name": "flp/flp",
             "version": "dev-master",
@@ -194,6 +205,28 @@
                 "shasum": null
             },
             "type": "library"
+        },
+        {
+            "name": "wikilingo/codemirror",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wikiLingo/CodeMirror.git",
+                "reference": "c35a89f1d15ec222ec152e260bf693be800a77e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wikiLingo/CodeMirror/zipball/c35a89f1d15ec222ec152e260bf693be800a77e2",
+                "reference": "c35a89f1d15ec222ec152e260bf693be800a77e2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Syntax highlighter for wikiLingo",
+            "time": "2014-03-27 17:26:12"
         }
     ],
     "packages-dev": [
@@ -243,6 +276,7 @@
     "stability-flags": {
         "flp/flp": 20,
         "mediumjs/mediumjs": 20,
+        "wikilingo/codemirror": 20,
         "bafs/testify": 20
     },
     "platform": {
