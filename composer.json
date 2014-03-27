@@ -17,7 +17,9 @@
         "jquery/jquery": ">=1.10.2",
         "jquery/jquery-ui": ">=1.10.3",
         "md5/md5": ">=1.1.0",
-        "mediumjs/mediumjs":"dev-master"
+        "mediumjs/mediumjs":"dev-master",
+        "wikilingo/codemirror":"1",
+        "codemirror/codemirror": "3.19"
     },
     "require-dev": {
         "bafs/testify": "dev-master"
