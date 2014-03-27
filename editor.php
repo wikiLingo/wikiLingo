@@ -9,27 +9,28 @@ require_once("vendor/autoload.php");
 $scripts = (new WikiLingo\Utilities\Scripts())
 
     //add some css
-    ->addCssLocation("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css")
+    ->addCssLocation("~jquery/jquery-ui/themes/base/jquery-ui.css")
 
-	->addCssLocation("~/bower_components/Medium.js/medium.css")
+	->addCssLocation("~mediumjs/mediumjs/medium.css")
 
 	->addCssLocation("~/editor/bubble.css")
     ->addCssLocation("~/editor/IcoMoon/sprites/sprites.css")
     ->addCssLocation("~/editor/IcoMoon/sprites/pastLink.css")
 
     //add some javascript
-    ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
-    ->addScriptLocation("//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js")
+    ->addScriptLocation("~jquery/jquery/jquery-1.10.2.js")
+    ->addScriptLocation("~jquery/jquery-ui/ui/jquery-ui.js")
 
-    ->addScriptLocation("~/bower_components/undo/undo.js")
-    ->addScriptLocation("~/bower_components/rangy/uncompressed/rangy-core.js")
-    ->addScriptLocation("~/bower_components/rangy/uncompressed/rangy-cssclassapplier.js")
-    ->addScriptLocation("~/bower_components/Medium.js/medium.js")
+    ->addScriptLocation("~undojs/undojs/undo.js")
+    ->addScriptLocation("~rangy/rangy/uncompressed/rangy-core.js")
+    ->addScriptLocation("~rangy/rangy/uncompressed/rangy-cssclassapplier.js")
+    ->addScriptLocation("~mediumjs/mediumjs/medium.js")
 
-    ->addCssLocation("~/bower_components/CodeMirror/lib/codemirror.css")
-    ->addScriptLocation("~/bower_components/CodeMirror/lib/codemirror.js")
-    ->addCssLocation("~/bower_components/wikiLingoCodeMirror/wikiLingo.css")
-    ->addScriptLocation("~/bower_components/wikiLingoCodeMirror/wikiLingo.js")
+    //this doesn't work now with composer
+    ->addCssLocation("~codemirror/lib/codemirror.css")
+    ->addScriptLocation("~codeMirror/lib/codemirror.js")
+    ->addCssLocation("~wikiLingoCodeMirror/wikiLingo.css")
+    ->addScriptLocation("~wikiLingoCodeMirror/wikiLingo.js")
 
     ->addScriptLocation("~/editor/WLPastLinkSyntaxGenerator.js")
     ->addScriptLocation("~/editor/WLPluginSyntaxGenerator.js")
@@ -38,9 +39,9 @@ $scripts = (new WikiLingo\Utilities\Scripts())
 	->addScriptLocation("~/editor/bubble.js")
 	->addScriptLocation("~/editor/editor.js")
 
-->addScriptLocation("~/WikiLingo/Definition.js")
-->addScriptLocation("~/WikiLingo/Parsed.js")
-->addScriptLocation("~/WikiLingo/Parser.js")
+    ->addScriptLocation("~/WikiLingo/Definition.js")
+    ->addScriptLocation("~/WikiLingo/Parsed.js")
+    ->addScriptLocation("~/WikiLingo/Parser.js")
 /*->addScript(<<<JS
     var parser = new WikiLingo.Parser();
     console.log(parser.parse(document.getElementById('editableSource').value));
