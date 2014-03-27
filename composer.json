@@ -16,7 +16,8 @@
         "rangy/rangy": ">=1.3",
         "jquery/jquery": ">=1.10.2",
         "jquery/jquery-ui": ">=1.10.3",
-        "md5/md5": ">=1.1.0"
+        "md5/md5": ">=1.1.0",
+        "mediumjs/mediumjs":"dev-master"
     },
     "require-dev": {
         "bafs/testify": "dev-master"
