@@ -1,7 +1,6 @@
 <?php
 namespace WikiLingo\Expression\Tensor;
 
-use Types\Type;
 use WikiLingo;
 use WikiLingo\Expression;
 use WikiLingo\Renderer;
@@ -13,8 +12,15 @@ use WikiLingo\Renderer;
 class Hierarchical
 {
 	public $depth;
-	public $parent;
-	public $children;
+
+    /**
+     * @var Hierarchical
+     */
+    public $parent;
+    /**
+     * @var HierarchicalCollection
+     */
+    public $children;
 	public $childrenLength = 0;
 	public $parsed;
 	public $block = null;
@@ -63,7 +69,7 @@ class Hierarchical
 
 		if (empty($child->parent))
 		{
-			$child->parent = Type::Hierarchical($this);
+			$child->parent = $this;
 		}
 		$this->children->push($child);
 		$this->childrenLength++;
@@ -80,7 +86,7 @@ class Hierarchical
 		{
 			$sibling->parent =& $this->parent;
 
-			Type::Hierarchical($this->parent)->addChild($sibling);
+			$this->parent->addChild($sibling);
 		}
 
 		return $this;

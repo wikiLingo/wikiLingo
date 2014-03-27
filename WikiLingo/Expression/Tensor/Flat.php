@@ -1,7 +1,6 @@
 <?php
 namespace WikiLingo\Expression\Tensor;
 
-use Types\Type;
 use WikiLingo;
 use WikiLingo\Expression\Block;
 
@@ -29,17 +28,17 @@ class Flat
 	public $activeDepth = 0;
 
 	/**
-	 * @var array(Hierarchical)
+	 * @var Hierarchical[]
 	 */
 	public $items = array();
 
 	/**
-	 * @var array(Hierarchical)parents
+	 * @var Hierarchical[][]
 	 */
 	public $parents = array();
 
 	/**
-	 * @var array(Integer)
+	 * @var int[]
 	 */
 	public $parentActive = array();
 	public $beginningLineNo;
@@ -201,7 +200,7 @@ class Flat
 
 		else
 		{
-			$parent = Type::Hierarchical($this->parents[$depth][$this->parentActive[$depth]]);
+			$parent = $this->parents[$depth][$this->parentActive[$depth]];
 			return $parent;
 		}
 	}

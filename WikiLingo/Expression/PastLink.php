@@ -14,7 +14,6 @@ use WikiLingo;
 use WikiLingo\Event;
 use FLP;
 use Phraser;
-use WikiLingo\Expression\PastLink\Sender;
 
 /**
  * Class PastLink
@@ -54,7 +53,6 @@ class PastLink extends Base
             //FIRST
             //Bind initial render so that PastLink::$ui is set, this is only done once per parser render
             if ( self::$renderedCount == 1 ) {
-                Sender::Setup();
                 $parser->events->bind(new Event\PostRender(function(&$rendered) {
                     PastLink::$ui = new FLP\UI($rendered);
                     PastLink::$ui->setContextAsFuture();

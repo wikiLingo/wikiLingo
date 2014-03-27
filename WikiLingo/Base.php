@@ -12,7 +12,7 @@ abstract class Base
 {
     /* type tracking */
     /**
-     * @var array
+     * @var Expression\*[]
      */
     public $types = array();
     /**
@@ -26,7 +26,7 @@ abstract class Base
     public $skipExpressions = false;
 
     /**
-     * @var
+     * @var Events
      */
     public $events;
 
@@ -34,16 +34,30 @@ abstract class Base
     public $pluginStack = array();
     public $pluginStackCount = 0;
     public $pluginInstances = array();
+
+    /**
+     * @var Plugin\*[]
+     */
     public $plugins = array();
+
+    /**
+     * @var string
+     */
     public $originalInput = '';
 
-    /* variable context stack */
+    /**
+     * variable context stack
+     * @var array[array[]]
+     */
     public $variableContextStack = array();
 
     /* link tracking*/
     public $linkStack = false; //There can only be 1 active link stack
 
-	public $blocks = array();
+    /**
+     * @var Expression\Block[]
+     */
+    public $blocks = array();
 	public $blocksLength = 0;
 
     public $tableStack = array();
@@ -64,6 +78,15 @@ abstract class Base
         $classNameShort = explode('\\', $class);
         $type->type = array_pop($classNameShort);
         return $type->index = $this->typesCount[$class];
+    }
+
+    /**
+     * Clears all expression types
+     */
+    public function clearTypes()
+    {
+        $this->types = array();
+        $this->typesCount = array();
     }
 
     /**

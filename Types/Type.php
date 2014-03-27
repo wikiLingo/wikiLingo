@@ -67,12 +67,12 @@ namespace Types
 			return $obj;
 		}
 
-		public static function DescriptionList(WikiLingo\Expression\DescriptionList $obj)
+		public static function DescriptionList(WikiLingo\Expression\BlockType\DescriptionList $obj)
 		{
 			return $obj;
 		}
 
-		public static function WikiLingoExpressionHeader(WikiLingo\Expression\Header $obj)
+		public static function Header(WikiLingo\Expression\BlockType\Header $obj)
 		{
 			return $obj;
 		}

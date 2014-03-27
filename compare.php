@@ -4,50 +4,12 @@ require_once("vendor/autoload.php");
 use WikiLingo\Event;
 use WikiLingo\Expression;
 
-    $original = "{TABS()}{TAB(title=`Misc.`)}
-||item1|item2
-item3|item4||
- # <> &
-''Test'' %argument%
-!!!Test
-~tc~Comments ''Parsed?''~/tc~
-~~blue:hello world~~
-<a href='http://google.com'>This is a link to Google</a>
-<script>alert('test');</script>
-~np~This ''Is a test'' ~/np~
-{TAB}{TAB(title=`Unordered List`)}
-*1.1
-*1.2
-**2.1
-**2.2
-*****5.1
-*****5.2
-*****5.3
-**2.3
-*1.3
-{TAB}{TAB(title=`Ordered List`)}
-#__Test__
-#__Test__
-##__Test__
-##__Test__
-#####__Test__
-#####__Test__
-#####__Test__
-##__Test__
-#__Test__
-{TAB}{TABS}
-
-!+Header
-{ILLEGAL()}
-    <script>alert('t');</script>
-{ILLEGAL}
-
-{ACCORDIONS()}
-	{ACCORDION(title=`Thumb Wars`)}{flash movie=`https://youtube.googleapis.com/v/lJ06RKGcPBI`}{ACCORDION}
-	{ACCORDION(title=`ThumbTanic`)}{flash movie=`http://www.youtube.com/v/Rgdd8kMeaj0`}{ACCORDION}
-	{ACCORDION(title=`BatThumb`)}{flash movie=`https://www.youtube.com/v/HUlbfmKtKcw`}{ACCORDION}
-{ACCORDIONS}
-
+    $original = "
+{OUTLINE()}
+* item 1
+** item 1.1
+* item 2
+{OUTLINE}
 ";
     $scripts = (new WikiLingo\Utilities\Scripts())
         ->addCssLocation("//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css")

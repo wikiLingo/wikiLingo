@@ -1,7 +1,10 @@
 <?php
 
-namespace WikiLingo\Expression;
+namespace WikiLingo\Expression\BlockType;
+
+
 use WikiLingo;
+use WikiLingo\Expression\Block;
 use Types\Type;
 
 /**
@@ -11,7 +14,15 @@ use Types\Type;
 class Header
 {
     public $parsed;
-	public $parser;
+
+    /**
+     * @var WikiLingo\Parser
+     */
+    public $parser;
+
+    /**
+     * @var \WikiLingo\Expression\Block
+     */
     public $block;
 	public $count = 0;
     public $content;

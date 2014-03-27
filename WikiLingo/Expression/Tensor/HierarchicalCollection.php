@@ -12,9 +12,20 @@ use WikiLingo\Expression;
  */
 class HierarchicalCollection
 {
-	public $block;
-	public $items = array();
-	public $itemsLength = 0;
+    /**
+     * @var \WikiLingo\Expression\Block
+     */
+    public $block;
+
+    /**
+     * @var Hierarchical[]
+     */
+    public $items = array();
+
+    /**
+     * @var int
+     */
+    public $itemsLength = 0;
 
     /**
      * @param Expression\Block $block
@@ -41,7 +52,7 @@ class HierarchicalCollection
         $element = $this->block->collectionElement();
 		foreach($this->items as $item)
 		{
-			$element->staticChildren[] = Type::Hierarchical($item)->render();
+			$element->staticChildren[] = $item->render();
 		}
 		return $element->render();
 	}

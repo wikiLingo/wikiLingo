@@ -26,10 +26,15 @@ class Block extends Base
     public $css;
     public $elementName;
     public $modifier;
+
+    /**
+     * @var WikiLingo\Parser
+     */
     public $parser;
     public $open = true;
 	public $isFirst = false;
 	public $allowLineAfter = false;
+    public $canOverride = false;
 
     /**
      * @var array
@@ -83,7 +88,7 @@ class Block extends Base
 
 		switch ($this->blockType) {
 			case 'header':
-				$result = new Header($this, strlen($syntax));
+				$result = new BlockType\Header($this, strlen($syntax));
 				break;
 
             case 'descriptionList':
@@ -93,13 +98,14 @@ class Block extends Base
                     $descriptionList->add($this);
                     return false;
 	            }
-				$result = new DescriptionList($this);
+				$result = new BlockType\DescriptionList($this);
 				break;
 			case 'unorderedListItem':
             $collectionElementName = 'ul';
 			case 'orderedListItem':
                 $this->collectionElementName = $collectionElementName;
                 $this->elementName = 'li';
+                $this->canOverride = true;
 
                 if ($previousBlock = $this->getPreviousBlockIfCompatible()) {
                     $previousBlock->endingLineNo = $this->parsed->lineNo;
@@ -144,8 +150,7 @@ class Block extends Base
      */
     public function render(&$parser)
 	{
-
-		if (isset($this->expression)) {
+        if (isset($this->expression)) {
 			return $this->expression->render();
 		}
 		return '';
@@ -156,6 +161,15 @@ class Block extends Base
      */
     public function collectionElement()
     {
+        if (
+            $this->canOverride == true
+            && !$this->parser->wysiwyg
+            && isset($this->parsed->parent->expression->class)
+            && method_exists($this->parsed->parent->expression->class, 'blockCollectionElement')
+        ) {
+            return $this->parsed->parent->expression->class->blockCollectionElement($this);
+        }
+
         $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->collectionElementName));
 	    $element->detailedAttributes["data-parent"] = "true";
         return $element;
@@ -166,6 +180,15 @@ class Block extends Base
      */
     public function element()
     {
+        if (
+            $this->canOverride == true
+            && !$this->parser->wysiwyg
+            && isset($this->parsed->parent->expression->class)
+            && method_exists($this->parsed->parent->expression->class, 'blockElement')
+        ) {
+            return $this->parsed->parent->expression->class->blockElement($this);
+        }
+
         $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->elementName));
 
         $element->detailedAttributes["data-block-type"] = $this->blockType;
@@ -186,6 +209,16 @@ class Block extends Base
      */
     public function newBlank()
     {
+        if (
+            $this->canOverride == true
+            && !$this->parser->wysiwyg
+            && isset($this->parsed->parent->expression->class)
+            && method_exists($this->parsed->parent->expression->class, 'blockNewElement')
+        ) {
+            return $this->parsed->parent->expression->class->blockNewElement($this);
+        }
+
+
 	    Type::Scripts($this->parser->scripts)->addCss(
 "li.empty {
 	list-style-type: none ! important;

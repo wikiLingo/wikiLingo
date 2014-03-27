@@ -1,5 +1,7 @@
 <?php
-namespace WikiLingo\Expression;
+namespace WikiLingo\Expression\BlockType;
+
+use WikiLingo;
 
 /**
  * Class DescriptionListItem
@@ -21,7 +23,7 @@ class DescriptionListItem
 	}
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return string
      */
     public function render(&$parser)

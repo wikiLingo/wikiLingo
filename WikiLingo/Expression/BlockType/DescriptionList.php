@@ -1,5 +1,8 @@
 <?php
-namespace WikiLingo\Expression;
+namespace WikiLingo\Expression\BlockType;
+
+use WikiLingo;
+use WikiLingo\Expression\Block;
 
 /**
  * Class DescriptionList
@@ -7,10 +10,25 @@ namespace WikiLingo\Expression;
  */
 class DescriptionList
 {
-	public $parsed;
-	public $parser;
-	public $block;
-	public $items = array();
+    /**
+     * @var WikiLingo\Parsed
+     */
+    public $parsed;
+
+    /**
+     * @var WikiLingo\Parser
+     */
+    public $parser;
+
+    /**
+     * @var \WikiLingo\Expression\Block
+     */
+    public $block;
+
+    /**
+     * @var DescriptionListItem[]
+     */
+    public $items = array();
 
     /**
      * @param Block $block

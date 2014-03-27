@@ -31,12 +31,12 @@ class Toc extends Base
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
     {
 	    $result = '';
-        if (!isset($parser->types['WikiLingo\Expression\Header'])) {
+        if (!isset($parser->types['WikiLingo\Expression\BlockType\Header'])) {
 	        $rendered = parent::render($plugin, $result, $parser);
 	        return $rendered;
         }
 
-        $headers =& $parser->types['WikiLingo\Expression\Header'];
+        $headers =& $parser->types['WikiLingo\Expression\BlockType\Header'];
         $tagType = ($plugin->parameter('ordered') != "false" ? 'ol' : 'ul');
 
 	    $tensor = null;
@@ -44,7 +44,7 @@ class Toc extends Base
 	    foreach($headers as &$header)
 	    {
 		    $header->pointer = true;
-		    $block =& Type::WikiLingoExpressionHeader($header)->block;
+		    $block =& Type::Header($header)->block;
 		    $block->collectionElementName = $tagType;
 		    $block->elementName = "li";
 
