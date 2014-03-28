@@ -16,15 +16,10 @@ class Block extends Base
 {
     public $type = 'Block';
     public $blank = false;
-    public $expressionType;
     public $expression;
     public $blockType;
 	public $beginningLineNo;
 	public $endingLineNo;
-    public $element;
-    public $collectionElementName;
-    public $css;
-    public $elementName;
     public $modifier;
 
     /**
