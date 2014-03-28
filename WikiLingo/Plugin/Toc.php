@@ -2,7 +2,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
-use Types\Type;
+use WikiLingo\Utilities\Parameter;
 use WikiLingo\Expression\BlockType;
 
 /**
@@ -36,16 +36,22 @@ class Toc extends Base
 	        return $rendered;
         }
 
+        /**
+         * @var WikiLingo\Expression\BlockType\Header[]
+         */
         $headers =& $parser->types['WikiLingo\Expression\BlockType\Header'];
         $orderedString = $plugin->parameter('ordered');
         $ordered = $orderedString == "true";
 
-	    $container = null;
+        /**
+         * @var WikiLingo\Expression\BlockType\ListContainer
+         */
+        $container = null;
 
 	    foreach($headers as &$header)
 	    {
 		    $header->pointer = true;
-		    $block =& Type::Header($header)->block;
+		    $block =& $header->block;
 
 		    if ($container === null) {
                 $container = new BlockType\ListContainer($block, $ordered);

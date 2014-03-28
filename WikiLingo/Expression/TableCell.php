@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
 /**
  * Class TableCell
  * @package WikiLingo\Expression
@@ -16,7 +17,7 @@ class TableCell extends Base
     }
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)

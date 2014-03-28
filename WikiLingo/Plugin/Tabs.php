@@ -2,7 +2,6 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
-use Types\Type;
 
 /**
  * Class Tabs
@@ -24,7 +23,7 @@ class Tabs extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return string
      */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
@@ -40,13 +39,13 @@ $(function() {
 JS
 );
         if (!empty($plugin->privateAttributes['titles'])) {
-	        $ul = Type::Helper($parser->helper('ul'));
+	        $ul = $parser->helper('ul');
 	        foreach($plugin->privateAttributes['titles'] as $tabId => $title) {
-		        $a = Type::Helper($parser->helper('a'));
+		        $a = $parser->helper('a');
 		        $a->attributes['href'] = '#' . $tabId;
 		        $a->staticChildren[] = $title;
 
-		        $li = Type::Helper($parser->helper('li'));
+		        $li = $parser->helper('li');
 		        $li->children[] = $a;
 		        $ul->children[] = $li;
 	        }

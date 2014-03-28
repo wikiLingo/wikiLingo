@@ -16,7 +16,7 @@ class Table extends Base
     public $allowLineAfter = false;
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)

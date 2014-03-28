@@ -2,7 +2,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
-use Types\Type;
+use WikiLingo\Utilities\Parameter;
 
 /**
  * Class Base
@@ -354,7 +354,7 @@ abstract class Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return string
      */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
@@ -368,7 +368,7 @@ abstract class Base
                 $this->htmlTagType
         );
 
-        $element = Type::Element($parser->element($this->expressionType, $elementName));
+        $element =$parser->element($this->expressionType, $elementName);
         $element->classes[] = (!empty($this->attributes['class']) ? $this->attributes['class'] . ' ' : '') . $plugin->type;
         $element->attributes['id'] = $id = $plugin->id();
 
@@ -386,7 +386,7 @@ abstract class Base
         }
 
 	    if ($parser->wysiwyg) {
-		    Type::Scripts($parser->scripts)->addScript("");
+		    $parser->scripts->addScript("");
 	    }
         $element->detailedAttributes += $this->detailedAttributes;
         $element->detailedAttributes['data-plugin-type'] = $plugin->type;

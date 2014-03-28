@@ -2,7 +2,6 @@
 
 namespace WikiLingo\Expression;
 use WikiLingo;
-use Types\Type;
 
 /**
  * Class Tag
@@ -41,13 +40,13 @@ class Tag extends Base
             $this->allowed = false;
         }
 
-        Type::Events($parsed->parser->events)->triggerExpressionTagAllowed($this);
+        $parsed->parser->events->triggerExpressionTagAllowed($this);
 
 		parent::__construct($parsed);
 	}
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
     function render(&$parser)
@@ -58,7 +57,7 @@ class Tag extends Base
             if (isset($parser->wysiwyg)) {
                 $element = $parser->element(__CLASS__, "code");
                 $element->staticChildren[] = htmlspecialchars($this->parsed->text);
-                Type::Events($parser->events)->triggerExpressionTagRender($element, $this);
+                $parser->events->triggerExpressionTagRender($element, $this);
                 return $element->render();
             }
 

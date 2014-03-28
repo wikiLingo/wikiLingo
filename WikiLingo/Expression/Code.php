@@ -1,7 +1,6 @@
 <?php
 namespace WikiLingo\Expression;
 
-use Types\Type;
 use WikiLingo;
 
 /**
@@ -11,7 +10,7 @@ use WikiLingo;
 class Code extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)
@@ -46,7 +45,7 @@ class Code extends Base
                 $element->detailedAttributes['data-mode'] = $mode;
 
 
-                $scripts = Type::Scripts($parser->scripts)
+                $parser->scripts
                     ->addScriptLocation("~/bower_components/CodeMirror/lib/codemirror.js")
                     ->addCssLocation("~/bower_components/CodeMirror/lib/codemirror.css")
                     ->addScript(<<<JS

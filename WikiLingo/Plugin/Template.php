@@ -2,7 +2,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
-use Types\Type;
+use WikiLingo\Utilities\Parameter;
 
 /**
  * Class Template

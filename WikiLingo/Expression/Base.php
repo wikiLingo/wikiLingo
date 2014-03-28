@@ -18,6 +18,7 @@ abstract class Base
     public $iterations = 0;
     public $i = 0;
     public $variableContext;
+    public $isParent;
 
     /**
      * @var int
@@ -30,6 +31,11 @@ abstract class Base
     public $type = '';
 
     /**
+     * @var string
+     */
+    public $renderedChildren = '';
+
+    /**
      * @param WikiLingo\Parsed $parsed
      */
     function __construct(WikiLingo\Parsed &$parsed)
@@ -38,6 +44,10 @@ abstract class Base
         $parsed->parser->addType($this);
     }
 
+    /**
+     * Expression id  - {type}# (Bold7)
+     * @return string
+     */
     function id()
     {
         return $this->type . $this->index;
@@ -55,11 +65,6 @@ abstract class Base
 	}
 
     /**
-     * @var string
-     */
-    public $renderedChildren = '';
-
-    /**
      * @param $parser
      * @return mixed
      */
@@ -70,6 +75,7 @@ abstract class Base
      */
     public function preRender(&$parser)
     {
+
     }
 
     /**

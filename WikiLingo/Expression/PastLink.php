@@ -8,8 +8,6 @@
 
 namespace WikiLingo\Expression;
 
-use FLP\Events as FutureLinkProtocolEvents;
-use Types\Type;
 use WikiLingo;
 use WikiLingo\Event;
 use FLP;
@@ -22,6 +20,10 @@ use Phraser;
 class PastLink extends Base
 {
     public static $loaded = false;
+
+    /**
+     * @var FLP\UI
+     */
     public static $ui;
     public static $existingCount = 0;
     public static $renderedCount = 0;
@@ -42,7 +44,7 @@ class PastLink extends Base
 	}
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return String
      */
     public function render(&$parser)
@@ -90,7 +92,7 @@ class PastLink extends Base
                     //use an actual length, when more than 1, php turns from array to associative array, so there is no length
                     $length = self::$existingCount;
 
-                    Type::Scripts($parser->scripts)
+                    $parser->scripts
                         ->addScriptLocation("~flp/flp/scripts/flp.js")
                         ->addScriptLocation("~flp/flp/scripts/flp.Link.js")
                         ->addScript(<<<JS

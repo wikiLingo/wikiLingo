@@ -11,7 +11,7 @@ use Types\Type;
 class HorizontalBar extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)

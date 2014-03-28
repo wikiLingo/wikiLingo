@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
 /**
  * Class TableRow
  * @package WikiLingo\Expression
@@ -21,7 +22,7 @@ class TableRow extends Base
     }
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)

@@ -2,7 +2,7 @@
 
 namespace WikiLingo\Expression;
 
-use Types\Type;
+use WikiLingo;
 
 /**
  * Class Link
@@ -11,12 +11,12 @@ use Types\Type;
 class Link extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
     public function render(&$parser)
     {
-        $element = Type::Element($parser->element(__CLASS__, 'a'));
+        $element = $parser->element(__CLASS__, 'a');
         $sides = explode("|", $this->renderedChildren);
 
         if (isset($sides[1])) {

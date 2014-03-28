@@ -10,7 +10,7 @@ use Types\Type;
 class Center extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
     public function render(&$parser)

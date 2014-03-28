@@ -6,11 +6,11 @@
  * Time: 4:22 PM
  */
 
-namespace WikiLingo\Plugin;
+namespace WikiLingo\Utilities;
 
 /**
  * Class Parameter
- * @package WikiLingo\Plugin
+ * @package WikiLingo\Utilities
  */
 class Parameter
 {

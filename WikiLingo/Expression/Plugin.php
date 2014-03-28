@@ -2,7 +2,6 @@
 namespace WikiLingo\Expression;
 
 use WikiLingo;
-use Types\Type;
 Use Exception;
 
 /**
@@ -12,6 +11,9 @@ Use Exception;
 class Plugin extends Base
 {
     public $type;
+    /**
+     * @var array
+     */
     public $parameters = array(); //parameters are server side
     public $parametersRaw = array(); //parameters are server side
     public $attributes = array(); //attributes are client/tag side
@@ -20,6 +22,11 @@ class Plugin extends Base
     public $key;
 	public $exists;
     public $classType;
+
+
+    /**
+     * @var WikiLingo\Plugin\Base
+     */
     public $class;
     public $parsed;
     public $parent;
@@ -56,7 +63,7 @@ class Plugin extends Base
 
         //it may exist elsewhere
         if (!$this->exists) {
-            Type::Events($parsed->parser->events)->triggerExpressionPluginExists($this);
+            $parsed->parser->events->triggerExpressionPluginExists($this);
         }
 
         $this->index = self::incrementPluginIndex($type);
@@ -111,7 +118,7 @@ class Plugin extends Base
     }
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      * @throws \Exception
      */
@@ -123,9 +130,9 @@ class Plugin extends Base
             throw new Exception('Plugin "' . $this->type . '" does not exists in namespace WikiLingo\Plugin');
         }
 
-        Type::Events($parser->events)->triggerExpressionPluginPreRender($this);
+        $parser->events->triggerExpressionPluginPreRender($this);
         $rendered = $this->class->render($this, $this->renderedChildren, $parser);
-	    Type::Events($parser->events)->triggerExpressionPluginPostRender($rendered, $this);
+	    $parser->events->triggerExpressionPluginPostRender($rendered, $this);
         return $rendered;
     }
 

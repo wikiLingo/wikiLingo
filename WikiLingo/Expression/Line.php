@@ -26,7 +26,7 @@ class Line extends Base
     }
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
     function render(&$parser)

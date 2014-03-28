@@ -3,7 +3,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
-use Types\Type;
+use WikiLingo\Utilities\Parameter;
 
 /**
  * Class Sliders
@@ -29,14 +29,13 @@ class Sliders extends Base
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
 	{
 		$id = $plugin->id();
-		$ul = Type::Helper($parser->helper('ul'));
+		$ul = $parser->helper('ul');
 		$ul->classes[] = 'bjqs';
 		$ul->staticChildren[] = $body;
 
-		Type::Scripts($parser->scripts)
+		$parser->scripts
 			->addScriptLocation('~/bower_components/basic-jquery-slider/js/bjqs-1.3.js')
 			->addCssLocation('~/bower_components/basic-jquery-slider/bjqs.css')
-
 			->addScript(<<<JS
 $(function() {
 	var _$id = $('#$id');

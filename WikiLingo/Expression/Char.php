@@ -1,6 +1,8 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
+
 /**
  * Class Char
  * @package WikiLingo\Expression
@@ -8,7 +10,7 @@ namespace WikiLingo\Expression;
 class Char extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)

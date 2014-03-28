@@ -9,7 +9,7 @@ use WikiLingo;
 class Content extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)

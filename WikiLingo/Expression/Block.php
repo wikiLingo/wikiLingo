@@ -4,7 +4,6 @@
  */
 namespace WikiLingo\Expression;
 
-use Types\Type;
 use WikiLingo;
 use WikiLingo\Utilities;
 
@@ -63,7 +62,7 @@ class Block extends Base
 		$this->parsed =& $parsed;
         $this->parser =& $parsed->parser;
 
-		$syntax = Type::Parsed($parsed->arguments[0])->text;
+		$syntax = $parsed->arguments[0]->text;
 		$modifierSyntax = substr($syntax, -1);
 		if (isset(self::$blockModifiers[$modifierSyntax]) && !isset(self::$blockModifiers[$syntax])) {
 			$this->modifier = self::$blockModifiers[$modifierSyntax];
@@ -89,7 +88,10 @@ class Block extends Base
             case 'descriptionList':
 	            if ($previousBlock = $this->getPreviousBlockIfCompatible()) {
                     $previousBlock->endingLineNo = $this->parsed->lineNo;
-                    $descriptionList = Type::DescriptionList($previousBlock->expression);
+                    /**
+                     * @var BlockType\DescriptionList
+                     */
+                    $descriptionList = $previousBlock->expression;
                     $descriptionList->add($this);
                     return false;
 	            }
@@ -101,7 +103,10 @@ class Block extends Base
                 if ($previousBlock = $this->getPreviousBlockIfCompatible()) {
                     $previousBlock->endingLineNo = $this->parsed->lineNo;
                     //We do not set $result here deliberately, so that the item is added to the already existing list
-                    $container = Type::ListContainer($previousBlock->expression);
+                    /**
+                     * @var BlockType\ListContainer
+                     */
+                    $container = $previousBlock->expression;
                     $item = new BlockType\ListItem($container, $this);
                     $container->add($item);
                     $container->block->parsed->addCousin($parsed);
@@ -127,7 +132,7 @@ class Block extends Base
     public function getPreviousBlockIfCompatible()
     {
         if ($this->parser->blocksLength > 0) {
-            $previousBlock = Type::Block($this->parser->blocks[$this->parser->blocksLength - 1]);
+            $previousBlock = $this->parser->blocks[$this->parser->blocksLength - 1];
             if ($previousBlock->blockType == $this->blockType && $previousBlock->open) {
                 return $previousBlock;
             }
@@ -136,8 +141,8 @@ class Block extends Base
     }
 
     /**
-     * @param $parser
-     * @return mixed|string
+     * @param WikiLingo\Parser $parser
+     * @return string
      */
     public function render(&$parser)
 	{

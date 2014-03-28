@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
 /**
  * Class NoParse
  * @package WikiLingo\Expression
@@ -8,7 +9,7 @@ namespace WikiLingo\Expression;
 class NoParse extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
     public function render(&$parser)

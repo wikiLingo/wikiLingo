@@ -4,8 +4,8 @@
  */
 namespace WikiLingo;
 
+use WikiLingo;
 use Exception;
-use Types\Type;
 
 /**
  * Class Parsed
@@ -13,22 +13,71 @@ use Types\Type;
  */
 class Parsed extends ParserValue
 {
-	public $type;
+    /**
+     * @var string
+     */
+    public $type;
     public $render;
-	public $firstSibling;
-    public $siblingIndex = 0;
+
+    /**
+     * @var Parsed[]
+     */
+    public $arguments = array();
+
+    /**
+     * @var array
+     */
+    public $options = array();
+
+    /**
+     * @var Parsed
+     */
+    public $parent;
+
+    /**
+     * @var Parsed[]
+     */
+    public $children = array();
+    public $childrenLength = 0;
+
+    /**
+     * @var Parsed[]
+     */
+    public $siblings = array();
     public $siblingsLength = 0;
+
+    /**
+     * @var Parsed
+     */
+    public $firstSibling;
+    public $siblingIndex = 0;
     public $lineIndex = 0;
     public $lineLength = 0;
+
+    /**
+     * @var WikiLingo\Expression\Base[]
+     */
+    public $cousins = array();
+    public $cousinsCount = 0;
+
+    /**
+     * @var Parsed[]
+     */
+    public $lines = array();
+
+    /**
+     * @var WikiLingo\Expression\Base
+     */
+    public $expression;
+    public $expressionPermissible = true;
+
+    /**
+     * @var WikiLingo\Parser
+     */
     public $parser;
     public $stateEnd;
 	public $depth = 0;
 	public static $throwExceptions = true;
-
-
-
-
-	public $lines = array();
 
     /**
      * @param Parsed $line
@@ -68,11 +117,6 @@ class Parsed extends ParserValue
         return $line;
     }
 
-
-
-
-	public $siblings = array();
-
     /**
      * @param Parsed $sibling
      */
@@ -96,15 +140,15 @@ class Parsed extends ParserValue
         }
 
 	    if (isset($this->parent->children[$siblingIndex])) {
-		    return Type::Parsed($this->parent->children[$siblingIndex]);
+		    return $this->parent->children[$siblingIndex];
 	    }
 
 	    if ($siblingIndex == 0) {
-		    return Type::Parsed($this->firstSibling);
+		    return $this->firstSibling;
 	    }
 
 	    if (isset($this->firstSibling->siblings[$siblingIndex - 1])) {
-            return Type::Parsed($this->firstSibling->siblings[$siblingIndex - 1]);
+            return $this->firstSibling->siblings[$siblingIndex - 1];
 	    }
 
 	    return null;
@@ -116,16 +160,11 @@ class Parsed extends ParserValue
     public function nextSibling()
     {
         $siblingIndex = $this->siblingIndex + 1;
-        if ($siblingIndex > $this->parent->siblingLength) {
+        if ($siblingIndex > $this->parent->siblingsLength) {
             return null;
         }
-        return Type::Parsed($this->siblings[$siblingIndex]);
+        return $this->siblings[$siblingIndex];
     }
-
-
-
-
-	public $arguments = array();
 
     /**
      * @param Parsed $argument
@@ -146,10 +185,6 @@ class Parsed extends ParserValue
         $this->setExpression();
 	}
 
-
-
-	public $options = array();
-
     /**
      * @param $key
      * @param $value
@@ -159,9 +194,6 @@ class Parsed extends ParserValue
 		$this->options[$key] = $value;
 	}
 
-
-
-	public $parent;
 
     /**
      * @param Parsed $parent
@@ -175,10 +207,6 @@ class Parsed extends ParserValue
 	        array_shift($this->siblings);
         }
 	}
-
-
-	public $children = array();
-	public $childrenLength = 0;
 
     /**
      * @param Parsed $child
@@ -199,9 +227,6 @@ class Parsed extends ParserValue
 	    $this->childrenLength = 0;
     }
 
-    public $expression;
-    public $expressionPermissible = true;
-
     /**
      *
      */
@@ -220,8 +245,7 @@ class Parsed extends ParserValue
         }
     }
 
-	public $cousins = array();
-	public $cousinsCount = 0;
+
 
     /**
      * @param Parsed $cousin
@@ -240,7 +264,7 @@ class Parsed extends ParserValue
 	{
         if (isset($this->parser->events))
         {
-		    Type::Events($this->parser->events)
+		    $this->parser->events
 			    ->triggerParsedRenderPermission($this);
         }
 
@@ -250,7 +274,7 @@ class Parsed extends ParserValue
 			} else {
 				$syntax = $this->parser->syntax($this->loc);
 			}
-			Type::Events($this->parser->events)
+			$this->parser->events
 				->triggerParsedRenderBlocked($this, $syntax);
 			return $syntax;
 		}
@@ -291,7 +315,7 @@ class Parsed extends ParserValue
 
         $renderedCousins = '';
         foreach ($this->cousins as &$cousin) {
-            $renderedCousins .= $cousin->render();
+            $renderedCousins .= $cousin->render($this->parser);
         }
 
         $this->expression->renderedChildren =& $renderedChildren;

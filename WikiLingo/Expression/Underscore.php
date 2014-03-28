@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
 /**
  * Class Underscore
  * @package WikiLingo\Expression
@@ -8,7 +9,7 @@ namespace WikiLingo\Expression;
 class Underscore extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)

@@ -2,6 +2,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
+use WikiLingo\Utilities\Parameter;
 
 /**
  * Class Flash
@@ -30,7 +31,7 @@ class Flash extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return string
      */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)

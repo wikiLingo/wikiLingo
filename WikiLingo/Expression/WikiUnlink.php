@@ -1,6 +1,8 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
+
 /**
  * Class WikiUnlink
  * @package WikiLingo\Expression
@@ -8,7 +10,7 @@ namespace WikiLingo\Expression;
 class WikiUnlink extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)

@@ -1,8 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
-use Types\Type;
-
+use WikiLingo;
 /**
  * Class Variable
  * @package WikiLingo\Expression
@@ -10,17 +9,17 @@ use Types\Type;
 class Variable extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
     public function render(&$parser)
 	{
-		$element = Type::Element($parser->element(__CLASS__, 'span'));
+		$element = $parser->element(__CLASS__, 'span');
 		$key = $element->detailedAttributes["key"] = substr($this->parsed->text, 1, -1);
         $set = false;
 
 		if (empty($this->variableContext)) {
-            Type::Events($parser->events)->triggerExpressionVariableLookup($key, $element, $this);
+            $parser->events->triggerExpressionVariableLookup($key, $element, $this);
             $set = true;
         }
 

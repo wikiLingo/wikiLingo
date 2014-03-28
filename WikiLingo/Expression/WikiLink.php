@@ -2,7 +2,7 @@
 
 namespace WikiLingo\Expression;
 
-use Types\Type;
+use WikiLingo;
 
 /**
  * Class WikiLink
@@ -11,12 +11,12 @@ use Types\Type;
 class WikiLink extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
     public function render(&$parser)
     {
-        $element = Type::Element($parser->element(__CLASS__, 'a'));
+        $element = $parser->element(__CLASS__, 'a');
         $sides = explode("|", $this->renderedChildren);
 
         if (isset($sides[1])) {
@@ -30,7 +30,7 @@ class WikiLink extends Base
         $element->staticChildren[] = $text;
         $element->attributes['href'] = $href;
 
-	    Type::Events($parser->events)->triggerExpressionWikiLinkRender($element, $this);
+	    $parser->events->triggerExpressionWikiLinkRender($element, $this);
 
         return $element->render();
     }

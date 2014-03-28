@@ -2,7 +2,6 @@
 namespace WikiLingo\Expression;
 
 use WikiLingo;
-use Types\Type;
 
 /**
  * Class WordLink
@@ -14,13 +13,13 @@ class WordLink extends Base
 	public $text;
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed
      */
     public function render(&$parser)
 	{
 		$element = $parser->element(__CLASS__, "a");
-		Type::Events($parser->events)->triggerExpressionWordLinkRender($element, $this);
+		$parser->events->triggerExpressionWordLinkRender($element, $this);
 		return $element->render();
 	}
 }

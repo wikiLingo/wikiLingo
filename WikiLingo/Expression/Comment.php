@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
 /**
  * Class Comment
  * @package WikiLingo\Expression
@@ -13,7 +14,7 @@ class Comment extends Base
     public $allowLineAfter = false;
 
     /**
-     * @param $parser
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
     public function render(&$parser)

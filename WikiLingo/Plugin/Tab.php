@@ -2,6 +2,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
+use WikiLingo\Utilities\Parameter;
 
 /**
  * Class Tab
