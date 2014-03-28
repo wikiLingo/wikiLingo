@@ -1,5 +1,5 @@
 <?php
-namespace WikiLingo\Expression\Tensor;
+namespace WikiLingo\Utilities\Tensor;
 
 use WikiLingo;
 use WikiLingo\Expression;
@@ -22,25 +22,8 @@ class Hierarchical
      */
     public $children;
 	public $childrenLength = 0;
-	public $parsed;
-	public $block = null;
 	public $index;
 
-    /**
-     * @param Expression\Block $block
-     */
-    function __construct(Expression\Block &$block = null)
-	{
-		if ($block != null) {
-			$this->block =& $block;
-
-            if (isset($block->parsed))
-            {
-			    $this->depth = strlen($block->parsed->arguments[0]->text) - 1;
-            }
-
-		}
-	}
 
     /**
      * @param Hierarchical $parent
@@ -62,11 +45,6 @@ class Hierarchical
      */
     function &addChild(Hierarchical &$child)
 	{
-		if (!isset($this->children))
-		{
-			$this->children = new HierarchicalCollection($this->block);
-		}
-
 		if (empty($child->parent))
 		{
 			$child->parent = $this;
@@ -90,27 +68,5 @@ class Hierarchical
 		}
 
 		return $this;
-	}
-
-    /**
-     * @return string
-     */
-    function render()
-	{
-        $element = $this->block->element();
-
-		if (isset($this->block)) {
-			if (!empty($this->block->renderedChildren)) {
-				$element->staticChildren[] = $this->block->renderedChildren;
-			} else if (\method_exists($this->block->expression, "render")) {
-				$element->staticChildren[] = $this->block->expression->render();
-			}
-		}
-
-		if (isset($this->children)) {
-			$element->staticChildren[] = $this->children->render();
-		}
-
-		return $element->render();
 	}
 }

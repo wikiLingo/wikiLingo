@@ -3,7 +3,7 @@ namespace WikiLingo\Plugin;
 
 use WikiLingo;
 use Types\Type;
-use WikiLingo\Expression\Tensor;
+use WikiLingo\Expression\BlockType;
 
 /**
  * Class Toc
@@ -37,24 +37,23 @@ class Toc extends Base
         }
 
         $headers =& $parser->types['WikiLingo\Expression\BlockType\Header'];
-        $tagType = ($plugin->parameter('ordered') != "false" ? 'ol' : 'ul');
+        $orderedString = $plugin->parameter('ordered');
+        $ordered = $orderedString == "true";
 
-	    $tensor = null;
+	    $container = null;
 
 	    foreach($headers as &$header)
 	    {
 		    $header->pointer = true;
 		    $block =& Type::Header($header)->block;
-		    $block->collectionElementName = $tagType;
-		    $block->elementName = "li";
 
-		    if ($tensor === null) {
-			    $tensor = new Tensor\Flat($block);
+		    if ($container === null) {
+                $container = new BlockType\ListContainer($block, $ordered);
 		    } else {
-			    $tensor->add(new Tensor\Hierarchical($block));
+                $container->add(new BlockType\ListItem($container, $block));
 		    }
 	    }
-	    $result = $tensor->render();
+	    $result = $container->render($parser);
 	    foreach($headers as &$header)
 	    {
 		    $header->pointer = false;

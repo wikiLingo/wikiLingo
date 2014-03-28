@@ -84,7 +84,7 @@ class Block extends Base
 
 		$parser =& $parsed->parser;
 		$result = null;
-        $collectionElementName = 'ol';
+        $ordered = true;
 
 		switch ($this->blockType) {
 			case 'header':
@@ -101,23 +101,19 @@ class Block extends Base
 				$result = new BlockType\DescriptionList($this);
 				break;
 			case 'unorderedListItem':
-            $collectionElementName = 'ul';
+                $ordered = false;
 			case 'orderedListItem':
-                $this->collectionElementName = $collectionElementName;
-                $this->elementName = 'li';
-                $this->canOverride = true;
-
                 if ($previousBlock = $this->getPreviousBlockIfCompatible()) {
                     $previousBlock->endingLineNo = $this->parsed->lineNo;
                     //We do not set $result here deliberately, so that the item is added to the already existing list
-                    $flat = Type::Flat($previousBlock->expression);
-                    $item = new Tensor\Hierarchical($this);
-                    $flat->add($item);
-                    $flat->block->parsed->addCousin($parsed);
+                    $container = Type::ListContainer($previousBlock->expression);
+                    $item = new BlockType\ListItem($container, $this);
+                    $container->add($item);
+                    $container->block->parsed->addCousin($parsed);
                     return false;
 				}
 				$this->isFirst = true;
-				$result = new Tensor\Flat($this);
+				$result = new BlockType\ListContainer($this, $ordered);
 				break;
 		}
 
@@ -151,83 +147,8 @@ class Block extends Base
     public function render(&$parser)
 	{
         if (isset($this->expression)) {
-			return $this->expression->render();
+			return $this->expression->render($parser);
 		}
 		return '';
 	}
-
-    /**
-     * @return WikiLingo\Renderer\Element
-     */
-    public function collectionElement()
-    {
-        if (
-            $this->canOverride == true
-            && !$this->parser->wysiwyg
-            && isset($this->parsed->parent->expression->class)
-            && method_exists($this->parsed->parent->expression->class, 'blockCollectionElement')
-        ) {
-            return $this->parsed->parent->expression->class->blockCollectionElement($this);
-        }
-
-        $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->collectionElementName));
-	    $element->detailedAttributes["data-parent"] = "true";
-        return $element;
-    }
-
-    /**
-     * @return WikiLingo\Renderer\Element
-     */
-    public function element()
-    {
-        if (
-            $this->canOverride == true
-            && !$this->parser->wysiwyg
-            && isset($this->parsed->parent->expression->class)
-            && method_exists($this->parsed->parent->expression->class, 'blockElement')
-        ) {
-            return $this->parsed->parent->expression->class->blockElement($this);
-        }
-
-        $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->elementName));
-
-        $element->detailedAttributes["data-block-type"] = $this->blockType;
-
-	    if ($this->isFirst && $this->parsed->text === "\n") {
-		    $element->detailedAttributes["data-has-line-before"] = "true";
-	    }
-        if ($this->blank) {
-            $element->classes[] = 'empty';
-	        $element->detailedAttributes["data-block-type"] = 'empty';
-        }
-
-        return $element;
-    }
-
-    /**
-     * @return Block
-     */
-    public function newBlank()
-    {
-        if (
-            $this->canOverride == true
-            && !$this->parser->wysiwyg
-            && isset($this->parsed->parent->expression->class)
-            && method_exists($this->parsed->parent->expression->class, 'blockNewElement')
-        ) {
-            return $this->parsed->parent->expression->class->blockNewElement($this);
-        }
-
-
-	    Type::Scripts($this->parser->scripts)->addCss(
-"li.empty {
-	list-style-type: none ! important;
-}");
-        $block = new Block();
-        $block->collectionElementName = $this->collectionElementName;
-        $block->elementName = $this->elementName;
-        $block->parsed = $this->parsed;
-        $block->blank = true;
-        return $block;
-    }
 }

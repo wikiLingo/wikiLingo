@@ -17,17 +17,7 @@ namespace Types
 			return $obj;
 		}
 
-		public static function Flat(Tensor\Flat $obj)
-		{
-			return $obj;
-		}
-
-		public static function Hierarchical(Tensor\Hierarchical $obj)
-		{
-			return $obj;
-		}
-
-		public static function HierarchicalCollection(Tensor\HierarchicalCollection $obj)
+		public static function ListContainer(Expression\BlockType\ListContainer $obj)
 		{
 			return $obj;
 		}
