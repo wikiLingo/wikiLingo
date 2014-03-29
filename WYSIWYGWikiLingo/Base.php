@@ -11,6 +11,7 @@ class Base
 {
 	public $parsing = false;
 	public $events;
+    public $renderer;
 
 	/* html tag tracking */
 	public $typeIndex = [];

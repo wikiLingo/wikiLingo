@@ -47,14 +47,15 @@ class Header
     }
 
     /**
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render()
+    public function render($parser)
     {
 	    $tagType = 'h' . $this->count;
 	    $children = '';
 	    foreach($this->parsed->children as &$child) {
-		    $children .= $child->render();
+		    $children .= $parser->renderer->render($child);
 	    }
 
 	    if ($this->pointer) {

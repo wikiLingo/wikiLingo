@@ -66,6 +66,14 @@ abstract class Base
 
     /**
      * @param $parser
+     */
+    public function preRender(&$parser)
+    {
+
+    }
+
+    /**
+     * @param $parser
      * @return mixed
      */
     abstract function render(&$parser);
@@ -73,7 +81,7 @@ abstract class Base
     /**
      * @param $parser
      */
-    public function preRender(&$parser)
+    public function postRender(&$parser)
     {
 
     }

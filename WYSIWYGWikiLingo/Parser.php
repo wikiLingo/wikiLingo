@@ -15,6 +15,7 @@ class Parser extends Definition
 		$this->emptyParserValue = new Parsed();
 
 		$this->events = new Events(__CLASS__);
+        $this->renderer = new Renderer($this);
 
 		parent::__construct();
 	}
@@ -66,7 +67,7 @@ class Parser extends Definition
          * only if we are a block, which are determined from $this->blockChars
         */
 
-        $output = $parsed->render();
+        $output = $this->renderer->render($parsed);
 
         if ($parsed->isBlock) { //remove the "\n"
             $output = substr($output, 1);
