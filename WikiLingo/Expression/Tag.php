@@ -46,16 +46,17 @@ class Tag extends Base
 	}
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
         if ($this->allowed) {
 		    return $this->parsed->text;
         } else {
             if (isset($parser->wysiwyg)) {
-                $element = $parser->element(__CLASS__, "code");
+                $element = $renderer->element(__CLASS__, "code");
                 $element->staticChildren[] = htmlspecialchars($this->parsed->text);
                 $parser->events->triggerExpressionTagRender($element, $this);
                 return $element->render();

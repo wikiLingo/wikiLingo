@@ -44,10 +44,11 @@ class PastLink extends Base
 	}
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
-     * @return String
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
         if ( !$parser->wysiwyg ) {
             self::$renderedCount++;

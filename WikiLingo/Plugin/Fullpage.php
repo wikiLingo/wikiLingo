@@ -23,10 +23,11 @@ class Fullpage extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$renderer, &$parser)
     {
 	    $plugin->allowLineAfter = false;
 	    $id = $plugin->id();
@@ -35,12 +36,12 @@ class Fullpage extends Base
         if (!$parser->wysiwyg) {
             if (!empty($plugin->privateAttributes['titles'])) {
                 //menu
-                $ul = Type::Helper($parser->helper('ul'));
+                $ul = Type::Helper($renderer->helper('ul'));
                 $ul->attributes['id'] = $id . '-menu';
                 $i = 1;
                 //anchors for sections
                 foreach($plugin->privateAttributes['titles'] as $sectionId => $title) {
-                    $link = Type::Helper($parser->helper('span'));
+                    $link = Type::Helper($renderer->helper('span'));
                     $link->attributes['href'] = $sectionId;
                     $link->attributes['onclick'] = <<<JS
 $.fn.fullpage.moveTo($i);
@@ -51,7 +52,7 @@ JS;
                     //$anchors[] = $a->attributes['data-index'] = $i++;
                     //$a->attributes['id'] = $sectionId . '-anchor';
                     $link->staticChildren[] = $title;
-                    $li = Type::Helper($parser->helper('li'));
+                    $li = Type::Helper($renderer->helper('li'));
                     $li->children[] = $link;
                     $ul->children[] = $li;
                 }
@@ -113,7 +114,7 @@ CSS
                     );
             }
         }
-        $tabs = parent::render($plugin, $body, $parser);
+        $tabs = parent::render($plugin, $body, $renderer, $parser);
 
         return $tabs;
     }

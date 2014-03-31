@@ -12,10 +12,11 @@ class BrokenElement extends Base
     public $isStatic = true;
 
     /**
+     * @param $renderer
      * @param $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
         return $this->parsed->text . $this->renderedChildren;
     }

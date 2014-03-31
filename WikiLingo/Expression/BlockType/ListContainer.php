@@ -70,11 +70,12 @@ CSS
     }
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render($parser)
+    public function render(&$renderer, &$parser)
     {
-        return $this->leaders->render($parser);
+        return $this->leaders->render($renderer, $parser);
     }
 }

@@ -16,16 +16,17 @@ class Table extends Base
     public $allowLineAfter = false;
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
-     * @return mixed
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
         $tableParser = new ExpressionParser\Table();
-        $element = $parser->element(__CLASS__, 'table');
+        $element = $renderer->element(__CLASS__, 'table');
         $table = $tableParser->parse($this->renderedChildren);
 
-        $element->staticChildren[] = $table->render($parser);
+        $element->staticChildren[] = $table->render($renderer, $parser);
         $result = $element->render();
         return $result;
     }

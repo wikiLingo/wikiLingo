@@ -13,12 +13,13 @@ class WordLink extends Base
 	public $text;
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
-     * @return mixed
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
-		$element = $parser->element(__CLASS__, "a");
+		$element = $renderer->element(__CLASS__, "a");
 		$parser->events->triggerExpressionWordLinkRender($element, $this);
 		return $element->render();
 	}

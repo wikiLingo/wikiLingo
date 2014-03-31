@@ -10,13 +10,14 @@ use WikiLingo;
 class Code extends Base
 {
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
-     * @return mixed
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
         $id = $this->id();
-        $element = $parser->element(__CLASS__, 'textarea');
+        $element = $renderer->element(__CLASS__, 'textarea');
         $element->attributes['id'] = $id;
         $element->classes[] = 'Code';
         $code = $this->parsed->text;

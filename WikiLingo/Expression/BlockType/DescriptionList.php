@@ -79,14 +79,16 @@ class DescriptionList
 	}
 
     /**
+     * @param $renderer
+     * @param $parser
      * @return mixed
      */
-    public function render()
+    public function render(&$renderer, &$parser)
 	{
-		$element = $this->parser->element(__CLASS__, 'dl');
+		$element = $renderer->element(__CLASS__, 'dl');
 
 		foreach ($this->items as $item) {
-			$element->staticChildren[] = $item->render($this->parser);
+			$element->staticChildren[] = $item->render($renderer, $parser);
 		}
 
 		return $element->render();

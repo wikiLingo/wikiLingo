@@ -19,9 +19,9 @@ class Renderer
     public $parser;
 
     /**
-     * @var WikiLingo\Expression\Base[]
+     * @var WikiLingo\ExpressionManipulator
      */
-    public $expressionOverrides = array();
+    public $expressionManipulator = array();
 
     /**
      * @param WikiLingo\Parser $parser
@@ -53,13 +53,16 @@ class Renderer
             return $syntax;
         }
 
-        $expression = (
-            isset($this->expressionOverrides[$parsed->expressionType])
-                ? $this->expressionOverrides[$parsed->expressionType]
-                : $parsed->expression
-        );
+        if (isset($this->expressionManipulator[$parsed->expressionType])) {
+            $expression = new $this->expressionManipulator[$parsed->expressionType]($parsed->expression);
+        } else {
+            $expression = $parsed->expression;
+        }
 
-        $expression->preRender($this->parser);
+        if (method_exists($expression, 'preRender')) {
+            $expression->preRender($this);
+        }
+
         if ($expression->isVariableContext) {
             $this->parser->variableContextStack[] = $expression->variables();
         }
@@ -101,7 +104,7 @@ class Renderer
 
         $expression->renderedChildren =& $renderedChildren;
         if (isset($expression) && method_exists($expression, 'render')) {
-            $rendered = $expression->render($this->parser);
+            $rendered = $expression->render($this, $this->parser);
         } else {
             $rendered = '';
         }
@@ -126,8 +129,20 @@ class Renderer
             array_pop($this->parser->variableContextStack);
         }
 
-        $expression->postRender($this->parser);
+        if (method_exists($expression, 'postRender')) {
+            $expression->postRender($this);
+        }
 
         return $result;
+    }
+
+    function element($type, $name)
+    {
+        return new Renderer\Element($type, $name);
+    }
+
+    function helper($name)
+    {
+        return new Renderer\Helper($name);
     }
 } 

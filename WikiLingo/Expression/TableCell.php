@@ -17,12 +17,13 @@ class TableCell extends Base
     }
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
-     * @return mixed
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = $parser->element(__CLASS__, "td");
+        $element = $renderer->element(__CLASS__, "td");
 	    $element->classes[] = 'table-cell';
 	    $parser->scripts->addCss('td.table-cell{min-width:50px;}');
 

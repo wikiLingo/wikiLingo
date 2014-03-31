@@ -117,12 +117,20 @@ class Plugin extends Base
         return $typeShort;
     }
 
+    public function preRender(&$renderer)
+    {
+        if (method_exists($this->class, "preRender")) {
+            $this->class->preRender($renderer);
+        }
+    }
+
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
-     * @return mixed
-     * @throws \Exception
+     * @throws Exception
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
         if (isset($this->class)) {
             $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
@@ -131,9 +139,16 @@ class Plugin extends Base
         }
 
         $parser->events->triggerExpressionPluginPreRender($this);
-        $rendered = $this->class->render($this, $this->renderedChildren, $parser);
+        $rendered = $this->class->render($this, $this->renderedChildren, $renderer, $parser);
 	    $parser->events->triggerExpressionPluginPostRender($rendered, $this);
         return $rendered;
+    }
+
+    public function postRender(&$renderer)
+    {
+        if (method_exists($this->class, "postRender")) {
+            $this->class->postRender($renderer);
+        }
     }
 
     /**

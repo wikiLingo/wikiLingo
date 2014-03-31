@@ -23,13 +23,14 @@ class Sliders extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
 	{
 		$id = $plugin->id();
-		$ul = $parser->helper('ul');
+		$ul = $renderer->helper('ul');
 		$ul->classes[] = 'bjqs';
 		$ul->staticChildren[] = $body;
 
@@ -96,7 +97,7 @@ CSS
 			);
 
 		$body = $ul->render();
-		$sliders = parent::render($plugin, $body, $parser);
+		$sliders = parent::render($plugin, $body, $renderer, $parser);
 		return $sliders;
 	}
 } 

@@ -12,10 +12,11 @@ class Content extends Base
     public $isStatic = true;
 
     /**
+     * @param $renderer
      * @param $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
 		if ($this->isHelper) {
 			return '';
@@ -23,6 +24,6 @@ class Content extends Base
 			return $this->parsed->text . $this->renderedChildren . (isset($this->closing->text) ? $this->closing->text : '');
 		}
 
-		return parent::render($parser);
+		return parent::render($renderer, $parser);
 	}
 }

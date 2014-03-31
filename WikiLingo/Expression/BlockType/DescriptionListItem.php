@@ -23,15 +23,16 @@ class DescriptionListItem
 	}
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
-		$elementTerm = $parser->element(__CLASS__, 'dt');
+		$elementTerm = $renderer->element(__CLASS__, 'dt');
 		$elementTerm->staticChildren[] = $this->term;
 
-		$elementDescription = $parser->element(__CLASS__, 'dd');
+		$elementDescription = $renderer->element(__CLASS__, 'dd');
 		$elementDescription->staticChildren[] = $this->description;
 
 		return $elementTerm->render() . $elementDescription->render();

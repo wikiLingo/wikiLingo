@@ -25,10 +25,11 @@ class Toc extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
 	    $result = '';
         if (!isset($parser->types['WikiLingo\Expression\BlockType\Header'])) {
@@ -59,13 +60,13 @@ class Toc extends Base
                 $container->add(new BlockType\ListItem($container, $block));
 		    }
 	    }
-	    $result = $container->render($parser);
+	    $result = $container->render($renderer, $parser);
 	    foreach($headers as &$header)
 	    {
 		    $header->pointer = false;
 	    }
 
-        $rendered = parent::render($plugin, $result, $parser);
+        $rendered = parent::render($plugin, $result, $renderer, $parser);
         return $rendered;
     }
 }

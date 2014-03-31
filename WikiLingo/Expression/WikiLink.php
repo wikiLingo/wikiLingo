@@ -11,12 +11,13 @@ use WikiLingo;
 class WikiLink extends Base
 {
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = $parser->element(__CLASS__, 'a');
+        $element = $renderer->element(__CLASS__, 'a');
         $sides = explode("|", $this->renderedChildren);
 
         if (isset($sides[1])) {

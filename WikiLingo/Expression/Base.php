@@ -65,26 +65,11 @@ abstract class Base
 	}
 
     /**
-     * @param $parser
+     * @param WikiLingo\Renderer &$renderer
+     * @param WikiLingo\Parser &$parser
+     * @return string
      */
-    public function preRender(&$parser)
-    {
-
-    }
-
-    /**
-     * @param $parser
-     * @return mixed
-     */
-    abstract function render(&$parser);
-
-    /**
-     * @param $parser
-     */
-    public function postRender(&$parser)
-    {
-
-    }
+    abstract function render(&$renderer, &$parser);
 
     /**
      * @param int $iterations

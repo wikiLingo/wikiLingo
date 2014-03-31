@@ -28,15 +28,16 @@ class Accordion extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
-        $header = $parser->helper('h3');
+        $header = $renderer->helper('h3');
         $header->staticChildren[] = $plugin->parameter('title');
 
-        $accordion = parent::render($plugin, $body, $parser);
+        $accordion = parent::render($plugin, $body, $renderer, $parser);
 
         return $header->render() . $accordion;
     }

@@ -141,13 +141,14 @@ class Block extends Base
     }
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
-     * @return string
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
         if (isset($this->expression)) {
-			return $this->expression->render($parser);
+			return $this->expression->render($renderer, $parser);
 		}
 		return '';
 	}

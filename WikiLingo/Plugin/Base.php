@@ -354,10 +354,11 @@ abstract class Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body = '', &$renderer, &$parser)
     {
 	    $elementName = (
             $parser->wysiwyg
@@ -368,7 +369,7 @@ abstract class Base
                 $this->htmlTagType
         );
 
-        $element =$parser->element($this->expressionType, $elementName);
+        $element =$renderer->element($this->expressionType, $elementName);
         $element->classes[] = (!empty($this->attributes['class']) ? $this->attributes['class'] . ' ' : '') . $plugin->type;
         $element->attributes['id'] = $id = $plugin->id();
 

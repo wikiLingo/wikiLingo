@@ -17,12 +17,14 @@ class Parser extends Definition
 	private $pcreRecursionLimit;
     public $wysiwyg = false;
     public $renderer;
+    public $expressionInstantiator;
 
     /**
      * @param Utilities\Scripts $scripts
      * @param Renderer $renderer
+     * @param ExpressionInstantiator $expressionInstantiator;
      */
-    public function __construct(Utilities\Scripts &$scripts = null, $renderer = null)
+    public function __construct(Utilities\Scripts &$scripts = null, $renderer = null, $expressionInstantiator = null)
 	{
 		if ($this->scripts === null) {
 			if ($scripts !== null ) {
@@ -38,6 +40,14 @@ class Parser extends Definition
             } else {
                 $this->renderer = new Renderer($this);
 
+            }
+        }
+
+        if ($this->expressionInstantiator === null) {
+            if ($expressionInstantiator !== null) {
+                $this->expressionInstantiator =& $expressionInstantiator;
+            } else {
+                $this->expressionInstantiator = new ExpressionInstantiator($this);
             }
         }
 

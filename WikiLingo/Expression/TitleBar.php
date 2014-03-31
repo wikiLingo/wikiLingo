@@ -9,12 +9,13 @@ use WikiLingo;
 class TitleBar extends Base
 {
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
-     * @return mixed
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = $parser->element(__CLASS__, 'div');
+        $element = $renderer->element(__CLASS__, 'div');
         $element->classes[] = 'title';
         $element->staticChildren[] = $this->renderedChildren;
         return $element->render();

@@ -205,16 +205,6 @@ abstract class Base
         }
     }
 
-	function element($type, $name)
-	{
-        return new Renderer\Element($type, $name);
-	}
-
-	function helper($name)
-	{
-        return new Renderer\Helper($name);
-	}
-
     function removeEOF( &$output )
     {
         $output = str_replace("≤REAL_EOF≥", "", $output);

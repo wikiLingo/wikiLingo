@@ -2,9 +2,9 @@
 namespace WikiLingoWYSIWYG;
 
 use WikiLingo;
-use WikiLingo\Renderer;
 use WikiLingo\Utilities;
 use WikiLingo\Parsed;
+use WikiLingoWYSIWYG;
 
 /**
  * Class Parser
@@ -27,31 +27,9 @@ class Parser extends WikiLingo\Parser
 
 		$this->emptyParserValue = new Parsed();
 
-		$this->events = new \WikiLingoWYSIWYG\Events();
+		$this->events = new WikiLingoWYSIWYG\Events();
+        $this->renderer = new WikiLingoWYSIWYG\Renderer($this);
 
 		parent::__construct();
 	}
-
-    /**
-     * @param $type
-     * @param $name
-     * @return Renderer\Element
-     */
-    function element($type, $name)
-    {
-        $element = new Renderer\Element($type, $name);
-        $element->useDetailedAttributes = true;
-        return $element;
-    }
-
-    /**
-     * @param $name
-     * @return Renderer\Helper
-     */
-    function helper($name)
-    {
-        $helper = new Renderer\Helper($name);
-        $helper->useDetailedAttributes = true;
-        return $helper;
-    }
 }

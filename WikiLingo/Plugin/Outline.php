@@ -2,7 +2,6 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
-use WikiLingo\Events;
 
 /**
  * Class ExpandingOutline
@@ -25,15 +24,32 @@ class Outline extends Base
     }
 
     /**
+     * @param WikiLingo\Renderer $renderer
+     */
+    public function preRender(&$renderer)
+    {
+        $renderer->expressionManipulator['WikiLingo\Expression\BlockType\ListContainer'] = 'WikiLingo\Parser\OutLine\ListContainer';
+    }
+
+    /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
-        $expandingOutline = parent::render($plugin, $body, $parser);
+        $expandingOutline = parent::render($plugin, $body, $renderer, $parser);
 
         return $expandingOutline;
+    }
+
+    /**
+     * @param WikiLingo\Renderer $renderer
+     */
+    public function postRender(&$renderer)
+    {
+        unset($renderer->expressionManipulator['WikiLingo\Expression\BlockType\ListContainer']);
     }
 }

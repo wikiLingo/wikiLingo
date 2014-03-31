@@ -29,10 +29,11 @@ class FullpageSection extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
 	    if (!isset($plugin->parent->privateAttributes['titles'])) {
 		    $plugin->parent->privateAttributes['titles'] = array();
@@ -46,6 +47,6 @@ JS
         //$plugin->attributes['data-anchor'] = $id;
 	    $plugin->parent->privateAttributes['titles'][$id] = $plugin->parameter('title');
 
-        return parent::render($plugin, $body, $parser);
+        return parent::render($plugin, $body, $renderer, $parser);
     }
 }

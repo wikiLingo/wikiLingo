@@ -17,6 +17,10 @@ class ListItem extends Hierarchical
     public $block = null;
     public $parsed;
     public $container;
+    /**
+     * @var ListItemCollection
+     */
+    public $children;
 
     /**
      * @param ListContainer $container
@@ -56,13 +60,14 @@ class ListItem extends Hierarchical
     }
 
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    function render(&$parser)
+    function render(&$renderer, &$parser)
     {
 
-        $element = $parser->element('WikiLingo\\Expression\\Block', 'li');
+        $element = $renderer->element('WikiLingo\\Expression\\Block', 'li');
 
         $element->detailedAttributes["data-block-type"] = $this->container->ordered ? 'orderedListItem' : 'unorderedListItem';
 
@@ -78,12 +83,12 @@ class ListItem extends Hierarchical
             if (!empty($this->block->renderedChildren)) {
                 $element->staticChildren[] = $this->block->renderedChildren;
             } else if (method_exists($this->block->expression, "render")) {
-                $element->staticChildren[] = $this->block->expression->render($parser);
+                $element->staticChildren[] = $this->block->expression->render($renderer, $parser);
             }
         }
 
         if (isset($this->children)) {
-            $element->staticChildren[] = $this->children->render($parser);
+            $element->staticChildren[] = $this->children->render($renderer, $parser);
         }
 
         return $element->render();

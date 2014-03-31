@@ -27,12 +27,13 @@ class Template extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
-        return parent::render($plugin, $body, $parser);
+        return parent::render($plugin, $body, $renderer, $parser);
     }
 
     public function variables( &$plugin )

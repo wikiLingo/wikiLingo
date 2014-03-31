@@ -20,6 +20,10 @@ class ListItemCollection extends Tensor\HierarchicalCollection
      */
     public $block;
     public $container;
+    /**
+     * @var \WikiLingo\Expression\BlockType\ListItem[]
+     */
+    public $items;
 
     /**
      * @param ListContainer $container
@@ -32,16 +36,17 @@ class ListItemCollection extends Tensor\HierarchicalCollection
     }
 
     /**
-     * @param WikiLingo\Parser $parser
+     * @param WikiLingo\Renderer &$renderer
+     * @param WikiLingo\Parser &$parser
      * @return string
      */
-    public function render($parser)
+    public function render($renderer, $parser)
     {
-        $element = $parser->element('WikiLingo\\Expression\\Block', $this->container->ordered ? 'ol' : 'ul');
+        $element = $renderer->element('WikiLingo\\Expression\\Block', $this->container->ordered ? 'ol' : 'ul');
         $element->detailedAttributes['data-parent'] = 'true';
         foreach($this->items as $item)
         {
-            $element->staticChildren[] = $item->render($parser);
+            $element->staticChildren[] = $item->render($renderer, $parser);
         }
         return $element->render();
     }

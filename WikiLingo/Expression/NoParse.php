@@ -9,13 +9,14 @@ use WikiLingo;
 class NoParse extends Base
 {
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
 		if ($parser->wysiwyg) {
-			$element = $parser->element(__CLASS__, 'span');
+			$element = $renderer->element(__CLASS__, 'span');
 			$element->staticChildren[] = $this->parsed->text;
 			return $element->render();
 		}

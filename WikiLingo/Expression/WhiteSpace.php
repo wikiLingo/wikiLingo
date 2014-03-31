@@ -9,10 +9,11 @@ use WikiLingo;
 class WhiteSpace extends Base
 {
     /**
+     * @param WikiLingo\Renderer $renderer
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
 	    $scripts = $parser->scripts;
         $allowWhiteSpace = true;
@@ -21,7 +22,7 @@ class WhiteSpace extends Base
             $allowWhiteSpace = $parentExpression->allowWhiteSpace;
         }
 	    $scripts->addCss("span.whitespace {white-space: pre;}");
-        $element = $parser->element(__CLASS__, 'span');
+        $element = $renderer->element(__CLASS__, 'span');
 
         if ($allowWhiteSpace == false)
         {
