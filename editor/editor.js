@@ -31,8 +31,8 @@ $(function() {
 			},
 			tags: {
 				paragraph: 'p',
-				outerLevel: ['pre','blockquote', 'figure', 'hr', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'div', 'ul', 'strong', 'code', 'br', 'b', 'span'],
-				innerLevel: ['a', 'b', 'u', 'i', 'img', 'div', 'strong', 'li', 'span', 'code', 'br']
+				outerLevel: null,
+				innerLevel: null
 			},
 			modifiers: [],
             beforeInvokeElement: function() {
