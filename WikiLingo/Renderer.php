@@ -19,7 +19,7 @@ class Renderer
     public $parser;
 
     /**
-     * @var WikiLingo\ExpressionManipulator
+     * @var function[]
      */
     public $expressionManipulator = array();
 
@@ -54,12 +54,13 @@ class Renderer
         }
 
         if (isset($this->expressionManipulator[$parsed->expressionType])) {
-            $expression = new $this->expressionManipulator[$parsed->expressionType]($parsed->expression);
-        } else {
-            $expression = $parsed->expression;
+            $this->expressionManipulator[$parsed->expressionType]($parsed->expression);
         }
 
-        if (method_exists($expression, 'preRender')) {
+        $expression = $parsed->expression;
+
+
+        if (!$this->parser->allowsMutation && method_exists($expression, 'preRender')) {
             $expression->preRender($this);
         }
 
@@ -129,7 +130,7 @@ class Renderer
             array_pop($this->parser->variableContextStack);
         }
 
-        if (method_exists($expression, 'postRender')) {
+        if ($this->parser->allowsMutation && method_exists($expression, 'postRender')) {
             $expression->postRender($this);
         }
 

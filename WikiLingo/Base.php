@@ -62,6 +62,7 @@ abstract class Base
 
     public $tableStack = array();
 
+    public $allowsMutation = true;
     /**
      * @param WikiLingo\Expression\* &$type
      * @return Number

@@ -28,7 +28,9 @@ class Outline extends Base
      */
     public function preRender(&$renderer)
     {
-        $renderer->expressionManipulator['WikiLingo\Expression\BlockType\ListContainer'] = 'WikiLingo\Parser\OutLine\ListContainer';
+        $renderer->expressionManipulator['WikiLingo\Expression\Block'] = function(&$expression) {
+            WikiLingo\Plugin\Outline\Block::mutate($expression);
+        };
     }
 
     /**
@@ -50,6 +52,6 @@ class Outline extends Base
      */
     public function postRender(&$renderer)
     {
-        unset($renderer->expressionManipulator['WikiLingo\Expression\BlockType\ListContainer']);
+        unset($renderer->expressionManipulator['WikiLingo\Expression\Block']);
     }
 }

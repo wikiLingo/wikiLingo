@@ -42,12 +42,10 @@ class ListItemCollection extends Tensor\HierarchicalCollection
      */
     public function render($renderer, $parser)
     {
-        $element = $renderer->element('WikiLingo\\Expression\\Block', $this->container->ordered ? 'ol' : 'ul');
-        $element->detailedAttributes['data-parent'] = 'true';
-        foreach($this->items as $item)
+        foreach($this->container->listItemCollectionRenderDelegate as &$delegate)
         {
-            $element->staticChildren[] = $item->render($renderer, $parser);
+            return $delegate($this->items, $renderer, $parser);
         }
-        return $element->render();
+        return '';
     }
 } 

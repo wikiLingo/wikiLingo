@@ -14,6 +14,9 @@ use WikiLingo\Utilities\Tensor\Hierarchical;
 
 class ListItem extends Hierarchical
 {
+    /**
+     * @var WikiLingo\Expression\Block
+     */
     public $block = null;
     public $parsed;
     public $container;
@@ -66,31 +69,10 @@ class ListItem extends Hierarchical
      */
     function render(&$renderer, &$parser)
     {
-
-        $element = $renderer->element('WikiLingo\\Expression\\Block', 'li');
-
-        $element->detailedAttributes["data-block-type"] = $this->container->ordered ? 'orderedListItem' : 'unorderedListItem';
-
-        if ($this->block->isFirst && $this->parsed->text === "\n") {
-            $element->detailedAttributes["data-has-line-before"] = "true";
+        foreach($this->container->listItemRenderDelegate as &$delegate)
+        {
+            return $delegate($this, $renderer, $parser);
         }
-        if ($this->block->blank) {
-            $element->classes[] = 'empty';
-            $element->detailedAttributes["data-block-type"] = 'empty';
-        }
-
-        if (isset($this->block)) {
-            if (!empty($this->block->renderedChildren)) {
-                $element->staticChildren[] = $this->block->renderedChildren;
-            } else if (method_exists($this->block->expression, "render")) {
-                $element->staticChildren[] = $this->block->expression->render($renderer, $parser);
-            }
-        }
-
-        if (isset($this->children)) {
-            $element->staticChildren[] = $this->children->render($renderer, $parser);
-        }
-
-        return $element->render();
+        return '';
     }
 } 

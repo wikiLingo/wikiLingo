@@ -21,6 +21,8 @@ class ListContainer extends Tensor\Flat
     public $beginningLineNo;
     public $endingLineNo;
     public $ordered = false;
+    public $listItemCollectionRenderDelegate = array();
+    public $listItemRenderDelegate = array();
 
     /**
      * @param Block $block
@@ -28,6 +30,61 @@ class ListContainer extends Tensor\Flat
      */
     public function __construct(Block &$block, $ordered)
     {
+        /**
+         * setup default rendering delegates
+         *
+         * @param ListItemCollection $listItems
+         * @param WikiLingo\Renderer $renderer
+         * @param WikiLingo\Parser $parser
+         * @return string
+         */
+        $this->listItemCollectionRenderDelegate[] = function(&$listItems, &$renderer, &$parser) {
+            $element = $renderer->element('WikiLingo\\Expression\\Block', $this->ordered ? 'ol' : 'ul');
+            $element->detailedAttributes['data-parent'] = 'true';
+            foreach($listItems as $listItem)
+            {
+                $element->staticChildren[] = $listItem->render($renderer, $parser);
+            }
+            return $element->render();
+        };
+
+        /**
+         * @param ListItem $listItem
+         * @param WikiLingo\Renderer $renderer
+         * @param WikiLingo\Parser $parser
+         * @return string
+         */
+        $this->listItemRenderDelegate[] = function(&$listItem, &$renderer, &$parser) {
+            $element = $renderer->element('WikiLingo\\Expression\\Block', 'li');
+
+            $element->detailedAttributes["data-block-type"] = $this->ordered ? 'orderedListItem' : 'unorderedListItem';
+
+            $block = $listItem->block;
+            $parsed = $listItem->parsed;
+
+            if ($block->isFirst && $parsed->text === "\n") {
+                $element->detailedAttributes["data-has-line-before"] = "true";
+            }
+            if ($block->blank) {
+                $element->classes[] = 'empty';
+                $element->detailedAttributes["data-block-type"] = 'empty';
+            }
+
+            if (isset($block)) {
+                if (!empty($block->renderedChildren)) {
+                    $element->staticChildren[] = $block->renderedChildren;
+                } else if (method_exists($block->expression, "render")) {
+                    $element->staticChildren[] = $block->expression->render($renderer, $parser);
+                }
+            }
+
+            if (isset($listItem->children)) {
+                $element->staticChildren[] = $listItem->children->render($renderer, $parser);
+            }
+
+            return $element->render();
+        };
+
         $this->block =& $block;
         $this->ordered = $ordered;
         $this->parser =& $block->parser;

@@ -12,6 +12,7 @@ use WikiLingoWYSIWYG;
  */
 class Parser extends WikiLingo\Parser
 {
+    public $allowsMutation = false;
     public $wysiwyg = true;
 
     /**
