@@ -4,7 +4,6 @@
  */
 namespace WikiLingo\Expression;
 
-use Types\Type;
 use WikiLingo;
 use WikiLingo\Utilities;
 
@@ -16,20 +15,20 @@ class Block extends Base
 {
     public $type = 'Block';
     public $blank = false;
-    public $expressionType;
     public $expression;
     public $blockType;
 	public $beginningLineNo;
 	public $endingLineNo;
-    public $element;
-    public $collectionElementName;
-    public $css;
-    public $elementName;
     public $modifier;
+
+    /**
+     * @var WikiLingo\Parser
+     */
     public $parser;
     public $open = true;
 	public $isFirst = false;
 	public $allowLineAfter = false;
+    public $canOverride = false;
 
     /**
      * @var array
@@ -63,7 +62,7 @@ class Block extends Base
 		$this->parsed =& $parsed;
         $this->parser =& $parsed->parser;
 
-		$syntax = Type::Parsed($parsed->arguments[0])->text;
+		$syntax = $parsed->arguments[0]->text;
 		$modifierSyntax = substr($syntax, -1);
 		if (isset(self::$blockModifiers[$modifierSyntax]) && !isset(self::$blockModifiers[$syntax])) {
 			$this->modifier = self::$blockModifiers[$modifierSyntax];
@@ -79,39 +78,42 @@ class Block extends Base
 
 		$parser =& $parsed->parser;
 		$result = null;
-        $collectionElementName = 'ol';
+        $ordered = true;
 
 		switch ($this->blockType) {
 			case 'header':
-				$result = new Header($this, strlen($syntax));
+				$result = new BlockType\Header($this, strlen($syntax));
 				break;
 
             case 'descriptionList':
 	            if ($previousBlock = $this->getPreviousBlockIfCompatible()) {
                     $previousBlock->endingLineNo = $this->parsed->lineNo;
-                    $descriptionList = Type::DescriptionList($previousBlock->expression);
+                    /**
+                     * @var BlockType\DescriptionList
+                     */
+                    $descriptionList = $previousBlock->expression;
                     $descriptionList->add($this);
                     return false;
 	            }
-				$result = new DescriptionList($this);
+				$result = new BlockType\DescriptionList($this);
 				break;
 			case 'unorderedListItem':
-            $collectionElementName = 'ul';
+                $ordered = false;
 			case 'orderedListItem':
-                $this->collectionElementName = $collectionElementName;
-                $this->elementName = 'li';
-
                 if ($previousBlock = $this->getPreviousBlockIfCompatible()) {
                     $previousBlock->endingLineNo = $this->parsed->lineNo;
                     //We do not set $result here deliberately, so that the item is added to the already existing list
-                    $flat = Type::Flat($previousBlock->expression);
-                    $item = new Tensor\Hierarchical($this);
-                    $flat->add($item);
-                    $flat->block->parsed->addCousin($parsed);
+                    /**
+                     * @var BlockType\ListContainer
+                     */
+                    $container = $previousBlock->expression;
+                    $item = new BlockType\ListItem($container, $this);
+                    $container->add($item);
+                    $container->block->parsed->addCousin($parsed);
                     return false;
 				}
 				$this->isFirst = true;
-				$result = new Tensor\Flat($this);
+				$result = new BlockType\ListContainer($this, $ordered);
 				break;
 		}
 
@@ -130,7 +132,7 @@ class Block extends Base
     public function getPreviousBlockIfCompatible()
     {
         if ($this->parser->blocksLength > 0) {
-            $previousBlock = Type::Block($this->parser->blocks[$this->parser->blocksLength - 1]);
+            $previousBlock = $this->parser->blocks[$this->parser->blocksLength - 1];
             if ($previousBlock->blockType == $this->blockType && $previousBlock->open) {
                 return $previousBlock;
             }
@@ -139,62 +141,15 @@ class Block extends Base
     }
 
     /**
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
-
-		if (isset($this->expression)) {
-			return $this->expression->render();
+        if (isset($this->expression)) {
+			return $this->expression->render($renderer, $parser);
 		}
 		return '';
 	}
-
-    /**
-     * @return WikiLingo\Renderer\Element
-     */
-    public function collectionElement()
-    {
-        $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->collectionElementName));
-	    $element->detailedAttributes["data-parent"] = "true";
-        return $element;
-    }
-
-    /**
-     * @return WikiLingo\Renderer\Element
-     */
-    public function element()
-    {
-        $element = Type::Element($this->parsed->parser->element(__CLASS__, $this->elementName));
-
-        $element->detailedAttributes["data-block-type"] = $this->blockType;
-
-	    if ($this->isFirst && $this->parsed->text === "\n") {
-		    $element->detailedAttributes["data-has-line-before"] = "true";
-	    }
-        if ($this->blank) {
-            $element->classes[] = 'empty';
-	        $element->detailedAttributes["data-block-type"] = 'empty';
-        }
-
-        return $element;
-    }
-
-    /**
-     * @return Block
-     */
-    public function newBlank()
-    {
-	    Type::Scripts($this->parser->scripts)->addCss(
-"li.empty {
-	list-style-type: none ! important;
-}");
-        $block = new Block();
-        $block->collectionElementName = $this->collectionElementName;
-        $block->elementName = $this->elementName;
-        $block->parsed = $this->parsed;
-        $block->blank = true;
-        return $block;
-    }
 }

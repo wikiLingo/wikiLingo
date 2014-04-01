@@ -17,11 +17,12 @@ abstract class Base extends WikiLingo\Expression\Content
 	public $children = array();
 
     /**
+     * @param $renderer
      * @param $parser
      * @return mixed|string
      * @throws \Exception
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
 
         if ($this->isElement) {

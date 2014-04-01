@@ -17,17 +17,7 @@ namespace Types
 			return $obj;
 		}
 
-		public static function Flat(Tensor\Flat $obj)
-		{
-			return $obj;
-		}
-
-		public static function Hierarchical(Tensor\Hierarchical $obj)
-		{
-			return $obj;
-		}
-
-		public static function HierarchicalCollection(Tensor\HierarchicalCollection $obj)
+		public static function ListContainer(Expression\BlockType\ListContainer $obj)
 		{
 			return $obj;
 		}
@@ -67,12 +57,12 @@ namespace Types
 			return $obj;
 		}
 
-		public static function DescriptionList(WikiLingo\Expression\DescriptionList $obj)
+		public static function DescriptionList(WikiLingo\Expression\BlockType\DescriptionList $obj)
 		{
 			return $obj;
 		}
 
-		public static function WikiLingoExpressionHeader(WikiLingo\Expression\Header $obj)
+		public static function Header(WikiLingo\Expression\BlockType\Header $obj)
 		{
 			return $obj;
 		}

@@ -3,7 +3,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
-use Types\Type;
+use WikiLingo\Utilities\Parameter;
 
 /**
  * Class Slider
@@ -27,14 +27,15 @@ class Slider extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
 	{
 		$plugin->attributes['title'] = htmlspecialchars($plugin->parameter('title'));
 
-		$slider = parent::render($plugin, $body, $parser);
+		$slider = parent::render($plugin, $body, $renderer, $parser);
 
 		return $slider;
 	}

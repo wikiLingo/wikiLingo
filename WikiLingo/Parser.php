@@ -12,23 +12,44 @@ use WikiLingo\Event;
 class Parser extends Definition
 {
 
-	public $scripts;
+	public $scripts = null;
 	private $parsing = false;
 	private $pcreRecursionLimit;
     public $wysiwyg = false;
+    public $renderer;
+    public $expressionInstantiator;
 
     /**
      * @param Utilities\Scripts $scripts
+     * @param Renderer $renderer
+     * @param ExpressionInstantiator $expressionInstantiator;
      */
-    public function __construct(Utilities\Scripts &$scripts = null)
+    public function __construct(Utilities\Scripts &$scripts = null, $renderer = null, $expressionInstantiator = null)
 	{
-		if (empty($this->scripts)) {
-			if ($scripts != null ) {
+		if ($this->scripts === null) {
+			if ($scripts !== null ) {
 				$this->scripts =& $scripts;
 			} else {
 				$this->scripts = new Utilities\Scripts();
 			}
 		}
+
+        if ($this->renderer === null) {
+            if ($renderer !== null ) {
+                $this->renderer =& $renderer;
+            } else {
+                $this->renderer = new Renderer($this);
+
+            }
+        }
+
+        if ($this->expressionInstantiator === null) {
+            if ($expressionInstantiator !== null) {
+                $this->expressionInstantiator =& $expressionInstantiator;
+            } else {
+                $this->expressionInstantiator = new ExpressionInstantiator($this);
+            }
+        }
 
 		$this->emptyParserValue = new Parsed();
 
@@ -89,7 +110,7 @@ class Parser extends Definition
     public function postParse(Parsed &$parsed)
     {
 	    $parsed = $this->events->triggerPreRender($parsed);
-        $rendered = $parsed->render();
+        $rendered = $this->renderer->render($parsed);
         $rendered = $this->events->triggerPostRender($rendered);
         return $rendered;
     }

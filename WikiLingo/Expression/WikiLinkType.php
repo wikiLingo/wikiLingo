@@ -3,7 +3,6 @@
 namespace WikiLingo\Expression;
 
 use WikiLingo;
-use Types\Type;
 
 /**
  * Class WikiLinkType
@@ -24,12 +23,13 @@ class WikiLinkType extends Base
     }
 
     /**
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = Type::Element($parser->element(__CLASS__, 'a'));
+        $element = $renderer->element(__CLASS__, 'a');
 
         $sides = explode("|", $this->renderedChildren);
 
@@ -45,7 +45,7 @@ class WikiLinkType extends Base
         $element->attributes['href'] = $href;
         $element->detailedAttributes['data-wiki-link-type'] = $this->type;
 
-	    Type::Events($parser->events)->triggerExpressionWikiLinkTypeRender($element, $this);
+	    $parser->events->triggerExpressionWikiLinkTypeRender($element, $this);
 
         return $element->render();
     }

@@ -1,7 +1,6 @@
 <?php
-namespace WikiLingo\Expression\Tensor;
+namespace WikiLingo\Utilities\Tensor;
 
-use Types\Type;
 use WikiLingo;
 use WikiLingo\Expression\Block;
 
@@ -10,14 +9,8 @@ use WikiLingo\Expression\Block;
  * Class Flat
  * @package WikiLingo\Expression\Tensor
  */
-class Flat
+abstract class Flat
 {
-	/**
-	 * @var \WikiLingo\Expression\Block
-	 * set from the parent
-	 */
-	public $block;
-
 	/**
 	 * @var HierarchicalCollection
 	 */
@@ -29,35 +22,21 @@ class Flat
 	public $activeDepth = 0;
 
 	/**
-	 * @var array(Hierarchical)
+	 * @var Hierarchical[]
 	 */
 	public $items = array();
 
 	/**
-	 * @var array(Hierarchical)parents
+	 * @var Hierarchical[][]
 	 */
 	public $parents = array();
 
 	/**
-	 * @var array(Integer)
+	 * @var int[]
 	 */
 	public $parentActive = array();
-	public $beginningLineNo;
-	public $endingLineNo;
 	public $length = 0;
 
-	/**
-	 * @param Block $block
-	 */
-	public function __construct(Block &$block)
-	{
-		$this->block =& $block;
-		$this->leaders = new HierarchicalCollection($block);
-		$item = new Hierarchical($block);
-		$this->items[] =& $item;
-		$this->add($item);
-		$this->beginningLineNo = $block->parsed->lineNo;
-	}
 
 	/**
 	 * @param Hierarchical $item
@@ -126,8 +105,6 @@ class Flat
 		}
 
 		$this->activeDepth = $item->depth;
-
-		$this->endingLineNo = $item->block->parsed->lineNo;
 	}
 
     /**
@@ -166,6 +143,19 @@ class Flat
 	}
 
     /**
+     * @param int $depth
+     * @param int $index
+     * @return Hierarchical
+     */
+    public function newEmptyParentAtDepth($depth, $index)
+    {
+        $item = new Hierarchical();
+        $item->depth = $depth;
+        $item->index = $index;
+        return $item;
+    }
+
+    /**
      * @param Number $depth
      * @return Hierarchical
      */
@@ -178,21 +168,17 @@ class Flat
 
 		if (!isset($this->parents[$depth]))
 		{
-			$item = new Hierarchical($this->block->newBlank());
-			$item->depth = $depth;
-			$item->index = $this->length;
-			$this->items[] = $item;
-			$this->length++;
-			$this->makeParent($item);
-			return $item;
+            $item = $this->newEmptyParentAtDepth($depth, $this->length);
+            $this->items[] = $item;
+            $this->length++;
+            $this->makeParent($item);
+            return $item;
 		}
 
 		else if (!isset($this->parents[$depth][$this->parentActive[$depth]]))
 		{
 
-			$item = new Hierarchical($this->block->newBlank());
-			$item->depth = $depth;
-			$item->index = $this->length;
+            $item = $this->newEmptyParentAtDepth($depth, $this->length);
 			$this->items[] = $item;
 			$this->length++;
 			$this->makeParent($item);
@@ -201,7 +187,7 @@ class Flat
 
 		else
 		{
-			$parent = Type::Hierarchical($this->parents[$depth][$this->parentActive[$depth]]);
+			$parent = $this->parents[$depth][$this->parentActive[$depth]];
 			return $parent;
 		}
 	}
@@ -226,13 +212,5 @@ class Flat
 			$this->parentActive[$this->activeDepth]++;
 			$this->activeDepth--;
 		}
-	}
-
-    /**
-     * @return string
-     */
-    public function render()
-	{
-		return $this->leaders->render();
 	}
 }

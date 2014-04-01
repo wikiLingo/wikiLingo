@@ -30,12 +30,13 @@ class Color extends Base
 	}
 
     /**
-     * @param $parser
-     * @return mixed
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = $parser->element(__CLASS__, 'span');
+        $element = $renderer->element(__CLASS__, 'span');
 	    $element->attributes['style'] = 'color:' . $this->color . ';';
         $element->staticChildren[] = $this->renderedChildren;
         return $element->render();

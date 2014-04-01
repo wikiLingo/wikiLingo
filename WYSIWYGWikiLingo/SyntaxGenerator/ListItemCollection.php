@@ -2,10 +2,10 @@
 namespace WYSIWYGWikiLingo\SyntaxGenerator;
 
 /**
- * Class ListItems
+ * Class ListItemCollection
  * @package WYSIWYGWikiLingo\SyntaxGenerator
  */
-class ListItems extends Base
+class ListItemCollection extends Base
 {
     /**
      * @return string

@@ -1,5 +1,8 @@
 <?php
-namespace WikiLingo\Expression;
+namespace WikiLingo\Expression\BlockType;
+
+use WikiLingo;
+use WikiLingo\Expression\Block;
 
 /**
  * Class DescriptionList
@@ -7,10 +10,25 @@ namespace WikiLingo\Expression;
  */
 class DescriptionList
 {
-	public $parsed;
-	public $parser;
-	public $block;
-	public $items = array();
+    /**
+     * @var WikiLingo\Parsed
+     */
+    public $parsed;
+
+    /**
+     * @var WikiLingo\Parser
+     */
+    public $parser;
+
+    /**
+     * @var \WikiLingo\Expression\Block
+     */
+    public $block;
+
+    /**
+     * @var DescriptionListItem[]
+     */
+    public $items = array();
 
     /**
      * @param Block $block
@@ -61,14 +79,16 @@ class DescriptionList
 	}
 
     /**
+     * @param $renderer
+     * @param $parser
      * @return mixed
      */
-    public function render()
+    public function render(&$renderer, &$parser)
 	{
-		$element = $this->parser->element(__CLASS__, 'dl');
+		$element = $renderer->element(__CLASS__, 'dl');
 
 		foreach ($this->items as $item) {
-			$element->staticChildren[] = $item->render($this->parser);
+			$element->staticChildren[] = $item->render($renderer, $parser);
 		}
 
 		return $element->render();

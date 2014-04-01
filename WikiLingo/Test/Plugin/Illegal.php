@@ -13,7 +13,7 @@ class Illegal extends Base
 	{
 
 		if ($parser != null) {
-			$parser->types['WikiLingo\Expression\Header'] = array();
+			$parser->clearTypes();
 
             Type::Events($parser->events)
                 ->bind(new Event\Parsed\RenderPermission(function(Parsed &$parsed) {

@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
 /**
  * Class TableRow
  * @package WikiLingo\Expression
@@ -21,14 +22,15 @@ class TableRow extends Base
     }
 
     /**
-     * @param $parser
-     * @return mixed
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = $parser->element(__CLASS__, "tr");
+        $element = $renderer->element(__CLASS__, "tr");
         foreach ($this->columns as $column) {
-            $element->staticChildren[] = $column->render($parser);
+            $element->staticChildren[] = $column->render($renderer, $parser);
         }
         return $element->render();
     }

@@ -2,7 +2,7 @@
 
 namespace WikiLingo\Expression;
 
-use Types\Type;
+use WikiLingo;
 
 /**
  * Class SpecialChar
@@ -11,12 +11,13 @@ use Types\Type;
 class SpecialChar extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
-		$element = Type::Element($parser->element(__CLASS__, 'span'));
+		$element = $renderer->element(__CLASS__, 'span');
 		$element->staticChildren[] = htmlspecialchars($this->parsed->text);
 		return $element->render();
 	}

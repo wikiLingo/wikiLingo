@@ -2,7 +2,7 @@
 namespace WikiLingo\Test\Expression;
 
 use WikiLingo\Test\Base;
-use WikiLingo\Expression\Header;
+use WikiLingo\Expression\BlockType\Header;
 
 class SimpleHeaders extends Base
 {

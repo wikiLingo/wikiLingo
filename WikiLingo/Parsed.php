@@ -4,8 +4,8 @@
  */
 namespace WikiLingo;
 
+use WikiLingo;
 use Exception;
-use Types\Type;
 
 /**
  * Class Parsed
@@ -13,22 +13,72 @@ use Types\Type;
  */
 class Parsed extends ParserValue
 {
-	public $type;
+    /**
+     * @var string
+     */
+    public $type;
     public $render;
-	public $firstSibling;
-    public $siblingIndex = 0;
+
+    /**
+     * @var Parsed[]
+     */
+    public $arguments = array();
+
+    /**
+     * @var array
+     */
+    public $options = array();
+
+    /**
+     * @var Parsed
+     */
+    public $parent;
+
+    /**
+     * @var Parsed[]
+     */
+    public $children = array();
+    public $childrenLength = 0;
+
+    /**
+     * @var Parsed[]
+     */
+    public $siblings = array();
     public $siblingsLength = 0;
+
+    /**
+     * @var Parsed
+     */
+    public $firstSibling;
+    public $siblingIndex = 0;
     public $lineIndex = 0;
     public $lineLength = 0;
+
+    /**
+     * @var WikiLingo\Parsed[]
+     */
+    public $cousins = array();
+    public $cousinsCount = 0;
+
+    /**
+     * @var Parsed[]
+     */
+    public $lines = array();
+
+    /**
+     * @var WikiLingo\Expression\Base
+     */
+    public $expression;
+    public $expressionType;
+    public $expressionPermissible = true;
+
+    /**
+     * @var WikiLingo\Parser
+     */
     public $parser;
     public $stateEnd;
 	public $depth = 0;
 	public static $throwExceptions = true;
-
-
-
-
-	public $lines = array();
 
     /**
      * @param Parsed $line
@@ -68,11 +118,6 @@ class Parsed extends ParserValue
         return $line;
     }
 
-
-
-
-	public $siblings = array();
-
     /**
      * @param Parsed $sibling
      */
@@ -96,15 +141,15 @@ class Parsed extends ParserValue
         }
 
 	    if (isset($this->parent->children[$siblingIndex])) {
-		    return Type::Parsed($this->parent->children[$siblingIndex]);
+		    return $this->parent->children[$siblingIndex];
 	    }
 
 	    if ($siblingIndex == 0) {
-		    return Type::Parsed($this->firstSibling);
+		    return $this->firstSibling;
 	    }
 
 	    if (isset($this->firstSibling->siblings[$siblingIndex - 1])) {
-            return Type::Parsed($this->firstSibling->siblings[$siblingIndex - 1]);
+            return $this->firstSibling->siblings[$siblingIndex - 1];
 	    }
 
 	    return null;
@@ -116,16 +161,11 @@ class Parsed extends ParserValue
     public function nextSibling()
     {
         $siblingIndex = $this->siblingIndex + 1;
-        if ($siblingIndex > $this->parent->siblingLength) {
+        if ($siblingIndex > $this->parent->siblingsLength) {
             return null;
         }
-        return Type::Parsed($this->siblings[$siblingIndex]);
+        return $this->siblings[$siblingIndex];
     }
-
-
-
-
-	public $arguments = array();
 
     /**
      * @param Parsed $argument
@@ -146,10 +186,6 @@ class Parsed extends ParserValue
         $this->setExpression();
 	}
 
-
-
-	public $options = array();
-
     /**
      * @param $key
      * @param $value
@@ -159,9 +195,6 @@ class Parsed extends ParserValue
 		$this->options[$key] = $value;
 	}
 
-
-
-	public $parent;
 
     /**
      * @param Parsed $parent
@@ -175,10 +208,6 @@ class Parsed extends ParserValue
 	        array_shift($this->siblings);
         }
 	}
-
-
-	public $children = array();
-	public $childrenLength = 0;
 
     /**
      * @param Parsed $child
@@ -199,29 +228,15 @@ class Parsed extends ParserValue
 	    $this->childrenLength = 0;
     }
 
-    public $expression;
-    public $expressionPermissible = true;
-
     /**
      *
      */
     public function setExpression()
     {
-        if ($this->parser->skipExpressions == false) {
-            $class = "WikiLingo\\Expression\\$this->type";
-            if (class_exists($class)) {
-                $expression = new $class($this);
-                if ($expression) {
-                    $this->expression =& $expression;
-                }
-            } else if (self::$throwExceptions) {
-                throw new Exception("Type '" . $this->type . "' does not exist in WikiLingo\\Expression namespace.");
-            }
-        }
+        $this->parser->expressionInstantiator->set($this);
     }
 
-	public $cousins = array();
-	public $cousinsCount = 0;
+
 
     /**
      * @param Parsed $cousin
@@ -230,97 +245,5 @@ class Parsed extends ParserValue
 	{
 		$this->cousins[] =& $cousin;
 		$this->cousinsCount++;
-	}
-
-
-    /**
-     * @return string
-     */
-    public function render()
-	{
-        if (isset($this->parser->events))
-        {
-		    Type::Events($this->parser->events)
-			    ->triggerParsedRenderPermission($this);
-        }
-
-		if (!$this->expressionPermissible) {
-			if (isset($this->stateEnd)) {
-				$syntax = $this->parser->syntax($this->loc, $this->stateEnd->loc);
-			} else {
-				$syntax = $this->parser->syntax($this->loc);
-			}
-			Type::Events($this->parser->events)
-				->triggerParsedRenderBlocked($this, $syntax);
-			return $syntax;
-		}
-
-        if ($this->expression->isVariableContext) {
-            $this->parser->variableContextStack[] = $this->expression->variables();
-        }
-
-        //iterations are allowed, but not in edit mode
-        $iterations = (!isset($this->parser->wysiwyg) || $this->parser->wysiwyg == true ? 0 : $this->expression->iterations);
-        $result = '';
-        $variableContext = (isset($this->parser->variableContextStack) ? end($this->parser->variableContextStack) : false);
-        if ($variableContext) {
-            $this->expression->setVariableContext($variableContext);
-        }
-
-
-        //children are directly part of the family as a visible child
-        $renderedChildren = '';
-        if ($this->childrenLength > 0) {
-            //Expressions can repeat if they are needed
-            for($i = 0; $i <= $iterations; $i++)
-            {
-                //detect if it is a syntax parent
-                $addedDepth = 0;
-                if (
-                    isset($this->expression->isParent)
-                    && ($isParent = $this->expression->isParent) == true) {
-                    $addedDepth = 1;
-                }
-
-                foreach ($this->children as &$child) {
-                    $child->depth += $this->depth + $addedDepth;
-                    $renderedChildren .= $child->render();
-                }
-            }
-        }
-
-        $renderedCousins = '';
-        foreach ($this->cousins as &$cousin) {
-            $renderedCousins .= $cousin->render();
-        }
-
-        $this->expression->renderedChildren =& $renderedChildren;
-        if (isset($this->expression) && method_exists($this->expression, 'render')) {
-            $rendered = $this->expression->render($this->parser);
-        } else {
-            $rendered = '';
-        }
-
-        //siblings are directly part of the family as a visible sibling
-        $renderedSiblings = '';
-        foreach ($this->siblings as &$sibling) {
-            $renderedSiblings .= $sibling->render();
-            if ($this->parent != null) {
-                $this->parent->children[] =& $sibling;
-            }
-        }
-
-        $renderedLines = '';
-        foreach ($this->lines as &$line) {
-            $renderedLines .= $this->render($line);
-        }
-
-        $result .= $rendered . $renderedSiblings . $renderedLines . $renderedCousins;
-
-        if ($this->expression->isVariableContext) {
-            array_pop($this->parser->variableContextStack);
-        }
-
-        return $result;
 	}
 }

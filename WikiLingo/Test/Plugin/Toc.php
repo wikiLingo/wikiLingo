@@ -10,7 +10,7 @@ class Toc extends Base
 	{
 
 		if ($parser != null) {
-			$parser->types['WikiLingo\Expression\Header'] = array();
+			$parser->clearTypes();
 		}
 
 		$this->source =

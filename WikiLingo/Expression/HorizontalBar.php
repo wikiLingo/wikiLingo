@@ -11,12 +11,13 @@ use Types\Type;
 class HorizontalBar extends Base
 {
     /**
-     * @param $parser
-     * @return mixed
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = Type::Element($parser->element(__CLASS__, 'hr'));
+        $element = Type::Element($renderer->element(__CLASS__, 'hr'));
         $element->setInline();
         return $element->render();
     }

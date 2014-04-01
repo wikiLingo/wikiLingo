@@ -2,8 +2,8 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
-use Types\Type;
-use WikiLingo\Expression\Tensor;
+use WikiLingo\Utilities\Parameter;
+use WikiLingo\Expression\BlockType;
 
 /**
  * Class Toc
@@ -25,42 +25,48 @@ class Toc extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
 	    $result = '';
-        if (!isset($parser->types['WikiLingo\Expression\Header'])) {
+        if (!isset($parser->types['WikiLingo\Expression\BlockType\Header'])) {
 	        $rendered = parent::render($plugin, $result, $parser);
 	        return $rendered;
         }
 
-        $headers =& $parser->types['WikiLingo\Expression\Header'];
-        $tagType = ($plugin->parameter('ordered') != "false" ? 'ol' : 'ul');
+        /**
+         * @var WikiLingo\Expression\BlockType\Header[]
+         */
+        $headers =& $parser->types['WikiLingo\Expression\BlockType\Header'];
+        $orderedString = $plugin->parameter('ordered');
+        $ordered = $orderedString == "true";
 
-	    $tensor = null;
+        /**
+         * @var WikiLingo\Expression\BlockType\ListContainer
+         */
+        $container = null;
 
 	    foreach($headers as &$header)
 	    {
 		    $header->pointer = true;
-		    $block =& Type::WikiLingoExpressionHeader($header)->block;
-		    $block->collectionElementName = $tagType;
-		    $block->elementName = "li";
+		    $block =& $header->block;
 
-		    if ($tensor === null) {
-			    $tensor = new Tensor\Flat($block);
+		    if ($container === null) {
+                $container = new BlockType\ListContainer($block, $ordered);
 		    } else {
-			    $tensor->add(new Tensor\Hierarchical($block));
+                $container->add(new BlockType\ListItem($container, $block));
 		    }
 	    }
-	    $result = $tensor->render();
+	    $result = $container->render($renderer, $parser);
 	    foreach($headers as &$header)
 	    {
 		    $header->pointer = false;
 	    }
 
-        $rendered = parent::render($plugin, $result, $parser);
+        $rendered = parent::render($plugin, $result, $renderer, $parser);
         return $rendered;
     }
 }

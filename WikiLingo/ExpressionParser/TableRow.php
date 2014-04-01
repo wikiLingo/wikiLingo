@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo\ExpressionParser;
 
+use WikiLingo;
 use WikiLingo\Expression;
 
 /**
@@ -9,6 +10,9 @@ use WikiLingo\Expression;
  */
 class TableRow
 {
+    /**
+     * @var TableColumn[]
+     */
     public $columns = array();
     public $length = 0;
 
@@ -34,15 +38,16 @@ class TableRow
     }
 
     /**
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render($parser)
+    public function render(&$renderer, &$parser)
     {
         $result = '';
 
         foreach ($this->columns as $column) {
-            $result .= $column->render($parser);
+            $result .= $column->render($renderer, $parser);
         }
 
         return $result;

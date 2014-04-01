@@ -1,6 +1,7 @@
 <?php
 namespace WikiLingo\Expression;
 
+use WikiLingo;
 /**
  * Class ForcedLine
  * @package WikiLingo\Expression
@@ -8,12 +9,13 @@ namespace WikiLingo\Expression;
 class ForcedLine extends Base
 {
     /**
-     * @param $parser
-     * @return mixed
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = $parser->element(__CLASS__, 'br');
+        $element = $renderer->element(__CLASS__, 'br');
 	    $element->setInline();
         $element->staticChildren[] = $this->renderedChildren;
         return $element->render();

@@ -12,6 +12,9 @@ class InlineElement extends Base
 {
     public $isElement = true;
 
+    /**
+     * @var WikiLingo\Utilities\Parameters\Parser
+     */
     public static $parameterParser;
 
     /**

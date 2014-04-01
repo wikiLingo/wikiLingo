@@ -1,7 +1,6 @@
 <?php
 namespace WikiLingo\Expression;
 
-use Types\Type;
 use WikiLingo;
 
 /**
@@ -11,13 +10,14 @@ use WikiLingo;
 class Code extends Base
 {
     /**
-     * @param $parser
-     * @return mixed
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
         $id = $this->id();
-        $element = $parser->element(__CLASS__, 'textarea');
+        $element = $renderer->element(__CLASS__, 'textarea');
         $element->attributes['id'] = $id;
         $element->classes[] = 'Code';
         $code = $this->parsed->text;
@@ -46,7 +46,7 @@ class Code extends Base
                 $element->detailedAttributes['data-mode'] = $mode;
 
 
-                $scripts = Type::Scripts($parser->scripts)
+                $parser->scripts
                     ->addScriptLocation("~/bower_components/CodeMirror/lib/codemirror.js")
                     ->addCssLocation("~/bower_components/CodeMirror/lib/codemirror.css")
                     ->addScript(<<<JS

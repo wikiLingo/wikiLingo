@@ -116,10 +116,11 @@ class Element extends Base
 	}
 
     /**
+     * @param $renderer
      * @param $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
         if ($this->isHelper) {
             return '';
@@ -127,7 +128,7 @@ class Element extends Base
             return $this->parsed->text . $this->renderedChildren . $this->closing->text;
         }
 
-        return parent::render($parser);
+        return parent::render($renderer, $parser);
     }
 }
 

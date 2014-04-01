@@ -1,7 +1,10 @@
 <?php
 
-namespace WikiLingo\Expression;
+namespace WikiLingo\Expression\BlockType;
+
+
 use WikiLingo;
+use WikiLingo\Expression\Block;
 use Types\Type;
 
 /**
@@ -11,7 +14,15 @@ use Types\Type;
 class Header
 {
     public $parsed;
-	public $parser;
+
+    /**
+     * @var WikiLingo\Parser
+     */
+    public $parser;
+
+    /**
+     * @var \WikiLingo\Expression\Block
+     */
     public $block;
 	public $count = 0;
     public $content;
@@ -36,14 +47,16 @@ class Header
     }
 
     /**
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render()
+    public function render(&$renderer, &$parser)
     {
 	    $tagType = 'h' . $this->count;
 	    $children = '';
 	    foreach($this->parsed->children as &$child) {
-		    $children .= $child->render();
+		    $children .= $parser->renderer->render($child);
 	    }
 
 	    if ($this->pointer) {
@@ -51,7 +64,7 @@ class Header
 		    $children = strip_tags($children);
 	    }
 
-        $element = Type::Element($this->parser->element(__CLASS__, $tagType));
+        $element = Type::Element($renderer->element(__CLASS__, $tagType));
 	    $element->staticChildren[] = $children;
 
 	    if (isset($this->modifier)) {
@@ -59,13 +72,13 @@ class Header
 		    //TODO: add in js to make expandable
 		    switch ($this->modifier) {
 			    case 'toggle':
-				    $helper = Type::Helper($this->parser->helper('a'));
+				    $helper = Type::Helper($renderer->helper('a'));
 				    $helper->staticChildren[] = '[+]';
 					$helper->attributes['href'] = '#';
 				    $element->staticChildren[] = $helper->render();
 				    break;
 			    case 'hidden':
-				    $helper = Type::Helper($this->parser->helper('a'));
+				    $helper = Type::Helper($renderer->helper('a'));
 				    $helper->staticChildren[] = '[-]';
 				    $helper->attributes['href'] = '#';
 				    $element->staticChildren[] = $helper->render();

@@ -10,12 +10,13 @@ use Types\Type;
 class Center extends Base
 {
     /**
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
     {
-        $element = Type::Element($parser->element(__CLASS__, 'div'));
+        $element = Type::Element($renderer->element(__CLASS__, 'div'));
 	    $parser->scripts->addCss('.center {text-align: center ! important;}');
         $element->classes[] = 'center';
         $element->staticChildren[] = $this->renderedChildren;

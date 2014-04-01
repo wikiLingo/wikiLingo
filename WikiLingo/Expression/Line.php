@@ -1,7 +1,6 @@
 <?php
 namespace WikiLingo\Expression;
 
-use Types\Type;
 use WikiLingo;
 
 /**
@@ -20,16 +19,13 @@ class Line extends Base
         //If we are not in a plugin, and there are blocks, go ahead and close them so no more can be added
         $parser =& $parsed->parser;
         if ($parser->pluginStackCount == 0 && $parser->blocksLength > 0) {
-            $block = Type::Block($parser->blocks[$parser->blocksLength - 1]);
+            $block = $parser->blocks[$parser->blocksLength - 1];
             $block->open = false;
         }
     }
 
-    /**
-     * @param $parser
-     * @return mixed|string
-     */
-    function render(&$parser)
+
+    function render(&$renderer, &$parser)
     {
 
 	    $allowLines = true;
@@ -38,7 +34,7 @@ class Line extends Base
 		    $allowLines = $parentExpression->allowLines;
 	    }
 
-	    $element = Type::Element($parser->element(__CLASS__, 'br'));
+	    $element = $renderer->element(__CLASS__, 'br');
 	    $element->setInline();
 	    if ($previousSibling = $this->parsed->previousSibling()) {
 		    if ($previousSibling->expression->allowLineAfter == false && empty($parser->wysiwyg)) {
@@ -50,7 +46,7 @@ class Line extends Base
 
 	    if ($allowLines == false)
 	    {
-		    Type::Scripts($parser->scripts)->addCss("br.hidden {display: none;content: ' '}");
+		    $parser->scripts->addCss("br.hidden {display: none;content: ' '}");
 		    $element->classes[] = 'hidden';
 	    }
 

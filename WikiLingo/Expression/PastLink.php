@@ -8,13 +8,10 @@
 
 namespace WikiLingo\Expression;
 
-use FLP\Events as FutureLinkProtocolEvents;
-use Types\Type;
 use WikiLingo;
 use WikiLingo\Event;
 use FLP;
 use Phraser;
-use WikiLingo\Expression\PastLink\Sender;
 
 /**
  * Class PastLink
@@ -23,6 +20,10 @@ use WikiLingo\Expression\PastLink\Sender;
 class PastLink extends Base
 {
     public static $loaded = false;
+
+    /**
+     * @var FLP\UI
+     */
     public static $ui;
     public static $existingCount = 0;
     public static $renderedCount = 0;
@@ -43,10 +44,11 @@ class PastLink extends Base
 	}
 
     /**
-     * @param $parser
-     * @return String
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
+     * @return mixed|string
      */
-    public function render(&$parser)
+    public function render(&$renderer, &$parser)
 	{
         if ( !$parser->wysiwyg ) {
             self::$renderedCount++;
@@ -54,7 +56,6 @@ class PastLink extends Base
             //FIRST
             //Bind initial render so that PastLink::$ui is set, this is only done once per parser render
             if ( self::$renderedCount == 1 ) {
-                Sender::Setup();
                 $parser->events->bind(new Event\PostRender(function(&$rendered) {
                     PastLink::$ui = new FLP\UI($rendered);
                     PastLink::$ui->setContextAsFuture();
@@ -92,7 +93,7 @@ class PastLink extends Base
                     //use an actual length, when more than 1, php turns from array to associative array, so there is no length
                     $length = self::$existingCount;
 
-                    Type::Scripts($parser->scripts)
+                    $parser->scripts
                         ->addScriptLocation("~flp/flp/scripts/flp.js")
                         ->addScriptLocation("~flp/flp/scripts/flp.Link.js")
                         ->addScript(<<<JS

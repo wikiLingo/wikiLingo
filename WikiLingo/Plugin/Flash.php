@@ -2,6 +2,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
+use WikiLingo\Utilities\Parameter;
 
 /**
  * Class Flash
@@ -30,10 +31,11 @@ class Flash extends Base
     /**
      * @param WikiLingo\Expression\Plugin $plugin
      * @param string $body
-     * @param $parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$parser)
+    public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
 	    $plugin->attributes['title'] = $plugin->parameter('title');
         $allow = $plugin->parameter('allow');
@@ -41,11 +43,11 @@ class Flash extends Base
 	    if ($parser->wysiwyg && empty($allow)) {
             $this->htmlTagType = 'img';
 		    $plugin->attributes['src'] = 'img/emblem-multimedia.png';
-		    $flash = parent::render($plugin, $body, $parser);
+		    $flash = parent::render($plugin, $body, $renderer, $parser);
 		    $this->htmlTagType = 'embed';
 	    } else {
             $plugin->attributes['src'] = $plugin->parameter('movie');
-		    $flash = parent::render($plugin, $body, $parser);
+		    $flash = parent::render($plugin, $body, $renderer, $parser);
 	    }
 
 	    return $flash;
