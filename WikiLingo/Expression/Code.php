@@ -27,7 +27,7 @@ class Code extends Base
             $element->attributes['disabled'] = 'true';
 
             if ($code{0} !== ' ') {
-                $pattern = '/^(?P<mode>[a-zA-Z]+)/';
+                $pattern = '/^(?P<mode>[a-zA-Z0-9]+)/';
                 preg_match($pattern, $code, $matches);
                 if (!empty($matches['mode'])) {
                     //if the mode is not set, normalize it to lower-case
@@ -36,6 +36,9 @@ class Code extends Base
                             $mode = 'wikiLingo';
                             $element->detailedAttributes['mode'] = $matches['mode'];
                             break;
+                        default:
+                            $mode = $matches['mode'];
+                            $element->detailedAttributes['mode'] = $mode;
                     }
                 }
             }
@@ -47,8 +50,20 @@ class Code extends Base
 
 
                 $parser->scripts
-                    ->addScriptLocation("~/bower_components/CodeMirror/lib/codemirror.js")
-                    ->addCssLocation("~/bower_components/CodeMirror/lib/codemirror.css")
+                    ->addScriptLocation("~codemirror/codemirror/lib/codemirror.js")
+                    ->addCssLocation("~codemirror/codemirror/lib/codemirror.css")
+
+                    //Make codemirror auto height to the contents
+                    ->addCss(<<<CSS
+.CodeMirror {
+    height: auto;
+}
+.CodeMirror-scroll {
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+CSS
+                    )
                     ->addScript(<<<JS
 var editor = CodeMirror.fromTextArea(document.getElementById('{$id}'), {
     mode: '{$mode}',
@@ -56,8 +71,18 @@ var editor = CodeMirror.fromTextArea(document.getElementById('{$id}'), {
     readOnly: true
 });
 JS
-                    )
-                    ->addScriptLocation("~/bower_components/wikiLingoCodeMirror/{$mode}.js");
+                    );
+
+                //TODO: needs more logic to pull out js and css for possible code
+                if ($mode == 'wikiLingo') {
+                    $parser->scripts
+                        ->addCssLocation("~wikilingo/codemirror/wikiLingo.css")
+                        ->addScriptLocation("~wikilingo/codemirror/wikiLingo.js");
+                } else {
+                    $parser->scripts
+                        //->addCssLocation("~codemirror/codemirror/mode/{$mode}/{$mode}.css")
+                        ->addScriptLocation("~codemirror/codemirror/mode/{$mode}/{$mode}.js");
+                }
             }
         }
 
