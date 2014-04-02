@@ -398,6 +398,7 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -899,7 +900,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
     
@@ -993,7 +994,7 @@ case 8:
         if ($this->htmlElementsStackCount == 0 || $this->isStaticTag == true) {
            return 7;
         }
-        return 'CONTENT';
+        return 6;
     
 
 break;
