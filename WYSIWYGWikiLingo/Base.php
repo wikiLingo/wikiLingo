@@ -27,6 +27,7 @@ class Base
 	public $processedTypeStack = '';
     public $closingTagRegex = "/\G(?:(<\/(.|\n)[^>]*?>))/";
 	public $inputAdjustedForLineAtBeginning = false;
+    public $verbose = true;
 
     /**
      * @param $tag

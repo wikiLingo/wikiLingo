@@ -50,6 +50,12 @@ class Parser extends Definition
         $this->parsing = true;
         $this->preParse();
         $parsed = parent::parse($input);
+
+        //there was a failure
+        if ($parsed === true) {
+            return null;
+        }
+
         $this->parsing = false;
         $output = $this->postParse($parsed);
 
@@ -75,5 +81,19 @@ class Parser extends Definition
 
 	    return $output;
 
+    }
+
+    public function lexerError($str = "", LexerError $hash = null)
+    {
+        if ($this->verbose) {
+            parent::lexerError($str, $hash);
+        }
+    }
+
+    public function parseError($str = "", ParserError $hash = null)
+    {
+        if ($this->verbose) {
+            parent::parseError($str, $hash);
+        }
     }
 }
