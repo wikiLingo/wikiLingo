@@ -132,7 +132,7 @@ JS
             }
         }
 
-        $element = $parser->element(__CLASS__, 'span');
+        $element = $renderer->element(__CLASS__, 'span');
         $element->staticChildren[] = $this->renderedChildren;
         $element->detailedAttributes['data-past'] = $this->past;
         $rendered = $element->render();
