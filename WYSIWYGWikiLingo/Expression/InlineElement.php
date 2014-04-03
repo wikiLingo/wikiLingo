@@ -15,13 +15,18 @@ class InlineElement extends Base
     /**
      * @var WikiLingo\Utilities\Parameters\Parser
      */
-    public static $parameterParser;
+    public static $parameterParser = null;
 
     /**
      * @param WYSIWYGWikiLingo\Parsed $parsed
      */
     function __construct(WYSIWYGWikiLingo\Parsed &$parsed)
     {
+        if (self::$parameterParser === null)
+        {
+            InlineElement::$parameterParser = new WikiLingo\Utilities\Parameters\Parser();
+        }
+
         parent::__construct($parsed);
 
         $pos = strpos($parsed->text, ' ');
@@ -39,6 +44,3 @@ class InlineElement extends Base
         }
     }
 }
-
-
-InlineElement::$parameterParser = new WikiLingo\Utilities\Parameters\Parser();

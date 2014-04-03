@@ -20,13 +20,21 @@ class Element extends Base
 	private $_classes = array();
 	public $isParent = false;
 
-    public static $parameterParser;
+    /**
+     * @var WikiLingo\Utilities\Parameters\Parser null
+     */
+    public static $parameterParser = null;
 
     /**
      * @param WYSIWYGWikiLingo\Parsed $parsed
      */
     function __construct(WYSIWYGWikiLingo\Parsed &$parsed)
     {
+        if (self::$parameterParser === null)
+        {
+            Element::$parameterParser = new WikiLingo\Utilities\Parameters\Parser();
+        }
+
         parent::__construct($parsed);
 
         $pos = strpos($parsed->text, ' ');
@@ -131,5 +139,3 @@ class Element extends Base
         return parent::render($renderer, $parser);
     }
 }
-
-Element::$parameterParser = new WikiLingo\Utilities\Parameters\Parser();
