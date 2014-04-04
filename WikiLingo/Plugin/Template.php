@@ -33,7 +33,10 @@ class Template extends Base
      */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
-        return parent::render($plugin, $body, $renderer, $parser);
+	    if ($parser->wysiwyg) {
+            return parent::render($plugin, $body, $renderer, $parser);
+	    }
+	    return $body;
     }
 
     public function variables( &$plugin )

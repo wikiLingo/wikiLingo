@@ -36,9 +36,9 @@ class TemplateAndVariable extends Base
         }
 
 		$this->source =
-            "{TEMPLATE(type='lookup')}%variable%{TEMPLATE}";
+            "{TEMPLATE(type=`lookup`)}%variable%{TEMPLATE}";
 
-		$this->expected = "<div class='Template' id='Template1'><span>value 1</span><span>value 2</span></div>";
+		$this->expected = "<span>value 1</span><span>value 2</span>";
 
 	}
 }

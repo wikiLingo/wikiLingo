@@ -28,7 +28,9 @@ class T extends Base
      */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
-        $body = $parser->events->triggerTranslate($body, 'WikiLingo\Plugin\T');
+	    if (!$parser->wysiwyg) {
+            $body = $parser->events->triggerTranslate($body, 'WikiLingo\Plugin\T');
+	    }
 
         return parent::render($plugin, $body, $renderer, $parser);
     }

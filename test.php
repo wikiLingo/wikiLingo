@@ -23,5 +23,11 @@ $tf->test("WYSIWYGWikiLingo Syntax Generator", function($tf) {
 	(new WYSIWYGWikiLingo\Test\TypeNamespace("SyntaxGenerator"))->run($tf);
 });
 
+
+//Test WYSIWYGWikiLingo Syntax Generator
+$tf->test("WYSIWYGWikiLingo Syntax Generator", function($tf) {
+	(new WYSIWYGWikiLingo\Test\TypeNamespace("SyntaxGenerator"))->run($tf);
+});
+
 ob_start();
 $tf();
