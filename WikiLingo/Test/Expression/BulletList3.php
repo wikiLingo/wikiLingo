@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class BulletList3 extends Base
 {
-    public function __construct()
+    public function __construct(&$parser)
     {
         $this->source =
             "* foo{DIV()}\n" .

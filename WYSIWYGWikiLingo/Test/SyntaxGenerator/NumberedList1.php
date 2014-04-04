@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class NumberedList1 extends Base
 {
-    public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+    public function __construct(&$parser)
     {
-	    $this->expected = (new WikiLingoTestExpression\NumberedList1())->source;
+	    $this->expected = (new WikiLingoTestExpression\NumberedList1($parser))->source;
 	    $this->source = $parser->parse($this->expected);
     }
 }

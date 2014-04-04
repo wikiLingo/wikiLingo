@@ -7,7 +7,7 @@ use WikiLingo\Test\Base;
 
 class NumberedList3 extends Base
 {
-    public function __construct()
+    public function __construct(&$parser)
     {
 	    Expression\Plugin::$indexes = array();
 

@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class NumberedList1 extends Base
 {
-    public function __construct()
+    public function __construct(&$parser)
     {
         $this->source =
             "# foo\n" .

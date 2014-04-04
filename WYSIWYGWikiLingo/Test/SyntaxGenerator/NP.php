@@ -7,10 +7,10 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class NP extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 
-		$this->expected = (new WikiLingoTestExpression\NP())->source;
+		$this->expected = (new WikiLingoTestExpression\NP($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class TagsUsedWithWikiLingo extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 
 		$this->source = "<b>This is a test</b> __This is also a test__ <script></script> ";

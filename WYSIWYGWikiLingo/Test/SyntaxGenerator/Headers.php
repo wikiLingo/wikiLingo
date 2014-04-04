@@ -7,10 +7,10 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class Headers extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 
-		$this->expected = (new WikiLingoTestExpression\Headers())->source;
+		$this->expected = (new WikiLingoTestExpression\Headers($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 		$this->expected = str_replace("!!!!!!!", "!!!!!!", $this->expected);

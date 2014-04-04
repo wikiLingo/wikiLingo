@@ -9,11 +9,11 @@ use WikiLingo\Test\Base;
 
 class NoLineSkipping extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 		Expression\Plugin::$indexes = array();
 
-		$this->expected = (new WikiLingoTestExpression\NoLineSkipping())->source;
+		$this->expected = (new WikiLingoTestExpression\NoLineSkipping($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

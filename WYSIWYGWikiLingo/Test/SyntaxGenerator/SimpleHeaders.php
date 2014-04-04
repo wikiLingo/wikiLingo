@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class SimpleHeaders extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
-		$this->expected = (new WikiLingoTestExpression\SimpleHeaders())->source;
+		$this->expected = (new WikiLingoTestExpression\SimpleHeaders($parser))->source;
 		$this->source = $parser->parse($this->expected);
 	}
 }

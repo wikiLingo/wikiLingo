@@ -89,6 +89,7 @@ abstract class Base
     {
         $this->types = array();
         $this->typesCount = array();
+	    Expression\Plugin::$indexes = array();
     }
 
     /**

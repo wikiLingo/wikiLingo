@@ -7,10 +7,10 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class LinksUnparsedText extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 
-		$this->expected = (new WikiLingoTestExpression\LinksUnparsedText())->source;
+		$this->expected = (new WikiLingoTestExpression\LinksUnparsedText($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

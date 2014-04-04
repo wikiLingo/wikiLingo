@@ -7,10 +7,10 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class Underline extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 
-		$this->expected = (new WikiLingoTestExpression\Underline())->source;
+		$this->expected = (new WikiLingoTestExpression\Underline($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

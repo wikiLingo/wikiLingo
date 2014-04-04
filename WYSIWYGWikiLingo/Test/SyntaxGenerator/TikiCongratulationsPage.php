@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class TikiCongratulationsPage extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
-		$this->expected = (new WikiLingoTestExpression\TikiCongratulationsPage())->source;
+		$this->expected = (new WikiLingoTestExpression\TikiCongratulationsPage($parser))->source;
 		$this->source = $parser->parse($this->expected);
 	}
 }

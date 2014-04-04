@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class SimpleBreak extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
-		$this->expected = (new WikiLingoTestExpression\SimpleBreak())->source;
+		$this->expected = (new WikiLingoTestExpression\SimpleBreak($parser))->source;
 		$this->source = $parser->parse($this->expected);
 	}
 }

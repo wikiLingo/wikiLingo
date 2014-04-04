@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class MixedLineBreaks extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
-		$this->expected = (new WikiLingoTestExpression\MixedLineBreaks())->source;
+		$this->expected = (new WikiLingoTestExpression\MixedLineBreaks($parser))->source;
 		$this->source = $parser->parse($this->expected);
 	}
 }

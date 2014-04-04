@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class Plugin extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
-		$this->expected = (new WikiLingoTestExpression\Plugin())->source;
+		$this->expected = (new WikiLingoTestExpression\Plugin($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class Pp extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 
 		$this->source = "~pp~foo~/pp~";

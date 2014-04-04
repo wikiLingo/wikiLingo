@@ -7,10 +7,10 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class WikiLinkWithTable extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 
-		$this->expected = (new WikiLingoTestExpression\WikiLinkWithTable())->source;
+		$this->expected = (new WikiLingoTestExpression\WikiLinkWithTable($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class Bold extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
-		$this->expected = (new WikiLingoTestExpression\Bold())->source;
+		$this->expected = (new WikiLingoTestExpression\Bold($parser))->source;
 		$this->source = $parser->parse($this->expected);
 	}
 }

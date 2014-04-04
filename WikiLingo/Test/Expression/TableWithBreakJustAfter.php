@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class TableWithBreakJustAfter extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 
 		$this->source =

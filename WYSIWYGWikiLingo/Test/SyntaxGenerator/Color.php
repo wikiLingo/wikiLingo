@@ -7,10 +7,10 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class Color extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 
-		$this->expected = (new WikiLingoTestExpression\Color())->source;
+		$this->expected = (new WikiLingoTestExpression\Color($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

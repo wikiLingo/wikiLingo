@@ -8,13 +8,13 @@ use WikiLingo\Event\Expression\Plugin\Exists;
 
 class PluginInjected extends Base
 {
-	public function __construct(WikiLingo\Parser &$parser)
+	public function __construct(&$parser)
 	{
 		$fn = function(WikiLingo\Expression\Plugin &$plugin) use (&$parser) {
 			switch ($plugin->type) {
 				case "Injected":
 					$plugin->className = "\\Test\\Injected";
-					$plugin->class = $parser->pluginInstances['Injected'] = new Test\Injected();
+					$plugin->class = $parser->pluginInstances['Injected'] = new Test\Injected($parser);
 					break;
 			}
 		};

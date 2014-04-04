@@ -6,7 +6,7 @@ use WikiLingo\Expression\BlockType\Header;
 
 class ExpandableHeaders extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 		Header::$ids = array();
 

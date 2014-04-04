@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class Bold extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 
 		$this->source = "__foo__ & __ foo  __";

@@ -6,7 +6,7 @@ use WikiLingo\Test\Base;
 
 class WikiLink extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
         $this->source = "((foo))";
 

@@ -6,7 +6,7 @@ use WikiLingo\Test\Base;
 
 class WikiLinkType extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
         $this->source = "(type(foo))";
 

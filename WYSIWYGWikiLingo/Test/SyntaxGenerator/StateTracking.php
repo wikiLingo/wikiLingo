@@ -7,10 +7,10 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class StateTracking extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 
-		$this->expected = (new WikiLingoTestExpression\StateTracking())->source;
+		$this->expected = (new WikiLingoTestExpression\StateTracking($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

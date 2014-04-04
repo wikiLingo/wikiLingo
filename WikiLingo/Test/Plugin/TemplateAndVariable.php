@@ -9,12 +9,14 @@ use WikiLingo\Parsed;
 
 class TemplateAndVariable extends Base
 {
-	public function __construct(WikiLingo\Parser &$parser = null)
+	public function __construct(&$parser)
 	{
-        WikiLingo\Expression\Plugin::$indexes['Template'] = 0;
+        $parser->clearTypes();
+
 		if ($parser != null) {
             Type::Events($parser->events)
-                ->bind(new Event\Expression\Variable\Context(function($plugin) {
+
+	            ->bind(new Event\Expression\Variable\Context(function(WikiLingo\Expression\Plugin $plugin) {
                     $type = $plugin->parameter('type');
                     switch ($type)
                     {

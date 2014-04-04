@@ -7,10 +7,10 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class Italic extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
 
-		$this->expected = (new WikiLingoTestExpression\Italic())->source;
+		$this->expected = (new WikiLingoTestExpression\Italic($parser))->source;
 		$this->source = $parser->parse($this->expected);
 
 	}

@@ -6,7 +6,7 @@ use WikiLingo\Expression\Header;
 
 class DefinitionList extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 		$this->source =
 			";foo1:bar1\n" .

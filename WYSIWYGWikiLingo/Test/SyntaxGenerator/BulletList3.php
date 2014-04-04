@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class BulletList3 extends Base
 {
-    public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+    public function __construct( &$parser)
     {
-	    $this->expected = (new WikiLingoTestExpression\BulletList3())->source;
+	    $this->expected = (new WikiLingoTestExpression\BulletList3($parser))->source;
 	    $this->source = $parser->parse($this->expected);
     }
 }

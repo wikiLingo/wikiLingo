@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class Code extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 
 		$this->source = "-+foo+-";

@@ -9,10 +9,10 @@ use WikiLingo\Parsed;
 
 class Illegal extends Base
 {
-	public function __construct(WikiLingo\Parser &$parser = null)
+	public function __construct(&$parser)
 	{
 
-		if ($parser != null) {
+		if (!$parser->wysiwyg) {
 			$parser->clearTypes();
 
             Type::Events($parser->events)

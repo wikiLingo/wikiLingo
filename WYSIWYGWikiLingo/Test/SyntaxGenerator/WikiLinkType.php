@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class WikiLinkType extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
-		$this->expected = (new WikiLingoTestExpression\WikiLinkType())->source;
+		$this->expected = (new WikiLingoTestExpression\WikiLinkType($parser))->source;
 		$this->source = $parser->parse($this->expected);
 	}
 }

@@ -9,7 +9,7 @@ use WikiLingo\Parsed;
 
 class T extends Base
 {
-	public function __construct(WikiLingo\Parser &$parser = null)
+	public function __construct(&$parser)
 	{
 
 		if ($parser != null) {

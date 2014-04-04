@@ -10,4 +10,9 @@ use WikiLingo;
 class Injected extends WikiLingo\Plugin\Base
 {
     public $type = 'Injected';
+
+	public function __construct(&$parser)
+	{
+
+	}
 }

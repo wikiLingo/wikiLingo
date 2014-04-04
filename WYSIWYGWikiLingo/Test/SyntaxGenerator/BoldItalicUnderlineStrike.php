@@ -7,9 +7,9 @@ use WYSIWYGWikiLingo\Test\Base;
 
 class BoldItalicUnderlineStrike extends Base
 {
-	public function __construct(WikiLingoWYSIWYG\Parser &$parser)
+	public function __construct(&$parser)
 	{
-		$this-> expected = (new WikiLingoTestExpression\BoldItalicUnderlineStrike())->source;
+		$this-> expected = (new WikiLingoTestExpression\BoldItalicUnderlineStrike($parser))->source;
 		$this->source = $parser->parse($this->expected);
 	}
 }

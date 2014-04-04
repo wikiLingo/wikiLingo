@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class Comment extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 
 		$this->source = "~tc~This is a test comment __this won't be parsed__~/tc~";

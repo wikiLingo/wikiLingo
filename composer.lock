@@ -22,12 +22,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FutureLink-Protocol/php.git",
-                "reference": "cc7c86f20efd8521d782cd273b511b3db16166ed"
+                "reference": "77f6120c07f779c1a5a0d135e487e2fb8f94ca89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/cc7c86f20efd8521d782cd273b511b3db16166ed",
-                "reference": "cc7c86f20efd8521d782cd273b511b3db16166ed",
+                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/77f6120c07f779c1a5a0d135e487e2fb8f94ca89",
+                "reference": "77f6120c07f779c1a5a0d135e487e2fb8f94ca89",
                 "shasum": ""
             },
             "require": {
@@ -67,7 +67,7 @@
             ],
             "description": "FutureLink-Protocol implementation in PHP",
             "homepage": "https://github.com/FutureLink-Protocol",
-            "time": "2014-03-23 12:54:45"
+            "time": "2014-04-02 21:03:56"
         },
         {
             "name": "gabordemooij/redbean",
@@ -151,12 +151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jakiestfu/Medium.js.git",
-                "reference": "4a89ba0f52bd487b699b58f5b49ab78c8c6b02f3"
+                "reference": "001f110b0171cc4e5b733c05a19a34f5baebbf0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakiestfu/Medium.js/zipball/4a89ba0f52bd487b699b58f5b49ab78c8c6b02f3",
-                "reference": "4a89ba0f52bd487b699b58f5b49ab78c8c6b02f3",
+                "url": "https://api.github.com/repos/jakiestfu/Medium.js/zipball/001f110b0171cc4e5b733c05a19a34f5baebbf0b",
+                "reference": "001f110b0171cc4e5b733c05a19a34f5baebbf0b",
                 "shasum": ""
             },
             "require": {
@@ -182,7 +182,7 @@
                     "role": "Lead Developer"
                 }
             ],
-            "time": "2014-03-27 15:27:45"
+            "time": "2014-04-02 17:28:29"
         },
         {
             "name": "rangy/rangy",

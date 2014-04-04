@@ -5,7 +5,7 @@ use WikiLingo\Test\Base;
 
 class NoBlock extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 		$test = '';
 		$this->source =

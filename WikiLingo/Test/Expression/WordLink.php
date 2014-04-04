@@ -10,7 +10,7 @@ use WikiLingo\Event\Expression\WordLink\Render;
 
 class WordLink extends Base
 {
-	public function __construct(&$parser = null)
+	public function __construct(&$parser)
 	{
 
 		if ($parser != null) {

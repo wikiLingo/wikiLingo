@@ -7,7 +7,7 @@ use WikiLingo\Test\Base;
 
 class NoLineSkipping extends Base
 {
-	public function __construct()
+	public function __construct(&$parser)
 	{
 		Expression\Plugin::$indexes = array();
 

@@ -12,4 +12,9 @@ abstract class Base
 {
     public $source;
 	public $expected;
+
+	/**
+	 * @param WikiLingo\Parser $parser
+	 */
+	public abstract function __construct(&$parser);
 }
