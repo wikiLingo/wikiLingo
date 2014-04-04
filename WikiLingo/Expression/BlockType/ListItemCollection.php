@@ -29,7 +29,7 @@ class ListItemCollection extends Tensor\HierarchicalCollection
      * @param ListContainer $container
      * @param Expression\Block $block
      */
-    public function __construct($container, Expression\Block &$block)
+    public function __construct($container, &$block)
     {
         $this->container = $container;
         $this->block = $block;

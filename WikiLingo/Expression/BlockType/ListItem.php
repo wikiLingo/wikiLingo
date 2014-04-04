@@ -30,7 +30,7 @@ class ListItem extends Hierarchical
      * @param int $depth
      * @param Expression\Block $block
      */
-    function __construct($container, Expression\Block &$block = null, $depth = 0)
+    function __construct($container, &$block = null, $depth = 0)
     {
         $this->container = $container;
         $this->depth = $depth;
@@ -51,7 +51,7 @@ class ListItem extends Hierarchical
      * @param Hierarchical $child
      * @return $this
      */
-    function &addChild(Hierarchical &$child)
+    function &addChild(&$child)
     {
         if (!isset($this->children))
         {

@@ -28,7 +28,7 @@ class ListContainer extends Tensor\Flat
      * @param Block $block
      * @param bool $ordered
      */
-    public function __construct(Block &$block, $ordered)
+    public function __construct(&$block, $ordered)
     {
         /**
          * setup default rendering delegates
@@ -98,7 +98,7 @@ class ListContainer extends Tensor\Flat
     /**
      * @param ListItem $item
      */
-    public function add(ListItem &$item)
+    public function add(&$item)
     {
         parent::add($item);
 
