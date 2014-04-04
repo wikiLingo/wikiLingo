@@ -33,7 +33,7 @@ class ListContainer extends Tensor\Flat
         /**
          * setup default rendering delegates
          *
-         * @param ListItemCollection $listItems
+         * @param ListItem[] $listItems
          * @param WikiLingo\Renderer $renderer
          * @param WikiLingo\Parser $parser
          * @return string
