@@ -29,7 +29,7 @@ class Hierarchical
      * @param Hierarchical $parent
      * @return $this
      */
-    function &setParent(Hierarchical &$parent)
+    function &setParent(&$parent)
 	{
 		if (empty($this->parent))
 		{
@@ -43,7 +43,7 @@ class Hierarchical
      * @param Hierarchical $child
      * @return $this
      */
-    function &addChild(Hierarchical &$child)
+    function &addChild(&$child)
 	{
 		if (empty($child->parent))
 		{
@@ -58,7 +58,7 @@ class Hierarchical
      * @param Hierarchical $sibling
      * @return $this
      */
-    function &addSibling(Hierarchical &$sibling)
+    function &addSibling(&$sibling)
 	{
 		if (isset($this->parent))
 		{

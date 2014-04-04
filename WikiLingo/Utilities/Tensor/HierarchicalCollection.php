@@ -23,7 +23,7 @@ class HierarchicalCollection
     /**
      * @param Hierarchical $item
      */
-    public function push(Hierarchical $item)
+    public function push($item)
 	{
 		$this->items[] =& $item;
 		$this->itemsLength++;

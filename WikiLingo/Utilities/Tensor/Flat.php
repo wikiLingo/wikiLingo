@@ -41,7 +41,7 @@ abstract class Flat
 	/**
 	 * @param Hierarchical $item
 	 */
-	public function add(Hierarchical &$item)
+	public function add(&$item)
 	{
 		$item->index = $this->length;
 		$this->items[] =& $item;
@@ -111,7 +111,7 @@ abstract class Flat
      * @param Hierarchical $parent
      * @return bool
      */
-    public function makeParent(Hierarchical &$parent)
+    public function makeParent(&$parent)
 	{
 
 		if ($parent->depth == 0) {
@@ -195,7 +195,7 @@ abstract class Flat
     /**
      * @param Hierarchical $item
      */
-    public function setActiveParent(Hierarchical &$item)
+    public function setActiveParent(&$item)
 	{
 		$this->parentAtDepth($item->depth)->addSibling($item);
 		$this->parentActive[$item->depth]++;
