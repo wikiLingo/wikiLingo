@@ -12,6 +12,12 @@ class Code extends Base
      */
     public function generate()
     {
-        return '-+' . $this->expression->renderedChildren . '+-';
+	    $mode = $this->expression->parameter('data-mode');
+
+	    if ($mode == '') {
+            return '-+' . $this->expression->renderedChildren . '+-';
+	    } else {
+		    return '-+' . $mode . "\n" . $this->expression->renderedChildren . '+-';
+	    }
     }
 }
