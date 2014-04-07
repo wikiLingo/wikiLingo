@@ -15,7 +15,7 @@ SYNTAX_CHARS                    [\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
-BLOCK_START                     ([\!*#;]+)([-+])?
+BLOCK_START                     ([\!*#;]+)([-+](?![-+]))?
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 WHITE_SPACE                     ([ ])+

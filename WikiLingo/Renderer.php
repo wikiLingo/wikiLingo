@@ -57,6 +57,11 @@ class Renderer
             $this->expressionManipulator[$parsed->expressionType]($parsed->expression);
         }
 
+        if ($parsed->expression === null)
+        {
+            return '';
+        }
+
         $expression = $parsed->expression;
 
 
