@@ -33,7 +33,7 @@ class Permission extends Base
      */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
-        if ($this->permissible) {
+        if ($plugin->parsed->expressionPermissible || $parser->wysiwyg) {
             $result = parent::render($plugin, $body, $renderer, $parser);
 
             return $result;
