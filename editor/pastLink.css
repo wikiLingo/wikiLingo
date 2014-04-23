@@ -1,6 +1,8 @@
-[class*="icon2-"] {
+.icon-past-link
+{
     display: inline-block;
     width: 20px;
     height: 20px;
     background-image: url(img/PastLink.svg);
-    background-repeat: no-repeat;}
+    background-repeat: no-repeat;
+}

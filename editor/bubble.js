@@ -89,7 +89,8 @@ var WLBubble = (function(document, window, rangy, Math) {
                     }
 
                     button.onmousedown = function(e) {
-                        var element = factory.createElement(this.expression),
+                        var expression = e.target.expression,
+                            element = factory.createElement(expression),
                             attributes = {},
                             j;
                         if (selection) {
@@ -103,8 +104,8 @@ var WLBubble = (function(document, window, rangy, Math) {
                                 attributes[element.attributes[j].name] = element.attributes[j].value;
                             }
 
-                            for (j in this.expression.extraAttributes) {
-                                attributes[j] = this.expression.extraAttributes[j];
+                            for (j in expression.extraAttributes) {
+                                attributes[j] = expression.extraAttributes[j];
                             }
 
                             if (this.SyntaxGenerator) {
@@ -121,7 +122,7 @@ var WLBubble = (function(document, window, rangy, Math) {
 
                             applier.toggleSelection();
                         } else {
-                            document.execCommand('insertHTML', false, this.expression.example);
+                            document.execCommand('insertHTML', false, expression.example);
                         }
 
                         stop(e);
