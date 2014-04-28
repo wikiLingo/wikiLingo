@@ -12,6 +12,6 @@ class NoParse extends Base
      */
     public function generate()
 	{
-		return '~np~' . $this->expression->renderedChildren . '~/np~';
+		return '-~' . $this->expression->renderedChildren . '~-';
 	}
 }

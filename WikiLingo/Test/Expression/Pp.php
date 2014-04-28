@@ -8,7 +8,7 @@ class Pp extends Base
 	public function __construct(&$parser)
 	{
 
-		$this->source = "~pp~foo~/pp~";
+		$this->source = "-/foo/-";
 
 		$this->expected = "<pre>foo</pre>";
 

@@ -15,7 +15,7 @@ SYNTAX_CHARS                    [\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
-BLOCK_START                     ([\!*#;]+)([-+](?![-+]))?
+BLOCK_START                     ([\!*#;]+)([-+])?
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
 CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
 WHITE_SPACE                     ([ ])+
@@ -38,6 +38,17 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 }
 
 //no parse
+"-~"(.|\n)+?"~-" {
+    //js
+        yytext = yytext.substring(2, yytext.length - 2);
+
+	/*php
+		$yytext = substr($yytext, 2, -2);
+	*/
+
+    return 'NO_PARSE';
+}
+//no parse (deprecated)
 "~np~"(.|\n)+?"~/np~" {
     //js
         yytext = yytext.substring(4, yytext.length - 5);
@@ -50,6 +61,16 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 }
 
 //Pre-Formatted Text
+"-/"(.|\n)*?"/-" {
+    //js
+        yytext = yytext.substring(2, yytext.length - 2);
+
+	/*php
+        $yytext = substr($yytext, 2, -2);
+    */
+    return 'PREFORMATTED_TEXT';
+}
+//Pre-Formatted Text (deprecated)
 "~pp~"(.|\n)*?"~/pp~" {
     //js
         yytext = yytext.substring(4, yytext.length - 5);
@@ -59,7 +80,18 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     */
     return 'PREFORMATTED_TEXT';
 }
+
 //Comment
+"/*"(.|\n)*?"*/" {
+    //js
+        yytext = yytext.substring(2, yytext.length - 2);
+
+	/*php
+		$yytext = substr($yytext, 2, -2);
+	*/
+    return 'COMMENT';
+}
+//Comment (deprecated)
 "~tc~"(.|\n)*?"~/tc~" {
     //js
         yytext = yytext.substring(4, yytext.length - 5);
@@ -69,6 +101,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 	*/
     return 'COMMENT';
 }
+
 //Code
 "-+"(.|\n)*?"+-" {
     //js
@@ -79,7 +112,6 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 	*/
     return 'CODE';
 }
-
 
 
 //Variables
