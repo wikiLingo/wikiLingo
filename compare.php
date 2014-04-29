@@ -10,11 +10,11 @@ item3|item4||
  # <> &
 ''Test'' %argument%
 !!!Test
-~tc~Comments ''Parsed?''~/tc~
+/*Comments ''Parsed?''*/
 ~~blue:hello world~~
 <a href='http://google.com'>This is a link to Google</a>
 <script>alert('test');</script>
-~np~This ''Is a test'' ~/np~
+-~This ''Is a test'' ~-
 {TAB}{TAB(title=`Unordered List`)}
 *1.1
 *1.2

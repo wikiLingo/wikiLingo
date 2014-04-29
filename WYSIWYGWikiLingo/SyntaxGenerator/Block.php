@@ -22,6 +22,18 @@ class Block extends Base
 		$this->parsed->isBlock = true;
 		$trailer = "";
 
+        $blockModifier = "";
+
+        switch ($this->expression->parameter('data-block-modifier')) {
+            case 'hidden':
+                $blockModifier = '-';
+                break;
+            case 'toggle':
+                $blockModifier = '+';
+                break;
+
+        }
+
 		switch ($this->expression->parameter('data-block-type'))
 		{
 			case "unorderedListItem":
@@ -35,6 +47,6 @@ class Block extends Base
 				break;
 		}
 
-		return $trailer . $this->expression->renderedChildren;
+		return $trailer . $blockModifier . $this->expression->renderedChildren;
 	}
 }

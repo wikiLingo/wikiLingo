@@ -5015,103 +5015,106 @@ class Definition extends Base
 					0=>"/\G(?:≤REAL_EOF≥)/",
 					1=>"/\G(?:[<][!][-][-](.*?)[-][-][>])/",
 					2=>"/\G(?:-~(.|\n)+?~-)/",
-					3=>"/\G(?:-\/(.|\n)*?\/-)/",
-					4=>"/\G(?:\/\*(.|\n)*?\*\/)/",
-					5=>"/\G(?:-\+(.|\n)*?\+-)/",
-					6=>"/\G(?:[%](([0-9A-Za-z_-]{3,}))[%])/",
-					7=>"/\G(?:$)/",
-					8=>"/\G(?:(([\!*#;]+)([-+](?![-+]))?))/",
-					9=>"/\G(?:(?=((\n))))/",
+					3=>"/\G(?:~np~(.|\n)+?~\/np~)/",
+					4=>"/\G(?:-\/(.|\n)*?\/-)/",
+					5=>"/\G(?:~pp~(.|\n)*?~\/pp~)/",
+					6=>"/\G(?:\/\*(.|\n)*?\*\/)/",
+					7=>"/\G(?:~tc~(.|\n)*?~\/tc~)/",
+					8=>"/\G(?:-\+(.|\n)*?\+-)/",
+					9=>"/\G(?:[%](([0-9A-Za-z_-]{3,}))[%])/",
 					10=>"/\G(?:$)/",
-					11=>"/\G(?:((\n))(?=(([\!*#;]+)([-+](?![-+]))?)))/",
-					12=>"/\G(?:(?!(([\!*#;]+)([-+](?![-+]))?)))/",
-					13=>"/\G(?:(?=(([\!*#;]+)([-+](?![-+]))?)))/",
-					14=>"/\G(?:((\n)))/",
-					15=>"/\G(?:(.+?\})|(\}))/",
-					16=>"/\G(?:\{([a-z0-9_]+))/",
-					17=>"/\G(?:.*?\)\})/",
-					18=>"/\G(?:\{([A-Z0-9_]+)\()/",
-					19=>"/\G(?:$)/",
-					20=>"/\G(?:\{([A-Z0-9_]+)\})/",
-					21=>"/\G(?:$)/",
-					22=>"/\G(?:[@][)])/",
-					23=>"/\G(?:@FLP\(.+?\))/",
-					24=>"/\G(?:---)/",
-					25=>"/\G(?:%%%)/",
-					26=>"/\G(?:[ ][-][-][ ])/",
-					27=>"/\G(?:$)/",
-					28=>"/\G(?:[_][_])/",
-					29=>"/\G(?:[_][_])/",
+					11=>"/\G(?:([!*#;]+([-+](?=[-+]{2,})|[-+](?![-+]))?))/",
+					12=>"/\G(?:(?=((\n))))/",
+					13=>"/\G(?:$)/",
+					14=>"/\G(?:((\n))(?=([!*#;]+([-+](?=[-+]{2,})|[-+](?![-+]))?)))/",
+					15=>"/\G(?:(?!([!*#;]+([-+](?=[-+]{2,})|[-+](?![-+]))?)))/",
+					16=>"/\G(?:(?=([!*#;]+([-+](?=[-+]{2,})|[-+](?![-+]))?)))/",
+					17=>"/\G(?:((\n)))/",
+					18=>"/\G(?:(.+?\})|(\}))/",
+					19=>"/\G(?:\{([a-z0-9_]+))/",
+					20=>"/\G(?:.*?\)\})/",
+					21=>"/\G(?:\{([A-Z0-9_]+)\()/",
+					22=>"/\G(?:$)/",
+					23=>"/\G(?:\{([A-Z0-9_]+)\})/",
+					24=>"/\G(?:$)/",
+					25=>"/\G(?:[@][)])/",
+					26=>"/\G(?:@FLP\(.+?\))/",
+					27=>"/\G(?:---)/",
+					28=>"/\G(?:%%%)/",
+					29=>"/\G(?:[ ][-][-][ ])/",
 					30=>"/\G(?:$)/",
-					31=>"/\G(?:[:][:])/",
-					32=>"/\G(?:[:][:])/",
+					31=>"/\G(?:[_][_])/",
+					32=>"/\G(?:[_][_])/",
 					33=>"/\G(?:$)/",
-					34=>"/\G(?:~~)/",
-					35=>"/\G(?:~~)/",
+					34=>"/\G(?:[:][:])/",
+					35=>"/\G(?:[:][:])/",
 					36=>"/\G(?:$)/",
-					37=>"/\G(?:[']['])/",
-					38=>"/\G(?:[']['])/",
+					37=>"/\G(?:~~)/",
+					38=>"/\G(?:~~)/",
 					39=>"/\G(?:$)/",
-					40=>"/\G(?:\])/",
-					41=>"/\G(?:\[(?![ ]))/",
+					40=>"/\G(?:[']['])/",
+					41=>"/\G(?:[']['])/",
 					42=>"/\G(?:$)/",
-					43=>"/\G(?:--)/",
-					44=>"/\G(?:--)/",
+					43=>"/\G(?:\])/",
+					44=>"/\G(?:\[(?![ ]))/",
 					45=>"/\G(?:$)/",
-					46=>"/\G(?:[|][|])/",
-					47=>"/\G(?:[|][|])/",
+					46=>"/\G(?:--)/",
+					47=>"/\G(?:--)/",
 					48=>"/\G(?:$)/",
-					49=>"/\G(?:[=][-])/",
-					50=>"/\G(?:[-][=])/",
+					49=>"/\G(?:[|][|])/",
+					50=>"/\G(?:[|][|])/",
 					51=>"/\G(?:$)/",
-					52=>"/\G(?:[=][=][=])/",
-					53=>"/\G(?:[=][=][=])/",
+					52=>"/\G(?:[=][-])/",
+					53=>"/\G(?:[-][=])/",
 					54=>"/\G(?:$)/",
-					55=>"/\G(?:\)\))/",
-					56=>"/\G(?:\(\()/",
-					57=>"/\G(?:\(\()/",
-					58=>"/\G(?:$)/",
-					59=>"/\G(?:\)\))/",
-					60=>"/\G(?:\(((([a-z0-9-]+)))\()/",
+					55=>"/\G(?:[=][=][=])/",
+					56=>"/\G(?:[=][=][=])/",
+					57=>"/\G(?:$)/",
+					58=>"/\G(?:\)\))/",
+					59=>"/\G(?:\(\()/",
+					60=>"/\G(?:\(\()/",
 					61=>"/\G(?:$)/",
 					62=>"/\G(?:\)\))/",
-					63=>"/\G(?:.)/",
-					64=>"/\G(?:(([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,}))(?=$|[ \n\t\r\,\;\.]))/",
-					65=>"/\G(?:&(?![ ]))/",
-					66=>"/\G(?:<(?![a-zA-Z\/])|>)/",
-					67=>"/\G(?:[<](.|\n)*?[>])/",
-					68=>"/\G(?:≤REAL_EOF≥)/",
-					69=>"/\G(?:(([A-Za-z0-9.,?;]+[ ]?|[&][ ])+))/",
-					70=>"/\G(?:(?!([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]))(((.?)))?(?=([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ])))/",
-					71=>"/\G(?:(([ ])+))/",
-					72=>"/\G(?:(.))/",
-					73=>"/\G(?:$)/"
+					63=>"/\G(?:\(((([a-z0-9-]+)))\()/",
+					64=>"/\G(?:$)/",
+					65=>"/\G(?:\)\))/",
+					66=>"/\G(?:.)/",
+					67=>"/\G(?:(([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,}))(?=$|[ \n\t\r\,\;\.]))/",
+					68=>"/\G(?:&(?![ ]))/",
+					69=>"/\G(?:<(?![a-zA-Z\/])|>)/",
+					70=>"/\G(?:[<](.|\n)*?[>])/",
+					71=>"/\G(?:≤REAL_EOF≥)/",
+					72=>"/\G(?:(([A-Za-z0-9.,?;]+[ ]?|[&][ ])+))/",
+					73=>"/\G(?:(?!([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]))(((.?)))?(?=([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ])))/",
+					74=>"/\G(?:(([ ])+))/",
+					75=>"/\G(?:(.))/",
+					76=>"/\G(?:$)/"
 				);
 
 			$this->conditions = array(
 				
-					"pastLink"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,21,22,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"wikiLink"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,54,55,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"wikiLinkType"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,58,59,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"wikiUnlink"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,56,57,60,61,62,64,65,66,67,68,69,70,71,72,73), true),
-					"line"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"preBlock"=>new LexerConditions(array( 0,1,2,3,4,5,6,8,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"block"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,9,10,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"bold"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,27,28,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"center"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,30,31,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"color"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,33,34,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"italic"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,36,37,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"link"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,39,40,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"skip"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,63,64,65,66,67,68,69,70,71,72,73), true),
-					"strike"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,42,43,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"table"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,45,46,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"titleBar"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,48,49,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"underscore"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,51,52,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"pluginStart"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,17,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"plugin"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,19,20,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"inlinePlugin"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,15,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"BOF"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,12,13,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true),
-					"INITIAL"=>new LexerConditions(array( 0,1,2,3,4,5,6,11,14,16,18,23,24,25,26,29,32,35,38,41,44,47,50,53,57,60,62,64,65,66,67,68,69,70,71,72,73), true)
+					"pastLink"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,24,25,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"wikiLink"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,57,58,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"wikiLinkType"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,61,62,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"wikiUnlink"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,59,60,63,64,65,67,68,69,70,71,72,73,74,75,76), true),
+					"line"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"preBlock"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,11,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"block"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,10,12,13,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"bold"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,30,31,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"center"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,33,34,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"color"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,36,37,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"italic"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,39,40,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"link"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,42,43,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"skip"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,66,67,68,69,70,71,72,73,74,75,76), true),
+					"strike"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,45,46,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"table"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,48,49,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"titleBar"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,51,52,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"underscore"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,54,55,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"pluginStart"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,20,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"plugin"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,22,23,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"inlinePlugin"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,18,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"BOF"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,15,16,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true),
+					"INITIAL"=>new LexerConditions(array( 0,1,2,3,4,5,6,7,8,9,14,17,19,21,26,27,28,29,32,35,38,41,44,47,50,53,56,60,63,65,67,68,69,70,71,72,73,74,75,76), true)
 				);
 
 
@@ -5120,6 +5123,7 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -5909,7 +5913,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
 break;
@@ -5927,34 +5931,56 @@ case 2:
 break;
 case 3:
     
+		$this->yy->text = substr($this->yy->text, 4, -5);
+	
+
+    return 9;
+
+break;
+case 4:
+    
         $this->yy->text = substr($this->yy->text, 2, -2);
     
     return 10;
 
 break;
-case 4:
+case 5:
+    
+        $this->yy->text = substr($this->yy->text, 4, -5);
+    
+    return 10;
+
+break;
+case 6:
     
 		$this->yy->text = substr($this->yy->text, 2, -2);
 	
     return 8;
 
 break;
-case 5:
+case 7:
+    
+		$this->yy->text = substr($this->yy->text, 4, -5);
+	
+    return 8;
+
+break;
+case 8:
     
 		$this->yy->text = substr($this->yy->text, 2, -2);
 	
     return 18;
 
 break;
-case 6:
+case 9:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
     
 
-    return 'VARIABLE';
+    return 11;
 
 break;
-case 7:
+case 10:
     
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -5963,7 +5989,7 @@ case 7:
     return 5;
 
 break;
-case 8:
+case 11:
     
 		$this->popState();
 		$this->begin('block');
@@ -5972,17 +5998,17 @@ case 8:
 	return 54;
 
 break;
-case 9:
+case 12:
     
         //returns block end
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->popState();
     
 
-    return 'BLOCK_END';
+    return 55;
 
 break;
-case 10:
+case 13:
     
         $this->popState();
     
@@ -5990,22 +6016,22 @@ case 10:
     return 5;
 
 break;
-case 11:
+case 14:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('preBlock');
     
 
-    return 'PRE_BLOCK_START';
+    return 53;
 
 break;
-case 12:
+case 15:
     
         $this->popState();
     
 
 break;
-case 13:
+case 16:
     
         $this->popState();
         $this->begin('preBlock');
@@ -6014,15 +6040,15 @@ case 13:
     return 53;
 
 break;
-case 14:
+case 17:
     
-        if ($this->isContent() || !empty($this->tableStack)) return 'CONTENT';
+        if ($this->isContent() || !empty($this->tableStack)) return 7;
     
 
-    return 'LINE_END';
+    return 48;
 
 break;
-case 15:
+case 18:
     
         $this->popState();
     
@@ -6030,7 +6056,7 @@ case 15:
     return 44;
 
 break;
-case 16:
+case 19:
     
         $this->begin('inlinePlugin');
     
@@ -6038,7 +6064,7 @@ case 16:
     return 43;
 
 break;
-case 17:
+case 20:
     
         $this->popState();
         $this->begin('plugin');
@@ -6047,7 +6073,7 @@ case 17:
     return 46;
 
 break;
-case 18:
+case 21:
     
         $this->begin('pluginStart');
         $this->stackPlugin($this->yy->text);
@@ -6056,7 +6082,7 @@ case 18:
     return 45;
 
 break;
-case 19:
+case 22:
     
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -6065,21 +6091,21 @@ case 19:
     return 5;
 
 break;
-case 20:
+case 23:
     
         $name = end($this->pluginStack);
         if (substr($this->yy->text, 1, -1) == $name && $this->pluginStackCount > 0) {
             $this->popState();
             $this->pluginStackCount--;
             array_pop($this->pluginStack);
-            return 'PLUGIN_END';
+            return 47;
         }
     
 
-    return 'CONTENT';
+    return 7;
 
 break;
-case 21:
+case 24:
     
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
@@ -6088,7 +6114,7 @@ case 21:
     return 5;
 
 break;
-case 22:
+case 25:
     
 		$this->popState();
 	
@@ -6096,60 +6122,34 @@ case 22:
 	return 35;
 
 break;
-case 23:
+case 26:
     
-		if ($this->isContent()) return 'CONTENT';
+		if ($this->isContent()) return 7;
 		$this->begin('pastLink');
 	
 
-	return 'PAST_LINK_START';
+	return 34;
 
-break;
-case 24:
-    
-        if ($this->isContent()) return 'CONTENT';
-    
-
-    return 'HORIZONTAL_BAR';
-
-break;
-case 25:
-    
-        if ($this->isContent()) return 'CONTENT';
-    
-
-    return 'FORCED_LINE_END';
-
-break;
-case 26:
-     return 27;
- 
 break;
 case 27:
     
-        $this->conditionStackCount = 0;
-        $this->conditionStack = array();
+        if ($this->isContent()) return 7;
     
 
-    return 5;
+    return 13;
 
 break;
 case 28:
     
-        $this->popState();
+        if ($this->isContent()) return 7;
     
 
-    return 15;
+    return 49;
 
 break;
 case 29:
-    
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('bold');
-    
-
-    return 'BOLD_START';
-
+     return 27;
+ 
 break;
 case 30:
     
@@ -6165,16 +6165,16 @@ case 31:
         $this->popState();
     
 
-    return 17;
+    return 15;
 
 break;
 case 32:
     
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('center');
+        if ($this->isContent()) return 7;
+        $this->begin('bold');
     
 
-    return 'CENTER_START';
+    return 14;
 
 break;
 case 33:
@@ -6191,16 +6191,16 @@ case 34:
         $this->popState();
     
 
-    return 20;
+    return 17;
 
 break;
 case 35:
     
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('color');
+        if ($this->isContent()) return 7;
+        $this->begin('center');
     
 
-    return 'COLOR_START';
+    return 16;
 
 break;
 case 36:
@@ -6217,16 +6217,16 @@ case 37:
         $this->popState();
     
 
-    return 22;
+    return 20;
 
 break;
 case 38:
     
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('italic');
+        if ($this->isContent()) return 7;
+        $this->begin('color');
     
 
-    return 'ITALIC_START';
+    return 19;
 
 break;
 case 39:
@@ -6240,25 +6240,23 @@ case 39:
 break;
 case 40:
     
-        $this->linkStack = false;
         $this->popState();
     
 
-    return 24;
+    return 22;
 
 break;
 case 41:
     
-        if ($this->isContent()) return 'CONTENT';
-        $this->linkStack = true;
-        $this->begin('link');
+        if ($this->isContent()) return 7;
+        $this->begin('italic');
     
 
-    return 'LINK_START';
+    return 21;
 
 break;
 case 42:
-   
+    
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
     
@@ -6268,19 +6266,21 @@ case 42:
 break;
 case 43:
     
+        $this->linkStack = false;
         $this->popState();
     
 
-    return 26;
+    return 24;
 
 break;
 case 44:
     
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('strike');
+        if ($this->isContent()) return 7;
+        $this->linkStack = true;
+        $this->begin('link');
     
 
-    return 'STRIKE_START';
+    return 23;
 
 break;
 case 45:
@@ -6294,22 +6294,19 @@ case 45:
 break;
 case 46:
     
-        if ($this->isContent()) return 'CONTENT';
         $this->popState();
-        array_pop($this->tableStack);
     
 
-    return 'TABLE_END';
+    return 26;
 
 break;
 case 47:
     
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('table');
-        $this->tableStack[] = true;
+        if ($this->isContent()) return 7;
+        $this->begin('strike');
     
 
-    return 'TABLE_START';
+    return 25;
 
 break;
 case 48:
@@ -6323,19 +6320,22 @@ case 48:
 break;
 case 49:
     
+        if ($this->isContent()) return 7;
         $this->popState();
+        array_pop($this->tableStack);
     
 
-    return 31;
+    return 29;
 
 break;
 case 50:
     
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('titleBar');
+        if ($this->isContent()) return 7;
+        $this->begin('table');
+        $this->tableStack[] = true;
     
 
-    return 'TITLE_BAR_START';
+    return 28;
 
 break;
 case 51:
@@ -6349,20 +6349,19 @@ case 51:
 break;
 case 52:
     
-        if ($this->isContent()) return 7;
         $this->popState();
     
 
-    return 'UNDERSCORE_END';
+    return 31;
 
 break;
 case 53:
     
-        if ($this->isContent()) return 'CONTENT';
-        $this->begin('underscore');
+        if ($this->isContent()) return 7;
+        $this->begin('titleBar');
     
 
-    return 'UNDERSCORE_START';
+    return 30;
 
 break;
 case 54:
@@ -6376,41 +6375,39 @@ case 54:
 break;
 case 55:
     
-        if ($this->isContent(array('linkStack'))) return 7;
-        $this->linkStack = false;
+        if ($this->isContent()) return 7;
         $this->popState();
     
 
-    return 'WIKI_LINK_END';
+    return 33;
 
 break;
 case 56:
     
-        if ($this->isContent(array('linkStack'))) return 7;
-        $this->linkStack = false;
-        $this->popState();
+        if ($this->isContent()) return 7;
+        $this->begin('underscore');
     
 
-    return 'WIKI_UNLINK_END';
+    return 32;
 
 break;
 case 57:
-    
-        if ($this->isContent()) return 'CONTENT';
-        $this->linkStack = true;
-        $this->begin('wikiLink');
-    
-
-    return 'WIKI_LINK_START';
-
-break;
-case 58:
    
         $this->conditionStackCount = 0;
         $this->conditionStack = array();
     
 
     return 5;
+
+break;
+case 58:
+    
+        if ($this->isContent(array('linkStack'))) return 7;
+        $this->linkStack = false;
+        $this->popState();
+    
+
+    return 37;
 
 break;
 case 59:
@@ -6420,18 +6417,17 @@ case 59:
         $this->popState();
     
 
-    return 'WIKI_LINK_TYPE_END';
+    return 41;
 
 break;
 case 60:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
-        $this->begin('wikiLinkType');
-        $this->yy->text = substr($this->yy->text, 1, -1);
+        $this->begin('wikiLink');
     
 
-    return 'WIKI_LINK_TYPE_START';
+    return 36;
 
 break;
 case 61:
@@ -6445,15 +6441,45 @@ case 61:
 break;
 case 62:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent(array('linkStack'))) return 7;
+        $this->linkStack = false;
+        $this->popState();
+    
+
+    return 39;
+
+break;
+case 63:
+    
+        if ($this->isContent()) return 7;
+        $this->linkStack = true;
+        $this->begin('wikiLinkType');
+        $this->yy->text = substr($this->yy->text, 1, -1);
+    
+
+    return 38;
+
+break;
+case 64:
+   
+        $this->conditionStackCount = 0;
+        $this->conditionStack = array();
+    
+
+    return 5;
+
+break;
+case 65:
+    
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('wikiUnlink');
     
 
-    return 'WIKI_UNLINK_START';
+    return 40;
 
 break;
-case 63:
+case 66:
     
 		$this->popState();
 	
@@ -6461,15 +6487,15 @@ case 63:
 	return 7;
 
 break;
-case 64:
+case 67:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
 
         $isLink = false;
         $this->events->triggerExpressionWordLinkExists($this->yy->text, $isLink);
 
         if ($isLink) {
-            return 'WORD_LINK';
+            return 42;
         } else {
             $this->unput($this->yy->text);
             $this->begin('skip');
@@ -6477,42 +6503,42 @@ case 64:
     
 
 break;
-case 65:
+case 68:
     return 50;
 
 break;
-case 66:
+case 69:
 	
 	
-		if ($this->isContent()) return 'CONTENT';
+		if ($this->isContent()) return 7;
 	
 
-	return 'SPECIAL_CHAR';
+	return 51;
 
 break;
-case 67:
+case 70:
     
         //html tag
         return 12;
     
 
 break;
-case 68:
-break;
-case 69:return 7;
-break;
-case 70:return 7;
-break;
 case 71:
-    
-		if ($this->isContent()) return 'CONTENT';
-		return 'WHITE_SPACE';
-	
-
 break;
 case 72:return 7;
 break;
-case 73:return 5;
+case 73:return 7;
+break;
+case 74:
+    
+		if ($this->isContent()) return 7;
+		return 52;
+	
+
+break;
+case 75:return 7;
+break;
+case 76:return 5;
 break;
 }
 

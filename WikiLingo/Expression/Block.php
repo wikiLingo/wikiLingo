@@ -19,7 +19,7 @@ class Block extends Base
     public $blockType;
 	public $beginningLineNo;
 	public $endingLineNo;
-    public $modifier;
+    public $modifier = null;
 
     /**
      * @var WikiLingo\Parser
@@ -66,7 +66,7 @@ class Block extends Base
 		$modifierSyntax = substr($syntax, -1);
 		if (isset(self::$blockModifiers[$modifierSyntax]) && !isset(self::$blockModifiers[$syntax])) {
 			$this->modifier = self::$blockModifiers[$modifierSyntax];
-			$syntax = substr($syntax, 0, -1);
+            $parsed->arguments[0]->text = $syntax = substr($syntax, 0, -1);
 		}
 		$this->blockType = (
 			isset(self::$blocksTypes[$syntax{0}])

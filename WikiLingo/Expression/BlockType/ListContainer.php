@@ -62,6 +62,10 @@ class ListContainer extends Tensor\Flat
             $block = $listItem->block;
             $parsed = $listItem->parsed;
 
+            if ($block->modifier !== null) {
+                $element->detailedAttributes["data-block-modifier"] = $block->modifier;
+            }
+
             if ($block->isFirst && $parsed->text === "\n") {
                 $element->detailedAttributes["data-has-line-before"] = "true";
             }
