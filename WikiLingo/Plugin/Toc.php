@@ -33,7 +33,7 @@ class Toc extends Base
     {
 	    $result = '';
         if (!isset($parser->types['WikiLingo\Expression\BlockType\Header'])) {
-	        $rendered = parent::render($plugin, $result, $parser);
+	        $rendered = parent::render($plugin, $result, $renderer, $parser);
 	        return $rendered;
         }
 
