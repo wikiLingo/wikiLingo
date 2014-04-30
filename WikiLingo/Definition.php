@@ -5438,10 +5438,23 @@ case 67:
         
     
 break;
+case 68:
+        
+            $type =& $s[$o];
+            $type->setOption('NoBody', true);
+            $type->setOption('Inline', true);
+            $type->addContent($s[$o1]);
+            $type->setType('InlinePlugin', $this);
+        
+    
+break;
 case 69:
         
-            $s[$o-1]->setType('Content', $this);
-            $s[$o-1]->addContent($s[$o]);
+            $type =& $s[$o-1];
+            $type->setOption('NoBody', true);
+            $type->setOption('Inline', true);
+            $type->addContent($s[$o]);
+            $type->setType('InlinePlugin', $this);
         
     
 break;

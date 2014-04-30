@@ -520,14 +520,35 @@ case 67:
         */
     
 break;
+case 68:
+        //js
+            this.$ = yy.setType('InlinePlugin', $$[$0])
+                .setOption('NoBody', true)
+                .setOption('Inline', true)
+                .addContent($$[$01]);
+
+        /*php
+            $type =& $$[$0];
+            $type->setOption('NoBody', true);
+            $type->setOption('Inline', true);
+            $type->addContent($$[$01]);
+            $type->setType('InlinePlugin', $this);
+        */
+    
+break;
 case 69:
         //js
-            this.$ = yy.setType('Content', $$[$0-1])
+            this.$ = yy.setType('InlinePlugin', $$[$0-1])
+                .setOption('NoBody', true)
+                .setOption('Inline', true)
                 .addContent($$[$0]);
 
         /*php
-            $$[$0-1]->setType('Content', $this);
-            $$[$0-1]->addContent($$[$0]);
+            $type =& $$[$0-1];
+            $type->setOption('NoBody', true);
+            $type->setOption('Inline', true);
+            $type->addContent($$[$0]);
+            $type->setType('InlinePlugin', $this);
         */
     
 break;

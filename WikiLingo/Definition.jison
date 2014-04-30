@@ -1365,15 +1365,35 @@ content
         */
     }
     | INLINE_PLUGIN_START
-    | INLINE_PLUGIN_START contents
     {
         //js
-            $$ = yy.setType('Content', $1)
+            $$ = yy.setType('InlinePlugin', $1)
+                .setOption('NoBody', true)
+                .setOption('Inline', true)
                 .addContent($2);
 
         /*php
-            $1->setType('Content', $$this);
-            $1->addContent($2);
+            $$type =& $1;
+            $$type->setOption('NoBody', true);
+            $$type->setOption('Inline', true);
+            $$type->addContent($2);
+            $$type->setType('InlinePlugin', $$this);
+        */
+    }
+    | INLINE_PLUGIN_START contents
+    {
+        //js
+            $$ = yy.setType('InlinePlugin', $1)
+                .setOption('NoBody', true)
+                .setOption('Inline', true)
+                .addContent($2);
+
+        /*php
+            $$type =& $1;
+            $$type->setOption('NoBody', true);
+            $$type->setOption('Inline', true);
+            $$type->addContent($2);
+            $$type->setType('InlinePlugin', $$this);
         */
     }
     | INLINE_PLUGIN_START INLINE_PLUGIN_PARAMETERS
