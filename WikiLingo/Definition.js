@@ -547,6 +547,22 @@ case 70:
         */
  	
 break;
+case 71:
+ 	    //js
+            this.$ = yy.setType('Content', $$[$0-2]);
+            var arg2 = yy.setType('Content', $$[$0-1])
+                .addContent($$[$0]);
+            this.$.addContent($$[$0-1]);
+
+        /*php
+            $$[$0-2]->setType('Content', $this);
+            $$[$0-1]->setType('Content', $this);
+            $$[$0-1]->addContent($$[$0]);
+            $$[$0-2]->addContent($$[$0-1]);
+        */
+
+ 	
+break;
 case 72:
 	    //js
 	        this.$ = yy.setType('Plugin', $$[$0-3], $$[$0])

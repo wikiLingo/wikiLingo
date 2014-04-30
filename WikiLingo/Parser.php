@@ -103,6 +103,9 @@ class Parser extends Definition
 
         $this->blocks = array();
         $this->blocksLength = 0;
+        $this->pluginStack = array();
+        $this->pluginStackCount = 0;
+
         $input = $input . "≤REAL_EOF≥"; //this is dynamically removed later
         $input = str_replace("\r", "", $input);
         //this is used for returning the syntax of a parsed

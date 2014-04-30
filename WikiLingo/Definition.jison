@@ -1393,6 +1393,21 @@ content
         */
  	}
  	| PLUGIN_START PLUGIN_PARAMETERS contents
+ 	{
+ 	    //js
+            $$ = yy.setType('Content', $1);
+            var arg2 = yy.setType('Content', $2)
+                .addContent($3);
+            $$.addContent($2);
+
+        /*php
+            $1->setType('Content', $$this);
+            $2->setType('Content', $$this);
+            $2->addContent($3);
+            $1->addContent($2);
+        */
+
+ 	}
     | PLUGIN_START PLUGIN_PARAMETERS contents PLUGIN_END
  	{
 	    //js

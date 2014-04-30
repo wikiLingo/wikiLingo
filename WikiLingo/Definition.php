@@ -5455,6 +5455,16 @@ case 70:
         
  	
 break;
+case 71:
+ 	    
+            $s[$o-2]->setType('Content', $this);
+            $s[$o-1]->setType('Content', $this);
+            $s[$o-1]->addContent($s[$o]);
+            $s[$o-2]->addContent($s[$o-1]);
+        
+
+ 	
+break;
 case 72:
 	    
  		    $type =& $s[$o-3];
