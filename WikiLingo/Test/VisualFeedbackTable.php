@@ -14,6 +14,8 @@ class VisualFeedbackTable
 	public $source;
 	public $expected;
 	public $actual;
+    public $lexerErrors = null;
+    public $parserErrors = null;
 
     /**
      * @param $name
@@ -54,6 +56,18 @@ class VisualFeedbackTable
 	}
 
     /**
+     * @param $lexerErrors
+     * @param $parserErrors
+     * @return $this
+     */
+    public function setErrors($lexerErrors = array(), $parserErrors = array())
+    {
+        $this->lexerErrors = htmlentities(implode($lexerErrors, "\n"));
+        $this->parserErrors = htmlentities(implode($parserErrors, "\n"));
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function render()
@@ -62,7 +76,17 @@ class VisualFeedbackTable
 		$source = htmlentities($this->source);
 		$actual = htmlentities($this->actual);
 		$expected = htmlentities($this->expected);
-		$style = '';
+        $errors = "";
+
+        if (!empty($this->lexerErrors)) {
+            $errors .= "<tr><td>Lexer Errors: <pre><code>$this->lexerErrors</code></pre></td></tr>";
+        }
+
+        if (!empty($this->parserErrors)) {
+            $errors .= "<tr><td>Parser Errors: <pre><code>$this->parserErrors</code></pre></td></tr>";
+        }
+
+        $style = '';
 		if (!self::$styled) {
 			$style =
 "<style>
@@ -104,6 +128,7 @@ $style
 					Actual: <pre><code>$actual</code></pre>
 				</td>
 			</tr>
+			$errors
 		</tbody>
 	</table>
 </div>

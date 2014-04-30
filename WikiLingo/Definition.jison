@@ -1392,6 +1392,7 @@ content
             $$type->setType('InlinePlugin', $$this);
         */
  	}
+ 	| PLUGIN_START PLUGIN_PARAMETERS contents
     | PLUGIN_START PLUGIN_PARAMETERS contents PLUGIN_END
  	{
 	    //js

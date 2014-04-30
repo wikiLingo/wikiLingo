@@ -13,7 +13,11 @@ class TypeNamespace
 	public $typeNamespace;
 	public $directory;
 	public $files;
-	public $parser;
+
+    /**
+     * @var WikiLingo\Parser
+     */
+    public $parser;
 
     /**
      * @param $typeNamespace
@@ -46,13 +50,21 @@ class TypeNamespace
 			$test = new $class($this->parser);
 			$actual = $this->parser->parse($test->source);
 
-			$message = (new VisualFeedbackTable($name))
+			$table = (new VisualFeedbackTable($name))
 				->setSource($test->source)
 				->setExpected($test->expected)
-				->setActual($actual)
-				->render();
+				->setActual($actual);
 
-			$testify->assertEquals($actual, $test->expected, $message);
+            if ($actual === null) {
+                $table->setErrors($this->parser->lexerErrors, $this->parser->parserErrors);
+            }
+
+            $this->parser->lexerErrors = array();
+            $this->parser->parserErrors = array();
+
+            $message = $table->render();
+
+            $testify->assertEquals($actual, $test->expected, $message);
 		}
 	}
 }
