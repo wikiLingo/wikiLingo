@@ -222,7 +222,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 
 //Inline Plugin
-<inlinePlugin>(.+?"}")|("}") {
+<inlinePlugin>("}")|(.+?"}") {
     //js
         this.yy.lexer.popState();
 
