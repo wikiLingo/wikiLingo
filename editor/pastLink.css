@@ -3,6 +3,6 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-    background-image: url(img/PastLink.svg);
+    background-image: url(img/PastLink.svg) ! important;
     background-repeat: no-repeat;
 }
