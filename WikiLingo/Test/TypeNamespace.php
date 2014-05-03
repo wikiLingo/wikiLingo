@@ -57,6 +57,8 @@ class TypeNamespace
 
             if ($actual === null) {
                 $table->setErrors($this->parser->lexerErrors, $this->parser->parserErrors);
+            } else if (!empty($test->postParseDelegates)) {
+                $test->triggerPostParse($this);
             }
 
             $this->parser->lexerErrors = array();

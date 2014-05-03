@@ -89,6 +89,8 @@ abstract class Base
     {
         $this->types = array();
         $this->typesCount = array();
+        $this->pluginInstances = array();
+        $this->plugins = array();
 	    Expression\Plugin::$indexes = array();
     }
 
@@ -99,6 +101,7 @@ abstract class Base
     public function stackPlugin($name)
     {
         $this->pluginStackCount++;
+        $name = trim($name);
 	    $this->pluginStack[] = substr($name, 1, -1);
     }
 

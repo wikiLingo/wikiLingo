@@ -222,7 +222,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 
 //Inline Plugin
-<inlinePlugin>("}")|(.+?"}") {
+<inlinePlugin>((.|\n)*?"}") {
     //js
         this.yy.lexer.popState();
 
@@ -232,7 +232,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
     return 'INLINE_PLUGIN_PARAMETERS';
 }
-"{"{INLINE_PLUGIN_ID} {
+"{"{INLINE_PLUGIN_ID}(\s)* {
     //js
         this.yy.lexer.begin('inlinePlugin');
 
@@ -245,7 +245,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 
 //Plugins with possible body
-<pluginStart>.*?")}" {
+<pluginStart>(.|\n)*?")}" {
     //js
         this.yy.lexer.popState();
         this.yy.lexer.begin('plugin');
@@ -258,7 +258,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
     return 'PLUGIN_PARAMETERS';
 }
 
-"{"{PLUGIN_ID}"(" {
+"{"{PLUGIN_ID}"("(\s)* {
     //js
         this.yy.lexer.begin('pluginStart');
         yy.stackPlugin(yytext);
