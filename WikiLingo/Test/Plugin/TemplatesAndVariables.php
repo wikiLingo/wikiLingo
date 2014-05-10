@@ -33,7 +33,7 @@ class TemplatesAndVariables extends Base
 
 	                    //lookup 2 is null, thus should not be shown
 	                    case 'lookup2': return null;
-	                    
+
 	                    case 'lookup3':
 		                    return array(
 			                    array(
