@@ -103,6 +103,10 @@ class Renderer
             }
         }
 
+	    if ($expression->isVariableContext) {
+		    array_pop($this->parser->variableContextStack);
+	    }
+
         $renderedCousins = '';
         foreach ($parsed->cousins as &$cousin) {
             $renderedCousins .= $this->render($cousin);
@@ -130,10 +134,6 @@ class Renderer
         }
 
         $result .= $rendered . $renderedSiblings . $renderedLines . $renderedCousins;
-
-        if ($expression->isVariableContext) {
-            array_pop($this->parser->variableContextStack);
-        }
 
         if ($this->parser->allowsMutation && method_exists($expression, 'postRender')) {
             $expression->postRender($this);
