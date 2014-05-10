@@ -79,7 +79,7 @@ class Renderer
 	    $variableContext = null;
 
 	    if (isset($this->parser->variableContextStack)) {
-		    $variableContext =& $this->parser->variableContextStack->last();
+		    $variableContext = $this->parser->variableContextStack->last();
 	        if ($variableContext !== null) {
 	            $expression->setVariableContext($variableContext->variables);
 	        }
