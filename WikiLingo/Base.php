@@ -47,9 +47,9 @@ abstract class Base
 
     /**
      * variable context stack
-     * @var array[array[]]
+     * @var Utilities\Stack
      */
-    public $variableContextStack = array();
+    public $variableContextStack;
 
     /* link tracking*/
     public $linkStack = false; //There can only be 1 active link stack

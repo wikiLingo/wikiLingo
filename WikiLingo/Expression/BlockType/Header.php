@@ -86,7 +86,7 @@ class Header
 		    }
 	    }
 
-        if (!isset($this->id)) {
+        if (!isset($this->id) || $this->block->variableContext != null) {
             $id = $this->id = urlencode(strip_tags($children));
             if (!isset(self::$ids[$id])) {
                 self::$ids[$id] = 1;
