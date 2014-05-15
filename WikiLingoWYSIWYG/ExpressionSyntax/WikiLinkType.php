@@ -13,8 +13,13 @@ class WikiLinkType extends Base
     public $iconClass = 'icon-link';
     public $group = 'link';
 
+	public function __construct()
+	{
+		$this->attribute = new WikiLingoWYSIWYG\ExpressionAttribute('Type', 'wiki', null, 'data-wiki-link-type');
+	}
+
     public function example(WikiLingoWYSIWYG\Parser &$parser)
     {
-        return '(type(expression))';
+        return '(attribute(expression))';
     }
 }

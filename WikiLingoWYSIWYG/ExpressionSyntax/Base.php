@@ -18,6 +18,12 @@ abstract class Base
 
     public $labelTranslated = '';
 
+	/**
+	 * @var WikiLingoWYSIWYG\ExpressionAttribute
+	 */
+	public $attribute = null;
+
+
     public function __construct( $parser )
     {
         $this->labelTranslated = $parser->events->triggerTranslate($this->label, 'expression');

@@ -42,7 +42,8 @@ class ExpressionSyntaxes
 				$class->types,
 				$class->icon,
 				$class->iconClass,
-				$class->group
+				$class->group,
+				$class->attribute
 			);
 
 			$this->parser->events->triggerExpressionSyntaxRegistered($expressionType);

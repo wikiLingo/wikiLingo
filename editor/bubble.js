@@ -1,4 +1,4 @@
-var WLBubble = (function(document, window, rangy, Math) {
+var WLBubble = (function(document, window, rangy, Math, ui) {
 
 	var floatingClassNameHide = 'wikiLingo-bubble hide',
         floatingClassNameShow = 'wikiLingo-bubble show',
@@ -84,13 +84,14 @@ var WLBubble = (function(document, window, rangy, Math) {
                 button.isPartOfBubble = true;
                 if (e.example) {
 
-                    if (window['WL' + i + 'SyntaxGenerator']) {
-                        button.SyntaxGenerator = window['WL' + i + 'SyntaxGenerator'];
+                    if (ui[i]) {
+                        button.SyntaxGenerator = ui[i];
                     }
 
                     button.onmousedown = function(e) {
                         var expression = e.target.expression,
                             element = factory.createElement(expression),
+	                        after = null,
                             attributes = {},
                             j;
                         if (selection) {
@@ -109,9 +110,12 @@ var WLBubble = (function(document, window, rangy, Math) {
                             }
 
                             if (this.SyntaxGenerator) {
-                                var syntaxGenerator = new this.SyntaxGenerator(element, attributes);
+                                var syntaxGenerator = new this.SyntaxGenerator(element, attributes, expression);
                                 element = syntaxGenerator.element();
                                 attributes = syntaxGenerator.attributes();
+	                            after = function() {
+	                                syntaxGenerator.after();
+                                };
                             }
 
                             var applier = (rangy.createCssClassApplier(element.className, {
@@ -121,6 +125,10 @@ var WLBubble = (function(document, window, rangy, Math) {
                             }));
 
                             applier.toggleSelection();
+
+	                        if (after) {
+		                        after();
+	                        }
                         } else {
                             document.execCommand('insertHTML', false, expression.example);
                         }
@@ -145,28 +153,19 @@ var WLBubble = (function(document, window, rangy, Math) {
                         typePicker = document.createElement('li');
                         typePicker.isPartOfBubble = true;
                         typePicker.innerHTML = e.types[j].label;
-	                    if (window['WL' + i + 'SyntaxGenerator']) {
+	                    if (ui[i]) {
                             typePicker.expressionType = e.types[j];
 		                    typePicker.expressionTypeName = j;
-		                    typePicker.SyntaxGenerator = window['WL' + i + 'SyntaxGenerator'];
+		                    typePicker.SyntaxGenerator = ui[i];
 		                    typePicker.onmousedown = function(e) {
 			                    var target = e.target,
-                                    syntaxGenerator = new target.SyntaxGenerator(target.expressionTypeName, 'true'),
-                                    parameters = target.expressionType.parameters,
-                                    k = (parameters ? parameters.length : 0);
+                                    syntaxGenerator = new target.SyntaxGenerator(target.expressionTypeName, target.expressionType, 'true');
 
-                                while (k-- > 0) {
-                                    syntaxGenerator.addParameter(parameters[k].name, parameters[k].value);
-			                    }
+			                    syntaxGenerator.render(function(output) {
+				                    element.medium.insertHtml(output);
+				                    me.hide();
+			                    });
 
-                                $.getJSON('reflect.php', {
-                                    reflect: 'wikiLingoWYSIWYG',
-                                    w: syntaxGenerator.generate()
-                                }, function(r) {
-                                    element.medium.insertHtml(r.output);
-                                });
-
-			                    me.hide();
 			                    stop(e);
 		                    };
 		                    typePicker.onmouseup = stop;
@@ -280,4 +279,4 @@ var WLBubble = (function(document, window, rangy, Math) {
     };
 
     return construct;
-})(document, window, rangy, Math);
+})(document, window, rangy, Math, WLExpressionUI);

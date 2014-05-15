@@ -8,12 +8,18 @@
 
 namespace WikiLingo\Utilities;
 
+use WikiLingo;
+
 /**
  * Class Parameter
  * @package WikiLingo\Utilities
  */
 class Parameter
 {
+	/**
+	 * @var WikiLingo\Events
+	 */
+	public static $events = null;
     public $label;
     public $value;
     public $type;
@@ -25,10 +31,23 @@ class Parameter
      */
     public function __construct($label, $value, $type = null)
     {
-        $this->label = $label;
+	    if (self::$events != null) {
+		    $this->label = self::$events->triggerTranslate($label, 'parameter');
+	    } else {
+            $this->label = $label;
+	    }
+
         $this->value = $value;
-        $this->type = (isset($type) ? $type : gettype($value));
+        $this->type = ($type != null ? $type : gettype($value));
     }
+
+	/**
+	 * @param WikiLingo\Events $events
+	 */
+	public static function setEvents(&$events)
+	{
+		self::$events =& $events;
+	}
 
     /**
      * @return string
