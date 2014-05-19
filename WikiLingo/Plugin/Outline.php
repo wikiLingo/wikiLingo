@@ -17,7 +17,7 @@ class Outline extends Base
         $this->htmlTagType = 'div';
         $this->draggable = true;
 
-        $this->label = 'Expanding Outline';
+        $this->label = 'Outline';
         $this->detailedAttributes['contenteditable'] = 'true';
         $this->allowWhiteSpace = true;
         $this->allowLines = true;
@@ -42,9 +42,9 @@ class Outline extends Base
      */
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
-        $expandingOutline = parent::render($plugin, $body, $renderer, $parser);
+        $outline = parent::render($plugin, $body, $renderer, $parser);
 
-        return $expandingOutline;
+        return $outline;
     }
 
     /**
