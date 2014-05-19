@@ -47,9 +47,9 @@ abstract class Base
 
     /**
      * variable context stack
-     * @var array[array[]]
+     * @var Utilities\Stack
      */
-    public $variableContextStack = array();
+    public $variableContextStack;
 
     /* link tracking*/
     public $linkStack = false; //There can only be 1 active link stack
@@ -197,13 +197,13 @@ abstract class Base
             $syntax = '';
             for ($i = $firstLine; $i <= $lastLine; $i++) {
                 if ($i == $firstLine) { //first line
-                    $syntax .= substr($input[$i - 1], $firstColumn);
+                    $syntax .= substr($input[$i - 1], $firstColumn) . "\n";
 
                 } else if ($i == $lastLine) {//last line
                     $syntax .= substr($input[$i - 1], 0, $lastColumn);
 
                 } else {//lines in between
-                    $syntax .= $input[$i - 1];
+                    $syntax .= $input[$i - 1] . "\n";
                 }
             }
 

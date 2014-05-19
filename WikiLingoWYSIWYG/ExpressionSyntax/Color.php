@@ -1,7 +1,6 @@
 <?php
 namespace WikiLingoWYSIWYG\ExpressionSyntax;
 
-use WikiLingo;
 use WikiLingoWYSIWYG;
 
 class Color extends Base
@@ -11,8 +10,15 @@ class Color extends Base
     public $iconClass = 'icon-droplet';
     public $group = 'common';
 
+	public function __construct( $parser )
+	{
+		$this->attribute = new WikiLingoWYSIWYG\ExpressionAttribute('Color', 'black');
+
+		parent::__construct( $parser );
+	}
+
 	public function example(WikiLingoWYSIWYG\Parser &$parser)
     {
-        return '~~color:expression~~';
+        return '~~attribute:expression~~';
     }
 }

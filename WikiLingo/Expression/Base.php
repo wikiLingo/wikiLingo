@@ -84,7 +84,7 @@ abstract class Base
      */
     public function variables()
     {
-        return array(array());
+        return null;
     }
 
     public function setVariableContext($variableContext)

@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingoWYSIWYG\ExpressionSyntax;
 
-use Types\Type;
+use WikiLingo\Utilities;
 use WikiLingoWYSIWYG;
 
 class PastLink extends Base
@@ -13,6 +13,8 @@ class PastLink extends Base
 
 	public function example(WikiLingoWYSIWYG\Parser &$parser)
 	{
-		return '@FLP(%20)expression@)';
+		$this->attribute = new Utilities\Parameter('Clipboard Data', '%20');
+
+		return '@FLP(attribute)expression@)';
 	}
 }

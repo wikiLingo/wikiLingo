@@ -25,11 +25,11 @@ class Variable extends Base
         }
 
         else {
-            if (isset($this->variableContext[$this->i]) && isset($this->variableContext[$this->i][$key])) {
-                $element->staticChildren[] = $this->variableContext[$this->i][$key];
+	        $i = $parser->variableContextStack->last()->i;
+            if (isset($this->variableContext[$i]) && isset($this->variableContext[$i][$key])) {
+                $element->staticChildren[] = $this->variableContext[$i][$key];
                 $set = true;
             }
-            $this->i++;
         }
 
         if ($set === false) {

@@ -36,13 +36,18 @@ class Template extends Base
 	    if ($parser->wysiwyg) {
             return parent::render($plugin, $body, $renderer, $parser);
 	    }
-	    return $body;
+
+	    if ($plugin->iterations > 0) {
+	        return $body;
+	    } else {
+		    return '';
+	    }
     }
 
     public function variables( &$plugin )
     {
         $result = $plugin->parsed->parser->events->triggerVariableContext($plugin);
         $plugin->iterations = max(0, count($result) - 1);
-        return (empty($result) ? array(array()) : $result);
+        return (empty($result) ? null : $result);
     }
 }

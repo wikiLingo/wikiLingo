@@ -54,6 +54,7 @@ class Parser extends Definition
         }
 
 		$this->emptyParserValue = new Parsed();
+		$this->variableContextStack = new Utilities\Stack();
 
 		if (empty($this->events)) {
             $this->events = new Events();
