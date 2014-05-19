@@ -19,7 +19,7 @@
         "md5/md5": ">=1.1.0",
         "mediumjs/mediumjs":"dev-master",
         "wikilingo/codemirror":"dev-master",
-        "codemirror/codemirror": "3.19"
+        "codemirror/codemirror": ">=3.19"
     },
     "require-dev": {
         "bafs/testify": "dev-master"
