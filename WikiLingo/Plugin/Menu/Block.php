@@ -33,21 +33,33 @@ class Block
              * @return string
              */
             $container->listItemRenderDelegate[] = function(&$listItem, &$renderer, &$parser) {
-                $a = $renderer->helper('a');
-
+	            $li = $renderer->helper('li');
                 $block = $listItem->block;
+	            $content = null;
 
                 if (isset($block)) {
+	                $parsed = $block->parsed;
+	                if ($parsed->childrenLength > 0) {
+		                if ($parsed->children[0]->type == 'Content') {
+			                $content = $renderer->helper('a');
+			                $content->attributes['href'] = '#';
+			                $li->children[] = $content;
+		                }
+	                }
+
+	                $parent = ($content ?: $li);
+
                     if (!empty($block->renderedChildren)) {
                         $rendered = $block->renderedChildren;
-                        $a->staticChildren[] = $rendered;
+	                    $parent->staticChildren[] = $rendered;
                     } else if (method_exists($block->expression, "render")) {
-                        $a->staticChildren[] = $block->expression->render($renderer, $parser);
+	                    $parent->staticChildren[] = $block->expression->render($renderer, $parser);
                     }
                 }
 
-                $li = $renderer->helper('li');
-                $li->staticChildren[] = $a->render();
+	            if ($content != null) {
+                    $li->staticChildren[] = $content->render();
+	            }
 
                 if (isset($listItem->children)) {
                     $li->staticChildren[] = $listItem->children->render($renderer, $parser);
