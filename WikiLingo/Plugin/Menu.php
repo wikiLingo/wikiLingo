@@ -34,7 +34,7 @@ class Menu extends Base
     {
         if (!$parser->wysiwyg) {
             $parser->scripts->addCss(<<<CSS
-/*- NAVIGATION */
+/* Menu Start */
 .Menu {
 	background: #444444; /* Old browsers */
 
@@ -75,8 +75,10 @@ class Menu extends Base
 	-moz-transition: opacity .5s ease-in-out;
 	-o-transition: opacity .5s ease-in-out;
 }
-.Menu ul li:hover>ul{ opacity: 1; position:absolute; top:99%; left:0; }
+.Menu ul li:hover>ul{opacity: 1; position:absolute; top:99%; left:0; }
 .Menu ul ul li:hover>ul{ position:absolute; top:0; left:100%; opacity: 1; background:#333; }
+
+/* Menu End */
 CSS
     );
         }
