@@ -51,7 +51,7 @@ class Menu extends Base
 	color: $foreColor;
 	box-shadow: inset $backgroundColor 1px 1px 0, inset $backgroundColor -1px -1px 0;
 	-moz-box-shadow: inset $backgroundColor 1px 1px 0, inset $backgroundColor -1px -1px 0;
-	min-height: 42px;
+	min-height: 38px;
 	position: relative;
 }
 .Menu[data-active] ul, .Menu[data-active] li {
@@ -64,9 +64,13 @@ class Menu extends Base
 	float:left;
 	position:relative;
 }
+.Menu[data-active] ul li li{
+    width: 100%;
+}
 .Menu[data-active] ul li a{
 	display:block;
-	padding:8px 12px;
+	padding:8px 12px 8px 12px;
+	margin: 0;
 	font-size:18px;
 	white-space:nowrap;
 	-webkit-transition: background .3s ease-in-out;
