@@ -43,6 +43,7 @@ class Block
 		                if ($parsed->children[0]->type == 'Content') {
 			                $content = $renderer->helper('a');
 			                $content->attributes['href'] = '#';
+			                $content->attributes['onclick'] = 'return false;';
 			                $li->children[] = $content;
 		                }
 	                }

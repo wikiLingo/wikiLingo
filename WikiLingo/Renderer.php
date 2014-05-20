@@ -65,7 +65,7 @@ class Renderer
         $expression = $parsed->expression;
 
 
-        if (!$this->parser->allowsMutation && method_exists($expression, 'preRender')) {
+        if ($this->parser->allowsMutation && method_exists($expression, 'preRender')) {
             $expression->preRender($this);
         }
 

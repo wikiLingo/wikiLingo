@@ -2,6 +2,7 @@
 namespace WikiLingo\Plugin;
 
 use WikiLingo;
+use WikiLingo\Utilities\Parameter;
 
 /**
  * Class Menu
@@ -21,6 +22,10 @@ class Menu extends Base
         $this->detailedAttributes['contenteditable'] = 'true';
         $this->allowWhiteSpace = true;
         $this->allowLines = true;
+	    $this->parameters['fore-color'] = new Parameter('Fore Color', '#FFFFFF');
+	    $this->parameters['accent-color'] = new Parameter('Accent Color', '#333');
+	    $this->parameters['background-color'] = new Parameter('Background Color', '#444444');
+	    $this->parameters['background-color-highlighted'] = new Parameter('Background Color', '#222');
     }
 
     /**
@@ -33,18 +38,32 @@ class Menu extends Base
     public function render(WikiLingo\Expression\Plugin &$plugin, &$body, &$renderer, &$parser)
     {
         if (!$parser->wysiwyg) {
+	        $plugin->attributes['data-active'] = 'true';
+	        $foreColor = $plugin->parameter("fore-color");
+	        $accentColor = $plugin->parameter("accent-color");
+	        $backgroundColor = $plugin->parameter("background-color");
+	        $backgroundColorHighlighted = $plugin->parameter("background-color-highlighted");
+
             $parser->scripts->addCss(<<<CSS
 /* Menu Start */
-.Menu {
-	background: #444444; /* Old browsers */
-
-	box-shadow: inset #444 1px 1px 0, inset #444 -1px -1px 0;
-	-moz-box-shadow: inset #444 1px 1px 0, inset #444 -1px -1px 0;
+.Menu[data-active] {
+	background: $backgroundColor; /* Old browsers */
+	color: $foreColor;
+	box-shadow: inset $backgroundColor 1px 1px 0, inset $backgroundColor -1px -1px 0;
+	-moz-box-shadow: inset $backgroundColor 1px 1px 0, inset $backgroundColor -1px -1px 0;
 	min-height: 38px;
 }
-.Menu ul, .Menu li, div.menu ul, div.menu ul li, ul.menu, ul.menu li { list-style:none; padding:0; margin:0; display:inline; }
-.Menu ul li{ float:left; position:relative; }
-.Menu ul li a{
+.Menu[data-active] ul, .Menu[data-active] li {
+	list-style:none;
+	padding:0;
+	margin:0;
+	display:inline;
+}
+.Menu[data-active] ul li{
+	float:left;
+	position:relative;
+}
+.Menu[data-active] ul li a{
 	display:block;
 	padding:8px 12px;
 	font-size:18px;
@@ -52,9 +71,13 @@ class Menu extends Base
 	-webkit-transition: background .3s ease-in-out;
 	-moz-transition: background .3s ease-in-out;
 	-o-transition: background .3s ease-in-out;
+	color: $foreColor;
+	text-decoration: none;
 }
-.Menu ul li a:hover{ background:#222;}
-.Menu ul ul{
+.Menu[data-active] ul li a:hover{
+	background:$backgroundColorHighlighted;
+}
+.Menu[data-active] ul ul{
 	position:absolute;
 	top:-99999px;
 	left:0;
@@ -62,11 +85,11 @@ class Menu extends Base
 	-webkit-transition: opacity .5s ease-in-out;
 	-moz-transition: opacity .5s ease-in-out;
 	-o-transition: opacity .5s ease-in-out;
-	background:#333;
+	background:$backgroundColor;
 	border-top:none;
-	box-shadow:#111 0 3px 4px;
+	box-shadow:$accentColor 0 3px 4px;
 }
-.Menu ul ul ul {
+.Menu[data-active] ul ul ul {
 	position:absolute;
 	top:-99999px;
 	left:100%;
@@ -75,13 +98,25 @@ class Menu extends Base
 	-moz-transition: opacity .5s ease-in-out;
 	-o-transition: opacity .5s ease-in-out;
 }
-.Menu ul li:hover>ul{opacity: 1; position:absolute; top:99%; left:0; }
-.Menu ul ul li:hover>ul{ position:absolute; top:0; left:100%; opacity: 1; background:#333; }
+.Menu[data-active] ul li:hover>ul{
+	opacity: 1;
+	position:absolute;
+	top:99%;
+	left:0;
+}
+.Menu[data-active] ul ul li:hover>ul{
+	position:absolute;
+	top:0;
+	left:100%;
+	opacity: 1;
+	background:$accentColor;
+}
 
 /* Menu End */
 CSS
     );
         }
+
         $menu = parent::render($plugin, $body, $renderer, $parser);
 
         return $menu;
@@ -92,8 +127,10 @@ CSS
      */
     public function preRender(&$renderer)
     {
-        $renderer->expressionManipulator['WikiLingo\Expression\Block'] = function(&$expression) {
-            WikiLingo\Plugin\Menu\Block::mutate($expression);
-        };
+	    if (!$renderer->parser->wysiwyg) {
+	        $renderer->expressionManipulator['WikiLingo\Expression\Block'] = function(&$expression) {
+	            WikiLingo\Plugin\Menu\Block::mutate($expression);
+	        };
+	    }
     }
 }
