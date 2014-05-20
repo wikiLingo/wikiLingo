@@ -51,7 +51,8 @@ class Menu extends Base
 	color: $foreColor;
 	box-shadow: inset $backgroundColor 1px 1px 0, inset $backgroundColor -1px -1px 0;
 	-moz-box-shadow: inset $backgroundColor 1px 1px 0, inset $backgroundColor -1px -1px 0;
-	min-height: 38px;
+	min-height: 42px;
+	position: relative;
 }
 .Menu[data-active] ul, .Menu[data-active] li {
 	list-style:none;
