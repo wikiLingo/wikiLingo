@@ -17,7 +17,7 @@ class Base
     public function add($name, $value)
     {
 
-        $this->parameters[strtolower($name)] = $value;
+        $this->parameters[$name] = $value;
     }
 
     /**
