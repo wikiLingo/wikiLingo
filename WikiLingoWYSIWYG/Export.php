@@ -2,5 +2,5 @@
 //causes wikiLingo to be exportable as dll using Phalanger
 namespace WikiLingoWYSIWYG;
 
-[\Export]
+[assembly:\Export]
 class Export{}
