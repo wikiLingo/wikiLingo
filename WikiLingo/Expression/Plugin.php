@@ -23,6 +23,10 @@ class Plugin extends Base
 	public $exists;
     public $classType;
 
+    /**
+     * @var WikiLingo\Plugin\Base[]
+     */
+    public static $customClasses = array();
 
     /**
      * @var WikiLingo\Plugin\Base
@@ -52,14 +56,28 @@ class Plugin extends Base
             self::$parametersParser = new WikiLingo\Utilities\Parameters\Definition();
         }
 
-        $this->type = $type = self::typeShort(substr($type, 1));
+        //From "{PLUGIN_NAME( " to "PLUGIN_NAME(", or from "{plugin_name " to "plugin_name"
+        $type = substr(trim($type), 1);
 
-        if ($type{strlen($type) - 1} == "(") {
+
+        //From "PLUGIN_NAME(" to "PluginName", or from "{plugin_name " to "PluginName"
+        if ($type{strlen($type) - 1} === "(") {
             $this->type = $type = self::typeShort(substr($type, 0, -1));
+        } else {
+            $this->type = $type = self::typeShort($type);
         }
 
         $this->classType = "WikiLingo\\Plugin\\$type";
 	    $this->exists = class_exists($this->classType);
+
+        //if the plugin doesn't exist, lets see if it does in the customClasses attribute
+        if (!$this->exists && isset(self::$customClasses[$type])) {
+            if (!isset($parsed->parser->pluginInstances[$this->classType])) {
+                $parsed->parser->pluginInstances[$this->classType] = self::$customClasses[$type];
+            }
+
+            $this->exists = true;
+        }
 
         //it may exist elsewhere
         if (!$this->exists) {

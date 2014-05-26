@@ -92,6 +92,7 @@ abstract class Base
         $this->pluginInstances = array();
         $this->plugins = array();
 	    Expression\Plugin::$indexes = array();
+        Expression\Plugin::$customClasses = array();
     }
 
     /**
