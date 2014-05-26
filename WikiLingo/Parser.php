@@ -14,7 +14,7 @@ class Parser extends Definition
 
 	public $scripts = null;
 	private $parsing = false;
-	private $pcreRecursionLimit;
+	private $pcreRecursionLimit = null;
     public $wysiwyg = false;
     public $renderer;
     public $expressionInstantiator;
@@ -99,8 +99,10 @@ class Parser extends Definition
      */
     public function preParse(&$input)
     {
-        $this->pcreRecursionLimit = ini_get("pcre.recursion_limit");
-        ini_set("pcre.recursion_limit", "524");
+        if (function_exists('ini_get') && function_exists('ini_set')) {
+            $this->pcreRecursionLimit = ini_get("pcre.recursion_limit");
+            ini_set("pcre.recursion_limit", "524");
+        }
 
         $this->blocks = array();
         $this->blocksLength = 0;
@@ -121,6 +123,10 @@ class Parser extends Definition
      */
     public function postParse(Parsed &$parsed)
     {
+        if ($this->pcreRecursionLimit != null && function_exists('ini_get') && function_exists('ini_set')) {
+            ini_set("pcre.recursion_limit", $this->pcreRecursionLimit);
+        }
+
 	    $parsed = $this->events->triggerPreRender($parsed);
         $rendered = $this->renderer->render($parsed);
         $rendered = $this->events->triggerPostRender($rendered);
