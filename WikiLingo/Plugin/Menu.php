@@ -51,7 +51,6 @@ class Menu extends Base
 	color: $foreColor;
 	box-shadow: inset $backgroundColor 1px 1px 0, inset $backgroundColor -1px -1px 0;
 	-moz-box-shadow: inset $backgroundColor 1px 1px 0, inset $backgroundColor -1px -1px 0;
-	min-height: 38px;
 	position: relative;
 }
 .Menu[data-active] ul, .Menu[data-active] li {
@@ -59,10 +58,12 @@ class Menu extends Base
 	padding:0;
 	margin:0;
 	display:inline;
+	background-color: inherit;
 }
 .Menu[data-active] ul li{
 	float:left;
 	position:relative;
+	background-color: inherit;
 }
 .Menu[data-active] ul li li{
     width: 100%;
@@ -90,7 +91,6 @@ class Menu extends Base
 	-webkit-transition: opacity .5s ease-in-out;
 	-moz-transition: opacity .5s ease-in-out;
 	-o-transition: opacity .5s ease-in-out;
-	background:$backgroundColor;
 	border-top:none;
 	box-shadow:$accentColor 0 3px 4px;
 }
