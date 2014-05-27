@@ -91,4 +91,33 @@ abstract class Base
     {
         $this->variableContext = $variableContext;
     }
+
+
+    /**
+     * @param $expressionTypeShort
+     * @return Base[]
+     */
+    public function children($expressionTypeShort = null)
+    {
+        $children = array();
+
+        $expressionType = null;
+
+        if ($expressionTypeShort != null) {
+            $expressionType = "WikiLingo\\Expression\\" . $expressionTypeShort;
+        }
+
+        foreach ($this->parsed->children as $child) {
+            if ($expressionType != null) {
+                $childClass = get_class($child->expression);
+                if ($childClass == $expressionType) {
+                    $children[] = $child->expression;
+                }
+            } else {
+                $children[] = $child->expression;
+            }
+        }
+
+        return $children;
+    }
 }
