@@ -25,7 +25,7 @@ class TypeNamespace
     public function __construct($typeNamespace)
     {
 	    $this->typeNamespace = $typeNamespace;
-	    $this->directory = dirname(__FILE__) . '/' . $typeNamespace;
+	    $this->directory = dirname(__FILE__) . DIRECTORY_SEPARATOR . $typeNamespace;
 	    $this->files = scandir($this->directory);
 	    $this->setParser();
     }
