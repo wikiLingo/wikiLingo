@@ -73,7 +73,6 @@ class TypeNamespace
                 $this->classes[] = $name;
             }
         }
-        return false;
     }
 
     /**
