@@ -26,8 +26,8 @@ class TypeNamespace
 	    $this->typeNamespace = $this->getNamespace() . "\\" . $typeNamespace;
 	    $directory = $this->getDirectory() . DIRECTORY_SEPARATOR . $typeNamespace;
 
-        if ($directory !== false) {
-            $this->setClassesFromFiles($directory);
+        if ($files = scandir($directory)) {
+            $this->setClassesFromFiles($files);
         } else {
             $this->setClassesFromDeclared();
         }
@@ -52,9 +52,8 @@ class TypeNamespace
 		$this->parser = new WikiLingo\Parser();
 	}
 
-    public function setClassesFromFiles($directory)
+    public function setClassesFromFiles($files)
     {
-        $files = scandir($directory);
         $namespace = $this->typeNamespace;
         $this->classes = array();
         foreach($files as $file) {
