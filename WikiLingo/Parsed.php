@@ -204,7 +204,10 @@ class Parsed extends ParserValue
 		$parent->addChild($this);
 
         foreach($this->siblings as &$sibling) {
-            $sibling->setParent($parent);
+            //just to be sure
+            if ($sibling != null) {
+                $sibling->setParent($parent);
+            }
 	        array_shift($this->siblings);
         }
 	}

@@ -135,9 +135,11 @@ class Renderer
         //siblings are directly part of the family as a visible sibling
         $renderedSiblings = '';
         foreach ($parsed->siblings as &$sibling) {
-            $renderedSiblings .= $this->render($sibling);
-            if ($parsed->parent != null) {
-                $parsed->parent->children[] =& $sibling;
+            if ($sibling != null) {
+                $renderedSiblings .= $this->render($sibling);
+                if ($parsed->parent != null) {
+                    $parsed->parent->children[] =& $sibling;
+                }
             }
         }
 
