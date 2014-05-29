@@ -151,7 +151,9 @@ class Plugin extends Base
     public function render(&$renderer, &$parser)
     {
         if (isset($this->class)) {
-            $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
+			if (isset($this->parsed->parent->expression)) {
+				$this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
+			}
         } else {
             throw new Exception('Plugin "' . $this->type . '" does not exists in namespace WikiLingo\Plugin');
         }
