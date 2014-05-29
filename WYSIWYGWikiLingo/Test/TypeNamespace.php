@@ -6,21 +6,11 @@ use WYSIWYGWikiLingo;
 use WikiLingoWYSIWYG;
 use Testify\Testify;
 
-class TypeNamespace
+class TypeNamespace extends WikiLingo\Test\TypeNamespace
 {
-	public $typeNamespace;
-	public $directory;
 	public $files;
 	public $parser;
 	public $preParser;
-
-    public function __construct($typeNamespace)
-    {
-	    $this->typeNamespace = $typeNamespace;
-	    $this->directory = dirname(__FILE__) . DIRECTORY_SEPARATOR . $typeNamespace;
-	    $this->files = scandir($this->directory);
-	    $this->setParser();
-    }
 
 	public function setParser()
 	{
@@ -28,13 +18,20 @@ class TypeNamespace
 		$this->parser = new WYSIWYGWikiLingo\Parser();
 	}
 
+    public function getDirectory()
+    {
+        return dirname(__FILE__);
+    }
+
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
+
 	public function run(Testify &$testify)
 	{
-		foreach($this->files as $file) {
-			if($file === '.' || $file === '..') {continue;}
-
-			$class = substr($file, 0, -4);
-			$fullyQualifiedClass = "WYSIWYGWikiLingo\\Test\\" . $this->typeNamespace . "\\" . $class;
+		foreach($this->classes as $class) {
+			$fullyQualifiedClass = $class;
 			$test = new $fullyQualifiedClass($this->preParser);
 
 			//the idea here is to take WYSIWYGWikiLingo Markup, and to turn it into WikiLingo Markup, so source comes from the WikiLingoWYSIWYG Parser
