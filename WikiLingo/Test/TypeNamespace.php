@@ -11,8 +11,7 @@ use Testify\Testify;
 class TypeNamespace
 {
 	public $typeNamespace;
-	public $directory;
-	public $files;
+    public $classes = array();
 
     /**
      * @var WikiLingo\Parser
@@ -24,12 +23,27 @@ class TypeNamespace
      */
     public function __construct($typeNamespace)
     {
-	    $this->typeNamespace = $typeNamespace;
-	    $this->directory = dirname(__FILE__) . DIRECTORY_SEPARATOR . $typeNamespace;
-	    $this->files = scandir($this->directory);
+	    $this->typeNamespace = $this->getNamespace() . "\\" . $typeNamespace;
+	    $directory = $this->getDirectory() . DIRECTORY_SEPARATOR . $typeNamespace;
+
+        if ($directory !== false) {
+            $this->setClassesFromFiles($directory);
+        } else {
+            $this->setClassesFromDeclared();
+        }
+
 	    $this->setParser();
     }
 
+    public function getDirectory()
+    {
+        return dirname(__FILE__);
+    }
+
+    public function getNamespace()
+    {
+        return __NAMESPACE__;
+    }
     /**
      *
      */
@@ -38,19 +52,41 @@ class TypeNamespace
 		$this->parser = new WikiLingo\Parser();
 	}
 
+    public function setClassesFromFiles($directory)
+    {
+        $files = scandir($directory);
+        $namespace = $this->typeNamespace;
+        $this->classes = array();
+        foreach($files as $file) {
+            if($file === '.' || $file === '..') {continue;}
+            $name = substr($file, 0, -4);
+            $this->classes[] = $class = $namespace . "\\" . $name;
+        }
+    }
+
+    public function setClassesFromDeclared()
+    {
+        $namespace = $this->typeNamespace . "\\";
+        $this->classes = array();
+        $declaredClasses = get_declared_classes();
+        foreach($declaredClasses as $name) {
+            if(strpos($name, $namespace) === 0) {
+                $this->classes[] = $name;
+            }
+        }
+        return false;
+    }
+
     /**
      * @param Testify $testify
      */
     public function run(Testify &$testify)
 	{
-		foreach($this->files as $file) {
-			if($file === '.' || $file === '..') {continue;}
-			$name = substr($file, 0, -4);
-			$class = "WikiLingo\\Test\\" . $this->typeNamespace . "\\" . $name;
+		foreach($this->classes as $class) {
 			$test = new $class($this->parser);
 			$actual = $this->parser->parse($test->source);
 
-			$table = (new VisualFeedbackTable($name))
+			$table = (new VisualFeedbackTable($class))
 				->setSource($test->source)
 				->setExpected($test->expected)
 				->setActual($actual);
