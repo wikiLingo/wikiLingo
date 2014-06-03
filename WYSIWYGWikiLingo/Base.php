@@ -17,7 +17,7 @@ class Base
 	/* html tag tracking */
 	public $typeIndex = [];
 	public $htmlElementStack = [];
-	public $htmlElementStackCount = [];
+	public $htmlElementStackCount = 0;
 	public $htmlElementsStackCount = 0;
 	public $htmlElementsStack = [];
 
