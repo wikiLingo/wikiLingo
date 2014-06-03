@@ -30,11 +30,10 @@ class Parser extends Definition
     {
         $this->typeIndex = [];
         $this->typeStack = [];
-        $this->type = [];
         $this->processedTypeStack = [];
 
         $this->htmlElementStack = [];
-        $this->htmlElementStackCount = [];
+        $this->htmlElementStackCount = 0;
         $this->htmlElementsStackCount = 0;
         $this->htmlElementsStack = [];
 	    $this->inputAdjustedForLineAtBeginning = false;

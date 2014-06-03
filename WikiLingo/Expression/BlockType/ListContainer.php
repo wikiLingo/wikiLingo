@@ -30,6 +30,7 @@ class ListContainer extends Tensor\Flat
      */
     public function __construct(&$block, $ordered)
     {
+        $that = $this;
         /**
          * setup default rendering delegates
          *
@@ -38,8 +39,8 @@ class ListContainer extends Tensor\Flat
          * @param WikiLingo\Parser $parser
          * @return string
          */
-        $this->listItemCollectionRenderDelegate[] = function(&$listItems, &$renderer, &$parser) {
-            $element = $renderer->element('WikiLingo\\Expression\\Block', $this->ordered ? 'ol' : 'ul');
+        $this->listItemCollectionRenderDelegate[] = function(&$listItems, &$renderer, &$parser) use ($that) {
+            $element = $renderer->element('WikiLingo\\Expression\\Block', $that->ordered ? 'ol' : 'ul');
             $element->detailedAttributes['data-parent'] = 'true';
             foreach($listItems as $listItem)
             {
@@ -54,10 +55,10 @@ class ListContainer extends Tensor\Flat
          * @param WikiLingo\Parser $parser
          * @return string
          */
-        $this->listItemRenderDelegate[] = function(&$listItem, &$renderer, &$parser) {
+        $this->listItemRenderDelegate[] = function(&$listItem, &$renderer, &$parser) use ($that) {
             $element = $renderer->element('WikiLingo\\Expression\\Block', 'li');
 
-            $element->detailedAttributes["data-block-type"] = $this->ordered ? 'orderedListItem' : 'unorderedListItem';
+            $element->detailedAttributes["data-block-type"] = $that->ordered ? 'orderedListItem' : 'unorderedListItem';
 
             $block = $listItem->block;
             $parsed = $listItem->parsed;
