@@ -104,7 +104,7 @@ class Renderer
 	        } else {
 		        $variableContext->reset();
                 //Expressions can repeat if they are needed
-	            for($i = 0; $i <= $iterations; $i++)
+	            for($i = 0; $i < $iterations; $i++)
 	            {
 	                foreach ($parsed->children as &$child) {
 	                    $child->depth += $parsed->depth + $addedDepth;
