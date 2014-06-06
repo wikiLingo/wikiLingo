@@ -47,7 +47,7 @@ class Template extends Base
     public function variables( &$plugin )
     {
         $result = $plugin->parsed->parser->events->triggerVariableContext($plugin);
-        $plugin->iterations = max(0, count($result) - 1);
+        $plugin->iterations = max(0, count($result));
         return (empty($result) ? null : $result);
     }
 }
