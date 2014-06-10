@@ -5140,6 +5140,7 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -5821,11 +5822,15 @@ break;
 
     function upcomingInput()
     {
-        $next = $this->match;
-        if (strlen($next) < 20) {
-            $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+        if (!$this->done) {
+            $next = $this->match;
+            if (strlen($next) < 20) {
+                $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+            }
+            return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
+        } else {
+            return "";
         }
-        return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
     }
 
     function showPosition()
@@ -5952,7 +5957,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
 break;
@@ -6013,10 +6018,10 @@ case 8:
 break;
 case 9:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
     
 
-    return 'VARIABLE';
+    return 11;
 
 break;
 case 10:
@@ -6040,11 +6045,11 @@ break;
 case 12:
     
         //returns block end
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->popState();
     
 
-    return 'BLOCK_END';
+    return 55;
 
 break;
 case 13:
@@ -6057,11 +6062,11 @@ case 13:
 break;
 case 14:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('preBlock');
     
 
-    return 'PRE_BLOCK_START';
+    return 53;
 
 break;
 case 15:
@@ -6081,10 +6086,10 @@ case 16:
 break;
 case 17:
     
-        if ($this->isContent() || !empty($this->tableStack)) return 'CONTENT';
+        if ($this->isContent() || !empty($this->tableStack)) return 7;
     
 
-    return 'LINE_END';
+    return 48;
 
 break;
 case 18:
@@ -6137,11 +6142,11 @@ case 23:
             $this->popState();
             $this->pluginStackCount--;
             array_pop($this->pluginStack);
-            return 'PLUGIN_END';
+            return 47;
         }
     
 
-    return 'CONTENT';
+    return 7;
 
 break;
 case 24:
@@ -6163,27 +6168,27 @@ case 25:
 break;
 case 26:
     
-		if ($this->isContent()) return 'CONTENT';
+		if ($this->isContent()) return 7;
 		$this->begin('pastLink');
 	
 
-	return 'PAST_LINK_START';
+	return 34;
 
 break;
 case 27:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
     
 
-    return 'HORIZONTAL_BAR';
+    return 13;
 
 break;
 case 28:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
     
 
-    return 'FORCED_LINE_END';
+    return 49;
 
 break;
 case 29:
@@ -6209,11 +6214,11 @@ case 31:
 break;
 case 32:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('bold');
     
 
-    return 'BOLD_START';
+    return 14;
 
 break;
 case 33:
@@ -6235,11 +6240,11 @@ case 34:
 break;
 case 35:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('center');
     
 
-    return 'CENTER_START';
+    return 16;
 
 break;
 case 36:
@@ -6261,11 +6266,11 @@ case 37:
 break;
 case 38:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('color');
     
 
-    return 'COLOR_START';
+    return 19;
 
 break;
 case 39:
@@ -6287,11 +6292,11 @@ case 40:
 break;
 case 41:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('italic');
     
 
-    return 'ITALIC_START';
+    return 21;
 
 break;
 case 42:
@@ -6314,12 +6319,12 @@ case 43:
 break;
 case 44:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('link');
     
 
-    return 'LINK_START';
+    return 23;
 
 break;
 case 45:
@@ -6341,11 +6346,11 @@ case 46:
 break;
 case 47:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('strike');
     
 
-    return 'STRIKE_START';
+    return 25;
 
 break;
 case 48:
@@ -6359,22 +6364,22 @@ case 48:
 break;
 case 49:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->popState();
         array_pop($this->tableStack);
     
 
-    return 'TABLE_END';
+    return 29;
 
 break;
 case 50:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('table');
         $this->tableStack[] = true;
     
 
-    return 'TABLE_START';
+    return 28;
 
 break;
 case 51:
@@ -6396,11 +6401,11 @@ case 52:
 break;
 case 53:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('titleBar');
     
 
-    return 'TITLE_BAR_START';
+    return 30;
 
 break;
 case 54:
@@ -6418,16 +6423,16 @@ case 55:
         $this->popState();
     
 
-    return 'UNDERSCORE_END';
+    return 33;
 
 break;
 case 56:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('underscore');
     
 
-    return 'UNDERSCORE_START';
+    return 32;
 
 break;
 case 57:
@@ -6446,7 +6451,7 @@ case 58:
         $this->popState();
     
 
-    return 'WIKI_LINK_END';
+    return 37;
 
 break;
 case 59:
@@ -6456,17 +6461,17 @@ case 59:
         $this->popState();
     
 
-    return 'WIKI_UNLINK_END';
+    return 41;
 
 break;
 case 60:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('wikiLink');
     
 
-    return 'WIKI_LINK_START';
+    return 36;
 
 break;
 case 61:
@@ -6485,18 +6490,18 @@ case 62:
         $this->popState();
     
 
-    return 'WIKI_LINK_TYPE_END';
+    return 39;
 
 break;
 case 63:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('wikiLinkType');
         $this->yy->text = substr($this->yy->text, 1, -1);
     
 
-    return 'WIKI_LINK_TYPE_START';
+    return 38;
 
 break;
 case 64:
@@ -6510,12 +6515,12 @@ case 64:
 break;
 case 65:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('wikiUnlink');
     
 
-    return 'WIKI_UNLINK_START';
+    return 40;
 
 break;
 case 66:
@@ -6528,13 +6533,13 @@ case 66:
 break;
 case 67:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
 
         $isLink = false;
         $this->events->triggerExpressionWordLinkExists($this->yy->text, $isLink);
 
         if ($isLink) {
-            return 'WORD_LINK';
+            return 42;
         } else {
             $this->unput($this->yy->text);
             $this->begin('skip');
@@ -6549,10 +6554,10 @@ break;
 case 69:
 	
 	
-		if ($this->isContent()) return 'CONTENT';
+		if ($this->isContent()) return 7;
 	
 
-	return 'SPECIAL_CHAR';
+	return 51;
 
 break;
 case 70:
@@ -6570,8 +6575,8 @@ case 73:return 7;
 break;
 case 74:
     
-		if ($this->isContent()) return 'CONTENT';
-		return 'WHITE_SPACE';
+		if ($this->isContent()) return 7;
+		return 52;
 	
 
 break;
@@ -6607,7 +6612,9 @@ class ParserLocation
 
     public function __clone()
     {
-        return new ParserLocation($this->firstLine, $this->lastLine, $this->firstColumn, $this->lastColumn);
+        if (isset($this->range)) {
+            $this->range = clone $this->range;
+        }
     }
 }
 
@@ -6619,14 +6626,9 @@ class ParserValue
     public $text;
 
     function __clone() {
-        $clone = new ParserValue();
-        $clone->leng = $this->leng;
         if (isset($this->loc)) {
-            $clone->loc = clone $this->loc;
+            $this->loc = clone $this->loc;
         }
-        $clone->lineNo = $this->lineNo;
-        $clone->text = $this->text;
-        return $clone;
     }
 }
 
