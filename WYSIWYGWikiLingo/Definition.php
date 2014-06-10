@@ -769,11 +769,15 @@ break;
 
     function upcomingInput()
     {
-        $next = $this->match;
-        if (strlen($next) < 20) {
-            $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+        if (!$this->done) {
+            $next = $this->match;
+            if (strlen($next) < 20) {
+                $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+            }
+            return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
+        } else {
+            return "";
         }
-        return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
     }
 
     function showPosition()
@@ -1030,7 +1034,9 @@ class ParserLocation
 
     public function __clone()
     {
-        return new ParserLocation($this->firstLine, $this->lastLine, $this->firstColumn, $this->lastColumn);
+        if (isset($this->range)) {
+            $this->range = clone $this->range;
+        }
     }
 }
 
@@ -1042,14 +1048,9 @@ class ParserValue
     public $text;
 
     function __clone() {
-        $clone = new ParserValue();
-        $clone->leng = $this->leng;
         if (isset($this->loc)) {
-            $clone->loc = clone $this->loc;
+            $this->loc = clone $this->loc;
         }
-        $clone->lineNo = $this->lineNo;
-        $clone->text = $this->text;
-        return $clone;
     }
 }
 
