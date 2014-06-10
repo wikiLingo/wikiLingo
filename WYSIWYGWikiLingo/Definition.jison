@@ -59,7 +59,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 <htmlElementClosing>{HTML_TAG_CLOSE} {
     /*php
         //A tag that is open and we just found the close for it
-        $element = $this->unStackHtmlElement($this->yy->text);
+        $element = $this->unStackHtmlElement($yytext);
         if ($element !== null) {
            $this->popState();
            return "HTML_TAG_CLOSE";
@@ -72,7 +72,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
         $isHtmlTag = WikiLingo\Utilities\Html::isHtmlTag($yytext, true);
         //An tag open
         if ($isHtmlTag === true) {
-           $this->stackHtmlElement($this->yy->text);
+           $this->stackHtmlElement($yytext);
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
         } else if ($isHtmlTag === false) {
