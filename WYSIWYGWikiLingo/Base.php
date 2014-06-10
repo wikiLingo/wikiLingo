@@ -49,7 +49,7 @@ class Base
 
 		$possibleTagMatch = end($this->htmlElementStack);
 
-        $pos = strpos($possibleTagMatch->text, $name);
+        $pos = strpos($possibleTagMatch, $name);
 
 		if ($pos != 1) {
 			return null;
@@ -92,17 +92,17 @@ class Base
     public $types = array();
     public $typesCount = array();
     /**
-     * @param WikiLingo\Expression\* &$type
+     * @param WikiLingo\Expression\* $type
      * @return Number
      */
-    public function addType(&$type)
+    public function addType($type)
     {
         $class = get_class($type);
         if (empty($this->types[$class])) {
             $this->types[$class] = array();
             $this->typesCount[$class] = -1;
         }
-        $this->types[$class][] =& $type;
+        $this->types[$class][] = $type;
         $this->typesCount[$class]++;
         $classParts = explode('\\', $class);
         $type->type = array_pop($classParts);

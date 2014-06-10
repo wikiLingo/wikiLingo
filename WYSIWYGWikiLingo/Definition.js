@@ -687,7 +687,7 @@ case 3:
     /*php
         //A tag that is open and we just found the close for it
         $element = $this->unStackHtmlElement($this->yy->text);
-        if (isset($element)) {
+        if ($element !== null) {
            $this->popState();
            return "HTML_TAG_CLOSE";
         }
@@ -700,7 +700,7 @@ case 4:
         $isHtmlTag = WikiLingo\Utilities\Html::isHtmlTag($yy_.yytext, true);
         //An tag open
         if ($isHtmlTag === true) {
-           $this->stackHtmlElement(clone($this->yy));
+           $this->stackHtmlElement($this->yy->text);
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
         } else if ($isHtmlTag === false) {

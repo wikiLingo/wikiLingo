@@ -68,7 +68,7 @@ class Parser extends Definition
      * @param Parsed $parsed
      * @return string
      */
-    public function postParse(Parsed &$parsed)
+    public function postParse(Parsed $parsed)
     {
         /* While parsing we add a "\n" to the beginning of all block types, but if the input started with a block char,
          * it is also valid, but treated and restored as with "\n" just before it, here we remove that extra "\n" but
