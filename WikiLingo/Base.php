@@ -91,6 +91,7 @@ abstract class Base
         $this->typesCount = array();
         $this->pluginInstances = array();
         $this->plugins = array();
+        $this->events->clear();
 	    Expression\Plugin::$indexes = array();
         Expression\Plugin::$customClasses = array();
     }
@@ -161,13 +162,13 @@ abstract class Base
             $syntax = '';
             for ($i = $firstLine; $i <= $lastLine; $i++) {
                 if ($i == $firstLine) { //first line
-                    $syntax .= substr($input[$i - 1], $firstColumn);
+                    $syntax .= substr($input[$i - 1], $firstColumn) . "\n";
 
                 } else if ($i == $lastLine) {//last line
                     $syntax .= substr($input[$i - 1], 0, $lastColumn);
 
                 } else {//lines in between
-                    $syntax .= $input[$i - 1];
+                    $syntax .= $input[$i - 1] . "\n";
                 }
             }
 

@@ -248,4 +248,17 @@ class Events
 
         return $rendered;
     }
+
+
+    public function clear()
+    {
+
+        $classVars = get_class_vars(get_class($this));
+
+        foreach ($classVars as $name => $value) {
+            if (is_array($value)) {
+                $this->$name = array();
+            }
+        }
+    }
 }
