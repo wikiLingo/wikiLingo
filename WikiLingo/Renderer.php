@@ -42,94 +42,100 @@ class Renderer
                 ->triggerParsedRenderPermission($parsed);
         }
 
+        $result = '';
+        $rendered = '';
+        $renderedCousins = '';
+        $expression = null;
+
         if (!$parsed->expressionPermissible) {
-            if (isset($this->stateEnd)) {
-                $syntax = $this->parser->syntax($parsed->loc, $this->stateEnd->loc);
+            if (isset($parsed->stateEnd)) {
+                $syntax = $this->parser->syntax($parsed->loc, $parsed->stateEnd->loc);
             } else {
                 $syntax = $this->parser->syntax($parsed->loc);
             }
             $this->parser->events
                 ->triggerParsedRenderBlocked($parsed, $syntax);
-            return $syntax;
-        }
 
-        if (isset($this->expressionManipulator[$parsed->expressionType])) {
-            $this->expressionManipulator[$parsed->expressionType]($parsed->expression);
-        }
-
-        if ($parsed->expression === null)
-        {
-            return '';
-        }
-
-        $expression = $parsed->expression;
-
-
-        if ($this->parser->allowsMutation && method_exists($expression, 'preRender')) {
-            $expression->preRender($this);
-        }
-
-        if ($expression->isVariableContext) {
-            $this->parser->variableContextStack->push(new Utilities\VariableContext($expression->variables()));
-        }
-
-        //iterations are allowed, but not in edit mode
-        $iterations = (!isset($this->parser->wysiwyg) || $this->parser->wysiwyg == true ? 0 : $expression->iterations);
-        $result = '';
-	    $variableContext = null;
-
-	    if (isset($this->parser->variableContextStack)) {
-		    $variableContext = $this->parser->variableContextStack->last();
-	        if ($variableContext !== null) {
-	            $expression->setVariableContext($variableContext->variables);
-	        }
-	    }
-
-        //children are directly part of the family as a visible child
-        $renderedChildren = '';
-        if ($parsed->childrenLength > 0) {
-	        //detect if it is a syntax parent
-	        $addedDepth = 0;
-	        if (
-		        isset($expression->isParent)
-		        && ($isParent = $expression->isParent) == true) {
-		        $addedDepth = 1;
-	        }
-
-	        if ($iterations == 0) {
-		        foreach ($parsed->children as &$child) {
-			        $child->depth += $parsed->depth + $addedDepth;
-			        $renderedChildren .= $this->render($child);
-		        }
-	        } else {
-		        $variableContext->reset();
-                //Expressions can repeat if they are needed
-	            for($i = 0; $i < $iterations; $i++)
-	            {
-	                foreach ($parsed->children as &$child) {
-	                    $child->depth += $parsed->depth + $addedDepth;
-	                    $renderedChildren .= $this->render($child);
-	                }
-
-		            $variableContext->increment();
-	            }
-	        }
-        }
-
-	    if ($expression->isVariableContext) {
-		    $this->parser->variableContextStack->pop();
-	    }
-
-        $renderedCousins = '';
-        foreach ($parsed->cousins as &$cousin) {
-            $renderedCousins .= $this->render($cousin);
-        }
-
-        $expression->renderedChildren =& $renderedChildren;
-        if (isset($expression) && method_exists($expression, 'render')) {
-            $rendered = $expression->render($this, $this->parser);
+            $result = $syntax;
         } else {
-            $rendered = '';
+
+            if (isset($this->expressionManipulator[$parsed->expressionType])) {
+                $this->expressionManipulator[$parsed->expressionType]($parsed->expression);
+            }
+
+            if ($parsed->expression === null)
+            {
+                return '';
+            }
+
+            $expression = $parsed->expression;
+
+
+            if ($this->parser->allowsMutation && method_exists($expression, 'preRender')) {
+                $expression->preRender($this);
+            }
+
+            if ($expression->isVariableContext) {
+                $this->parser->variableContextStack->push(new Utilities\VariableContext($expression->variables()));
+            }
+
+            //iterations are allowed, but not in edit mode
+            $iterations = (!isset($this->parser->wysiwyg) || $this->parser->wysiwyg == true ? 0 : $expression->iterations);
+            $variableContext = null;
+
+            if (isset($this->parser->variableContextStack)) {
+                $variableContext = $this->parser->variableContextStack->last();
+                if ($variableContext !== null) {
+                    $expression->setVariableContext($variableContext->variables);
+                }
+            }
+
+            //children are directly part of the family as a visible child
+            $renderedChildren = '';
+            if ($parsed->childrenLength > 0) {
+                //detect if it is a syntax parent
+                $addedDepth = 0;
+                if (
+                    isset($expression->isParent)
+                    && ($isParent = $expression->isParent) == true) {
+                    $addedDepth = 1;
+                }
+
+                if ($iterations == 0) {
+                    foreach ($parsed->children as &$child) {
+                        $child->depth += $parsed->depth + $addedDepth;
+                        $renderedChildren .= $this->render($child);
+                    }
+                } else {
+                    $variableContext->reset();
+                    //Expressions can repeat if they are needed
+                    for($i = 0; $i < $iterations; $i++)
+                    {
+                        foreach ($parsed->children as &$child) {
+                            $child->depth += $parsed->depth + $addedDepth;
+                            $renderedChildren .= $this->render($child);
+                        }
+
+                        $variableContext->increment();
+                    }
+                }
+            }
+
+            if ($expression->isVariableContext) {
+                $this->parser->variableContextStack->pop();
+            }
+
+            $renderedCousins = '';
+            foreach ($parsed->cousins as &$cousin) {
+                $renderedCousins .= $this->render($cousin);
+            }
+
+            $expression->renderedChildren =& $renderedChildren;
+            if (isset($expression) && method_exists($expression, 'render')) {
+                $rendered = $expression->render($this, $this->parser);
+            } else {
+                $rendered = '';
+            }
         }
 
         //siblings are directly part of the family as a visible sibling
