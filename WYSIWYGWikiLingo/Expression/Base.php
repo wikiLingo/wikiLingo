@@ -22,7 +22,7 @@ abstract class Base extends WikiLingo\Expression\Content
      * @return mixed|string
      * @throws \Exception
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
 
         if ($this->isElement) {

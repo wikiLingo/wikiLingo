@@ -11,7 +11,7 @@ class Center extends Base
     public $iconClass = 'icon-paragraph-center';
     public $group = 'common';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '::expression::';
     }

@@ -15,9 +15,9 @@ class Render extends Event\Base
      * @param Element $element
      * @param Tag $tag
      */
-    public function trigger(Element &$element, Tag &$tag)
+    public function trigger(Element $element, Tag $tag)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($element, $tag);
 		}

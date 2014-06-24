@@ -12,12 +12,12 @@ class Line extends Base
     /**
      * @param WikiLingo\Parsed $parsed
      */
-    function __construct(WikiLingo\Parsed &$parsed)
+    function __construct(WikiLingo\Parsed $parsed)
     {
-        $this->parsed =& $parsed;
+        $this->parsed = $parsed;
 
         //If we are not in a plugin, and there are blocks, go ahead and close them so no more can be added
-        $parser =& $parsed->parser;
+        $parser = $parsed->parser;
         if ($parser->pluginStackCount == 0 && $parser->blocksLength > 0) {
             $block = $parser->blocks[$parser->blocksLength - 1];
             $block->open = false;
@@ -25,7 +25,7 @@ class Line extends Base
     }
 
 
-    function render(&$renderer, &$parser)
+    function render($renderer, $parser)
     {
 
 	    $allowLines = true;

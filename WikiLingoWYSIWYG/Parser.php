@@ -18,10 +18,10 @@ class Parser extends WikiLingo\Parser
     /**
      * @param Utilities\Scripts $scripts
      */
-    public function __construct(Utilities\Scripts &$scripts = null)
+    public function __construct(Utilities\Scripts $scripts = null)
 	{
 		if ($scripts != null) {
-			$this->scripts =& $scripts;
+			$this->scripts = $scripts;
 		} else {
 			$this->scripts = new Utilities\Scripts();
 		}

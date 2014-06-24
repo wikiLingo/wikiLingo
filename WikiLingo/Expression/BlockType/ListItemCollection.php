@@ -29,20 +29,20 @@ class ListItemCollection extends Tensor\HierarchicalCollection
      * @param ListContainer $container
      * @param Expression\Block $block
      */
-    public function __construct($container, &$block)
+    public function __construct($container, $block)
     {
         $this->container = $container;
         $this->block = $block;
     }
 
     /**
-     * @param WikiLingo\Renderer &$renderer
-     * @param WikiLingo\Parser &$parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
     public function render($renderer, $parser)
     {
-        foreach($this->container->listItemCollectionRenderDelegate as &$delegate)
+        foreach($this->container->listItemCollectionRenderDelegate as $delegate)
         {
             return $delegate($this->items, $renderer, $parser);
         }

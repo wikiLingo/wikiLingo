@@ -36,13 +36,13 @@ class Header
      * @param Block $block
      * @param $len
      */
-    public function __construct(Block &$block, $len)
+    public function __construct(Block $block, $len)
     {
-	    $this->parsed =& $block->parsed;
-        $this->block =& $block;
+	    $this->parsed = $block->parsed;
+        $this->block = $block;
         $this->count = min(max($len, 0), 6);
 	    $this->modifier = $block->modifier;
-	    $this->parser =& $this->parsed->parser;
+	    $this->parser = $this->parsed->parser;
         $this->parser->addType($this);
     }
 
@@ -51,11 +51,11 @@ class Header
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
 	    $tagType = 'h' . $this->count;
 	    $children = '';
-	    foreach($this->parsed->children as &$child) {
+	    foreach($this->parsed->children as $child) {
 		    $children .= $parser->renderer->render($child);
 	    }
 

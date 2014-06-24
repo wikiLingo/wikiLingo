@@ -18,7 +18,7 @@ class Context extends Event\Base
     public function trigger(&$plugin)
 	{
         $result = array();
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			return $delegate($plugin);
 		}

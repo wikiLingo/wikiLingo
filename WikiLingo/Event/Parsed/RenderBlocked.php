@@ -23,7 +23,7 @@ class RenderBlocked extends Base
      */
     public function trigger(Parsed &$parsed, &$return)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($parsed, $return);
 		}

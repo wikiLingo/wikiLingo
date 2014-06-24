@@ -18,7 +18,7 @@ class Render extends Event\Base
      */
     public function trigger(Renderer\Element &$element, WikiLinkType &$wikiLinkType)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($element, $wikiLinkType);
 		}

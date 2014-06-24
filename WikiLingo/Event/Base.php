@@ -19,7 +19,7 @@ class Base
 	{
 		if ($delegate != null)
 		{
-			$this->delegates[] =& $delegate;
+			$this->delegates[] = $delegate;
 		}
 	}
 
@@ -28,6 +28,6 @@ class Base
      */
     public function bind($delegate)
 	{
-		$this->delegates[] =& $delegate;
+		$this->delegates[] = $delegate;
 	}
 } 

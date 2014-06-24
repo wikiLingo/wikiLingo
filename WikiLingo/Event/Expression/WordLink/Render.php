@@ -18,7 +18,7 @@ class Render extends Event\Base
      */
     public function trigger(Renderer\Element &$element, WordLink &$wordLink)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($element, $wordLink);
 		}

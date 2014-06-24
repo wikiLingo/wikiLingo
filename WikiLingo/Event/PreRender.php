@@ -15,7 +15,7 @@ class PreRender extends Base
      */
     public function trigger(Parsed &$input)
     {
-        foreach($this->delegates as &$delegate)
+        foreach($this->delegates as $delegate)
         {
             return $delegate($input);
         }

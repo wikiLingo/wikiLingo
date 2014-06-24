@@ -16,11 +16,11 @@ class Events extends WikiLingo\Events
      * @param $event
      * @return $this
      */
-    public function bind(&$event)
+    public function bind($event)
 	{
 		//reduce to fully qualified class name, then remove WikiLingoEvent from front
         $eventName = str_replace("\\", "", get_class($event));
-		$this->{$eventName}[] =& $event;
+		$this->{$eventName}[] = $event;
 
 		return $this;
 	}
@@ -28,9 +28,9 @@ class Events extends WikiLingo\Events
     /**
      * @param ExpressionType $expression
      */
-    public function triggerExpressionSyntaxRegistered(ExpressionType &$expression)
+    public function triggerExpressionSyntaxRegistered(ExpressionType $expression)
 	{
-		foreach($this->WikiLingoWYSIWYGEventExpressionSyntaxRegistered as &$event)
+		foreach($this->WikiLingoWYSIWYGEventExpressionSyntaxRegistered as $event)
 		{
 			$event->trigger($expression);
 		}

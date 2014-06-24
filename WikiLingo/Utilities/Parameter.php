@@ -44,9 +44,9 @@ class Parameter
 	/**
 	 * @param WikiLingo\Events $events
 	 */
-	public static function setEvents(&$events)
+	public static function setEvents($events)
 	{
-		self::$events =& $events;
+		self::$events = $events;
 	}
 
     /**

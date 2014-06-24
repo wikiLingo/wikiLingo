@@ -20,8 +20,13 @@ class Parsed extends WikiLingo\Parsed
         if (class_exists($class)) {
             $expression = new $class($this);
             if ($expression) {
-                $this->expression =& $expression;
+                $this->expression = $expression;
             }
         }
+    }
+
+    public function __clone()
+    {
+        parent::__clone();
     }
 }

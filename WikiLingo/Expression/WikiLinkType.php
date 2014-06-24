@@ -16,9 +16,9 @@ class WikiLinkType extends Base
     /**
      * @param WikiLingo\Parsed $parsed
      */
-    function __construct(WikiLingo\Parsed &$parsed)
+    function __construct(WikiLingo\Parsed $parsed)
     {
-        $this->parsed =& $parsed;
+        $this->parsed = $parsed;
         $this->type = $parsed->text;
     }
 
@@ -27,7 +27,7 @@ class WikiLinkType extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         $element = $renderer->element(__CLASS__, 'a');
 

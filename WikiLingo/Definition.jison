@@ -1014,7 +1014,7 @@ content
                 .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Bold', $$this);
         */
@@ -1039,7 +1039,7 @@ content
                 .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Center', $$this);
         */
@@ -1073,7 +1073,7 @@ content
                 .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Color', $$this);
         */
@@ -1098,7 +1098,7 @@ content
                 .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Italic', $$this);
         */
@@ -1133,7 +1133,7 @@ content
 		/*php
 		    //type already set
 
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Link', $$this);
         */
@@ -1158,7 +1158,7 @@ content
 	            .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Strike', $$this);
         */
@@ -1192,7 +1192,7 @@ content
 	            .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Table', $$this);
         */
@@ -1217,7 +1217,7 @@ content
 	            .addChild($2);
 
 		/*php
-			$$type =& $1;
+			$$type = $1;
             $2->setParent($$type);
             $$type->setType('TitleBar', $$this);
         */
@@ -1242,7 +1242,7 @@ content
 	            .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Underscore', $$this);
         */
@@ -1268,7 +1268,7 @@ content
 
         /*php
             //Type already set
-            $$type =& $1;
+            $$type = $1;
             $2->setParent($$type);
             $$type->setType('PastLink', $$this);
         */
@@ -1294,7 +1294,7 @@ content
 
 		/*php
 			//Type already set
-			$$type =& $1;
+			$$type = $1;
 			$2->setParent($$type);
 			$$type->setType('WikiLink', $$this);
         */
@@ -1320,7 +1320,7 @@ content
 
         /*php
             //Type already set
-            $$type =& $1;
+            $$type = $1;
             $2->setParent($$type);
             $$type->setType('WikiLinkType', $$this);
         */
@@ -1346,7 +1346,7 @@ content
 
         /*php
             //Type already set
-            $$type =& $1;
+            $$type = $1;
             $2->setParent($$type);
             $$type->setType('WikiUnlink', $$this);
         */
@@ -1358,7 +1358,7 @@ content
                 .addArgument($1);
 
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->addArgument($1);
             $$type->setType('WordLink', $$this);
 
@@ -1373,7 +1373,7 @@ content
                 .addContent($2);
 
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setOption('NoBody', true);
             $$type->setOption('Inline', true);
             $$type->addContent($2);
@@ -1389,7 +1389,7 @@ content
                 .addContent($2);
 
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setOption('NoBody', true);
             $$type->setOption('Inline', true);
             $$type->addContent($2);
@@ -1405,7 +1405,7 @@ content
                 .addArgument($2);
 
  		/*php
- 		    $$type =& $1;
+ 		    $$type = $1;
             $$type->setOption('NoBody', true);
             $$type->setOption('Inline', true);
             $$type->addArgument($2);
@@ -1436,7 +1436,7 @@ content
 	            .addChild($3);
 
  	    /*php
- 		    $$type =& $1;
+ 		    $$type = $1;
  		    $$type->addArgument($2);
  		    $3->setParent($$type);
  		    $$type->stateEnd = $4;
@@ -1451,7 +1451,7 @@ content
 	            .addArgument($3);
 
   	    /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->addArgument($2);
             $$type->addArgument($3);
             $$type->stateEnd = $3;

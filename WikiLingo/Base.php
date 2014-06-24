@@ -68,14 +68,14 @@ abstract class Base
      * @param WikiLingo\Expression\* &$type
      * @return Number
      */
-    public function addType(&$type)
+    public function addType($type)
     {
         $class = get_class($type);
         if (empty($this->types[$class])) {
             $this->types[$class] = array();
             $this->typesCount[$class] = -1;
         }
-        $this->types[$class][] =& $type;
+        $this->types[$class][] = $type;
         $this->typesCount[$class]++;
         $classNameShort = explode('\\', $class);
         $type->type = array_pop($classNameShort);
@@ -213,7 +213,7 @@ abstract class Base
         }
     }
 
-    function removeEOF( &$output )
+    function removeEOF( $output )
     {
         $output = str_replace("≤REAL_EOF≥", "", $output);
     }

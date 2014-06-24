@@ -42,7 +42,7 @@ class TableRows
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         $result = '';
         foreach($this->rows as $row) {

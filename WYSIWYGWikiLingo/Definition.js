@@ -128,7 +128,7 @@ case 9:
 break;
 case 10:
         /*php
-            $type =& $$[$0-1];
+            $type = $$[$0-1];
             $type->setType('Element', $this);
             $type->expression->setClosing($$[$0]);
         */
@@ -142,8 +142,8 @@ case 11:
 break;
 case 12:
         /*php
-            $type =& $$[$0-2];
-            $typeChild =& $$[$0-1];
+            $type = $$[$0-2];
+            $typeChild = $$[$0-1];
             $typeChild->setParent($type);
             $type->setType('Element', $this);
             $type->expression->setClosing($$[$0]);
@@ -152,15 +152,15 @@ case 12:
 break;
 case 13:
         /*php
-            $type =& $$[$0];
+            $type = $$[$0];
             $type->setType('BrokenElement', $this);
         */
     
 break;
 case 14:
         /*php
-            $type =& $$[$0-1];
-            $typeChild =& $$[$0];
+            $type = $$[$0-1];
+            $typeChild = $$[$0];
             $type->addContent($typeChild);
             $type->setType('Element', $this);
         */
@@ -168,15 +168,15 @@ case 14:
 break;
 case 15:
         /*php
-            $type =& $$[$0];
+            $type = $$[$0];
             $type->setType('BrokenElement', $this);
         */
     
 break;
 case 16:
         /*php
-            $type =& $$[$0-2];
-            $typeChild =& $$[$0-1];
+            $type = $$[$0-2];
+            $typeChild = $$[$0-1];
             $typeChild->setParent($type);
             $type->setType('BrokenElement', $this);
         */

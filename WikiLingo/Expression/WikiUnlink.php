@@ -14,7 +14,7 @@ class WikiUnlink extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         $element = $renderer->element(__CLASS__, 'span');
         $element->staticChildren[] = $this->renderedChildren;

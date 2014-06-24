@@ -12,7 +12,7 @@ class Header5 extends Base
     public $icon = '';
     public $iconClass = 'icon-menu header5';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return "\n!!!!!expression";
     }

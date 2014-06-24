@@ -11,7 +11,7 @@ class Variable extends Base
     public $iconClass = 'icon-lab';
     public $group = 'misc';
 
-	public function example(WikiLingoWYSIWYG\Parser &$parser)
+	public function example(WikiLingoWYSIWYG\Parser $parser)
 	{
 		return '%expression%';
 	}

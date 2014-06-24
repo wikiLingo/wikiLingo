@@ -13,9 +13,9 @@ use WikiLingoWYSIWYG\ExpressionType;
 
 class Registered extends Base
 {
-	public function trigger(ExpressionType &$expressionType)
+	public function trigger(ExpressionType $expressionType)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($expressionType);
 		}
