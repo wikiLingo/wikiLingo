@@ -192,7 +192,7 @@ case 16:
                 .addChild($$[$0-1]);
 
 		/*php
-		    $type =& $$[$0-2];
+		    $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('Bold', $this);
         */
@@ -215,7 +215,7 @@ case 20:
                 .addChild($$[$0-1]);
 
 		/*php
-		    $type =& $$[$0-2];
+		    $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('Center', $this);
         */
@@ -247,7 +247,7 @@ case 25:
                 .addChild($$[$0-1]);
 
 		/*php
-		    $type =& $$[$0-2];
+		    $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('Color', $this);
         */
@@ -270,7 +270,7 @@ case 29:
                 .addChild($$[$0-1]);
 
 		/*php
-		    $type =& $$[$0-2];
+		    $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('Italic', $this);
         */
@@ -304,7 +304,7 @@ case 33:
 		/*php
 		    //type already set
 
-		    $type =& $$[$0-2];
+		    $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('Link', $this);
         */
@@ -327,7 +327,7 @@ case 37:
 	            .addChild($$[$0-1]);
 
 		/*php
-		    $type =& $$[$0-2];
+		    $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('Strike', $this);
         */
@@ -359,7 +359,7 @@ case 42:
 	            .addChild($$[$0-1]);
 
 		/*php
-		    $type =& $$[$0-2];
+		    $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('Table', $this);
         */
@@ -382,7 +382,7 @@ case 46:
 	            .addChild($$[$0-1]);
 
 		/*php
-			$type =& $$[$0-2];
+			$type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('TitleBar', $this);
         */
@@ -405,7 +405,7 @@ case 50:
 	            .addChild($$[$0-1]);
 
 		/*php
-		    $type =& $$[$0-2];
+		    $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('Underscore', $this);
         */
@@ -429,7 +429,7 @@ case 54:
 
         /*php
             //Type already set
-            $type =& $$[$0-2];
+            $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('PastLink', $this);
         */
@@ -453,7 +453,7 @@ case 58:
 
 		/*php
 			//Type already set
-			$type =& $$[$0-2];
+			$type = $$[$0-2];
 			$$[$0-1]->setParent($type);
 			$type->setType('WikiLink', $this);
         */
@@ -477,7 +477,7 @@ case 62:
 
         /*php
             //Type already set
-            $type =& $$[$0-2];
+            $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('WikiLinkType', $this);
         */
@@ -501,7 +501,7 @@ case 66:
 
         /*php
             //Type already set
-            $type =& $$[$0-2];
+            $type = $$[$0-2];
             $$[$0-1]->setParent($type);
             $type->setType('WikiUnlink', $this);
         */
@@ -513,7 +513,7 @@ case 67:
                 .addArgument($$[$0]);
 
         /*php
-            $type =& $$[$0];
+            $type = $$[$0];
             $type->addArgument($$[$0]);
             $type->setType('WordLink', $this);
 
@@ -528,7 +528,7 @@ case 68:
                 .addContent($$[$01]);
 
         /*php
-            $type =& $$[$0];
+            $type = $$[$0];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addContent($$[$01]);
@@ -544,7 +544,7 @@ case 69:
                 .addContent($$[$0]);
 
         /*php
-            $type =& $$[$0-1];
+            $type = $$[$0-1];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addContent($$[$0]);
@@ -560,7 +560,7 @@ case 70:
                 .addArgument($$[$0]);
 
  		/*php
- 		    $type =& $$[$0-1];
+ 		    $type = $$[$0-1];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addArgument($$[$0]);
@@ -591,7 +591,7 @@ case 72:
 	            .addChild($$[$0-1]);
 
  	    /*php
- 		    $type =& $$[$0-3];
+ 		    $type = $$[$0-3];
  		    $type->addArgument($$[$0-2]);
  		    $$[$0-1]->setParent($type);
  		    $type->stateEnd = $$[$0];
@@ -606,7 +606,7 @@ case 73:
 	            .addArgument($$[$0]);
 
   	    /*php
-            $type =& $$[$0-2];
+            $type = $$[$0-2];
             $type->addArgument($$[$0-1]);
             $type->addArgument($$[$0]);
             $type->stateEnd = $$[$0];

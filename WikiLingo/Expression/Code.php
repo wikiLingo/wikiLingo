@@ -14,7 +14,7 @@ class Code extends Base
 
 	public function __construct(WikiLingo\Parsed $parsed)
 	{
-		$this->parsed =& $parsed;
+		$this->parsed = $parsed;
 		$parsed->parser->addType($this);
 
 		if (self::$modes === null) {
@@ -33,7 +33,7 @@ class Code extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         $id = $this->id();
         $element = $renderer->element(__CLASS__, 'textarea');

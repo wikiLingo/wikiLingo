@@ -18,7 +18,7 @@ class Code extends Base
 		parent::__construct( $parser );
 	}
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '-+attribute expression+-';
     }

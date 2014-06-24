@@ -18,7 +18,7 @@ class Lookup extends Event\Base
      */
     public function trigger($key, Renderer\Element &$element, Variable &$variable)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($key, $element, $variable);
 		}

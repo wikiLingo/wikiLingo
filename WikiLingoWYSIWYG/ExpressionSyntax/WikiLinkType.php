@@ -18,7 +18,7 @@ class WikiLinkType extends Base
 		$this->attribute = new WikiLingoWYSIWYG\ExpressionAttribute('Type', 'wiki', null, 'data-wiki-link-type');
 	}
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '(attribute(expression))';
     }

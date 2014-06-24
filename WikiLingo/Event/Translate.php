@@ -15,7 +15,7 @@ class Translate extends Base
      */
     public function trigger(&$value, $context)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			return $delegate($value, $context);
 		}

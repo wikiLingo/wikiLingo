@@ -20,7 +20,7 @@ class Table extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         $tableParser = new ExpressionParser\Table();
         $element = $renderer->element(__CLASS__, 'table');

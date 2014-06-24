@@ -159,7 +159,7 @@ content
 element
     : HTML_TAG_OPEN HTML_TAG_CLOSE {
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setType('Element', $$this);
             $$type->expression->setClosing($2);
         */
@@ -171,8 +171,8 @@ element
     }
     | HTML_TAG_OPEN content HTML_TAG_CLOSE {
         /*php
-            $$type =& $1;
-            $$typeChild =& $2;
+            $$type = $1;
+            $$typeChild = $2;
             $$typeChild->setParent($$type);
             $$type->setType('Element', $$this);
             $$type->expression->setClosing($3);
@@ -181,28 +181,28 @@ element
 
     | HTML_TAG_OPEN {
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setType('BrokenElement', $$this);
         */
     }
     | HTML_TAG_OPEN content {
         /*php
-            $$type =& $1;
-            $$typeChild =& $2;
+            $$type = $1;
+            $$typeChild = $2;
             $$type->addContent($$typeChild);
             $$type->setType('Element', $$this);
         */
     }
     | HTML_TAG_CLOSE {
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setType('BrokenElement', $$this);
         */
     }
     | HTML_TAG_OPEN content BROKEN {
         /*php
-            $$type =& $1;
-            $$typeChild =& $2;
+            $$type = $1;
+            $$typeChild = $2;
             $$typeChild->setParent($$type);
             $$type->setType('BrokenElement', $$this);
         */

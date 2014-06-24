@@ -13,9 +13,9 @@ class Allowed extends Event\Base
     /**
      * @param Tag $tag
      */
-    public function trigger(Tag &$tag)
+    public function trigger(Tag $tag)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($tag);
 		}

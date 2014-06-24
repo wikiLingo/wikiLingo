@@ -18,7 +18,7 @@ class Base
         $children = '';
 
         if (empty($this->staticChildren)) {
-            foreach($this->children as &$child) {
+            foreach($this->children as $child) {
                 $children .= $child->render();
             }
         } else {

@@ -18,7 +18,7 @@ class Comment extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
 	{
 		if ($parser->wysiwyg) {
 			$element = $renderer->element(__CLASS__, 'span');

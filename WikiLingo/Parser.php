@@ -26,11 +26,11 @@ class Parser extends Definition
      * @param Renderer $renderer
      * @param ExpressionInstantiator $expressionInstantiator;
      */
-    public function __construct(Utilities\Scripts &$scripts = null, $renderer = null, $expressionInstantiator = null)
+    public function __construct(Utilities\Scripts $scripts = null, $renderer = null, $expressionInstantiator = null)
 	{
 		if ($this->scripts === null) {
 			if ($scripts !== null ) {
-				$this->scripts =& $scripts;
+				$this->scripts = $scripts;
 			} else {
 				$this->scripts = new Utilities\Scripts();
 			}
@@ -38,7 +38,7 @@ class Parser extends Definition
 
         if ($this->renderer === null) {
             if ($renderer !== null ) {
-                $this->renderer =& $renderer;
+                $this->renderer = $renderer;
             } else {
                 $this->renderer = new Renderer($this);
 
@@ -47,7 +47,7 @@ class Parser extends Definition
 
         if ($this->expressionInstantiator === null) {
             if ($expressionInstantiator !== null) {
-                $this->expressionInstantiator =& $expressionInstantiator;
+                $this->expressionInstantiator = $expressionInstantiator;
             } else {
                 $this->expressionInstantiator = new ExpressionInstantiator($this);
             }
@@ -121,7 +121,7 @@ class Parser extends Definition
      * @param Parsed $parsed
      * @return string
      */
-    public function postParse(Parsed &$parsed)
+    public function postParse(Parsed $parsed)
     {
         if ($this->pcreRecursionLimit != null && function_exists('ini_get') && function_exists('ini_set')) {
             ini_set("pcre.recursion_limit", $this->pcreRecursionLimit);

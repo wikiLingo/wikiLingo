@@ -11,7 +11,7 @@ class Table extends Base
     public $icon = '';
     public $iconClass = 'icon-table';
 
-	public function example(WikiLingoWYSIWYG\Parser &$parser)
+	public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return
 "||&nbsp;|&nbsp;|&nbsp;\n

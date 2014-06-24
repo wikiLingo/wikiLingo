@@ -16,10 +16,10 @@ class Element extends InlineElement
     /**
      * @param WikiLingo\Parsed $parsed
      */
-    public function setClosing(WikiLingo\Parsed &$parsed)
+    public function setClosing(WikiLingo\Parsed $parsed)
     {
         $this->isClosed = true;
-        $this->closing =& $parsed;
+        $this->closing = $parsed;
     }
 
     /**
@@ -27,7 +27,7 @@ class Element extends InlineElement
      * @param $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         if ($this->isHelper) {
             return '';

@@ -10,7 +10,7 @@ class Underscore extends Base
     public $iconClass = 'icon-underline';
     public $group = 'font';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '===expression===';
     }

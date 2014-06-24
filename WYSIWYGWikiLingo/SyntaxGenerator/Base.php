@@ -17,13 +17,13 @@ abstract class Base
      * @param $parser
      * @param $expression
      */
-    public function __construct(&$parser, &$expression)
+    public function __construct($parser, $expression)
     {
-        $this->parser =& $parser;
-        $this->expression =& $expression;
-	    $this->parsed =& $expression->parsed;
+        $this->parser = $parser;
+        $this->expression = $expression;
+	    $this->parsed = $expression->parsed;
 
-	    $this->children =& $expression->parsed->children;
+	    $this->children = $expression->parsed->children;
 
 	    if (!isset($parser->typeIndex[__CLASS__])) {
 		    $parser->typeIndex[__CLASS__] = 0;

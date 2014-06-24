@@ -39,11 +39,11 @@ class Events
      * @param $event
      * @return $this
      */
-    public function bind(&$event)
+    public function bind($event)
 	{
 		//reduce to fully qualified class name, then remove WikiLingoEvent from front
         $eventName = str_replace("\\", "", get_class($event));
-		$this->{$eventName}[] =& $event;
+		$this->{$eventName}[] = $event;
 
 		return $this;
 	}
@@ -53,7 +53,7 @@ class Events
      * @param $context
      * @return mixed
      */
-    public function triggerTranslate(&$value, $context)
+    public function triggerTranslate($value, $context)
 	{
 		foreach($this->WikiLingoEventTranslate as &$event)
 		{

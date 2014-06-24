@@ -11,7 +11,7 @@ class PastLink extends Base
     public $iconClass = 'icon-past-link';
     public $group = 'misc';
 
-	public function example(WikiLingoWYSIWYG\Parser &$parser)
+	public function example(WikiLingoWYSIWYG\Parser $parser)
 	{
 		$this->attribute = new Utilities\Parameter('Clipboard Data', '%20');
 

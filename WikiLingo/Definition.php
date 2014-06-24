@@ -5219,7 +5219,7 @@ case 14:
 break;
 case 16:
         
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Bold', $this);
         
@@ -5234,7 +5234,7 @@ case 18:
 break;
 case 20:
         
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Center', $this);
         
@@ -5255,7 +5255,7 @@ case 23:
 break;
 case 25:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Color', $this);
         
@@ -5270,7 +5270,7 @@ case 27:
 break;
 case 29:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Italic', $this);
         
@@ -5293,7 +5293,7 @@ case 33:
 	    
 		    //type already set
 
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Link', $this);
         
@@ -5308,7 +5308,7 @@ case 35:
 break;
 case 37:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Strike', $this);
         
@@ -5329,7 +5329,7 @@ case 40:
 break;
 case 42:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Table', $this);
         
@@ -5344,7 +5344,7 @@ case 44:
 break;
 case 46:
 	    
-			$type =& $s[$o-2];
+			$type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('TitleBar', $this);
         
@@ -5359,7 +5359,7 @@ case 48:
 break;
 case 50:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Underscore', $this);
         
@@ -5375,7 +5375,7 @@ break;
 case 54:
 	    
             //Type already set
-            $type =& $s[$o-2];
+            $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('PastLink', $this);
         
@@ -5391,7 +5391,7 @@ break;
 case 58:
 	    
 			//Type already set
-			$type =& $s[$o-2];
+			$type = $s[$o-2];
 			$s[$o-1]->setParent($type);
 			$type->setType('WikiLink', $this);
         
@@ -5407,7 +5407,7 @@ break;
 case 62:
 	    
             //Type already set
-            $type =& $s[$o-2];
+            $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('WikiLinkType', $this);
         
@@ -5423,7 +5423,7 @@ break;
 case 66:
 	    
             //Type already set
-            $type =& $s[$o-2];
+            $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('WikiUnlink', $this);
         
@@ -5431,7 +5431,7 @@ case 66:
 break;
 case 67:
 	    
-            $type =& $s[$o];
+            $type = $s[$o];
             $type->addArgument($s[$o]);
             $type->setType('WordLink', $this);
 
@@ -5440,7 +5440,7 @@ case 67:
 break;
 case 68:
         
-            $type =& $s[$o];
+            $type = $s[$o];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addContent($s[$o1]);
@@ -5450,7 +5450,7 @@ case 68:
 break;
 case 69:
         
-            $type =& $s[$o-1];
+            $type = $s[$o-1];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addContent($s[$o]);
@@ -5460,7 +5460,7 @@ case 69:
 break;
 case 70:
 	    
- 		    $type =& $s[$o-1];
+ 		    $type = $s[$o-1];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addArgument($s[$o]);
@@ -5480,7 +5480,7 @@ case 71:
 break;
 case 72:
 	    
- 		    $type =& $s[$o-3];
+ 		    $type = $s[$o-3];
  		    $type->addArgument($s[$o-2]);
  		    $s[$o-1]->setParent($type);
  		    $type->stateEnd = $s[$o];
@@ -5490,7 +5490,7 @@ case 72:
 break;
 case 73:
 	    
-            $type =& $s[$o-2];
+            $type = $s[$o-2];
             $type->addArgument($s[$o-1]);
             $type->addArgument($s[$o]);
             $type->stateEnd = $s[$o];

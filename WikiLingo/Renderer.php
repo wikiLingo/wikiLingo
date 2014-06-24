@@ -26,9 +26,9 @@ class Renderer
     /**
      * @param WikiLingo\Parser $parser
      */
-    public function __construct(&$parser)
+    public function __construct($parser)
     {
-        $this->parser =& $parser;
+        $this->parser = $parser;
     }
     /**
      * @param WikiLingo\Parsed $parsed
@@ -102,7 +102,7 @@ class Renderer
                 }
 
                 if ($iterations == 0) {
-                    foreach ($parsed->children as &$child) {
+                    foreach ($parsed->children as $child) {
                         $child->depth += $parsed->depth + $addedDepth;
                         $renderedChildren .= $this->render($child);
                     }
@@ -111,7 +111,7 @@ class Renderer
                     //Expressions can repeat if they are needed
                     for($i = 0; $i < $iterations; $i++)
                     {
-                        foreach ($parsed->children as &$child) {
+                        foreach ($parsed->children as $child) {
                             $child->depth += $parsed->depth + $addedDepth;
                             $renderedChildren .= $this->render($child);
                         }
@@ -126,11 +126,11 @@ class Renderer
             }
 
             $renderedCousins = '';
-            foreach ($parsed->cousins as &$cousin) {
+            foreach ($parsed->cousins as $cousin) {
                 $renderedCousins .= $this->render($cousin);
             }
 
-            $expression->renderedChildren =& $renderedChildren;
+            $expression->renderedChildren = $renderedChildren;
             if (isset($expression) && method_exists($expression, 'render')) {
                 $rendered = $expression->render($this, $this->parser);
             } else {
@@ -140,17 +140,17 @@ class Renderer
 
         //siblings are directly part of the family as a visible sibling
         $renderedSiblings = '';
-        foreach ($parsed->siblings as &$sibling) {
+        foreach ($parsed->siblings as $sibling) {
             if ($sibling != null) {
                 $renderedSiblings .= $this->render($sibling);
                 if ($parsed->parent != null) {
-                    $parsed->parent->children[] =& $sibling;
+                    $parsed->parent->children[] = $sibling;
                 }
             }
         }
 
         $renderedLines = '';
-        foreach ($parsed->lines as &$line) {
+        foreach ($parsed->lines as $line) {
             $renderedLines .= $this->render($line);
         }
 
