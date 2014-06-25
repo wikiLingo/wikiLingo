@@ -94,6 +94,7 @@ abstract class Base
         $this->events->clear();
 	    Expression\Plugin::$indexes = array();
         Expression\Plugin::$customClasses = array();
+        Expression\BlockType\Header::$ids = array();
     }
 
     /**
