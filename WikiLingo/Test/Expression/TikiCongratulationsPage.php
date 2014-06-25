@@ -23,7 +23,7 @@ For more information:
 
 		$this->expected =
 			"<h1 id='Congratulations'>Congratulations!</h1>" .
-            "This is the default homepage for your Tiki. If you are seeing this page, your installation was successful.<br/>" .
+            "This is the default homepage for your Tiki.<span class='whitespace'> </span>If you are seeing this page, your installation was successful.<br/>" .
             "You can change this page after logging in. Please review the <span class='whitespace'> </span>for editing details.<br/>" .
             "<h2 id='Get-started'><img src=\"img/icons/star.png\"/><span class='whitespace'> </span>Get started.</h2>" .
             "To begin configuring your site:<br/>" .
@@ -31,7 +31,7 @@ For more information:
             "For more information:" .
             "<ul>" .
             "<li><a href='http://info.tiki.org/Learn More'>Learn more about Tiki</a>.</li>" .
-            "<li><a href='http://info.tiki.org/Help Others'>Get help</a>, including the <a href='http://doc.tiki.org'>official documentation</a><span class='whitespace'> </span>and <a href='http://tiki.org/forums'>support forums</a>.</li>" .
+            "<li><a href='http://info.tiki.org/Help Others'>Get help</a>,<span class='whitespace'> </span>including the <a href='http://doc.tiki.org'>official documentation</a><span class='whitespace'> </span>and <a href='http://tiki.org/forums'>support forums</a>.</li>" .
             "<li><a href='http://info.tiki.org/Join the community'>Join the Tiki community</a>.</li>" .
             "</ul>";
 
