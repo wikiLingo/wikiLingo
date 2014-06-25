@@ -42,7 +42,7 @@ class IllegalFirstSecondOk extends Base
 !Header 1
 !Header 2
 		        {DIV}
-{ILLEGAL}<div class='Div' id='Div2'><h1 id='Header+3'>Header 3</h1></div>";
+{ILLEGAL}<div class='Div' id='Div2'><h1 id='Header-3'>Header 3</h1></div>";
 
 	}
 }

@@ -86,8 +86,8 @@ class Header
 		    }
 	    }
 
-        if (!isset($this->id) || $this->block->variableContext != null) {
-            $id = $this->id = urlencode(strip_tags($children));
+        if ($this->id == null || $this->block->variableContext != null) {
+            $id = $this->id = trim(preg_replace("/[^0-9a-zA-Z_]+/", "-", trim(strip_tags($children))), '-');
             if (!isset(self::$ids[$id])) {
                 self::$ids[$id] = 1;
             } else {
