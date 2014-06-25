@@ -26,7 +26,10 @@ class TypeNamespace
 	    $this->typeNamespace = $this->getNamespace() . "\\" . $typeNamespace;
 	    $directory = $this->getDirectory() . DIRECTORY_SEPARATOR . $typeNamespace;
 
-        if ($files = scandir($directory)) {
+        if (
+            file_exists($directory)
+            && $files = scandir($directory)
+        ) {
             $this->setClassesFromFiles($files);
         } else {
             $this->setClassesFromDeclared();
@@ -82,6 +85,9 @@ class TypeNamespace
 	{
 		foreach($this->classes as $class) {
 			$test = new $class($this->parser);
+
+            if (!property_exists($test, 'source')) continue;
+
 			$actual = $this->parser->parse($test->source);
 
 			$table = (new VisualFeedbackTable($class))
