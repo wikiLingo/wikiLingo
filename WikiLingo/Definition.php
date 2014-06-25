@@ -19,6 +19,7 @@ class Definition extends Base
     public $shift = 1;
     public $reduce = 2;
     public $accept = 3;
+    public $unputStack = array();
 
     function trace()
     {
@@ -5029,7 +5030,7 @@ class Definition extends Base
         
 			$this->rules = array(
 				
-					0=>"/\G(?:≤REAL_EOF≥)/",
+					0=>"/\G(?:~~REAL_EOF~~)/",
 					1=>"/\G(?:[<][!][-][-](.*?)[-][-][>])/",
 					2=>"/\G(?:-~(.|\n)+?~-)/",
 					3=>"/\G(?:~np~(.|\n)+?~\/np~)/",
@@ -5038,7 +5039,7 @@ class Definition extends Base
 					6=>"/\G(?:\/\*(.|\n)*?\*\/)/",
 					7=>"/\G(?:~tc~(.|\n)*?~\/tc~)/",
 					8=>"/\G(?:-\+(.|\n)*?\+-)/",
-					9=>"/\G(?:[%](([0-9A-Za-z_-]{1,}))[%])/",
+					9=>"/\G(?:[%](([0-9A-Za-z_-]+))[%])/",
 					10=>"/\G(?:$)/",
 					11=>"/\G(?:([!*#;]+([-+](?=[-+]{2,})|[-+](?![-+]))?))/",
 					12=>"/\G(?:(?=((\n))))/",
@@ -5096,12 +5097,12 @@ class Definition extends Base
 					64=>"/\G(?:$)/",
 					65=>"/\G(?:\)\))/",
 					66=>"/\G(?:.)/",
-					67=>"/\G(?:(([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,}))(?=$|[ \n\t\r\,\;\.]))/",
+					67=>"/\G(?:(([A-Z]+[A-Za-z\x80-\xFF]*))([ ])?)/",
 					68=>"/\G(?:&(?![ ]))/",
 					69=>"/\G(?:<(?![a-zA-Z\/])|>)/",
 					70=>"/\G(?:[<](.|\n)*?[>])/",
-					71=>"/\G(?:≤REAL_EOF≥)/",
-					72=>"/\G(?:(([A-Za-z0-9.,?;]+[ ]?|[&][ ])+))/",
+					71=>"/\G(?:~~REAL_EOF~~)/",
+					72=>"/\G(?:(([a-z0-9]+[A-Za-z0-9.,?;]*[ ]?|[&][ ])+))/",
 					73=>"/\G(?:(?!([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]))(((.?)))?(?=([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ])))/",
 					74=>"/\G(?:(([ ])+))/",
 					75=>"/\G(?:(.))/",
@@ -5777,23 +5778,27 @@ break;
 
     function unput($ch)
     {
+        $yy = new Parsed();
+
         $len = strlen($ch);
         $lines = explode("/(?:\r\n?|\n)/", $ch);
         $linesCount = count($lines);
 
         $this->input->unCh($len);
-        $this->yy->text = substr($this->yy->text, 0, $len - 1);
+        $yy->text = substr($this->yy->text, 0, $len - 1);
         //$this->yylen -= $len;
         $this->offset -= $len;
         $oldLines = explode("/(?:\r\n?|\n)/", $this->match);
         $oldLinesCount = count($oldLines);
         $this->match = substr($this->match, 0, strlen($this->match) - 1);
 
-        if (($linesCount - 1) > 0) $this->yy->lineNo -= $linesCount - 1;
+        if (($linesCount - 1) > 0) {
+            $yy->lineNo = $this->yy->lineNo - $linesCount - 1;
+        }
         $r = $this->yy->loc->range;
         $oldLinesLength = (isset($oldLines[$oldLinesCount - $linesCount]) ? strlen($oldLines[$oldLinesCount - $linesCount]) : 0);
 
-        $this->yy->loc = new ParserLocation(
+        $yy->loc = new ParserLocation(
             $this->yy->loc->firstLine,
             $this->yy->lineNo,
             $this->yy->loc->firstColumn,
@@ -5804,8 +5809,10 @@ break;
         );
 
         if (isset($this->ranges)) {
-            $this->yy->loc->range = array($r[0], $r[0] + $this->yy->leng - $len);
+            $yy->loc->range = array($r[0], $r[0] + $this->yy->leng - $len);
         }
+
+        $this->unputStack[] = $yy;
     }
 
     function more()
@@ -5847,6 +5854,9 @@ break;
 
     function next()
     {
+        if ($yy = array_pop($this->unputStack)) {
+            $this->yy = $yy;
+        }
         if ($this->done == true) {
             return $this->eof;
         }
@@ -6534,16 +6544,19 @@ break;
 case 67:
     
         if ($this->isContent()) return 7;
-
         $isLink = false;
-        $this->events->triggerExpressionWordLinkExists($this->yy->text, $isLink);
+        $this->events->triggerExpressionWordLinkExists(trim($this->yy->text), $isLink);
 
         if ($isLink) {
+            if (preg_match('/[ ]$/', $this->yy->text)) {
+                $this->unput(' ');
+                $this->yy->text = trim($this->yy->text);
+            }
             return 42;
-        } else {
-            $this->unput($this->yy->text);
-            $this->begin('skip');
         }
+
+        return 7;
+
     
 
 break;

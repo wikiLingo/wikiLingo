@@ -74,23 +74,23 @@ end.
             '<ul>' .
 				"<li>Another item</li>" .
             '</ul>' .
-            '. . . and more text . . .' .
+            '.' . "<span class='whitespace'> </span>.<span class='whitespace'> </span>.<span class='whitespace'> </span>and more text .<span class='whitespace'> </span>.<span class='whitespace'> </span>." .
             '<ul>' .
 				"<li>Item 3</li>" .
 			'</ul>' .
-			". . . and some more text, to illustrate the line spacing." .
+			".<span class='whitespace'> </span>.<span class='whitespace'> </span>.<span class='whitespace'> </span>and some more text, to illustrate the line spacing." .
 			"<br/>" .
 			"<br/>" .
 			"A table:" .
 			"<br/>" .
 			"<table>" .
 				"<tr>" .
-					"<td class='table-cell'>Row One, <span class='whitespace'> </span>Column One</td>" .
-					"<td class='table-cell'>Row One, <span class='whitespace'> </span>Column Two</td>" .
+					"<td class='table-cell'>Row One,<span class='whitespace'>  </span>Column One</td>" .
+					"<td class='table-cell'>Row One,<span class='whitespace'>  </span>Column Two</td>" .
 				"</tr>" .
 				"<tr>" .
-					"<td class='table-cell'>Row Two, <span class='whitespace'> </span>Column One</td>" .
-					"<td class='table-cell'>Row Two, <span class='whitespace'> </span>Column Two</td>" .
+					"<td class='table-cell'>Row Two,<span class='whitespace'>  </span>Column One</td>" .
+					"<td class='table-cell'>Row Two,<span class='whitespace'>  </span>Column Two</td>" .
 				"</tr>" .
 			"</table>" .
 			"<br/>" .
@@ -106,7 +106,7 @@ end.
 				"Just what do you think you're doing, Dave?" .
 				"<br/>" .
 				"<br/>" .
-				"<strong>HAL, in 2001:</strong>" .
+				"<strong>HAL,<span class='whitespace'> </span>in 2001:</strong>" .
 				"<span class='whitespace'> </span>A Space Odyssey (1968)" .
 				"<br/>" .
 			"</div><br/>" .
