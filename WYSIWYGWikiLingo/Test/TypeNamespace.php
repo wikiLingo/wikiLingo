@@ -37,6 +37,10 @@ class TypeNamespace extends WikiLingo\Test\TypeNamespace
 			//the idea here is to take WYSIWYGWikiLingo Markup, and to turn it into WikiLingo Markup, so source comes from the WikiLingoWYSIWYG Parser
 			$actual = $this->parser->parse($test->source);
 
+            $test->source = preg_replace('/\r/', "", $test->source);
+            $actual = preg_replace('/\r/', "", $actual);
+            $test->expected = preg_replace('/\r/', "", $test->expected);
+            
 			$message = (new WikiLingo\Test\VisualFeedbackTable($class))
 				->setSource($test->source)
 				->setExpected($test->expected)
