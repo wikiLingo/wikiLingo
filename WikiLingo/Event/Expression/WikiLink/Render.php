@@ -2,7 +2,7 @@
 
 namespace WikiLingo\Event\Expression\WikiLink;
 
-use WikiLingo\Renderer;
+use WikiLingo\Model;
 use WikiLingo\Event;
 use WikiLingo\Expression\WikiLink;
 
@@ -13,10 +13,10 @@ use WikiLingo\Expression\WikiLink;
 class Render extends Event\Base
 {
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param WikiLink $wikiLink
      */
-    public function trigger(Renderer\Element &$element, WikiLink &$wikiLink)
+    public function trigger(Model\Element &$element, WikiLink &$wikiLink)
 	{
 		foreach($this->delegates as $delegate)
 		{

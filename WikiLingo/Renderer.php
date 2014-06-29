@@ -165,11 +165,11 @@ class Renderer
 
     function element($type, $name)
     {
-        return new Renderer\Element($type, $name);
+        return new Model\Element($type, $name);
     }
 
     function helper($name)
     {
-        return new Renderer\Helper($name);
+        return new Model\Helper($name);
     }
 } 

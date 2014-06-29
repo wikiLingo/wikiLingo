@@ -11,7 +11,7 @@ namespace WikiLingo\Expression\BlockType;
 use WikiLingo;
 use WikiLingo\Utilities\Tensor;
 use WikiLingo\Expression;
-use WikiLingo\Renderer\Element;
+use WikiLingo\Model\Element;
 
 class ListItemCollection extends Tensor\HierarchicalCollection
 {

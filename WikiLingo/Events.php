@@ -110,10 +110,10 @@ class Events
 	}
 
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\Tag $tag
      */
-    public function triggerExpressionTagRender(Renderer\Element &$element, Expression\Tag &$tag)
+    public function triggerExpressionTagRender(Model\Element &$element, Expression\Tag &$tag)
     {
         foreach($this->WikiLingoEventExpressionTagRender as &$event)
         {
@@ -138,10 +138,10 @@ class Events
 
     /**
      * @param $key
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\Variable $variable
      */
-    public function triggerExpressionVariableLookup(&$key, Renderer\Element &$element, Expression\Variable &$variable)
+    public function triggerExpressionVariableLookup(&$key, Model\Element &$element, Expression\Variable &$variable)
 	{
 		foreach($this->WikiLingoEventExpressionVariableLookup as &$event)
 		{
@@ -150,10 +150,10 @@ class Events
 	}
 
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\WikiLink $wikiLink
      */
-    public function triggerExpressionWikiLinkRender(Renderer\Element &$element, Expression\WikiLink &$wikiLink)
+    public function triggerExpressionWikiLinkRender(Model\Element &$element, Expression\WikiLink &$wikiLink)
 	{
 		foreach($this->WikiLingoEventExpressionWikiLinkRender as &$event)
 		{
@@ -162,10 +162,10 @@ class Events
 	}
 
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\WikiLinkType $wikiLinkType
      */
-    public function triggerExpressionWikiLinkTypeRender(Renderer\Element &$element, Expression\WikiLinkType &$wikiLinkType)
+    public function triggerExpressionWikiLinkTypeRender(Model\Element &$element, Expression\WikiLinkType &$wikiLinkType)
 	{
 		foreach($this->WikiLingoEventExpressionWikiLinkTypeRender as &$event)
 		{
@@ -187,10 +187,10 @@ class Events
 	}
 
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\WordLink $wordLink
      */
-    public function triggerExpressionWordLinkRender(Renderer\Element &$element, Expression\WordLink &$wordLink)
+    public function triggerExpressionWordLinkRender(Model\Element &$element, Expression\WordLink &$wordLink)
 	{
 		foreach($this->WikiLingoEventExpressionWordLinkRender as &$event)
 		{

@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Event\Expression\Variable;
 
-use WikiLingo\Renderer;
+use WikiLingo\Model;
 use WikiLingo\Event;
 use WikiLingo\Expression\Variable;
 

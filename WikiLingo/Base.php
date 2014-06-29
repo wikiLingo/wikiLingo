@@ -1,8 +1,7 @@
 <?php
 namespace WikiLingo;
 
-use Exception;
-use WikiLingo\Renderer;
+use WikiLingo\Model;
 
 /**
  * Class Base

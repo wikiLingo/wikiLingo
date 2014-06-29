@@ -1,9 +1,9 @@
 <?php
-namespace WikiLingo\Renderer;
+namespace WikiLingo\Model;
 
 /**
  * Class Base
- * @package WikiLingo\Renderer
+ * @package WikiLingo\Model
  */
 class Base
 {
