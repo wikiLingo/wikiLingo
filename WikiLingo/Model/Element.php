@@ -1,5 +1,5 @@
 <?php
-namespace WikiLingo\Renderer;
+namespace WikiLingo\Model;
 
 class Element extends Base
 {

@@ -9,8 +9,8 @@
 namespace WikiLingoWYSIWYG;
 
 use WikiLingo;
-use WikiLingo\Renderer\Element;
-use WikiLingo\Renderer\Helper;
+use WikiLingo\Model\Element;
+use WikiLingo\Model\Helper;
 
 class Renderer extends WikiLingo\Renderer
 {

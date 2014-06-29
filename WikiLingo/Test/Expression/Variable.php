@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Test\Expression;
 
-use WikiLingo\Renderer;
+use WikiLingo\Model;
 use WikiLingo;
 use WikiLingo\Test\Base;
 use WikiLingo\Expression;
@@ -13,7 +13,7 @@ class Variable extends Base
 	{
 
 		if ($parser != null) {
-			$parser->events->bind(new V\Lookup(function($key, WikiLingo\Renderer\Element $element, WikiLingo\Expression\Variable $variable) {
+			$parser->events->bind(new V\Lookup(function($key, WikiLingo\Model\Element $element, WikiLingo\Expression\Variable $variable) {
 				if ($key === "variable_here") {
 					$element->staticChildren[] = "success";
 				}

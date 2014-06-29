@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Event\Expression\Variable;
 
-use WikiLingo\Renderer;
+use WikiLingo\Model;
 use WikiLingo\Event;
 use WikiLingo\Expression\Variable;
 
@@ -13,10 +13,10 @@ class Lookup extends Event\Base
 {
     /**
      * @param $key
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Variable $variable
      */
-    public function trigger($key, Renderer\Element &$element, Variable &$variable)
+    public function trigger($key, Model\Element &$element, Variable &$variable)
 	{
 		foreach($this->delegates as $delegate)
 		{

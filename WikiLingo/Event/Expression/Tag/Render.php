@@ -3,7 +3,7 @@ namespace WikiLingo\Event\Expression\Tag;
 
 use WikiLingo\Event;
 use WikiLingo\Expression\Tag;
-use WikiLingo\Renderer\Element;
+use WikiLingo\Model\Element;
 
 /**
  * Class Render

@@ -1,9 +1,6 @@
 <?php
 namespace WikiLingo\Utilities\Tensor;
 
-use WikiLingo\Renderer;
-use WikiLingo\Expression;
-
 /**
  * Class HierarchicalCollection
  * @package WikiLingo\Expression\Tensor
