@@ -89,7 +89,11 @@ class TypeNamespace
             if (!property_exists($test, 'source')) continue;
 
 			$actual = $this->parser->parse($test->source);
-
+            
+            $test->source = preg_replace('/\r/', "", $test->source);
+            $actual = preg_replace('/\r/', "", $actual);
+            $test->expected = preg_replace('/\r/', "", $test->expected);
+            
 			$table = (new VisualFeedbackTable($class))
 				->setSource($test->source)
 				->setExpected($test->expected)

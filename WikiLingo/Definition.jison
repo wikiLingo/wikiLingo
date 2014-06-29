@@ -830,7 +830,7 @@ CONTENT                         ([a-z0-9]+[A-Za-z0-9.,?;]*[ ]?|[&][ ])+
 
 	return 'CONTENT';
 }
-{CAPITOL_WORD}([ ])? {
+({CAPITOL_WORD})([ ])? {
     //js
         return 'CONTENT';
 
