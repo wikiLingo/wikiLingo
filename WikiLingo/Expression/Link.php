@@ -15,7 +15,7 @@ class Link extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         $element = $renderer->element(__CLASS__, 'a');
         $sides = explode("|", $this->renderedChildren);

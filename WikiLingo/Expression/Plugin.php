@@ -46,9 +46,9 @@ class Plugin extends Base
     /**
      * @param WikiLingo\Parsed $parsed
      */
-    function __construct(WikiLingo\Parsed &$parsed)
+    function __construct(WikiLingo\Parsed $parsed)
     {
-        $this->parsed =& $parsed;
+        $this->parsed = $parsed;
 	    $type = $parsed->text;
 	    $parameters = $parsed->arguments[0]->text;
 
@@ -135,7 +135,7 @@ class Plugin extends Base
         return $typeShort;
     }
 
-    public function preRender(&$renderer)
+    public function preRender($renderer)
     {
         if (method_exists($this->class, "preRender")) {
             $this->class->preRender($renderer);
@@ -148,10 +148,12 @@ class Plugin extends Base
      * @throws Exception
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         if (isset($this->class)) {
-            $this->parent =& $this->parsed->parent->expression; //shorten the parent access a bit;
+            if ($this->parsed->parent != null) {
+                $this->parent = $this->parsed->parent->expression; //shorten the parent access a bit;
+            }
         } else {
             throw new Exception('Plugin "' . $this->type . '" does not exists in namespace WikiLingo\Plugin');
         }
@@ -162,7 +164,7 @@ class Plugin extends Base
         return $rendered;
     }
 
-    public function postRender(&$renderer)
+    public function postRender($renderer)
     {
         if (method_exists($this->class, "postRender")) {
             $this->class->postRender($renderer);

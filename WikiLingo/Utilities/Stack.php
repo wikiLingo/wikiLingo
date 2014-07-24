@@ -16,9 +16,9 @@ class Stack
 	public $indexLast = -1;
 	public $length = 0;
 
-	public function push(&$item)
+	public function push($item)
 	{
-		$this->items[] =& $item;
+		$this->items[] = $item;
 		$this->length++;
 	}
 

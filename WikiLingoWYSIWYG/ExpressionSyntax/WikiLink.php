@@ -12,7 +12,7 @@ class WikiLink extends Base
     public $iconClass = 'icon-link';
     public $group = 'link';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '((expression))';
     }

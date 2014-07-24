@@ -448,7 +448,7 @@ case 9:
 break;
 case 10:
         
-            $type =& $s[$o-1];
+            $type = $s[$o-1];
             $type->setType('Element', $this);
             $type->expression->setClosing($s[$o]);
         
@@ -462,8 +462,8 @@ case 11:
 break;
 case 12:
         
-            $type =& $s[$o-2];
-            $typeChild =& $s[$o-1];
+            $type = $s[$o-2];
+            $typeChild = $s[$o-1];
             $typeChild->setParent($type);
             $type->setType('Element', $this);
             $type->expression->setClosing($s[$o]);
@@ -472,15 +472,15 @@ case 12:
 break;
 case 13:
         
-            $type =& $s[$o];
+            $type = $s[$o];
             $type->setType('BrokenElement', $this);
         
     
 break;
 case 14:
         
-            $type =& $s[$o-1];
-            $typeChild =& $s[$o];
+            $type = $s[$o-1];
+            $typeChild = $s[$o];
             $type->addContent($typeChild);
             $type->setType('Element', $this);
         
@@ -488,15 +488,15 @@ case 14:
 break;
 case 15:
         
-            $type =& $s[$o];
+            $type = $s[$o];
             $type->setType('BrokenElement', $this);
         
     
 break;
 case 16:
         
-            $type =& $s[$o-2];
-            $typeChild =& $s[$o-1];
+            $type = $s[$o-2];
+            $typeChild = $s[$o-1];
             $typeChild->setParent($type);
             $type->setType('BrokenElement', $this);
         
@@ -769,11 +769,15 @@ break;
 
     function upcomingInput()
     {
-        $next = $this->match;
-        if (strlen($next) < 20) {
-            $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+        if (!$this->done) {
+            $next = $this->match;
+            if (strlen($next) < 20) {
+                $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+            }
+            return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
+        } else {
+            return "";
         }
-        return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
     }
 
     function showPosition()
@@ -947,7 +951,7 @@ case 3:
     
         //A tag that is open and we just found the close for it
         $element = $this->unStackHtmlElement($this->yy->text);
-        if (isset($element)) {
+        if ($element !== null) {
            $this->popState();
            return "HTML_TAG_CLOSE";
         }
@@ -960,7 +964,7 @@ case 4:
         $isHtmlTag = WikiLingo\Utilities\Html::isHtmlTag($this->yy->text, true);
         //An tag open
         if ($isHtmlTag === true) {
-           $this->stackHtmlElement(clone($this->yy));
+           $this->stackHtmlElement($this->yy->text);
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
         } else if ($isHtmlTag === false) {
@@ -1030,7 +1034,9 @@ class ParserLocation
 
     public function __clone()
     {
-        return new ParserLocation($this->firstLine, $this->lastLine, $this->firstColumn, $this->lastColumn);
+        if (isset($this->range)) {
+            $this->range = clone $this->range;
+        }
     }
 }
 
@@ -1042,14 +1048,9 @@ class ParserValue
     public $text;
 
     function __clone() {
-        $clone = new ParserValue();
-        $clone->leng = $this->leng;
         if (isset($this->loc)) {
-            $clone->loc = clone $this->loc;
+            $this->loc = clone $this->loc;
         }
-        $clone->lineNo = $this->lineNo;
-        $clone->text = $this->text;
-        return $clone;
     }
 }
 

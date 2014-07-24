@@ -27,7 +27,7 @@ class Exists extends Event\Base
      */
     public function trigger($word, &$exists)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($word, $exists);
 		}

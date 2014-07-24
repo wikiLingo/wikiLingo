@@ -42,11 +42,11 @@ class Events
      * @param $event
      * @return $this
      */
-    public function bind(&$event)
+    public function bind($event)
 	{
 		//reduce to fully qualified class name, then remove WikiLingoEvent from front
         $eventName = str_replace("\\", "", get_class($event));
-		$this->{$eventName}[] =& $event;
+		$this->{$eventName}[] = $event;
 
 		return $this;
 	}
@@ -56,7 +56,7 @@ class Events
      * @param $context
      * @return string
      */
-    public function triggerTranslate(&$value, $context)
+    public function triggerTranslate($value, $context)
 	{
 		foreach($this->WikiLingoEventTranslate as &$event)
 		{
@@ -129,10 +129,10 @@ class Events
 	}
 
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\Tag $tag
      */
-    public function triggerExpressionTagRender(Renderer\Element &$element, Expression\Tag &$tag)
+    public function triggerExpressionTagRender(Model\Element &$element, Expression\Tag &$tag)
     {
         foreach($this->WikiLingoEventExpressionTagRender as &$event)
         {
@@ -157,10 +157,10 @@ class Events
 
     /**
      * @param $key
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\Variable $variable
      */
-    public function triggerExpressionVariableLookup(&$key, Renderer\Element &$element, Expression\Variable &$variable)
+    public function triggerExpressionVariableLookup(&$key, Model\Element &$element, Expression\Variable &$variable)
 	{
 		foreach($this->WikiLingoEventExpressionVariableLookup as &$event)
 		{
@@ -169,10 +169,10 @@ class Events
 	}
 
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\WikiLink $wikiLink
      */
-    public function triggerExpressionWikiLinkRender(Renderer\Element &$element, Expression\WikiLink &$wikiLink)
+    public function triggerExpressionWikiLinkRender(Model\Element &$element, Expression\WikiLink &$wikiLink)
 	{
 		foreach($this->WikiLingoEventExpressionWikiLinkRender as &$event)
 		{
@@ -181,10 +181,10 @@ class Events
 	}
 
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\WikiLinkType $wikiLinkType
      */
-    public function triggerExpressionWikiLinkTypeRender(Renderer\Element &$element, Expression\WikiLinkType &$wikiLinkType)
+    public function triggerExpressionWikiLinkTypeRender(Model\Element &$element, Expression\WikiLinkType &$wikiLinkType)
 	{
 		foreach($this->WikiLingoEventExpressionWikiLinkTypeRender as &$event)
 		{
@@ -206,10 +206,10 @@ class Events
 	}
 
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param Expression\WordLink $wordLink
      */
-    public function triggerExpressionWordLinkRender(Renderer\Element &$element, Expression\WordLink &$wordLink)
+    public function triggerExpressionWordLinkRender(Model\Element &$element, Expression\WordLink &$wordLink)
 	{
 		foreach($this->WikiLingoEventExpressionWordLinkRender as &$event)
 		{
@@ -266,5 +266,18 @@ class Events
         }
 
         return $rendered;
+    }
+
+
+    public function clear()
+    {
+
+        $classVars = get_class_vars(get_class($this));
+
+        foreach ($classVars as $name => $value) {
+            if (is_array($value)) {
+                $this->$name = array();
+            }
+        }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Event\Expression\Variable;
 
-use WikiLingo\Renderer;
+use WikiLingo\Model;
 use WikiLingo\Event;
 use WikiLingo\Expression\Variable;
 
@@ -18,7 +18,7 @@ class Context extends Event\Base
     public function trigger(&$plugin)
 	{
         $result = array();
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			return $delegate($plugin);
 		}

@@ -38,9 +38,9 @@ abstract class Base
     /**
      * @param WikiLingo\Parsed $parsed
      */
-    function __construct(WikiLingo\Parsed &$parsed)
+    function __construct(WikiLingo\Parsed $parsed)
 	{
-		$this->parsed =& $parsed;
+		$this->parsed = $parsed;
         $parsed->parser->addType($this);
     }
 
@@ -65,11 +65,11 @@ abstract class Base
 	}
 
     /**
-     * @param WikiLingo\Renderer &$renderer
-     * @param WikiLingo\Parser &$parser
+     * @param WikiLingo\Renderer $renderer
+     * @param WikiLingo\Parser $parser
      * @return string
      */
-    abstract function render(&$renderer, &$parser);
+    abstract function render($renderer, $parser);
 
     /**
      * @param int $iterations

@@ -1,9 +1,6 @@
 <?php
 namespace WikiLingo\Utilities\Tensor;
 
-use WikiLingo;
-use WikiLingo\Expression;
-use WikiLingo\Renderer;
 
 /**
  * Class Hierarchical
@@ -29,11 +26,11 @@ class Hierarchical
      * @param Hierarchical $parent
      * @return $this
      */
-    function &setParent(&$parent)
+    function setParent($parent)
 	{
 		if (empty($this->parent))
 		{
-			$this->parent =& $parent;
+			$this->parent = $parent;
 		}
 		$parent->addChild($this);
 		return $this;
@@ -43,7 +40,7 @@ class Hierarchical
      * @param Hierarchical $child
      * @return $this
      */
-    function &addChild(&$child)
+    function addChild($child)
 	{
 		if (empty($child->parent))
 		{
@@ -58,11 +55,11 @@ class Hierarchical
      * @param Hierarchical $sibling
      * @return $this
      */
-    function &addSibling(&$sibling)
+    function addSibling($sibling)
 	{
 		if (isset($this->parent))
 		{
-			$sibling->parent =& $this->parent;
+			$sibling->parent = $this->parent;
 
 			$this->parent->addChild($sibling);
 		}

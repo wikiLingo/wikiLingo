@@ -10,7 +10,7 @@ class TitleBar extends Base
     public $iconClass = 'icon-menu';
     public $group = 'misc';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '-=expression=-';
     }

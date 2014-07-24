@@ -10,7 +10,7 @@ class NoParse extends Base
     public $iconClass = 'icon-blocked';
     public $group = 'misc';
 
-	public function example(WikiLingoWYSIWYG\Parser &$parser)
+	public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '~np~expression~/np~';
     }

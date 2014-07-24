@@ -1,9 +1,6 @@
 <?php
 namespace WikiLingo\Utilities\Tensor;
 
-use WikiLingo\Renderer;
-use WikiLingo\Expression;
-
 /**
  * Class HierarchicalCollection
  * @package WikiLingo\Expression\Tensor
@@ -25,7 +22,7 @@ class HierarchicalCollection
      */
     public function push($item)
 	{
-		$this->items[] =& $item;
+		$this->items[] = $item;
 		$this->itemsLength++;
 	}
 }

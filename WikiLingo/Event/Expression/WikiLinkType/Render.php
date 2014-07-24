@@ -13,12 +13,12 @@ use WikiLingo\Expression\WikiLinkType;
 class Render extends Event\Base
 {
     /**
-     * @param Renderer\Element $element
+     * @param Model\Element $element
      * @param WikiLinkType $wikiLinkType
      */
-    public function trigger(Renderer\Element &$element, WikiLinkType &$wikiLinkType)
+    public function trigger(Model\Element &$element, WikiLinkType &$wikiLinkType)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($element, $wikiLinkType);
 		}

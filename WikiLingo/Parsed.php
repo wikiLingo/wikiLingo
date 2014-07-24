@@ -83,13 +83,13 @@ class Parsed extends ParserValue
     /**
      * @param Parsed $line
      */
-    public function addLine(Parsed &$line)
+    public function addLine(Parsed $line)
 	{
         $this->lineLength++;
         $line->lineIndex = $this->lineLength;
 
-        $line->parent =& $this;
-		$this->lines[$this->lineLength] =& $line;
+        $line->parent = $this;
+		$this->lines[$this->lineLength] = $line;
 	}
 
     /**
@@ -121,13 +121,13 @@ class Parsed extends ParserValue
     /**
      * @param Parsed $sibling
      */
-    public function addContent(Parsed &$sibling)
+    public function addContent(Parsed $sibling)
 	{
         $this->siblingsLength++;
         $sibling->siblingIndex = $this->siblingsLength;
 
-        $this->siblings[] =& $sibling;
-		$sibling->firstSibling =& $this;
+        $this->siblings[] = $sibling;
+		$sibling->firstSibling = $this;
 	}
 
     /**
@@ -170,19 +170,19 @@ class Parsed extends ParserValue
     /**
      * @param Parsed $argument
      */
-    public function addArgument(Parsed &$argument)
+    public function addArgument(Parsed $argument)
 	{
-		$this->arguments[] =& $argument;
+		$this->arguments[] = $argument;
 	}
 
     /**
      * @param String $type
      * @param $parser
      */
-    public function setType($type, &$parser)
+    public function setType($type, $parser)
 	{
 		$this->type = $type;
-        $this->parser =& $parser;
+        $this->parser = $parser;
         $this->setExpression();
 	}
 
@@ -199,11 +199,11 @@ class Parsed extends ParserValue
     /**
      * @param Parsed $parent
      */
-    public function setParent(Parsed &$parent)
+    public function setParent(Parsed $parent)
 	{
 		$parent->addChild($this);
 
-        foreach($this->siblings as &$sibling) {
+        foreach($this->siblings as $sibling) {
             //just to be sure
             if ($sibling != null) {
                 $sibling->setParent($parent);
@@ -215,10 +215,10 @@ class Parsed extends ParserValue
     /**
      * @param Parsed $child
      */
-    public function addChild(Parsed &$child)
+    public function addChild(Parsed $child)
 	{
-		$child->parent =& $this;
-		$this->children[] =& $child;
+		$child->parent = $this;
+		$this->children[] = $child;
 		$this->childrenLength++;
 	}
 
@@ -239,14 +239,53 @@ class Parsed extends ParserValue
         $this->parser->expressionInstantiator->set($this);
     }
 
-
-
     /**
      * @param Parsed $cousin
      */
-    public function addCousin(Parsed &$cousin)
+    public function addCousin(Parsed $cousin)
 	{
-		$this->cousins[] =& $cousin;
+		$this->cousins[] = $cousin;
 		$this->cousinsCount++;
 	}
+
+    /**
+     *
+     */
+    public function __clone()
+    {
+        $newArguments = [];
+        foreach ($this->arguments as $argument) {
+            $newArguments[] = clone $argument;
+        }
+        $this->arguments = $newArguments;
+
+        $newChildren = [];
+        foreach($this->children as $child) {
+            $newChildren[] = clone $child;
+        }
+        $this->children = $newChildren;
+
+        if (isset($this->firstSibling)) {
+            $this->firstSibling = clone $this->firstSibling;
+        }
+
+        $newCousins = [];
+        foreach($this->cousins as $cousin) {
+            $newCousins[] = clone $cousin;
+        }
+        $this->cousins = $newCousins;
+
+
+        $newLines = [];
+        foreach ($this->lines as $line) {
+            $newLines[] = clone $line;
+        }
+        $this->lines = $newLines;
+
+        if (isset($this->stateEnd)) {
+            $this->stateEnd = clone $this->stateEnd;
+        }
+
+        parent::__clone();
+    }
 }

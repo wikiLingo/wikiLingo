@@ -10,16 +10,16 @@
 
 PLUGIN_ID   					[A-Z0-9_]+
 INLINE_PLUGIN_ID				[a-z0-9_]+
-VARIABLE_NAME                   ([0-9A-Za-z_-]{1,})
+VARIABLE_NAME                   ([0-9A-Za-z_-]+)
 SYNTAX_CHARS                    [\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]
 LINE_CONTENT                    (.?)
 LINES_CONTENT                   (.|\n)+
 LINE_END                        (\n)
 BLOCK_START                     [!*#;]+([-+](?=[-+]{2,})|[-+](?![-+]))?
 WIKI_LINK_TYPE                  (([a-z0-9-]+))
-CAPITOL_WORD                    ([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,})
+CAPITOL_WORD                    [A-Z]+[A-Za-z\x80-\xFF]*
 WHITE_SPACE                     ([ ])+
-CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
+CONTENT                         ([a-z0-9]+[A-Za-z0-9.,?;]*[ ]?|[&][ ])+
 
 //Lexical states
 %s BOF
@@ -30,7 +30,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 //Create tokens from lexical analysis
 %%
 
-"≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};
+"~~REAL_EOF~~"    	                        {/*skip REAL_EOF*/};
 
 //html comment
 [<][!][-][-](.*?)[-][-][>] {
@@ -830,22 +830,25 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
 
 	return 'CONTENT';
 }
-{CAPITOL_WORD}(?=$|[ \n\t\r\,\;\.]) {
+({CAPITOL_WORD})([ ])? {
     //js
         return 'CONTENT';
 
     /*php
         if ($this->isContent()) return 'CONTENT';
-
         $isLink = false;
-        $this->events->triggerExpressionWordLinkExists($yytext, $isLink);
+        $this->events->triggerExpressionWordLinkExists(trim($yytext), $isLink);
 
         if ($isLink) {
+            if (preg_match('/[ ]$/', $yytext)) {
+                $this->unput(' ');
+                $yytext = trim($yytext);
+            }
             return 'WORD_LINK';
-        } else {
-            $this->unput($yytext);
-            $this->begin('skip');
         }
+
+        return 'CONTENT';
+
     */
 }
 
@@ -874,7 +877,7 @@ CONTENT                         ([A-Za-z0-9.,?;]+[ ]?|[&][ ])+
         return 'HTML_TAG';
     */
 }
-"≤REAL_EOF≥"    	                        {/*skip REAL_EOF*/};
+"~~REAL_EOF~~"    	                        {/*skip REAL_EOF*/};
 {CONTENT}                                   return 'CONTENT';
 (?!{SYNTAX_CHARS})({LINE_CONTENT})?(?={SYNTAX_CHARS})
 											return 'CONTENT';
@@ -1014,7 +1017,7 @@ content
                 .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Bold', $$this);
         */
@@ -1039,7 +1042,7 @@ content
                 .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Center', $$this);
         */
@@ -1073,7 +1076,7 @@ content
                 .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Color', $$this);
         */
@@ -1098,7 +1101,7 @@ content
                 .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Italic', $$this);
         */
@@ -1133,7 +1136,7 @@ content
 		/*php
 		    //type already set
 
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Link', $$this);
         */
@@ -1158,7 +1161,7 @@ content
 	            .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Strike', $$this);
         */
@@ -1192,7 +1195,7 @@ content
 	            .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Table', $$this);
         */
@@ -1217,7 +1220,7 @@ content
 	            .addChild($2);
 
 		/*php
-			$$type =& $1;
+			$$type = $1;
             $2->setParent($$type);
             $$type->setType('TitleBar', $$this);
         */
@@ -1242,7 +1245,7 @@ content
 	            .addChild($2);
 
 		/*php
-		    $$type =& $1;
+		    $$type = $1;
             $2->setParent($$type);
             $$type->setType('Underscore', $$this);
         */
@@ -1268,7 +1271,7 @@ content
 
         /*php
             //Type already set
-            $$type =& $1;
+            $$type = $1;
             $2->setParent($$type);
             $$type->setType('PastLink', $$this);
         */
@@ -1294,7 +1297,7 @@ content
 
 		/*php
 			//Type already set
-			$$type =& $1;
+			$$type = $1;
 			$2->setParent($$type);
 			$$type->setType('WikiLink', $$this);
         */
@@ -1320,7 +1323,7 @@ content
 
         /*php
             //Type already set
-            $$type =& $1;
+            $$type = $1;
             $2->setParent($$type);
             $$type->setType('WikiLinkType', $$this);
         */
@@ -1346,7 +1349,7 @@ content
 
         /*php
             //Type already set
-            $$type =& $1;
+            $$type = $1;
             $2->setParent($$type);
             $$type->setType('WikiUnlink', $$this);
         */
@@ -1358,7 +1361,7 @@ content
                 .addArgument($1);
 
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->addArgument($1);
             $$type->setType('WordLink', $$this);
 
@@ -1373,7 +1376,7 @@ content
                 .addContent($2);
 
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setOption('NoBody', true);
             $$type->setOption('Inline', true);
             $$type->addContent($2);
@@ -1389,7 +1392,7 @@ content
                 .addContent($2);
 
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setOption('NoBody', true);
             $$type->setOption('Inline', true);
             $$type->addContent($2);
@@ -1405,7 +1408,7 @@ content
                 .addArgument($2);
 
  		/*php
- 		    $$type =& $1;
+ 		    $$type = $1;
             $$type->setOption('NoBody', true);
             $$type->setOption('Inline', true);
             $$type->addArgument($2);
@@ -1436,7 +1439,7 @@ content
 	            .addChild($3);
 
  	    /*php
- 		    $$type =& $1;
+ 		    $$type = $1;
  		    $$type->addArgument($2);
  		    $3->setParent($$type);
  		    $$type->stateEnd = $4;
@@ -1451,7 +1454,7 @@ content
 	            .addArgument($3);
 
   	    /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->addArgument($2);
             $$type->addArgument($3);
             $$type->stateEnd = $3;

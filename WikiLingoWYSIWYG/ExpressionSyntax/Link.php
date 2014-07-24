@@ -19,7 +19,7 @@ class Link extends Base
 		parent::__construct( $parser );
 	}
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
 	    $this->attribute = new Utilities\Parameter('Location', '');
 

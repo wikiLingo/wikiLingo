@@ -12,7 +12,7 @@ class TableColumn
     /**
      * @param null $parsed
      */
-    public function __construct(&$parsed = null)
+    public function __construct($parsed = null)
     {
         $this->append($parsed);
     }

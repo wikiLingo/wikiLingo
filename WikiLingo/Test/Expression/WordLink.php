@@ -1,7 +1,7 @@
 <?php
 namespace WikiLingo\Test\Expression;
 
-use WikiLingo\Renderer;
+use WikiLingo\Model;
 use WikiLingo;
 use WikiLingo\Test\Base;
 use WikiLingo\Expression;
@@ -20,7 +20,7 @@ class WordLink extends Base
 				}
 			}));
 ;
-			$parser->events->bind(new Render(function(Renderer\Element &$element, &$wordLink) use (&$parser) {
+			$parser->events->bind(new Render(function(Model\Element &$element, &$wordLink) use (&$parser) {
 				if ($wordLink->parsed->text == "This") {
 					$element->staticChildren[] = "This";
 					$element->attributes["href"] = "http://This.com";

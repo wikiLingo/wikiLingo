@@ -20,9 +20,9 @@ class PreRender extends Event\Base
     /**
      * @param Plugin $plugin
      */
-    public function trigger(Plugin &$plugin)
+    public function trigger(Plugin $plugin)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($plugin);
 		}

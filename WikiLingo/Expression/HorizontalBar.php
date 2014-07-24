@@ -15,7 +15,7 @@ class HorizontalBar extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         $element = Type::Element($renderer->element(__CLASS__, 'hr'));
         $element->setInline();

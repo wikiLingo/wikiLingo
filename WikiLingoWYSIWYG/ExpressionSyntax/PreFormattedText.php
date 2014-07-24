@@ -10,7 +10,7 @@ class PreFormattedText extends Base
     public $iconClass = 'icon-code';
     public $group = 'misc';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '~pp~expression~/pp~';
     }

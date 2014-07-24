@@ -14,7 +14,7 @@ class Char extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         return $this->parsed->text;
     }

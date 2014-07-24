@@ -16,7 +16,7 @@ class ExpressionSyntaxes
     /**
      * @param Scripts $scripts
      */
-    public function __construct(Scripts &$scripts)
+    public function __construct(Scripts $scripts)
     {
         $this->parser = new Parser($scripts);
     }

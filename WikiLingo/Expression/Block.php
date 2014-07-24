@@ -52,15 +52,15 @@ class Block extends Base
     /**
      * @param WikiLingo\Parsed $parsed
      */
-    public function __construct(WikiLingo\Parsed &$parsed = null)
+    public function __construct(WikiLingo\Parsed $parsed = null)
 	{
         if ($parsed == null)
         {
             return false;
         }
 
-		$this->parsed =& $parsed;
-        $this->parser =& $parsed->parser;
+		$this->parsed = $parsed;
+        $this->parser = $parsed->parser;
 
 		$syntax = $parsed->arguments[0]->text;
 		$modifierSyntax = substr($syntax, -1);
@@ -76,7 +76,7 @@ class Block extends Base
 					self::$blocksTypes[$syntax]
 		);
 
-		$parser =& $parsed->parser;
+		$parser = $parsed->parser;
 		$result = null;
         $ordered = true;
 
@@ -117,12 +117,12 @@ class Block extends Base
 				break;
 		}
 
-		$parser->blocks[] =& $this;
+		$parser->blocks[] = $this;
 		$parser->blocksLength++;
 		$this->beginningLineNo = $parsed->lineNo;
 		$this->endingLineNo = $parsed->lineNo;
 
-		$this->expression =& $result;
+		$this->expression = $result;
 		return true;
 	}
 
@@ -145,7 +145,7 @@ class Block extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
 	{
         if (isset($this->expression)) {
 			return $this->expression->render($renderer, $parser);

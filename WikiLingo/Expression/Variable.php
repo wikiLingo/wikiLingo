@@ -13,7 +13,7 @@ class Variable extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
 	{
 		$element = $renderer->element(__CLASS__, 'span');
 		$key = $element->detailedAttributes["key"] = substr($this->parsed->text, 1, -1);
