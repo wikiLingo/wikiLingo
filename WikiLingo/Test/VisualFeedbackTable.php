@@ -16,6 +16,7 @@ class VisualFeedbackTable
 	public $actual;
     public $lexerErrors = null;
     public $parserErrors = null;
+    public $fail = true;
 
     /**
      * @param $name
@@ -51,6 +52,9 @@ class VisualFeedbackTable
      */
     public function setActual($actual)
 	{
+        if ($actual === $this->expected) {
+            $this->fail = false;
+        }
 		$this->actual = $actual;
 		return $this;
 	}
@@ -85,7 +89,7 @@ class VisualFeedbackTable
         if (!empty($this->parserErrors)) {
             $errors .= "<tr><td>Parser Errors: <pre><code>$this->parserErrors</code></pre></td></tr>";
         }
-
+        $class = $this->fail ? 'fail' : '';
         $style = '';
 		if (!self::$styled) {
 			$style =
@@ -104,7 +108,7 @@ class VisualFeedbackTable
 		}
 		return <<<html
 $style
-<h2 onclick='this.nextSibling.style.display = (this.nextSibling.style.display ? "" : "block")'><a>$name</a></h2><div class="output">
+<h2 class="$class" onclick='this.nextSibling.style.display = (this.nextSibling.style.display ? "" : "block")'><a>$name</a></h2><div class="output">
 	<table style='width: 100%;'>
 		<colgroup>
 			<col style="width: 33%; background-color: "/>

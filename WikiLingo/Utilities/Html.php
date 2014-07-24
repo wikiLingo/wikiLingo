@@ -12,7 +12,7 @@ class Html
      * @param bool $acceptOnlyNonVoidElements
      * @return bool|null
      */
-    public static function isHtmlTag(&$yytext, $acceptOnlyNonVoidElements = false)
+    public static function isHtmlTag($yytext, $acceptOnlyNonVoidElements = false)
     {
         $parts = explode(" ", substr($yytext, 1, -1));
         $parts = array_filter($parts, 'strlen');

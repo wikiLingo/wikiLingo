@@ -52,16 +52,16 @@ end.
 {DIV}";
 
 		$this->expected =
-			"<h1 id='+WYSIWYG+Sample+Page'><span class='whitespace'> </span>WYSIWYG Sample Page</h1>" .
+			"<h1 id='WYSIWYG-Sample-Page'><span class='whitespace'> </span>WYSIWYG Sample Page</h1>" .
 			"Start off by clicking \"edit\"<span class='whitespace'> </span>then switching the editor to use the wysiwyg editor using the " .
 			"<div class='Div' id='Div1'></div><span class='whitespace'> </span>button on the toolbar." .
-			"<h2 id='+Text+formatting'><span class='whitespace'> </span>Text formatting</h2>" .
+			"<h2 id='Text-formatting'><span class='whitespace'> </span>Text formatting</h2>" .
 			'<strong>bold</strong><br/>' .
 			"<i>italic</i><br/>" .
 			'<u>underlined</u><br/>' .
 			"<div class='center'>centred text</div>" .
 			'<br/>' .
-			"<h2 id='+Lists+and+table'><span class='whitespace'> </span>Lists and table</h2>" .
+			"<h2 id='Lists-and-table'><span class='whitespace'> </span>Lists and table</h2>" .
 			'<ul>' .
 				'<li>' .
 					"An unordered list item" .
@@ -74,23 +74,23 @@ end.
             '<ul>' .
 				"<li>Another item</li>" .
             '</ul>' .
-            '. . . and more text . . .' .
+            '.' . "<span class='whitespace'> </span>.<span class='whitespace'> </span>.<span class='whitespace'> </span>and more text .<span class='whitespace'> </span>.<span class='whitespace'> </span>." .
             '<ul>' .
 				"<li>Item 3</li>" .
 			'</ul>' .
-			". . . and some more text, to illustrate the line spacing." .
+			".<span class='whitespace'> </span>.<span class='whitespace'> </span>.<span class='whitespace'> </span>and some more text, to illustrate the line spacing." .
 			"<br/>" .
 			"<br/>" .
 			"A table:" .
 			"<br/>" .
 			"<table>" .
 				"<tr>" .
-					"<td class='table-cell'>Row One, <span class='whitespace'> </span>Column One</td>" .
-					"<td class='table-cell'>Row One, <span class='whitespace'> </span>Column Two</td>" .
+					"<td class='table-cell'>Row One,<span class='whitespace'>  </span>Column One</td>" .
+					"<td class='table-cell'>Row One,<span class='whitespace'>  </span>Column Two</td>" .
 				"</tr>" .
 				"<tr>" .
-					"<td class='table-cell'>Row Two, <span class='whitespace'> </span>Column One</td>" .
-					"<td class='table-cell'>Row Two, <span class='whitespace'> </span>Column Two</td>" .
+					"<td class='table-cell'>Row Two,<span class='whitespace'>  </span>Column One</td>" .
+					"<td class='table-cell'>Row Two,<span class='whitespace'>  </span>Column Two</td>" .
 				"</tr>" .
 			"</table>" .
 			"<br/>" .
@@ -99,18 +99,18 @@ end.
 			"<br/>" .
 			"<strong>And these are produced by wiki plugins:</strong>" .
 			"<br/>" .
-			"<h2 id='+Plugins'><span class='whitespace'> </span>Plugins</h2>" .
-			"<h3 id='+Quote+plugin%3A'><span class='whitespace'> </span>Quote plugin:</h3>" .
+			"<h2 id='Plugins'><span class='whitespace'> </span>Plugins</h2>" .
+			"<h3 id='Quote-plugin'><span class='whitespace'> </span>Quote plugin:</h3>" .
 			"<div class='Div' id='Div2'>" .
 				"<br/>" .
 				"Just what do you think you're doing, Dave?" .
 				"<br/>" .
 				"<br/>" .
-				"<strong>HAL, in 2001:</strong>" .
+				"<strong>HAL,<span class='whitespace'> </span>in 2001:</strong>" .
 				"<span class='whitespace'> </span>A Space Odyssey (1968)" .
 				"<br/>" .
 			"</div><br/>" .
-			"<h3 id='+Code+plugin%3A'><span class='whitespace'> </span>Code plugin:</h3>" .
+			"<h3 id='Code-plugin'><span class='whitespace'> </span>Code plugin:</h3>" .
 			"<div class='Div' id='Div3'>" .
 				"<br/>" .
 				'program HelloWorld(output);' .

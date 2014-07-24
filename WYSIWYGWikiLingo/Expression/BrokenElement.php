@@ -16,7 +16,7 @@ class BrokenElement extends Base
      * @param $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         return $this->parsed->text . $this->renderedChildren;
     }

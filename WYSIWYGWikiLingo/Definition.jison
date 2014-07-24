@@ -59,8 +59,8 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
 <htmlElementClosing>{HTML_TAG_CLOSE} {
     /*php
         //A tag that is open and we just found the close for it
-        $element = $this->unStackHtmlElement($this->yy->text);
-        if (isset($element)) {
+        $element = $this->unStackHtmlElement($yytext);
+        if ($element !== null) {
            $this->popState();
            return "HTML_TAG_CLOSE";
         }
@@ -72,7 +72,7 @@ HTML_TAG_OPEN                   "<"(.|\n)[^>]*?">"
         $isHtmlTag = WikiLingo\Utilities\Html::isHtmlTag($yytext, true);
         //An tag open
         if ($isHtmlTag === true) {
-           $this->stackHtmlElement(clone($this->yy));
+           $this->stackHtmlElement($yytext);
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
         } else if ($isHtmlTag === false) {
@@ -159,7 +159,7 @@ content
 element
     : HTML_TAG_OPEN HTML_TAG_CLOSE {
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setType('Element', $$this);
             $$type->expression->setClosing($2);
         */
@@ -171,8 +171,8 @@ element
     }
     | HTML_TAG_OPEN content HTML_TAG_CLOSE {
         /*php
-            $$type =& $1;
-            $$typeChild =& $2;
+            $$type = $1;
+            $$typeChild = $2;
             $$typeChild->setParent($$type);
             $$type->setType('Element', $$this);
             $$type->expression->setClosing($3);
@@ -181,28 +181,28 @@ element
 
     | HTML_TAG_OPEN {
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setType('BrokenElement', $$this);
         */
     }
     | HTML_TAG_OPEN content {
         /*php
-            $$type =& $1;
-            $$typeChild =& $2;
+            $$type = $1;
+            $$typeChild = $2;
             $$type->addContent($$typeChild);
             $$type->setType('Element', $$this);
         */
     }
     | HTML_TAG_CLOSE {
         /*php
-            $$type =& $1;
+            $$type = $1;
             $$type->setType('BrokenElement', $$this);
         */
     }
     | HTML_TAG_OPEN content BROKEN {
         /*php
-            $$type =& $1;
-            $$typeChild =& $2;
+            $$type = $1;
+            $$typeChild = $2;
             $$typeChild->setParent($$type);
             $$type->setType('BrokenElement', $$this);
         */

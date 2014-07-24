@@ -40,7 +40,7 @@ class Toc extends Base
         /**
          * @var WikiLingo\Expression\BlockType\Header[]
          */
-        $headers =& $parser->types['WikiLingo\Expression\BlockType\Header'];
+        $headers = $parser->types['WikiLingo\Expression\BlockType\Header'];
         $orderedString = $plugin->parameter('ordered');
         $ordered = $orderedString == "true";
 
@@ -52,7 +52,7 @@ class Toc extends Base
 	    foreach($headers as &$header)
 	    {
 		    $header->pointer = true;
-		    $block =& $header->block;
+		    $block = $header->block;
 
 		    if ($container === null) {
                 $container = new BlockType\ListContainer($block, $ordered);

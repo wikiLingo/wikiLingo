@@ -28,7 +28,7 @@ class ListContainer extends Tensor\Flat
      * @param Block $block
      * @param bool $ordered
      */
-    public function __construct(&$block, $ordered)
+    public function __construct($block, $ordered)
     {
         $that = $this;
         /**
@@ -39,7 +39,7 @@ class ListContainer extends Tensor\Flat
          * @param WikiLingo\Parser $parser
          * @return string
          */
-        $this->listItemCollectionRenderDelegate[] = function(&$listItems, &$renderer, &$parser) use ($that) {
+        $this->listItemCollectionRenderDelegate[] = function($listItems, $renderer, $parser) use ($that) {
             $element = $renderer->element('WikiLingo\\Expression\\Block', $that->ordered ? 'ol' : 'ul');
             $element->detailedAttributes['data-parent'] = 'true';
             foreach($listItems as $listItem)
@@ -55,7 +55,7 @@ class ListContainer extends Tensor\Flat
          * @param WikiLingo\Parser $parser
          * @return string
          */
-        $this->listItemRenderDelegate[] = function(&$listItem, &$renderer, &$parser) use ($that) {
+        $this->listItemRenderDelegate[] = function($listItem, $renderer, $parser) use ($that) {
             $element = $renderer->element('WikiLingo\\Expression\\Block', 'li');
 
             $element->detailedAttributes["data-block-type"] = $that->ordered ? 'orderedListItem' : 'unorderedListItem';
@@ -90,12 +90,12 @@ class ListContainer extends Tensor\Flat
             return $element->render();
         };
 
-        $this->block =& $block;
+        $this->block = $block;
         $this->ordered = $ordered;
-        $this->parser =& $block->parser;
+        $this->parser = $block->parser;
         $this->leaders = new ListItemCollection($this, $block);
         $item = new ListItem($this, $block, 0);
-        $this->items[] =& $item;
+        $this->items[] = $item;
         $this->add($item);
         $this->beginningLineNo = $block->parsed->lineNo;
     }
@@ -103,7 +103,7 @@ class ListContainer extends Tensor\Flat
     /**
      * @param ListItem $item
      */
-    public function add(&$item)
+    public function add($item)
     {
         parent::add($item);
 
@@ -136,7 +136,7 @@ CSS
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         return $this->leaders->render($renderer, $parser);
     }

@@ -13,7 +13,7 @@ class WhiteSpace extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
 	    $scripts = $parser->scripts;
         $allowWhiteSpace = true;

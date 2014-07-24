@@ -10,7 +10,7 @@ class DescriptionList extends Base
     public $iconClass = 'icon-list2';
     public $group = 'misc';
 
-	public function example(WikiLingoWYSIWYG\Parser &$parser)
+	public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return "\n;term:definition";
     }

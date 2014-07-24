@@ -19,6 +19,7 @@ class Definition extends Base
     public $shift = 1;
     public $reduce = 2;
     public $accept = 3;
+    public $unputStack = array();
 
     function trace()
     {
@@ -5029,7 +5030,7 @@ class Definition extends Base
         
 			$this->rules = array(
 				
-					0=>"/\G(?:≤REAL_EOF≥)/",
+					0=>"/\G(?:~~REAL_EOF~~)/",
 					1=>"/\G(?:[<][!][-][-](.*?)[-][-][>])/",
 					2=>"/\G(?:-~(.|\n)+?~-)/",
 					3=>"/\G(?:~np~(.|\n)+?~\/np~)/",
@@ -5038,7 +5039,7 @@ class Definition extends Base
 					6=>"/\G(?:\/\*(.|\n)*?\*\/)/",
 					7=>"/\G(?:~tc~(.|\n)*?~\/tc~)/",
 					8=>"/\G(?:-\+(.|\n)*?\+-)/",
-					9=>"/\G(?:[%](([0-9A-Za-z_-]{1,}))[%])/",
+					9=>"/\G(?:[%](([0-9A-Za-z_-]+))[%])/",
 					10=>"/\G(?:$)/",
 					11=>"/\G(?:([!*#;]+([-+](?=[-+]{2,})|[-+](?![-+]))?))/",
 					12=>"/\G(?:(?=((\n))))/",
@@ -5096,12 +5097,12 @@ class Definition extends Base
 					64=>"/\G(?:$)/",
 					65=>"/\G(?:\)\))/",
 					66=>"/\G(?:.)/",
-					67=>"/\G(?:(([A-Z]{1,})([A-Za-z\-\x80-\xFF]{1,}))(?=$|[ \n\t\r\,\;\.]))/",
+					67=>"/\G(?:(([A-Z]+[A-Za-z\x80-\xFF]*))([ ])?)/",
 					68=>"/\G(?:&(?![ ]))/",
 					69=>"/\G(?:<(?![a-zA-Z\/])|>)/",
 					70=>"/\G(?:[<](.|\n)*?[>])/",
-					71=>"/\G(?:≤REAL_EOF≥)/",
-					72=>"/\G(?:(([A-Za-z0-9.,?;]+[ ]?|[&][ ])+))/",
+					71=>"/\G(?:~~REAL_EOF~~)/",
+					72=>"/\G(?:(([a-z0-9]+[A-Za-z0-9.,?;]*[ ]?|[&][ ])+))/",
 					73=>"/\G(?:(?!([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ]))(((.?)))?(?=([\@{}\n_\^:\~'-|=\(\)\[\]*#+%<≤ ])))/",
 					74=>"/\G(?:(([ ])+))/",
 					75=>"/\G(?:(.))/",
@@ -5140,6 +5141,7 @@ class Definition extends Base
     function parserPerformAction(&$thisS, &$yy, $yystate, &$s, $o)
     {
         
+/* this == yyval */
 
 
 switch ($yystate) {
@@ -5218,7 +5220,7 @@ case 14:
 break;
 case 16:
         
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Bold', $this);
         
@@ -5233,7 +5235,7 @@ case 18:
 break;
 case 20:
         
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Center', $this);
         
@@ -5254,7 +5256,7 @@ case 23:
 break;
 case 25:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Color', $this);
         
@@ -5269,7 +5271,7 @@ case 27:
 break;
 case 29:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Italic', $this);
         
@@ -5292,7 +5294,7 @@ case 33:
 	    
 		    //type already set
 
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Link', $this);
         
@@ -5307,7 +5309,7 @@ case 35:
 break;
 case 37:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Strike', $this);
         
@@ -5328,7 +5330,7 @@ case 40:
 break;
 case 42:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Table', $this);
         
@@ -5343,7 +5345,7 @@ case 44:
 break;
 case 46:
 	    
-			$type =& $s[$o-2];
+			$type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('TitleBar', $this);
         
@@ -5358,7 +5360,7 @@ case 48:
 break;
 case 50:
 	    
-		    $type =& $s[$o-2];
+		    $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('Underscore', $this);
         
@@ -5374,7 +5376,7 @@ break;
 case 54:
 	    
             //Type already set
-            $type =& $s[$o-2];
+            $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('PastLink', $this);
         
@@ -5390,7 +5392,7 @@ break;
 case 58:
 	    
 			//Type already set
-			$type =& $s[$o-2];
+			$type = $s[$o-2];
 			$s[$o-1]->setParent($type);
 			$type->setType('WikiLink', $this);
         
@@ -5406,7 +5408,7 @@ break;
 case 62:
 	    
             //Type already set
-            $type =& $s[$o-2];
+            $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('WikiLinkType', $this);
         
@@ -5422,7 +5424,7 @@ break;
 case 66:
 	    
             //Type already set
-            $type =& $s[$o-2];
+            $type = $s[$o-2];
             $s[$o-1]->setParent($type);
             $type->setType('WikiUnlink', $this);
         
@@ -5430,7 +5432,7 @@ case 66:
 break;
 case 67:
 	    
-            $type =& $s[$o];
+            $type = $s[$o];
             $type->addArgument($s[$o]);
             $type->setType('WordLink', $this);
 
@@ -5439,7 +5441,7 @@ case 67:
 break;
 case 68:
         
-            $type =& $s[$o];
+            $type = $s[$o];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addContent($s[$o1]);
@@ -5449,7 +5451,7 @@ case 68:
 break;
 case 69:
         
-            $type =& $s[$o-1];
+            $type = $s[$o-1];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addContent($s[$o]);
@@ -5459,7 +5461,7 @@ case 69:
 break;
 case 70:
 	    
- 		    $type =& $s[$o-1];
+ 		    $type = $s[$o-1];
             $type->setOption('NoBody', true);
             $type->setOption('Inline', true);
             $type->addArgument($s[$o]);
@@ -5479,7 +5481,7 @@ case 71:
 break;
 case 72:
 	    
- 		    $type =& $s[$o-3];
+ 		    $type = $s[$o-3];
  		    $type->addArgument($s[$o-2]);
  		    $s[$o-1]->setParent($type);
  		    $type->stateEnd = $s[$o];
@@ -5489,7 +5491,7 @@ case 72:
 break;
 case 73:
 	    
-            $type =& $s[$o-2];
+            $type = $s[$o-2];
             $type->addArgument($s[$o-1]);
             $type->addArgument($s[$o]);
             $type->stateEnd = $s[$o];
@@ -5776,23 +5778,27 @@ break;
 
     function unput($ch)
     {
+        $yy = new Parsed();
+
         $len = strlen($ch);
         $lines = explode("/(?:\r\n?|\n)/", $ch);
         $linesCount = count($lines);
 
         $this->input->unCh($len);
-        $this->yy->text = substr($this->yy->text, 0, $len - 1);
+        $yy->text = substr($this->yy->text, 0, $len - 1);
         //$this->yylen -= $len;
         $this->offset -= $len;
         $oldLines = explode("/(?:\r\n?|\n)/", $this->match);
         $oldLinesCount = count($oldLines);
         $this->match = substr($this->match, 0, strlen($this->match) - 1);
 
-        if (($linesCount - 1) > 0) $this->yy->lineNo -= $linesCount - 1;
+        if (($linesCount - 1) > 0) {
+            $yy->lineNo = $this->yy->lineNo - $linesCount - 1;
+        }
         $r = $this->yy->loc->range;
         $oldLinesLength = (isset($oldLines[$oldLinesCount - $linesCount]) ? strlen($oldLines[$oldLinesCount - $linesCount]) : 0);
 
-        $this->yy->loc = new ParserLocation(
+        $yy->loc = new ParserLocation(
             $this->yy->loc->firstLine,
             $this->yy->lineNo,
             $this->yy->loc->firstColumn,
@@ -5803,8 +5809,10 @@ break;
         );
 
         if (isset($this->ranges)) {
-            $this->yy->loc->range = array($r[0], $r[0] + $this->yy->leng - $len);
+            $yy->loc->range = array($r[0], $r[0] + $this->yy->leng - $len);
         }
+
+        $this->unputStack[] = $yy;
     }
 
     function more()
@@ -5821,11 +5829,15 @@ break;
 
     function upcomingInput()
     {
-        $next = $this->match;
-        if (strlen($next) < 20) {
-            $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+        if (!$this->done) {
+            $next = $this->match;
+            if (strlen($next) < 20) {
+                $next .= substr($this->input->toString(), 0, 20 - strlen($next));
+            }
+            return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
+        } else {
+            return "";
         }
-        return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
     }
 
     function showPosition()
@@ -5842,6 +5854,9 @@ break;
 
     function next()
     {
+        if ($yy = array_pop($this->unputStack)) {
+            $this->yy = $yy;
+        }
         if ($this->done == true) {
             return $this->eof;
         }
@@ -5952,7 +5967,7 @@ break;
     {
         
 
-
+;
 switch($avoidingNameCollisions) {
 case 0:
 break;
@@ -6013,10 +6028,10 @@ case 8:
 break;
 case 9:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
     
 
-    return 'VARIABLE';
+    return 11;
 
 break;
 case 10:
@@ -6040,11 +6055,11 @@ break;
 case 12:
     
         //returns block end
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->popState();
     
 
-    return 'BLOCK_END';
+    return 55;
 
 break;
 case 13:
@@ -6057,11 +6072,11 @@ case 13:
 break;
 case 14:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('preBlock');
     
 
-    return 'PRE_BLOCK_START';
+    return 53;
 
 break;
 case 15:
@@ -6081,10 +6096,10 @@ case 16:
 break;
 case 17:
     
-        if ($this->isContent() || !empty($this->tableStack)) return 'CONTENT';
+        if ($this->isContent() || !empty($this->tableStack)) return 7;
     
 
-    return 'LINE_END';
+    return 48;
 
 break;
 case 18:
@@ -6137,11 +6152,11 @@ case 23:
             $this->popState();
             $this->pluginStackCount--;
             array_pop($this->pluginStack);
-            return 'PLUGIN_END';
+            return 47;
         }
     
 
-    return 'CONTENT';
+    return 7;
 
 break;
 case 24:
@@ -6163,27 +6178,27 @@ case 25:
 break;
 case 26:
     
-		if ($this->isContent()) return 'CONTENT';
+		if ($this->isContent()) return 7;
 		$this->begin('pastLink');
 	
 
-	return 'PAST_LINK_START';
+	return 34;
 
 break;
 case 27:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
     
 
-    return 'HORIZONTAL_BAR';
+    return 13;
 
 break;
 case 28:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
     
 
-    return 'FORCED_LINE_END';
+    return 49;
 
 break;
 case 29:
@@ -6209,11 +6224,11 @@ case 31:
 break;
 case 32:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('bold');
     
 
-    return 'BOLD_START';
+    return 14;
 
 break;
 case 33:
@@ -6235,11 +6250,11 @@ case 34:
 break;
 case 35:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('center');
     
 
-    return 'CENTER_START';
+    return 16;
 
 break;
 case 36:
@@ -6261,11 +6276,11 @@ case 37:
 break;
 case 38:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('color');
     
 
-    return 'COLOR_START';
+    return 19;
 
 break;
 case 39:
@@ -6287,11 +6302,11 @@ case 40:
 break;
 case 41:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('italic');
     
 
-    return 'ITALIC_START';
+    return 21;
 
 break;
 case 42:
@@ -6314,12 +6329,12 @@ case 43:
 break;
 case 44:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('link');
     
 
-    return 'LINK_START';
+    return 23;
 
 break;
 case 45:
@@ -6341,11 +6356,11 @@ case 46:
 break;
 case 47:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('strike');
     
 
-    return 'STRIKE_START';
+    return 25;
 
 break;
 case 48:
@@ -6359,22 +6374,22 @@ case 48:
 break;
 case 49:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->popState();
         array_pop($this->tableStack);
     
 
-    return 'TABLE_END';
+    return 29;
 
 break;
 case 50:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('table');
         $this->tableStack[] = true;
     
 
-    return 'TABLE_START';
+    return 28;
 
 break;
 case 51:
@@ -6396,11 +6411,11 @@ case 52:
 break;
 case 53:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('titleBar');
     
 
-    return 'TITLE_BAR_START';
+    return 30;
 
 break;
 case 54:
@@ -6418,16 +6433,16 @@ case 55:
         $this->popState();
     
 
-    return 'UNDERSCORE_END';
+    return 33;
 
 break;
 case 56:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->begin('underscore');
     
 
-    return 'UNDERSCORE_START';
+    return 32;
 
 break;
 case 57:
@@ -6446,7 +6461,7 @@ case 58:
         $this->popState();
     
 
-    return 'WIKI_LINK_END';
+    return 37;
 
 break;
 case 59:
@@ -6456,17 +6471,17 @@ case 59:
         $this->popState();
     
 
-    return 'WIKI_UNLINK_END';
+    return 41;
 
 break;
 case 60:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('wikiLink');
     
 
-    return 'WIKI_LINK_START';
+    return 36;
 
 break;
 case 61:
@@ -6485,18 +6500,18 @@ case 62:
         $this->popState();
     
 
-    return 'WIKI_LINK_TYPE_END';
+    return 39;
 
 break;
 case 63:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('wikiLinkType');
         $this->yy->text = substr($this->yy->text, 1, -1);
     
 
-    return 'WIKI_LINK_TYPE_START';
+    return 38;
 
 break;
 case 64:
@@ -6510,12 +6525,12 @@ case 64:
 break;
 case 65:
     
-        if ($this->isContent()) return 'CONTENT';
+        if ($this->isContent()) return 7;
         $this->linkStack = true;
         $this->begin('wikiUnlink');
     
 
-    return 'WIKI_UNLINK_START';
+    return 40;
 
 break;
 case 66:
@@ -6528,17 +6543,20 @@ case 66:
 break;
 case 67:
     
-        if ($this->isContent()) return 'CONTENT';
-
+        if ($this->isContent()) return 7;
         $isLink = false;
-        $this->events->triggerExpressionWordLinkExists($this->yy->text, $isLink);
+        $this->events->triggerExpressionWordLinkExists(trim($this->yy->text), $isLink);
 
         if ($isLink) {
-            return 'WORD_LINK';
-        } else {
-            $this->unput($this->yy->text);
-            $this->begin('skip');
+            if (preg_match('/[ ]$/', $this->yy->text)) {
+                $this->unput(' ');
+                $this->yy->text = trim($this->yy->text);
+            }
+            return 42;
         }
+
+        return 7;
+
     
 
 break;
@@ -6549,10 +6567,10 @@ break;
 case 69:
 	
 	
-		if ($this->isContent()) return 'CONTENT';
+		if ($this->isContent()) return 7;
 	
 
-	return 'SPECIAL_CHAR';
+	return 51;
 
 break;
 case 70:
@@ -6570,8 +6588,8 @@ case 73:return 7;
 break;
 case 74:
     
-		if ($this->isContent()) return 'CONTENT';
-		return 'WHITE_SPACE';
+		if ($this->isContent()) return 7;
+		return 52;
 	
 
 break;
@@ -6607,7 +6625,9 @@ class ParserLocation
 
     public function __clone()
     {
-        return new ParserLocation($this->firstLine, $this->lastLine, $this->firstColumn, $this->lastColumn);
+        if (isset($this->range)) {
+            $this->range = clone $this->range;
+        }
     }
 }
 
@@ -6619,14 +6639,9 @@ class ParserValue
     public $text;
 
     function __clone() {
-        $clone = new ParserValue();
-        $clone->leng = $this->leng;
         if (isset($this->loc)) {
-            $clone->loc = clone $this->loc;
+            $this->loc = clone $this->loc;
         }
-        $clone->lineNo = $this->lineNo;
-        $clone->text = $this->text;
-        return $clone;
     }
 }
 

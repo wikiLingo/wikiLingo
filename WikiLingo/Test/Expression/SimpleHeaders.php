@@ -16,8 +16,8 @@ class SimpleHeaders extends Base
 			"!! foo";
 
 		$this->expected =
-			"<h1 id='+foo'><span class='whitespace'> </span>foo</h1>" .
-			"<h2 id='foo'>foo</h2>" .
-			"<h2 id='+foo1'><span class='whitespace'> </span>foo</h2>";
+			"<h1 id='foo'><span class='whitespace'> </span>foo</h1>" .
+			"<h2 id='foo1'>foo</h2>" .
+			"<h2 id='foo2'><span class='whitespace'> </span>foo</h2>";
 	}
 }

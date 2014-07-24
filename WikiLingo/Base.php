@@ -1,8 +1,7 @@
 <?php
 namespace WikiLingo;
 
-use Exception;
-use WikiLingo\Renderer;
+use WikiLingo\Model;
 
 /**
  * Class Base
@@ -68,14 +67,14 @@ abstract class Base
      * @param WikiLingo\Expression\* &$type
      * @return Number
      */
-    public function addType(&$type)
+    public function addType($type)
     {
         $class = get_class($type);
         if (empty($this->types[$class])) {
             $this->types[$class] = array();
             $this->typesCount[$class] = -1;
         }
-        $this->types[$class][] =& $type;
+        $this->types[$class][] = $type;
         $this->typesCount[$class]++;
         $classNameShort = explode('\\', $class);
         $type->type = array_pop($classNameShort);
@@ -91,8 +90,10 @@ abstract class Base
         $this->typesCount = array();
         $this->pluginInstances = array();
         $this->plugins = array();
+        $this->events->clear();
 	    Expression\Plugin::$indexes = array();
         Expression\Plugin::$customClasses = array();
+        Expression\BlockType\Header::$ids = array();
     }
 
     /**
@@ -161,13 +162,13 @@ abstract class Base
             $syntax = '';
             for ($i = $firstLine; $i <= $lastLine; $i++) {
                 if ($i == $firstLine) { //first line
-                    $syntax .= substr($input[$i - 1], $firstColumn);
+                    $syntax .= substr($input[$i - 1], $firstColumn) . "\n";
 
                 } else if ($i == $lastLine) {//last line
                     $syntax .= substr($input[$i - 1], 0, $lastColumn);
 
                 } else {//lines in between
-                    $syntax .= $input[$i - 1];
+                    $syntax .= $input[$i - 1] . "\n";
                 }
             }
 
@@ -212,7 +213,7 @@ abstract class Base
         }
     }
 
-    function removeEOF( &$output )
+    function removeEOF( $output )
     {
         $output = str_replace("≤REAL_EOF≥", "", $output);
     }

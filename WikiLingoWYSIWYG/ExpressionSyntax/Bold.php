@@ -10,7 +10,7 @@ class Bold extends Base
     public $iconClass = 'icon-bold';
     public $group = 'font';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '__expression__';
     }

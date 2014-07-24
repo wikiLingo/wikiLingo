@@ -18,7 +18,7 @@ class Slider extends Base
     {
         $this->label = 'Slider';
 
-        $this->htmlTagType = 'li';
+        $this->htmlTagType = 'div';
         $this->draggable = false;
 
         $this->parameters['title'] = new Parameter('Title', '');

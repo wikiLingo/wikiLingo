@@ -33,7 +33,7 @@ class Plugin extends Base
         }
     }
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '';
     }

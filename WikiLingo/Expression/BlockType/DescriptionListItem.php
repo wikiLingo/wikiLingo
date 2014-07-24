@@ -16,10 +16,10 @@ class DescriptionListItem
      * @param $term
      * @param $description
      */
-    public function __construct(&$term, &$description)
+    public function __construct($term, $description)
 	{
-		$this->term =& $term;
-		$this->description =& $description;
+		$this->term = $term;
+		$this->description = $description;
 	}
 
     /**
@@ -27,7 +27,7 @@ class DescriptionListItem
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
 	{
 		$elementTerm = $renderer->element(__CLASS__, 'dt');
 		$elementTerm->staticChildren[] = $this->term;

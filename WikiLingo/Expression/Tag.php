@@ -24,9 +24,9 @@ class Tag extends Base
     /**
      * @param WikiLingo\Parsed $parsed
      */
-    function __construct(WikiLingo\Parsed &$parsed)
+    function __construct(WikiLingo\Parsed $parsed)
 	{
-        $this->parsed =& $parsed;
+        $this->parsed = $parsed;
         $parts = preg_split("/[ >]/", substr($parsed->text, 1)); //<tag> || <tag name="">
         $name = $parts[0];
         if ($name{0} == '/') {
@@ -50,7 +50,7 @@ class Tag extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
 	{
         if ($this->allowed) {
 		    return $this->parsed->text;

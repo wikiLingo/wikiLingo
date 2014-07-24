@@ -113,7 +113,7 @@ $expressionSyntaxes = new WikiLingoWYSIWYG\ExpressionSyntaxes($scripts);
 
 
 //bind to event "WikiLingoWYSIWYG\Event\ExpressionSyntax\Registered",giving certain syntax extra attributes
-$expressionSyntaxes->parser->events->bind(new WikiLingoWYSIWYG\Event\ExpressionSyntax\Registered(function(\WikiLingoWYSIWYG\ExpressionType &$expressionType) {
+$expressionSyntaxes->parser->events->bind(new WikiLingoWYSIWYG\Event\ExpressionSyntax\Registered(function(\WikiLingoWYSIWYG\ExpressionType $expressionType) {
 	switch ($expressionType->name) {
 		case 'Plugin':
 			$expressionType->extraAttributes['onmouseover'] = '';

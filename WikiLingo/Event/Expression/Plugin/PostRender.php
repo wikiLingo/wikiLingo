@@ -21,9 +21,9 @@ class PostRender extends Event\Base
      * @param Boolean $rendered
      * @param Plugin $plugin
      */
-    public function trigger(&$rendered, Plugin &$plugin)
+    public function trigger($rendered, Plugin $plugin)
 	{
-		foreach($this->delegates as &$delegate)
+		foreach($this->delegates as $delegate)
 		{
 			$delegate($rendered, $plugin);
 		}

@@ -10,7 +10,7 @@ class Strike extends Base
     public $iconClass = 'icon-strikethrough';
     public $group = 'font';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '--expression--';
     }

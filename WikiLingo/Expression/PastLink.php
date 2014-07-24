@@ -34,9 +34,9 @@ class PastLink extends Base
     /**
      * @param WikiLingo\Parsed $parsed
      */
-    public function __construct(WikiLingo\Parsed &$parsed)
+    public function __construct(WikiLingo\Parsed $parsed)
 	{
-		$this->parsed =& $parsed;
+		$this->parsed = $parsed;
 
 		//"@FLP(past)" to "past"
 		$this->past = json_decode(urldecode(substr($parsed->text, 5, -1)));
@@ -48,7 +48,7 @@ class PastLink extends Base
      * @param WikiLingo\Parser $parser
      * @return mixed|string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
 	{
         if ( !$parser->wysiwyg ) {
             self::$renderedCount++;
@@ -56,7 +56,7 @@ class PastLink extends Base
             //FIRST
             //Bind initial render so that PastLink::$ui is set, this is only done once per parser render
             if ( self::$renderedCount == 1 ) {
-                $parser->events->bind(new Event\PostRender(function(&$rendered) {
+                $parser->events->bind(new Event\PostRender(function($rendered) {
                     PastLink::$ui = new FLP\UI($rendered);
                     PastLink::$ui->setContextAsFuture();
                 }));
@@ -65,7 +65,7 @@ class PastLink extends Base
             //EVERY
             //each child needs to be sent as a phrase to the ui
             $children = $this->renderedChildren;
-            $parser->events->bind(new Event\PostRender(function(&$rendered) use ($children) {
+            $parser->events->bind(new Event\PostRender(function($rendered) use ($children) {
                 PastLink::$ui->addPhrase(new Phraser\Phrase($children));
             }));
 
@@ -85,7 +85,7 @@ class PastLink extends Base
             //LAST
             //if this is the last item in the count, then setup the post-render, reset the counters
             if (self::$existingCount == self::$renderedCount) {
-                $parser->events->bind(new Event\PostRender(function(&$rendered) use (&$parser) {
+                $parser->events->bind(new Event\PostRender(function($rendered) use ($parser) {
                     $rendered = PastLink::$ui->render();
                     $pairs = self::$pairs;
                     $pairsJson = json_encode($pairs);

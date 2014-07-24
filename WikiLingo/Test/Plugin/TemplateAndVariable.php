@@ -11,7 +11,6 @@ class TemplateAndVariable extends Base
 {
 	public function __construct(&$parser)
 	{
-        $parser->clearTypes();
 
 		if ($parser != null) {
             Type::Events($parser->events)

@@ -11,7 +11,6 @@ class TemplatesAndExpressionsWithVariables extends Base
 {
 	public function __construct(&$parser)
 	{
-        $parser->clearTypes();
 		$parser->events->WikiLingoEventExpressionVariableContext = array();
 
 		if ($parser != null) {
@@ -61,12 +60,12 @@ class TemplatesAndExpressionsWithVariables extends Base
 {TEMPLATE}";
 
 		$this->expected =
-			"<h1 id='+Header+1.1'><span class='whitespace'> </span>Header <span>1.1</span></h1>" .
-			"<h1 id='+Header+1.2'><span class='whitespace'> </span>Header <span>1.2</span></h1>" .
+			"<h1 id='Header-1-1'><span class='whitespace'> </span>Header <span>1.1</span></h1>" .
+			"<h1 id='Header-1-2'><span class='whitespace'> </span>Header <span>1.2</span></h1>" .
 			"<br/>" .
 			"<br/>" .
-			"<h1 id='header+3.1'>header <span>3.1</span></h1>" .
-			"<h1 id='header+3.2'>header <span>3.2</span></h1>";
+			"<h1 id='header-3-1'>header <span>3.1</span></h1>" .
+			"<h1 id='header-3-2'>header <span>3.2</span></h1>";
 
 	}
 }

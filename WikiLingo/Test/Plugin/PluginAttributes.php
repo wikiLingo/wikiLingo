@@ -18,8 +18,6 @@ class PluginAttributes extends Base
 {
 	public function __construct(&$parser)
 	{
-		$parser->clearTypes();
-
 		$this->source =
 			"{DIV(attr1 = something attr2 = 'something else')}
 {DIV}";

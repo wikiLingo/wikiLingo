@@ -19,14 +19,14 @@ class TableRow
     /**
      * @param null $column
      */
-    public function __construct(&$column = null) {
+    public function __construct($column = null) {
         $this->addColumn($column);
     }
 
     /**
      * @param null $column
      */
-    public function addColumn(&$column = null)
+    public function addColumn($column = null)
     {
         if ($column == null) {
             $this->columns[] = new Expression\TableCell("");
@@ -42,7 +42,7 @@ class TableRow
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
     {
         $result = '';
 

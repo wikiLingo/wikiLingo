@@ -128,7 +128,7 @@ case 9:
 break;
 case 10:
         /*php
-            $type =& $$[$0-1];
+            $type = $$[$0-1];
             $type->setType('Element', $this);
             $type->expression->setClosing($$[$0]);
         */
@@ -142,8 +142,8 @@ case 11:
 break;
 case 12:
         /*php
-            $type =& $$[$0-2];
-            $typeChild =& $$[$0-1];
+            $type = $$[$0-2];
+            $typeChild = $$[$0-1];
             $typeChild->setParent($type);
             $type->setType('Element', $this);
             $type->expression->setClosing($$[$0]);
@@ -152,15 +152,15 @@ case 12:
 break;
 case 13:
         /*php
-            $type =& $$[$0];
+            $type = $$[$0];
             $type->setType('BrokenElement', $this);
         */
     
 break;
 case 14:
         /*php
-            $type =& $$[$0-1];
-            $typeChild =& $$[$0];
+            $type = $$[$0-1];
+            $typeChild = $$[$0];
             $type->addContent($typeChild);
             $type->setType('Element', $this);
         */
@@ -168,15 +168,15 @@ case 14:
 break;
 case 15:
         /*php
-            $type =& $$[$0];
+            $type = $$[$0];
             $type->setType('BrokenElement', $this);
         */
     
 break;
 case 16:
         /*php
-            $type =& $$[$0-2];
-            $typeChild =& $$[$0-1];
+            $type = $$[$0-2];
+            $typeChild = $$[$0-1];
             $typeChild->setParent($type);
             $type->setType('BrokenElement', $this);
         */
@@ -686,8 +686,8 @@ break;
 case 3:
     /*php
         //A tag that is open and we just found the close for it
-        $element = $this->unStackHtmlElement($this->yy->text);
-        if (isset($element)) {
+        $element = $this->unStackHtmlElement($yy_.yytext);
+        if ($element !== null) {
            $this->popState();
            return "HTML_TAG_CLOSE";
         }
@@ -700,7 +700,7 @@ case 4:
         $isHtmlTag = WikiLingo\Utilities\Html::isHtmlTag($yy_.yytext, true);
         //An tag open
         if ($isHtmlTag === true) {
-           $this->stackHtmlElement(clone($this->yy));
+           $this->stackHtmlElement($yy_.yytext);
            $this->begin('htmlElement');
            return "HTML_TAG_OPEN";
         } else if ($isHtmlTag === false) {

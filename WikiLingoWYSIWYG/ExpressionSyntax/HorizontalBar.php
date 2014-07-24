@@ -10,7 +10,7 @@ class HorizontalBar extends Base
     public $iconClass = 'icon-minus';
     public $group = 'misc';
 
-    public function example(WikiLingoWYSIWYG\Parser &$parser)
+    public function example(WikiLingoWYSIWYG\Parser $parser)
     {
         return '---';
     }

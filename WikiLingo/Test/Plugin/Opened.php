@@ -11,11 +11,6 @@ class Opened extends Base
 {
 	public function __construct(&$parser)
 	{
-
-		if (!$parser->wysiwyg) {
-			$parser->clearTypes();
-        }
-
 		$this->source =
             "{DIV()}__hi!__";
 

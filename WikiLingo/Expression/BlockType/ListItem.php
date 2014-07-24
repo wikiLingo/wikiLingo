@@ -30,13 +30,13 @@ class ListItem extends Hierarchical
      * @param int $depth
      * @param Expression\Block $block
      */
-    function __construct($container, &$block = null, $depth = 0)
+    function __construct($container, $block = null, $depth = 0)
     {
         $this->container = $container;
         $this->depth = $depth;
 
         if ($block != null) {
-            $this->block =& $block;
+            $this->block = $block;
 
             if (isset($block->parsed))
             {
@@ -51,7 +51,7 @@ class ListItem extends Hierarchical
      * @param Hierarchical $child
      * @return $this
      */
-    function &addChild(&$child)
+    function addChild($child)
     {
         if (!isset($this->children))
         {
@@ -67,9 +67,9 @@ class ListItem extends Hierarchical
      * @param WikiLingo\Parser $parser
      * @return string
      */
-    function render(&$renderer, &$parser)
+    function render($renderer, $parser)
     {
-        foreach($this->container->listItemRenderDelegate as &$delegate)
+        foreach($this->container->listItemRenderDelegate as $delegate)
         {
             return $delegate($this, $renderer, $parser);
         }

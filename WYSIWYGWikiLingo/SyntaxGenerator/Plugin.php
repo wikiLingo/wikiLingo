@@ -12,7 +12,7 @@ class Plugin extends Base
      */
     public function generate()
     {
-        $parameters =& $this->expression->parameters;
+        $parameters = $this->expression->parameters;
         $pluginType = null;
         $inLine = false;
         $pluginParameters = null;

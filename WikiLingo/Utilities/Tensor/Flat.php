@@ -41,10 +41,10 @@ abstract class Flat
 	/**
 	 * @param Hierarchical $item
 	 */
-	public function add(&$item)
+	public function add($item)
 	{
 		$item->index = $this->length;
-		$this->items[] =& $item;
+		$this->items[] = $item;
 		$this->length++;
 
         //build up if needed, then append
@@ -62,18 +62,18 @@ abstract class Flat
                     if ($emptyParentsIndex == -1)
                     {
                         //this item already exists
-                        $emptyParents[] =& $this->parentAtDepth();
+                        $emptyParents[] = $this->parentAtDepth();
                     }
                     else if ($this->activeDepth < $item->depth)
                     {
                         //this item doesn't exist
-                        $emptyParents[] =& $this->parentAtDepth()->setParent($emptyParents[$emptyParentsIndex]);
+                        $emptyParents[] = $this->parentAtDepth()->setParent($emptyParents[$emptyParentsIndex]);
                     }
                     $this->activeDepth++;
                     $emptyParentsIndex++;
                 }
                 $this->makeParent($item);
-                $parent =& $this->parentAtDepth($item->depth - 1);
+                $parent = $this->parentAtDepth($item->depth - 1);
                 $parent->addChild($item);
             }
 		}
@@ -111,7 +111,7 @@ abstract class Flat
      * @param Hierarchical $parent
      * @return bool
      */
-    public function makeParent(&$parent)
+    public function makeParent($parent)
 	{
 
 		if ($parent->depth == 0) {
@@ -121,7 +121,7 @@ abstract class Flat
 				$this->parents[0] = array();
 				$this->parentActive[0] = 0;
 			}
-			$this->parents[0][$this->parentActive[0]] =& $parent;
+			$this->parents[0][$this->parentActive[0]] = $parent;
 			return true;
 		}
 
@@ -129,13 +129,13 @@ abstract class Flat
 		{
 			$this->parents[$parent->depth] = array();
 			$this->parentActive[$parent->depth] = 0;
-			$this->parents[$parent->depth][$this->parentActive[$parent->depth]] =& $parent;
+			$this->parents[$parent->depth][$this->parentActive[$parent->depth]] = $parent;
 			return true;
 		}
 
 		else if (empty($this->parents[$parent->depth][$this->parentActive[$parent->depth]]))
 		{
-			$this->parents[$parent->depth][$this->parentActive[$parent->depth]] =& $parent;
+			$this->parents[$parent->depth][$this->parentActive[$parent->depth]] = $parent;
 			return true;
 		}
 
@@ -159,7 +159,7 @@ abstract class Flat
      * @param Number $depth
      * @return Hierarchical
      */
-    public function &parentAtDepth($depth = -1)
+    public function parentAtDepth($depth = -1)
 	{
 		if ($depth == -1)
 		{
@@ -195,7 +195,7 @@ abstract class Flat
     /**
      * @param Hierarchical $item
      */
-    public function setActiveParent(&$item)
+    public function setActiveParent($item)
 	{
 		$this->parentAtDepth($item->depth)->addSibling($item);
 		$this->parentActive[$item->depth]++;

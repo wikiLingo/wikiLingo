@@ -1,9 +1,9 @@
 <?php
-namespace WikiLingo\Renderer;
+namespace WikiLingo\Model;
 
 /**
  * Class Helper
- * @package WikiLingo\Renderer
+ * @package WikiLingo\Model
  */
 class Helper extends Element
 {

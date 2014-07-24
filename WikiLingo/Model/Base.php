@@ -1,9 +1,9 @@
 <?php
-namespace WikiLingo\Renderer;
+namespace WikiLingo\Model;
 
 /**
  * Class Base
- * @package WikiLingo\Renderer
+ * @package WikiLingo\Model
  */
 class Base
 {
@@ -18,7 +18,7 @@ class Base
         $children = '';
 
         if (empty($this->staticChildren)) {
-            foreach($this->children as &$child) {
+            foreach($this->children as $child) {
                 $children .= $child->render();
             }
         } else {

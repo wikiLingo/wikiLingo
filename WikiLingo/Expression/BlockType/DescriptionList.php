@@ -33,10 +33,10 @@ class DescriptionList
     /**
      * @param Block $block
      */
-    public function __construct(Block &$block)
+    public function __construct(Block $block)
 	{
-		$this->parsed =& $block->parsed;
-		$this->block =& $block;
+		$this->parsed = $block->parsed;
+		$this->block = $block;
 		$termSet = false;
 		$term = '';
 		$description = '';
@@ -52,14 +52,14 @@ class DescriptionList
 		}
 
 		$this->items[] = new DescriptionListItem($term, $description);
-		$this->parser =& $this->parsed->parser;
+		$this->parser = $this->parsed->parser;
 		$this->parser->addType($this);
 	}
 
     /**
      * @param Block $block
      */
-    public function add(Block &$block)
+    public function add(Block $block)
 	{
 		$termSet = false;
 		$term = '';
@@ -83,7 +83,7 @@ class DescriptionList
      * @param $parser
      * @return mixed
      */
-    public function render(&$renderer, &$parser)
+    public function render($renderer, $parser)
 	{
 		$element = $renderer->element(__CLASS__, 'dl');
 

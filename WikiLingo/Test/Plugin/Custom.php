@@ -13,7 +13,6 @@ class Custom extends Base
 	{
 
 		if (!$parser->wysiwyg) {
-			$parser->clearTypes();
             WikiLingo\Expression\Plugin::$customClasses['CustomPlugin'] = new CustomPlugin();
         }
 

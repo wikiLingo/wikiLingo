@@ -29,5 +29,5 @@ abstract class Base
         $this->labelTranslated = $parser->events->triggerTranslate($this->label, 'expression');
     }
 
-    abstract public function example(WikiLingoWYSIWYG\Parser &$parser);
+    abstract public function example(WikiLingoWYSIWYG\Parser $parser);
 } 

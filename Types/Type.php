@@ -27,7 +27,7 @@ namespace Types
 			return $obj;
 		}
 
-		public static function Element(WikiLingo\Renderer\Element $obj)
+		public static function Element(WikiLingo\Model\Element $obj)
 		{
 			return $obj;
 		}
@@ -42,7 +42,7 @@ namespace Types
 			return $obj;
 		}
 
-		public static function Helper(WikiLingo\Renderer\Helper $obj)
+		public static function Helper(WikiLingo\Model\Helper $obj)
 		{
 			return $obj;
 		}

@@ -24,16 +24,16 @@ class ExpressionInstantiator
     /**
      * @param Parser $parser
      */
-    public function __construct(&$parser)
+    public function __construct($parser)
     {
-        $this->parser =& $parser;
+        $this->parser = $parser;
     }
 
     /**
      * @param Parsed $parsed
      * @throws Exception
      */
-    public function set(&$parsed)
+    public function set($parsed)
     {
         $class = "WikiLingo\\Expression\\$parsed->type";
         $parsed->expressionType = $class;
@@ -42,7 +42,7 @@ class ExpressionInstantiator
             if (class_exists($class)) {
                 $expression = new $class($parsed);
                 if ($expression) {
-                    $parsed->expression =& $expression;
+                    $parsed->expression = $expression;
                 }
             } else if ($this->throwExceptions) {
                 throw new Exception("Type '" . $parsed->type . "' does not exist in WikiLingo\\Expression namespace.");
