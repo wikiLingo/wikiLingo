@@ -13,8 +13,6 @@ class Permission extends Base
 	{
 
         if (!$parser->wysiwyg) {
-            $parser->clearTypes();
-
             Type::Events($parser->events)
                 ->bind(new Event\Parsed\RenderPermission(function(Parsed &$parsed) {
                     if (

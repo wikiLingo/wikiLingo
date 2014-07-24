@@ -3,6 +3,7 @@ namespace WikiLingo;
 
 
 use WikiLingo\Plugin\Parameter;
+use WikiLingo\Expression\BlockType\Header;
 
 /**
  * Class Events
@@ -12,6 +13,8 @@ class Events
 {
 	//possible events, I hate to re-declare all of them, but it is strongly typed, what can you say
 	public $WikiLingoEventTranslate = array();
+
+	public $WikiLingoEventExpressionBlockTypeHeaderIdLookup = array();
 
 	public $WikiLingoEventExpressionPluginExists = array();
     public $WikiLingoEventExpressionPluginPreRender = array();
@@ -51,7 +54,7 @@ class Events
     /**
      * @param $value
      * @param $context
-     * @return mixed
+     * @return string
      */
     public function triggerTranslate(&$value, $context)
 	{
@@ -61,6 +64,22 @@ class Events
 		}
 
 		return $value;
+	}
+
+
+	/**
+	 * @param string $id
+	 * @param Header $header
+	 * @return string
+	 */
+	public function triggerExpressionBlockTypeHeaderIdLookup($id, Header $header)
+	{
+		foreach($this->WikiLingoEventExpressionBlockTypeHeaderIdLookup as $event)
+		{
+			return $event->trigger($id, $header);
+		}
+
+		return $id;
 	}
 
     /**

@@ -11,7 +11,6 @@ class TemplatesAndExpressionsWithVariables extends Base
 {
 	public function __construct(&$parser)
 	{
-        $parser->clearTypes();
 		$parser->events->WikiLingoEventExpressionVariableContext = array();
 
 		if ($parser != null) {

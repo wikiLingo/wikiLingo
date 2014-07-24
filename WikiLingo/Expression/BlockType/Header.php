@@ -87,8 +87,9 @@ class Header
 	    }
 
         if (!isset($this->id) || $this->block->variableContext != null) {
-            $id = $this->id = urlencode(strip_tags($children));
-            if (!isset(self::$ids[$id])) {
+            $id = $parser->events->triggerExpressionBlockTypeHeaderIdLookup(urlencode(strip_tags($children)), $this);
+	        $this->id = $id;
+	        if (!isset(self::$ids[$id])) {
                 self::$ids[$id] = 1;
             } else {
                 $this->id .= self::$ids[$id];

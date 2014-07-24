@@ -13,8 +13,6 @@ class T extends Base
 	{
 
 		if ($parser != null) {
-			$parser->clearTypes();
-
             Type::Events($parser->events)
                 ->bind(new Event\Translate(function($value, $context) {
                     switch($value){

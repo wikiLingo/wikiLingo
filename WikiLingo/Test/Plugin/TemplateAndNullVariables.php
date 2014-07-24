@@ -15,8 +15,6 @@ class TemplateAndNullVariables extends Base
 {
     public function __construct(&$parser)
     {
-	    $parser->clearTypes();
-
         $this->source = <<<WL
 {TEMPLATE()}
 !!%event_name%

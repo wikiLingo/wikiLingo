@@ -101,6 +101,7 @@ class TypeNamespace
             $message = $table->render();
 
             $testify->assertEquals($actual, $test->expected, $message);
+			$this->parser->clearTypes();
 		}
 	}
 }

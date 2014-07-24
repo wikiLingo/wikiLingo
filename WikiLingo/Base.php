@@ -91,6 +91,7 @@ abstract class Base
         $this->typesCount = array();
         $this->pluginInstances = array();
         $this->plugins = array();
+	    $this->events = new Events();
 	    Expression\Plugin::$indexes = array();
         Expression\Plugin::$customClasses = array();
     }

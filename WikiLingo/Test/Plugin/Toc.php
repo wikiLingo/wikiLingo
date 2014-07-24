@@ -8,11 +8,6 @@ class Toc extends Base
 {
 	public function __construct(&$parser)
 	{
-
-		if ($parser != null) {
-			$parser->clearTypes();
-		}
-
 		$this->source =
             "{toc}\n" .
             "!Header 1\n" .
