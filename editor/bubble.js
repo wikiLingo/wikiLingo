@@ -1,4 +1,4 @@
-var WLBubble = (function(document, window, rangy, Math, ui) {
+var WLBubble = (function(document, window, $, rangy, Math, ui) {
 
 	var floatingClassNameHide = 'wikiLingo-bubble hide',
         floatingClassNameShow = 'wikiLingo-bubble show',
@@ -279,4 +279,4 @@ var WLBubble = (function(document, window, rangy, Math, ui) {
     };
 
     return construct;
-})(document, window, rangy, Math, WLExpressionUI);
+})(document, window, jQuery, rangy, Math, WLExpressionUI);
