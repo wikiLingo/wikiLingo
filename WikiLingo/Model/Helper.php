@@ -7,7 +7,7 @@ namespace WikiLingo\Model;
  */
 class Helper extends Element
 {
-	public $detailedAttributesClass = 'helper';
+	public $detailedAttributesClass = 'wl-helper';
 
     /**
      * @param String $name

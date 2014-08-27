@@ -1,8 +1,8 @@
 var WLBubble = (function(document, window, $, rangy, Math, ui) {
 
-	var floatingClassNameHide = 'wikiLingo-bubble hide',
-        floatingClassNameShow = 'wikiLingo-bubble show',
-        staticClassName = 'wikiLingo-bubble wikiLingo-bubble-static',
+	var floatingClassNameHide = 'wl-bubble wl-hide',
+        floatingClassNameShow = 'wl-bubble wl-show',
+        staticClassName = 'wl-bubble wl-bubble-static',
 
 		stop = function(e) {
 			e.preventDefault();
@@ -66,10 +66,10 @@ var WLBubble = (function(document, window, $, rangy, Math, ui) {
             staticBubble.className = staticClassName;
             staticBubble.appendChild(staticBubbleInner);
             staticBubble.onmouseenter = function() {
-                $element.addClass('focused');
+                $element.addClass('wl-focused');
             };
             staticBubble.onmouseleave = function() {
-                $element.removeClass('focused');
+                $element.removeClass('wl-focused');
             };
 
 	        this.expressions = expressions;
@@ -145,7 +145,7 @@ var WLBubble = (function(document, window, $, rangy, Math, ui) {
                 if (e.types) {
                     typeContainer = document.createElement('ul');
                     typeContainer.isPartOfBubble = true;
-                    typeContainer.className = 'wikiLingo-bubble-static';
+                    typeContainer.className = 'wl-bubble-static';
                     for (j in e.types) {
                         if (e.types[j].draggable === false) {
                             continue;
@@ -191,7 +191,7 @@ var WLBubble = (function(document, window, $, rangy, Math, ui) {
 	        this.appendGroup(floatingBubbleInner, 'main');
 	        this.appendGroup(floatingBubbleInner, 'misc', true);
 
-	        point.className = 'wikiLingo-bubble-point';
+	        point.className = 'wl-bubble-point';
 	        point.innerHTML = '&#9662;';
             floatingBubble.insertBefore(point, floatingBubble.firstChild);
 
