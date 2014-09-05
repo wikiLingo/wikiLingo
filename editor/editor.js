@@ -25,10 +25,7 @@ $(function() {
 			mode: 'rich',
 			placeholder: 'Your Article',
             autoHR: false,
-			cssClasses: [],
-			attributes: {
-				remove: []
-			},
+			attributes: {},
 			tags: {
 				paragraph: 'p',
 				outerLevel: null,
@@ -47,7 +44,7 @@ $(function() {
                     case 'br':
                     case 'p':
                         newEl = document.createElement('br');
-                        newEl.setAttribute('class', 'element');
+                        newEl.setAttribute('class', 'wl-element');
                         newEl.setAttribute('data-element', 'true');
                         newEl.setAttribute('data-type', 'WikiLingo\\\\Expression\\\\Line');
 

@@ -152,12 +152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jakiestfu/Medium.js.git",
-                "reference": "5f3c702da058073a1c6ba995336616d8797b1f61"
+                "reference": "e3ad999990bfdddb6555a024d3b2eb3dedc35919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakiestfu/Medium.js/zipball/5f3c702da058073a1c6ba995336616d8797b1f61",
-                "reference": "5f3c702da058073a1c6ba995336616d8797b1f61",
+                "url": "https://api.github.com/repos/jakiestfu/Medium.js/zipball/e3ad999990bfdddb6555a024d3b2eb3dedc35919",
+                "reference": "e3ad999990bfdddb6555a024d3b2eb3dedc35919",
                 "shasum": ""
             },
             "require": {
@@ -183,7 +183,7 @@
                     "role": "Lead Developer"
                 }
             ],
-            "time": "2014-09-04 15:05:45"
+            "time": "2014-08-25 18:41:27"
         },
         {
             "name": "rangy/rangy",

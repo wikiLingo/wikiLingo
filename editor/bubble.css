@@ -1,14 +1,14 @@
 /*start styling*/
 
-.wikiLingo-bubble {
+.wl-bubble {
     font-family: Arial, Helvetica, sans-serif;
 }
-.wikiLingo-bubble ul {
+.wl-bubble ul {
     color: #FFFFFF;
     text-align: left;
     background-color: rgba(0, 0, 0, 0.9);
 }
-.wikiLingo-bubble > ul {
+.wl-bubble > ul {
     background-color: rgba(0, 0, 0, 1);
 	-moz-box-shadow:    0px 3px 3px 3px rgba(0, 0, 0, .1);
 	-webkit-box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, .1);
@@ -20,7 +20,7 @@
 }
 
 
-.wikiLingo-bubble-static > ul {
+.wl-bubble-static > ul {
     border-width: 0px ! important;
     border-bottom-right-radius: 0px ! important;
     border-top-right-radius: 0px ! important;
@@ -28,37 +28,37 @@
 
 }
 
-.wikiLingo-bubble > ul > li {
+.wl-bubble > ul > li {
     margin: 2px;
 }
-.wikiLingo-bubble > ul > li > ul {
+.wl-bubble > ul > li > ul {
     margin-top: -7px;
     margin-left: -7px;
 }
 
-.wikiLingo-bubble > ul > li > ul > li {
+.wl-bubble > ul > li > ul > li {
     clear: both;
     display: block;
     margin: 6px;
 }
-.wikiLingo-bubble * {
+.wl-bubble * {
     cursor: pointer;
 }
 
-.wikiLingo-bubble button, .wikiLingo-bubble-minimize {
+.wl-bubble button, .wl-bubble-minimize {
     color: inherit;
     cursor: pointer;
     background-color: transparent;
 }
 
-.wikiLingo-bubble > li > ul > li {
+.wl-bubble > li > ul > li {
     border-color: rgba(0, 0, 0, 0.9) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
     border-style: solid;
     border: none;
 
 }
 
-.wikiLingo-bubble-point {
+.wl-bubble-point {
     position: relative;
     color: rgba(0, 0, 0, 0.9);
     width: 100%;
@@ -67,7 +67,7 @@
     top: 45px;
 }
 
-.hide {
+.wl-hide {
     overflow: hidden;
     max-height: 0;
     padding-top: 0;
@@ -84,7 +84,7 @@
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
     opacity: 0;
 }
-.show {
+.wl-show {
     -moz-transition-duration: 0.3s;
     -webkit-transition-duration: 0.3s;
     -o-transition-duration: 0.3s;
@@ -97,7 +97,7 @@
     opacity: 1;
 }
 
-.drag, .edit {
+.wl-drag, .wl-edit {
 	width: 25px;
 	height: 25px;
 	position: absolute;
@@ -107,112 +107,112 @@
 
 	margin-top: -25px;
 }
-.drag {
+.wl-drag {
     cursor: move;
 	-webkit-border-top-left-radius: 6px;
 	-moz-border-top-left-radius: 6px;
 	border-top-left-radius: 6px;
 }
-.edit {
+.wl-edit {
     cursor: pointer;
 	-webkit-border-top-right-radius: 6px;
 	-moz-border-top-right-radius: 6px;
 	border-top-right-radius: 6px;
 }
 
-.element {
+.wl-element {
 	-moz-box-shadow:    0px 0px 0px 0px rgba(0, 0, 0, 0);
 	-webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
 	box-shadow:         0px 0px 0px 0px rgba(0, 0, 0, 0);
 }
 
-.focused {
+.wl-focused {
 	transition:         all 500ms ease-in-out 0s;
 	-moz-box-shadow:    0px 0px 3px 4px rgba(0, 0, 0, 0.2);
 	-webkit-box-shadow: 0px 0px 3px 4px rgba(0, 0, 0, 0.2);
 	box-shadow:         0px 0px 3px 4px rgba(0, 0, 0, 0.2);
 }
 
-.representation {
+.wl-representation {
 	border: rgba(0, 0, 0, 0.9) dashed 5px;
 	position: absolute;
 }
 
-img.drag::selection { background: transparent; }
-img.drag::-moz-selection { background: transparent; }
+img.wl-drag::selection { background: transparent; }
+img.wl-drag::-moz-selection { background: transparent; }
 
 /*setup animation*/
-.wikiLingo-bubble > ul > li {
+.wl-bubble > ul > li {
     opacity: 0.7;
 }
-.wikiLingo-bubble * {
+.wl-bubble * {
     transition: all 250ms ease-in-out 0s;
 }
-.wikiLingo-bubble-static {
+.wl-bubble-static {
     transition: all 250ms ease-in-out 0s;
 }
-.wikiLingo-bubble > ul > li:hover {
+.wl-bubble > ul > li:hover {
     opacity: 0.90;
 }
-.wikiLingo-bubble > ul > li ul {
+.wl-bubble > ul > li ul {
     opacity: 0.25;
 }
-.wikiLingo-bubble > ul > li ul:hover {
+.wl-bubble > ul > li ul:hover {
     opacity: 1;
 }
 /*end animation*/
 
 /*menu innards*/
-nav.wikiLingo-bubble {
+nav.wl-bubble {
     text-align: center;
     display: block;
     position: absolute;
     border: none;
 }
-nav.wikiLingo-bubble ul ul {
+nav.wl-bubble ul ul {
     display: none;
 
 }
-nav.wikiLingo-bubble ul li:hover > ul {
+nav.wl-bubble ul li:hover > ul {
     display: block;
 }
-nav.wikiLingo-bubble ul {
+nav.wl-bubble ul {
     border-radius: 10px;
     display: inline-table;
     list-style: none outside none;
     padding: 0 10px;
     position: relative;
 }
-nav.wikiLingo-bubble ul:after {
+nav.wl-bubble ul:after {
     clear: both;
     content: "";
     display: block;
 }
-nav.wikiLingo-bubble ul li {
+nav.wl-bubble ul li {
     float: left;
 }
-nav.wikiLingo-bubble ul li:hover a {
+nav.wl-bubble ul li:hover a {
 }
-nav.wikiLingo-bubble a {
+nav.wl-bubble a {
     display: block;
     padding: 5px;
     text-decoration: none;
 }
-nav.wikiLingo-bubble ul ul {
+nav.wl-bubble ul ul {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 0;
     position: absolute;
     top: 100%;
 }
-nav.wikiLingo-bubble ul ul li {
+nav.wl-bubble ul ul li {
     float: none;
     position: relative;
 }
-nav.wikiLingo-bubble ul ul li a {
+nav.wl-bubble ul ul li a {
     padding: 10px;
 }
-nav.wikiLingo-bubble ul ul ul {
+nav.wl-bubble ul ul ul {
     left: 100%;
     position: absolute;
     top: 0;
