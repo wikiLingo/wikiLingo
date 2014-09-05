@@ -1,7 +1,8 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
     "hash": "61a3f4485da3e05a7802a57b0a899519",
     "packages": [
@@ -22,12 +23,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FutureLink-Protocol/php.git",
-                "reference": "da9b50048a454929dd0c2bcf4551c81d83d92de2"
+                "reference": "6b5d7332bf592ef28c61f399beb383ae3481dc1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/da9b50048a454929dd0c2bcf4551c81d83d92de2",
-                "reference": "da9b50048a454929dd0c2bcf4551c81d83d92de2",
+                "url": "https://api.github.com/repos/FutureLink-Protocol/php/zipball/6b5d7332bf592ef28c61f399beb383ae3481dc1e",
+                "reference": "6b5d7332bf592ef28c61f399beb383ae3481dc1e",
                 "shasum": ""
             },
             "require": {
@@ -56,7 +57,7 @@
                     "name": "Robert Plummer",
                     "email": "rplummer@visop-dev.com",
                     "homepage": "http://visop-dev.com",
-                    "role": "Lead Developer"
+                    "role": "Assistant Developer"
                 },
                 {
                     "name": "Luke Gerhardt",
@@ -67,7 +68,7 @@
             ],
             "description": "FutureLink-Protocol implementation in PHP",
             "homepage": "https://github.com/FutureLink-Protocol",
-            "time": "2014-05-02 21:11:50"
+            "time": "2014-06-24 17:15:33"
         },
         {
             "name": "gabordemooij/redbean",
@@ -151,12 +152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jakiestfu/Medium.js.git",
-                "reference": "001f110b0171cc4e5b733c05a19a34f5baebbf0b"
+                "reference": "5f3c702da058073a1c6ba995336616d8797b1f61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jakiestfu/Medium.js/zipball/001f110b0171cc4e5b733c05a19a34f5baebbf0b",
-                "reference": "001f110b0171cc4e5b733c05a19a34f5baebbf0b",
+                "url": "https://api.github.com/repos/jakiestfu/Medium.js/zipball/5f3c702da058073a1c6ba995336616d8797b1f61",
+                "reference": "5f3c702da058073a1c6ba995336616d8797b1f61",
                 "shasum": ""
             },
             "require": {
@@ -182,7 +183,7 @@
                     "role": "Lead Developer"
                 }
             ],
-            "time": "2014-04-02 17:28:29"
+            "time": "2014-09-04 15:05:45"
         },
         {
             "name": "rangy/rangy",
@@ -212,12 +213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/wikiLingo/CodeMirror.git",
-                "reference": "c35a89f1d15ec222ec152e260bf693be800a77e2"
+                "reference": "1772a120a31c757bbac9878e6003ee0a2631d214"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wikiLingo/CodeMirror/zipball/c35a89f1d15ec222ec152e260bf693be800a77e2",
-                "reference": "c35a89f1d15ec222ec152e260bf693be800a77e2",
+                "url": "https://api.github.com/repos/wikiLingo/CodeMirror/zipball/1772a120a31c757bbac9878e6003ee0a2631d214",
+                "reference": "1772a120a31c757bbac9878e6003ee0a2631d214",
                 "shasum": ""
             },
             "require": {
@@ -226,7 +227,7 @@
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Syntax highlighter for wikiLingo",
-            "time": "2014-03-27 17:26:12"
+            "time": "2014-06-03 15:55:55"
         }
     ],
     "packages-dev": [
@@ -236,12 +237,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/marco-fiset/Testify.php.git",
-                "reference": "6ae9dca4f465a2994b66b5e57e2c2116ebc42420"
+                "reference": "e6e738adab27831c5cc04b8cb29eec873973bdf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marco-fiset/Testify.php/zipball/6ae9dca4f465a2994b66b5e57e2c2116ebc42420",
-                "reference": "6ae9dca4f465a2994b66b5e57e2c2116ebc42420",
+                "url": "https://api.github.com/repos/marco-fiset/Testify.php/zipball/e6e738adab27831c5cc04b8cb29eec873973bdf4",
+                "reference": "e6e738adab27831c5cc04b8cb29eec873973bdf4",
                 "shasum": ""
             },
             "require": {
@@ -249,8 +250,8 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Testify": "lib/"
+                "psr-4": {
+                    "Testify\\": "lib/Testify/"
                 }
             },
             "license": [
@@ -266,7 +267,7 @@
                 "source": "https://github.com/marco-fiset/Testify.php/tree/master",
                 "issues": "https://github.com/marco-fiset/Testify.php/issues"
             },
-            "time": "2013-09-08 19:54:12"
+            "time": "2014-08-06 13:16:59"
         }
     ],
     "aliases": [
@@ -279,6 +280,7 @@
         "wikilingo/codemirror": 20,
         "bafs/testify": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.4.0"
     },
