@@ -9,7 +9,7 @@ require_once("vendor/autoload.php");
 $scripts = (new WikiLingo\Utilities\Scripts())
 
     //add some css
-    ->addCssLocation("~jquery/jquery-ui/css/ui-lightness/jquery-ui-1.10.4.css")
+    ->addCssLocation("~jquery/jquery-ui/themes/base/jquery.ui.all.css")
 
 	->addCssLocation("~mediumjs/mediumjs/medium.css")
 
@@ -19,7 +19,7 @@ $scripts = (new WikiLingo\Utilities\Scripts())
 
     //add some javascript
     ->addScriptLocation("~jquery/jquery/jquery-1.10.2.js")
-    ->addScriptLocation("~jquery/jquery-ui/js/jquery-ui-1.10.4.js")
+    ->addScriptLocation("~jquery/jquery-ui/ui/jquery-ui.js")
 
     ->addScriptLocation("~undojs/undojs/undo.js")
     ->addScriptLocation("~rangy/rangy/uncompressed/rangy-core.js")
