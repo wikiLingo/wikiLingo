@@ -60,7 +60,8 @@ class TypeNamespace
         $namespace = $this->typeNamespace;
         $this->classes = array();
         foreach($files as $file) {
-            if($file === '.' || $file === '..') {continue;}
+            if(strpos($file, '.php') === false) continue;
+	        
             $name = substr($file, 0, -4);
             $this->classes[] = $class = $namespace . "\\" . $name;
         }
