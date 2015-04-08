@@ -34,6 +34,11 @@ class ExpressionSyntaxes
 
 			$classNameShort = substr($file, 0, -4);
 			$className = 'WikiLingoWYSIWYG\ExpressionSyntax\\' . $classNameShort;
+
+			if (!class_exists($className)) {
+				continue;
+			}
+
 			$class = new $className($this->parser);
 			$this->parsedExpressionSyntaxes[$classNameShort] = $expressionType = new ExpressionType(
 				$classNameShort,
